@@ -10,7 +10,6 @@
 #define TREE_TU_END }
 namespace fn_f7aacfaa {} using namespace fn_f7aacfaa;
 namespace fn_f7aacfaa {
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 namespace fn_f7aacfaa { extern "C" char DAT_00428eb0[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/fight.h"
@@ -428,14 +427,13 @@ struct SpawnTrack : Track {
 };
 } // namespace fight
 // at file scope: a block-scope extern in this member is ::del to MSVC but fight::del to clang (left unbound)
-extern void del_0008d330(fight::SpawnTrack*);
 fight::SpawnTrack* fight::SpawnTrack::vfunc_5(u8_23ec10 flag) {
     *(hulk_intptr*)this = (hulk_intptr)&hulk_at_00428e80;
     ((A_23ec10*)((char*)this + 0x20))->init_00236fd0();
     ((B_23ec10*)((char*)this + 0x14))->init_00234150();
     ((SpawnTrack_23ec10*)this)->init_00236d60();
     if (flag & 1) {
-        del_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -657,7 +655,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

@@ -12,12 +12,12 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f24f7502 {} using namespace fn_f24f7502;
+extern "C" void FUN_00267090(void* ptr);   // (nat2, D134) the game heap's free
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f24f7502 {
 void *__cdecl FUN_00266e00(unsigned int count, unsigned int size);
-void __cdecl FUN_00267090(void *p);
 struct Reader {
   public:
     int FUN_00263fc0();
@@ -212,7 +212,7 @@ bool pure3d::BMPHandler::vfunc_10(int , int ) {
 namespace fn_f24f7502 {
 
 // 0x002af510 FUN_002af510 (341 B): equivalent/0x002af510.cpp
-// sym: _FUN_002af510 @d9bb23ac1e24 @w135ea3e98c8d @v8b90119e8ab7
+// sym: _FUN_002af510 @d9bb23ac1e24 @w135ea3e98c8d @v06e89e976167
 // STATUS: equivalent (tools/equiv.py level 3: 144 inputs, branch coverage 16/16)
 // FUN_002af510 @ 0x002af510
 extern "C" void __cdecl FUN_002af510(void *reader, void *img, void *writer)
@@ -261,7 +261,7 @@ extern "C" void __cdecl FUN_002af510(void *reader, void *img, void *writer)
 
 
 // 0x002af670 FUN_002af670 (284 B): equivalent/0x002af670.cpp
-// sym: _FUN_002af670 @46fde2cde988 @w9d6d4be76372 @vab0d71c65125
+// sym: _FUN_002af670 @46fde2cde988 @w9d6d4be76372 @v2e0fb9f195c4
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 12/12)
 // FUN_002af670 @ 0x002af670
 // equiv-conv: FUN_002af670 esi ebx stack
@@ -289,7 +289,7 @@ extern "C" int __cdecl FUN_002af670(void * info, void * stream, void * image) {
 } // namespace fn_f24f7502
 
 // 0x002af790 FUN_002af790 (291 B): equivalent/0x002af790.cpp [wrapped: conflict: FUN_00266e00]
-// sym: _FUN_002af790 @4877b3ce62b1 @w13fc6d1baaa7 @vce2cee2b238c
+// sym: _FUN_002af790 @4877b3ce62b1 @w13fc6d1baaa7 @vd85b17c87987
 namespace fn_002af790 {
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 10/10)
 // FUN_002af790 @ 0x002af790
@@ -297,7 +297,6 @@ struct Header_2af790 { char pad[16]; int width; int height; };
 struct Reader {   };
 struct Output_2af790 { virtual void init(int,int,int,int,int); virtual void row(unsigned char*); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual int finish(); };
 extern unsigned char* __cdecl FUN_00266e00(int,int);
-extern void __cdecl FUN_00267090(unsigned char*);
 // equiv-conv: FUN_002af790 edi stack stack
 extern "C" int __cdecl FUN_002af790(void * reader, void * header, void * output) {
  ((Output_2af790 *)output)->init(((Header_2af790 *)header)->width,((Header_2af790 *)header)->height,24,1,0);

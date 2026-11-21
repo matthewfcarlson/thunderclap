@@ -12,6 +12,7 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f77c5fbc {} using namespace fn_f77c5fbc;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f77c5fbc { extern "C" char DAT_0043148c[], DAT_0043142c[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/physics.h"
 
@@ -104,7 +105,6 @@ class WorldCollisionVolume_2f3bb0 : public CollisionVolume_2f3bb0 {
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0043147c[];
 typedef unsigned int u32_2f3c00;
-extern void ReleaseThing_0008d340(u32_2f3c00);
 class Other_2f3c00 {
   public:
     void Do_002f3c60(int);
@@ -112,15 +112,13 @@ class Other_2f3c00 {
 class SharedData {
   public:
     hulk_uintptr vft;
-    u32_2f3c00 pad;
-    u32_2f3c00 a;
-    u32_2f3c00 b;
-    u32_2f3c00 c;
-    u32_2f3c00 d;
+    u32_2f3c00 pad;   // pure3d::NonCopyable's count
+    void* a;   // (nat2, D134) four blocks, freed with operator delete[]
+    void* b;
+    void* c;
+    void* d;
     Other_2f3c00* e;
 };
-void Free_0008d340(void* p);
-void Free2_0008d330(void* p);
 struct Ref_2f3cd0 {
     virtual void a() throw();
     virtual void release() throw();
@@ -686,13 +684,13 @@ namespace fn_f77c5fbc {
 void __fastcall FUN_002f3c00(SharedData* p) {
     p->vft = ((hulk_intptr)DAT_0043147c);
     if (p->a)
-        ReleaseThing_0008d340(p->a);
+        ::operator delete[](p->a);
     if (p->b)
-        ReleaseThing_0008d340(p->b);
+        ::operator delete[](p->b);
     if (p->c)
-        ReleaseThing_0008d340(p->c);
+        ::operator delete[](p->c);
     if (p->d)
-        ReleaseThing_0008d340(p->d);
+        ::operator delete[](p->d);
     if (p->e)
         p->e->Do_002f3c60(3);
     p->vft = ((hulk_intptr)DAT_003f6098);
@@ -711,12 +709,12 @@ owners::T_2f3c60* owners::T_2f3c60::FUN_002f3c60(unsigned char f) {
             p->Dtor();
         }
         if (f & 1)
-            Free_0008d340((int*)this - 1);
+            ::operator delete[]((int*)this - 1);
         return (owners::T_2f3c60*)((int*)this - 1);
     }
     Dtor();
     if (f & 1)
-        Free2_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -922,7 +920,6 @@ class Ref_2f41a0 {
     virtual void f0();
     virtual void Release();
 };
-extern void ReleaseMesh_0008d330(CollisionMesh*);
 
 CollisionMesh* CollisionMesh::vfunc_2(unsigned char flag) {
     *(void**)this = (void*)hulk_at_0043148c;
@@ -934,7 +931,7 @@ CollisionMesh* CollisionMesh::vfunc_2(unsigned char flag) {
     *(void**)this = (void*)worldVT;
     ((WorldCollisionVolume*)this)->Cleanup_00306ac0();
     if (flag & 1)
-        ReleaseMesh_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_002f41a0

@@ -2,12 +2,14 @@
 // object 0x000e8a10..0x000e8ba0 (kind game, layer game, confidence medium), dominant class FEDoSound
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "gen/global.h"   // (nat2, D134) FEAnimation's record
 #define TREE_TU_BEGIN namespace fn_ffdab178 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_ffdab178 {} using namespace fn_ffdab178;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_ffdab178 { extern "C" char DAT_0040bfa0[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
 
@@ -17,11 +19,9 @@ struct Ref_e8a10 {
     virtual void a();
     virtual void release();
 };
-struct FETextureAnimation_e8a10 {
-    int* vptr;
-    unsigned int resource;
-    char pad[4];
-    Ref_e8a10* child;
+// (nat2, D134) the animation's record (FEAnimation: the resource at +4 is a pointer, freed with operator delete[];
+// the child at +0xc)
+struct FETextureAnimation_e8a10 : ::FEAnimation {
     void cleanup();
 };
 class Ref_e8a70 {
@@ -91,29 +91,28 @@ class NonCopyable : public FEDoAction_e8b20 {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 
 
 // 0x000e8a10 FUN_000e8a10 (78 B): matches/0x000e8a10.cpp
 // sym: ?cleanup@FETextureAnimation_e8a10@fn_ffdab178@@QAEXXZ
 // Same code shape as 0x000e8980 (propagated; names are from that function)
 void FETextureAnimation_e8a10::cleanup() {
-    vptr = &billboardVtable;
-    Ref_e8a10* volatile* pc = &child;
+    *(int**)this = &billboardVtable;
+    Ref_e8a10* volatile* pc = (Ref_e8a10* volatile*)&f_0c;
     Ref_e8a10* c = *pc;
     if (c) {
         c->release();
-        child = 0;
+        f_0c = 0;
     }
-    vptr = &animationVtable;
+    *(int**)this = &animationVtable;
     c = *pc;
     if (c) {
         c->release();
-        child = 0;
+        f_0c = 0;
     }
-    if (resource) {
-        thunk(resource);
-        resource = 0;
+    if (f_04) {
+        ::operator delete[](f_04);
+        f_04 = 0;
     }
 }
 
@@ -173,7 +172,7 @@ FEDoAnimation::FEDoAnimation(FEContainer* c, const char* name)
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0040bfa0;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -198,11 +197,10 @@ class NonCopyable : public FEDoAction_e8b40 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_0040bfa0;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_000e8b40
@@ -227,11 +225,10 @@ class NonCopyable : public FEDoAction_e8b60 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0040bfa0;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_000e8b60
@@ -256,11 +253,10 @@ class NonCopyable : public FEDoAction_e8b80 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0040bfa0;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_000e8b80

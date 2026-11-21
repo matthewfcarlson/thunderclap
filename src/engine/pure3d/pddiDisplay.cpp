@@ -9,7 +9,6 @@
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fad29cbd {} using namespace fn_fad29cbd;
 namespace fn_fad29cbd {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 namespace fn_fad29cbd { extern "C" char DAT_004323e4[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
@@ -46,7 +45,7 @@ pddiDisplay_31ac90* pddiDisplay_31ac90::vfunc_5(signed char flags) {
     *(void***)this = ((void**)DAT_004323e4);
     Destroy();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

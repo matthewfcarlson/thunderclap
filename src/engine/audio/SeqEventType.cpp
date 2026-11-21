@@ -14,7 +14,6 @@ namespace fn_fe02c6d2 {} using namespace fn_fe02c6d2;
 
 // ---- declarations shared by the functions below
 namespace fn_fe02c6d2 {
-void DestroySeq_0008d330(void*);
 class Sub_260950 {
   public:
 };
@@ -45,7 +44,7 @@ SeqEventType* SeqEventType::vfunc2(unsigned int flags) {
     ((owners::Str_240060 *)&((SeqEventTypeHead *)this)->name)->FUN_00240060();
     FUN_002580e0();
     if (flags & 1)
-        DestroySeq_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

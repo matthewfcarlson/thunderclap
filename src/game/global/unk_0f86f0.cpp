@@ -230,10 +230,9 @@ extern "C" void* memset(void*, int, unsigned int);
 #endif
 namespace fn_fb8fef2d {
 typedef unsigned int u32_f8bd0;
-extern void thunk_FUN_00267090(u32_f8bd0);
 struct Obj_f8bd0 {
     int pad;
-    int entries[128];
+    void* entries[128];   // (nat2, D134) blocks 0x000f8bd0 frees with operator delete
 };
 extern char DAT_004a17a8;
 extern char DAT_004a17c4;
@@ -460,10 +459,10 @@ namespace fn_fb8fef2d {
 extern "C" void __fastcall FUN_000f8bd0(Obj_f8bd0* self) {
     int i = 0;
     do {
-        int v = self->entries[i];
+        void* v = self->entries[i];
         if (v == 0)
             return;
-        thunk_FUN_00267090(v);
+        ::operator delete(v);
         self->entries[i] = 0;
         ++i;
     } while (i < 128);

@@ -10,7 +10,6 @@
 #define TREE_TU_END }
 namespace fn_fe4accdf {} using namespace fn_fe4accdf;
 namespace fn_fe4accdf {
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "engine/fight.h"
 void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
@@ -180,7 +179,6 @@ class StopAction_23e8c0 {
     char pad20[8];
     Ref_23e8c0* volatile m28;
 };
-void destroy_0008d330(StopAction_23e8c0*);
 extern char hulk_at_00428e3c[];
 struct Track {
     virtual void V();
@@ -318,14 +316,13 @@ class StopTrack {
     Helper_23e5e0 h;
     void second_00236d60();
 };
-void __cdecl destroy_0008d330(StopTrack*);
 
 StopTrack* StopTrack::vfunc_5(unsigned char flag) {
     *(void**)this = (void*)((hulk_intptr)DAT_00428db0);
     h.first_00236fd0();
     second_00236d60();
     if (flag & 1)
-        destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0023e5e0
@@ -458,7 +455,7 @@ StopAction_23e8c0* StopAction_23e8c0::vfunc_2(unsigned char param) {
     m1c->f1();
     ((fight::Action *)this)->FUN_002326a0();
     if (param & 1)
-        destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -500,7 +497,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

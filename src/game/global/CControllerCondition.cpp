@@ -8,7 +8,6 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f63868ef {} using namespace fn_f63868ef;
 namespace fn_f63868ef {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 namespace fn_f63868ef { extern "C" char DAT_003f6d50[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
@@ -44,7 +43,7 @@ CStageCondition* CStageCondition::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_003f6d50;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -59,7 +58,7 @@ CControllerCondition* CControllerCondition::vfunc_5(signed char flags) {
     *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

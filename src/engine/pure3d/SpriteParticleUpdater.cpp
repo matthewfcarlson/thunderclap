@@ -834,11 +834,10 @@ class NonCopyable : public NonCopyable_2d1d90 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_002d1d90
@@ -933,11 +932,10 @@ class NonCopyable : public ParticleUpdater_2d1ff0 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_002d1ff0

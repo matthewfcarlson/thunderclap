@@ -58,7 +58,7 @@ void CHapticController_afd00::f() {
                 --p;
                 p->Fini();
             }
-            operator delete[](blk);
+            ::operator delete(blk);
             arr = 0;
         }
     }

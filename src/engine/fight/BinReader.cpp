@@ -226,7 +226,6 @@ class IFileDataReader {
 };
 extern int hulk_at_00428744;
 extern "C" char DAT_003f6098[];   // (decl1) was `int vtRef_23bad0` (a C++ name bound nowhere natively)
-extern void cleanup_00263f30(IFileDataReader*);
 class Arg_23bb00 {
   public:
     virtual void Init();
@@ -547,11 +546,10 @@ class NonCopyable : public LoadObject_23ba80 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0023ba80
@@ -576,7 +574,7 @@ IFileDataReader* IFileDataReader::v2(unsigned int flags) {
     p->f1();
     *(volatile hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_003f6098);
     if (flags & 1)
-        cleanup_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -613,56 +611,44 @@ class StreamDataReader : public DataReader_23bb30 {
     DataReader_23bb30* mObj;
     virtual StreamDataReader* vfunc_2(int);
 };
-extern void Destroy_00263f30(StreamDataReader*);
 StreamDataReader* StreamDataReader::vfunc_2(int flags) {
     DataReader_23bb30* p = mObj;
     ((hulk_intptr*)this)[0] = ((hulk_intptr)DAT_00428760);
     p->B();
     ((hulk_intptr*)this)[0] = ((hulk_intptr)DAT_003f6098);
     if (flags & 1)
-        Destroy_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0023bb30
 
 
 // 0x0023bb60 fight::BinReader::vfunc_2 (46 B): matches/0x0023bb60.cpp [wrapped: conflict: BinReader]
-// sym: ??_GBinReader@fn_0023bb60@@UAEPAXI@Z
+// sym: ?vfunc_2@BinReader_23bb60@fn_0023bb60@@QAEPAXI@Z
 namespace fn_0023bb60 {
 class Obj_23bb60 {
   public:
     virtual void a();
     virtual void b();
 };
-class BinReader {
-  public:
-    virtual void Fna_00038290();
-    virtual void Fnb_000382a0();
-    virtual ~BinReader();
-    virtual void f3_0023b9b0();
-    virtual void f4_0023ba10();
-    virtual bool f5_0023c040(int, int, void*);
-    virtual char f6_0023ba20(int, int, int, int, int);
-    virtual bool f7_0023bf10(int, int, void*);
-    virtual bool f8_0023be00(int, int, void*, int);
-    virtual char f9_0023bd20(int, int, void*);
-    virtual bool f10_0023bcb0(int, int, void*);
-    virtual bool f11_0023bc50(int, int, void*);
-    virtual char f12_0023bd90(int, int, void*);
-    virtual void f13_0023c0e0();
-    virtual void f14_0023c100();
-    virtual void f15_0023ba60();
-    virtual hulk_intptr f16_0023c110(int, int);
-    virtual void f17_0023c170();
-    virtual void f18_0023b9c0();
-    virtual void f19();
+// (nat2, D134, D114) fight::BinReader's scalar deleting destructor as an explicit function: its vftable (0x0042877c),
+// the stream released, the reader base's destructor (0x00232c30), then (flags & 1) content::LoadObject's operator
+// delete, as the original calls (0x00263f30)
+extern "C" char DAT_0042877c[];
+struct BinReader_23bb60 {
+    void* vftable;
     char pad[4];
     Obj_23bb60* obj;
     void helper_00232c30();
+    void* vfunc_2(unsigned int flags);
 };
-BinReader::~BinReader() {
+void* BinReader_23bb60::vfunc_2(unsigned int flags) {
+    vftable = DAT_0042877c;
     obj->b();
     helper_00232c30();
+    if (flags & 1)
+        ::content::LoadObject::operator delete(this);
+    return this;
 }
 } // namespace fn_0023bb60
 
@@ -1047,11 +1033,10 @@ class NonCopyable : public DataReader_23c1d0 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0023c1d0

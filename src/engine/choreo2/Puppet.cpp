@@ -1064,7 +1064,7 @@ struct Puppet_2232b0 {
 void* Puppet_2232b0::vfunc_2(unsigned int flags) {
     FUN_00222660();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002232b0

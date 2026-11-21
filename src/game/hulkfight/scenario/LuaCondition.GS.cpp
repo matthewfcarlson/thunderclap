@@ -10,6 +10,7 @@
 #define TREE_TU_BEGIN namespace fn_f21f790b {
 #define TREE_TU_END }
 namespace fn_f21f790b {} using namespace fn_f21f790b;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/hulkfight/scenario.h"
 
 // ---- declarations shared by the functions below
@@ -44,7 +45,6 @@ struct LuaMgr {
 extern "C" LuaMgr *FUN_001d4c90();
 extern "C" int FUN_00267760(char *buf, int n, const char *fmt, ...);
 extern "C" void *FUN_0008d6d0(unsigned int n);
-void FUN_0008d340(void *p);
 extern "C" int FUN_00213160(void *L, int idx);
 extern "C" void FUN_00212d80(void *L, int idx);
 extern "C" unsigned int FUN_001d0440();
@@ -53,7 +53,7 @@ extern "C" void FUN_001d0430(unsigned int v);
 } // namespace fn_f21f790b
 
 // 0x001a14f0 hulkfight::scenario::LuaCondition::vfunc_6 (444 B): equivalent/0x001a14f0.cpp
-// sym: ?vfunc_6@LuaCondition@scenario@hulkfight@@UAE_NPAX00@Z @0fb415f0f5a2 @w0debf1e30e1d @v80a83a7bfc28
+// sym: ?vfunc_6@LuaCondition@scenario@hulkfight@@UAE_NPAX00@Z @3abd6b8ab837 @w7e2d5420d540 @v184f7a3e3fbf
 // STATUS: equivalent (tools/equiv.py level 3: 14900 inputs, branch coverage 18/18)
 // hulkfight::scenario::LuaCondition::vfunc_6 @ 0x001a14f0
 bool hulkfight::scenario::LuaCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; fight::Params_1a14f0 * params = (fight::Params_1a14f0 *)__p1; hulk_intptr c = (hulk_intptr)__p2;
@@ -104,7 +104,7 @@ bool hulkfight::scenario::LuaCondition::vfunc_6(void* __p0, void* __p1, void* __
     }
     int rc = ((owners::Obj_1d35a0 *)mgr)->FUN_001d35a0(chunk, (hulk_intptr)(fr.buf), (hulk_intptr)len);
     if (allocated)
-        FUN_0008d340((void *)chunk);
+        ::operator delete[]((void *)chunk);
     if (rc != 3) {
         return false;
     }

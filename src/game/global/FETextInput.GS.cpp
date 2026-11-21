@@ -9,6 +9,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f0ffd6c9 {} using namespace fn_f0ffd6c9;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -157,7 +158,7 @@ bool Config_dc230::FUN_000dc230(Parser_dc230 *parser, Handler_dc230 *handler, Si
 } // namespace fn_f0ffd6c9
 
 // 0x000dd350 FUN_000dd350 (825 B): equivalent/0x000dd350.cpp [wrapped: conflict: FUN_000964a0]
-// sym: ?FUN_000dd350@Config_dd350@fn_000dd350@@QAE_NPAVParser_dd350@2@PAVHandler_dd350@2@PAVSink_dd350@2@@Z @ccf148283394 @w1a5031f6e0e2 @va066f44d3e67
+// sym: ?FUN_000dd350@Config_dd350@fn_000dd350@@QAE_NPAVParser_dd350@2@PAVHandler_dd350@2@PAVSink_dd350@2@@Z @abfea23b06e4 @w62339d0ee19b @v9c5db920668c
 namespace fn_000dd350 {
 // STATUS: equivalent (tools/equiv.py level 3: 1771 inputs, branch coverage 52/52)
 // FUN_000dd350 @ 0x000dd350
@@ -286,7 +287,6 @@ struct Slot_dd350 {
 };
 
 extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
-void __cdecl FUN_0008d340(void* p);
 extern "C" char* __cdecl FUN_0008d6d0(int size);
 
 class Config_dd350 {
@@ -328,7 +328,7 @@ bool Config_dd350::FUN_000dd350(Parser_dd350* parser, Handler_dd350* handler, Si
                 for (int i = 0; i < count; i++) {
                     FUN_000964a0(f.bufA, 0x40, "%s_%02d", f.name, i + 1);
                     if (namesA[i] != 0) {
-                        FUN_0008d340(namesA[i]);
+                        ::operator delete[](namesA[i]);
                         namesA[i] = 0;
                     }
                     const char* s = f.bufA;
@@ -348,7 +348,7 @@ bool Config_dd350::FUN_000dd350(Parser_dd350* parser, Handler_dd350* handler, Si
                 for (int i = 0; i < count; i++) {
                     FUN_000964a0(f.bufB, 0x40, "%s_%02d", f.name, i + 1);
                     if (namesB[i] != 0) {
-                        FUN_0008d340(namesB[i]);
+                        ::operator delete[](namesB[i]);
                         namesB[i] = 0;
                     }
                     const char* s = f.bufB;

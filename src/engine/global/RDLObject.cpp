@@ -1,13 +1,13 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0027ab50..0x0027ab90 (kind game, layer engine, confidence medium), dominant class RDLObject
 #include "tree_prelude.h"
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_ffb1fb44 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_ffb1fb44 {} using namespace fn_ffb1fb44;
 namespace fn_ffb1fb44 {
-void __cdecl SweepTrack_DeleteThis_00263f30(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "common.h"
 
@@ -33,7 +33,7 @@ RDLObject_27ab50* RDLObject_27ab50::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042c0f8;
     Destroy_0027afd0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }

@@ -15,12 +15,11 @@ namespace fn_f6c5dfc0 {} using namespace fn_f6c5dfc0;
 // ---- declarations shared by the functions below
 namespace fn_f6c5dfc0 {
 extern "C" char DAT_00421a3c[];
-void thunk_0008d330(int);
 class StoreBase {
   public:
     hulk_intptr vp;
     int a[4];
-    int b;
+    void* b;   // (nat2, D134) a block, freed with operator delete
     void Fn();
 };
 class X_1c7520 {
@@ -76,7 +75,6 @@ public:
 
     void *FUN_001c75e0(Key_1c75e0 *key);
 };
-extern void __cdecl thunk_FUN_00267090(void* p);
 } // namespace fn_f6c5dfc0
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void* __cdecl memset(void*, int, unsigned int);
@@ -104,7 +102,6 @@ class ShadowGenerator {
 struct ThisCall_001c6f70 {
     void FUN_001c6f70();
 };
-extern void thunk_FUN_00267090(CCollisionAction*);
 } // namespace fn_f6c5dfc0
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" double sin(double);
@@ -237,9 +234,9 @@ class Store {
 // 0x001c7500 FUN_001c7500 (17 B): matches/0x001c7500.cpp
 // sym: ?Fn@StoreBase@fn_f6c5dfc0@@QAEXXZ
 void StoreBase::Fn() {
-    int t = b;
+    void* t = b;
     vp = ((hulk_intptr)DAT_00421a3c);
-    thunk_0008d330(t);
+    ::operator delete(t);
 }
 
 
@@ -378,7 +375,7 @@ void Render::StoreBase::FUN_001c7770(unsigned int newCapacity) {
     if ((*(int * *)&this->f_14) != 0)
         memcpy(fresh, (*(int * *)&this->f_14), (*(unsigned int *)&this->f_10) * 4 + 4);
     (*(unsigned int *)&this->f_08) = newCapacity;
-    thunk_FUN_00267090((*(int * *)&this->f_14));
+    ::operator delete((*(int * *)&this->f_14));
     (*(int * *)&this->f_14) = fresh;
 }
 
@@ -419,13 +416,12 @@ struct StoreBase {
     char pad[0x10];
     void* member;
 };
-extern void __cdecl helper_0008d330(void*);
 extern void* hulk_at_00421a3c;
 StoreBase* StoreBase::vfunc_0(unsigned char flag) {
     *(void**)this = &hulk_at_00421a3c;
-    helper_0008d330(member);
+    ::operator delete(member);
     if (flag & 1)
-        helper_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_001c7840
@@ -470,7 +466,7 @@ ShadowGenerator::ShadowGenerator() {
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     ((ThisCall_001c6f70*)(this))->FUN_001c6f70();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

@@ -215,7 +215,6 @@ class Obj {
   public:
     void Fn(hulk_intptr);
 };
-void ReleaseThing_0008d330(int);
 struct State_e2c90 { bool FUN_000b4f20();  };
 struct Manager_e2c90 { State_e2c90* FUN_00086280(); };
 } // namespace fn_fb20b5f7
@@ -400,13 +399,13 @@ void Obj::Fn(hulk_intptr x) {
 // 0x000e2ac0 FUN_000e2ac0 (60 B): matches/0x000e2ac0.cpp
 // sym: ?FUN_000e2ac0@Obj_e2ac0@owners@@QAEXH@Z
 void owners::Obj_e2ac0::FUN_000e2ac0(hulk_intptr value) {
-    int old = field;
+    void* old = field;
     if (old != 0) {
-        ReleaseThing_0008d330(old);
+        ::operator delete(old);
         field = 0;
-        field = ((int)value);
+        field = ((void*)value);
     } else {
-        field = ((int)value);
+        field = ((void*)value);
     }
 }
 

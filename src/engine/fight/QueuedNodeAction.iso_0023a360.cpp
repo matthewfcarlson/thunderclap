@@ -18,7 +18,6 @@ class Member_23a360 {
     char x;
 };
 extern char hulk_at_00428558[];
-void __cdecl opDelete_0008d330(void*);
 class QueuedNodeAction {
   public:
     void* vptr;
@@ -43,7 +42,7 @@ QueuedNodeAction* QueuedNodeAction::vfunc_2(int flag) {
     mC.dtor_002325f0();
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1)
-        opDelete_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

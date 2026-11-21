@@ -12,6 +12,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fb493392 {} using namespace fn_fb493392;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fb493392 { extern "C" char DAT_00431ac0[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/unknown.h"
 
@@ -337,7 +338,6 @@ public:
 
     Pools *FUN_00300a00();
 };
-extern void __cdecl Release_0008d340(void*);
 struct Elem_300ea0 {
     char data[0x6c];
     Elem_300ea0 *FUN_00300a00();
@@ -375,8 +375,6 @@ class Obj_300fa0 {
     Small_300fa0 s68;
     Obj_300fa0* Run(unsigned char flags);
 };
-void relA_0008d340(void*);
-void relB_0008d330(void*);
 struct Vec3_3011a0 {
     float x, y, z;
 };
@@ -1317,7 +1315,7 @@ void Broadphase_300780::FUN_00300780(int arg)
 
 
 // 0x00300930 FUN_00300930 (197 B): equivalent/0x00300930.cpp
-// sym: ?target@Owner_300930@fn_fb493392@@QAEXPAUInput_300930@2@H@Z @2ffb6c5b3faf @w7754cf70ac57 @vb390ff7e355a
+// sym: ?target@Owner_300930@fn_fb493392@@QAEXPAUInput_300930@2@H@Z @e207fcfdeaa4 @wa36a155943b5 @v360f392cf636
 // STATUS: equivalent (tools/equiv.py level 3: 1215 inputs, branch coverage 10/10)
 // FUN_00300930 @ 0x00300930
 void Owner_300930::target(Input_300930* input,int arg) {
@@ -1332,7 +1330,7 @@ void Owner_300930::target(Input_300930* input,int arg) {
  offset+=sizeof(Entry_300930);
  }
  if ((buffer.end-buffer.begin)/68 != 0) receiver.FUN_002f8020(&buffer,arg,0);
- if(buffer.begin) FUN_0008d340(buffer.begin);
+ if(buffer.begin) ::operator delete[](buffer.begin);
 }
 
 
@@ -1462,23 +1460,23 @@ void owners::Obj_300b50::FUN_00300b50() {
     void* p = p4;
     q4 = p;
     if (p)
-        Release_0008d340(p);
+        ::operator delete[](p);
     p = p3;
     q3 = p;
     if (p)
-        Release_0008d340(p);
+        ::operator delete[](p);
     p = p2;
     q2 = p;
     if (p)
-        Release_0008d340(p);
+        ::operator delete[](p);
     p = p1;
     q1 = p;
     if (p)
-        Release_0008d340(p);
+        ::operator delete[](p);
     p = p0;
     q0 = p;
     if (p)
-        Release_0008d340(p);
+        ::operator delete[](p);
 }
 
 
@@ -1552,7 +1550,7 @@ Object* Object::FUN_00300c90() {
 
 
 // 0x00300d80 FUN_00300d80 (212 B): equivalent/0x00300d80.cpp
-// sym: ?FUN_00300d80@Item_300d80@owners@@QAEPAXE@Z @0704e30cc0b8 @w4ea52747f367 @vfa07ff704678
+// sym: ?FUN_00300d80@Item_300d80@owners@@QAEPAXE@Z @dab7aa72ae78 @w152dd17e6095 @vef56756ede95
 // STATUS: equivalent (tools/equiv.py level 3: 292 inputs, branch coverage 20/20)
 // FUN_00300d80 @ 0x00300d80
 void* owners::Item_300d80::FUN_00300d80(unsigned char flags) {
@@ -1564,18 +1562,18 @@ void* owners::Item_300d80::FUN_00300d80(unsigned char flags) {
    do {
     --p;
     p->FUN_00300360();
-    p->eEnd=p->e; if(p->e) FUN_0008d340(p->e);
-    p->dEnd=p->d; if(p->d) FUN_0008d340(p->d);
-    p->cEnd=p->c; if(p->c) FUN_0008d340(p->c);
-    p->bEnd=p->b; if(p->b) FUN_0008d340(p->b);
-    p->aEnd=p->a; if(p->a) FUN_0008d340(p->a);
+    p->eEnd=p->e; if(p->e) ::operator delete[](p->e);
+    p->dEnd=p->d; if(p->d) ::operator delete[](p->d);
+    p->cEnd=p->c; if(p->c) ::operator delete[](p->c);
+    p->bEnd=p->b; if(p->b) ::operator delete[](p->b);
+    p->aEnd=p->a; if(p->a) ::operator delete[](p->a);
    } while(--count);
   }
-  if(flags & 1) FUN_0008d340(header);
+  if(flags & 1) ::operator delete[](header);
   return header;
  }
  FUN_00300b50();
- if(flags & 1) FUN_0008d330(this);
+ if(flags & 1) ::operator delete(this);
  return this;
 }
 
@@ -1589,12 +1587,11 @@ struct Child_300e60 {
 void __fastcall FUN_002f79f0(void* self);
 void __fastcall FUN_003012c0(void* self);
 extern "C" void __fastcall FUN_00304350(void* self);
-void __cdecl FUN_0008d340(unsigned int n);
 struct Obj_300e60 {
     Child_300e60* first;
     unsigned int x;
-    unsigned int p2;
-    unsigned int p3;
+    void* p2;   // (nat2, D134) a block and its end; the block is freed with operator delete[]
+    void* p3;
     char pad[0x54];
 };
 void __fastcall Target(Obj_300e60* p) {
@@ -1605,7 +1602,7 @@ void __fastcall Target(Obj_300e60* p) {
     FUN_00304350((char*)p + 0x18);
     p->p3 = p->p2;
     if (p->p2)
-        FUN_0008d340(p->p2);
+        ::operator delete[](p->p2);
 }
 } // namespace fn_00300e60
 
@@ -1660,9 +1657,9 @@ Obj_300fa0* Obj_300fa0::Run(unsigned char flags) {
     s18.FnD_00304350();
     pc = p8;
     if (p8)
-        relA_0008d340(p8);
+        ::operator delete[](p8);
     if (flags & 1)
-        relB_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

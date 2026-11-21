@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f932887f {} using namespace fn_f932887f;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -502,7 +503,7 @@ char ScriptTable::FUN_001d2ee0(Actor *actor)
 
 
 // 0x001d36f0 FUN_001d36f0 (612 B): equivalent/0x001d36f0.cpp
-// sym: ?run@Handler_1d36f0@fn_f932887f@@QAEHPAXH@Z @013c0b0bf160 @wf9d63178d137 @v05d4de374906
+// sym: ?run@Handler_1d36f0@fn_f932887f@@QAEHPAXH@Z @e906c51cb7ef @w1300a85f54cf @v326877031dff
 // STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 23/26, incomplete)
 // FUN_001d36f0 @ 0x001d36f0
 int Handler_1d36f0::run(void* name,int unusedArg) {
@@ -526,7 +527,7 @@ int Handler_1d36f0::run(void* name,int unusedArg) {
  const char* dead="dead"; int i=0; while(i<5 && status[i]==dead[i]) ++i;
  if(i!=5 && state==3) state=4;
  } else FUN_001d10e0("__RESUME_ERR__",lua);
- FUN_00213ba0(lua,2,0); FUN_0008d340(buffer); int answer=state;  return answer;
+ FUN_00213ba0(lua,2,0); ::operator delete[](buffer); int answer=state;  return answer;
 }
 
 

@@ -250,7 +250,6 @@ namespace pure3d { struct TextBible { void vfunc_2(unsigned flags); void vfunc_4
 // 0x002c3a20 FUN_002c3a20 (95 B): matches/0x002c3a20.cpp [wrapped: conflict: core::ILanguageChangeCallback; pure3d::Entity; pure3d::TextBible]
 // sym: ??1TextBible@pure3d@fn_002c3a20@@UAE@XZ
 namespace fn_002c3a20 {
-extern void Free(void*);
 class Item_2c3a20 {
   public:
     void Fini();

@@ -8,12 +8,12 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f6834bb6 {} using namespace fn_f6834bb6;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/physics.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f6834bb6 {
 extern "C" char DAT_0043223c[];
-void __cdecl thunk_0008d340(void*);
 struct SkeletonInfo_3128d0 {
     void Dtor_0027afd0();
 };
@@ -212,7 +212,7 @@ struct SkeletonInfo_3128b0 {
 void* SkeletonInfo_3128b0::vfunc_2(unsigned int flags) {
     FUN_003128d0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_003128b0
@@ -226,7 +226,7 @@ namespace fn_f6834bb6 {
 void SkeletonInfo::Free() {
     vf = (void*)((hulk_intptr)DAT_0043223c);
     if (member)
-        thunk_0008d340((char*)member - 4);
+        ::operator delete[]((char*)member - 4);
     ((SkeletonInfo_3128d0*)this)->Dtor_0027afd0();
 }
 

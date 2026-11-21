@@ -13,7 +13,6 @@
 namespace fn_f4b6f30b {} using namespace fn_f4b6f30b;
 namespace fn_f4b6f30b {
 struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "game/global.h"
 void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
@@ -1652,7 +1651,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor_0006ad60();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

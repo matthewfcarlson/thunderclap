@@ -24,7 +24,6 @@ class ImageLoader : public HulkImageLoader {
   public:
     void Destroy();
 };
-void __cdecl DropThing_0008d330(Obj_2c0be0*);
 } // namespace fn_f2c92ace
 namespace pure3d {
 struct ImageData {
@@ -53,7 +52,7 @@ void ImageLoader::Destroy() {
     vftable = (void*)DAT_0042eb0c;
     if (p) {
         p->ReleaseThing_002ae910();
-        DropThing_0008d330(p);
+        ::operator delete(p);
     }
     vftable = (void*)DAT_003f6098;
 }
@@ -105,8 +104,6 @@ class Helper_2c0ca0 {
   public:
     void cleanup_002ae910();
 };
-void destroy_0008d330(void*);
-void destroyThis_00263f30(void*);
 class ImageLoader {
   public:
     void* vptr;
@@ -119,11 +116,11 @@ ImageLoader* ImageLoader::f2(unsigned char p) {
     vptr = hulk_at_0042eb0c;
     if (h) {
         h->cleanup_002ae910();
-        destroy_0008d330(h);
+        ::operator delete(h);
     }
     vptr = hulk_at_003f6098;
     if (p & 1)
-        destroyThis_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002c0ca0

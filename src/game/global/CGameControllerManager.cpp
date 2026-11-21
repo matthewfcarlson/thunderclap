@@ -31,7 +31,6 @@ struct CGameControllerManager {
     Child_af3d0* child;
     CGameControllerManager* vfunc_0(unsigned char p);
 };
-void thunk_FUN_00267090(CGameControllerManager*);
 
 
 // 0x000af380 FUN_000af380 (1 B): matches/0x000af380.cpp
@@ -67,7 +66,7 @@ CGameControllerManager* CGameControllerManager::vfunc_0(unsigned char p) {
     _ReadWriteBarrier();
     child->b();
     if (p & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

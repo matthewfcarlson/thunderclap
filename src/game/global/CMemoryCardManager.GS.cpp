@@ -309,7 +309,7 @@ int Manager_8ca70::FUN_0008ca70(int index, int arg1, void* arg2, int arg3, unsig
 
 
 // 0x0008cbe0 FUN_0008cbe0 (405 B): equivalent/0x0008cbe0.cpp
-// sym: ?FUN_0008cbe0@Loader_8cbe0@fn_f8087876@@QAEPAXHHPBXHPBG@Z @f238fbf1c205 @wf529c69c6280 @v2578c8b4837e
+// sym: ?FUN_0008cbe0@Loader_8cbe0@fn_f8087876@@QAEPAXHHPBXHPBG@Z @a9f0f5805795 @w8a0aa67768ef @veb1422e5523c
 // STATUS: equivalent (tools/equiv.py level 3: 10398 inputs, branch coverage 15/16, incomplete)
 // FUN_0008cbe0 @ 0x0008cbe0
 void *Loader_8cbe0::FUN_0008cbe0(int index, int a, const void *b, int c, const unsigned short *d)
@@ -336,7 +336,7 @@ void *Loader_8cbe0::FUN_0008cbe0(int index, int a, const void *b, int c, const u
     SubObj_8cbe0 *sub = 0;
     slot->v36(&sub, buf, 1, 3, state, parameter, 1);
     void *result = slot->v23();
-    FUN_0008d330(state);
+    ::operator delete(state);
     if (sub) {
         if (!result) {
             result = sub->v22();

@@ -484,7 +484,7 @@ struct LocomotionStrafeDriver_2265c0 {
 void* LocomotionStrafeDriver_2265c0::vfunc_2(unsigned int flags) {
     FUN_00225ef0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002265c0

@@ -13,13 +13,11 @@ namespace fn_f3919bbe {} using namespace fn_f3919bbe;
 
 // ---- declarations shared by the functions below
 namespace fn_f3919bbe {
-void __cdecl ReleaseThing_0008d330(uint);
 struct Obj_b0ff0 {
-    uint a;
-    uint b;
+    void* a;   // (nat2, D134) a block's end and the block, freed with operator delete
+    void* b;
     void Clear();
 };
-void __cdecl thunk_FUN_00267090(void *p);
 void *__cdecl FUN_0008d750(hulk_intptr size, int align);   // (gfx1) as defined (unk_08ceb0.cpp): the size is pointer-sized
 extern "C" int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 extern void Ensure(int);
@@ -153,7 +151,7 @@ class ThisClass {
 // Same code shape as 0x000b0710 (propagated; names are from that function)
 void Obj_b0ff0::Clear() {
     if (b) {
-        ReleaseThing_0008d330(b);
+        ::operator delete(b);
         a = 0;
         b = 0;
     }
@@ -162,7 +160,7 @@ void Obj_b0ff0::Clear() {
 } // namespace fn_f3919bbe
 
 // 0x000b1020 FUN_000b1020 (117 B): equivalent/0x000b1020.cpp
-// sym: ?FUN_000b1020@StringTable_b1020@owners@@QAEXH@Z @4c8b617bc477 @w84a6c5202619 @v952905b93b8e
+// sym: ?FUN_000b1020@StringTable_b1020@owners@@QAEXH@Z @2612cca3b1f7 @wc9fe643d1c04 @v96f8c2f5b412
 // STATUS: equivalent (tools/equiv.py level 3: 1429 inputs, branch coverage 11/12, incomplete)
 // FUN_000b1020 @ 0x000b1020
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d330
@@ -171,7 +169,7 @@ void owners::StringTable_b1020::FUN_000b1020(int n)
     if (count == n)
         return;
     if (data != 0) {
-        thunk_FUN_00267090(data);
+        ::operator delete(data);
         count = 0;
         data = 0;
     }
@@ -426,14 +424,13 @@ void Object::FUN_000b1b90(Result_b1b90* result) {
 
 
 // 0x000b1c90 FUN_000b1c90 (286 B): equivalent/0x000b1c90.cpp [wrapped: conflict: sControllerInputPointCallback]
-// sym: ?FUN_000b1c90@Controller_b1c90@fn_000b1c90@@QAEXPAUState_b1c90@2@H@Z @8465ce0bb9e4 @w35ef5301bb18 @vbadbe8a2f877
+// sym: ?FUN_000b1c90@Controller_b1c90@fn_000b1c90@@QAEXPAUState_b1c90@2@H@Z @e0b81059dd09 @w90ae06bfeb8f @v1470e32e7e36
 inline void* operator new(size_t, void* p) { return p; }
 namespace fn_000b1c90 {
 // STATUS: equivalent (tools/equiv.py level 3: 1691 inputs, branch coverage 22/22)
 // FUN_000b1c90 @ 0x000b1c90
 extern "C" void* __cdecl FUN_0008d710(unsigned size, int alignment);
 extern "C" void* __cdecl FUN_0008d750(hulk_intptr size, int heap);   // (sweep-allocsize) as defined (unk_08ceb0.cpp): the C++ spelling did not bind natively
-void __cdecl FUN_0008d330(void*);
 
 struct Controller_b1c90;
 struct State_b1c90 { int first; int middle; int last; };
@@ -467,13 +464,13 @@ void Controller_b1c90::FUN_000b1c90(State_b1c90* state, int requested) {
  if (callbacks) {
   for (int i=0; i<n; ++i) {
    if (callbacks[i]) {
-    FUN_0008d330(callbacks[i]);
+    ::operator delete(callbacks[i]);
     callbacks[i] = 0;
    }
   }
  }
  if (callbacks) {
-  FUN_0008d330(callbacks);
+  ::operator delete(callbacks);
   callbacks = 0;
  }
  callbacks = (sControllerInputPointCallback**)FUN_0008d750((unsigned)n*sizeof(sControllerInputPointCallback*),4);
@@ -763,11 +760,10 @@ CPhysicalController::CPhysicalController(int arg)
 
 
 // 0x000b2640 FUN_000b2640 (454 B): equivalent/0x000b2640.cpp [wrapped: conflict: CPhysicalController; FUN_0008d330; core::IRefCount]
-// sym: ??1CPhysicalController@fn_000b2640@@QAE@XZ @8a3d026cac48 @w4b788b7002eb @vf460640e1aa8
+// sym: ??1CPhysicalController@fn_000b2640@@QAE@XZ @cf64e8f47954 @wc01c8a0918d7 @v905513ec1899
 namespace fn_000b2640 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 36/36)
 // FUN_000b2640 @ 0x000b2640
-__declspec(nothrow) void __cdecl FUN_0008d330(void*);
 __declspec(nothrow) void __stdcall FUN_000b0ff0(void*);
 __declspec(nothrow) void __stdcall FUN_00013420(void*, int, int, void (__stdcall *)(void*));
 namespace core { struct IRefCount { virtual void slot0(); ~IRefCount() {} }; }
@@ -786,18 +782,18 @@ struct CPhysicalController : core::IRefCount {
 };
 CPhysicalController::~CPhysicalController() {
  FUN_000b0db0(); int i;
- for(i=0;i<11;++i) if(fifth[i]) { FUN_0008d330(fifth[i]); fifth[i]=0; }
- for(i=0;i<13;++i) if(sixth[i]) { FUN_0008d330(sixth[i]); sixth[i]=0; }
- if(extraB.data) { FUN_0008d330(extraB.data); extraB.count=0; extraB.data=0; }
- if(extraA.data) { FUN_0008d330(extraA.data); extraA.count=0; extraA.data=0; }
+ for(i=0;i<11;++i) if(fifth[i]) { ::operator delete(fifth[i]); fifth[i]=0; }
+ for(i=0;i<13;++i) if(sixth[i]) { ::operator delete(sixth[i]); sixth[i]=0; }
+ if(extraB.data) { ::operator delete(extraB.data); extraB.count=0; extraB.data=0; }
+ if(extraA.data) { ::operator delete(extraA.data); extraA.count=0; extraA.data=0; }
  for(i=1;i>=0;--i) FUN_00013420(&fourthBlocks[i],8,6,FUN_000b0ff0);
- for(i=12;i>=0;--i) if(fourth[i].data) { FUN_0008d330(fourth[i].data); fourth[i].count=0; fourth[i].data=0; }
+ for(i=12;i>=0;--i) if(fourth[i].data) { ::operator delete(fourth[i].data); fourth[i].count=0; fourth[i].data=0; }
  for(i=1;i>=0;--i) FUN_00013420(&thirdBlocks[i],8,6,FUN_000b0ff0);
- for(i=12;i>=0;--i) if(third[i].data) { FUN_0008d330(third[i].data); third[i].count=0; third[i].data=0; }
+ for(i=12;i>=0;--i) if(third[i].data) { ::operator delete(third[i].data); third[i].count=0; third[i].data=0; }
  for(i=1;i>=0;--i) FUN_00013420(&secondBlocks[i],8,6,FUN_000b0ff0);
- for(i=10;i>=0;--i) if(second[i].data) { FUN_0008d330(second[i].data); second[i].count=0; second[i].data=0; }
+ for(i=10;i>=0;--i) if(second[i].data) { ::operator delete(second[i].data); second[i].count=0; second[i].data=0; }
  for(i=1;i>=0;--i) FUN_00013420(&firstBlocks[i],8,6,FUN_000b0ff0);
- for(i=10;i>=0;--i) if(first[i].data) { FUN_0008d330(first[i].data); first[i].count=0; first[i].data=0; }
+ for(i=10;i>=0;--i) if(first[i].data) { ::operator delete(first[i].data); first[i].count=0; first[i].data=0; }
 }
 } // namespace fn_000b2640
 

@@ -59,7 +59,6 @@ class NonCopyable : public IRefCount {
 };
 }
 namespace fn_f3ff1114 {
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 struct String {
     const char* FUN_0023fb00();
 };
@@ -401,7 +400,7 @@ extern "C" void FUN_0025fec0(void * tree_, void * x_)
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0042aa60;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

@@ -20,7 +20,6 @@ class NotCondition_23cfc0 : public Condition_23cfc0 {
   public:
     NotCondition_23cfc0* vfunc_5(signed char flags);
 };
-extern "C" void __cdecl FUN_0008d330(void* p);
 extern void* hulk_at_00428a44[];
 class Condition_23cff0 {
   public:
@@ -166,7 +165,7 @@ NotCondition_23cfc0* NotCondition_23cfc0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00428a24;
     Destroy_002345b0();
     if (flags & 1) {
-        FUN_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -181,7 +180,7 @@ OrCondition_23cff0* OrCondition_23cff0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00428a44;
     Destroy_002345b0();
     if (flags & 1) {
-        FUN_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -269,7 +268,7 @@ ConditionFactoryTemplate_23d110* ConditionFactoryTemplate_23d110::vfunc_5(signed
     *(void***)this = hulk_at_00428a7c;
     Destroy_002343d0();
     if (flags & 1) {
-        FUN_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }
@@ -314,7 +313,7 @@ ConditionFactoryTemplate_23d1b0* ConditionFactoryTemplate_23d1b0::vfunc_5(signed
     *(void***)this = hulk_at_00428a98;
     Destroy_002343d0();
     if (flags & 1) {
-        FUN_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }

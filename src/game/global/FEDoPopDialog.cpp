@@ -49,11 +49,10 @@ class NonCopyable : public FEDoAction_e8be0 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_0040bfa0;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_000e8be0
@@ -78,11 +77,10 @@ class NonCopyable : public FEDoAction_e8c00 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0040bfa0;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_000e8c00

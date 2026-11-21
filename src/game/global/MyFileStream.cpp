@@ -8,6 +8,7 @@
 #define TREE_TU_BEGIN namespace fn_fa90982c {
 #define TREE_TU_END }
 namespace fn_fa90982c {} using namespace fn_fa90982c;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fa90982c { extern "C" char DAT_00424fd8[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_fa90982c { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
@@ -341,8 +342,6 @@ void owners::X_1fac60::FUN_001fac60() {
 // 0x001faca0 CDataHandlerObject::vfunc_2 (50 B): matches/0x001faca0.cpp [wrapped: conflict: CDataHandlerObject]
 // sym: ?vfunc_2@CDataHandlerObject@fn_001faca0@@UAEPAXE@Z
 namespace fn_001faca0 {
-void __cdecl DestroyMember_0008d340(void*);
-void __cdecl DeleteObject_00263f30(void*);
 extern char hulk_at_0042501c;
 extern char hulk_at_003f6098;
 
@@ -356,10 +355,10 @@ class CDataHandlerObject {
 
 void* CDataHandlerObject::vfunc_2(unsigned char flag) {
     *(void**)this = (void*)&hulk_at_0042501c;
-    DestroyMember_0008d340(*(void**)((char*)this + 12));
+    ::operator delete[](*(void**)((char*)this + 12));
     *(void**)this = (void*)&hulk_at_003f6098;
     if (flag & 1) {
-        DeleteObject_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }
@@ -527,11 +526,10 @@ class NonCopyable : public Stream_1fae40 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_00424fd8;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_001fae40
@@ -615,14 +613,13 @@ class CGameDataHandler : public DataHandler::ObjectCreator {
     virtual void vfunc_1();
     Ref_1faee0* mRef;
 };
-void thunk_FUN_00267090(CGameDataHandler*);
 CGameDataHandler* CGameDataHandler::vfunc_0(unsigned char flags) {
     *(void**)this = &(*(void**)&DAT_00425008);
     if (mRef)
         mRef->Release(1);
     *(void**)this = &(*(void**)&DAT_003feefc);
     if (flags & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_001faee0
@@ -756,11 +753,10 @@ class NonCopyable : public SimpleChunkHandler_1fb190 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_001fb190

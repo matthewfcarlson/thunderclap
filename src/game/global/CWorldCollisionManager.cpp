@@ -14,6 +14,10 @@
 #define TREE_TU_BEGIN namespace fn_f0f2b8a0 {
 #define TREE_TU_END }
 namespace fn_f0f2b8a0 {} using namespace fn_f0f2b8a0;
+#if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
+extern "C" void* __cdecl memcpy(void*,const void*,unsigned int);
+#endif
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 #include "game/script_bind.h"
 
@@ -358,7 +362,7 @@ void Thing_201c00::f() {
 
 
 // 0x00201cd0 FUN_00201cd0 (199 B): equivalent/0x00201cd0.cpp
-// sym: ?grow@Array_201cd0@fn_f0f2b8a0@@QAEXH@Z @4f3d4176e6bc @wf566e366d725
+// sym: ?grow@Array_201cd0@fn_f0f2b8a0@@QAEXH@Z @f30780d86a96 @w3dd73b72b22b @vf4a9cf58e40c
 // STATUS: equivalent (tools/equiv.py level 3: 267 inputs, branch coverage 15/16, incomplete)
 // FUN_00201cd0 @ 0x00201cd0
 void Array_201cd0::grow(int n) {
@@ -370,10 +374,10 @@ void Array_201cd0::grow(int n) {
  int oldCount=count;
  if(oldCount>0) {
   if(manualCopy) { for(int i=0;i<count;++i) { volatile Entry_201cd0* src=data+i; volatile Entry_201cd0* dest=replacement+i; dest->a=src->a; dest->b=src->b; dest->c=src->c; } }
-  else { volatile unsigned* dest=(unsigned*)replacement; volatile unsigned* src=(unsigned*)data; unsigned words=((unsigned)oldCount*12)>>2; for(unsigned j=0;j<words;++j) dest[j]=src[j]; }
+  else { memcpy(replacement, data, (unsigned)oldCount*sizeof(Entry_201cd0)); }   // (nat2) the original's inline memcpy (rep movsd / movsb)
  }
  Entry_201cd0* previous=data;
- if(previous) FUN_0008d340((unsigned*)previous-1);
+ if(previous) ::operator delete[]((unsigned*)previous-1);
  data=replacement; capacity=n;
 }
 
@@ -691,7 +695,6 @@ class Helper_202430 {
     void Init_0027af50();
 };
 extern void* hulk_at_004259f8;
-void __cdecl thunk_FUN_00267090(void*);
 class CWorldCollisionManager {
   public:
     void* vft;
@@ -705,7 +708,7 @@ void CWorldCollisionManager::Init() {
     vft = &hulk_at_004259f8;
     helper.Init_0027af50();
     if (ptr)
-        thunk_FUN_00267090((char*)ptr - 4);
+        ::operator delete[]((char*)ptr - 4);
 }
 } // namespace fn_00202430
 
@@ -1679,17 +1682,15 @@ class CWorldCollisionManager {
     CWorldCollisionManager* vfunc_0(unsigned char param);
 };
 
-void FreeMemA_0008d340(void* p);
-void FreeMemB_0008d330(void* p);
 
 CWorldCollisionManager* CWorldCollisionManager::vfunc_0(unsigned char param) {
     vptr = &(*(void**)&DAT_004259f8);
     mSub.Clear_0027af50();
     if (mCount) {
-        FreeMemA_0008d340((void*)(mCount - 4));
+        ::operator delete[]((void*)(mCount - 4));
     }
     if (param & 1) {
-        FreeMemB_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

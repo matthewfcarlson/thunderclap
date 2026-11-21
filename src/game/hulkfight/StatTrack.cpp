@@ -8,7 +8,6 @@
 namespace fn_f24af925 {} using namespace fn_f24af925;
 namespace fn_f24af925 {
 struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "game/hulkfight.h"
 
@@ -94,7 +93,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

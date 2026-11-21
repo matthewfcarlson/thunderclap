@@ -8,8 +8,6 @@
 namespace fn_f9b6de1e {} using namespace fn_f9b6de1e;
 namespace fn_f9b6de1e {
 struct FactoryCtor { void init_002343b0(); };   // (unb4) the factory constructors InitHelper::init stood for
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "game/global.h"
 
@@ -78,7 +76,7 @@ void* ConditionFactoryTemplate_57e20::scalar_dtor(unsigned char flags) {
     base1_dtor_0004a470();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -107,7 +105,7 @@ CGrappleAlertStatusCondition* CGrappleAlertStatusCondition::vfunc_5(signed char 
     *(void***)this = hulk_at_003f6d50;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

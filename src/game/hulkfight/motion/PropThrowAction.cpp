@@ -217,7 +217,6 @@ class Action_183af0 {
   public:
     void* vptr;
 };
-void Free(void*);
 class PropAnimationAction_183af0 : public Action_183af0 {
   public:
     char pad[0x18];

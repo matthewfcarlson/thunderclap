@@ -17,8 +17,6 @@
 #define TREE_TU_END }
 namespace fn_fc09f66d {} using namespace fn_fc09f66d;
 namespace fn_fc09f66d {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "game/hulkfight/scenario.h"
 void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
@@ -196,7 +194,6 @@ struct Event_PathNameCondition_nv_1ab640 {
     void f1_0027af50();
     void f2_002345b0();
 };
-extern void thunk_FUN_00267090(hulkfight::scenario::Event_PathNameCondition*);
 class Event_TriggerVolumeNameCondition_1ab640 {
   public:
     void* vftable;
@@ -264,7 +261,6 @@ class Event_CharacterTemplateVariationCondition {
     Event_CharacterTemplateVariationCondition(int);
     void Finish_002345b0();
 };
-void __cdecl FUN_0008d330(Event_CharacterTemplateVariationCondition*);
 extern char threat_vftable_1ab760;
 struct Event_PathNameCondition_nv_1ab760 {
     void f1_0027af50();
@@ -1267,7 +1263,7 @@ Event_TriggerVolumeNameCondition_1ab640* Event_TriggerVolumeNameCondition_1ab640
     ((Event_PathNameCondition_nv_1ab640*)(((hulkfight::scenario::Event_PathNameCondition*)(((hulkfight::scenario::Event_PathNameCondition*)((char*)p + 0x10))))))->f1_0027af50();
     ((Event_PathNameCondition_nv_1ab640*)(((hulkfight::scenario::Event_PathNameCondition*)(((hulkfight::scenario::Event_PathNameCondition*)p)))))->f2_002345b0();
     if (param & 1)
-        thunk_FUN_00267090((hulkfight::scenario::Event_PathNameCondition*)p);
+        ::operator delete((hulkfight::scenario::Event_PathNameCondition*)p);
     return p;
 }
 
@@ -1281,7 +1277,7 @@ EventCondition_1ab670* EventCondition_1ab670::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0041d3ec;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1296,7 +1292,7 @@ Event_FirstTimeCondition_1ab6a0* Event_FirstTimeCondition_1ab6a0::vfunc_5(signed
     *(void***)this = hulk_at_0041d40c;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1311,7 +1307,7 @@ Event_WaypointCondition_1ab6d0* Event_WaypointCondition_1ab6d0::vfunc_5(signed c
     *(void***)this = hulk_at_0041d42c;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1335,7 +1331,7 @@ Event_CharacterTemplateVariationCondition::Event_CharacterTemplateVariationCondi
     sub.Init_0027af50();
     Finish_002345b0();
     if (flag & 1)
-        FUN_0008d330(this);
+        ::operator delete(this);
 }
 
 
@@ -1348,7 +1344,7 @@ Event_PathNameCondition_1ab760* Event_PathNameCondition_1ab760::vfunc_5(unsigned
     ((Event_PathNameCondition_nv_1ab760*)(((hulkfight::scenario::Event_PathNameCondition*)((char*)p + 0x10))))->f1_0027af50();
     ((Event_PathNameCondition_nv_1ab760*)(((hulkfight::scenario::Event_PathNameCondition*)p)))->f2_002345b0();
     if (param & 1)
-        thunk_FUN_00267090((hulkfight::scenario::Event_PathNameCondition*)p);
+        ::operator delete((hulkfight::scenario::Event_PathNameCondition*)p);
     return p;
 }
 
@@ -2107,7 +2103,7 @@ void* ConditionFactoryTemplate_1ac6d0::scalar_dtor(unsigned char flags) {
     base1_dtor_001aae30();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2136,7 +2132,7 @@ void* ConditionFactoryTemplate_1ac770::scalar_dtor(unsigned char flags) {
     base1_dtor_001aae90();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2166,7 +2162,7 @@ void* ConditionFactoryTemplate_1ac820::scalar_dtor(unsigned char flags) {
     base1_dtor_001aaef0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2195,7 +2191,7 @@ void* ConditionFactoryTemplate_1ac8c0::scalar_dtor(unsigned char flags) {
     base1_dtor_001aadc0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2226,7 +2222,7 @@ void* ConditionFactoryTemplate_1ac970::scalar_dtor(unsigned char flags) {
     base1_dtor_001aaf60();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2248,7 +2244,7 @@ void* ConditionFactoryTemplate_1aca20::scalar_dtor(unsigned char flags) {
     base1_dtor_001aafe0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2278,7 +2274,7 @@ void* ConditionFactoryTemplate_1acad0::scalar_dtor(unsigned char flags) {
     base1_dtor_001ab060();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

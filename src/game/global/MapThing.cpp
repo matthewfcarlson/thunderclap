@@ -8,6 +8,7 @@
 #define TREE_TU_BEGIN namespace fn_ffa3e06c {
 #define TREE_TU_END }
 namespace fn_ffa3e06c {} using namespace fn_ffa3e06c;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -16,7 +17,6 @@ struct X_e36a0 {
     X_e36a0* Target();
 };
 struct Label { char pad[0x24];  };
-void __cdecl thunk_FUN_00267090(void* p);
 struct Group {
     Label* items;
     char pad[4];
@@ -260,7 +260,7 @@ X_e36a0* X_e36a0::Target() {
 
 
 // 0x000e36c0 FUN_000e36c0 (138 B): equivalent/0x000e36c0.cpp
-// sym: ?FUN_000e36c0@HintList@fn_ffa3e06c@@QAEXXZ @708a1535d368 @wfb54019b1388 @vdaddc7ec8bd7
+// sym: ?FUN_000e36c0@HintList@fn_ffa3e06c@@QAEXXZ @f448fa3b021b @w51fc9f399145 @vcb774f227c19
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 8/8)
 // FUN_000e36c0 @ 0x000e36c0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
@@ -275,7 +275,7 @@ void HintList::FUN_000e36c0() {
                 p--;
                 ((owners::Thing_f7960 *)p)->FUN_000f7960();
             }
-            thunk_FUN_00267090(hdr);
+            ::operator delete[](hdr);
             e->items = 0;
         }
         e->f8 = 0;

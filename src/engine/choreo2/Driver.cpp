@@ -90,7 +90,7 @@ Driver_22a950* Driver_22a950::f2(unsigned char flags) {
     (*(int*)&DAT_004e5abc)--;
     Fin_0027afd0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

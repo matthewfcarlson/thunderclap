@@ -10,7 +10,6 @@
 namespace fn_f7e6d7b9 {} using namespace fn_f7e6d7b9;
 namespace fn_f7e6d7b9 {
 struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "game/hulkfight/ai.h"
 
@@ -93,7 +92,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor_0010d060();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

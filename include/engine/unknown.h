@@ -15,8 +15,6 @@ struct Vec3N {
     float x, y, z;
     void FUN_0022d180();
 };
-void thunk(int);
-void FUN_0008d330(void* p);
 TREE_TU_END
 extern "C" void _ReadWriteBarrier();
 #ifdef TREE_LOCAL_CEffectStopTrack
@@ -35,12 +33,9 @@ TREE_TU_END
 extern "C" char* strncpy(char*, const char*, unsigned int);
 #endif
 TREE_TU_BEGIN
-void thunk(void*);
-extern void __cdecl thunk_FUN_00267090(hulk_intptr);
 struct V3 {
     float x, y, z;
 };
-void __cdecl FUN_0008d340(void*);
 TREE_TU_END
 void __cdecl operator delete(void*);
 #endif

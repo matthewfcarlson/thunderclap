@@ -9,6 +9,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f9898967 {} using namespace fn_f9898967;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/unknown.h"
 
 // ---- declarations shared by the functions below
@@ -16,11 +17,9 @@ namespace fn_f9898967 {
 struct Sub_91bc0 {
     void Init_0027af00();
 };
-extern void __cdecl thunk_FUN_00267090(void*);
 struct Tail_91be0 {
     void Fnf_0027af50();
 };
-void __cdecl freebuf_0008d340(void*);
 void* __cdecl allocbuf_0008d6d0(unsigned int);
 } // namespace fn_f9898967
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -51,7 +50,6 @@ class Helper_91cc0 {
   public:
     void Run_0027af50();
 };
-extern void __cdecl thunk_FUN_00267090(hulk_intptr);
 struct Obj_91d00 {
     char pad[0x20];
 };
@@ -102,8 +100,6 @@ class Obj_91ef0 {
   public:
     void dtor_0027af50();
 };
-void rel_0008d340(void*);
-extern "C" void __cdecl FUN_0008d340(void *);
 extern "C" void * __cdecl FUN_0008d6d0(unsigned int);
 class C_92040 {
     char pad[0x30];
@@ -134,7 +130,7 @@ CUnlockable::CUnlockable() {
 void CUnlockable::Destroy() {
     *(void**)this = (void*)((hulk_intptr)DAT_0040449c);
     if (data) {
-        thunk_FUN_00267090(data);
+        ::operator delete[](data);
         data = 0;
     }
     ((Tail_91be0*)&this->id)->Fnf_0027af50();
@@ -145,7 +141,7 @@ void CUnlockable::Destroy() {
 // sym: ?Set@X@fn_f9898967@@QAEXPBD@Z
 void X::Set(const char* s) {
     if (str) {
-        freebuf_0008d340(str);
+        ::operator delete[](str);
         str = 0;
     }
     if (s) {
@@ -176,9 +172,9 @@ void CUnlockableBlonskyFile::Destroy() {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_004044a4);
     ((Helper_91cc0*)&w.id20)->Run_0027af50();
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0040449c);
-    hulk_intptr p = (hulk_intptr)w.data;
+    void* p = w.data;
     if (p) {
-        thunk_FUN_00267090(p);
+        ::operator delete[](p);
         w.data = 0;
     }
     ((Helper_91cc0*)&w.id)->Run_0027af50();
@@ -250,14 +246,13 @@ class CUnlockable {
     HulkUnlockableWords w;                  // decls/unlockables.h
     void Destroy();
 };
-extern void __cdecl thunk_FUN_00267090(void*);
 struct Tail_91e30 {
     void Fnf_0027af50();
 };
 void CUnlockable::Destroy() {
     *(void**)this = (void*)((hulk_intptr)DAT_0040449c);
     if (w.data) {
-        thunk_FUN_00267090(w.data);
+        ::operator delete[](w.data);
         w.data = 0;
     }
     ((Tail_91e30*)&w.id)->Fnf_0027af50();
@@ -295,7 +290,7 @@ void CUnlockableMove::dtor() {
     ((Obj_91ef0*)&w.id38)->dtor_0027af50();
     vf = ((hulk_intptr)DAT_0040449c);
     if (w.data) {
-        rel_0008d340(w.data);
+        ::operator delete[](w.data);
         w.data = 0;
     }
     ((Obj_91ef0*)&w.id)->dtor_0027af50();
@@ -343,10 +338,10 @@ unsigned char owners::A_91fb0::FUN_00091fb0() {
 
 
 // 0x00091fe0 FUN_00091fe0 (81 B): equivalent/0x00091fe0.cpp
-// sym: ?FUN_00091fe0@Object_91fe0@owners@@QAEXPBD@Z @2f1b2e636ce4 @wac1183891061 @v4d36837e8711
+// sym: ?FUN_00091fe0@Object_91fe0@owners@@QAEXPBD@Z @3ffd65dfc980 @w19d62c4d9f47 @v67a96e4489bf
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 8/8)
 // FUN_00091fe0 @ 0x00091fe0
-void owners::Object_91fe0::FUN_00091fe0(const char *value) { if (text) { FUN_0008d340(text); text = 0; } if (value) { const char *end = value; while (*end) ++end; char *dest = (char *)FUN_0008d6d0((unsigned int)(end - value + 1)); text = dest; do { *dest++ = *value; } while (*value++); } }
+void owners::Object_91fe0::FUN_00091fe0(const char *value) { if (text) { ::operator delete[](text); text = 0; } if (value) { const char *end = value; while (*end) ++end; char *dest = (char *)FUN_0008d6d0((unsigned int)(end - value + 1)); text = dest; do { *dest++ = *value; } while (*value++); } }
 
 namespace fn_f9898967 {
 
@@ -428,14 +423,13 @@ class CUnlockable {
     HulkUnlockableWords w;                  // decls/unlockables.h
     void Destroy();
 };
-extern void __cdecl thunk_FUN_00267090(void*);
 struct Tail_920f0 {
     void Fnf_0027af50();
 };
 void CUnlockable::Destroy() {
     *(void**)this = (void*)((hulk_intptr)DAT_0040449c);
     if (w.data) {
-        thunk_FUN_00267090(w.data);
+        ::operator delete[](w.data);
         w.data = 0;
     }
     ((Tail_920f0*)&w.id)->Fnf_0027af50();

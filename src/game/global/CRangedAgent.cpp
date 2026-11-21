@@ -252,7 +252,6 @@ extern int hulk_at_0040d678;
 struct CRangedAgent_107100 {
     void run_000fc630();
 };
-void __cdecl thunk_FUN_00267090(void*);
 class CRangedAgent {
   public:
     virtual void v0();
@@ -289,7 +288,7 @@ CRangedAgent* CRangedAgent::vfunc_2(unsigned char param) {
     thing = 0;
     ((CRangedAgent_107100*)this)->run_000fc630();
     if (param & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00107100

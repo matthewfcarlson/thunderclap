@@ -997,7 +997,7 @@ d3dSimpleShader_32aa30* d3dSimpleShader_32aa30::vfunc_3(u8_32aa30 destroy) {
         (*(Ref_32aa30**)&HULK_SS(f_80))->f1();
     ((d3dSimpleShader_nv_32aa30*)(((pure3d::d3dSimpleShader*)(((pure3d::d3dSimpleShader*)this)))))->FUN_00327930();
     if (destroy & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

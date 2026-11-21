@@ -57,7 +57,6 @@ public:
 };
 }
 extern "C" char DAT_0042fce4[];
-extern "C" void __cdecl Release(void*);
 class MatrixPaletteList {
   public:
     char pad[8];
@@ -151,7 +150,6 @@ namespace fn_002e1840 {
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042fcd4[];
 extern "C" void _ReadWriteBarrier();
-extern void __cdecl ReleaseThing_0008d340(void*);
 struct BoneMatrixList {
     void* vptr;
     char pad[4];
@@ -163,7 +161,7 @@ void BoneMatrixList::Destroy() {
     _ReadWriteBarrier();
     void* p = *(void* volatile*)&item;
     if (p)
-        ReleaseThing_0008d340(p);
+        ::operator delete[](p);
     vptr = (void*)((hulk_intptr)DAT_003f6098);
 }
 } // namespace fn_002e1840

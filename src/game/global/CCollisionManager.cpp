@@ -14,6 +14,7 @@
 #define TREE_TU_BEGIN namespace fn_f5af65ff {
 #define TREE_TU_END }
 namespace fn_f5af65ff {} using namespace fn_f5af65ff;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 #include "game/script_bind.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
@@ -2293,7 +2294,7 @@ CCollisionManager_1b6530::~CCollisionManager_1b6530() {
     void* t = *(void* volatile*)&m594;
     m598 = t;
     if (t)
-        operator delete(t);
+        ::operator delete[](t);
     Elem_1b6530* p = arr + 4;
     int i = 4;
     do {

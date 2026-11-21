@@ -12,6 +12,7 @@
 #define TREE_TU_BEGIN namespace fn_f9e85a4e {
 #define TREE_TU_END }
 namespace fn_f9e85a4e {} using namespace fn_f9e85a4e;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -348,12 +349,12 @@ extern "C" void FUN_001e91c0(void)
 
 
 // 0x001e9680 FUN_001e9680 (365 B): equivalent/0x001e9680.cpp
-// sym: ?FUN_001e9680@Manager_1e9680@fn_f9e85a4e@@QAEXXZ @8ddb6d6c795a @wc46512c775a6 @v6d168e185b71
+// sym: ?FUN_001e9680@Manager_1e9680@fn_f9e85a4e@@QAEXXZ @1c4710584745 @w2524054c53bb @v70cb226e5b22
 // STATUS: equivalent (tools/equiv.py level 3: 51 inputs, branch coverage 28/28)
 // FUN_001e9680 @ 0x001e9680
 void Manager_1e9680::FUN_001e9680()
 {
-    FUN_0008d340((*(void**)&DAT_004e2788));
+    ::operator delete[]((*(void**)&DAT_004e2788));
     for (int i = 0; i < itemCount; i++) {
         Item_1e9680 *item = items[i];
         if (item->users > 0) {
@@ -370,7 +371,7 @@ void Manager_1e9680::FUN_001e9680()
     }
     itemCount = 0;
     for (int i = 0; i < blockCount; i++) {
-        FUN_0008d330(blocks[i]);
+        ::operator delete(blocks[i]);
         blocks[i] = 0;
     }
     blockCount = 0;

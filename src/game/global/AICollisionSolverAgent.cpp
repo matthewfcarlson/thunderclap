@@ -13,8 +13,8 @@
 #define TREE_TU_BEGIN namespace fn_f7cf5713 {
 #define TREE_TU_END }
 namespace fn_f7cf5713 {} using namespace fn_f7cf5713;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f7cf5713 {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "game/global.h"
 #include "game/script_bind.h"
@@ -60,7 +60,6 @@ extern "C" int __cdecl FUN_001aea70(void*, void*);
 extern "C" int __cdecl FUN_001aeae0(void*, void*);
 char __cdecl FUN_001ad730(int tile, Ctx* d);
 extern "C" void* FUN_0008d6d0(unsigned int size);
-void thunk_FUN_00267090(void* p);
 struct SearchState {
     float candidateCost;
     Map* savedMap;
@@ -418,7 +417,7 @@ class Function_1b16b0 {
 
 
 // 0x001aedb0 FUN_001aedb0 (913 B): equivalent/0x001aedb0.cpp
-// sym: _FUN_001aedb0 @f29d6cd4ddd7 @w3573d9ce50b8 @vff5198daab5d
+// sym: _FUN_001aedb0 @da9ee4c2252c @w41bd81399d96 @vb0c1d5b1e505
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 33/34, incomplete)
 // FUN_001aedb0 @ 0x001aedb0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
@@ -448,7 +447,7 @@ extern "C" void * FUN_001aedb0(void * visited, void * open_, void * goal, void *
         front = open->FUN_00230ea0();
         state.savedMap = open;
         open->FUN_00230de0(front);
-        thunk_FUN_00267090(front);
+        ::operator delete[](front);
 
         state.neighbors.tile = state.currentNode->rec.id;
         state.neighbors.idx = -1;
@@ -501,7 +500,7 @@ extern "C" void * FUN_001aedb0(void * visited, void * open_, void * goal, void *
                     state.openEntry = open->FUN_00230ba0((void*)FUN_001aeae0, &state.candidateNode);
                     if (state.openEntry) {
                         open->FUN_00230de0(state.openEntry);
-                        thunk_FUN_00267090(state.openEntry);
+                        ::operator delete[](state.openEntry);
                     }
                 }
                 next->g = state.candidateCost;
@@ -1482,7 +1481,7 @@ AICollisionSolverAgent_1b02e0* AICollisionSolverAgent_1b02e0::vfunc_5(signed cha
     *(void***)this = hulk_at_0041d830;
     Destroy_002f8820();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

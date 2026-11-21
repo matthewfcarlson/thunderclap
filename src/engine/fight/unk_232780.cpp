@@ -11,6 +11,7 @@
 #define TREE_TU_END }
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f81ad613 {} using namespace fn_f81ad613;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/fight.h"
 
 // ---- declarations shared by the functions below
@@ -61,7 +62,6 @@ class Owner_232a80 {
 };
 extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 void *thunk_FUN_0008d690(unsigned int size);
-void __cdecl thunk_FUN_00267090(void *p);
 struct LoadStream_nv_232ae0 {
     content::LoadStream *FUN_00264190(void *data, unsigned int size);
 };
@@ -339,7 +339,7 @@ int Loader_232ae0::FUN_00232ae0(Source_232ae0 *source, unsigned int size)
     stream->vfunc_0();
     int result = FUN_00232870(buffer, stream, size, source->GetOption());
     stream->vfunc_1();
-    thunk_FUN_00267090(buffer);
+    ::operator delete[](buffer);
     FUN_00266da0(saved);
     return result;
 }

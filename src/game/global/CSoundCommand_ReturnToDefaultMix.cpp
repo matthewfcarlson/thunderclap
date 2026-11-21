@@ -27,7 +27,6 @@ class NonCopyable : public CSoundCommand_1ef7e0 {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 struct Mgr_1ef800 {
     void Set_001e9b20(int n);
 };
@@ -54,7 +53,7 @@ class CSoundCommand_ReturnToDefaultMix : public CSoundCommand {
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_004245a4;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

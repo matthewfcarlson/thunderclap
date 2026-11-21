@@ -19,7 +19,7 @@ extern "C" void* FUN_0008d690(unsigned int size);
 namespace hulkfight { namespace ai {
 class PathLocatorTestCondition_120a90 {
 public:
-    int FUN_0011c290(void*); /* (unb4) as defined; address taken only */
+    bool FUN_0011c290(const char*); /* (nat2) as defined (0x0011c290 is a bool setter); address taken only */
     char FUN_0011b810(int); /* (unb4) as defined; address taken only */
     char FUN_0011b830(int); /* (unb4) as defined; address taken only */
     char FUN_0011b850(char); /* (unb4) as defined; address taken only */
@@ -358,7 +358,7 @@ public:
 namespace fn_f0aa4dae {
 
 // 0x00120a90 FUN_00120a90 (682 B): equivalent/0x00120a90.cpp
-// sym: ?FUN_00120a90@fn_f0aa4dae@@YAXXZ @22cc59cc6a5e @wac21458aac3b @v8bc71040979a
+// sym: ?FUN_00120a90@fn_f0aa4dae@@YAXXZ @22cc59cc6a5e @wac21458aac3b @vd7c1d487da84
 // STATUS: equivalent (tools/equiv.py level 3: 88 inputs, branch coverage 26/26)
 // FUN_00120a90 @ 0x00120a90
 void FUN_00120a90()

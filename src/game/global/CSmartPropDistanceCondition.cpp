@@ -17,7 +17,6 @@ struct CSmartPropNameCondition {
     char pad[0x14];
 };
 extern "C" void __fastcall FUN_0027af50(void*);
-extern void __cdecl thunk_FUN_00267090(void*);
 extern int hulk_at_003f6d50;
 struct V3_4c980 { float x, y, z; };
 class Context { public: char pad[4]; };
@@ -77,7 +76,7 @@ CSmartPropNameCondition* __fastcall CSmartPropNameCondition_vfunc_5(CSmartPropNa
     p->vptr = &hulk_at_003f6d50;
     FUN_002345b0(p);
     if (flags & 1)
-        thunk_FUN_00267090(p);
+        ::operator delete(p);
     return p;
 }
 

@@ -23,7 +23,7 @@ struct CHudMap_c9700 {
 void* CHudMap_c9700::vfunc_2(unsigned int flags) {
     FUN_000c87a0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_000c9700

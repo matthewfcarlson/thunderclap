@@ -17,6 +17,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f43dee86 {} using namespace fn_f43dee86;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -25,7 +26,6 @@ struct Thing_2bd430 {
     virtual void A();
     virtual void B();
 };
-extern void __cdecl thunk_FUN_00267090(void*);   // (x64t20) the free by its address name ("Free" had no native definition)
 class ParamValue_2bd4b0 {
   public:
     virtual void vfunc_0();
@@ -194,7 +194,6 @@ struct ThisCall_002a4500 {
     void FUN_002a4500(int, void*);   // (x64t19) the drawable as a pointer (as defined: an int did not bind natively)
 };
 extern "C" void __fastcall FUN_002ae910(void*);   // (decl1) as defined (ImageHandler_3.cpp)
-extern void thunk_FUN_00267090(CCollisionAction*);
 struct Name_2bdfc0 {
     unsigned int lo, hi;
 };
@@ -282,7 +281,7 @@ public:
 HULK_SIZE32(ObjBig, 0x438);
 extern "C" void *FUN_00266e00(int pool, int size);
 void *FUN_0008d6d0(unsigned int size);
-int FUN_00267090(void *p);
+extern "C" int __cdecl FUN_00267090(void *p);   // (nat2, D134) the game heap's free by its own C name (its result is this TU's 0x002be720's)
 extern "C" void FUN_003647b0();
 class Loader_2be720 : public HulkSprite {   // (x64t19, D94) the sprite (decls/sprite.h; was a 32-bit pad view)
 public:
@@ -397,7 +396,6 @@ public:
     Factory_2bdfc0 *factory;
 };
 extern int hulk_at_0042e974, hulk_at_003f6098;
-extern void Free2_0008d330(void*);
 class Obj_2bed30 {
   public:
     void Fini_002ae910();
@@ -424,8 +422,8 @@ void Sprite::Destroy() {
     ((Thing_2bd430*)shader)->B();
     for (int i = 0; i < count; ++i)
         ((Thing_2bd430**)textures)[i]->B();
-    thunk_FUN_00267090(textures);
-    thunk_FUN_00267090(quads);
+    ::operator delete[](textures);
+    ::operator delete[](quads);
     Tail_002a50a0();
 }
 
@@ -830,7 +828,7 @@ namespace fn_f43dee86 {
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     FUN_002ae910((void*)(this));
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1044,7 +1042,6 @@ hulk_intptr pure3d::SpriteObject::vfunc_21() {   // (x64t19) the group's drawabl
 // (x64t20) an explicit function on the record: gen's `pure3d::Sprite::~Sprite() {}` stood for it, which natively
 // defines no function for the vftable slot (the release of the copyright sprite reached `hulk_x_002be420`)
 namespace fn_f43dee86 {
-void __cdecl thunk_FUN_00267090(void*);
 struct Sprite_2be420 : HulkSprite {
     void FUN_002bd430();   // the destructor's body (Sprite::Destroy above)
     Sprite_2be420* vfunc_2(unsigned char flags);
@@ -1052,7 +1049,7 @@ struct Sprite_2be420 : HulkSprite {
 Sprite_2be420* Sprite_2be420::vfunc_2(unsigned char flags) {
     FUN_002bd430();
     if (flags & 1)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_f43dee86
@@ -1261,7 +1258,7 @@ pure3d::Sprite::Sprite(Item_2be440 **items_, int w_, int h_, int count_, Shader_
 namespace fn_f43dee86 {
 
 // 0x002be720 FUN_002be720 (740 B): equivalent/0x002be720.cpp
-// sym: ?Load@Loader_2be720@fn_f43dee86@@QAEHPAVSource_2be720@2@PAVImageConverter@pure3d@@@Z @750a8750f25f @w463ed3f8836d @vbbfd1b2cac8c
+// sym: ?Load@Loader_2be720@fn_f43dee86@@QAEHPAVSource_2be720@2@PAVImageConverter@pure3d@@@Z @750a8750f25f @w463ed3f8836d @vaacb6d5e067e
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 36/36)
 // FUN_002be720 @ 0x002be720
 // FUN_002be720 @ 0x002be720
@@ -1378,7 +1375,7 @@ SpriteObject_2bea70* SpriteObject_2bea70::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042e914;
     Destroy_002a4ff0();
     if (flags & 1) {
-        thunk_FUN_00267090(this);   // (x64t20) the free by its address name
+        ::content::LoadObject::operator delete(this);   // (x64t20) the free by its address name
     }
     return this;
 }
@@ -1718,11 +1715,11 @@ SpriteLoader_2bed30* SpriteLoader_2bed30::vfunc2(unsigned char f) {
     Obj_2bed30* o = (Obj_2bed30*)registry;
     if (o) {
         o->Fini_002ae910();
-        Free2_0008d330(o);
+        ::operator delete(o);
     }
     vftable = &hulk_at_003f6098;
     if (f & 1)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

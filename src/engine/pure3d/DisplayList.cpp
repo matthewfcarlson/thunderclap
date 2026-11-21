@@ -13,6 +13,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f6d36770 {} using namespace fn_f6d36770;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -520,9 +521,9 @@ DisplayList_29bdc0::~DisplayList_29bdc0() throw() {
         m18 = 0;
     }
     if (m28)
-        operator delete(m28);
+        ::operator delete[](m28);
     if (m1c)
-        operator delete(m1c);
+        ::operator delete[](m1c);
     Fin_0027afd0();
 }
 
@@ -589,7 +590,7 @@ struct DisplayList_29bf40 {
 void* DisplayList_29bf40::vfunc_2(unsigned int flags) {
     FUN_0029bdc0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0029bf40

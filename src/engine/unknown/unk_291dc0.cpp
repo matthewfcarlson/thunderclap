@@ -111,12 +111,10 @@ class CCollisionAction : public CAction {
 struct ThisCall_0028f920 {
     void FUN_0028f920();
 };
-extern void thunk_FUN_00267090(CCollisionAction*);
 typedef unsigned long long U64_2924e0;
 void __stdcall FUN_00354ce2(U64_2924e0*);
 typedef unsigned long long U64_292500;
 void __stdcall FUN_00354cd1(U64_292500*);
-extern void* __cdecl thunk_FUN_00267090(void*);
 extern "C" void __cdecl FUN_0027b1d0();
 struct Context {
     virtual void v0();
@@ -165,7 +163,6 @@ struct H {
     void A();
     void B();
 };
-void thunk_FUN_00267090(H*);
 struct T_292670 {
     int value;
     void run(H*);
@@ -332,7 +329,7 @@ int* FUN_00292410() {
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     ((ThisCall_0028f920*)(this))->FUN_0028f920();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -362,7 +359,7 @@ U64_292500 __cdecl FUN_00292500(void) {
 void FUN_00292530() {
     FUN_0027b1d0();
     if ((*(void**)&DAT_0052c2c4)) {
-        thunk_FUN_00267090((*(void**)&DAT_0052c2c4));
+        ::operator delete((*(void**)&DAT_0052c2c4));
     }
     (*(void**)&DAT_0052c2c4) = 0;
 }
@@ -404,7 +401,7 @@ void T_292670::run(H* arg) {
     arg->A();
     if (arg) {
         arg->B();
-        thunk_FUN_00267090(arg);
+        ::operator delete(arg);
     }
     *(int*)this = 0;
 }

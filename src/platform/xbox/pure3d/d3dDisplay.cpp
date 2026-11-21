@@ -180,7 +180,6 @@ void __stdcall D3DResource_Release(int);
 struct d3dDisplay_nv_31b5c0 {
     void Run();
 };
-void thunk_FUN_00267090(d3dDisplay_31b5c0*);
 } // namespace fn_f5e589ad
 namespace pure3d {
 struct DisplayRect {
@@ -782,7 +781,7 @@ d3dDisplay_31b5c0* d3dDisplay_31b5c0::f3(unsigned char flag) {
     *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_004323e4);
     ((d3dDisplay_nv_31b5c0*)(((pure3d::d3dDisplay*)this)))->Run();
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

@@ -13,8 +13,8 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fa65e9c0 {} using namespace fn_fa65e9c0;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fa65e9c0 {
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "engine/pure3d.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
@@ -321,7 +321,6 @@ class Item_2a68b0 {
     virtual void A();
     virtual void Release();
 };
-void Free_0008d340(void*);
 class ProceduralVertexAnimController_2a68b0 {
   public:
     char pad[0x40];
@@ -1324,7 +1323,7 @@ void ProceduralVertexAnimController_2a68b0::Run() {
             ++i;
         } while (i < count);
     }
-    Free_0008d340(items);
+    ::operator delete[](items);
     items = 0;
     x40 = 0;
     x44 = 0;
@@ -1493,7 +1492,7 @@ void* ProceduralVertexAnimController_2a6b90::scalar_dtor(unsigned char flags) {
     base1_dtor_002a68b0();
     base2_dtor_00285800();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

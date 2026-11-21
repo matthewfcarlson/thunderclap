@@ -19,6 +19,7 @@
 #define TREE_TU_BEGIN namespace fn_f49dcb8d {
 #define TREE_TU_END }
 namespace fn_f49dcb8d {} using namespace fn_f49dcb8d;
+extern "C" void FUN_00267090(void* ptr);   // (nat2, D134) the game heap's free
 void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f49dcb8d { extern "C" char DAT_00425b20[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
@@ -309,7 +310,6 @@ class A_204ea0 {
     void close();
 };
 extern "C" void FUN_00267110(int);
-extern void fptr_00267090(void*);
 class Obj_204f00 {
   public:
     virtual void f0();
@@ -481,7 +481,6 @@ struct Object_205910 {
 };
 struct Resource_2059d0 { virtual void unused(); virtual void release(); void FUN_002665a0(); };
 struct Handle_2059d0 { void FUN_00263e90(); };
-extern void __cdecl FUN_00267090(void*);
 struct Entry_2059d0 {
  unsigned char active, flag;
  char pad0[32];
@@ -584,7 +583,6 @@ class CWorldStreamManager_207060 : public CAction_207060 {
 struct CWorldStreamManager_nv_207060 {
     void FUN_002061e0();
 };
-extern void thunk_FUN_00267090(CWorldStreamManager_207060*);
 struct Voice_2071e0 {
     virtual void v0();
     virtual void v1();
@@ -743,7 +741,6 @@ struct Slot_2088a0 {
     Buffer_2088a0 *buffer;             // +0x34
     char pad38[4];
 };
-void __cdecl FUN_00267090(char *p);
 class Pool_2088a0 {
 public:
     void FUN_002088a0();
@@ -1541,7 +1538,7 @@ void A_204ea0::close() {
         obj30 = 0;
     }
     if (ptr2c) {
-        fptr_00267090(ptr2c);
+        FUN_00267090(ptr2c);
         ptr2c = 0;
     }
     a = 0;
@@ -2210,7 +2207,7 @@ void Object_205910::target() {
 
 
 // 0x002059d0 FUN_002059d0 (258 B): equivalent/0x002059d0.cpp
-// sym: ?cleanup@Object@fn_f49dcb8d@@QAEXXZ @01927733a62c @w1e2d907c68da @v3b47e5f2cfa4
+// sym: ?cleanup@Object@fn_f49dcb8d@@QAEXXZ @01927733a62c @w1e2d907c68da @v7e0aa1e8574d
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 28/28)
 // FUN_002059d0 @ 0x002059d0
 void Object::cleanup() {
@@ -2262,11 +2259,10 @@ class NonCopyable : public SimpleChunkHandler_205b20 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00205b20
@@ -2762,7 +2758,6 @@ class Ref_2061e0 {
 };
 extern void __fastcall FUN_00263e90(Ref_2061e0*);
 extern "C" void FUN_00267110(int);
-extern void FUN_00267090(void*);
 struct CWorldStreamManager_2061e0 {
     void* vf;
     char b4;
@@ -2859,13 +2854,12 @@ class CMemoryPool_206c10 : public CTrack {
     CMemoryPool_206c10* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CMemoryPool_206c10* CMemoryPool_206c10::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_00425b20;
     Destroy_00204ea0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3079,7 +3073,7 @@ void Registry_207000::FUN_00207000(const char* a1, CWorldStreamManager_207000* a
 CWorldStreamManager_207060* CWorldStreamManager_207060::vfunc_2(unsigned char flags) {
     ((CWorldStreamManager_nv_207060*)(((CWorldStreamManager*)(this))))->FUN_002061e0();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -3127,7 +3121,7 @@ bool owners::C_207150::FUN_00207150() {
 namespace fn_f49dcb8d {
 
 // 0x002071e0 FUN_002071e0 (548 B): equivalent/0x002071e0.cpp
-// sym: ?FUN_002071e0@Mixer@fn_f49dcb8d@@QAEXH@Z @0d7d933b2332 @w149160aa25b7 @vaafaf4e9c125
+// sym: ?FUN_002071e0@Mixer@fn_f49dcb8d@@QAEXH@Z @0d7d933b2332 @w149160aa25b7 @v8265985eb4c7
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 48/48)
 // FUN_002071e0 @ 0x002071e0
 void Mixer::FUN_002071e0(int n)
@@ -3965,7 +3959,7 @@ void CWorldStreamManager::FUN_00208820() {
 namespace fn_f49dcb8d {
 
 // 0x002088a0 FUN_002088a0 (124 B): equivalent/0x002088a0.cpp
-// sym: ?FUN_002088a0@Pool_2088a0@fn_f49dcb8d@@QAEXXZ @94760b38b8c7 @w25f5df33b30b @v540431442a38
+// sym: ?FUN_002088a0@Pool_2088a0@fn_f49dcb8d@@QAEXXZ @94760b38b8c7 @w25f5df33b30b @v66e0147ba32b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_002088a0 @ 0x002088a0
 void Pool_2088a0::FUN_002088a0() {

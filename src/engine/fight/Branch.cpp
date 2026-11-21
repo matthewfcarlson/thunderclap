@@ -9,6 +9,7 @@
 #define TREE_TU_BEGIN namespace fn_f3f1aadd {
 #define TREE_TU_END }
 namespace fn_f3f1aadd {} using namespace fn_f3f1aadd;
+extern "C" void FUN_00267090(void* ptr);   // (nat2, D134) the game heap's free
 #include "engine/fight.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -235,11 +236,10 @@ class Obj_233fa0 {
     virtual void A();
     virtual void B();
 };
-void FUN_00267090(int);
 class Holder_233fa0 {
   public:
     Obj_233fa0* mObj;
-    int mValue;
+    char* mValue;   // (nat2, D134) a name, freed with the game heap's free (0x00267090)
     bool Set(int dummy, Obj_233fa0* p);
 };
 
@@ -783,14 +783,13 @@ class Branch {
     void base_fn_0027afd0();
 };
 extern "C++" { extern char hulk_at_00427898[]; }
-void __cdecl thunk_FUN_00267090(Branch*);
 Branch* Branch::vfunc_2(u8_233d90 param) {
     *(void**)this = (void*)hulk_at_00427898;
     vfunc_7_002331f0();
     sub.f1_00236fd0();
     base_fn_0027afd0();
     if (param & 1)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fight
@@ -816,7 +815,7 @@ void Holder_233ef0::Set(hulk_intptr unused, Obj_233ef0* x) {
 } // namespace fn_f3f1aadd
 
 // 0x00233f20 FUN_00233f20 (123 B): equivalent/0x00233f20.cpp [wrapped: conflict: FUN_00238190]
-// sym: ?FUN_00233f20@NameHolder_233f20@fn_00233f20@@QAE_NPBD@Z @3560526a3702 @w57b80b327b1a @vc50ae846d01d
+// sym: ?FUN_00233f20@NameHolder_233f20@fn_00233f20@@QAE_NPBD@Z @3560526a3702 @w57b80b327b1a @v652485109c09
 namespace fn_00233f20 {
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 12/12)
 // FUN_00233f20 @ 0x00233f20
@@ -826,7 +825,6 @@ public:
     virtual void Release();
 };
 
-void FUN_00267090(char *p);
 int32_t FUN_00238190(int kind);   // (x64t16, D70) a heap id
 extern "C" char *FUN_00266e00(int32_t pool, int size);
 

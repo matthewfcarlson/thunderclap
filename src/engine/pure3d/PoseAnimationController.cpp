@@ -10,6 +10,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f83362ab {} using namespace fn_f83362ab;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/pure3d.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -180,7 +181,6 @@ public:
     SkeletonData_288080 *data;       // 0x08
     unsigned int jointCount;  // 0x0c
 };
-void FUN_0008d340(void *p);
 extern "C" void *FUN_0008d6d0(unsigned int size);
 } // namespace fn_f83362ab
 extern "C" Pair_288080 FUN_002672f0(const char *name, int a, int b);
@@ -361,7 +361,7 @@ PoseAnimationController_287f40::~PoseAnimationController_287f40() throw() {
     }
     m118 = 0;
     if (m11c) {
-        operator delete(m11c);
+        ::operator delete[](m11c);
         m11c = 0;
         m120 = 0;
         m124 = 0;
@@ -369,7 +369,7 @@ PoseAnimationController_287f40::~PoseAnimationController_287f40() throw() {
         m12c = 0;
     }
     if (m134)
-        operator delete(m134);
+        ::operator delete[](m134);
     Fin_00285f50();
 }
 
@@ -486,7 +486,7 @@ void PoseAnimationController::vfunc_12(int param) {
 namespace fn_f83362ab {
 
 // 0x00288080 FUN_00288080 (463 B): equivalent/0x00288080.cpp
-// sym: ?FUN_00288080@PoseAnimationController_288080@fn_f83362ab@@QAEXPAVSkeleton@2@@Z @b1f9a864ec0a @w86d57f8def39 @ve68e95799d9a
+// sym: ?FUN_00288080@PoseAnimationController_288080@fn_f83362ab@@QAEXPAVSkeleton@2@@Z @725a598cb782 @w998ed3da194b @v65500b381c92
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 20/20)
 // FUN_00288080 @ 0x00288080
 void PoseAnimationController_288080::FUN_00288080(Skeleton *sk)
@@ -503,11 +503,11 @@ void PoseAnimationController_288080::FUN_00288080(Skeleton *sk)
 
     if (capacity < sk->jointCount) {
         if (vecs0)
-            FUN_0008d340(vecs0);
+            ::operator delete[](vecs0);
         capacity = skeleton->jointCount;
         vecs0 = (Vec3_288080 *)FUN_0008d6d0(capacity * 0x3c);
         if (vals0)
-            FUN_0008d340(vals0);
+            ::operator delete[](vals0);
         vals0 = (float *)FUN_0008d6d0(capacity * 0x14);
         vecs1 = vecs0 + capacity;
         vals1 = vals0 + capacity;
@@ -771,7 +771,7 @@ struct PoseAnimationController_2886a0 {
 void* PoseAnimationController_2886a0::vfunc_2(unsigned int flags) {
     FUN_00287f40();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002886a0

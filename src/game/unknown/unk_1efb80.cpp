@@ -125,7 +125,6 @@ class NonCopyable : public CSoundCommand_1f01a0 {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 } // namespace fn_f4b77e46
 extern "C" unsigned __int64 __cdecl FUN_002672f0(hulk_intptr, int, int);   // (decl1) as defined (unk_267280.cpp)
 namespace fn_f4b77e46 {
@@ -300,7 +299,6 @@ class Obj_1eff50 {
     void Flush_0027af50();
     Obj_1eff50* Dispose(unsigned char flag);
 };
-void destroy_0008d330(Obj_1eff50* o);
 
 Obj_1eff50* Obj_1eff50::Dispose(unsigned char flag) {
     Node* n = head;
@@ -311,7 +309,7 @@ Obj_1eff50* Obj_1eff50::Dispose(unsigned char flag) {
     }
     Flush_0027af50();
     if (flag & 1)
-        destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_001eff50
@@ -384,7 +382,7 @@ namespace fn_f4b77e46 {
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_004245a4;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -418,11 +416,10 @@ class NonCopyable : public CSoundCommand_1f0210 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_004245a4;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_001f0210

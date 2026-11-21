@@ -11,6 +11,7 @@ extern "C" char DAT_00431b74[];   // (x64t5) a game vftable, stored by address
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f3c9f944 {} using namespace fn_f3c9f944;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/physics.h"
 
 // ---- declarations shared by the functions below
@@ -52,7 +53,6 @@ class Obj_3046f0 {
     void Set(char x);
 };
 extern "C" void* __cdecl AllocFunc_0008d6d0(int size);
-extern "C" void __cdecl FreeFunc_0008d340(void* ptr);
 } // namespace fn_f3c9f944
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void* __cdecl memcpy(void* dst, const void* src, size_t size);
@@ -61,7 +61,6 @@ namespace fn_f3c9f944 {
 struct Element_304930 { unsigned int a,b,c,d,e; void FUN_00304640(); };
 void* __cdecl FUN_0008d6d0(unsigned int);
 void __stdcall FUN_00011520(void*, unsigned int, int, void (Element_304930::*)());
-void __cdecl FUN_0008d340(void*);
 } // namespace fn_f3c9f944
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
@@ -69,7 +68,6 @@ extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 namespace fn_f3c9f944 {
 struct Array_304930 { volatile int count; volatile int capacity; Element_304930* volatile data; unsigned char pad; volatile unsigned char copyMembers; void FUN_00304930(int n); };
 void* __cdecl FUN_0008d6d0(int size);
-void __cdecl thunk_FUN_00267090(void *p);
 struct Pair_304a10 {
     int a;
     int b;
@@ -428,7 +426,7 @@ void owners::Buffer_3048a0::FUN_003048a0(int newCapacity) {
         }
     }
 
-    FreeFunc_0008d340(mData);
+    ::operator delete[](mData);
     mData = newData;
     mCapacity = newCapacity;
 }
@@ -436,7 +434,7 @@ void owners::Buffer_3048a0::FUN_003048a0(int newCapacity) {
 namespace fn_f3c9f944 {
 
 // 0x00304930 FUN_00304930 (211 B): equivalent/0x00304930.cpp
-// sym: ?FUN_00304930@Array_304930@fn_f3c9f944@@QAEXH@Z @d87b51f9e65b @w935a46bf1827 @v278ee95a1514
+// sym: ?FUN_00304930@Array_304930@fn_f3c9f944@@QAEXH@Z @1737705636fa @w14ade3c36963 @v1daf81282da7
 // STATUS: equivalent (tools/equiv.py level 3: 267 inputs, branch coverage 15/16, incomplete)
 // FUN_00304930 @ 0x00304930
 void Array_304930::FUN_00304930(int n) {
@@ -459,13 +457,13 @@ void Array_304930::FUN_00304930(int n) {
 #endif
  }
  }
- if(data) FUN_0008d340((unsigned int*)data-1);
+ if(data) ::operator delete[]((unsigned int*)data-1);
  data=fresh; capacity=n;
 }
 
 
 // 0x00304a10 FUN_00304a10 (133 B): equivalent/0x00304a10.cpp
-// sym: ?Reserve@PairArray@fn_f3c9f944@@QAEXH@Z @c2011433a531 @wb2f1f5a1a0c5 @ve670469f35f7
+// sym: ?Reserve@PairArray@fn_f3c9f944@@QAEXH@Z @5cc35e3a5f62 @w1f8dacc25c08 @vd2182f5da149
 // STATUS: equivalent (tools/equiv.py level 3: 12195 inputs, branch coverage 11/12, incomplete)
 // FUN_00304a10 @ 0x00304a10
 // FUN_00304a10 @ 0x00304a10
@@ -500,7 +498,7 @@ void PairArray::Reserve(int wanted)
 #endif
         }
     }
-    thunk_FUN_00267090(data);
+    ::operator delete[](data);
     data = fresh;
     capacity = wanted;
 }
@@ -632,7 +630,7 @@ char* Container_304e50::Next() {
 
 
 // 0x00304e80 FUN_00304e80 (79 B): equivalent/0x00304e80.cpp
-// sym: ?FUN_00304e80@Owner@fn_f3c9f944@@QAEXXZ @f6a9d9812ad0 @w7c06f17af2d7 @vf3f6e57f6082
+// sym: ?FUN_00304e80@Owner@fn_f3c9f944@@QAEXXZ @2eb952c29909 @wfe0631033526 @v5b2f87644d6f
 // STATUS: equivalent (tools/equiv.py level 3: 720 inputs, branch coverage 6/6)
 // FUN_00304e80 @ 0x00304e80
 void Owner::FUN_00304e80() {
@@ -641,10 +639,10 @@ void Owner::FUN_00304e80() {
         int *const header = (int *)((char *)entries - 4);
         const int count = *header;
         for (int i = count - 1; i >= 0; --i)
-            FUN_0008d340(entries[i].allocation);
-        FUN_0008d340(header);
+            ::operator delete[](entries[i].allocation);
+        ::operator delete[](header);
     }
-    FUN_0008d340(other);
+    ::operator delete[](other);
 }
 
 } // namespace fn_f3c9f944
@@ -803,7 +801,6 @@ class CollisionObject_304ff0 {
   public:
     void run_0027afd0();
 };
-extern void thunk_0008d340(void*);
 void CollisionObject::destroy() {
     Ref_304ff0* r = (Ref_304ff0*)f20;
     vptr = ((hulk_intptr)DAT_00431b08);
@@ -811,7 +808,7 @@ void CollisionObject::destroy() {
         r->f1();
     ((H38_304ff0*)&f38)->run_00304e80();
     if (f30)
-        thunk_0008d340((char*)f30 - 4);
+        ::operator delete[]((char*)f30 - 4);
     ((H10_304ff0*)name)->run_0027af50();
     ((CollisionObject_304ff0*)this)->run_0027afd0();
 }
@@ -974,8 +971,6 @@ namespace physics { class CollisionObject {
     char name[8];
     HULK_COLLISION_OBJECT_WORDS
 }; }
-void __cdecl freeA_0008d340(void*);
-void __cdecl freeB_00263f30(void*);
 physics::CollisionObject* physics::CollisionObject::vfunc_2(unsigned char p) {
     *(hulk_intptr*)this = (hulk_intptr)&hulk_at_00431b08;
     if (f20) {
@@ -984,11 +979,11 @@ physics::CollisionObject* physics::CollisionObject::vfunc_2(unsigned char p) {
     }
     ((H38_305320*)&f38)->run38_00304e80();
     if (f30)
-        freeA_0008d340((char*)f30 - 4);
+        ::operator delete[]((char*)f30 - 4);
     ((H10_305320*)name)->run10_0027af50();
     ((CollisionObject_305320*)this)->run0_0027afd0();
     if (p & 1)
-        freeB_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00305320

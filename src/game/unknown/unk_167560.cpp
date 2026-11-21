@@ -8,7 +8,6 @@
 namespace fn_fb3274a2 {} using namespace fn_fb3274a2;
 void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fb3274a2 {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 namespace fn_fb3274a2 { extern "C" char DAT_00416878[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/unknown.h"
@@ -65,7 +64,6 @@ struct Obj_167620 {
     void f1_0027af50();
     void f2_002345b0();
 };
-extern void thunk_FUN_00267090(Obj_167620*);
 namespace hulkfight { namespace motion {
 class RayCastConeCondition {
   public:
@@ -166,7 +164,7 @@ hulkfight::motion::TurningVelocityCondition* hulkfight::motion::TurningVelocityC
     *(void***)this = hulk_at_00416738;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -181,7 +179,7 @@ hulkfight::motion::IntentionInputCondition* hulkfight::motion::IntentionInputCon
     *(void***)this = hulk_at_00416758;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -196,7 +194,7 @@ hulkfight::motion::LocomotionMotionStateCondition* hulkfight::motion::Locomotion
     *(void***)this = hulk_at_00416778;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -211,7 +209,7 @@ hulkfight::motion::GrappleReactionTypeCondition* hulkfight::motion::GrappleReact
     *(void***)this = hulk_at_00416798;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -226,7 +224,7 @@ hulkfight::motion::RayCastConeCondition* hulkfight::motion::RayCastConeCondition
     ((Obj_167620*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_167620*)p)->f2_002345b0();
     if (param & 1)
-        thunk_FUN_00267090((Obj_167620*)p);
+        ::operator delete((Obj_167620*)p);
     return p;
 }
 
@@ -240,7 +238,7 @@ hulkfight::motion::TargetingCondition* hulkfight::motion::TargetingCondition::vf
     *(void***)this = hulk_at_004167d8;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -255,7 +253,7 @@ hulkfight::motion::VelocityAnimatedYCondition* hulkfight::motion::VelocityAnimat
     *(void***)this = hulk_at_004167f8;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -270,7 +268,7 @@ hulkfight::motion::TargetLocomotionMotionStateCondition* hulkfight::motion::Targ
     *(void***)this = hulk_at_00416818;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -285,7 +283,7 @@ hulkfight::motion::TargetHealthPercentCondition* hulkfight::motion::TargetHealth
     *(void***)this = hulk_at_00416838;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -300,7 +298,7 @@ hulkfight::motion::GrappleHealthCondition* hulkfight::motion::GrappleHealthCondi
     *(void***)this = hulk_at_00416858;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -329,7 +327,7 @@ hulkfight::motion::CharacterPropStatusCondition* hulkfight::motion::CharacterPro
     *(void***)this = hulk_at_00416898;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

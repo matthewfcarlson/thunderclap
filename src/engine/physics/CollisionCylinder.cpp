@@ -252,14 +252,13 @@ struct CollisionCylinder {
     void base_00306ac0();
 };
 } // namespace physics
-void cleanup_0008d330(physics::CollisionCylinder*);
 physics::CollisionCylinder* physics::CollisionCylinder::vfunc_2(u8_2f3030 flag) {
     *(hulk_intptr*)this = (hulk_intptr)&hulk_at_004313cc;
     ((Part_2f3030*)((char*)this + 0x64))->init_00306e00();
     ((Part_2f3030*)((char*)this + 0x38))->init_00306e00();
     base_00306ac0();
     if (flag & 1)
-        cleanup_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_002f3030

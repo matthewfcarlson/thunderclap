@@ -134,11 +134,10 @@ class NonCopyable : public SimUnits_2ecdc0 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_0043117c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_002ecdc0
@@ -163,11 +162,10 @@ class NonCopyable : public IRefCount {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0043117c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_002ecde0
@@ -183,7 +181,7 @@ Environment_2ece00* Environment_2ece00::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00431184;
     Destroy_0027afd0();
     if (flags & 1) {
-        ::operator delete(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }
@@ -309,11 +307,10 @@ class NonCopyable : public SimCGSValue_2ecfe0 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0043117c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_002ecfe0
@@ -338,11 +335,10 @@ class NonCopyable : public SimCGSValue_2ed000 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0043117c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_002ed000

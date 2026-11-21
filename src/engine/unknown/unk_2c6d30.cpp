@@ -9,6 +9,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f3d8c80d {} using namespace fn_f3d8c80d;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/unknown.h"
 
 // ---- declarations shared by the functions below
@@ -65,7 +66,6 @@ class Obj_2c7180 {
     void* ptr;
     void Clear();
 };
-void thunk_FUN_00267090(void*);
 extern "C++" void __stdcall FUN_00011520(void*, unsigned, unsigned, void (*)());
 extern "C" void LAB_00011090();
 class Obj_2c7210 {
@@ -75,7 +75,6 @@ class Obj_2c7210 {
     char pad2[8];
     void* value;
 };
-void __cdecl cleanup_0008d340(void*);
 extern "C" void __cdecl FUN_000c7920();
 extern "C" void* __cdecl Alloc(hulk_uintptr);
 extern "C" void __stdcall Init(void*, int, int, const float*);
@@ -426,7 +425,7 @@ namespace fn_f3d8c80d {
 // 0x002c7180 FUN_002c7180 (33 B): matches/0x002c7180.cpp
 // sym: ?Clear@Obj_2c7180@fn_f3d8c80d@@QAEXXZ
 void Obj_2c7180::Clear() {
-    thunk_FUN_00267090(ptr);
+    ::operator delete[](ptr);
     ptr = 0;
     flags &= 0xffffffef;
 }
@@ -452,7 +451,7 @@ namespace fn_f3d8c80d {
 // 0x002c7210 FUN_002c7210 (33 B): matches/0x002c7210.cpp
 // sym: ?FUN_002c7210@fn_f3d8c80d@@YIXPAVObj_2c7210@1@@Z
 void __fastcall FUN_002c7210(Obj_2c7210* self) {
-    cleanup_0008d340(self->value);
+    ::operator delete[](self->value);
     self->value = 0;
     self->flags &= ~0x20u;
 }

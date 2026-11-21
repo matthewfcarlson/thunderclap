@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f12e8a1b {} using namespace fn_f12e8a1b;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f12e8a1b { extern "C" char DAT_0040c208[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
@@ -210,7 +211,7 @@ HSlider_e9ff0::~HSlider_e9ff0() {
         m64 = 0;
     }
     if (mac) {
-        operator delete[](mac);
+        ::operator delete(mac);
         mac = 0;
     }
     ((owners::Thing_f7960 *)&s18)->FUN_000f7960();
@@ -245,7 +246,7 @@ void TextSelector::vfunc_19(const char* text, unsigned char select, Receiver_ea0
 } // namespace fn_f12e8a1b
 
 // 0x000ea1b0 TextSelector::vfunc_20 (303 B): equivalent/0x000ea1b0.cpp [wrapped: conflict: TextSelector]
-// sym: ?vfunc_20@TextSelector@fn_000ea1b0@@UAEXHPBUElem_ea1b0@2@@Z @4ab9a60b975a @w166b09701041 @v96a7a0aee58c
+// sym: ?vfunc_20@TextSelector@fn_000ea1b0@@UAEXHPBUElem_ea1b0@2@@Z @f71c1394e7fc @w55245c13a80a @v7cf3e2d2e57c
 namespace fn_000ea1b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 16/20, incomplete)
 // TextSelector::vfunc_20 @ 0x000ea1b0
@@ -266,7 +267,6 @@ struct Entry_ea1b0 {
 extern "C" int __cdecl FUN_00266da0(int tag);
 extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 void __stdcall FUN_00011520(void *arr, unsigned int size, int count, void (Elem_ea1b0::*ctor)());
-void __cdecl FUN_0008d340(void *p);
 
 class TextSelector {
 public:
@@ -322,7 +322,7 @@ void TextSelector::vfunc_20(int index, const Elem_ea1b0 *value)
             int oldCount = ((int *)old)[-1];
             for (int i = oldCount - 1; i >= 0; i--)
                 old[i].FUN_000f7960();
-            FUN_0008d340((int *)old - 1);
+            ::operator delete[]((int *)old - 1);
             e->items = 0;
         }
         e->items = arr;

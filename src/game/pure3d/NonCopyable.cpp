@@ -73,7 +73,6 @@ class NonCopyable_45800 : public ::core::IRefCount {
     virtual NonCopyable_45800* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable_45800*);
 
 
 // 0x00044c60 FUN_00044c60 (80 B): matches/0x00044c60.cpp
@@ -383,7 +382,7 @@ namespace fn_fd48bef5 {
 pure3d::NonCopyable_45800* pure3d::NonCopyable_45800::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

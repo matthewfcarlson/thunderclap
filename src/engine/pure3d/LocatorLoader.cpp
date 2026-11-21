@@ -163,7 +163,7 @@ Locator_2c1900* Locator_2c1900::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042eb98;
     Destroy_0027afd0();
     if (flags & 1) {
-        ::operator delete(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }
@@ -200,11 +200,10 @@ class NonCopyable : public SimpleChunkHandler_2c1950 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002c1950

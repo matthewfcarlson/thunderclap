@@ -99,11 +99,10 @@ class NonCopyable : public IRefCount {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_004007f4;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0008de70
@@ -124,7 +123,7 @@ struct CSPHulkPropLoader_8e070 {
 void* CSPHulkPropLoader_8e070::vfunc_2(unsigned int flags) {
     FUN_002904b0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0008e070

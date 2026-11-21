@@ -4,9 +4,10 @@
 
 
 // 0x0010cd20 FUN_0010cd20 (82 B): equivalent/0x0010cd20.cpp [isolated: conflict: FUN_0008d340; on include/gen/ and not mergeable]
-// sym: ?FUN_0010cd20@Obj_10cd20@owners@@QAE_NPBD@Z @479a89a7457f @wf4aa5da2059f @vce9c19d1a032
+// sym: ?FUN_0010cd20@Obj_10cd20@owners@@QAE_NPBD@Z @14db058cddd4 @w2355592c65dd @ve02b35ab0467
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0010cd20 @ 0x0010cd20
 #include "gen/owners.h"
-extern "C" void __cdecl FUN_0008d340(void*); extern "C" void* __cdecl FUN_0008d6d0(unsigned int);  bool owners::Obj_10cd20::FUN_0010cd20(const char* value) { FUN_0008d340(text); if (!value) { text = 0; return true; } unsigned int len = 0; while (value[len]) ++len; text = (char*)FUN_0008d6d0(len + 1); char* dst = text; do { *dst++ = *value; } while (*value++); return true; }
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
+extern "C" void __cdecl FUN_0008d340(void*); extern "C" void* __cdecl FUN_0008d6d0(unsigned int);  bool owners::Obj_10cd20::FUN_0010cd20(const char* value) { ::operator delete[](text); if (!value) { text = 0; return true; } unsigned int len = 0; while (value[len]) ++len; text = (char*)FUN_0008d6d0(len + 1); char* dst = text; do { *dst++ = *value; } while (*value++); return true; }
 

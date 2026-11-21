@@ -60,7 +60,6 @@ class Item_2b0100 {
     virtual void A() throw();
     virtual void B() throw();
 };
-extern "C" void __cdecl FreeMem(void*) throw();
 template <class T> struct Vec_2b0100 {
     T* begin;
     T* end;
@@ -227,11 +226,10 @@ class NonCopyable : public SimpleChunkHandler_2aff80 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002aff80
@@ -477,7 +475,7 @@ struct ExpressionGroup_2b0350 {
 void* ExpressionGroup_2b0350::vfunc_2(unsigned int flags) {
     FUN_002b0100();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002b0350

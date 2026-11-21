@@ -12,6 +12,7 @@ extern "C" char DAT_00431fe0[];   // (x64t5) a game vftable, stored by address
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f910b875 {} using namespace fn_f910b875;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/physics.h"
 
 // ---- declarations shared by the functions below
@@ -107,7 +108,6 @@ class CCollisionAction : public CAction {
     CCollisionAction* vfunc_2(unsigned char);
 };
 extern void __fastcall FUN_0031a800(void*);
-extern void thunk_FUN_00267090(CCollisionAction*);
 struct Elem_30df50 {
     char data[0xa4];
     Elem_30df50 *FUN_0031a440();
@@ -223,7 +223,6 @@ class CollisionAnalyser_30e610 : public CAction_30e610 {
 struct CollisionAnalyser_nv_30e610 {
     void FUN_0030e570();
 };
-extern void thunk_FUN_00267090(CollisionAnalyser_30e610*);
 
 
 // 0x0030d760 FUN_0030d760 (92 B): matches/0x0030d760.cpp
@@ -401,7 +400,7 @@ Item* __cdecl FUN_0030dbd0(Item* first, Item* last, Item* dest) {
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     FUN_0031a800((void*)(this));
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -612,19 +611,19 @@ CollisionAnalyser_30e570::~CollisionAnalyser_30e570() {
     }
     m48 = m44;
     if (m44)
-        operator delete(m44);
+        ::operator delete[](m44);
     E2* e = m38;
     for (E2* q = m34; q != e; q++)
         q->Fini_0031a800();
     m38 = m34;
     if (m34)
-        operator delete(m34);
+        ::operator delete[](m34);
     m28 = m24;
     if (m24)
-        operator delete(m24);
+        ::operator delete[](m24);
     m18 = m14;
     if (m14)
-        operator delete(m14);
+        ::operator delete[](m14);
 }
 
 
@@ -634,7 +633,7 @@ CollisionAnalyser_30e570::~CollisionAnalyser_30e570() {
 CollisionAnalyser_30e610* CollisionAnalyser_30e610::vfunc_2(unsigned char flags) {
     ((CollisionAnalyser_nv_30e610*)(((physics::CollisionAnalyser*)(this))))->FUN_0030e570();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

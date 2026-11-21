@@ -13,22 +13,21 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CCollisionAction
 namespace fn_f5d7895e {} using namespace fn_f5d7895e;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f5d7895e { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d/prop.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f5d7895e {
-extern "C" void __cdecl releaseMem_0008d340(void*);
 } // namespace fn_f5d7895e
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" unsigned int __cdecl strlen(const char*);
 #endif
 namespace fn_f5d7895e {
-extern void __cdecl ReleaseThing_0008d340(int);
 class Obj_290070 {
   public:
     char pad[8];
-    int ptr;
+    void* ptr;   // (nat2, D134) a block, freed with operator delete[]
     void Reset_0027af50();
     Obj_290070* Run(unsigned char flag);
 };
@@ -67,16 +66,14 @@ class Obj_290470 {
     Part_290470 a, b, c, d;
     Obj_290470* Run(unsigned char flag);
 };
-void Free_0008d330(Obj_290470*);
 extern void* hulk_at_003f6098;
 typedef unsigned int u32_290500;
 struct Item_290500 {
     char pad[8];
-    volatile u32_290500 handle;
+    void* volatile handle;   // (nat2, D134) a block, freed with operator delete[]
     char rest[4];
     void Process_0027af50();
 };
-void __cdecl ReleaseHandle_0008d340(u32_290500);
 typedef unsigned int u32_290590;
 typedef unsigned int u32_2905c0;
 extern "C" char DAT_0042cca0[];
@@ -86,12 +83,11 @@ class StatePropDataLoader : public HulkChunkHandler {
 };
 extern void* Alloc_0008d6d0(unsigned int);
 extern "C" int * __cdecl FUN_002904d0(int *, int, const int *);
-struct Obj_2907f0 {
-    int a;
-    int b;
+struct Obj_2907f0 {   // (nat2, D134) a range of items (0x00290500 frees their blocks), freed with operator delete[]
+    void* a;
+    void* b;
 };
 extern "C" void __cdecl FUN_00290500(void *, void *);
-extern void __cdecl Fng_0008d340(int);
 class Item_290810 {
   public:
     char pad[8];
@@ -108,7 +104,6 @@ struct Temp_290ad0 {
     void Init_0027af00();
     void Fin_0027af50();
 };
-extern void Free_0008d340(void*);
 class Obj_290ad0 {
   public:
     bool Run(int);
@@ -120,7 +115,7 @@ class Obj_290ad0 {
 // sym: ?FUN_0028fe80@Obj_28fe80@owners@@QAEXPBD@Z
 void owners::Obj_28fe80::FUN_0028fe80(const char* src) {
     if (text) {
-        releaseMem_0008d340(text);
+        ::operator delete[](text);
         text = 0;
     }
     if (src) {
@@ -253,7 +248,7 @@ namespace fn_f5d7895e {
 // sym: ?Run@Obj_290070@fn_f5d7895e@@QAEPAV12@E@Z
 Obj_290070* Obj_290070::Run(unsigned char flag) {
     if (ptr != 0) {
-        ReleaseThing_0008d340(ptr);
+        ::operator delete[](ptr);
         ptr = 0;
     }
     Reset_0027af50();
@@ -291,7 +286,7 @@ Obj_290340* Obj_290340::Run(void* arg) {
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     FUN_0027af50();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -318,11 +313,10 @@ class CCollisionAction : public CAction {
     CCollisionAction* vfunc_2(unsigned char);
 };
 extern void FUN_0027af50();
-extern void thunk_FUN_00267090(CCollisionAction*);
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     FUN_0027af50();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_002903f0
@@ -349,11 +343,10 @@ class CCollisionAction : public CAction {
     CCollisionAction* vfunc_2(unsigned char);
 };
 extern void FUN_0027af50();
-extern void thunk_FUN_00267090(CCollisionAction*);
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     FUN_0027af50();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00290410
@@ -380,11 +373,10 @@ class CCollisionAction : public CAction {
     CCollisionAction* vfunc_2(unsigned char);
 };
 extern void FUN_0027af50();
-extern void thunk_FUN_00267090(CCollisionAction*);
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     FUN_0027af50();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00290430
@@ -411,11 +403,10 @@ class CCollisionAction : public CAction {
     CCollisionAction* vfunc_2(unsigned char);
 };
 extern void FUN_0027af50();
-extern void thunk_FUN_00267090(CCollisionAction*);
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     FUN_0027af50();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00290450
@@ -430,7 +421,7 @@ Obj_290470* Obj_290470::Run(unsigned char flag) {
     b.Clear_0027af50();
     a.Clear_0027af50();
     if (flag & 1)
-        Free_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -467,13 +458,13 @@ extern "C" int* FUN_002904d0(int* dst, int count, const int* src) {
 extern "C" void __cdecl FUN_00290500(void * begin, void * end) {
     Item_290500* p = ((Item_290500 *)begin);
     while (p != ((Item_290500 *)end)) {
-        u32_290500 h = p->handle;
+        void* h = p->handle;
         if (h) {
-            ReleaseHandle_0008d340(h);
+            ::operator delete[](h);
             p->handle = 0;
         }
         p->Process_0027af50();
-        p = (Item_290500*)((char*)p + 16);
+        ++p;
     }
 }
 
@@ -496,15 +487,15 @@ template <> void* content::LoadInventory::DynamicCaster<physics::PhysicsObject>:
 
 
 // 0x002905e0 FUN_002905e0 (345 B): equivalent/0x002905e0.cpp [wrapped: conflict: core::IRefCount; pure3d::prop::StateData]
-// sym: ?FUN_002905e0@StateData@prop@pure3d@fn_002905e0@@QAEXXZ @71d3e9ccd2fe @weaf4092cf7dd @vcdd90b043d8a
+// sym: ?FUN_002905e0@StateData@prop@pure3d@fn_002905e0@@QAEXXZ @1f669d029f13 @w734ad32c5a7f @v6e021ffb9718
 inline void *operator new(size_t, void *p) { return p; }
 namespace fn_002905e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 32/32)
 // FUN_002905e0 @ 0x002905e0
 
 
-extern "C" void __cdecl FUN_0008d330(void *p);
-extern "C" void __cdecl FUN_0008d340(void *p);
+
+
 
 struct Part_2905e0 {
     char data[8];
@@ -605,7 +596,7 @@ void pure3d::prop::StateData::FUN_002905e0()
     for (i = 0; i < count3c; i++) {
         Item10_2905e0 *e = &items40[i];
         if (e->buffer) {
-            FUN_0008d340(e->buffer);
+            ::operator delete[](e->buffer);
             e->buffer = 0;
         }
         ((Part_2905e0 *)e)->FUN_0027af50();
@@ -614,7 +605,7 @@ void pure3d::prop::StateData::FUN_002905e0()
         owner4c->release();
         owner4c = 0;
     }
-    FUN_0008d330(data50);
+    ::operator delete(data50);
     ((core::IRefCount *)this)->FUN_0027afd0();
 }
 } // namespace fn_002905e0
@@ -652,11 +643,10 @@ class NonCopyable : public SimpleChunkHandler_290760 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00290760
@@ -687,8 +677,8 @@ namespace fn_f5d7895e {
 // sym: ?target@fn_f5d7895e@@YIXPAUObj_2907f0@1@@Z
 void __fastcall target(Obj_2907f0* self) {
     if (self->a) {
-        FUN_00290500((void *)(hulk_uintptr)(int)(self->a), (void *)(hulk_uintptr)(int)(self->b));
-        Fng_0008d340(self->a);
+        FUN_00290500(self->a, self->b);
+        ::operator delete[](self->a);
     }
 }
 
@@ -731,7 +721,7 @@ struct StateData_2908f0 {
 void* StateData_2908f0::vfunc_2(unsigned int flags) {
     FUN_002905e0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002908f0
@@ -740,13 +730,12 @@ pure3d::prop::StateData::~StateData() {}
 
 
 // 0x00290910 FUN_00290910 (176 B): equivalent/0x00290910.cpp [wrapped: conflict: pure3d::prop::StatePropData]
-// sym: ??1StatePropData@prop@pure3d@fn_00290910@@UAE@XZ @42919a2991d8 @w6d4217936901 @v3133b67f47db
+// sym: ??1StatePropData@prop@pure3d@fn_00290910@@UAE@XZ @aee2f8ea4149 @w1ce8f4332084 @v7d22335a87ef
 namespace fn_00290910 {
 // STATUS: equivalent (tools/equiv.py level 3: 51 inputs, branch coverage 16/16)
 // FUN_00290910 @ 0x00290910
 struct Ref_290910 { virtual void slot0(); virtual void release(); };
 extern "C++" __declspec(nothrow) void __cdecl FUN_00290500(void *, void *);
-void __cdecl FUN_0008d340(void*);
 struct Entity_290910 { virtual void slot0_00038290(); char pad[12]; void FUN_0027afd0(); };
 namespace pure3d { namespace prop {
 struct StatePropData : Entity_290910 {
@@ -762,8 +751,8 @@ pure3d::prop::StatePropData::~StatePropData() {
   Ref_290910** entry=begin+i;
   if(*entry) { (*entry)->release(); *entry=0; }
  }
- if(data) { FUN_00290500(data,(void *)(hulk_uintptr)(unsigned)count); FUN_0008d340(data); }
- if(begin) FUN_0008d340(begin);
+ if(data) { FUN_00290500(data,(void *)(hulk_uintptr)(unsigned)count); ::operator delete[](data); }
+ if(begin) ::operator delete[](begin);
  FUN_0027afd0();
 }
 } // namespace fn_00290910
@@ -805,7 +794,7 @@ struct StatePropData_290ab0 {
 void* StatePropData_290ab0::vfunc_2(unsigned int flags) {
     FUN_00290910();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00290ab0
@@ -822,7 +811,7 @@ bool Obj_290ad0::Run(int arg) {
     t.value = 0;
     bool r = ((owners::Buffer_2909c0 *)this)->FUN_002909c0((unsigned)arg, (hulk_uintptr)(Temp_290ad0 *)(&t));
     if (t.value) {
-        Free_0008d340((void*)t.value);
+        ::operator delete[]((void*)t.value);
         t.value = 0;
     }
     t.Fin_0027af50();

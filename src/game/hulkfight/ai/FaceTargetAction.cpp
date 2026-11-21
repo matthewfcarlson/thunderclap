@@ -15,8 +15,6 @@
 namespace fn_f8ed28bc {} using namespace fn_f8ed28bc;
 namespace fn_f8ed28bc {
 struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "game/hulkfight/ai.h"
 #include "decls/managers.h"
@@ -730,7 +728,7 @@ FaceTargetTrack_10b920* FaceTargetTrack_10b920::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040d824;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -745,7 +743,7 @@ FaceMotionTrack_10b950* FaceMotionTrack_10b950::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040d854;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1072,7 +1070,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor_0010b410();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -1125,14 +1123,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_0040d948;
     base1_dtor_0010b4a0();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0010c0a0

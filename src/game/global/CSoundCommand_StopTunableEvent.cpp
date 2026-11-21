@@ -47,7 +47,6 @@ class NonCopyable : public CSoundCommand_1f0530 {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 
 
 // 0x001f04e0 FUN_001f04e0 (80 B): matches/0x001f04e0.cpp
@@ -65,7 +64,7 @@ CSoundCommand_StopTunableEvent::CSoundCommand_StopTunableEvent(int p, int q, int
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_004245a4;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

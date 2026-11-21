@@ -11,7 +11,6 @@
 #define TREE_TU_END }
 namespace fn_fac1015e {} using namespace fn_fac1015e;
 namespace fn_fac1015e {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 namespace fn_fac1015e { extern "C" char DAT_00427ccc[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/fight.h"
@@ -140,7 +139,6 @@ class H {
     void Fna_00234150();
     void Fnb_002345b0();
 };
-void thunk_FUN_00267090(void*);
 class FightNodeTimeCondition_235d00 : public CTrack {
   public:
     FightNodeTimeCondition_235d00* vfunc_5(signed char flags);
@@ -439,7 +437,7 @@ FightNodeBaseCondition_235c50* FightNodeBaseCondition_235c50::vfunc_5(signed cha
     *(void***)this = (void**)DAT_00427ccc;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -456,7 +454,7 @@ CNameFlagConditionBase* CNameFlagConditionBase::vfunc_5(int p) {
     *(void (**)())s = &vt_cond;
     ((H*)s)->Fnb_002345b0();
     if (p & 1)
-        thunk_FUN_00267090(s);
+        ::operator delete(s);
     return s;
 }
 
@@ -488,7 +486,6 @@ class FightNodeTimeCondition_235cc0 {
 };
 extern void vt_name_00427d14();
 extern void vt_cond_00427ccc();
-void thunk_FUN_00267090(void*);
 CNameFlagConditionBase* CNameFlagConditionBase::vfunc_5(int p) {
     CNameFlagConditionBase* s = this;
     *(void (**)())s = &vt_name_00427d14;
@@ -496,7 +493,7 @@ CNameFlagConditionBase* CNameFlagConditionBase::vfunc_5(int p) {
     *(void (**)())s = &vt_cond_00427ccc;
     ((FightNodeTimeCondition_235cc0*)s)->Fnb_002345b0();
     if (p & 1)
-        thunk_FUN_00267090(s);
+        ::operator delete(s);
     return s;
 }
 } // namespace fn_00235cc0
@@ -512,7 +509,7 @@ FightNodeTimeCondition_235d00* FightNodeTimeCondition_235d00::vfunc_5(signed cha
     *(void***)this = (void**)DAT_00427ccc;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

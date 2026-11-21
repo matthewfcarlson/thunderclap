@@ -272,7 +272,7 @@ struct CHudIcons_c7610 {
 void* CHudIcons_c7610::vfunc_2(unsigned int flags) {
     FUN_000c7280();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_000c7610

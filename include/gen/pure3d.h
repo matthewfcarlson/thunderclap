@@ -1615,7 +1615,7 @@ public:
     int f_18;
     int f_1c;
     float f_20;
-    char _pad_24[0x4];
+    void* f_24;   // (nat2, D134) a block the destructor (0x0029c530) frees with operator delete[]
     int f_28;
     int f_2c;
     int f_30;
@@ -2557,7 +2557,7 @@ public:
     virtual ~ShadowMeshVertices(); // overrides core::IRefCount slot 2
     int f_08;
     int f_0c;
-    char _pad_10[0x4];
+    void* f_10;   // (nat2, D134) two blocks the destructor (0x002b37b0) frees with operator delete[]
     void* f_14;
 };
 

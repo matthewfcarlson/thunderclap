@@ -110,16 +110,14 @@ struct Holder {
 };
 void freeobj_00247550(void*, Obj*);
 extern "C++" void __cdecl FUN_0025b7d0(void *);
-extern void __cdecl FuncB_0008d330(void*);
 class Target_25b940 {
   public:
     void* p;
     void run();
 };
 typedef unsigned int u32_25bbd0;
-void thunk_FUN_00267090(u32_25bbd0);
 struct S_25bbd0 {
-    u32_25bbd0 value;
+    void* value;   // (nat2, D134) a node: 0x0025b7d0 releases it, then operator delete
 };
 class C_25bcb0 {
   public:
@@ -1172,7 +1170,7 @@ void Target_25b940::run() {
         FUN_0025b7d0(q);
     q = *(void* volatile*)&p;
     if (q)
-        FuncB_0008d330(q);
+        ::operator delete(q);
 }
 
 } // namespace fn_fd6abdd0
@@ -1341,9 +1339,9 @@ namespace fn_fd6abdd0 {
 // sym: ?FUN_0025bbd0@fn_fd6abdd0@@YIXPAUS_25bbd0@1@@Z
 void __fastcall FUN_0025bbd0(S_25bbd0* self) {
     if (self->value != 0) {
-        FUN_0025b7d0((void *)(hulk_uintptr)(unsigned int)(self->value));
+        FUN_0025b7d0(self->value);
         if (self->value != 0)
-            thunk_FUN_00267090(self->value);
+            ::operator delete(self->value);
         self->value = 0;
     }
 }

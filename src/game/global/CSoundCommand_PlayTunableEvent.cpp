@@ -28,7 +28,6 @@ class NonCopyable : public CSoundCommand_1f0290 {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 typedef unsigned long U32_1f02b0;
 struct Key_1f02b0 { U32_1f02b0 low, high; };
 struct Entry_1f02b0 { Key_1f02b0 key; U32_1f02b0 type; char pad[12]; U32_1f02b0 a,b,c; char tail[4]; };
@@ -49,7 +48,7 @@ struct CSoundCommand_PlayTunableEvent {
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_004245a4;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

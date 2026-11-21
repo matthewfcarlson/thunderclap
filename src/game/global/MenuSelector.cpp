@@ -196,7 +196,7 @@ TextSelector_ebca0::~TextSelector_ebca0() {
         m64 = 0;
     }
     if (mac) {
-        operator delete[](mac);
+        ::operator delete(mac);
         mac = 0;
     }
     s18.Fin_000f7960();

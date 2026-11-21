@@ -2166,3 +2166,28 @@ blocks fight::Action's whole family: the records come first there.
   one reference. Wine pair on the default env: control 107197 (gfx2, 65e8e60c1), proof 107231 seeded from it: GATE ok
   (ref: ok), --require-ref.
 - The reference manifest (piece 2, 559d63013): `config/ckpt-refs.json`, play3 from three original runs.
+
+## 2026-11-20 nat2 (D131, D133, D134, D135): one name per free, the game's operator new, LoadObject's operator delete
+
+- The game's global `operator new` / `new[]` are 0x0008d690 / 0x0008d6d0 themselves (unk_08ceb0.cpp, `??2` / `??_U`
+  blocks); CActorManager.cpp's inline copy is gone. A HULK_PTR64-only `extern "C" FUN_0008d690/FUN_0008d6d0(unsigned)`
+  serves the callers that name the allocator by its address (D35); the 32-bit builds bind those names by address.
+- content::LoadObject's `operator delete` / `delete[]` are 0x00263f30 / 0x00263f40, static members of gen
+  content::LoadObject defined in LoadStream.cpp. 0x00263f40 jumps to the scalar 0x0008d330, not to delete[] (x64t21's
+  design table had it wrong). 0x00263f30 needs `__declspec(noinline)`: MSVC 7.1 otherwise inlines it into the same TU's
+  0x00264470, whose call then names the global delete. Every gen descendant's compiler-generated `??_G` now calls the
+  member (the 7 `.iso_` ScriptReader/TextBible/... blocks needed no edit). tools/wine_link.py's `??_G` synthesis accepts a
+  class's static operator delete.
+- D134: every free call is spelled by its original target (gen_sites2.py keyed on the XBE call target, plus hand fixes):
+  1,925 byte-matched sites left config/free-name-baseline.json (1,927 -> 2: CSoundSystem 0x1f1c80, whose --x64 run
+  crashed in equiv64 when this started, and one known). The integer-typed frees got their objects' records
+  (TeleportToLocator/DriftToPosition/PropSpawn tracks, six AI conditions, IntArray, Obj_22eda0, LightsChooserCache, the
+  writer Object of 0x31a440, CFMVManager); 26 setters that returned the free's eax are bool (`mov al, 1`); six implicit
+  LoadObject `??_G` became explicit functions (D114 shape).
+- Two equivalents failed at HEAD with the current checker and were fixed on the original's frame: 0x002bf680 keeps the
+  loaded image in the frame word the original uses (as B4 did for 0x295620), 0x00201cd0 copies with the inline memcpy
+  (rep movsd) instead of a word loop the checker timed out on.
+- The checker's call pairing mapped an unaddressed `??_V@YAXPAX@Z` to 0x0008d6d0 in Image32 0x2c00b0: an
+  `// equiv-map: ??_V@YAXPAX@Z = 0x0008d340` line fixes the pairing (a hint, not a relaxation).
+- D133: the dead free-helper declarations are gone (common.h's SweepTrack_DeleteThis / operator_delete / ai_free /
+  ai_delete, the engine/game headers' `thunk` / `opdel` / `Free` / `FUN_0008d3x0` / `thunk_FUN_00267090`, ~360 in TUs).

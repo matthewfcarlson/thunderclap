@@ -4082,11 +4082,10 @@ class CCollisionAction : public CAction {
 struct ThisCall_000df700 {
     void FUN_000df700();
 };
-extern void thunk_FUN_00267090(CCollisionAction*);
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     ((ThisCall_000df700*)(this))->FUN_000df700();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_000e6240
@@ -4113,11 +4112,10 @@ class CCollisionAction : public CAction {
     CCollisionAction* vfunc_2(unsigned char);
 };
 extern "C" void __fastcall FUN_000f8bd0(void*);   // (decl1) as defined (unk_0f86f0.cpp)
-extern void thunk_FUN_00267090(CCollisionAction*);
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     FUN_000f8bd0((void*)(this));
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_000e6260
@@ -5917,11 +5915,10 @@ class CCollisionAction : public CAction {
     CCollisionAction* vfunc_2(unsigned char);
 };
 extern "C" void __fastcall FUN_000f9a80(void*);   // (decl1) as defined (CTokenString.cpp)
-extern void thunk_FUN_00267090(CCollisionAction*);
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     FUN_000f9a80((void*)(this));
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_000e8250

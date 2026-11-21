@@ -15,7 +15,6 @@
 #define TREE_LOCAL_CCollisionAction
 namespace fn_f4431f34 {} using namespace fn_f4431f34;
 namespace fn_f4431f34 {
-void thunk_delete_0008d330(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 namespace fn_f4431f34 { extern "C" char DAT_003f6098[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/Render.h"
@@ -137,7 +136,6 @@ class GameDrawableInfo_1c4fb0 {
     void* vptr;
     void Fin();
 };
-void Free(void*) throw();
 struct Sub_1c4fb0 {
     char c;
 };
@@ -256,7 +254,6 @@ namespace fn_f4431f34 {
 struct ThisCall_001c5d30 {
     void FUN_001c5d30();
 };
-extern void thunk_FUN_00267090(CCollisionAction*);
 class Store {
   public:
     virtual void* Fnf_001c57c0(char);
@@ -298,7 +295,6 @@ class ObjectTemplate_1c5790 {
   public:
     void Fnf_001c5d30();
 };
-void __cdecl ReleaseTemplate_0008d330(ObjectTemplate_1c5790*);
 extern int hulk_at_00421914;
 struct Store_1c57c0 {
     void* m_vptr;
@@ -1060,7 +1056,7 @@ namespace fn_f4431f34 {
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     ((ThisCall_001c5d30*)(this))->FUN_001c5d30();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1112,7 +1108,7 @@ template <> void Render::Store<Render::ObjectTemplate>::vfunc_2(void* __p0) { Ob
 
     if (this->f_11c && p) {
         p->Fnf_001c5d30();
-        ReleaseTemplate_0008d330(p);
+        ::operator delete(p);
     }
 }
 
@@ -1126,7 +1122,7 @@ void* Store_1c57c0::scalar_dtor(unsigned char flags) {
     ((Render::StoreBase *)this)->FUN_001c7720();
     base2_dtor_001c7500();
     if (flags & 1)
-        thunk_delete_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1139,7 +1135,7 @@ void* Store_1c57f0::scalar_dtor(unsigned char flags) {
     ((Render::StoreBase *)this)->FUN_001c7720();
     base2_dtor_001c7500();
     if (flags & 1)
-        thunk_delete_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

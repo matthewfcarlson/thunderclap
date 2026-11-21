@@ -25,7 +25,6 @@ struct Sub_1c60b0 {
     void Fng_0027af50();
 };
 extern "C" Sub_1c60b0* FUN_001c3d90();
-extern "C" void thunk_FUN_00267090(Render::CRenderableCharacter*);
 extern int hulk_at_00421990;
 
 
@@ -37,7 +36,7 @@ Render::CRenderableCharacter* Render::CRenderableCharacter::vfunc_0(unsigned cha
     FUN_001c3d90()->Fnf_001c3b80(p);
     p->Fng_0027af50();
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

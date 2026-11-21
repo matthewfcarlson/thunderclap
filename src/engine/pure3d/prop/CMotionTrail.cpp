@@ -13,8 +13,8 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CCollisionAction
 namespace fn_f4890d4c {} using namespace fn_f4890d4c;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f4890d4c {
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "engine/pure3d/prop.h"
 
@@ -201,7 +201,6 @@ struct Obj_27f6f0 {
 };
 extern "C" char DAT_0042c48c[];
 typedef unsigned int u32_27f830;
-extern void __cdecl thunk_FUN_00267090(u32_27f830);
 class pddiObject_27f880 {
   public:
     virtual void vfunc0();
@@ -661,7 +660,7 @@ class CMotionTrailQueue {
     char* items;
     char _m_pad_4c[0xc];
     u32_282650 state;
-    union { u8* bytes; u32_27f830 field5c; };
+    union { u8* bytes; void* field5c; };   // (nat2, D134) freed with operator delete[]
     void Run_002a4ff0();
     void Finish();
     void vfunc_9();
@@ -1300,9 +1299,9 @@ namespace fn_f4890d4c {
 // 0x0027f830 FUN_0027f830 (29 B): matches/0x0027f830.cpp
 // sym: ?Finish@CMotionTrailQueue@fn_f4890d4c@@QAEXXZ
 void CMotionTrailQueue::Finish() {
-    u32_27f830 x = field5c;
+    void* x = field5c;
     vtable = ((hulk_intptr)DAT_0042c48c);
-    thunk_FUN_00267090(x);
+    ::operator delete[](x);
     Run_002a4ff0();
 }
 
@@ -2780,8 +2779,6 @@ void Builder::FUN_00282400(Item_282400* item)
 // 0x00282610 pure3d::prop::CMotionTrailQueue::vfunc_2 (50 B): matches/0x00282610.cpp [wrapped: conflict: CMotionTrailQueue]
 // sym: ?vfunc_2@CMotionTrailQueue@fn_00282610@@QAEPAV12@E@Z
 namespace fn_00282610 {
-extern "C++" __declspec(nothrow) void __cdecl subFree_0008d340(void* p);
-extern "C++" __declspec(nothrow) void __cdecl objDelete_00263f30(void* p);
 extern const char hulk_at_0042c48c[];
 
 class CMotionTrailQueue {
@@ -2796,10 +2793,10 @@ class CMotionTrailQueue {
 CMotionTrailQueue* CMotionTrailQueue::vfunc_2(unsigned char flag) {
     void* sub = m_sub;
     *(const char**)this = hulk_at_0042c48c;
-    subFree_0008d340(sub);
+    ::operator delete[](sub);
     Cleanup_002a4ff0();
     if (flag & 1) {
-        objDelete_00263f30((void*)this);
+        ::content::LoadObject::operator delete((void*)this);
     }
     return this;
 }
@@ -3353,7 +3350,7 @@ namespace fn_f4890d4c {
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     ((ThisCall_0027fee0*)(this))->FUN_0027fee0();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -3660,7 +3657,6 @@ class DrawablePrimitive_283870 {
   public:
     void BaseDtor_002a50a0();
 };
-extern void __cdecl thunk_FUN_00267090(void*);
 class CMotionTrail : public DrawablePrimitive_283870 {
   public:
     void* vptr;
@@ -3685,9 +3681,9 @@ void CMotionTrail::Dtor() {
         m44->f1();
         m44 = 0;
     }
-    thunk_FUN_00267090(m64);
-    thunk_FUN_00267090(m74);
-    thunk_FUN_00267090(m78);
+    ::operator delete[](m64);
+    ::operator delete[](m74);
+    ::operator delete[](m78);
     BaseDtor_002a50a0();
 }
 } // namespace fn_00283870
@@ -3933,7 +3929,7 @@ void* EffectQueue_283dc0::scalar_dtor(unsigned char flags) {
     ((owners::Owner_280160 *)this)->FUN_00280160();
     base2_dtor_0027afd0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -3954,7 +3950,7 @@ struct CDecalQueue_283df0 {
 void* CDecalQueue_283df0::vfunc_2(unsigned int flags) {
     FUN_002835a0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00283df0
@@ -4242,7 +4238,7 @@ struct CLightQueue_284270 {
 void* CLightQueue_284270::vfunc_2(unsigned int flags) {
     FUN_002835e0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00284270
@@ -4265,7 +4261,7 @@ struct CMotionTrail_284290 {
 void* CMotionTrail_284290::vfunc_2(unsigned int flags) {
     FUN_00283870();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00284290

@@ -35,7 +35,6 @@ struct X {
     X(hulk_intptr n);
 };
 extern "C" unsigned __int64 __cdecl FUN_002672f0(hulk_intptr, int, int);   // (decl1) as defined (unk_267280.cpp)
-extern void __cdecl release_0008d330(void*);
 struct Entry { unsigned int first; unsigned int second; };
 struct Table { char pad0[0x10]; unsigned int count; char pad1[0x10]; Entry *entries; unsigned int FUN_0027b200(unsigned int first, unsigned int second); };
 struct Pose_nv_27b240 {
@@ -81,7 +80,7 @@ X::X(hulk_intptr n) {
 extern "C" void FUN_0027b1d0() {
     if (--(*(int*)&DAT_0052c288) == 0) {
         if (DAT_004ce410)
-            release_0008d330(DAT_004ce410);
+            ::operator delete(DAT_004ce410);
         DAT_004ce410 = 0;
     }
 }

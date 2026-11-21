@@ -189,14 +189,6 @@ public:
     float jz;               // 0x7c
     void FUN_0022eb00(Vec3_22eb00 *out);
 };
-class C_22ec20 {
-  public:
-    char pad[0x114];
-    int a;
-    int b;
-    void f();
-};
-extern void __cdecl ReleaseThing_0008d330(void*);
 extern void* __cdecl Alloc_0008d690(unsigned int);
 extern void __stdcall Init_00011520(void*, unsigned int, unsigned int, void(__cdecl*)());
 extern void* ElemCtor_000a9e50(void*); /* (unb4) as defined; address taken only */
@@ -208,6 +200,11 @@ class Obj_22eda0 {
     void* data1;
     void* data2;
     void Target(unsigned int);
+};
+// (nat2, D134) 0x0022ec20 frees the two blocks of 0x0022eda0's object (+0x114 / +0x118 on 32-bit): its record
+class C_22ec20 : public Obj_22eda0 {
+  public:
+    void f();
 };
 struct Sub_22ef20 {
     void Update_0022e670(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int);
@@ -1602,8 +1599,8 @@ void Integrator::FUN_0022eb00(Vec3_22eb00 *out)
 // 0x0022ec20 FUN_0022ec20 (32 B): matches/0x0022ec20.cpp
 // sym: ?f@C_22ec20@fn_f0c6a717@@QAEXXZ
 void C_22ec20::f() {
-    thunk(a);
-    thunk(b);
+    ::operator delete(data1);
+    ::operator delete(data2);
 }
 
 
@@ -1613,8 +1610,8 @@ void Obj_22eda0::Target(unsigned int n) {
     m0 = -1;
     m1 = -1;
     if (count != n) {
-        ReleaseThing_0008d330(data1);
-        ReleaseThing_0008d330(data2);
+        ::operator delete(data1);
+        ::operator delete(data2);
         data1 = 0;
         data2 = 0;
         count = n;
@@ -1762,7 +1759,7 @@ Shape_22f230* Shape_22f230::FUN_0022f230(const Shape_22f230* src)
 
 
 // 0x0022f400 FUN_0022f400 (472 B): equivalent/0x0022f400.cpp
-// sym: ?FUN_0022f400@Shape_22f400@fn_f0c6a717@@QAEPAU12@PBU12@@Z @fd1f6ef5b304 @w656c5b42fa7b @vfa587b787b50
+// sym: ?FUN_0022f400@Shape_22f400@fn_f0c6a717@@QAEPAU12@PBU12@@Z @01f36da48dcd @waf099d1770f4 @vce4ed40188eb
 // STATUS: equivalent (tools/equiv.py level 3: 43 inputs, branch coverage 24/24)
 // FUN_0022f400 @ 0x0022f400
 Shape_22f400* Shape_22f400::FUN_0022f400(const Shape_22f400* src)
@@ -1773,8 +1770,8 @@ Shape_22f400* Shape_22f400::FUN_0022f400(const Shape_22f400* src)
     m08.FUN_0022e470(&src->m08);
     m88.FUN_0022e470(&src->m88);
     f10c = src->f10c;
-    FUN_0008d330(elems);
-    FUN_0008d330(extra);
+    ::operator delete(elems);
+    ::operator delete(extra);
     unsigned int n = src->count;
     count = n;
     if (n != 0) {

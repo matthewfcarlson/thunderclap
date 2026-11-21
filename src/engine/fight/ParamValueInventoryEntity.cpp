@@ -29,7 +29,6 @@ class ParamValueEnum_235560 {
     Part_235560 part;
     ParamValueEnum_235560* vfunc_0(int);
 };
-extern "C" void __cdecl thunk_FUN_00267090(ParamValueEnum_235560*);
 class Part_235590 {
   public:
     void Init_0027af50();
@@ -41,7 +40,6 @@ class ParamValueVector_235590 {
     Part_235590 part;
     ParamValueVector_235590* vfunc_0(int);
 };
-extern "C++" void __cdecl thunk_FUN_00267090(ParamValueVector_235590*);
 class Sub_235620 {
   public:
     void Init_0027af50();
@@ -59,7 +57,6 @@ class ParamValueInventoryEntity {
     virtual int v8(int param);
     char _m_pad_4[0x8];
 };
-extern void __cdecl thunk_FUN_00267090(ParamValueInventoryEntity*);
 class ParamValueInventoryEntity_235650 {
   public:
     virtual void f0();
@@ -111,7 +108,6 @@ class Inner_235800 {
   public:
     void Init_0027af50();
 };
-extern void __cdecl thunk_FUN_00267090(void*);
 class ParamValue {
   public:
     virtual void* v0(unsigned int);
@@ -135,7 +131,6 @@ struct ParamValueConditionGroup {
     Sub_235830 sub;
     ParamValueConditionGroup* vfunc_0(int);
 };
-extern void FUN_0008d330(ParamValueConditionGroup*);
 typedef unsigned int u32_235870;
 
 } // namespace fn_f30d46c2
@@ -164,10 +159,9 @@ class ParamValueScript : public ParamValue {
     virtual void vfunc_1() HULK_PURE64;
     virtual void vfunc_5() HULK_PURE64;
 };
-extern void __cdecl thunk_FUN_00267090(ParamValueScript*);
 ParamValueScript::ParamValueScript(int f) : sub() {
     if (f & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
 }
 void ParamValueScript::vfunc_0() {}
 } // namespace fn_00235530
@@ -181,7 +175,7 @@ ParamValueEnum_235560* ParamValueEnum_235560::vfunc_0(int flag) {
     vt = (hulk_intptr)&base_vtable;
     part.Init_0027af50();
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -193,7 +187,7 @@ ParamValueVector_235590* ParamValueVector_235590::vfunc_0(int flag) {
     vt = (hulk_intptr)&base_vtable;
     part.Init_0027af50();
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -221,13 +215,12 @@ class ParamValueColour : public ParamValue {
     virtual ParamValueColour* vfunc_0(int);
 };
 extern int hulk_at_004279fc;
-extern void FUN_0008d330(ParamValueColour*);
 ParamValueColour* ParamValueColour::vfunc_0(int flags) {
     *(hulk_intptr*)this = (hulk_intptr)&hulk_at_004279fc;
     Elem_2355c0* q = (Elem_2355c0*)((char*)&this->gap);
     q->Fn_0027af50();
     if (flags & 1)
-        FUN_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_002355c0
@@ -237,7 +230,6 @@ ParamValueColour* ParamValueColour::vfunc_0(int flags) {
 // sym: ?v0@ParamValueEntity@fn_002355f0@@UAEPAV12@I@Z
 namespace fn_002355f0 {
 extern "C" char DAT_004279fc[];   // (decl1) was `void* pvtable` (a C++ name bound nowhere natively)
-extern void thunk_FUN_00267090(void*);
 struct Sub_2355f0 {
     void Init_0027af50();
 };
@@ -269,7 +261,7 @@ ParamValueEntity* ParamValueEntity::v0(unsigned int flags) {
     *(void**)this = &(*(void**)&DAT_004279fc);
     sub.Init_0027af50();
     if (flags & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_002355f0
@@ -283,7 +275,7 @@ ParamValueInventoryEntity* ParamValueInventoryEntity::vfunc_0(int flag) {
     *(hulk_ulongptr*)self = ((hulk_intptr)DAT_004279fc);
     ((Sub_235620*)((char*)self + 8))->Init_0027af50();
     if (flag & 1)
-        thunk_FUN_00267090(self);
+        ::operator delete(self);
     return self;
 }
 
@@ -371,7 +363,7 @@ void* ParamValueBranch::v0(unsigned int flags) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_004279fc);
     ((Inner_235800*)((char*)this + 8))->Init_0027af50();
     if (flags & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -382,7 +374,7 @@ ParamValueConditionGroup* ParamValueConditionGroup::vfunc_0(int flags) {
     vptr = ((hulk_intptr)DAT_004279fc);
     sub.Init_0027af50();
     if (flags & 1)
-        FUN_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

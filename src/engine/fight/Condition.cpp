@@ -11,7 +11,6 @@
 #define TREE_LOCAL_pure3d
 namespace fn_fc77ac82 {} using namespace fn_fc77ac82;
 namespace fn_fc77ac82 {
-void __cdecl SweepTrack_DeleteThis_00263f30(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 namespace fn_fc77ac82 { extern "C" char DAT_00427990[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/fight.h"
@@ -185,7 +184,7 @@ ConditionFactory_234560* ConditionFactory_234560::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00427990;
     Destroy_0027afd0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }
@@ -243,7 +242,6 @@ namespace fight { struct Condition {
     Condition* vfunc_5(unsigned char flags);
     void reset_00234210();
 }; }
-void Destroy_0008d330(fight::Condition*);
 fight::Condition* fight::Condition::vfunc_5(unsigned char flags) {
     Obj_2345e0* p = mRef;
     vptr = ((hulk_intptr)DAT_004279ac);
@@ -252,7 +250,7 @@ fight::Condition* fight::Condition::vfunc_5(unsigned char flags) {
     mRef = 0;
     reset_00234210();
     if (flags & 1)
-        Destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_002345e0

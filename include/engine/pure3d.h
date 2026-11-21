@@ -8,7 +8,6 @@
 #include "compat/ptr.h"
 #include "common.h"
 TREE_TU_BEGIN
-void thunk(void*);
 TREE_TU_END
 #ifdef TREE_LOCAL_CAction
 TREE_TU_BEGIN
@@ -70,7 +69,6 @@ TREE_TU_END
 TREE_TU_BEGIN
 void *thunk_FUN_0008d690(unsigned int size);
 extern void* g_vftable2[];
-void thunk(int);
 extern char CameraRTTI;
 struct Vec3 { float x, y, z; };
 extern void __cdecl g(int);

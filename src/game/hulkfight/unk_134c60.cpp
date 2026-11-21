@@ -7,7 +7,6 @@
 #define TREE_TU_END }
 namespace fn_fea6dcf4 {} using namespace fn_fea6dcf4;
 namespace fn_fea6dcf4 {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 namespace fn_fea6dcf4 { extern "C" char DAT_00411d68[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight.h"
@@ -191,7 +190,7 @@ hulkfight::motion::FlyingBrakeTrack* hulkfight::motion::FlyingBrakeTrack::vfunc_
     *(void***)this = hulk_at_00411c18;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -206,7 +205,7 @@ hulkfight::motion::BounceTrack* hulkfight::motion::BounceTrack::vfunc_5(signed c
     *(void***)this = hulk_at_00411c48;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -221,7 +220,7 @@ hulkfight::motion::AirToGroundTargetTrack* hulkfight::motion::AirToGroundTargetT
     *(void***)this = hulk_at_00411c78;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -236,7 +235,7 @@ hulkfight::motion::HoverTrack* hulkfight::motion::HoverTrack::vfunc_5(signed cha
     *(void***)this = hulk_at_00411ca8;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -251,7 +250,7 @@ hulkfight::motion::FallTrack* hulkfight::motion::FallTrack::vfunc_5(signed char 
     *(void***)this = hulk_at_00411cd8;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -266,7 +265,7 @@ hulkfight::motion::FlyingAutoTargetTrack* hulkfight::motion::FlyingAutoTargetTra
     *(void***)this = hulk_at_00411d08;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -281,7 +280,7 @@ hulkfight::motion::FlyingAttackTrack* hulkfight::motion::FlyingAttackTrack::vfun
     *(void***)this = hulk_at_00411d38;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

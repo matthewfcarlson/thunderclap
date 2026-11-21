@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x002dee20..0x002deeb0 (kind game, layer engine, confidence medium), dominant class pure3d::Shadow
 #include "tree_prelude.h"
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_f524fe64 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -10,7 +11,6 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f524fe64 {} using namespace fn_f524fe64;
 namespace fn_f524fe64 {
-void __cdecl SweepTrack_DeleteThis_00263f30(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "engine/pure3d.h"
 
@@ -36,7 +36,7 @@ Shadow_2dee20* Shadow_2dee20::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042f994;
     Destroy_002a4ff0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }

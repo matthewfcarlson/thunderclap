@@ -8,12 +8,11 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f3a656db {} using namespace fn_f3a656db;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f3a656db {
-extern "C" void Free1_0008d340(void* p);
-extern "C" void Free2_0008d330(void* p);
 class Helper_933e0 {
   public:
     void FnF_0027af50();
@@ -33,12 +32,12 @@ void* CUnlockableBlonskyFile::vfunc_0(unsigned char f) {
     void* p = *(void**)(s + 0x18);
     *(hulk_intptr*)s = ((hulk_intptr)DAT_0040449c);
     if (p) {
-        Free1_0008d340(p);
+        ::operator delete[](p);
         *(void**)(s + 0x18) = 0;
     }
     ((Helper_933e0*)(s + 0x10))->FnF_0027af50();
     if (f & 1)
-        Free2_0008d330(s);
+        ::operator delete(s);
     return this;
 }
 

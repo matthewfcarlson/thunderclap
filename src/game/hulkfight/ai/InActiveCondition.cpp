@@ -14,7 +14,6 @@
 namespace fn_fad6e2b1 {} using namespace fn_fad6e2b1;
 void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fad6e2b1 {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "game/hulkfight/ai.h"
 
@@ -146,7 +145,6 @@ class AIFightNodeCondition {
     void baseInit_002345b0();
     char pad[0x0c];
 };
-extern void thunk_FUN_00267090(AIFightNodeCondition*);
 extern void* hulk_at_0040d9c4[];
 class Condition_10e750 {
   public:
@@ -156,7 +154,6 @@ class DefendingCondition_10e750 : public Condition_10e750 {
   public:
     DefendingCondition_10e750* vfunc_5(signed char flags);
 };
-extern "C" void __cdecl thunk_FUN_00267090(void* p);
 extern int hulk_at_0040d9e4;
 class AIHistoryNameCondition {
   public:
@@ -234,7 +231,6 @@ class FormationReadyCondition {
     void Cleanup_002345b0();
 };
 extern "C" void __cdecl helper(hulk_intptr);
-extern "C" void __cdecl helper2_0008d330(FormationReadyCondition*);
 extern int hulk_at_0040daa4;
 extern void* hulk_at_0040dac4[];
 class Condition_10e920 {
@@ -340,7 +336,7 @@ OnBlockedTriangleCondition_10e6f0* OnBlockedTriangleCondition_10e6f0::vfunc_5(si
     *(void***)this = hulk_at_0040d984;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -353,7 +349,7 @@ AIFightNodeCondition* AIFightNodeCondition::vfunc_5(unsigned char param) {
     ((Sub_10e720*)((char*)this + 0xc))->init_00234150();
     baseInit_002345b0();
     if (param & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -367,7 +363,7 @@ DefendingCondition_10e750* DefendingCondition_10e750::vfunc_5(signed char flags)
     *(void***)this = hulk_at_0040d9c4;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -378,7 +374,7 @@ DefendingCondition_10e750* DefendingCondition_10e750::vfunc_5(signed char flags)
 AIHistoryNameCondition* AIHistoryNameCondition::vfunc_5(int flag) {
     void* x = m10;
     *(void**)this = &hulk_at_0040d9e4;
-    thunk_FUN_00267090(x);
+    ::operator delete[](x);
     reset_002345b0();
     if (flag & 1)
         operator delete(this);
@@ -405,7 +401,7 @@ PropsToChuckCondition_10e800* PropsToChuckCondition_10e800::vfunc_5(signed char 
     *(void***)this = hulk_at_0040da24;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -416,7 +412,7 @@ PropsToChuckCondition_10e800* PropsToChuckCondition_10e800::vfunc_5(signed char 
 HulkActionRecentCondition* HulkActionRecentCondition::vfunc_5(char a) {
     void* x = m10;
     *(void**)this = &hulk_at_0040da44;
-    thunk_FUN_00267090(x);
+    ::operator delete[](x);
     Finish_002345b0();
     if (a & 1)
         operator delete(this);
@@ -433,7 +429,7 @@ LeashedCondition_10e870* LeashedCondition_10e870::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040da64;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -459,7 +455,7 @@ FormationReadyCondition* FormationReadyCondition::vfunc_5(int flag) {
     ::operator delete[](m10);   // (x64t21, D115) the game's operator delete[] 0x0008d340 (`helper` was bound nowhere)
     Cleanup_002345b0();
     if (flag & 1)
-        helper2_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -473,7 +469,7 @@ InActiveCondition_10e920* InActiveCondition_10e920::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040dac4;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "decls/loaders.h"
 #include "decls/data/engine/pure3d/prop.h"
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_f495b664 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -37,7 +38,6 @@ class NonCopyable : public SimpleChunkHandler_28f2a0 {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 } // namespace fn_f495b664
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_f495b664 {
@@ -169,7 +169,7 @@ ShaderLoader::ShaderLoader() {
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

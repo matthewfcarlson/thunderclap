@@ -145,7 +145,6 @@ struct World {
     Provider_1b7970* provider;
 };
 namespace fn_ff8e53b8 {
-void __cdecl thunk_FUN_00267090(void*);
 struct Owner_1b7970 {
     char pad0[12];
     Resource_1b7970* resource;
@@ -259,7 +258,6 @@ class Base_1b7cd0 {
     void* vptr;
     void Fin();
 };
-void Free_0008d330(void*) throw();
 class CFMVManager_1b7cd0 : public Base_1b7cd0 {
   public:
     char pad[8];
@@ -406,7 +404,7 @@ void Owner_1b7970::FUN_001b7970() {
     state = 0;
     c->FUN_00086400();
     if (allocation) {
-        thunk_FUN_00267090(allocation);
+        ::operator delete(allocation);
         allocation = 0;
     }
     allocation = 0;
@@ -606,7 +604,7 @@ CFMVManager_1b7cd0* CFMVManager_1b7cd0::f0(unsigned char fl) {
         t->Release();
     }
     if (fl & 1)
-        Free_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

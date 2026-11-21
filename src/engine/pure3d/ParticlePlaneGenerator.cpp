@@ -12,6 +12,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fd7a7bd7 {} using namespace fn_fd7a7bd7;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fd7a7bd7 { extern "C" char DAT_0042f0d8[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_fd7a7bd7 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
@@ -931,7 +932,7 @@ ParticleGenerator_2d31b0* ParticleGenerator_2d31b0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042f074;
     Destroy_0027afd0();
     if (flags & 1) {
-        ::operator delete(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }
@@ -1008,11 +1009,10 @@ class NonCopyable : public NonCopyable_2d3320 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_002d3320
@@ -1060,11 +1060,10 @@ class NonCopyable : public NonCopyable_2d33f0 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_002d33f0
@@ -1133,11 +1132,10 @@ class NonCopyable : public NonCopyable_2d3510 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_002d3510
@@ -1247,7 +1245,7 @@ ParticlePointGenerator_2d38a0::~ParticlePointGenerator_2d38a0() {
         }
     }
     if (m2c)
-        operator delete(m2c);
+        ::operator delete[](m2c);
     vptr = g_base_2d38a0;
     Fin_0027afd0();
 }
@@ -1351,7 +1349,7 @@ ParticlePlaneGenerator_2d3ab0::~ParticlePlaneGenerator_2d3ab0() {
         }
     }
     if (m2c)
-        operator delete(m2c);
+        ::operator delete[](m2c);
     vptr = g_base_2d3ab0;
     Fin_0027afd0();
 }
@@ -1488,7 +1486,7 @@ ParticleSphereGenerator_2d3c90::~ParticleSphereGenerator_2d3c90() {
         }
     }
     if (arr)
-        operator delete(arr);
+        ::operator delete[](arr);
     vptr = ((void**)DAT_0042f074);
     Fin_0027afd0();
 }
@@ -1521,7 +1519,7 @@ struct ParticlePointGenerator_2d3d20 {
 void* ParticlePointGenerator_2d3d20::vfunc_2(unsigned int flags) {
     FUN_002d38a0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002d3d20
@@ -1544,7 +1542,7 @@ struct ParticlePlaneGenerator_2d3d40 {
 void* ParticlePlaneGenerator_2d3d40::vfunc_2(unsigned int flags) {
     FUN_002d3ab0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002d3d40
@@ -1567,7 +1565,7 @@ struct ParticleSphereGenerator_2d3d60 {
 void* ParticleSphereGenerator_2d3d60::vfunc_2(unsigned int flags) {
     FUN_002d3c90();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002d3d60

@@ -209,7 +209,6 @@ class CCollisionAction : public CAction {
     CCollisionAction* vfunc_2(unsigned char);
 };
 extern void FUN_0027af50();
-extern void thunk_FUN_00267090(CCollisionAction*);
 extern void __cdecl FUN_00267760(char*, int, const char*, ...);
 struct Sub_1f8f40 {
 };
@@ -257,7 +256,6 @@ class Obj_1f9230 : public HulkEncounter {   // (recs1) a CEncounter on its recor
 struct Sub_1f93b0 {
     void Fnf_0027af50();
 };
-void destroy_0008d330(void*);
 class X_1f93b0 : public HulkEncounterMapNode {   // (recs1) a node of the encounter map (was char pad[0x10] before the key)
   public:
     X_1f93b0* run(unsigned char);
@@ -610,7 +608,7 @@ hulk_intptr __stdcall FUN_001f8b40(int a1, Obj_1f8b40 *obj, float x, float y, fl
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     FUN_0027af50();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -887,7 +885,7 @@ namespace fn_f6c21956 {
 X_1f93b0* X_1f93b0::run(unsigned char flags) {
     ((Sub_1f93b0*)&key)->Fnf_0027af50();
     if (flags & 1)
-        destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

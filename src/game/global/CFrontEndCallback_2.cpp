@@ -26,7 +26,6 @@ class NonCopyable : public IScriptLoadCallback_c4ed0 {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 
 
 // 0x000c4ec0 CFrontEndCallback::vfunc_0 (1 B): matches/0x000c4ec0.cpp
@@ -41,7 +40,7 @@ void FUN_000c4ec0() {}
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_00409ef4;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

@@ -598,7 +598,7 @@ struct CHypnoticCamera_aa430 {
 void* CHypnoticCamera_aa430::vfunc_2(unsigned int flags) {
     FUN_000aa0d0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_000aa430

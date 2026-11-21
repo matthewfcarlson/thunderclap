@@ -8,7 +8,6 @@
 #include "common.h"
 TREE_TU_BEGIN
 extern "C" void FUN_00234810(void*, void*);
-void thunk_FUN_00267090(void*);
 extern char DAT_00491ca8;
 extern char DAT_0049850c;
 TREE_TU_END

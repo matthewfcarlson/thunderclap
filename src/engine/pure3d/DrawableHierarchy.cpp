@@ -165,7 +165,7 @@ DrawableHierarchy_2a3620* DrawableHierarchy_2a3620::f2(unsigned char flags) {
     }
     Fin_0027afd0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

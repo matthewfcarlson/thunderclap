@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f9d9ed06 {} using namespace fn_f9d9ed06;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -68,11 +69,10 @@ struct Obj_29b1d0 {
     char pad[0x40];
     Base_29b1d0* base;
     char p44[4];
-    u32_29b1d0 value;
+    void* value;   // (nat2, D134) the text, freed with operator delete[] when owned
     char p4c[4];
     unsigned char flag;
 };
-void cleanup_0008d340(u32_29b1d0);
 extern "C" void __fastcall FUN_002a50a0(Obj_29b1d0*);
 struct Font_29b210 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
@@ -108,11 +108,10 @@ class Owner_29b300 {
 };
 struct Obj_29b330 {
     char pad[0x48];
-    int value;
+    void* value;   // (nat2, D134) the text, freed with operator delete[] when owned
     char pad2[4];
     unsigned char flag;
 };
-void cleanup_0008d340(int);
 
 
 // 0x0029b120 FUN_0029b120 (59 B): matches/0x0029b120.cpp
@@ -194,7 +193,7 @@ void FUN_0029b1c0() {}
 void __fastcall target(Obj_29b1d0* self) {
     *(hulk_uintptr*)self = ((hulk_intptr)DAT_0042d548);
     if (self->flag)
-        cleanup_0008d340(self->value);
+        ::operator delete[](self->value);
     self->base->release();
     self->base = 0;
     FUN_002a50a0(self);
@@ -233,10 +232,10 @@ void Owner_29b300::Set(Thing_29b300* p) {
 
 
 // 0x0029b330 FUN_0029b330 (58 B): matches/0x0029b330.cpp
-// sym: ?FUN_0029b330@fn_f9d9ed06@@YIXPAUObj_29b330@1@PAXHE@Z
-void __fastcall FUN_0029b330(Obj_29b330* self, void*, int param2, unsigned char param3) {
+// sym: ?FUN_0029b330@fn_f9d9ed06@@YIXPAUObj_29b330@1@PAX1E@Z
+void __fastcall FUN_0029b330(Obj_29b330* self, void*, void* param2, unsigned char param3) {
     if (self->flag)
-        cleanup_0008d340(self->value);
+        ::operator delete[](self->value);
     self->value = param2;
     self->flag = param3;
 }
@@ -251,45 +250,39 @@ void owners::Obj_29b380::FUN_0029b380(int x) {
 
 
 // 0x0029b3a0 pure3d::TextString::vfunc_2 (72 B): matches/0x0029b3a0.cpp [wrapped: conflict: TextString]
-// sym: ??_GTextString@fn_0029b3a0@@UAEPAXI@Z
+// sym: ?vfunc_2@TextString_29b3a0@fn_0029b3a0@@QAEPAXI@Z
 namespace fn_0029b3a0 {
 typedef unsigned char u8;
-typedef unsigned int u32_29b3a0;
-void ReleaseThing_0008d340(void* p);
 class Base_29b3a0 {
   public:
     virtual void f0();
     virtual void f1();
 };
-class TextString {
-  public:
-    virtual void f0_00038290();
-    virtual void f1_000382a0();
-    virtual ~TextString();
-    virtual void f3_0027afe0();
-    virtual void f4_0027aff0();
-    virtual void f5_0029b190();
-    virtual void f6_0029b210();
-    virtual void f7();
-    virtual void f8_0029b1b0(void*);
-    virtual void f9_0029b180();
-    virtual void f10();
-    virtual void f11_0029b160();
-    virtual void f12_0029b170();
+// (nat2, D134, D114) pure3d::TextString's scalar deleting destructor as an explicit function: its vftable (0x0042d548),
+// the owned text freed with operator delete[], the base released, the drawable's destructor (0x002a50a0), then
+// (flags & 1) content::LoadObject's operator delete, as the original calls (0x00263f30)
+extern "C" char DAT_0042d548[];
+struct TextString_29b3a0 {
+    void* vftable;
     char pad[0x3c];
     Base_29b3a0* mBase;
     char p44[4];
-    hulk_uintptr mThing;
+    void* mThing;
     char p4c[4];
     u8 mFlag;
     void cleanup_002a50a0();
+    void* vfunc_2(unsigned int flags);
 };
-TextString::~TextString() {
+void* TextString_29b3a0::vfunc_2(unsigned int flags) {
+    vftable = DAT_0042d548;
     if (mFlag)
-        ReleaseThing_0008d340((void*)mThing);
+        ::operator delete[](mThing);
     mBase->f1();
     mBase = 0;
     cleanup_002a50a0();
+    if (flags & 1)
+        ::content::LoadObject::operator delete(this);
+    return this;
 }
 } // namespace fn_0029b3a0
 

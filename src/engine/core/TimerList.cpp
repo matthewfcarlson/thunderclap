@@ -10,6 +10,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fc34aa1a {} using namespace fn_fc34aa1a;
+extern "C" void FUN_00267090(void* ptr);   // (nat2, D134) the game heap's free
 namespace fn_fc34aa1a { extern "C" char DAT_0042af64[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/core.h"
 
@@ -82,7 +83,6 @@ class NonCopyable : public IRefCount {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 class Object {
   public:
     virtual ~Object();
@@ -107,7 +107,6 @@ struct Callback_267fd0 {
     virtual void A();
     virtual void B();
 };
-extern "C" void __cdecl FUN_00267090(hulk_intptr);   // (decl1) as defined (MemoryAllocatorMalloc.cpp)
 struct TimerList_267fd0 {
     void* v0;
     void* v1;
@@ -115,7 +114,7 @@ struct TimerList_267fd0 {
     char pad[12];
     Callback_267fd0* cb;
     int gap;
-    int arg;
+    void* arg;   // (nat2, D134) a block the destructor frees (the game heap's free 0x00267090)
     void F();
 };
 namespace XAPILIB {
@@ -450,7 +449,7 @@ unsigned __int64 MulDiv64(unsigned __int64 a, unsigned __int64 b, unsigned __int
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0042af64;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -683,7 +682,6 @@ namespace fn_002681c0 {
 
 typedef unsigned char byte_2681c0;
 typedef unsigned int u32_2681c0;
-extern "C" void __cdecl FUN_00267090(hulk_intptr);   // (decl1) as defined (MemoryAllocatorMalloc.cpp)
 extern "C" void __cdecl FUN_00266f00(int, void*);   // (decl1) as defined (unk_266950.cpp)
 extern int hulk_at_0042afd4, hulk_at_0042afcc, hulk_at_0042af64, hulk_at_003f6098;
 struct Helper_2681c0 {
@@ -703,10 +701,10 @@ class TimerList {
     char pad[12];
     Helper_2681c0* helper;
     u32_2681c0 pad1;
-    u32_2681c0 field20;
+    void* field20;   // (nat2, D134) freed by the destructor (0x00267090)
 };
 TimerList* TimerList::v2(byte_2681c0 p) {
-    u32_2681c0 x = field20;
+    void* x = field20;
     *(hulk_uintptr*)this = (hulk_uintptr)&hulk_at_0042afd4;
     *((u32_2681c0*)this + 1) = (hulk_uintptr)&hulk_at_0042afcc;
     FUN_00267090(x);
@@ -735,7 +733,6 @@ void core::TimerList::vfunc_3(hulk_intptr __p0, int __p1, int __p2, int __p3, in
 // sym: ?vfunc_2@Timer@fn_00268270@@UAEPAV12@H@Z
 namespace fn_00268270 {
 typedef unsigned char u8;
-extern void thunk_FUN_00267090(void*);
 extern void* hulk_at_0042aff0;
 extern "C" char DAT_003f6098[];   // (decl1) was `void* refVftable` (a C++ name bound nowhere natively)
 class Timer {
@@ -763,7 +760,7 @@ Timer* Timer::vfunc_2(int flag) {
         Timer::vfunc_10();
     *(void**)this = &(*(void**)&DAT_003f6098);
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00268270

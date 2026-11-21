@@ -12,6 +12,7 @@
 #define TREE_TU_BEGIN namespace fn_f53af43c {
 #define TREE_TU_END }
 namespace fn_f53af43c {} using namespace fn_f53af43c;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 #include "decls/managers.h"
 #include "game/script_bind.h"
@@ -2524,18 +2525,17 @@ class CMemoryCardManager {
     int x;
     void* field8;
 };
-void __cdecl thunk_FUN_00267090(void*);
 void __fastcall target(CMemoryCardManager* self) {
     void* value = self->field8;
     self->vtable = (void*)((hulk_intptr)DAT_004004f4);
-    thunk_FUN_00267090(value);
+    ::operator delete[](value);
     self->field8 = 0;
 }
 } // namespace fn_0008c400
 
 
 // 0x0008c470 FUN_0008c470 (245 B): equivalent/0x0008c470.cpp [wrapped: conflict: FUN_0008d690]
-// sym: ?FUN_0008c470@Owner_8c470@fn_0008c470@@QAEXI@Z @b404d72792da @w07e289a1a049 @v9e2bc0d59322
+// sym: ?FUN_0008c470@Owner_8c470@fn_0008c470@@QAEXI@Z @83588ea15f86 @w598b524241c9 @v0929795ebb51
 namespace fn_0008c470 {
 // STATUS: equivalent (tools/equiv.py level 3: 2974 inputs, branch coverage 2/2)
 // FUN_0008c470 @ 0x0008c470
@@ -2560,7 +2560,6 @@ extern Pair_8c470* __cdecl FUN_0008d690(unsigned);
 // (drive1) the thunk's target 0x00270f10 takes the name and a pointer-sized argument and returns int
 extern int __cdecl thunk_FUN_00270f10(const char*,void*);
 extern void __cdecl thunk_FUN_00271530(State_8c470*,const char*,unsigned,unsigned);
-extern void __cdecl FUN_0008d330(Pair_8c470*);
 struct Owner_8c470 { const void* vftable; unsigned parameter; State_8c470* slots; void FUN_0008c470(unsigned); };   // GameMemoryCardManager's words
 void Owner_8c470::FUN_0008c470(unsigned value) {
  parameter=value;
@@ -2579,7 +2578,7 @@ void Owner_8c470::FUN_0008c470(unsigned value) {
  slots->media.label.buffer[0]=0; slots->media.label.buffer[1]=0; slots->file=0;
  slots->status[0]=1; slots->status[1]=1; slots->status[2]=1; slots->status[3]=1; slots->status[4]=1;
  } else { slots->drive=0; }
- FUN_0008d330(pair);
+ ::operator delete(pair);
 }
 } // namespace fn_0008c470
 

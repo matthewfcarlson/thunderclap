@@ -9,6 +9,7 @@
 #define TREE_TU_BEGIN namespace fn_fd8937bc {
 #define TREE_TU_END }
 namespace fn_fd8937bc {} using namespace fn_fd8937bc;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fd8937bc { extern "C" char DAT_0040ce3c[], DAT_0040cea4[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/DollyScript.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
@@ -52,10 +53,7 @@ struct CTokenSectionEnd_f9940 : CScriptToken_f9940 {
 };
 struct FUN_0027b070 { FUN_0027b070(); virtual void dummy_00038290(); char pad[12]; int first; int second; int third; };
 struct CRawScript_f9980 : FUN_0027b070 { CRawScript_f9980(int a, int b); };
-extern void __cdecl thunk_0008d340(int);
 struct Reader { char pad[0x10]; char *begin; int length; char *cursor; bool FUN_000f99d0(char *output); };
-void thunk_FUN_00267090(hulk_intptr);
-extern "C" void __cdecl free__0008d340(void* p);
 extern "C" void* __cdecl alloc__0008d6d0(unsigned int n);
 } // namespace fn_fd8937bc
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -70,13 +68,11 @@ class StrHolder_f9ab0 {
 };
 extern void* hulk_at_0040ce4c;
 extern void* hulk_at_0040ce3c;
-extern void __cdecl thunk_FUN_00267090(void*);
 struct Token_f9b60 {
     void* vptr;
     char pad[12];
     void* p;
 };
-extern void Release_0008d340(void*);
 extern int hulk_at_0040ceac;
 extern "C" char DAT_0040ce4c[];   // (decl1) was `int vtString` (a C++ name bound nowhere natively)
 extern "C" char DAT_0040ce3c[];   // (decl1) was `int vtToken` (a C++ name bound nowhere natively)
@@ -110,7 +106,7 @@ struct Node {
 };
 struct Obj_f9a80 {
     Node* head;
-    int value;
+    void* value;   // (nat2, D134) a block, freed with operator delete[]
 };
 class Holder_f9b00 {
   public:
@@ -201,7 +197,6 @@ class NonCopyable_0fa3d0 : public CScriptToken_fa3d0 {
 };
 }
 namespace fn_fd8937bc {
-void thunk_FUN_00267090(pure3d::NonCopyable_0fa3d0*);
 class CScriptToken_fa430 {
   public:
     virtual void f0();
@@ -218,7 +213,6 @@ class NonCopyable_0fa430 : public CScriptToken_fa430 {
 };
 }
 namespace fn_fd8937bc {
-void thunk_FUN_00267090(pure3d::NonCopyable_0fa430*);
 class CScriptToken_fa490 {
   public:
     virtual void f0();
@@ -235,7 +229,6 @@ class NonCopyable_0fa490 : public CScriptToken_fa490 {
 };
 }
 namespace fn_fd8937bc {
-void thunk_FUN_00267090(pure3d::NonCopyable_0fa490*);
 struct Item_fa870 {
     int a;
     Item_fa870* next;
@@ -258,7 +251,6 @@ class NonCopyable_0fa920 : public IRefCount {
 };
 }
 namespace fn_fd8937bc {
-void thunk_FUN_00267090(pure3d::NonCopyable_0fa920*);
 class CScriptToken_fa9a0 {
   public:
     virtual void f0();
@@ -275,7 +267,6 @@ class NonCopyable_0fa9a0 : public CScriptToken_fa9a0 {
 };
 }
 namespace fn_fd8937bc {
-void thunk_FUN_00267090(pure3d::NonCopyable_0fa9a0*);
 extern "C" char DAT_0040bf84[];
 struct CScriptParser {
     void* vt;
@@ -496,11 +487,21 @@ CRawScript_f9980::CRawScript_f9980(int a, int b) { first=a; third=a; second=b; }
 
 
 // 0x000f99b0 FUN_000f99b0 (29 B): matches/0x000f99b0.cpp
-// sym: ?run@CRawScript@fn_fd8937bc@@QAEXXZ
-void CRawScript::run() {
-    vptr = &rawVtable;
-    thunk_0008d340(mArg);
-    finish();
+// sym: ?run@CRawScript_f99b0@fn_fd8937bc@@QAEXXZ
+// (nat2, D134) DollyScript::CRawScript's destructor on its record (a pure3d::Entity, then the script's text): the text is
+// a pointer, freed with operator delete[]; then the entity's destructor (0x0027afd0)
+extern "C" char DAT_0040ce8c[];   // DollyScript::CRawScript's vftable
+struct CRawScript_f99b0 {
+    void* vftable;
+    int words[3];   // pure3d::Entity's count and name
+    void* text;
+    void finish_0027afd0();
+    void run();
+};
+void CRawScript_f99b0::run() {
+    vftable = DAT_0040ce8c;
+    ::operator delete[](text);
+    finish_0027afd0();
 }
 
 
@@ -520,14 +521,14 @@ extern "C" void __fastcall FUN_000f9a80(Obj_f9a80* self) {
         p->F(1);
         p = n;
     }
-    thunk_FUN_00267090(self->value);
+    ::operator delete[](self->value);
 }
 
 
 // 0x000f9ab0 FUN_000f9ab0 (79 B): matches/0x000f9ab0.cpp
 // sym: ?Set@StrHolder_f9ab0@fn_fd8937bc@@QAEXPAD@Z
 void StrHolder_f9ab0::Set(char* src) {
-    free__0008d340(mStr);
+    ::operator delete[](mStr);
     if (src != 0) {
         mStr = (char*)alloc__0008d6d0(strlen(src) + 1);
         strcpy(mStr, src);
@@ -573,7 +574,7 @@ namespace fn_fd8937bc {
 void __fastcall FUN_000f9b60(Token_f9b60* self) {
     self->vptr = &hulk_at_0040ce4c;
     if (self->p) {
-        thunk_FUN_00267090(self->p);
+        ::operator delete[](self->p);
         self->p = 0;
     }
     self->vptr = &hulk_at_0040ce3c;
@@ -585,12 +586,12 @@ void __fastcall FUN_000f9b60(Token_f9b60* self) {
 void __fastcall FUN_000f9bc0(Obj_f9bc0* o) {
     o->vf = &hulk_at_0040ceac;
     if (o->p) {
-        Release_0008d340(o->p);
+        ::operator delete[](o->p);
         o->p = 0;
     }
     o->vf = &(*(int*)&DAT_0040ce4c);
     if (o->p) {
-        Release_0008d340(o->p);
+        ::operator delete[](o->p);
         o->p = 0;
     }
     o->vf = &(*(int*)&DAT_0040ce3c);
@@ -881,8 +882,6 @@ void C_fa100::f(S_fa100* src) {
 // 0x000fa300 DollyScript::CTokenString::vfunc_0 (60 B): matches/0x000fa300.cpp [wrapped: conflict: CTokenString]
 // sym: ?vfunc_0@CTokenString@fn_000fa300@@QAEPAV12@E@Z
 namespace fn_000fa300 {
-extern "C++" void __cdecl thunk_FUN_00267090_a(void*);
-extern "C++" void __cdecl thunk_FUN_00267090_b(void*);
 extern "C++" { extern void* g_vtStr[]; }
 extern "C++" { extern void* g_vtBase[]; }
 
@@ -897,12 +896,12 @@ class CTokenString {
 CTokenString* CTokenString::vfunc_0(unsigned char param) {
     this->mVptr = g_vtStr;
     if (this->mPtr != 0) {
-        thunk_FUN_00267090_a(this->mPtr);
+        ::operator delete[](this->mPtr);
         this->mPtr = 0;
     }
     this->mVptr = g_vtBase;
     if (param & 1) {
-        thunk_FUN_00267090_b((void*)this);
+        ::operator delete((void*)this);
     }
     return this;
 }
@@ -913,7 +912,6 @@ CTokenString* CTokenString::vfunc_0(unsigned char param) {
 // sym: ?vfunc_0@CTokenStatement@fn_000fa370@@QAEPAXI@Z
 void __cdecl operator delete(void* p);
 namespace fn_000fa370 {
-extern "C++" void __cdecl thunk_FUN_00267090(void* p);
 
 extern "C" char DAT_0040ceac[];   // (decl1) was `const int g_vt_statement` (a C++ name bound nowhere natively)
 extern "C" char DAT_0040ce4c[];   // (decl1) was `const int g_vt_string` (a C++ name bound nowhere natively)
@@ -929,12 +927,12 @@ struct CTokenStatement {
 void* CTokenStatement::vfunc_0(unsigned int flags) {
     this->vptr = (void*)&(*(const int*)&DAT_0040ceac);
     if (this->m0x10) {
-        thunk_FUN_00267090(this->m0x10);
+        ::operator delete[](this->m0x10);
         this->m0x10 = 0;
     }
     this->vptr = (void*)&(*(const int*)&DAT_0040ce4c);
     if (this->m0x10) {
-        thunk_FUN_00267090(this->m0x10);
+        ::operator delete[](this->m0x10);
         this->m0x10 = 0;
     }
     this->vptr = (void*)&(*(const int*)&DAT_0040ce3c);
@@ -952,7 +950,7 @@ void* CTokenStatement::vfunc_0(unsigned int flags) {
 pure3d::NonCopyable_0fa3d0* pure3d::NonCopyable_0fa3d0::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0040ce3c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -992,7 +990,7 @@ CScriptToken* CTokenSectionStart::f2() {
 pure3d::NonCopyable_0fa430* pure3d::NonCopyable_0fa430::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0040ce3c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1034,7 +1032,7 @@ CScriptToken* CTokenSectionEnd::vfunc_2() {
 pure3d::NonCopyable_0fa490* pure3d::NonCopyable_0fa490::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0040ce3c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1316,15 +1314,13 @@ class CRawScript {
     CRawScript* vfunc_2(unsigned char param);
 };
 
-void __cdecl FreeBuffer_0008d340(void* p);
-void __cdecl DeleteSelf_00263f30(void* p);
 
 CRawScript* CRawScript::vfunc_2(unsigned char param) {
     *(void**)this = &hulk_at_0040ce8c;
-    FreeBuffer_0008d340((void*)m_0x10);
+    ::operator delete[]((void*)m_0x10);
     Destroy_0027afd0();
     if (param & 1) {
-        DeleteSelf_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }
@@ -1337,7 +1333,7 @@ CRawScript* CRawScript::vfunc_2(unsigned char param) {
 pure3d::NonCopyable_0fa920* pure3d::NonCopyable_0fa920::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0040cea4;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1392,7 +1388,7 @@ CTokenString* CTokenString::f2() {
 pure3d::NonCopyable_0fa9a0* pure3d::NonCopyable_0fa9a0::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0040ce3c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

@@ -24,7 +24,6 @@ class CSmartPropDropAction {
     void cleanup_002326a0();
     CSmartPropDropAction* vfunc_2(int);
 };
-void __cdecl thunk_FUN_00267090(CSmartPropDropAction*);
 extern void* g_vftable_22060[];
 class Ref_22060 {
   public:
@@ -70,7 +69,7 @@ CSmartPropDropAction* CSmartPropDropAction::vfunc_2(int flag) {
     }
     cleanup_002326a0();
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

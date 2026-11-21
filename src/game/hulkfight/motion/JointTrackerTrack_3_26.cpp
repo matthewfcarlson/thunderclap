@@ -13,7 +13,6 @@
 #define TREE_TU_END }
 namespace fn_f05a6271 {} using namespace fn_f05a6271;
 namespace fn_f05a6271 {
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "game/hulkfight/motion.h"
 extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
@@ -2181,7 +2180,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2244,14 +2243,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_00418dfc;
     base1_dtor_0016ff00();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0017e170

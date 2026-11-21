@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fae89b52 {} using namespace fn_fae89b52;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -500,7 +501,7 @@ void ImageFont_2bf4f0::FUN_002bf4f0(Canvas *canvas, int x, int y, const unsigned
 } // namespace fn_fae89b52
 
 // 0x002bf680 pure3d::ImageFontLoader::vfunc_5 (875 B): equivalent/0x002bf680.cpp [wrapped: conflict: content::ObjectLoader; pure3d::ImageFont; pure3d::ImageFontLoader; pure3d::ImageLoader]
-// sym: ?vfunc_5@ImageFontLoader@pure3d@fn_002bf680@@UAEHPAPAVImageFont@23@PA_KPAUReader@3@PAX@Z @b9c659ceac05 @w9c6e7ccdb11b
+// sym: ?vfunc_5@ImageFontLoader@pure3d@fn_002bf680@@UAEHPAPAVImageFont@23@PA_KPAUReader@3@PAX@Z @da4ffb4225b4 @w981d368142ac @v46b130a51d9d
 inline void *operator new(size_t, void *p) throw() { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
@@ -541,7 +542,6 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 void *thunk_FUN_0008d690(unsigned int size);
 extern "C" void *__cdecl FUN_0008d6d0(int size);
-void __cdecl thunk_FUN_00267090(void *p);
 
 struct Stream {
     void FUN_002647e0(void *dest, unsigned int count, unsigned int size, int flag);
@@ -675,7 +675,10 @@ int pure3d::ImageFontLoader::vfunc_5(ImageFont **out, unsigned __int64 *outKey, 
             int x1;
             int w4;
         } u1;
-        int pad1c;
+        union {
+            int pad1c;
+            Image *img;   // (nat2) the image the 0x19001 chunk loads lives in this frame word, as in the original
+        } u2;
         int cnt;
         char name[0x100];
     } f;
@@ -703,15 +706,15 @@ int pure3d::ImageFontLoader::vfunc_5(ImageFont **out, unsigned __int64 *outKey, 
     while (r->FUN_002669f0()) {
         int id = r->FUN_00266a30();
         if (id == 0x19001) {
-            Image *img = f.uv.loader->FUN_002c0590(r, 0x20);
-            if (img)
-                img->AddRef();
+            f.u2.img = f.uv.loader->FUN_002c0590(r, 0x20);
+            if (f.u2.img)
+                f.u2.img->AddRef();
             if (font->image)
                 font->image->Release();
-            font->image = img;
+            font->image = f.u2.img;
         } else if (id == 0x22003) {
             if (font->glyphs)
-                thunk_FUN_00267090((char *)font->glyphs - 4);
+                ::operator delete[]((char *)font->glyphs - 4);
             r->stream->FUN_002647e0(&f.cnt, 1, 4, 1);
             unsigned int cnt = f.cnt;
             font->count = cnt;
@@ -800,11 +803,10 @@ class NonCopyable : public SimpleChunkHandler_2bfa50 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002bfa50
@@ -824,8 +826,6 @@ class Entity_2bfa70 {
   public:
     void BaseDtor_0027afd0();
 };
-extern void __cdecl FUN_00263f30(void*);
-extern void __cdecl thunk_FUN_00267090(void*);
 class ImageFont : public Entity_2bfa70 {
   public:
     void* vptr;
@@ -843,10 +843,10 @@ ImageFont* ImageFont::f2(unsigned char flags) {
         m28 = 0;
     }
     if (m34)
-        thunk_FUN_00267090(m34 - 4);
+        ::operator delete[](m34 - 4);
     BaseDtor_0027afd0();
     if (flags & 1)
-        FUN_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002bfa70

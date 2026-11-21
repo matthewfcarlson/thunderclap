@@ -25,7 +25,6 @@ class NonCopyable : public Stream_247470 {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 
 
 // 0x00247470 om::TextOutStream::vfunc_0 (31 B): matches/0x00247470.cpp
@@ -34,7 +33,7 @@ void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_00423f20;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

@@ -8,7 +8,6 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f685d77c {} using namespace fn_f685d77c;
 namespace fn_f685d77c {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 namespace fn_f685d77c { extern "C" char DAT_003f6d50[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
@@ -36,7 +35,6 @@ class CCollisionHeightCondition_4c020 {
     void Fna_0027af50();
     void Fnb_002345b0();
 };
-void thunk_FUN_00267090(void*);
 extern void* hulk_at_003f6d50[];
 class CCondition_4c060 {
   public:
@@ -66,7 +64,7 @@ CNameFlagConditionBase* CNameFlagConditionBase::vfunc_5(int p) {
     *(void (**)())s = &vt_cond;
     ((CCollisionHeightCondition_4c020*)s)->Fnb_002345b0();
     if (p & 1)
-        thunk_FUN_00267090(s);
+        ::operator delete(s);
     return s;
 }
 
@@ -80,7 +78,7 @@ CCollisionInterruptCondition* CCollisionInterruptCondition::vfunc_5(signed char 
     *(void***)this = hulk_at_003f6d50;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -95,7 +93,7 @@ CCollisionHeightCondition* CCollisionHeightCondition::vfunc_5(signed char flags)
     *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

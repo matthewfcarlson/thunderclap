@@ -8,7 +8,6 @@
 #define TREE_LOCAL_CCollisionAction
 namespace fn_f54b098e {} using namespace fn_f54b098e;
 namespace fn_f54b098e {
-void thunk_delete_0008d330(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "game/Render.h"
 
@@ -30,7 +29,6 @@ class ObjectTemplate_1c7cb0 {
   public:
     void Fnf_001c6f70();
 };
-void __cdecl ReleaseTemplate_0008d330(ObjectTemplate_1c7cb0*);
 extern int hulk_at_00421a84;
 struct Store_1c7dc0 {
     void* m_vptr;
@@ -55,7 +53,7 @@ template <> void Render::Store<Render::Room>::vfunc_2(void* __p0) { ObjectTempla
 
     if (this->f_11c && p) {
         p->Fnf_001c6f70();
-        ReleaseTemplate_0008d330(p);
+        ::operator delete(p);
     }
 }
 
@@ -69,7 +67,7 @@ void* Store_1c7dc0::scalar_dtor(unsigned char flags) {
     ((Render::StoreBase *)this)->FUN_001c7720();
     base2_dtor_001c7500();
     if (flags & 1)
-        thunk_delete_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

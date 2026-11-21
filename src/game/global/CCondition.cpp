@@ -126,13 +126,12 @@ class CCondition : public Condition_4b010 {
     CCondition* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CCondition* CCondition::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_003f6d50;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

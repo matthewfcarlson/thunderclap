@@ -16,8 +16,6 @@
 #define TREE_TU_END }
 namespace fn_f1f11990 {} using namespace fn_f1f11990;
 namespace fn_f1f11990 {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 namespace fn_f1f11990 { extern "C" char DAT_0041aa68[], DAT_0041aa88[], DAT_0041aad8[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
@@ -210,7 +208,6 @@ struct TimerCondition_nv_18d330 {
     void f1_0027af50();
     void f2_002345b0();
 };
-extern void thunk_FUN_00267090(hulkfight::motion::TimerCondition*);
 class GrappleVarCompareCondition_18d330 {
   public:
     void* vftable;
@@ -243,7 +240,6 @@ struct Obj_18d3c0 {
     void f1_0027af50();
     void f2_00236d60();
 };
-extern void thunk_FUN_00267090(Obj_18d3c0*);
 class VarAssignTrack_18d3c0 {
   public:
     void* vftable;
@@ -1302,7 +1298,7 @@ TimerCondition_18d300* TimerCondition_18d300::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0041aa48;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1317,7 +1313,7 @@ GrappleVarCompareCondition_18d330* GrappleVarCompareCondition_18d330::vfunc_5(un
     ((TimerCondition_nv_18d330*)(((hulkfight::motion::TimerCondition*)(((hulkfight::motion::TimerCondition*)((char*)p + 0x10))))))->f1_0027af50();
     ((TimerCondition_nv_18d330*)(((hulkfight::motion::TimerCondition*)(((hulkfight::motion::TimerCondition*)p)))))->f2_002345b0();
     if (param & 1)
-        thunk_FUN_00267090((hulkfight::motion::TimerCondition*)p);
+        ::operator delete((hulkfight::motion::TimerCondition*)p);
     return p;
 }
 
@@ -1331,7 +1327,7 @@ VarCompareCondition_18d360* VarCompareCondition_18d360::vfunc_5(unsigned char pa
     ((TimerCondition_nv_18d360*)(((hulkfight::motion::TimerCondition*)(((hulkfight::motion::TimerCondition*)((char*)p + 0x10))))))->f1_0027af50();
     ((TimerCondition_nv_18d360*)(((hulkfight::motion::TimerCondition*)(((hulkfight::motion::TimerCondition*)p)))))->f2_002345b0();
     if (param & 1)
-        thunk_FUN_00267090((hulkfight::motion::TimerCondition*)p);
+        ::operator delete((hulkfight::motion::TimerCondition*)p);
     return p;
 }
 
@@ -1345,7 +1341,7 @@ TimerSetTrack_18d390* TimerSetTrack_18d390::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0041aaa8;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1360,7 +1356,7 @@ VarAssignTrack_18d3c0* VarAssignTrack_18d3c0::vfunc_5(unsigned char param) {
     ((Obj_18d3c0*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_18d3c0*)p)->f2_00236d60();
     if (param & 1)
-        thunk_FUN_00267090((Obj_18d3c0*)p);
+        ::operator delete((Obj_18d3c0*)p);
     return p;
 }
 
@@ -2277,7 +2273,7 @@ void* ConditionFactoryTemplate_18e9a0::scalar_dtor(unsigned char flags) {
     base1_dtor_0018cc70();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2309,7 +2305,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2364,7 +2360,7 @@ void* ConditionFactoryTemplate_18eb10::scalar_dtor(unsigned char flags) {
     base1_dtor_0018cce0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2395,7 +2391,7 @@ void* ConditionFactoryTemplate_18ebc0::scalar_dtor(unsigned char flags) {
     base1_dtor_0018cd60();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2422,14 +2418,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_0041ae98;
     base1_dtor_0018ce70();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0018ec80

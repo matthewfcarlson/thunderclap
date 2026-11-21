@@ -466,7 +466,6 @@ class World_1c9140 : public CAction {
 struct ThisCall_001c86e0 {
     void FUN_001c86e0();
 };
-extern void thunk_FUN_00267090(World_1c9140*);
 
 
 // 0x001c7e90 FUN_001c7e90 (17 B): matches/0x001c7e90.cpp
@@ -1220,7 +1219,7 @@ LevelLoader_1c8fd0* LevelLoader_1c8fd0::f2(unsigned char flags) {
     }
     vptr = ((void**)DAT_003f6098);
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -1268,7 +1267,7 @@ namespace fn_f9d12736 {
 World_1c9140* World_1c9140::vfunc_2(unsigned char flags) {
     ((ThisCall_001c86e0*)(this))->FUN_001c86e0();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

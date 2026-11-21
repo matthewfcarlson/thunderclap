@@ -9,7 +9,6 @@
 namespace fn_fbe259a7 {} using namespace fn_fbe259a7;
 namespace fn_fbe259a7 {
 struct FactoryCtor { void init_002343b0(); };   // (unb4) the factory constructors InitHelper::init stood for
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 namespace fn_fbe259a7 { extern "C" char DAT_0040d9e4[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/ai.h"
@@ -98,7 +97,7 @@ void* ConditionFactoryTemplate_113fc0::scalar_dtor(unsigned char flags) {
     base1_dtor_0010c850();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

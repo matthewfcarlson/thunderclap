@@ -151,13 +151,12 @@ class CHapticTrack : public CTrack {
     CHapticTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CHapticTrack* CHapticTrack::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_003fa034;
     Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

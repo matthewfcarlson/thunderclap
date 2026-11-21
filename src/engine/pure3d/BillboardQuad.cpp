@@ -14,6 +14,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fff84c72 {} using namespace fn_fff84c72;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fff84c72 { extern "C" char DAT_0042e724[], DAT_0042e7d4[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_fff84c72 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
@@ -713,7 +714,6 @@ class OldBillboardObjectLoader : public SimpleChunkHandler_2bc4d0 {
     char pad[0x14 - sizeof(SimpleChunkHandler_2bc4d0)];
     SimpleChunkHandler_2bc4d0* volatile mRef;
 };
-extern void __cdecl thunk_00263f30(OldBillboardObjectLoader*);
 extern "C" void* FUN_0008d6d0(unsigned int);
 extern "C" int * __cdecl FUN_002bb600(int *, int, const int *);
 extern void* hulk_at_0042e80c[];
@@ -1566,7 +1566,7 @@ BillboardQuad_2b98a0* BillboardQuad_2b98a0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042e724;
     Destroy_0027afd0();
     if (flags & 1) {
-        ::operator delete(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }
@@ -1730,7 +1730,7 @@ BillboardCutOffQuad_2b9cb0* BillboardCutOffQuad_2b9cb0::vfunc_5(signed char flag
     *(void***)this = ((void**)DAT_0042e724);
     Destroy_0027afd0();
     if (flags & 1) {
-        ::operator delete(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }
@@ -2201,7 +2201,7 @@ BillboardObject_2ba810* BillboardObject_2ba810::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042e764;
     Destroy_002a4ff0();
     if (flags & 1) {
-        ::operator delete(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }
@@ -3269,7 +3269,7 @@ BillboardObjectLoader_2bc430* BillboardObjectLoader_2bc430::f2(unsigned char fla
     }
     vptr = (void**)DAT_003f6098;
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -3285,7 +3285,7 @@ OldBillboardObjectLoader* OldBillboardObjectLoader::v2(int flags) {
     }
     *(volatile hulk_intptr*)this = ((hulk_intptr)DAT_003f6098);
     if (flags & 1)
-        thunk_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -3369,7 +3369,7 @@ BillboardQuadGroup_2bc5d0::~BillboardQuadGroup_2bc5d0() {
         }
     }
     if (b)
-        operator delete(b);
+        ::operator delete[](b);
     Fin_002a50a0();
 }
 
@@ -3464,7 +3464,7 @@ struct BillboardQuadGroup_2bc740 {
 void* BillboardQuadGroup_2bc740::vfunc_2(unsigned int flags) {
     FUN_002bc5d0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002bc740
@@ -3482,7 +3482,7 @@ BillboardCutOffQuadGroup_2bc760* BillboardCutOffQuadGroup_2bc760::vfunc_5(signed
     *(void***)this = hulk_at_0042e840;
     Destroy_002bc5d0();
     if (flags & 1) {
-        ::operator delete(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }

@@ -84,7 +84,6 @@ extern "C" double fabs(double);
 #endif
 TREE_TU_BEGIN
 extern void* refcount_vftable[];
-void __cdecl SweepTrack_DeleteThis(void* p);
 TREE_TU_END
 #ifdef TREE_LOCAL_CSPHulkProp
 TREE_TU_BEGIN
@@ -313,11 +312,8 @@ public:
     virtual void Release();
 };
 extern "C" void __fastcall BaseDtor(void* p);
-extern "C" void operator_delete(void* p);
 extern int IsKindOf(void*, int, int*, int*, int);
 void __cdecl Cleanup(int);
-extern "C" void __cdecl ai_free(void* p);
-extern "C" void __cdecl ai_delete(void* p);
 struct VFT {
     int x;
 };

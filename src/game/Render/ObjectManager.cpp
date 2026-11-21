@@ -36,10 +36,9 @@ struct Part_1c5b10 {
     void f5d30_001c5d30();
 };
 struct Sub_1c5b10 {
-    U_1c5b10 f75e0_001c75e0(U_1c5b10);
-    void f7550_001c7550(hulk_uintptr);   // (decl1) passes as defined
+    void* f75e0_001c75e0(const void*);   // (nat2, D134) a key's object, removed from the cache
+    void f7550_001c7550(const void*);
 };
-extern void __cdecl thunk_0008d330(U_1c5b10);
 class ObjectManager_1c5b50 : public CAction {
   public:
     ObjectManager_1c5b50* vfunc_2(unsigned char);
@@ -47,7 +46,6 @@ class ObjectManager_1c5b50 : public CAction {
 struct ThisCall_001c5890 {
     void FUN_001c5890();
 };
-extern void thunk_FUN_00267090(ObjectManager_1c5b50*);
 class A_1c5be0 {
   public:
     virtual void f();
@@ -160,14 +158,14 @@ int Outer_1c5b00::Target(hulk_intptr a0) {
 } // namespace fn_fb16b970
 
 // 0x001c5b10 FUN_001c5b10 (57 B): matches/0x001c5b10.cpp
-// sym: ?FUN_001c5b10@Obj_1c5b10@owners@@QAEXI@Z
-void owners::Obj_1c5b10::FUN_001c5b10(U_1c5b10 arg) {
+// sym: ?FUN_001c5b10@Obj_1c5b10@owners@@QAEXPBX@Z
+void owners::Obj_1c5b10::FUN_001c5b10(const void* arg) {
     Sub_1c5b10* sub = (Sub_1c5b10*)((char*)this + 0x128);
-    U_1c5b10 r = sub->f75e0_001c75e0(arg);
+    void* r = sub->f75e0_001c75e0(arg);
     sub->f7550_001c7550(arg);
     if (r) {
         ((Part_1c5b10*)r)->f5d30_001c5d30();
-        thunk_0008d330(r);
+        ::operator delete(r);
     }
 }
 
@@ -179,7 +177,7 @@ namespace fn_fb16b970 {
 ObjectManager_1c5b50* ObjectManager_1c5b50::vfunc_2(unsigned char flags) {
     ((ThisCall_001c5890*)(this))->FUN_001c5890();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

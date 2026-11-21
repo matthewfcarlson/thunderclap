@@ -7,8 +7,8 @@
 #define TREE_TU_BEGIN namespace fn_f5ce7ee6 {
 #define TREE_TU_END }
 namespace fn_f5ce7ee6 {} using namespace fn_f5ce7ee6;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f5ce7ee6 {
-void thunk_delete_0008d330(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "common.h"
 
@@ -80,7 +80,6 @@ struct Obj_28d440 {
     virtual void f0();
     virtual void f1();
 };
-void thunk_0008d340(int*);
 class IntChannel {
   public:
     char pad0[12];
@@ -211,11 +210,10 @@ class NonCopyable : public ChannelHandler_28d130 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0028d130
@@ -338,10 +336,10 @@ namespace fn_f5ce7ee6 {
 // Same code shape as 0x0028b4d0 (propagated; names are from that function)
 void IntChannel::vfunc_1() {
     if (mObj == 0)
-        thunk_0008d340(m18);
+        ::operator delete[](m18);
     m18 = 0;
     if (mObj == 0) {
-        thunk_0008d340(m14);
+        ::operator delete[](m14);
         m14 = 0;
         return;
     }
@@ -518,7 +516,6 @@ struct Obj_28d700 {
     virtual void f0();
     virtual void f1();
 };
-void thunk_0008d340(int*);
 class IntChannel {
   public:
     char pad0[12];
@@ -530,10 +527,10 @@ class IntChannel {
 };
 void IntChannel::vfunc_1() {
     if (mObj == 0)
-        thunk_0008d340(m18);
+        ::operator delete[](m18);
     m18 = 0;
     if (mObj == 0) {
-        thunk_0008d340(m14);
+        ::operator delete[](m14);
         m14 = 0;
         return;
     }
@@ -719,7 +716,6 @@ struct Obj_28da90 {
     virtual void f0();
     virtual void f1();
 };
-void thunk_0008d340(int*);
 class IntChannel {
   public:
     char pad0[12];
@@ -731,10 +727,10 @@ class IntChannel {
 };
 void IntChannel::vfunc_1() {
     if (mObj == 0)
-        thunk_0008d340(m18);
+        ::operator delete[](m18);
     m18 = 0;
     if (mObj == 0) {
-        thunk_0008d340(m14);
+        ::operator delete[](m14);
         m14 = 0;
         return;
     }
@@ -957,7 +953,6 @@ struct Obj_28de20 {
     virtual void f0();
     virtual void f1();
 };
-void thunk_0008d340(int*);
 class IntChannel {
   public:
     char pad0[12];
@@ -969,10 +964,10 @@ class IntChannel {
 };
 void IntChannel::vfunc_1() {
     if (mObj == 0)
-        thunk_0008d340(m18);
+        ::operator delete[](m18);
     m18 = 0;
     if (mObj == 0) {
-        thunk_0008d340(m14);
+        ::operator delete[](m14);
         m14 = 0;
         return;
     }
@@ -995,7 +990,7 @@ void* CompressedQuaternionChannel_28de70::scalar_dtor(unsigned char flags) {
     base1_dtor_0028d440();
     base2_dtor_0028c040();
     if (flags & 1)
-        thunk_delete_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1008,7 +1003,7 @@ void* CompressedQuaternionChannel_28dea0::scalar_dtor(unsigned char flags) {
     base1_dtor_0028d700();
     base2_dtor_0028c040();
     if (flags & 1)
-        thunk_delete_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1021,7 +1016,7 @@ void* CompressedQuaternionChannel_28ded0::scalar_dtor(unsigned char flags) {
     base1_dtor_0028da90();
     base2_dtor_0028c040();
     if (flags & 1)
-        thunk_delete_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1034,7 +1029,7 @@ void* CompressedQuaternionChannel_28df00::scalar_dtor(unsigned char flags) {
     base1_dtor_0028de20();
     base2_dtor_0028c040();
     if (flags & 1)
-        thunk_delete_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

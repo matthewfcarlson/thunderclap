@@ -13,6 +13,7 @@
 #define TREE_TU_BEGIN namespace fn_fed79ca6 {
 #define TREE_TU_END }
 namespace fn_fed79ca6 {} using namespace fn_fed79ca6;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fed79ca6 { extern "C" char DAT_0040a47c[], DAT_0042147c[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 #include "game/script_bind.h"
@@ -451,7 +452,6 @@ class Overlay_1bfc80 {
     void* vptr;
     void Fin();
 };
-void Free_0008d330(void*) throw();
 class CSubtitleOverlay_1bfc80 : public Overlay_1bfc80 {
   public:
     char pad[0x14];
@@ -2237,7 +2237,7 @@ CSubtitleOverlay_1bfc80* CSubtitleOverlay_1bfc80::f0(unsigned char fl) {
     }
     vptr = ((void**)DAT_0040a47c);
     if (fl & 1)
-        Free_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -2774,7 +2774,7 @@ void Closure3_1c0230::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unuse
 
 
 // 0x001c0250 FUN_001c0250 (271 B): equivalent/0x001c0250.cpp [wrapped: conflict: sSubtitleManagerCallback]
-// sym: ?cleanup@Manager_1c0250@fn_001c0250@@QAEXXZ @ec0eef484f2f @wc5e8d7b862ba @vcd77086bea5d
+// sym: ?cleanup@Manager_1c0250@fn_001c0250@@QAEXXZ @a40fe9a60e5e @w4e39257cbf46 @ve71481333eb9
 namespace fn_001c0250 {
 // STATUS: equivalent (tools/equiv.py level 3: 2181 inputs, branch coverage 22/22)
 // FUN_001c0250 @ 0x001c0250
@@ -2784,8 +2784,8 @@ struct sSubtitleManagerCallback { virtual void slot0_001c06f0(int, int); unsigne
 extern "C" void* __cdecl memcpy(void*,const void*,unsigned);
 #endif
 
-void __cdecl FUN_0008d330(void*);
-void __cdecl FUN_0008d340(void*);
+
+
 struct Item_1c0250 { virtual void destroy(unsigned); unsigned pad4; unsigned field8; unsigned char flagC; char padD[3]; unsigned field10, field14; char pad18[4]; unsigned short field1C; };
 struct Resource_1c0250 { void FUN_000f6f60(); };
 struct Last { virtual void slot0(); virtual void release(); };
@@ -2798,14 +2798,14 @@ void Manager_1c0250::cleanup() {
  if(type==2) item->flagC=0;
  field50=0;
  Item_1c0250* p=item; p->flagC=0; p->field10=0; p->field8=0; p->field14=0; p->field1C=0;
- if(callback) { sSubtitleManagerCallback* c=callback; sSubtitleManagerCallback reset; reset.value=0; memcpy(c,&reset,sizeof(reset)); FUN_0008d330(c); callback=0; }
+ if(callback) { sSubtitleManagerCallback* c=callback; sSubtitleManagerCallback reset; reset.value=0; memcpy(c,&reset,sizeof(reset)); ::operator delete(c); callback=0; }
  if(item) { item->destroy(1); item=0; }
- void* b=buffer; count=0; if(b) { FUN_0008d340(b); buffer=0; }
- Resource_1c0250* r=resource38; if(r) { r->FUN_000f6f60(); FUN_0008d330(r); resource38=0; }
- r=resource34; if(r) { r->FUN_000f6f60(); FUN_0008d330(r); resource34=0; }
- if(field8) { FUN_0008d340(field8); field8=0; }
- for(int i=0;i<10;++i) { if(entries[i]) { FUN_0008d340(entries[i]); entries[i]=0; } }
- if(entries) { FUN_0008d340(entries); entries=0; }
+ void* b=buffer; count=0; if(b) { ::operator delete[](b); buffer=0; }
+ Resource_1c0250* r=resource38; if(r) { r->FUN_000f6f60(); ::operator delete(r); resource38=0; }
+ r=resource34; if(r) { r->FUN_000f6f60(); ::operator delete(r); resource34=0; }
+ if(field8) { ::operator delete[](field8); field8=0; }
+ for(int i=0;i<10;++i) { if(entries[i]) { ::operator delete[](entries[i]); entries[i]=0; } }
+ if(entries) { ::operator delete[](entries); entries=0; }
  if(last) { last->release(); last=0; }
 }
 } // namespace fn_001c0250

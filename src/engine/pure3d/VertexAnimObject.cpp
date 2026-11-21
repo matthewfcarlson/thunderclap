@@ -18,7 +18,6 @@ class Item_2d0f10 {
     virtual void F() throw();
     virtual void Release() throw();
 };
-extern "C" void __cdecl Free(void*) throw();
 template <class T> struct Vec_2d0f10 {
     T* begin;
     T* end;

@@ -643,16 +643,6 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
-  "0x00201cd0": {
-   "modes": {
-    "msvc": {
-     "code": "4f3d4176e6bc",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
   "0x00203a80": {
    "modes": {
     "wine": {
@@ -1025,45 +1015,27 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
-  "0x002bf680": {
-   "modes": {
-    "msvc": {
-     "code": "b9c659ceac05",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
   "0x002bfe10": {
    "modes": {
-    "msvc": {
-     "code": "c527a559ea3c",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    },
     "wine": {
-     "code": "08b69b2d0245",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
+     "code": "f6a1550121c4",
+     "accepted": "2026-11-20T20:27:22",
+     "by": "unproven-accept",
+     "why": "nat2 D134: free spelled ::operator delete[] (equiv-map hint for 0x2c00b0); MSVC re-proven promotable at 3,000; --wine unproven as at HEAD (D126 budget class: the run exceeds the 30,000 s job limit at 3,000 inputs, code_write/too_many_pages inconclusives)"
     }
    },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
+   "why": "nat2 D134: free spelled ::operator delete[] (equiv-map hint for 0x2c00b0); MSVC re-proven promotable at 3,000; --wine unproven as at HEAD (D126 budget class: the run exceeds the 30,000 s job limit at 3,000 inputs, code_write/too_many_pages inconclusives)"
   },
   "0x002c00b0": {
    "modes": {
-    "msvc": {
-     "code": "360d384ac205",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    },
     "wine": {
-     "code": "14cef8e4fa00",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
+     "code": "2bcffee39796",
+     "accepted": "2026-11-20T20:27:22",
+     "by": "unproven-accept",
+     "why": "nat2 D134: free spelled ::operator delete[] (equiv-map hint for 0x2c00b0); MSVC re-proven promotable at 3,000; --wine unproven as at HEAD (D126 budget class: the run exceeds the 30,000 s job limit at 3,000 inputs, code_write/too_many_pages inconclusives)"
     }
    },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
+   "why": "nat2 D134: free spelled ::operator delete[] (equiv-map hint for 0x2c00b0); MSVC re-proven promotable at 3,000; --wine unproven as at HEAD (D126 budget class: the run exceeds the 30,000 s job limit at 3,000 inputs, code_write/too_many_pages inconclusives)"
   },
   "0x002c0200": {
    "modes": {
@@ -1336,5 +1308,5 @@
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   }
  },
- "total": 148
+ "total": 144
 }

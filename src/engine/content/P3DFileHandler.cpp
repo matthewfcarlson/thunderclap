@@ -11,12 +11,12 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f638de75 {} using namespace fn_f638de75;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/content.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f638de75 {
 extern "C" void __cdecl FUN_0026d7a0(void*);   // (decl1) as defined (unk_26d480.cpp)
-extern "C" void AddRef_0008d340(void*);
 extern "C" void Release(void*);
 struct Obj_265bf0 {
     char pad0[1];
@@ -44,8 +44,6 @@ struct State_265c40 {
     hulk_intptr at2c;
     int at30;
 };
-extern "C" void __cdecl thunk_FUN_00267090_a(void*);
-extern "C" void __cdecl thunk_FUN_00267090_b(void*);
 void* __cdecl FUN_00263ed0(unsigned int size, int flag);
 int __cdecl FUN_00266da0(int heap);   // (x64t15) the heap id, as defined (unk_266950.cpp)
 struct Ctx_265cd0;
@@ -161,12 +159,12 @@ void __fastcall Target(Obj_265bf0* self) {
     self->m28 = p;
     self->m2c = p;
     if (p)
-        AddRef_0008d340(p);
+        ::operator delete[](p);
     p = self->m1c;
     self->m14 = p;
     self->m18 = p;
     if (p)
-        AddRef_0008d340(p);
+        ::operator delete[](p);
     ::operator delete(self);
 }
 
@@ -181,13 +179,13 @@ extern "C" void __cdecl FUN_00265c40(void) {
     s->at28 = x;
     s->at2c = x;
     if (x)
-        thunk_FUN_00267090_a((void*)x);
+        ::operator delete[]((void*)x);
     x = s->at1c;
     s->at14 = x;
     s->at18 = x;
     if (x)
-        thunk_FUN_00267090_a((void*)x);
-    thunk_FUN_00267090_b(s);
+        ::operator delete[]((void*)x);
+    ::operator delete(s);
     (*(State_265c40**)&DAT_00527c58) = 0;
 }
 

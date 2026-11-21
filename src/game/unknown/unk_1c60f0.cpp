@@ -95,7 +95,6 @@ class NonCopyable_1c65d0 : public ::core::IRefCount {
     virtual NonCopyable_1c65d0* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable_1c65d0*);
 
 
 // 0x001c60f0 FUN_001c60f0 (63 B): matches/0x001c60f0.cpp
@@ -216,7 +215,7 @@ Obj_1c65a0* Obj_1c65a0::target() {
 pure3d::NonCopyable_1c65d0* pure3d::NonCopyable_1c65d0::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

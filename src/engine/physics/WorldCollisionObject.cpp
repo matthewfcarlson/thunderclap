@@ -270,14 +270,13 @@ class WorldCollisionObject : public Entity_2fe210 {
     void* member10;
     void helper_0027afd0();
 };
-void __cdecl thunk_00263f30(WorldCollisionObject*);
 WorldCollisionObject* WorldCollisionObject::f2(unsigned char flag) {
     *(void**)this = &hulk_at_00431968;
     if (member10)
         ((Entity_2fe210*)member10)->f1();
     helper_0027afd0();
     if (flag & 1)
-        thunk_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002fe210

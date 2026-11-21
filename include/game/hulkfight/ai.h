@@ -12,7 +12,6 @@ TREE_TU_END
 extern "C" void _ReadWriteBarrier();
 TREE_TU_BEGIN
 extern char DAT_0049850c;
-extern "C" void opdel(void*);
 TREE_TU_END
 void* __cdecl operator new(size_t size);
 TREE_TU_BEGIN
@@ -40,7 +39,6 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
     void(__fastcall* fn)(void*);
     virtual void vfunc_6(void*);
 };
-void Free(void*) throw();
 extern int g2;
 void* __cdecl operator_new(unsigned int);
 extern "C" hulk_freg FUN_00224fc0(float from, float to);

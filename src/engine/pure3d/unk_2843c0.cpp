@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fffbb65f {} using namespace fn_fffbb65f;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -84,7 +85,6 @@ struct Obj_2847f0 {
     char pad[0x1c];
     void* p28;
 };
-void cleanup_0008d340(void*);
 void* __cdecl FUN_0008d6d0(unsigned int);
 namespace pure3d {
 struct Pose {
@@ -325,7 +325,7 @@ void __fastcall target(volatile Obj_2847f0* self) {
         r->B();
         self->m = 0;
     }
-    cleanup_0008d340(self->p28);
+    ::operator delete[](self->p28);
     self->v = (void**)((hulk_intptr)DAT_003f6098);
 }
 

@@ -460,7 +460,6 @@ class NonCopyable_d6900 : public ::Overlay {
 };
 }
 namespace fn_f27eef39 {
-void thunk_FUN_00267090(pure3d::NonCopyable_d6900*);
 struct Data_d6a20 { float x,y,z; };
 // (recs1) the View and the camera this TU constructs: the slots it calls; a View's words after its vptr are
 // decls/view.h's (HULK_VIEW_WORDS, as HulkView lays them out)
@@ -2143,7 +2142,7 @@ void MessageOverlay::vfunc_2() {
 pure3d::NonCopyable_d6900* pure3d::NonCopyable_d6900::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0040a47c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

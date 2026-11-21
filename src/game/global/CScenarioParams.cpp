@@ -11,7 +11,6 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f2d3e6ac {} using namespace fn_f2d3e6ac;
 namespace fn_f2d3e6ac {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "game/global.h"
 
@@ -155,7 +154,7 @@ CScenarioParams_1d0450* CScenarioParams_1d0450::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00422370;
     Destroy_00236a50();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

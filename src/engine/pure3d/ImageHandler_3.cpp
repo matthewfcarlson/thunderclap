@@ -11,6 +11,7 @@
 #include "decls/data/records.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_fee005c0 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -247,7 +248,6 @@ class NonCopyable : public FileLoader_2af100 {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 
 
 // 0x002ae8a0 pure3d::ImageHandler::vfunc_7 (79 B): matches/0x002ae8a0.cpp
@@ -626,7 +626,7 @@ ImageHandler::ImageHandler() {
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

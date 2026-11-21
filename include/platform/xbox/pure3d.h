@@ -56,7 +56,6 @@ void __fastcall D3DDevice_SetVertexShaderConstant1(int reg, const void* data);
 struct LightMgr {
     void FUN_00321dc0(int* out, int count);
 };
-extern void thunk_FUN_00267090(void*);
 namespace D3D8 {
 void __fastcall D3DDevice_SetVertexShaderConstant4(int reg, const void* data);
 }

@@ -43,7 +43,6 @@ class NonCopyable_26f050 : public ::core::IPlatform {
     virtual NonCopyable_26f050* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable_26f050*);
 
 } // namespace fn_fb3b39af
 
@@ -89,7 +88,7 @@ void Obj_26f020::Init() {
 pure3d::NonCopyable_26f050* pure3d::NonCopyable_26f050::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

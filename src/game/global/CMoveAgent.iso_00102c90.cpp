@@ -9,7 +9,6 @@
 namespace fn_fcaa2eec {} using namespace fn_fcaa2eec;
 namespace fn_fcaa2eec {
 extern int hulk_at_0040d418;
-extern void __cdecl thunk_0008d330(struct CMoveAgent*);
 
 struct Ref_102c90 {
     virtual void a();
@@ -31,7 +30,7 @@ CMoveAgent* CMoveAgent::vfunc_2(unsigned char param) {
     this->member = 0;
     this->cleanupM_000fc630();
     if (param & 1)
-        thunk_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_fcaa2eec

@@ -12,6 +12,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f9a208e6 {} using namespace fn_f9a208e6;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -141,7 +142,6 @@ public:
     Sprite_2c1d70 *FUN_002c1d70(Reader_2c1d70 *r, pure3d::TextureBuilder *sd, Sprite_2c1d70 *existing, int arg);
 };
 extern "C" void *FUN_0008d6d0(unsigned int size);
-void FUN_0008d340(void *p);
 class Ref_2c1f80 {
 public:
     virtual void AddRef();
@@ -212,7 +212,6 @@ struct Holder_2c2330 {
     void* q;
 };
 extern "C" void __fastcall FUN_002ae910(void*);
-void __cdecl thunk_FUN_00267090(void*);
 extern int hulk_at_0042ec44, hulk_at_003f6098;
 struct Name_2c2370 {
     void FUN_0027b040(const char* s);
@@ -397,7 +396,7 @@ Sprite_2c1d70 *Loader_2c1d70::FUN_002c1d70(Reader_2c1d70 *r, pure3d::TextureBuil
 
 
 // 0x002c1f80 FUN_002c1f80 (758 B): equivalent/0x002c1f80.cpp
-// sym: ?FUN_002c1f80@Loader_2c1f80@fn_f9a208e6@@QAEPAXPAUReader@2@PAUFactory_2c1f80@2@HHH@Z @7b3575889106 @we683bcb48451 @v7a52413d769b
+// sym: ?FUN_002c1f80@Loader_2c1f80@fn_f9a208e6@@QAEPAXPAUReader@2@PAUFactory_2c1f80@2@HHH@Z @d0b9ed36b8df @w4afd24b05248 @v0db142a56fdd
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 24/28, incomplete)
 // FUN_002c1f80 @ 0x002c1f80
 void *Loader_2c1f80::FUN_002c1f80(Reader *r, Factory_2c1f80 *factory, hulk_intptr a3, int a4, int a5)
@@ -479,7 +478,7 @@ void *Loader_2c1f80::FUN_002c1f80(Reader *r, Factory_2c1f80 *factory, hulk_intpt
     }
     for (int i = 0; i < n; i++)
         f.items[i]->Release();
-    FUN_0008d340(f.items);
+    ::operator delete[](f.items);
     return f.result;
 }
 
@@ -504,7 +503,7 @@ void __fastcall FUN_002c2330(TextureLoader* self) {
     *(int**)self = &hulk_at_0042ec44;
     if (p) {
         FUN_002ae910(p);
-        thunk_FUN_00267090(p);
+        ::operator delete(p);
     }
     if (((Holder_2c2330*)self)->q)
         ((IRefCount*)((Holder_2c2330*)self)->q)->Release(1);
@@ -594,7 +593,7 @@ Texture_2c2570* Texture_2c2570::f2(unsigned char flags) {
     }
     Fin_0027afd0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

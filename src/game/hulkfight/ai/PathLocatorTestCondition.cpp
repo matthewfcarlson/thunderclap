@@ -13,7 +13,6 @@
 namespace fn_fff5b4af {} using namespace fn_fff5b4af;
 namespace fn_fff5b4af {
 struct FactoryCtor { void init_002343b0(); void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "game/hulkfight/ai.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
@@ -2816,7 +2815,7 @@ void* ConditionFactoryTemplate_122d50::scalar_dtor(unsigned char flags) {
     base1_dtor_0011c1f0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2860,7 +2859,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor_0011c2f0();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2908,14 +2907,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_0040fb9c;
     base1_dtor_0011c3b0();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00122e70
@@ -2963,14 +2961,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_0040fbb8;
     base1_dtor_0011c4d0();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00122f00
@@ -3026,14 +3023,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_0040fbd4;
     base1_dtor_0011c580();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00122fc0
@@ -3101,14 +3097,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_0040fbf0;
     base1_dtor_0011c620();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00123080
@@ -3156,14 +3151,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_0040fc0c;
     base1_dtor_0011c6c0();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00123110
@@ -3211,14 +3205,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_0040fc28;
     base1_dtor_0011c770();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_001231a0

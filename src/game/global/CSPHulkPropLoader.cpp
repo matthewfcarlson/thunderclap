@@ -10,6 +10,7 @@
 #define TREE_TU_BEGIN namespace fn_f590c0bf {
 #define TREE_TU_END }
 namespace fn_f590c0bf {} using namespace fn_f590c0bf;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 // (ren2) atol's own name (CRT, C linkage)
 #if !defined(HULK_COMPAT_CRT)
@@ -117,7 +118,6 @@ class Obj_1d5710 {
     Inner_1d5710* p;
     int Count();
 };
-void thunk_FUN_00267090(void *p);
 extern "C" void *FUN_0008d6d0(unsigned int size);
 class Resource_1d5730 {
 public:
@@ -537,7 +537,7 @@ void CSPHulkProp_1d55d0::Dtor2() throw() {
         p90 = 0;
     }
     if (pb8) {
-        FUN_0008d340(pb8);
+        ::operator delete[](pb8);
         pb8 = 0;
     }
     pc0.Fini_0027af50();
@@ -581,7 +581,7 @@ int Obj_1d5710::Count() {
 
 
 // 0x001d5730 FUN_001d5730 (111 B): equivalent/0x001d5730.cpp
-// sym: ?FUN_001d5730@Holder_1d5730@fn_f590c0bf@@QAEXPAVResource_1d5730@2@@Z @531f630098a1 @we10c4f419f04 @v24fe826d8932
+// sym: ?FUN_001d5730@Holder_1d5730@fn_f590c0bf@@QAEXPAVResource_1d5730@2@@Z @32a9b2888b20 @wed35ab2be3ea @v5b4ab0aefc60
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001d5730 @ 0x001d5730
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
@@ -593,7 +593,7 @@ void Holder_1d5730::FUN_001d5730(Resource_1d5730 *r)
         resource->Release();
     resource = r;
     if (buffer != 0) {
-        thunk_FUN_00267090(buffer);
+        ::operator delete[](buffer);
         buffer = 0;
     }
     buffer = FUN_0008d6d0((resource->end - resource->begin) * 4);
@@ -616,7 +616,7 @@ struct CSPHulkProp_1d5c50 {
 void* CSPHulkProp_1d5c50::vfunc_2(unsigned int flags) {
     FUN_001d55d0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_001d5c50

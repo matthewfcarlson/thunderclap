@@ -1531,7 +1531,6 @@ struct T_2b690 {
     void init_0002a890();
     void fini_0002c110();
 };
-extern void __cdecl dispose_0008d330(Ref_2b690*);
 extern void globalf_00232bb0();
 struct Name_2b730 {
     unsigned int lo, hi;
@@ -1667,11 +1666,10 @@ class CCollisionAction : public CAction {
 struct ThisCall_00067a20 {
     void FUN_00067a20();
 };
-extern void thunk_FUN_00267090(CCollisionAction*);
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     ((ThisCall_00067a20*)(this))->FUN_00067a20();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00024170
@@ -8451,7 +8449,7 @@ void T_2b690::A() {
     Ref_2b690* z = q;
     if (z) {
         ((owners::C_67a20 *)z)->FUN_00067a20();
-        dispose_0008d330(z);
+        ::operator delete(z);
     }
     if (r)
         r->Release(1);

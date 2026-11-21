@@ -95,7 +95,6 @@ class FootPivotAction {
 class Helper_17b560 {
   public:
 };
-extern void __cdecl thunk_FUN_00267090(FootPivotAction*);
 typedef unsigned int u32_17b5c0;
 struct Helper_17b5c0 {
     int run_00174fb0(hulkfight::motion::DriftToPositionTrack*, u32_17b5c0);
@@ -113,7 +112,6 @@ struct VObj_17b610 {
 struct Sub38_17b610 {
     void Fn_0027af50();
 };
-void __cdecl FUN_0008d330(void* p);
 class DriftToPositionAction {
   public:
     virtual void vfunc_0();
@@ -170,7 +168,6 @@ class TeleportAction_17b750 {
     int m_1c;
     RefCounted_17b750* m_20;
 };
-extern "C" void __cdecl opdelete_0008d330(void*);
 extern void* const hulk_at_00417f2c;
 class RelObj_17b7f0 {
   public:
@@ -265,7 +262,6 @@ class MoveJointAction {
     Ref_17bae0* volatile m24;
     Ref_17bae0* volatile m28;
 };
-void destroy_0008d330(MoveJointAction*);
 extern void* hulk_at_00417fd4[];
 class Ref_17bb80 {
   public:
@@ -419,7 +415,7 @@ FootPivotAction* FootPivotAction::f2(unsigned char flags) {
         m1c = 0;
     ((fight::Action *)(((Helper_17b560*)this)))->FUN_002326a0();
     if (flags & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -457,7 +453,7 @@ DriftToPositionAction* DriftToPositionAction::vfunc_2(unsigned char param) {
     m38.Fn_0027af50();
     ((fight::Action *)this)->FUN_002326a0();
     if (param & 1) {
-        FUN_0008d330((void*)this);
+        ::operator delete((void*)this);
     }
     return this;
 }
@@ -542,7 +538,7 @@ TeleportRelativeAction* TeleportRelativeAction::vfunc_2(unsigned char param) {
     ((Sub28*)(self + 0x28))->Fn_0027af50();
     ((fight::Action *)(((BaseCls_17b7f0*)self)))->FUN_002326a0();
     if (param & 1) {
-        opdelete_0008d330(self);
+        ::operator delete(self);
     }
     return (TeleportRelativeAction*)self;
 }
@@ -670,7 +666,7 @@ MoveJointAction* MoveJointAction::v2(unsigned char flag) {
         m1c = 0;
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1)
-        destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

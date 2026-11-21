@@ -33,7 +33,6 @@ class DisplayTraversal {
     union { int e; Ref_2c6ad0* volatile mRef; };
     DisplayTraversal* F2(unsigned int);
 };
-extern void Destroy_0008d330(DisplayTraversal*);
 
 
 // 0x002c6a80 FUN_002c6a80 (31 B): matches/0x002c6a80.cpp
@@ -91,7 +90,7 @@ DisplayTraversal* DisplayTraversal::F2(unsigned int flags) {
     }
     vf = ((hulk_intptr)DAT_003f6098);
     if (flags & 1)
-        Destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

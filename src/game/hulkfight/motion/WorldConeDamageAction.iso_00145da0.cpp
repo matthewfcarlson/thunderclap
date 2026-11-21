@@ -16,7 +16,6 @@ class Ref_145da0 {
 class WorldConeDamageAction_145da0 {
   public:
 };
-extern void __cdecl thunk_FUN_00267090(void*);
 class HitEffectAction {
   public:
     void* vptr;
@@ -41,7 +40,7 @@ HitEffectAction* HitEffectAction::f2(unsigned char flags) {
     }
     ((fight::Action *)(((WorldConeDamageAction_145da0*)this)))->FUN_002326a0();
     if (flags & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

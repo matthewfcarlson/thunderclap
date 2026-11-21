@@ -14,7 +14,6 @@
 namespace fn_f55fdae2 {} using namespace fn_f55fdae2;
 namespace fn_f55fdae2 {
 struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "engine/fight.h"
 void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
@@ -257,14 +256,13 @@ class SequenceTrack {
     char r[8];
     void Finish_00236d60();
 };
-void __cdecl thunk_FUN_00267090(SequenceTrack*);
 SequenceTrack* SequenceTrack::V5(int x) {
     *(char**)this = ((char*)DAT_00428100);
     a1.Init_00236fd0();
     b.Init_00234150();
     Finish_00236d60();
     if (x & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00237c50
@@ -571,7 +569,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

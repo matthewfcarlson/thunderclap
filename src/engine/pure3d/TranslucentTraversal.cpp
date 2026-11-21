@@ -13,6 +13,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f7803771 {} using namespace fn_f7803771;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -190,15 +191,9 @@ void __cdecl FUN_002a1e00(Elem4 *a, Elem4 *b, Elem4 *c, void *cmp);
 void FUN_002a1e60(hulk_intptr, hulk_intptr, hulk_intptr, int, int);
 extern "C" char DAT_0042d750[];
 typedef unsigned int u32_2a21c0;
-extern void __cdecl thunk_FUN_00267090(u32_2a21c0);
 extern void __fastcall FUN_002c6aa0(void*);
-struct TranslucentTraversal {
-    u32_2a21c0 vptr;
-    char pad04[0x18];
-    u32_2a21c0 mSeven;
-    char pad20[8];
-    u32_2a21c0 mTen;
-};
+// (nat2, D134) the traversal's record: its entries (+0x1c) and order (+0x28) blocks, freed with operator delete[]
+struct TranslucentTraversal : ::pure3d::TranslucentTraversal {};
 typedef bool (__cdecl *Less_2a23d0)(int a, int b);
 void __cdecl FUN_002a1ac0(int *first, int *middle, int *last, int a, int b);
 void __cdecl FUN_002a1e60(int*, int, hulk_intptr, int, int);
@@ -481,12 +476,12 @@ namespace fn_f7803771 {
 // 0x002a21c0 FUN_002a21c0 (49 B): matches/0x002a21c0.cpp
 // sym: ?FUN_002a21c0@fn_f7803771@@YIXPAUTranslucentTraversal@1@@Z
 void __fastcall FUN_002a21c0(TranslucentTraversal* self) {
-    *(volatile hulk_uintptr*)&self->vptr = ((hulk_intptr)DAT_0042d750);
+    *(volatile hulk_uintptr*)self = ((hulk_intptr)DAT_0042d750);
     _ReadWriteBarrier();
-    if (self->mTen)
-        thunk_FUN_00267090(self->mTen);
-    if (self->mSeven)
-        thunk_FUN_00267090(self->mSeven);
+    if (self->f_28)
+        ::operator delete[](self->f_28);
+    if (self->f_1c)
+        ::operator delete[](self->f_1c);
     FUN_002c6aa0(self);
 }
 

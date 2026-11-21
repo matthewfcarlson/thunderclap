@@ -24,8 +24,6 @@ class TextureLoader : public HulkTextureLoader {
     TextureLoader();
 };
 extern int hulk_at_003f6098;
-extern void Free_00263f30(void*);
-extern void Free2_0008d330(void*);
 class Obj_2c2620 {
   public:
     void Fini_002ae910();
@@ -71,13 +69,13 @@ TextureLoader_2c2620* TextureLoader_2c2620::vfunc2(unsigned char f) {
     vftable = &hulk_at_0042ec44;
     if (o) {
         o->Fini_002ae910();
-        Free2_0008d330(o);
+        ::operator delete(o);
     }
     if (converter)
         ((Ref_2c2620*)converter)->Del(1);
     vftable = &hulk_at_003f6098;
     if (f & 1)
-        Free_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

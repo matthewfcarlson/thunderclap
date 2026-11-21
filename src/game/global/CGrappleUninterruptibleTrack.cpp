@@ -8,8 +8,6 @@
 namespace fn_f77f55b0 {} using namespace fn_f77f55b0;
 namespace fn_f77f55b0 {
 struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "game/global.h"
 
@@ -86,7 +84,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor_0006a890();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -108,7 +106,7 @@ CGrappleUninterruptibleTrack* CGrappleUninterruptibleTrack::vfunc_5(signed char 
     *(void***)this = hulk_at_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

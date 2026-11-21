@@ -10,6 +10,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fc9dd2b5 {} using namespace fn_fc9dd2b5;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fc9dd2b5 { extern "C" char DAT_004076ec[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/unknown.h"
 
@@ -33,7 +34,6 @@ class NonCopyable : public ISoundManager_bbb20 {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 struct State_bbb40 {
     char pad[0x1cf8];
     long value;
@@ -235,7 +235,6 @@ struct Object {
 };
 struct Handler { char pad[4]; Object *object; int FUN_000bbfa0(int type, Values *values); };
 extern "C" void __cdecl FUN_000fc130(const void *arg);
-extern "C" void __cdecl FUN_0008d340(void *p);
 class Scene_bc100 {
 public:
     void FUN_000f7ce0();
@@ -361,7 +360,7 @@ void __fastcall FUN_000bbb00(O_bbb00* self, void*) {
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_004076ec;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1015,7 +1014,7 @@ int Object::FUN_000bc0f0(int a, int b) {
 
 
 // 0x000bc100 FUN_000bc100 (218 B): equivalent/0x000bc100.cpp
-// sym: ?FUN_000bc100@Loader_bc100@fn_fc9dd2b5@@QAEXXZ @711c786abc5c @w5a9aa63f6a56 @v2a9aeb435d1c
+// sym: ?FUN_000bc100@Loader_bc100@fn_fc9dd2b5@@QAEXXZ @a34d453b4201 @w17f3a6a13932 @va6baf16f64fe
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
 // FUN_000bc100 @ 0x000bc100
 void Loader_bc100::FUN_000bc100()
@@ -1025,13 +1024,13 @@ void Loader_bc100::FUN_000bc100()
     for (int i = 0; i < 128; i++) {
         if (slotsA[i] == 0)
             break;
-        FUN_0008d340(slotsA[i]);
+        ::operator delete[](slotsA[i]);
         slotsA[i] = 0;
     }
     for (int i = 0; i < 128; i++) {
         if (slotsB[i] == 0)
             break;
-        FUN_0008d340(slotsB[i]);
+        ::operator delete[](slotsB[i]);
         slotsB[i] = 0;
     }
     FUN_000fc160();

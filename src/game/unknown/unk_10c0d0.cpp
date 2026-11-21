@@ -10,6 +10,7 @@
 #define TREE_TU_END }
 namespace fn_f15aa14c {} using namespace fn_f15aa14c;
 void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/unknown.h"
 
 // ---- declarations shared by the functions below
@@ -259,9 +260,8 @@ class CCondition_10c870 {
   public:
     virtual int vfunc_0(int);
 };
-int __cdecl FUN_0008d340(void *p);
 extern "C" void * __cdecl FUN_0008d6d0(unsigned int size);
-struct Owner { char pad[0x10]; char *text; hulk_intptr SetText_0010c8d0(const char *source); };
+struct Owner { char pad[0x10]; char *text; bool SetText_0010c8d0(const char *source); };
 extern int* hulk_at_004e0b00;
 class CCondition_10c950 {
   public:
@@ -277,7 +277,6 @@ class CCondition_10caa0 {
   public:
     virtual int vfunc_0(int);
 };
-extern "C" void __cdecl Free(void*);
 extern "C" void* __cdecl Alloc(hulk_uintptr);
 } // namespace fn_f15aa14c
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -294,7 +293,6 @@ class CCondition_10cbe0 {
   public:
     virtual int vfunc_0(int);
 };
-extern "C" void FreeMem_0008d340(void*);
 class Obj {
   public:
     char _m_pad_0[0x10];
@@ -317,7 +315,6 @@ class CCondition_10ce00 {
   public:
     virtual int vfunc_0(int);
 };
-extern "C" void __cdecl thunk_FUN_00267090(void*);
 extern int* hulk_at_004e0b40;
 class CCondition_10cee0 {
   public:
@@ -1019,29 +1016,35 @@ hulk_intptr hulkfight::ai::AIHistoryNameCondition::vfunc_0(int index) {
 namespace fn_f15aa14c {
 
 // 0x0010c8b0 FUN_0010c8b0 (29 B): matches/0x0010c8b0.cpp
-// sym: ?run@CRawScript@fn_f15aa14c@@QAEXXZ
-// Same code shape as 0x000f99b0 (propagated; names are from that function)
-void CRawScript::run() {
-    vptr = &rawVtable;
-    thunk(mArg);
-    finish();
+// sym: ?run@AIHistoryNameCondition_10c8b0@fn_f15aa14c@@QAEXXZ
+// (nat2, D134) hulkfight::ai::AIHistoryNameCondition's destructor on the class's record: its name (+0x10 on 32-bit) is a
+// pointer, freed with operator delete[]; then fight::Condition's destructor (0x002345b0)
+extern "C" char DAT_0040d9e4[];   // hulkfight::ai::AIHistoryNameCondition's vftable
+struct AIHistoryNameCondition_10c8b0 : ::hulkfight::ai::AIHistoryNameCondition {
+    void finish_002345b0();
+    void run();
+};
+void AIHistoryNameCondition_10c8b0::run() {
+    *(char**)this = DAT_0040d9e4;
+    ::operator delete[](name);
+    finish_002345b0();
 }
 
 
 // 0x0010c8d0 FUN_0010c8d0 (82 B): equivalent/0x0010c8d0.cpp
-// sym: ?SetText_0010c8d0@Owner@fn_f15aa14c@@QAEHPBD@Z @40a668c6d2d0 @w6e9ccdf703b1 @v78bc526b4c70
+// sym: ?SetText_0010c8d0@Owner@fn_f15aa14c@@QAE_NPBD@Z @c07595913fbb @w9e56115af956 @ve5fffe8b9c0a
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // SetText_0010c8d0 @ 0x0010c8d0
-hulk_intptr Owner::SetText_0010c8d0(const char *source) {
-    int freed = FUN_0008d340(text);
-    if (!source) { text = 0; return (freed & ~255) | 1; }
+bool Owner::SetText_0010c8d0(const char *source) {
+    ::operator delete[](text);
+    if (!source) { text = 0; return true; }
     const char *end = source;
     while (*end) ++end;
     char *destination = (char *)FUN_0008d6d0((unsigned int)(end - source + 1));
     text = destination;
     char *current = destination;
     do { *current++ = *source; } while (*source++);
-    return ((hulk_intptr)destination & ~255) | 1;
+    return true;
 }
 
 
@@ -1068,18 +1071,16 @@ hulk_intptr hulkfight::ai::HulkActionLargestCondition::vfunc_0(int index) {
 namespace fn_0010c990 {
 // Same code shape as 0x000f99b0 (propagated; names are from that function)
 extern int hulk_at_0040da04;
-class CRawScript {
+// (nat2, D134) hulkfight::ai::HulkActionLargestCondition on its record: the name (+0x10 on 32-bit) is a pointer, freed with
+// operator delete[]
+class CRawScript : public ::hulkfight::ai::HulkActionLargestCondition {
   public:
-    int* vptr;
-    char pad[12];
-    int mArg;
     void finish_002345b0();
     void run();
 };
-extern void __cdecl thunk_0008d340(int);
 void CRawScript::run() {
-    vptr = &hulk_at_0040da04;
-    thunk_0008d340(mArg);
+    *(int**)this = &hulk_at_0040da04;
+    ::operator delete[](f_10);
     finish_002345b0();
 }
 } // namespace fn_0010c990
@@ -1128,18 +1129,16 @@ hulk_intptr hulkfight::ai::HulkActionRecentCondition::vfunc_0(int index) {
 namespace fn_0010cae0 {
 // Same code shape as 0x000f99b0 (propagated; names are from that function)
 extern int hulk_at_0040da44;
-class CRawScript {
+// (nat2, D134) hulkfight::ai::HulkActionRecentCondition on its record: the name (+0x10 on 32-bit) is a pointer, freed with
+// operator delete[]
+class CRawScript : public ::hulkfight::ai::HulkActionRecentCondition {
   public:
-    int* vptr;
-    char pad[12];
-    int mArg;
     void finish_002345b0();
     void run();
 };
-extern void __cdecl thunk_0008d340(int);
 void CRawScript::run() {
-    vptr = &hulk_at_0040da44;
-    thunk_0008d340(mArg);
+    *(int**)this = &hulk_at_0040da44;
+    ::operator delete[](f_10);
     finish_002345b0();
 }
 } // namespace fn_0010cae0
@@ -1202,18 +1201,16 @@ hulk_intptr hulkfight::ai::KeyWordWaitCondition::vfunc_0(int index) {
 namespace fn_0010cc20 {
 // Same code shape as 0x000f99b0 (propagated; names are from that function)
 extern int hulk_at_0040da84;
-class CRawScript {
+// (nat2, D134) hulkfight::ai::KeyWordWaitCondition on its record: the name (+0x10 on 32-bit) is a pointer, freed with
+// operator delete[]
+class CRawScript : public ::hulkfight::ai::KeyWordWaitCondition {
   public:
-    int* vptr;
-    char pad[12];
-    int mArg;
     void finish_002345b0();
     void run();
 };
-extern void __cdecl thunk_0008d340(int);
 void CRawScript::run() {
-    vptr = &hulk_at_0040da84;
-    thunk_0008d340(mArg);
+    *(int**)this = &hulk_at_0040da84;
+    ::operator delete[](name);
     finish_002345b0();
 }
 } // namespace fn_0010cc20
@@ -1223,7 +1220,7 @@ namespace fn_f15aa14c {
 // 0x0010cc40 FUN_0010cc40 (82 B): matches/0x0010cc40.cpp
 // sym: ?SetText_0010cc40@Obj@fn_f15aa14c@@QAEDPBD@Z
 char Obj::SetText_0010cc40(const char* s) {
-    FreeMem_0008d340(name);
+    ::operator delete[](name);
     if (!s) {
         name = 0;
         return 1;
@@ -1257,18 +1254,16 @@ hulk_intptr hulkfight::ai::FormationReadyCondition::vfunc_0(int index) {
 namespace fn_0010cd00 {
 // Same code shape as 0x000f99b0 (propagated; names are from that function)
 extern int hulk_at_0040daa4;
-class CRawScript {
+// (nat2, D134) hulkfight::ai::FormationReadyCondition on its record: the name (+0x10 on 32-bit) is a pointer, freed with
+// operator delete[]
+class CRawScript : public ::hulkfight::ai::FormationReadyCondition {
   public:
-    int* vptr;
-    char pad[12];
-    int mArg;
     void finish_002345b0();
     void run();
 };
-extern void __cdecl thunk_0008d340(int);
 void CRawScript::run() {
-    vptr = &hulk_at_0040daa4;
-    thunk_0008d340(mArg);
+    *(int**)this = &hulk_at_0040daa4;
+    ::operator delete[](f_10);
     finish_002345b0();
 }
 } // namespace fn_0010cd00
@@ -1317,18 +1312,16 @@ hulk_intptr hulkfight::ai::HulkActionCountCondition::vfunc_0(int index) {
 namespace fn_0010ce40 {
 // Same code shape as 0x000f99b0 (propagated; names are from that function)
 extern int hulk_at_0040dae4;
-class CRawScript {
+// (nat2, D134) hulkfight::ai::HulkActionCountCondition on its record: the name (+0x10 on 32-bit) is a pointer, freed with
+// operator delete[]
+class CRawScript : public ::hulkfight::ai::HulkActionCountCondition {
   public:
-    int* vptr;
-    char pad[12];
-    int mArg;
     void finish_002345b0();
     void run();
 };
-extern void __cdecl thunk_0008d340(int);
 void CRawScript::run() {
-    vptr = &hulk_at_0040dae4;
-    thunk_0008d340(mArg);
+    *(int**)this = &hulk_at_0040dae4;
+    ::operator delete[](name);
     finish_002345b0();
 }
 } // namespace fn_0010ce40
@@ -1338,7 +1331,7 @@ namespace fn_f15aa14c {
 // 0x0010ce60 FUN_0010ce60 (82 B): matches/0x0010ce60.cpp
 // sym: ?SetText_0010ce60@Obj@fn_f15aa14c@@QAEDPBD@Z
 char Obj::SetText_0010ce60(const char* s) {
-    thunk_FUN_00267090(name);
+    ::operator delete[](name);
     if (!s) {
         name = 0;
         return 1;

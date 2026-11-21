@@ -31,7 +31,6 @@ class IntentionClearAction_17b110 {
   public:
 };
 class JointTrackerAction;
-void delthis_0008d330(JointTrackerAction*);
 class JointTrackerAction {
   public:
     virtual void f0();
@@ -152,7 +151,7 @@ JointTrackerAction* JointTrackerAction::vfunc_2(int flag) {
         m1c = 0;
     ((fight::Action *)(((IntentionClearAction_17b110*)this)))->FUN_002326a0();
     if (flag & 1)
-        delthis_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

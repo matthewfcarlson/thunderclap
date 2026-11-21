@@ -7,7 +7,6 @@
 #define TREE_TU_END }
 namespace fn_f72f4502 {} using namespace fn_f72f4502;
 namespace fn_f72f4502 {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "game/hulkfight.h"
 
@@ -98,7 +97,6 @@ class Main_116850 {
   public:
     void Fnf_00236d60();
 };
-void __cdecl Destroy_0008d330(hulkfight::ai::MotionLocatorTrack*);
 extern void* hulk_at_0040ebe0;
 extern void* hulk_at_0040ec10[];
 class Track_116880 {
@@ -262,7 +260,6 @@ class Condition {
 class Param {};
 } // namespace fight
 
-void __cdecl opDelete_0008d330(void* p);
 
 namespace hulkfight {
 namespace ai {
@@ -276,7 +273,7 @@ void* HasGroundPointExtendedCondition::vfunc_5(char flag) {
     *(void**)self = DAT_0040eb00;
     this->fight::Condition::munge_002345b0();
     if (flag & 1) {
-        opDelete_0008d330(self);
+        ::operator delete(self);
     }
     return self;
 }
@@ -294,7 +291,7 @@ hulkfight::ai::MotionFleeTrack* hulkfight::ai::MotionFleeTrack::vfunc_5(signed c
     *(void***)this = hulk_at_0040eb20;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -309,7 +306,7 @@ hulkfight::ai::MotionStopTrack* hulkfight::ai::MotionStopTrack::vfunc_5(signed c
     *(void***)this = hulk_at_0040eb50;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -324,7 +321,7 @@ hulkfight::ai::MotionFacingTrack* hulkfight::ai::MotionFacingTrack::vfunc_5(sign
     *(void***)this = hulk_at_0040eb80;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -339,7 +336,7 @@ hulkfight::ai::MotionBoostTrack* hulkfight::ai::MotionBoostTrack::vfunc_5(signed
     *(void***)this = hulk_at_0040ebb0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -352,7 +349,7 @@ hulkfight::ai::MotionLocatorTrack* hulkfight::ai::MotionLocatorTrack::vfunc_5(u8
     ((Sub_116850*)((char*)this + 0x30))->Fnf_0027af50();
     ((Main_116850*)this)->Fnf_00236d60();
     if (flag & 1)
-        Destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -366,7 +363,7 @@ hulkfight::ai::MotionTargetTrack* hulkfight::ai::MotionTargetTrack::vfunc_5(sign
     *(void***)this = hulk_at_0040ec10;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -381,7 +378,7 @@ hulkfight::ai::MotionChaseTrack* hulkfight::ai::MotionChaseTrack::vfunc_5(signed
     *(void***)this = hulk_at_0040ec40;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -396,7 +393,7 @@ hulkfight::ai::MotionClosestWaypointTrack* hulkfight::ai::MotionClosestWaypointT
     *(void***)this = hulk_at_0040ec70;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

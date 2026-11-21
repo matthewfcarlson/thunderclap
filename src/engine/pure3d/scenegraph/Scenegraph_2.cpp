@@ -13,6 +13,7 @@
 #define TREE_TU_BEGIN namespace fn_f9b7dd8c {
 #define TREE_TU_END }
 namespace fn_f9b7dd8c {} using namespace fn_f9b7dd8c;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f9b7dd8c { extern "C" char DAT_0042d414[], DAT_0042d2dc[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "common.h"
 
@@ -673,7 +674,6 @@ struct Sphere_296cb0 { float x,y,z,r; };
 struct Bounds_296cb0 { float v[6]; Sphere_296cb0* FUN_000a8890(Sphere_296cb0* out); };
 void __cdecl FUN_00296220(void* root, pure3d::scenegraph::BoundingVolumeUpdater_296cb0* updater);
 extern int hulk_at_0042d28c, vt2;
-extern void Free_00263f30(void*);
 class Ref_296fd0 {
   public:
     virtual void f0();
@@ -820,7 +820,6 @@ class TransformNode {
     TransformNode* vfunc_2(unsigned int p);
     void helper_00297350();
 };
-void __cdecl thunk_FUN_00267090(TransformNode*);
 void *thunk_FUN_0008d690(unsigned int size);
 struct Name_297680 {
     char data[8];
@@ -1520,7 +1519,7 @@ Node_296570* Node_296570::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042d1ec;
     Destroy_0027afd0();
     if (flags & 1) {
-        ::operator delete(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }
@@ -1979,7 +1978,7 @@ LeafNode_296b20* LeafNode_296b20::vfunc_5(signed char flags) {
     *(void***)this = ((void**)DAT_0042d1ec);
     Destroy_0027afd0();
     if (flags & 1) {
-        ::operator delete(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }
@@ -2104,11 +2103,10 @@ class NonCopyable : public Visitor_296de0 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_0042d324;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00296de0
@@ -2130,13 +2128,12 @@ struct ShaderCallbackVisitor : Visitor_296e00 {
     virtual ShaderCallbackVisitor* vfunc_1(byte_296e00);
 };
 extern void* hulk_at_0042d330;
-void thunk_FUN_00267090(ShaderCallbackVisitor*);
 ShaderCallbackVisitor* ShaderCallbackVisitor::vfunc_1(byte_296e00 param) {
     *(void**)this = &hulk_at_0042d330;
     if (mThing)
         ((Visitor_296e00*)mThing)->v1();
     if (param & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace scenegraph
@@ -2163,11 +2160,10 @@ class NonCopyable : public Visitor_296e30 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_0042d33c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00296e30
@@ -2218,7 +2214,7 @@ D* D::vfunc2(unsigned char f) {
     vptr = &vt2;
     Fini_0027afd0();
     if (f & 1)
-        Free_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2286,7 +2282,6 @@ class Scenegraph {
     Obj_2970a0* volatile mObj;
     void cleanup_002a35f0();
 };
-void __cdecl thunk_00263f30(Scenegraph*);
 Scenegraph* Scenegraph::vfunc_2(unsigned char flag) {
     *(volatile hulk_ulongptr*)this = ((hulk_intptr)DAT_0042d2dc);
     Obj_2970a0* p = mObj;
@@ -2296,7 +2291,7 @@ Scenegraph* Scenegraph::vfunc_2(unsigned char flag) {
     }
     cleanup_002a35f0();
     if (flag & 1)
-        thunk_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002970a0
@@ -2380,11 +2375,10 @@ class NonCopyable : public SimpleChunkHandler_297170 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00297170
@@ -2470,7 +2464,6 @@ BranchNode::BranchNode(unsigned int n) {
 // sym: ??1D@fn_00297350@@QAE@XZ
 namespace fn_00297350 {
 extern int hulk_at_0042d364, vt2;
-extern void Free_0008d340(void*);
 class Ref_297350 {
   public:
     virtual void f0();
@@ -2499,7 +2492,7 @@ D::~D() throw() {
         }
     }
     if (arr)
-        Free_0008d340(arr);
+        ::operator delete[](arr);
     vptr = &vt2;
 }
 } // namespace fn_00297350
@@ -2715,7 +2708,7 @@ struct BranchNode_2975e0 {
 void* BranchNode_2975e0::vfunc_2(unsigned int flags) {
     FUN_00297350();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002975e0
@@ -2735,7 +2728,7 @@ TransformNode* TransformNode::vfunc_2(unsigned int p) {
     }
     helper_00297350();
     if (p & 1)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2760,7 +2753,6 @@ class VisibilityNode {
     Ref_297640* member;
     void cleanup_00297350();
 };
-void thunk_00263f30(VisibilityNode*);
 VisibilityNode* VisibilityNode::vfunc_2(unsigned char flag) {
     *(void**)this = &(*(int*)&DAT_0042d414);
     _ReadWriteBarrier();
@@ -2770,7 +2762,7 @@ VisibilityNode* VisibilityNode::vfunc_2(unsigned char flag) {
     }
     cleanup_00297350();
     if (flag & 1)
-        thunk_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00297640

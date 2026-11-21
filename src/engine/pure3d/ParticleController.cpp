@@ -9,6 +9,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fa907639 {} using namespace fn_fa907639;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/pure3d.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -99,11 +100,9 @@ class ParticleController : public SimpleFrameController_2a71d0 {
   public:
     virtual unsigned char vfunc_22();
 };
-typedef unsigned int u32_2a7340;
-void __cdecl thunk_FUN_00267090(u32_2a7340);
 struct X_2a7340 {
-    u32_2a7340 a;
-    u32_2a7340 b;
+    void* a;   // (nat2, D134) a block (freed with operator delete[]) and its end
+    void* b;
     void f();
 };
 extern void* Alloc(hulk_uintptr);
@@ -176,7 +175,6 @@ struct Source_2a75a0 {
     int valueB;
 };
 void *__cdecl FUN_0008d6d0(unsigned int size);
-void __cdecl FUN_0008d340(void *p);
 class Holder_2a75a0 {
 public:
     virtual void v0();
@@ -409,7 +407,7 @@ extern "C" int* FUN_002a72b0(int* dst, int count, const int* src) {
 // Same code shape as 0x002a47d0 (propagated; names are from that function)
 void X_2a7340::f() {
     if (a != 0)
-        thunk_FUN_00267090(a);
+        ::operator delete[](a);
     a = 0;
     b = 0;
 }
@@ -494,7 +492,6 @@ ParticleController::ParticleController(const ParticleController& src) : SimpleFr
 // sym: ??1ParticleController@pure3d@fn_002a74e0@@UAE@XZ
 namespace fn_002a74e0 {
 namespace pure3d {
-extern void Free(void*);
 class Ref_2a74e0 {
   public:
     virtual void f0();
@@ -508,7 +505,7 @@ template <class T> struct Vec_2a74e0 {
     T& operator[](unsigned i) { return b[i]; }
     ~Vec_2a74e0() {
         if (b)
-            Free(b);
+            ::operator delete[](b);
     }
 };
 class SimpleFrameController {
@@ -547,7 +544,7 @@ void* pure3d::ParticleController::vfunc_4() {
 namespace fn_fa907639 {
 
 // 0x002a75a0 FUN_002a75a0 (340 B): equivalent/0x002a75a0.cpp
-// sym: ?FUN_002a75a0@Holder_2a75a0@fn_fa907639@@QAEXPBUSource_2a75a0@2@@Z @d0f761b50a98 @wce4032f9f209 @v67cc2125b3a6
+// sym: ?FUN_002a75a0@Holder_2a75a0@fn_fa907639@@QAEXPBUSource_2a75a0@2@@Z @a620bfc1d615 @w9827aafacf21 @v8eafa693420d
 // STATUS: equivalent (tools/equiv.py level 3: 34 inputs, branch coverage 25/30, incomplete)
 // FUN_002a75a0 @ 0x002a75a0
 void Holder_2a75a0::FUN_002a75a0(const Source_2a75a0 *src)
@@ -563,7 +560,7 @@ void Holder_2a75a0::FUN_002a75a0(const Source_2a75a0 *src)
 
     if ((unsigned int)(src->end - src->begin) != (unsigned int)(end - begin)) {
         if (begin)
-            FUN_0008d340(begin);
+            ::operator delete[](begin);
         begin = 0;
         end = 0;
         unsigned int n = (unsigned int)(src->end - src->begin);

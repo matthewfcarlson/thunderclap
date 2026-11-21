@@ -777,7 +777,6 @@ class PrimGroup_2e1470 : public DrawablePrimitive_2e1470 {
     PrimGroup_2e1470* f2(unsigned char flags);
 };
 extern int vt1_2e14b0, vt2;
-extern void Free_00263f30(void*);
 class Ref_2e14b0 {
   public:
     virtual void f0();
@@ -796,7 +795,6 @@ class PrimGroupOptimized_2e14b0 : public PrimGroup_2e14b0 {
     Ref_2e14b0* a58;
     PrimGroupOptimized_2e14b0* vfunc2(unsigned char f);
 };
-extern "C" void thunk_FUN_00267090(void*) throw();
 struct Ref_2e1530 {
     virtual void a() throw();
     virtual void release() throw();
@@ -2133,7 +2131,7 @@ PrimGroup_2e1470* PrimGroup_2e1470::f2(unsigned char flags) {
     }
     Fin_002a50a0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2155,7 +2153,7 @@ PrimGroupOptimized_2e14b0* PrimGroupOptimized_2e14b0::vfunc2(unsigned char f) {
     }
     Fini_002a50a0();
     if (f & 1)
-        Free_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2176,7 +2174,7 @@ struct PrimGroupSkinnedOptimized_2e1510 {
 void* PrimGroupSkinnedOptimized_2e1510::vfunc_2(unsigned int flags) {
     FUN_002e0090();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002e1510
@@ -2202,7 +2200,7 @@ PrimGroupStreamed_2e1530* PrimGroupStreamed_2e1530::vfunc_2(unsigned char f) thr
     }
     Fini_002a50a0();
     if (f & 1)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2223,7 +2221,7 @@ struct PrimGroupSkinnedStreamed_2e1590 {
 void* PrimGroupSkinnedStreamed_2e1590::vfunc_2(unsigned int flags) {
     FUN_002e04e0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002e1590
@@ -2243,7 +2241,7 @@ PrimGroupSkinnedPC_2e15b0* PrimGroupSkinnedPC_2e15b0::f2(unsigned char flags) {
     }
     Fin_002e0090();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2264,7 +2262,7 @@ struct VertexAnimPrimGroup_2e15f0 {
 void* VertexAnimPrimGroup_2e15f0::vfunc_2(unsigned int flags) {
     FUN_002e09e0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002e15f0

@@ -2646,7 +2646,7 @@ CChaseCamera_a27b0* CChaseCamera_a27b0::f2(unsigned char flags) {
     Cam29_000a91b0();
     Fin_000a9620();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

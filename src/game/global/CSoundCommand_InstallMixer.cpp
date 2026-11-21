@@ -43,7 +43,6 @@ class NonCopyable : public CSoundCommand_1ef770 {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 class Mixer {
   public:
     void Install_001e9a90(void*, int);
@@ -82,7 +81,7 @@ CSoundCommand_InstallMixer_1ef730::CSoundCommand_InstallMixer_1ef730(const char*
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_004245a4;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

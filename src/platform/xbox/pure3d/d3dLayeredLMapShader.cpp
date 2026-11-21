@@ -78,7 +78,6 @@ struct d3dLayeredLMapShader_32eb40 {
     Ref_32eb40* ref;
     void helper();
 };
-void thunk_FUN_00267090(d3dLayeredLMapShader_32eb40*);
 
 
 // 0x0032e830 pure3d::d3dLayeredLMapShader::vfunc_15 (6 B): matches/0x0032e830.cpp
@@ -316,7 +315,7 @@ d3dLayeredLMapShader_32eb40* d3dLayeredLMapShader_32eb40::vfunc_3(unsigned int f
         ref->f1();
     helper();
     if (flags & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

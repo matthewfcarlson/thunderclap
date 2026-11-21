@@ -17,7 +17,6 @@
 #define TREE_TU_END }
 namespace fn_f94adb62 {} using namespace fn_f94adb62;
 namespace fn_f94adb62 {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 namespace fn_f94adb62 { extern "C" char DAT_00415b28[], DAT_00415bd0[], DAT_00415b50[], DAT_00415b78[], DAT_00415b98[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_f94adb62 { extern "C" char DAT_00415c50[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
@@ -33,7 +32,6 @@ struct Obj_15cd10 {
     void f1_0027af50();
     void f2_002345b0();
 };
-extern void thunk_FUN_00267090(Obj_15cd10*);
 class JointPlantedCondition_15cd10 {
   public:
     void* vftable;
@@ -78,7 +76,6 @@ class HeliLocomotionTrack {
     char pad[0x9c];
     void after_00236d60();
 };
-void thunk_FUN_00267090(HeliLocomotionTrack*);
 class Track {
   public:
     ~Track();
@@ -110,7 +107,6 @@ struct H {
     void Fnf_0027af50();
 };
 extern char hulk_at_00415ad0[];
-void release_obj_0008d330(void* p);
 struct GrappleLocomotionSteerTrack {
     void* vt;
     char pad[0x14];
@@ -192,7 +188,6 @@ class Action_15d4b0 {
   public:
     void* vptr;
 };
-void Free_0008d330(void*) throw();
 struct Sub_15d4b0 {
     char c;
 };
@@ -1217,7 +1212,6 @@ class Obj_161800 {
     virtual void V0();
     virtual void V1();
 };
-extern void thunk_0008d330(LocomotingAction*);
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
@@ -1244,7 +1238,7 @@ JointPlantedCondition_15cd10* JointPlantedCondition_15cd10::vfunc_5(unsigned cha
     ((Obj_15cd10*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_15cd10*)p)->f2_002345b0();
     if (param & 1)
-        thunk_FUN_00267090((Obj_15cd10*)p);
+        ::operator delete((Obj_15cd10*)p);
     return p;
 }
 
@@ -1258,7 +1252,7 @@ PhaseCondition_15cd40* PhaseCondition_15cd40::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00415990;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1273,7 +1267,7 @@ LocomotingTrack_15cd70* LocomotingTrack_15cd70::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_004159b0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1334,7 +1328,7 @@ HeliLocomotionTrack* HeliLocomotionTrack::vfunc_5(int flag) {
     ((Sub_15cde0*)((char*)this + 0xa0))->init_0027af50();
     after_00236d60();
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1415,7 +1409,7 @@ GrappleLocomotionSteerTrack* GrappleLocomotionSteerTrack::vfunc_5(byte_15cec0 fl
     h18.Fnf_0027af50();
     Fng_00236d60();
     if (flag & 1)
-        release_obj_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -3947,7 +3941,7 @@ LocomotionStrafe4Action_1614a0* LocomotionStrafe4Action_1614a0::f2(unsigned char
     }
     ((fight::Action *)(LocomotionStrafeAction_1614a0 *)this)->FUN_002326a0();
     if (fl & 1)
-        Free_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -4123,7 +4117,7 @@ LocomotingAction* LocomotingAction::V2(int flags) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flags & 1)
-        thunk_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

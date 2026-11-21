@@ -28,7 +28,6 @@ class CCameraHintAction_221a0 {
   public:
     void Destroy_002326a0();
 };
-void __cdecl thunk_0008d330(CMotionTrailAction*);
 extern void* hulk_at_003f3a5c[];
 class Ref_221e0 {
   public:
@@ -124,7 +123,7 @@ CMotionTrailAction* CMotionTrailAction::vfunc_2(int flags) {
     }
     ((CCameraHintAction_221a0*)this)->Destroy_002326a0();
     if (flags & 1)
-        thunk_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

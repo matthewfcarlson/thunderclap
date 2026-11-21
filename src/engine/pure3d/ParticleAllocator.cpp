@@ -37,7 +37,6 @@ class NonCopyable : public NonCopyable_2d3da0 {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 
 
 // 0x002d3d80 FUN_002d3d80 (7 B): matches/0x002d3d80.cpp
@@ -62,7 +61,7 @@ ParticleAllocator::ParticleAllocator() {
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

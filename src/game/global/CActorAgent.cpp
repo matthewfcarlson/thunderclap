@@ -26,7 +26,6 @@ struct CActorAgent {
     void Cleanup_000fc460();
     CActorAgent* vfunc_2(u8_fc720 flag);
 };
-extern void thunk_0008d330(CActorAgent*);
 
 
 // 0x000fc720 CActorAgent::vfunc_2 (53 B): matches/0x000fc720.cpp
@@ -37,7 +36,7 @@ CActorAgent* CActorAgent::vfunc_2(u8_fc720 flag) {
     mRef = 0;
     Cleanup_000fc460();
     if (flag & 1)
-        thunk_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

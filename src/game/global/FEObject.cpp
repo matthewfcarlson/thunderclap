@@ -175,7 +175,7 @@ FEObject_e9030::~FEObject_e9030() {
         m64 = 0;
     }
     if (mac) {
-        operator delete[](mac);
+        ::operator delete(mac);
         mac = 0;
     }
     ((owners::Thing_f7960 *)&s18)->FUN_000f7960();

@@ -72,7 +72,6 @@ class NonCopyable_267260 : public ::core::IMemoryAllocator {
     virtual NonCopyable_267260* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable_267260*);
 } // namespace fn_f03133a3
 // (x64t21, D115) the game's global operator delete / delete[] (calls of this free) are defined where the game has them,
 // 0x0008d330 / 0x0008d340 (src/game/unknown/unk_08ceb0.cpp), for every build.
@@ -250,7 +249,7 @@ namespace fn_f03133a3 {
 pure3d::NonCopyable_267260* pure3d::NonCopyable_267260::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

@@ -659,7 +659,6 @@ struct C_2ef110 {
     D c;
     C_2ef110* target(unsigned char flag);
 };
-void destroy_0008d330(C_2ef110*);
 class CollisionDetector_2ef150 {
   public:
     void Fnf_003012c0();
@@ -674,7 +673,6 @@ class C {
 };
 class Obj : public HulkPhysicsWorld {   // (x64t4, x64t9-pw) the physics world (decls/physics_world.h)
 };
-extern "C" void __cdecl freeObj_0008d330(void*);
 struct Vec_2ef200 {
     float x, y, z;
 };
@@ -1680,7 +1678,7 @@ C_2ef110* C_2ef110::target(unsigned char flag) {
     a.f1_003012c0();
     ((owners::Obj_2eefc0 *)this)->FUN_002eefc0();
     if (flag & 1)
-        destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1694,7 +1692,7 @@ void destroyObj() {
         ((ImpulseBasedCollisionSolver_2ef150*)&p->solver)->Fnf_002f79f0();
         ((CollisionDetector_2ef150*)&p->detector)->Fnf_003012c0();
         ((owners::Obj_2eefc0 *)p)->FUN_002eefc0();
-        freeObj_0008d330(p);
+        ::operator delete(p);
     }
     (*(Obj**)&DAT_00554c14) = 0;
 }

@@ -192,7 +192,6 @@ class CAction_336f10 {
     virtual void h();
 };
 extern void __fastcall SetVtable_003352b0(void*);
-extern void thunk_FUN_00267090(movie::BinkCallback*);
 struct Item_337040 {
     void Init_00337ea0();
 };
@@ -259,7 +258,6 @@ class CCollisionAction : public CAction {
 struct ThisCall_003371e0 {
     void FUN_003371e0();
 };
-extern void thunk_FUN_00267090(CCollisionAction*);
 class Child_337460 {
   public:
     char pad[0x81c];
@@ -364,7 +362,6 @@ struct X_337ea0 {
     char pad2[3];
     int e;
 };
-void __cdecl thunk_FUN_00267090(void*);
 class Inner_3385f0 {
   public:
     virtual void v0();
@@ -856,7 +853,7 @@ int FUN_00336f00(void* /*this, unused: callers pass it (unb4)*/) {
 void* movie::BinkCallback::vfunc_1_BinkCallback(unsigned char flags) {
     SetVtable_003352b0((void*)(this));
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return (void*)(this);
 }
 
@@ -973,7 +970,7 @@ namespace fn_f964084a {
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     ((ThisCall_003371e0*)(this))->FUN_003371e0();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1123,11 +1120,10 @@ class CCollisionAction : public CAction {
 struct ThisCall_00337630 {
     void FUN_00337630();
 };
-extern void thunk_FUN_00267090(CCollisionAction*);
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     ((ThisCall_00337630*)(this))->FUN_00337630();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_003376e0
@@ -1341,11 +1337,10 @@ class CCollisionAction : public CAction {
 struct ThisCall_00337890 {
     void FUN_00337890();
 };
-extern void thunk_FUN_00267090(CCollisionAction*);
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     ((ThisCall_00337890*)(this))->FUN_00337890();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00337a10
@@ -1391,11 +1386,10 @@ class CCollisionAction : public CAction {
     CCollisionAction* vfunc_2(unsigned char);
 };
 extern void __fastcall FUN_00337c10(void*);
-extern void thunk_FUN_00267090(CCollisionAction*);
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     FUN_00337c10((void*)(this));
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00337d00
@@ -1465,11 +1459,10 @@ class CCollisionAction : public CAction {
     CCollisionAction* vfunc_2(unsigned char);
 };
 extern void __fastcall FUN_00337d40(void*);
-extern void thunk_FUN_00267090(CCollisionAction*);
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     FUN_00337d40((void*)(this));
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00337da0
@@ -1580,11 +1573,10 @@ class CCollisionAction : public CAction {
     CCollisionAction* vfunc_2(unsigned char);
 };
 extern void __fastcall FUN_00337e90(void*);
-extern void thunk_FUN_00267090(CCollisionAction*);
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     FUN_00337e90((void*)(this));
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00338010
@@ -1831,7 +1823,7 @@ bool AttrDef_338030::FUN_00338030(Loader_338030 *ld)
 // sym: ?FUN_00338520@Obj_338520@owners@@QAEXXZ
 void owners::Obj_338520::FUN_00338520() {
     vptr = ((int*)&DAT_00434630);
-    thunk_FUN_00267090(m);
+    ::operator delete(m);
 }
 
 namespace fn_f964084a {
@@ -1994,11 +1986,10 @@ class CCollisionAction : public CAction {
 struct ThisCall_00338520 {
     void FUN_00338520();
 };
-extern void thunk_FUN_00267090(CCollisionAction*);
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     ((ThisCall_00338520*)(this))->FUN_00338520();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_003389d0

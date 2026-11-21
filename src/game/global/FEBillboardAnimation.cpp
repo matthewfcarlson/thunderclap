@@ -5,8 +5,8 @@
 #define TREE_TU_BEGIN namespace fn_f40d35a2 {
 #define TREE_TU_END }
 namespace fn_f40d35a2 {} using namespace fn_f40d35a2;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f40d35a2 {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "game/global.h"
 
@@ -41,7 +41,7 @@ TextButton_f10c0* TextButton_f10c0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040c42c;
     Destroy_000e9030();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -56,7 +56,7 @@ TextLabel_f1130* TextLabel_f1130::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040c61c;
     Destroy_000e9030();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -72,8 +72,6 @@ struct RelObj_f1160 {
     virtual void A();
     virtual void Release();
 };
-extern "C++" __declspec(nothrow) void __cdecl freeA_0008d340(void*);
-extern "C++" __declspec(nothrow) void __cdecl freeB_0008d330(void*);
 extern void* hulk_at_0040bfc0;
 
 class FEAnimation {
@@ -98,11 +96,11 @@ FEAnimation* FEAnimation::vfunc_0(unsigned char param) {
         mRel = 0;
     }
     if (mPtr != 0) {
-        freeA_0008d340(mPtr);
+        ::operator delete[](mPtr);
         mPtr = 0;
     }
     if (param & 1) {
-        freeB_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

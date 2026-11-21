@@ -294,7 +294,7 @@ BillboardQuadGroupAnimationController_2a9b80* BillboardQuadGroupAnimationControl
     }
     Fin_00285800();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

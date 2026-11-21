@@ -19,8 +19,6 @@
 namespace fn_f1739f6f {} using namespace fn_f1739f6f;
 namespace fn_f1739f6f {
 struct FactoryCtor { void init_002343b0(); void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 namespace fn_f1739f6f { extern "C" char DAT_00413708[], DAT_004137d0[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_f1739f6f { extern "C" char DAT_00413768[], DAT_00413798[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
@@ -493,7 +491,6 @@ struct Obj_148110 {
     void f1_0027af50();
     void f2_002345b0();
 };
-extern void thunk_FUN_00267090(Obj_148110*);
 class GrappleAttachJointCondition_148110 {
   public:
     void* vftable;
@@ -624,7 +621,6 @@ struct Sub_148320 {
 void __fastcall initA_00236fd0(Sub_148320*);
 extern "C" void __fastcall FUN_00234150(void*);
 void __fastcall initC_00236d60(GrappleExecuteTrack*);
-void __cdecl destroyThing_0008d330(GrappleExecuteTrack*);
 struct Sub_148360 {
     void* v;
     void Fin_0027af50();
@@ -821,7 +817,6 @@ class Action_148ac0 {
   public:
     void* vptr;
 };
-void Free(void*) throw();
 struct Sub_148ac0 {
     char c;
 };
@@ -3375,7 +3370,7 @@ GrappleAttachJointCondition_148110* GrappleAttachJointCondition_148110::vfunc_5(
     ((Obj_148110*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_148110*)p)->f2_002345b0();
     if (param & 1)
-        thunk_FUN_00267090((Obj_148110*)p);
+        ::operator delete((Obj_148110*)p);
     return p;
 }
 
@@ -3389,7 +3384,7 @@ GrappleAttachedCondition_148140* GrappleAttachedCondition_148140::vfunc_5(signed
     *(void***)this = hulk_at_00413598;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3404,7 +3399,7 @@ CivilianAttachedCondition_148170* CivilianAttachedCondition_148170::vfunc_5(sign
     *(void***)this = hulk_at_004135b8;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3419,7 +3414,7 @@ CivilianTargetCondition_1481a0* CivilianTargetCondition_1481a0::vfunc_5(signed c
     *(void***)this = hulk_at_004135d8;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3434,7 +3429,7 @@ GrappleOrientationCondition_1481d0* GrappleOrientationCondition_1481d0::vfunc_5(
     *(void***)this = hulk_at_004135f8;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3449,7 +3444,7 @@ CivilianDetachTrack_148200* CivilianDetachTrack_148200::vfunc_5(signed char flag
     *(void***)this = hulk_at_00413618;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3464,7 +3459,7 @@ GrappleThrowTrack_148230* GrappleThrowTrack_148230::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00413648;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3479,7 +3474,7 @@ GrappleStruggleTrack_148260* GrappleStruggleTrack_148260::vfunc_5(signed char fl
     *(void***)this = hulk_at_00413678;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3494,7 +3489,7 @@ CivilianThrowTrack_148290* CivilianThrowTrack_148290::vfunc_5(signed char flags)
     *(void***)this = hulk_at_004136a8;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3509,7 +3504,7 @@ CivilianAttachTrack_1482c0* CivilianAttachTrack_1482c0::vfunc_5(signed char flag
     *(void***)this = hulk_at_004136d8;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3537,7 +3532,7 @@ GrappleExecuteTrack* GrappleExecuteTrack::vfunc_5(u8_148320 param) {
     FUN_00234150((char*)this + 0x14);
     initC_00236d60(this);
     if (param & 1)
-        destroyThing_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -5768,7 +5763,7 @@ void* ConditionFactoryTemplate_14bc90::scalar_dtor(unsigned char flags) {
     base1_dtor_001471e0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -5809,7 +5804,7 @@ void* ConditionFactoryTemplate_14bd30::scalar_dtor(unsigned char flags) {
     base1_dtor_00147240();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -5858,7 +5853,7 @@ void* ConditionFactoryTemplate_14bdd0::scalar_dtor(unsigned char flags) {
     base1_dtor_001472a0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -5898,7 +5893,7 @@ void* ConditionFactoryTemplate_14be80::scalar_dtor(unsigned char flags) {
     base1_dtor_00147300();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -5951,7 +5946,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -5999,14 +5994,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_00413e40;
     base1_dtor_00147400();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0014bfc0
@@ -6063,14 +6057,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_00413e5c;
     base1_dtor_001474c0();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0014c080
@@ -6118,14 +6111,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_00413e78;
     base1_dtor_00147560();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0014c110
@@ -6176,14 +6168,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_00413e94;
     base1_dtor_00147620();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0014c1b0
@@ -6238,14 +6229,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_00413eb0;
     base1_dtor_00147770();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0014c270
@@ -6293,7 +6283,7 @@ void* ConditionFactoryTemplate_14c320::scalar_dtor(unsigned char flags) {
     base1_dtor_00147160();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -6330,14 +6320,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_00413ee8;
     base1_dtor_001476a0();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0014c3b0
@@ -6386,14 +6375,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_00413f04;
     base1_dtor_00147830();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0014c440

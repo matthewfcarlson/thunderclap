@@ -191,7 +191,7 @@ AnimationAction* AnimationAction::vfunc_2(unsigned char param) {
     }
     this->Cleanup_002326a0();
     if (param & 1) {
-        opdel_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

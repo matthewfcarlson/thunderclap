@@ -7,6 +7,7 @@
 #include "decls/data/engine/content.h"
 #include "decls/data/records.h"
 #include "gen/owners.h"
+#include "gen/content.h"   // (nat2, D135) content::LoadObject, whose operator delete is defined here
 #include "decls/table_cursor.h"
 #define TREE_TU_BEGIN namespace fn_fa1126e6 {
 #define TREE_TU_END }
@@ -348,8 +349,25 @@ struct Obj_265b70 : HulkContentRegistry {
 };
 void* FUN_0008d690(int size);
 
-// 0x00263f30 thunk_FUN_00267090 (5 B): not yet verified
-// 0x00263f40 thunk_FUN_00267090 (5 B): not yet verified
+} // namespace fn_fa1126e6
+
+// 0x00263f30 content::LoadObject::operator delete (5 B): matches
+// sym: ??3LoadObject@content@@SAXPAX@Z
+// (nat2, D135) content::LoadObject's operator delete: a jmp to the global one (0x0008d330). Every class whose deleting
+// destructor calls it derives from content::LoadObject (62 by RTTI), and no other does.
+__declspec(noinline) void ::content::LoadObject::operator delete(void* p) {
+    ::operator delete(p);
+}
+
+// 0x00263f40 content::LoadObject::operator delete[] (5 B): matches
+// sym: ??_VLoadObject@content@@SAXPAX@Z
+// (nat2, D135) its operator delete[] (the vector deleting destructors' array free): a jmp to the global scalar
+// operator delete (0x0008d330), not to operator delete[]
+void ::content::LoadObject::operator delete[](void* p) {
+    ::operator delete(p);
+}
+
+namespace fn_fa1126e6 {
 
 // 0x00263f50 FUN_00263f50 (89 B): matches/0x00263f50.cpp
 // sym: ?Init@LoadStream_263f50@fn_fa1126e6@@QAEXXZ
@@ -612,7 +630,6 @@ struct ThisCall_002640f0 {
     void Init_002640f0();
 };
 extern "C" void FUN_00267070(void*);
-void Destroy_00263f30(LoadStream*);
 LoadStream* LoadStream::f2(unsigned char flag) {
     ContentLoadStream* s = (ContentLoadStream*)this;
     s->vftable = (void*)&hulk_at_0042ae9c;
@@ -625,7 +642,7 @@ LoadStream* LoadStream::f2(unsigned char flag) {
         FUN_00267070(s->m24);
     s->vftable = (void*)&hulk_at_003f6098;
     if (flag & 1)
-        Destroy_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00264470

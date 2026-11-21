@@ -2,6 +2,7 @@
 // object 0x00266900..0x00266950 (kind game, layer engine, confidence medium), dominant class content::LoadRequest
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_f6a56b1c {
 #define TREE_TU_END }
 #define TREE_LOCAL_CSPHulkProp
@@ -30,7 +31,6 @@ class LoadRequest {
     LoadRequest* vfunc_2(bool);
 };
 }
-void thunk_00263f30(content::LoadRequest*);
 
 
 // 0x00266900 content::LoadRequest::vfunc_2 (76 B): matches/0x00266900.cpp
@@ -45,7 +45,7 @@ content::LoadRequest* content::LoadRequest::vfunc_2(bool d) {
         c->f1();
     vt = (hulk_intptr)hulk_at_003f6098;
     if (d & 1)
-        thunk_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

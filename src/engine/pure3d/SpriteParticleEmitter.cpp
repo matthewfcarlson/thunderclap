@@ -14,6 +14,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f0cbe20f {} using namespace fn_f0cbe20f;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f0cbe20f { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
 
@@ -145,12 +146,11 @@ class EmitterBlendState_2d4040 {
 typedef unsigned int U_2d4350;
 extern U_2d4350 hulk_at_0042f27c;
 extern U_2d4350 hulk_at_003f6098;
-void drop_0008d340(U_2d4350);
 class OverLifeAttributes_2d4350 {
   public:
     hulk_uintptr vptr;
     U_2d4350 x[3];
-    U_2d4350 a[8];
+    void* a[8];   // (nat2, D134) blocks the destructor frees with operator delete[]
     void f();
 };
 class Ref_2d44e0 {
@@ -781,14 +781,14 @@ State_2d4200* State_2d4200::FUN_002d4200() {
 // sym: ?f@OverLifeAttributes_2d4350@fn_f0cbe20f@@QAEXXZ
 void OverLifeAttributes_2d4350::f() {
     vptr = (hulk_uintptr)&hulk_at_0042f27c;
-    drop_0008d340(a[0]);
-    drop_0008d340(a[1]);
-    drop_0008d340(a[2]);
-    drop_0008d340(a[3]);
-    drop_0008d340(a[4]);
-    drop_0008d340(a[5]);
-    drop_0008d340(a[6]);
-    drop_0008d340(a[7]);
+    ::operator delete[](a[0]);
+    ::operator delete[](a[1]);
+    ::operator delete[](a[2]);
+    ::operator delete[](a[3]);
+    ::operator delete[](a[4]);
+    ::operator delete[](a[5]);
+    ::operator delete[](a[6]);
+    ::operator delete[](a[7]);
     vptr = (hulk_uintptr)&hulk_at_003f6098;
 }
 
@@ -1486,11 +1486,10 @@ class NonCopyable : public NonCopyable_2d4e60 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_002d4e60
@@ -2109,7 +2108,7 @@ struct ParticleEmitter_2d60e0 {
 void* ParticleEmitter_2d60e0::vfunc_2(unsigned int flags) {
     FUN_002d4b50();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002d60e0
@@ -2248,8 +2247,6 @@ struct Pool_2d6590 {   // (x64t9-spe) the particle allocator (decls/loaders.h FU
     unsigned count;
     void** items;
 };
-void __cdecl FUN_0008d340(void*);
-void __cdecl FUN_0008d330(void*);
 namespace pure3d {
 struct SpriteParticleEmitter {
     virtual void slot0_00038290();
@@ -2303,14 +2300,14 @@ SpriteParticleEmitter::~SpriteParticleEmitter() {
         resource1C4 = 0;
     }
     if (resources)
-        FUN_0008d340(resources);
+        ::operator delete[](resources);
     if (items)
-        FUN_0008d340(items);
+        ::operator delete[](items);
     if (resourceA8) {
         resourceA8->release();
         resourceA8 = 0;
     }
-    FUN_0008d330(buffer);
+    ::operator delete(buffer);
     FUN_002d4b50();
 }
 } // namespace pure3d

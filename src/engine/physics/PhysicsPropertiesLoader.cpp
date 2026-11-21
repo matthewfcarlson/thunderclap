@@ -61,7 +61,6 @@ class PhysicsPropertiesLoader {
     int d;
     PhysicsPropertiesLoader();
 };
-extern "C" void thunk_FUN_00267090(void*);
 struct Obj_2f2e20 {
     hulk_intptr Init_002f2d10();
 };
@@ -218,11 +217,10 @@ class NonCopyable : public SimpleChunkHandler_2f2c90 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002f2c90
@@ -256,7 +254,7 @@ namespace fn_f6d70462 {
 void FUN_002f2cf0() {
     void* p = (*(void**)&DAT_00554c30);
     if (p)
-        thunk_FUN_00267090(p);
+        ::operator delete(p);
     (*(void**)&DAT_00554c30) = 0;
 }
 

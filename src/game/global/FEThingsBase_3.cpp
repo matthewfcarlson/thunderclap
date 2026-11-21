@@ -16,7 +16,6 @@
 namespace fn_f5892d97 {} using namespace fn_f5892d97;
 void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f5892d97 {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "game/global.h"
 
@@ -185,7 +184,6 @@ class FEContainer_f1d30 {
     void* vptr;
     void Fin_000eeac0();
 };
-void Free_0008d330(void*) throw();
 struct Sub_f1d30 {
     char c;
 };
@@ -670,10 +668,6 @@ struct T_f6ef0 {
 struct X_f6ef0 : HulkFEStringTable {   // (gfx1) on the record (was int w[0x48]: natively its pointers are 8 bytes)
     X_f6ef0();
 };
-extern void __cdecl R0_0008d340(void*);
-extern void __cdecl R1_0008d330(void*);
-extern void __cdecl R2_0008d340(void*);
-extern void __cdecl R3_0008d340(void*);
 class Item_f6f60 {
   public:
     virtual void A();
@@ -724,11 +718,8 @@ struct Item_f78f0 {
     unsigned int a, b, c, d;
 };
 typedef unsigned int U32_f7960;
-void ReleaseThing_0008d340(U32_f7960);
-extern void __cdecl thunk_FUN_00267090(hulk_intptr);
 extern void* __cdecl FUN_0008d6d0(int);
 extern void __cdecl FUN_000fb690(void*, const short*, int);
-void release_0008d340(int);
 class Item_f7ce0 {
   public:
     virtual void a();
@@ -1175,7 +1166,7 @@ MenuSelector_f1b70* MenuSelector_f1b70::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040c554;
     Destroy_000ebca0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1190,7 +1181,7 @@ MapThing_f1ba0* MapThing_f1ba0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040c5c4;
     Destroy_000e9030();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1254,7 +1245,6 @@ class Sub2_f1c80 {
   public:
     void init_000e9030();
 };
-void thunk_FUN_00267090(void*);
 class FEControl {
   public:
     virtual void v0();
@@ -1292,7 +1282,7 @@ TextTable* TextTable::vfunc_2(unsigned char p) {
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0040c42c);
     ((Sub2_f1c80*)this)->init_000e9030();
     if (p & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_000f1c80
@@ -1344,11 +1334,10 @@ class FEContainer_f1cf0 : public CAction {
 struct ThisCall_000eeac0 {
     void FUN_000eeac0();
 };
-extern void thunk_FUN_00267090(FEContainer_f1cf0*);
 FEContainer_f1cf0* FEContainer_f1cf0::vfunc_2(unsigned char flags) {
     ((ThisCall_000eeac0*)(this))->FUN_000eeac0();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_000f1cf0
@@ -1389,7 +1378,7 @@ FEDialog_f1d30* FEDialog_f1d30::f(unsigned char fl) {
     }
     Fin_000eeac0();
     if (fl & 1)
-        Free_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1473,7 +1462,6 @@ class FEMenuBase : public FEScreenBase {
     virtual FEMenuBase* vfunc_0(unsigned char);
     void helper_000ef400();
 };
-void thunk_FUN_00267090(FEMenuBase*);
 FEMenuBase* FEMenuBase::vfunc_0(unsigned char p) {
     *(void**)this = (void*)((hulk_intptr)DAT_0040c924);
     _ReadWriteBarrier();
@@ -1483,7 +1471,7 @@ FEMenuBase* FEMenuBase::vfunc_0(unsigned char p) {
     }
     helper_000ef400();
     if (p & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_000f1d70
@@ -6181,7 +6169,7 @@ void FEThingsBase::FUN_000f5b20(ParamSlot slot, Source *c, void *d, Args_f5b20 *
 namespace fn_f5892d97 {
 
 // 0x000f5fa0 FUN_000f5fa0 (418 B): equivalent/0x000f5fa0.cpp
-// sym: ?FUN_000f5fa0@Runner_f5fa0@fn_f5892d97@@QAEXPBDH@Z @b89e983e4945 @w0146dbd68b0d @vfb8ef9ee60e3
+// sym: ?FUN_000f5fa0@Runner_f5fa0@fn_f5892d97@@QAEXPBDH@Z @2e2ca9a03d90 @w611c7d16bc0f @v18a05d2fbea8
 // STATUS: equivalent (tools/equiv.py level 3: 12579 inputs, branch coverage 20/20)
 // FUN_000f5fa0 @ 0x000f5fa0
 void Runner_f5fa0::FUN_000f5fa0(const char *src, int arg)
@@ -6229,7 +6217,7 @@ void Runner_f5fa0::FUN_000f5fa0(const char *src, int arg)
     }
     if (script) {
         script->FUN_000f9a80();
-        FUN_0008d330(script);
+        ::operator delete(script);
     }
     if (active) {
         vfunc_6();
@@ -6783,13 +6771,13 @@ X_f6ef0::X_f6ef0() {
 // sym: ?Clear@Owner_f6f60@fn_f5892d97@@QAEXXZ
 void Owner_f6f60::Clear() {
     if (pool)
-        R0_0008d340(pool);
+        ::operator delete[](pool);
     if (f11c)
-        R1_0008d330(f11c);
+        ::operator delete(f11c);
     if (strings)
-        R2_0008d340(strings);
+        ::operator delete[](strings);
     if (hashes)
-        R3_0008d340(hashes);
+        ::operator delete[](hashes);
     for (int i = 0; i < itemCount; ++i) {
         Item_f6f60* q = (Item_f6f60*)items[i];
         if (q) {
@@ -7087,11 +7075,11 @@ owners::State_f7930* owners::State_f7930::FUN_000f7930() {
 // sym: ?FUN_000f7960@Thing_f7960@owners@@QAEXXZ
 void owners::Thing_f7960::FUN_000f7960() {
     if (mFirst) {
-        ReleaseThing_0008d340(mFirst);
+        ::operator delete[](mFirst);
         mFirst = 0;
     }
     if (mSecond) {
-        ReleaseThing_0008d340(mSecond);
+        ::operator delete[](mSecond);
         mSecond = 0;
     }
 }
@@ -7102,7 +7090,7 @@ void owners::Thing_f7960::FUN_000f7960() {
 void owners::Obj_f79a0::FUN_000f79a0(const short* text, hulk_intptr unused) {
     mState = -1;
     if (mData != 0) {
-        thunk_FUN_00267090((hulk_intptr)mData);
+        ::operator delete[](mData);
         mData = 0;
     }
     if (text != 0) {
@@ -7122,7 +7110,7 @@ void owners::Obj_f79a0::FUN_000f79a0(const short* text, hulk_intptr unused) {
 // sym: ?FUN_000f7a10@Obj_f7a10@owners@@QAEXHH@Z
 void owners::Obj_f7a10::FUN_000f7a10(hulk_intptr value, int unused) {
     if (m10) {
-        release_0008d340(m10);
+        ::operator delete[](m10);
         m10 = 0;
         m14 = ((int)value);
         m20 = -1;
@@ -7396,7 +7384,7 @@ Obj_f83c0* __fastcall Copy(Obj_f83c0* self, void*, Obj_f83c0* src) {
 } // namespace fn_f5892d97
 
 // 0x000f83f0 FUN_000f83f0 (269 B): equivalent/0x000f83f0.cpp [wrapped: conflict: Context; Object]
-// sym: ?target@Object@fn_000f83f0@@QAEPAXPAUContext@2@PAUParameters_f83f0@2@@Z @524c631d59b9 @w3bb685576642 @va787d7dd6dae
+// sym: ?target@Object@fn_000f83f0@@QAEPAXPAUContext@2@PAUParameters_f83f0@2@@Z @e2bf39d00b70 @w02c1560e46d3 @v1e9b2d1a6b0b
 namespace fn_000f83f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // FUN_000f83f0 @ 0x000f83f0
@@ -7404,7 +7392,6 @@ struct RateProvider { virtual void slot0(); virtual void slot1(); virtual void s
 struct Context { char pad0[12]; void** entries; int maxIndex; char pad14[16]; RateProvider* providers[58]; int version; };
 struct Frame_f83f0 { float unused0, unused1, scale, unused3; };
 struct Parameters_f83f0 { Frame_f83f0 frames[8]; char pad80[8]; int frameIndex; };
-void __cdecl FUN_0008d340(void*);
 extern "C" unsigned int __cdecl FUN_00294b80(void*);
 void* __cdecl FUN_0008d6d0(unsigned int);
 extern "C" void __cdecl FUN_000fb830(void*, unsigned int, void*, float, RateProvider*);
@@ -7421,7 +7408,7 @@ void* Object::target(Context* context, Parameters_f83f0* parameters) {
  if (version != -1 && version == currentVersion) return cache;
  float rate = context->providers[0]->slot7();
  float factor = value / ((14.0f / rate) * parameters->frames[parameters->frameIndex].scale);
- if (cache) { FUN_0008d340(cache); cache = 0; }
+ if (cache) { ::operator delete[](cache); cache = 0; }
  unsigned int length = FUN_00294b80(input);
  unsigned int size = (length + 5 - (int)((double)length * -0.2f)) * 2;
  cache = FUN_0008d6d0(size);

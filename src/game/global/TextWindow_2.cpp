@@ -10,6 +10,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fc766a14 {} using namespace fn_fc766a14;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -70,7 +71,6 @@ class Obj_ece40 {
 };
 extern char hulk_at_0040c64c[];
 extern char hulk_at_0040c42c[];
-void destroy_0008d340(void*);
 class Target_ece40 {
   public:
     char pad[0x154];
@@ -158,7 +158,7 @@ hulk_freg TextWindow::vfunc_9() {
 void __fastcall target(Target_ece40* s) {
     *(void**)s = hulk_at_0040c64c;
     if (s->c) {
-        destroy_0008d340(s->c);
+        ::operator delete[](s->c);
         s->c = 0;
     }
     if (s->a) {

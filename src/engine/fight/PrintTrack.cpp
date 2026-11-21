@@ -11,8 +11,8 @@
 #define TREE_TU_BEGIN namespace fn_fbe81dc2 {
 #define TREE_TU_END }
 namespace fn_fbe81dc2 {} using namespace fn_fbe81dc2;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fbe81dc2 {
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 namespace fn_fbe81dc2 { extern "C" char DAT_004282dc[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_fbe81dc2 { extern "C" char DAT_00428330[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
@@ -35,7 +35,6 @@ class CCondition_2388a0 {
     virtual int vfunc_0(int);
 };
 typedef unsigned int u32_2388e0;
-void thunk_FUN_00267090(u32_2388e0);
 extern int hulk_at_004282dc;
 struct Condition_2388e0 {
     void finish_002345b0();
@@ -47,9 +46,7 @@ struct PrintCondition_2388e0 : Condition_2388e0 {
     u32_2388e0 b;
     void dtorish();
 };
-extern "C" void __cdecl FUN_0008d340(void *);
 extern "C" void * __cdecl FUN_0008d6d0(unsigned int);
-void __cdecl thunk_FUN_00267090(void* p);
 extern int* hulk_at_004e5c28;
 class CCondition_2389f0 {
   public:
@@ -69,7 +66,6 @@ class PrintTrack : public ::fight::PrintTrack {
 };
 typedef unsigned int u32_238a50;
 extern u32_238a50 hulk_at_004282fc;
-void __cdecl ReleaseThing_0008d340(int);
 struct PrintTrack_nv_238a50 {
     void Cleanup_00236d60();
 };
@@ -92,10 +88,8 @@ class IRefCount_238c70 {};
 extern int FUN_00238bb0(int, int, const char*, ...);
 const char formatString_238c70[] = "%s\n";
 extern "C" {
-void __cdecl thunk_FUN_00267090b_0008d340(void*);
 }
 extern "C" {
-void __cdecl thunk_FUN_00267090c_0008d330(void*);
 }
 extern "C" {
 extern char g_vftable_target;
@@ -324,11 +318,11 @@ namespace fn_fbe81dc2 {
 } // namespace fn_fbe81dc2
 
 // 0x00238910 FUN_00238910 (82 B): equivalent/0x00238910.cpp
-// sym: ?FUN_00238910@Object_238910@owners@@QAE_NPBD@Z @ceb1083b6fd1 @w2ae63d33cad5 @vd6b9761e25d1
+// sym: ?FUN_00238910@Object_238910@owners@@QAE_NPBD@Z @2720b3812131 @wc22d0564b733 @v63f5560e1121
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_00238910 @ 0x00238910
 bool owners::Object_238910::FUN_00238910(const char *value) {
-    FUN_0008d340(text);
+    ::operator delete[](text);
     if (!value) {
         text = 0;
         return true;
@@ -346,7 +340,7 @@ bool owners::Object_238910::FUN_00238910(const char *value) {
 // sym: ?FUN_00238970@Obj_00238970@owners@@QAE_NPBD@Z
 bool owners::Obj_00238970::FUN_00238970(const char* s)
 {
-    thunk_FUN_00267090(name);
+    ::operator delete[](name);
     if (s == 0) {
         name = 0;
         return true;
@@ -419,20 +413,19 @@ fight::PrintTrack::~PrintTrack() {
 namespace fn_fbe81dc2 {
 
 // 0x00238a80 FUN_00238a80 (82 B): equivalent/0x00238a80.cpp
-// sym: ?SetChannel_00238a80@Obj@fn_fbe81dc2@@QAE_NPBD@Z @479a89a7457f @wf4aa5da2059f @vca9fc7a4740c
+// sym: ?SetChannel_00238a80@Obj@fn_fbe81dc2@@QAE_NPBD@Z @14db058cddd4 @w2355592c65dd @vb23457179587
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // SetChannel_00238a80 @ 0x00238a80
-bool Obj::SetChannel_00238a80(const char* value) { FUN_0008d340(text); if (!value) { text = 0; return true; } unsigned int length = 0; while (value[length]) ++length; text = (char*)FUN_0008d6d0(length + 1); char* dest = text; do { *dest++ = *value; } while (*value++); return true; }
+bool Obj::SetChannel_00238a80(const char* value) { ::operator delete[](text); if (!value) { text = 0; return true; } unsigned int length = 0; while (value[length]) ++length; text = (char*)FUN_0008d6d0(length + 1); char* dest = text; do { *dest++ = *value; } while (*value++); return true; }
 
 } // namespace fn_fbe81dc2
 
 // 0x00238ae0 FUN_00238ae0 (82 B): equivalent/0x00238ae0.cpp [wrapped: compile error in a shared declaration (C2732)]
-// sym: ?SetText_00238ae0@Object@fn_00238ae0@@QAE_NPBD@Z @f4449191efda @w7da5b8150b6f @v1934e9c461ac
+// sym: ?SetText_00238ae0@Object@fn_00238ae0@@QAE_NPBD@Z @8be370b6e60b @w2a7bffa31e37 @v9cdf1b656ed7
 namespace fn_00238ae0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // SetText_00238ae0 @ 0x00238ae0
 /* size_t: tree_prelude.h */
-extern "C" void __cdecl FUN_0008d340(void *);
 extern "C++" void * __cdecl FUN_0008d6d0(unsigned int);
 struct Object {
     char pad[0x14];
@@ -440,7 +433,7 @@ struct Object {
     bool SetText_00238ae0(const char *source);
 };
 bool Object::SetText_00238ae0(const char *source) {
-    FUN_0008d340(text);
+    ::operator delete[](text);
     if (!source) {
         text = 0;
         return true;
@@ -739,7 +732,7 @@ void* ConditionFactoryTemplate_2392b0::scalar_dtor(unsigned char flags) {
     base1_dtor_00238880();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -761,7 +754,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

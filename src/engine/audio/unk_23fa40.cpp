@@ -127,7 +127,6 @@ class CCollisionAction : public CAction {
 struct ThisCall_00240060 {
     void FUN_00240060();
 };
-extern void thunk_FUN_00267090(CCollisionAction*);
 // (recs1) DAT_004e5ca0 holds the language String 0x002407a0 allocates (records.h OmString's words): read through the
 // String records of gen/owners.h (were the empty local views Obj_240760 / Str_2407a0, which the 64-bit check could
 // take only on trust, D111)
@@ -762,7 +761,7 @@ Str_2406a0* Str_2406a0::FUN_002406a0(Str_2406a0* ret, const void* rhs) {
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     ((ThisCall_00240060*)(this))->FUN_00240060();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

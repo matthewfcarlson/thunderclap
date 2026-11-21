@@ -12,7 +12,6 @@
 #define TREE_TU_END }
 namespace fn_fa2e0d0f {} using namespace fn_fa2e0d0f;
 namespace fn_fa2e0d0f {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "game/hulkfight/motion.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
@@ -227,7 +226,6 @@ struct RayCastConeCondition_nv_167530 {
     void f1_0027af50();
     void f2_002345b0();
 };
-extern void thunk_FUN_00267090(hulkfight::motion::RayCastConeCondition*);
 class RayCastTargetCondition_167530 {
   public:
     void* vftable;
@@ -1195,7 +1193,7 @@ ChargeCondition_167410* ChargeCondition_167410::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00416658;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1210,7 +1208,7 @@ TargetMotionStateCondition_167440* TargetMotionStateCondition_167440::vfunc_5(si
     *(void***)this = hulk_at_00416678;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1225,7 +1223,7 @@ IntentionButtonDownAnyCondition_167470* IntentionButtonDownAnyCondition_167470::
     *(void***)this = hulk_at_00416698;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1240,7 +1238,7 @@ VelocityCondition_1674a0* VelocityCondition_1674a0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_004166b8;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1255,7 +1253,7 @@ VelocityYCondition_1674d0* VelocityYCondition_1674d0::vfunc_5(signed char flags)
     *(void***)this = hulk_at_004166d8;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1270,7 +1268,7 @@ VelocityAnimatedXZCondition_167500* VelocityAnimatedXZCondition_167500::vfunc_5(
     *(void***)this = hulk_at_004166f8;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1285,7 +1283,7 @@ RayCastTargetCondition_167530* RayCastTargetCondition_167530::vfunc_5(unsigned c
     ((RayCastConeCondition_nv_167530*)(((hulkfight::motion::RayCastConeCondition*)(((hulkfight::motion::RayCastConeCondition*)((char*)p + 0x10))))))->f1_0027af50();
     ((RayCastConeCondition_nv_167530*)(((hulkfight::motion::RayCastConeCondition*)(((hulkfight::motion::RayCastConeCondition*)p)))))->f2_002345b0();
     if (param & 1)
-        thunk_FUN_00267090((hulkfight::motion::RayCastConeCondition*)p);
+        ::operator delete((hulkfight::motion::RayCastConeCondition*)p);
     return p;
 }
 

@@ -13,6 +13,7 @@
 #define TREE_TU_BEGIN namespace fn_f55829c3 {
 #define TREE_TU_END }
 namespace fn_f55829c3 {} using namespace fn_f55829c3;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 #include "game/script_bind.h"
 
@@ -368,7 +369,6 @@ class ScriptHandler_1d4440 : public CAction_1d4440 {
 struct ScriptHandler_nv_1d4440 {
     void FUN_001d3410();
 };
-extern void thunk_FUN_00267090(ScriptHandler_1d4440*);
 struct R_1d4530 {
     void FUN_00092410();
 };
@@ -1942,7 +1942,7 @@ ScriptHandler::~ScriptHandler() {
 
 
 // 0x001d3600 FUN_001d3600 (219 B): equivalent/0x001d3600.cpp
-// sym: ?FUN_001d3600@Object_1d3600@owners@@QAEHPBDI@Z @e538d7d60991 @w07b790a5de7c @v9d8885fcc226
+// sym: ?FUN_001d3600@Object_1d3600@owners@@QAEHPBDI@Z @503b2b33701a @w9d928b035de5 @v023fd7436da4
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
 // FUN_001d3600 @ 0x001d3600
 int owners::Object_1d3600::FUN_001d3600(const char* name, unsigned int unused) {
@@ -1960,7 +1960,7 @@ int owners::Object_1d3600::FUN_001d3600(const char* name, unsigned int unused) {
  stream->release();
  int result = FUN_001d2810(context,buffer,length,savedName);
  status = result ? 0 : 3;
- FUN_0008d340(buffer);
+ ::operator delete[](buffer);
  return status;
 }
 
@@ -2452,7 +2452,7 @@ namespace fn_f55829c3 {
 ScriptHandler_1d4440* ScriptHandler_1d4440::vfunc_2(unsigned char flags) {
     ((ScriptHandler_nv_1d4440*)(((ScriptHandler*)(this))))->FUN_001d3410();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

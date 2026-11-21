@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fadd80aa {} using namespace fn_fadd80aa;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/pure3d.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -58,18 +59,14 @@ struct C_2a7ec0 {
     char pad[0x44];
     B_2a7ec0* b;
 };
-typedef unsigned int u32_2a7fa0;
-void __cdecl thunk_FUN_00267090(u32_2a7fa0);
 struct X_2a7fa0 {
-    u32_2a7fa0 a;
-    u32_2a7fa0 b;
+    void* a;   // (nat2, D134) a block (freed with operator delete[]) and its end
+    void* b;
     void f();
 };
-typedef unsigned int u32_2a7fd0;
-void __cdecl thunk_FUN_00267090(u32_2a7fd0);
 struct X_2a7fd0 {
-    u32_2a7fd0 a;
-    u32_2a7fd0 b;
+    void* a;   // (nat2, D134) a block (freed with operator delete[]) and its end
+    void* b;
     void f();
 };
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
@@ -95,7 +92,6 @@ class CompDrawVisibilityAnimationController_2a80c0 : public SimpleFrameControlle
     int m54;
 };
 extern "C" char DAT_0042dc94[];   // (decl1) was `int vt1_2a80f0` (a C++ name bound nowhere natively)
-extern void Free_0008d340(void*);
 class SimpleFrameController_2a80f0 {
   public:
     void* vptr;
@@ -111,7 +107,6 @@ class CompDrawVisibilityAnimationController_2a80f0 : public SimpleFrameControlle
     ~CompDrawVisibilityAnimationController_2a80f0();
 };
 extern "C" char DAT_0042dc94[];   // (decl1) was `int vt1_2a8170` (a C++ name bound nowhere natively)
-extern void Free2_00263f30(void*);
 class SimpleFrameController_2a8170 {
   public:
     void* vptr;
@@ -131,7 +126,6 @@ struct Item_2a81c0 { char pad[8]; Key_2a81c0 key; unsigned FUN_00288960(unsigned
 struct Source_2a81c0 { char pad[0x28]; int count;  };
 struct Lookup_2a81c0 { unsigned char FUN_00298960(Key_2a81c0*); };
 struct Context_2a81c0 { char pad[0x44]; Lookup_2a81c0* lookup; };
-void __cdecl FUN_0008d340(void*);
 struct ByteArray { unsigned char* data; unsigned size;  };
 struct WordArray { unsigned* data; unsigned size;  };
 class SimpleFrameController {
@@ -369,13 +363,12 @@ extern "C" char DAT_0042dc24[];   // (decl1) was `void* visibilityVtable` (a C++
 struct ThisCall_00285800 {
     void FUN_00285800();
 };
-extern void thunk_FUN_00267090(SceneGraphVisibilityAnimationController*);
 SceneGraphVisibilityAnimationController* SceneGraphVisibilityAnimationController::f2(byte_2a7e60 param) {
     *(void**)this = &(*(void**)&DAT_0042dc24);
     *(int*)((char*)this + 0x44) = 0;
     ((ThisCall_00285800*)(this))->FUN_00285800();
     if (param & 1)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002a7e60
@@ -446,7 +439,7 @@ extern "C" char* FUN_002a7f60(char* dest, int count, const char* src) {
 // Same code shape as 0x002a47d0 (propagated; names are from that function)
 void X_2a7fa0::f() {
     if (a != 0)
-        thunk_FUN_00267090(a);
+        ::operator delete[](a);
     a = 0;
     b = 0;
 }
@@ -457,7 +450,7 @@ void X_2a7fa0::f() {
 // Same code shape as 0x002a47d0 (propagated; names are from that function)
 void X_2a7fd0::f() {
     if (a != 0)
-        thunk_FUN_00267090(a);
+        ::operator delete[](a);
     a = 0;
     b = 0;
 }
@@ -526,9 +519,9 @@ CompDrawVisibilityAnimationController_2a80f0::~CompDrawVisibilityAnimationContro
     a40 = 0;
     _ReadWriteBarrier();
     if (a50)
-        Free_0008d340(a50);
+        ::operator delete[](a50);
     if (a44)
-        Free_0008d340((void*)a44);
+        ::operator delete[]((void*)a44);
 }
 
 
@@ -539,19 +532,19 @@ CompDrawVisibilityAnimationController_2a8170* CompDrawVisibilityAnimationControl
     a40 = 0;
     _ReadWriteBarrier();
     if (a50)
-        Free_0008d340(a50);
+        ::operator delete[](a50);
     if (a44)
-        Free_0008d340((void*)a44);
+        ::operator delete[]((void*)a44);
     Fini_00285800();
     if (f & 1)
-        Free2_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
 } // namespace fn_fadd80aa
 
 // 0x002a81c0 FUN_002a81c0 (277 B): equivalent/0x002a81c0.cpp
-// sym: ?FUN_002a81c0@CompDrawVisibilityAnimationController@pure3d@@QAEXXZ @7e461c8a5249 @w9768680e7646 @v1f882ae8bd60
+// sym: ?FUN_002a81c0@CompDrawVisibilityAnimationController@pure3d@@QAEXXZ @288272597175 @w39ea3b0a20bd @v003ad78effc8
 // STATUS: equivalent (tools/equiv.py level 3: 11844 inputs, branch coverage 16/16)
 // FUN_002a81c0 @ 0x002a81c0
 void pure3d::CompDrawVisibilityAnimationController::FUN_002a81c0() {
@@ -563,11 +556,11 @@ void pure3d::CompDrawVisibilityAnimationController::FUN_002a81c0() {
    int count;
   } f;
   f.count=(*(Source_2a81c0 * *)&this->f_3c)->count;
-  if((*(ByteArray *)&this->f_50).data) FUN_0008d340((*(ByteArray *)&this->f_50).data);
+  if((*(ByteArray *)&this->f_50).data) ::operator delete[]((*(ByteArray *)&this->f_50).data);
   (*(ByteArray *)&this->f_50).data=0; (*(ByteArray *)&this->f_50).size=0;
   f.zeroByte=0;
   ((owners::Buffer_2a8060 *)&((*(ByteArray *)&this->f_50)))->FUN_002a8060((unsigned int)(f.count), (hulk_uintptr)(&f.zeroByte));
-  if((*(WordArray *)&this->f_44).data) FUN_0008d340((*(WordArray *)&this->f_44).data);
+  if((*(WordArray *)&this->f_44).data) ::operator delete[]((*(WordArray *)&this->f_44).data);
   (*(WordArray *)&this->f_44).data=0; (*(WordArray *)&this->f_44).size=0;
   f.u.zeroWord=0;
   ((owners::Buffer_2a8000 *)&((*(WordArray *)&this->f_44)))->FUN_002a8000((unsigned int)(f.count), &f.u.zeroWord);
@@ -582,9 +575,9 @@ void pure3d::CompDrawVisibilityAnimationController::FUN_002a81c0() {
    *out=item->FUN_00288960(0x534956,0x4c4f4f42);
   }
  } else {
-  if((*(ByteArray *)&this->f_50).data) FUN_0008d340((*(ByteArray *)&this->f_50).data);
+  if((*(ByteArray *)&this->f_50).data) ::operator delete[]((*(ByteArray *)&this->f_50).data);
   (*(ByteArray *)&this->f_50).data=0; (*(ByteArray *)&this->f_50).size=0;
-  if((*(WordArray *)&this->f_44).data) FUN_0008d340((*(WordArray *)&this->f_44).data);
+  if((*(WordArray *)&this->f_44).data) ::operator delete[]((*(WordArray *)&this->f_44).data);
   (*(WordArray *)&this->f_44).data=0; (*(WordArray *)&this->f_44).size=0;
  }
 }

@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0029c050..0x0029c240 (kind game, layer engine, confidence medium), dominant class pure3d::DrawableDisplayList
 #include "tree_prelude.h"
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_ff20f16b {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -10,7 +11,6 @@
 #define TREE_LOCAL_pure3d
 namespace fn_ff20f16b {} using namespace fn_ff20f16b;
 namespace fn_ff20f16b {
-void __cdecl SweepTrack_DeleteThis_00263f30(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "engine/pure3d.h"
 
@@ -36,7 +36,7 @@ DrawableDisplayList_29c050* DrawableDisplayList_29c050::vfunc_5(signed char flag
     *(void***)this = hulk_at_0042d5b4;
     Destroy_0029bdc0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }

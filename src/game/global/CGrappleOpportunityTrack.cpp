@@ -1783,7 +1783,6 @@ class CGrappleAttachTrack {
     virtual void v13();
     char pad[0x3c];
 };
-extern void FUN_0008d330(CGrappleAttachTrack*);
 CGrappleAttachTrack* CGrappleAttachTrack::vfunc_5(unsigned char param) {
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_003f9944);
     ((Helper_5b790*)((char*)this + 0x40))->Fnf_0027af50();
@@ -1791,7 +1790,7 @@ CGrappleAttachTrack* CGrappleAttachTrack::vfunc_5(unsigned char param) {
     ((Helper_5b790*)((char*)this + 0x10))->Fnf_0027af50();
     ((Helper_5b790*)this)->init_00068c70();
     if (param & 1)
-        FUN_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0005b790
@@ -1802,7 +1801,6 @@ CGrappleAttachTrack* CGrappleAttachTrack::vfunc_5(unsigned char param) {
 namespace fn_0005b7d0 {
 typedef unsigned char byte_5b7d0;
 extern int hulk_at_003f9980;
-void __cdecl FreeMem_0008d330(void*);
 struct Sub_5b7d0 {
     void Clean_0027af50();
     char pad[8];
@@ -1826,7 +1824,7 @@ CGrappleSwapTrack* CGrappleSwapTrack::vfunc_5(byte_5b7d0 flags) {
     this->a.Clean_0027af50();
     this->BaseClean_00068c70();
     if (flags & 1)
-        FreeMem_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0005b7d0
@@ -1850,13 +1848,12 @@ class CGrappleDetachTrack : public CTrack {
     CGrappleDetachTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CGrappleDetachTrack* CGrappleDetachTrack::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_003f99bc;
     Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1922,14 +1919,13 @@ class CGrappleSequenceTrack {
 void __fastcall FUN_00236fd0(void*);
 extern "C" void __fastcall FUN_00234150(void*);
 void __fastcall FUN_00236d60(CGrappleSequenceTrack*);
-void __cdecl thunk_FUN_00267090(CGrappleSequenceTrack*);
 CGrappleSequenceTrack* CGrappleSequenceTrack::vfunc_5(unsigned char p) {
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_003f9a2c);
     FUN_00236fd0((char*)this + 0x1c);
     FUN_00234150((char*)this + 0xc);
     FUN_00236d60(this);
     if (p & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0005b880
@@ -1954,7 +1950,6 @@ class H2_5b8c0 {
   public:
     void FUN_0027af50();
 };
-void thunk_FUN_00267090(CGrabTrack*);
 CGrabTrack* CGrabTrack::vfunc_5(unsigned int flag) {
     vptr = (unsigned int*)((hulk_intptr)DAT_003f9a5c);
     ((H1*)((char*)this + 0x44))->FUN_00234150();
@@ -1962,7 +1957,7 @@ CGrabTrack* CGrabTrack::vfunc_5(unsigned int flag) {
     ((H2_5b8c0*)((char*)this + 0x18))->FUN_0027af50();
     FUN_00236d60();
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0005b8c0

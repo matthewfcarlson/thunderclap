@@ -17,6 +17,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f07ae39e {} using namespace fn_f07ae39e;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f07ae39e { extern "C" char DAT_0042e0a8[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_f07ae39e { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
@@ -735,7 +736,6 @@ struct Frame_2abfb0 {
     unsigned int pad14;
 };
 extern "C" char DAT_0042e0c4[];
-extern "C" void thunk_FUN_00267090(void*);
 // (x64t8) the allocator's record (decls/loaders.h): the free list at 0xc, the pool at 0x18 (were 32-bit pads)
 class ParticleAllocatorTemplate : public ::FUN_002ac4a0 {
   public:
@@ -945,11 +945,10 @@ class NonCopyable : public NonCopyable_2aa620 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_002aa620
@@ -1110,11 +1109,10 @@ class NonCopyable : public ParticleGeneratorHandler_2aae60 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_002aae60
@@ -1611,7 +1609,7 @@ struct ParticleSystemLoader_2ab7a0 {
 void* ParticleSystemLoader_2ab7a0::vfunc_2(unsigned int flags) {
     FUN_002aaf10();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002ab7a0
@@ -1651,7 +1649,7 @@ OldParticleSystemLoader_2ab830* OldParticleSystemLoader_2ab830::f2(unsigned char
     }
     vptr = (void**)DAT_003f6098;
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2208,9 +2206,9 @@ void ParticleAllocatorTemplate::FUN_002ac570() {
     *(void**)this = (void*)((hulk_intptr)DAT_0042e0c4);
     _ReadWriteBarrier();
     if (pool.begin)
-        thunk_FUN_00267090(pool.begin);
+        ::operator delete[](pool.begin);
     if (free.begin)
-        thunk_FUN_00267090(free.begin);
+        ::operator delete[](free.begin);
     FUN_002d3d80();
 }
 

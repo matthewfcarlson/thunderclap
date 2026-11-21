@@ -58,7 +58,6 @@ class CSimController {
     char pad[4];
     Sub_b36a0* sub;
 };
-extern void thunk_0008d330(CSimController*);
 float __cdecl FUN_00224ea0(float x, float y);
 float __cdecl FUN_00224fc0(float a, float b);
 union Bits_b36d0 {
@@ -197,7 +196,7 @@ CSimController* CSimController::vfunc_2(int flags) {
     sub->b();
     *((hulk_intptr*)p) = (hulk_intptr)&(*(int*)&DAT_003f6098);
     if (flags & 1)
-        thunk_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

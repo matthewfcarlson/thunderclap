@@ -641,7 +641,6 @@ class CCollisionAction : public CAction {
 struct ThisCall_001c1e90 {
     void FUN_001c1e90();
 };
-extern void thunk_FUN_00267090(CCollisionAction*);
 extern "C" void __cdecl FUN_0023f8c0(const char*);
 extern void* __cdecl thunk_FUN_0008d690(unsigned int);
 struct World_nv_1c35f0 {
@@ -926,7 +925,6 @@ class Obj_1c3dc0 {
     virtual void v0();
     virtual void v1();
 };
-void thunk_FUN_00267090(First_1c3dc0*);
 class Target_1c3dc0 {
   public:
     First_1c3dc0* volatile mFirst;
@@ -988,11 +986,9 @@ class Obj_1c4160 {
     Base_1c4160* member;
     hulk_intptr target(unsigned char flag);
 };
-void thunk_0008d330(Obj_1c4160*);
 struct Manager_1c4230 {
     void FUN_002659a0(unsigned int);
 };
-void __cdecl thunk_FUN_00267090(void*);
 struct Resource_1c4230 {
     virtual void slot0();
     virtual void release();
@@ -1830,11 +1826,10 @@ class NonCopyable : public ShaderCallback_1c23a0 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_001c23a0
@@ -2383,7 +2378,7 @@ void Target_1c3520::Run() {
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     ((ThisCall_001c1e90*)(this))->FUN_001c1e90();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -2442,11 +2437,10 @@ class CCollisionAction : public CAction {
 struct ThisCall_001c1e90 {
     void FUN_001c5f20();
 };
-extern void thunk_FUN_00267090(CCollisionAction*);
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     ((ThisCall_001c1e90*)(this))->FUN_001c5f20();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_001c3710
@@ -2457,7 +2451,7 @@ namespace fn_ffffca36 {
 // sym: ?f@C_1c3740@fn_ffffca36@@QAEXH@Z
 void C_1c3740::f(hulk_intptr x) {
     if (member->check_001c5b00(x))
-        ((owners::Obj_1c5b10 *)member)->FUN_001c5b10((unsigned int)x);
+        ((owners::Obj_1c5b10 *)member)->FUN_001c5b10((const void*)x);
 }
 
 } // namespace fn_ffffca36
@@ -2779,7 +2773,7 @@ void Target_1c3dc0::F() {
     First_1c3dc0* p = mFirst;
     if (p) {
         p->Cleanup_001c1e90();
-        thunk_FUN_00267090(p);
+        ::operator delete(p);
     }
     mFirst = 0;
     Obj_1c3dc0* a = m70;
@@ -3056,7 +3050,7 @@ hulk_intptr Obj_1c4160::target(unsigned char flag) {
         member->f1();
     member = 0;
     if (flag & 1)
-        thunk_0008d330(this);
+        ::operator delete(this);
     return (hulk_intptr)this;
 }
 
@@ -3206,7 +3200,7 @@ void Engine_1c4230::cleanup() {
         if (r)
             r->release();
         h->resource = 0;
-        thunk_FUN_00267090(h);
+        ::operator delete(h);
     }
     h = holder14;
     holder18 = 0;
@@ -3215,13 +3209,13 @@ void Engine_1c4230::cleanup() {
         if (r)
             r->release();
         h->resource = 0;
-        thunk_FUN_00267090(h);
+        ::operator delete(h);
     }
     EnginePart* p = part;
     holder14 = 0;
     if (p) {
         ((owners::Target_1c5f20 *)p)->FUN_001c5f20();
-        thunk_FUN_00267090(p);
+        ::operator delete(p);
     }
     Owned_1c4230* o = second;
     part = 0;

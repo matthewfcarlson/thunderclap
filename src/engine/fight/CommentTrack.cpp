@@ -14,7 +14,6 @@ namespace fn_f40d2254 {} using namespace fn_f40d2254;
 void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f40d2254 {
 struct FactoryCtor { void init_002343b0(); void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "engine/fight.h"
 extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
@@ -34,7 +33,6 @@ class CommentCondition_23d860 {
     void* d;   // (x64t21) a block of the game heap (its destructor frees it)
     virtual bool hulk_slot_F_00234270(void*); void FnF_002345b0();
 };
-extern "C" void __cdecl FreeMem_0008d340(void*);
 extern int* hulk_at_004e5c64;
 class CCondition_23d900 {
   public:
@@ -60,7 +58,6 @@ class CommentTrack_23d950 {
     void* d;   // (x64t21) a block of the game heap (its destructor frees it)
     virtual bool hulk_slot_F_00234270(void*); void FnF_00236d60();
 };
-extern "C" void __cdecl release(void*);
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
 class Obj {
   public:
@@ -211,7 +208,7 @@ CommentCondition_23d860::~CommentCondition_23d860() {
 // 0x0023d880 FUN_0023d880 (82 B): matches/0x0023d880.cpp
 // sym: ?FUN_0023d880@Obj_23d880@owners@@QAEDPBD@Z
 char owners::Obj_23d880::FUN_0023d880(const char* s) {
-    FreeMem_0008d340(text);
+    ::operator delete[](text);
     if (!s) {
         text = 0;
         return 1;
@@ -512,7 +509,7 @@ void* ConditionFactoryTemplate_23de60::scalar_dtor(unsigned char flags) {
     base1_dtor_0023d810();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -585,7 +582,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

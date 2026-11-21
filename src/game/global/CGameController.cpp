@@ -44,7 +44,6 @@ class CGameController : public NonCopyable {
     void* member;
     virtual CGameController* vfunc_2(unsigned char flag);
 };
-void Destroy_0008d330(CGameController*);
 struct Samples {
     float v[17];
 };
@@ -156,7 +155,7 @@ CGameController* CGameController::vfunc_2(unsigned char flag) {
     ((NonCopyable*)member)->vfunc_1();
     *(void**)this = (void*)((hulk_intptr)DAT_003f6098);
     if (flag & 1)
-        Destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

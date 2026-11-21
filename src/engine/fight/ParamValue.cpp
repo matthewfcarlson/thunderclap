@@ -25,7 +25,6 @@ class ParamValue {
     ParamValue* vfunc_0(int);
 };
 }
-extern "C" void __cdecl thunk_FUN_00267090(fight::ParamValue*);
 
 
 // 0x002352d0 fight::ParamValue::vfunc_0 (39 B): matches/0x002352d0.cpp
@@ -35,7 +34,7 @@ fight::ParamValue* fight::ParamValue::vfunc_0(int flag) {
     vt = (hulk_intptr)&base_vtable;
     part.Init_0027af50();
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

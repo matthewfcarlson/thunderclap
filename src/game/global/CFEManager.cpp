@@ -457,7 +457,6 @@ class CFEManager_c1f50 : public CAction_c1f50 {
 struct CFEManager_nv_c1f50 {
     void FUN_000c1430();
 };
-extern void thunk_FUN_00267090(CFEManager_c1f50*);
 struct Obj_c2b90 {
     char pad[0x158];
     int mVal;
@@ -2804,7 +2803,7 @@ int Obj_c1f30::F(int a, int b) {
 CFEManager_c1f50* CFEManager_c1f50::vfunc_2(unsigned char flags) {
     ((CFEManager_nv_c1f50*)(((CFEManager*)(this))))->FUN_000c1430();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

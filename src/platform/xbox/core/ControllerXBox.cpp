@@ -137,7 +137,6 @@ class NonCopyable_268500 : public ::core::IControllerInputPoint {
     virtual NonCopyable_268500* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable_268500*);
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042b14c[];
 extern "C" void __stdcall XInputClose(void*);
@@ -334,7 +333,6 @@ class NonCopyable_268ba0 : public ::core::IController {
     virtual NonCopyable_268ba0* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable_268ba0*);
 class IRefCount_268be0 {
   public:
     virtual void vfunc_0();
@@ -367,7 +365,6 @@ class NonCopyable_268c70 : public ::core::IControllerOutputPoint {
     virtual NonCopyable_268c70* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable_268c70*);
 class IRefCount_268cd0 {
   public:
     virtual void vfunc_0();
@@ -392,7 +389,6 @@ class NonCopyable_268f80 : public ::core::IControllerInputPointXBox {
     virtual NonCopyable_268f80* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable_268f80*);
 unsigned int GetTime();
 class Pad_269170 {
   public:
@@ -661,7 +657,7 @@ namespace fn_fc99ffef {
 pure3d::NonCopyable_268500* pure3d::NonCopyable_268500::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1021,7 +1017,7 @@ namespace fn_fc99ffef {
 pure3d::NonCopyable_268ba0* pure3d::NonCopyable_268ba0::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1090,7 +1086,7 @@ namespace fn_fc99ffef {
 pure3d::NonCopyable_268c70* pure3d::NonCopyable_268c70::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1263,7 +1259,7 @@ namespace fn_fc99ffef {
 pure3d::NonCopyable_268f80* pure3d::NonCopyable_268f80::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

@@ -227,7 +227,7 @@ VertexAnimController_2a6f00* VertexAnimController_2a6f00::f2(unsigned char flags
     }
     Fin_00285800();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

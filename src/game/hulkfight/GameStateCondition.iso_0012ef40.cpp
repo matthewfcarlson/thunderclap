@@ -5,9 +5,10 @@
 
 
 // 0x0012ef40 FUN_0012ef40 (82 B): equivalent/0x0012ef40.cpp [isolated: conflict: FUN_0008d340; on include/gen/ and not mergeable]
-// sym: ?FUN_0012ef40@Object_12ef40@owners@@QAEIPBD@Z @6421589101a5 @w37557a8603b9 @v3ed00bf525a7
+// sym: ?FUN_0012ef40@Object_12ef40@owners@@QAE_NPBD@Z @14db058cddd4 @w815d9010e969 @vf17d10af75e1
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0012ef40 @ 0x0012ef40
 #include "gen/owners.h"
-extern "C" unsigned int __cdecl FUN_0008d340(void*); extern "C" void* __cdecl FUN_0008d6d0(unsigned int);  unsigned int owners::Object_12ef40::FUN_0012ef40(const char* text) { unsigned int result = FUN_0008d340(value); if (!text) { value = 0; return (result & ~255u) | 1; } unsigned int length = 0; while (text[length]) ++length; char* allocated = (char*)FUN_0008d6d0(length + 1); value = allocated; char* destination = allocated; do { *destination++ = *text; } while (*text++); return ((hulk_uintptr)allocated & ~255u) | 1; }
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);  bool owners::Object_12ef40::FUN_0012ef40(const char* text) { ::operator delete[](value); if (!text) { value = 0; return true; } unsigned int length = 0; while (text[length]) ++length; char* allocated = (char*)FUN_0008d6d0(length + 1); value = allocated; char* destination = allocated; do { *destination++ = *text; } while (*text++); return true; }
 

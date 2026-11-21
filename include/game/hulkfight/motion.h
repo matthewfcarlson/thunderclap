@@ -52,7 +52,6 @@ class ParamValueBranch {
 };
 class ParamValue {};
 extern char DAT_00491ca8;
-extern "C" void opdel(void*);
 template <class T>
 class ParamEnumConstList : public ParamEnumBase {
 public:
@@ -83,7 +82,6 @@ TREE_TU_END
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 #endif
 TREE_TU_BEGIN
-void thunk(int);
 TREE_TU_END
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" unsigned int __cdecl strlen(const char*);

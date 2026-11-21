@@ -13,7 +13,6 @@
 #define TREE_LOCAL_pure3d
 namespace fn_ff756602 {} using namespace fn_ff756602;
 namespace fn_ff756602 {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 namespace fn_ff756602 { extern "C" char DAT_003f6d50[], DAT_003f719c[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
@@ -61,7 +60,6 @@ struct CSmartPropNameCondition {
     char pad[0x14];
 };
 extern "C" void __fastcall FUN_0027af50(void*);
-extern void __cdecl thunk_FUN_00267090(void*);
 extern int condition_vftable_4c720;
 extern void* CCondition_4c760_vftable[];
 class CCondition_4c760 {
@@ -83,7 +81,7 @@ CSmartPropAttachedCondition* CSmartPropAttachedCondition::vfunc_5(signed char fl
     *(void***)this = hulk_at_003f6d50;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -98,7 +96,7 @@ CSmartPropWeaponizableTypeCondition* CSmartPropWeaponizableTypeCondition::vfunc_
     *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -113,7 +111,7 @@ CSmartPropWeaponTypeCondition* CSmartPropWeaponTypeCondition::vfunc_5(signed cha
     *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -128,7 +126,7 @@ CSmartPropTypeCondition* CSmartPropTypeCondition::vfunc_5(signed char flags) {
     *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -143,7 +141,7 @@ CSmartPropNameCondition* __fastcall CSmartPropNameCondition_vfunc_5(CSmartPropNa
     p->vptr = ((int*)DAT_003f6d50);
     FUN_002345b0(p);
     if (flags & 1)
-        thunk_FUN_00267090(p);
+        ::operator delete(p);
     return p;
 }
 
@@ -157,7 +155,7 @@ CSmartPropAngleCondition* CSmartPropAngleCondition::vfunc_5(signed char flags) {
     *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

@@ -8,6 +8,7 @@
 #define TREE_TU_BEGIN namespace fn_f8b0a0f7 {
 #define TREE_TU_END }
 namespace fn_f8b0a0f7 {} using namespace fn_f8b0a0f7;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f8b0a0f7 { extern "C" char DAT_003f9844[], DAT_003f985c[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
@@ -396,10 +397,9 @@ struct Inner_5a010 {
 struct Obj_5a010 {
     char pad[8];
     Inner_5a010* a;
-    int b;
+    void* b;   // (nat2, D134) a block, freed with operator delete[]
 };
 extern void __fastcall FUN_00059d30(Obj_5a010*);
-extern void __cdecl thunk_FUN_00267090(hulk_intptr);
 struct V {
     int a;
     int b;
@@ -859,7 +859,6 @@ class Res_59890 {
 };
 
 extern "C" char DAT_003f9844[];   // (decl1) was `int gVftable_59890` (a C++ name bound nowhere natively)
-void __cdecl MyDelete_0008d330(void*);
 
 class CFightParams {
   public:
@@ -884,7 +883,7 @@ CFightParams* CFightParams::vfunc_2(unsigned char flag) {
     }
     BaseCall_00236a50();
     if (flag & 1) {
-        MyDelete_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1354,7 +1353,7 @@ void C_59ee0::run() {
 
 
 // 0x00059f30 FUN_00059f30 (209 B): equivalent/0x00059f30.cpp
-// sym: ?FUN_00059f30@Item_59f30@fn_f8b0a0f7@@QAEPAXE@Z @e9c52ee1ccd7 @wfb6445942925 @v4ac15051c250
+// sym: ?FUN_00059f30@Item_59f30@fn_f8b0a0f7@@QAEPAXE@Z @d102500d86a9 @wd9ec3c503da2 @v62c6acb9a5a4
 // STATUS: equivalent (tools/equiv.py level 3: 294 inputs, branch coverage 22/22)
 // FUN_00059f30 @ 0x00059f30
 void* Item_59f30::FUN_00059f30(unsigned char flags) {
@@ -1369,12 +1368,12 @@ void* Item_59f30::FUN_00059f30(unsigned char flags) {
     if(end->object) { end->object->FUN_00222b90(1); if(end->object) { end->object->slot1(); end->object=0; } }
    } while(--count);
   }
-  if(flags & 1) FUN_0008d340(cookie);
+  if(flags & 1) ::operator delete[](cookie);
   return cookie;
  }
  if(resource) { resource->FUN_0003b620(0); resource->FUN_00263e90(); resource=0; }
  if(object) { object->FUN_00222b90(1); if(object) { object->slot1(); object=0; } }
- if(flags & 1) FUN_0008d330(this);
+ if(flags & 1) ::operator delete(this);
  return this;
 }
 
@@ -1385,9 +1384,9 @@ void __fastcall FUN_0005a010(Obj_5a010* self) {
     FUN_00059d30(self);
     if (self->a)
         self->a->Fnf_00059f30(3);
-    int value = self->b;
+    void* value = self->b;
     self->a = 0;
-    thunk_FUN_00267090(value);
+    ::operator delete[](value);
     self->b = 0;
 }
 

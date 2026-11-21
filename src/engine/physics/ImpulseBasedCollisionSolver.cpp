@@ -334,7 +334,6 @@ class ImpulseBasedCollisionSolver_2f7fc0 {
     char pad2[HULK_SOLVER_AT(zone) - HULK_SOLVER_AT(me8)];
     Ref_2f7fc0* rfc;
 };
-void thunk_FUN_00267090(ImpulseBasedCollisionSolver_2f7fc0*);
 struct Sub8_2f8020 {
     void FUN_0030e190(int v);
 };
@@ -1386,7 +1385,6 @@ class CollisionSolverAgent {
     Ref_2f8d30* mPtr;
     CollisionSolverAgent* vfunc_2(unsigned char);
 };
-extern void thunk_0008d330(CollisionSolverAgent*);
 CollisionSolverAgent* CollisionSolverAgent::vfunc_2(unsigned char flag) {
     vptr = ((hulk_intptr)DAT_00431700);
     if (mPtr) {
@@ -1395,7 +1393,7 @@ CollisionSolverAgent* CollisionSolverAgent::vfunc_2(unsigned char flag) {
     }
     vptr = ((hulk_intptr)DAT_003f6098);
     if (flag & 1)
-        thunk_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_002f8d30

@@ -57,9 +57,7 @@ class Thing {
     int a, b, c, d;
 };
 typedef unsigned int u32_1c5f20;
-void __cdecl thunk_FUN_00267090(u32_1c5f20);
 extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
-extern "C" void Free(void*);
 class Item_1c5fb0 {
   public:
     char pad[8];
@@ -186,7 +184,7 @@ Thing::Thing() : b(0), c(0), d(0) {}
 // 0x001c5f20 FUN_001c5f20 (11 B): matches/0x001c5f20.cpp
 // sym: ?FUN_001c5f20@Target_1c5f20@owners@@QAEXXZ
 void owners::Target_1c5f20::FUN_001c5f20() {
-    thunk_FUN_00267090(value);
+    ::operator delete(value);
 }
 
 

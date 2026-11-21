@@ -351,7 +351,6 @@ class TargetCharacterTemplateCondition_166210 {
     void* d;   // (x64t21) a block of the game heap (the destructor frees it)
     virtual bool hulk_slot_F_00234270(void*); void FnF_002345b0();
 };
-extern "C" void __cdecl FUN_0008d340(void *);
 extern "C" void * __cdecl FUN_0008d6d0(unsigned int);
 extern int* hulk_at_004e1268;
 class CCondition_1662b0 {
@@ -1377,11 +1376,11 @@ TargetCharacterTemplateCondition_166210::~TargetCharacterTemplateCondition_16621
 } // namespace fn_f5579237
 
 // 0x00166230 FUN_00166230 (82 B): equivalent/0x00166230.cpp
-// sym: ?FUN_00166230@Thing_166230@owners@@QAE_NPBD@Z @ceb1083b6fd1 @w2ae63d33cad5 @v364abda3db81
+// sym: ?FUN_00166230@Thing_166230@owners@@QAE_NPBD@Z @2720b3812131 @wc22d0564b733 @v35ebf4b15a6e
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_00166230 @ 0x00166230
 bool owners::Thing_166230::FUN_00166230(const char *source) {
-    FUN_0008d340(text);
+    ::operator delete[](text);
     if (!source) { text = 0; return true; }
     unsigned int length = 0;
     while (source[length]) ++length;

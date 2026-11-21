@@ -5,6 +5,7 @@
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_f6c39404 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -373,7 +374,6 @@ class CDramaticCamera {
     void* vfunc_2(unsigned char flag);
 };
 
-extern "C++" void __cdecl DeleteObj_00263f30(void* p);
 
 void* CDramaticCamera::vfunc_2(unsigned char flag) {
     mVftable = (IRelease*)((int*)DAT_00405754);
@@ -389,7 +389,7 @@ void* CDramaticCamera::vfunc_2(unsigned char flag) {
     }
     BaseCleanup_000a9620();
     if (flag & 1) {
-        DeleteObj_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }

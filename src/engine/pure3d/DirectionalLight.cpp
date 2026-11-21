@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "decls/address.h"
 #include "gen/owners.h"
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_ff411229 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -12,7 +13,6 @@
 #define TREE_LOCAL_pure3d
 namespace fn_ff411229 {} using namespace fn_ff411229;
 namespace fn_ff411229 {
-void __cdecl SweepTrack_DeleteThis_00263f30(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "engine/pure3d.h"
 
@@ -126,7 +126,7 @@ DirectionalLight_2a2f90* DirectionalLight_2a2f90::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042d7c8;
     Destroy_002a0720();
     if (flags & 1) {
-        SweepTrack_DeleteThis_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }

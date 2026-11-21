@@ -9,7 +9,6 @@
 namespace fn_fbcd4bc2 {} using namespace fn_fbcd4bc2;
 namespace fn_fbcd4bc2 {
 struct FactoryCtor { void init_002343b0(); };   // (unb4) the factory constructors InitHelper::init stood for
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "game/global.h"
 
@@ -92,7 +91,7 @@ void* ConditionFactoryTemplate_57630::scalar_dtor(unsigned char flags) {
     base1_dtor_0004a400();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

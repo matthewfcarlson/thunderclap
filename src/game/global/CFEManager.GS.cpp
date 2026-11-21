@@ -17,6 +17,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f71c7272 {} using namespace fn_f71c7272;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -729,7 +730,7 @@ void Registry_c0cc0::FUN_000c0cc0(const char *name, CFEManager *owner, Closure_c
 namespace fn_f71c7272 {
 
 // 0x000c1430 FUN_000c1430 (853 B): equivalent/0x000c1430.cpp
-// sym: ?FUN_000c1430@CFEManager@fn_f71c7272@@QAEXXZ @ef174ec69ea2 @wf8f1281b471e @va7b77be17c81
+// sym: ?FUN_000c1430@CFEManager@fn_f71c7272@@QAEXXZ @99bbc0360872 @w2d25c0bb2021 @ve25d56198cbd
 // STATUS: equivalent (tools/equiv.py level 3: 1176 inputs, branch coverage 26/26)
 // FUN_000c1430 @ 0x000c1430
 void CFEManager::FUN_000c1430()
@@ -793,13 +794,13 @@ void CFEManager::FUN_000c1430()
         for (i = 0; i < 0x80; i++) {
             if (!list6c[i])
                 break;
-            FUN_0008d340(list6c[i]);
+            ::operator delete[](list6c[i]);
             list6c[i] = 0;
         }
         for (i = 0; i < 0x80; i++) {
             if (!list26c[i])
                 break;
-            FUN_0008d340(list26c[i]);
+            ::operator delete[](list26c[i]);
             list26c[i] = 0;
         }
         if (f64) {

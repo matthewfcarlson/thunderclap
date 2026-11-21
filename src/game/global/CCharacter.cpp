@@ -7176,7 +7176,7 @@ struct CCharacter_42b20 {
 void* CCharacter_42b20::vfunc_2(unsigned int flags) {
     FUN_0003f090();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00042b20

@@ -64,7 +64,6 @@ struct SceneGraphTransformAnimationController {
     char pad[0x110 - 4];
     int member;
 };
-void destroy_00263f30(SceneGraphTransformAnimationController*);
 typedef unsigned int u32_2a7b60;
 struct Type_2a7b60 {};
 extern Type_2a7b60 hulk_at_0048f610;
@@ -331,7 +330,7 @@ SceneGraphTransformAnimationController* SceneGraphTransformAnimationController::
     member = 0;
     init_00285f50();
     if (flag & 1)
-        destroy_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

@@ -6,6 +6,7 @@
 #define TREE_TU_BEGIN namespace fn_f3deebf2 {
 #define TREE_TU_END }
 namespace fn_f3deebf2 {} using namespace fn_f3deebf2;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -40,7 +41,6 @@ struct Agent_10ad90 {
 };
 hulk_freg FUN_0010ac60(int ex, int item, float w, Vec3_10ad90* out);
 extern "C" void *__cdecl FUN_0008d6d0(int size);
-void __cdecl thunk_FUN_00267090(void *p);
 struct V3_10ae50 {
     float x, y, z;
     bool FUN_0022d2b0(V3_10ae50 *out, float eps);
@@ -93,11 +93,10 @@ class NonCopyable : public CSteeringBehaviour_10ac20 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0010ac20
@@ -186,7 +185,7 @@ bool CSeparationBehaviour::vfunc_3(hulk_intptr __p0, int ex, void* __p2, int p5,
 namespace fn_f3deebf2 {
 
 // 0x0010ae50 FUN_0010ae50 (877 B): equivalent/0x0010ae50.cpp
-// sym: ?FUN_0010ae50@fn_f3deebf2@@YAMPAUWorld@@PAX1PAUV3_10ae50@1@2_NPAPAUItem_10ae50@1@@Z @d28dabf94ae7 @w52746f704a77 @v7b0361fb5d80
+// sym: ?FUN_0010ae50@fn_f3deebf2@@YAMPAUWorld@@PAX1PAUV3_10ae50@1@2_NPAPAUItem_10ae50@1@@Z @0a1180ad7bff @w3b883f4a016a @v63cbc94f744f
 // STATUS: equivalent (tools/equiv.py level 3: 183 inputs, branch coverage 48/50, incomplete)
 // FUN_0010ae50 @ 0x0010ae50
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
@@ -270,7 +269,7 @@ float __cdecl FUN_0010ae50(World *w, void *a, void *b, V3_10ae50 *dir, V3_10ae50
         sum->z = sum->z + arr[j].z;
     }
     sum->FUN_0022d110();
-    thunk_FUN_00267090(arr);
+    ::operator delete[](arr);
     return best;
 }
 

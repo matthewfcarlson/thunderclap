@@ -7,6 +7,7 @@
 #define TREE_TU_BEGIN namespace fn_f701c7df {
 #define TREE_TU_END }
 namespace fn_f701c7df {} using namespace fn_f701c7df;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -236,7 +237,6 @@ FEDoFunction::FEDoFunction(Owner_e19d0* o, hulk_intptr id, int n) {
 namespace fn_000e1a60 {
 extern int hulk_at_0040c044;
 extern int hulk_at_0040bfa0;
-extern void __cdecl thunk_FUN_00267090(void*);
 class FEDoFunction {
   public:
     hulk_intptr vptr;
@@ -253,13 +253,13 @@ FEDoFunction::~FEDoFunction() {
             do {
                 void* p = items[i];
                 if (p) {
-                    thunk_FUN_00267090(p);
+                    ::operator delete[](p);
                     items[i] = 0;
                 }
                 ++i;
             } while (i < count);
         if (items) {
-            thunk_FUN_00267090(items);
+            ::operator delete[](items);
             items = 0;
         }
     }

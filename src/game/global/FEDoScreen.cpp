@@ -26,7 +26,6 @@ class NonCopyable : public FEDoAction_e8c50 {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 
 
 // 0x000e8c50 FEDoScreen::vfunc_0 (31 B): matches/0x000e8c50.cpp
@@ -35,7 +34,7 @@ void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0040bfa0;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

@@ -2,6 +2,7 @@
 // object 0x001c6cb0..0x001c7500 (kind game, layer game, confidence medium), dominant class Render::RoomLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_f74b9f55 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -9,6 +10,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f74b9f55 {} using namespace fn_f74b9f55;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f74b9f55 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/Render.h"
 
@@ -60,7 +62,6 @@ class NonCopyable : public SimpleChunkHandler_1c6d40 {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 struct Sub_1c6d60 {
     void cleanup_001c2760();
 };
@@ -71,7 +72,6 @@ typedef unsigned int u32_1c6e20;
 struct Sub_1c6e20 {
     void clean_001c27c0();
 };
-void finish_0008d340(hulk_uintptr);
 struct Container_1c6e20 {
     char* begin;
     char* end;
@@ -115,7 +115,6 @@ class Owner_1c6f70 {
     void Clear();
     void Finish_0027af50();
 };
-void __cdecl thunk_FUN_00267090(Item_1c6f70*);
 
 
 // 0x001c6cb0 FUN_001c6cb0 (38 B): matches/0x001c6cb0.cpp
@@ -160,7 +159,7 @@ RoomLoader::RoomLoader(int arg) {
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -183,7 +182,7 @@ void __fastcall target(Container_1c6e20* self) {
         char* e = self->end;
         for (; p != e; p += 0xa8)
             ((Sub_1c6e20*)(p + 4))->clean_001c27c0();
-        finish_0008d340((hulk_uintptr)self->begin);
+        ::operator delete[](self->begin);
     }
 }
 
@@ -227,7 +226,7 @@ void Owner_1c6f70::Clear() {
                 p = (Item_1c6f70*)((char*)p + 0xa8);
             } while (p != e);
         }
-        thunk_FUN_00267090(begin);
+        ::operator delete[](begin);
     }
     {
         Ref_1c6f70* q = mB;

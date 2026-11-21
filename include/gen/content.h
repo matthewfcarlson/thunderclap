@@ -93,6 +93,10 @@ public:
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~LoadObject(); // overrides core::IRefCount slot 2
     int f_04;
+    // (nat2, D135) the class's operator delete / delete[] (0x00263f30 / 0x00263f40, jmps to the global ones): every
+    // descendant's deleting destructors and delete expressions call them (src/engine/content/LoadStream.cpp)
+    static void operator delete(void* p);
+    static void operator delete[](void* p);
 };
 HULK_REFCOUNT_PACK_END
 

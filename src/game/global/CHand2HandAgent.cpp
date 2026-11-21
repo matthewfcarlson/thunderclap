@@ -83,7 +83,6 @@ extern int hulk_at_0040d1f4;
 struct CHand2HandAgent_ffeb0 {
     void run_000fc630();
 };
-void __cdecl thunk_FUN_00267090(void*);
 struct Vec3_101fe0 {
     float x, y, z;
     float FUN_0022d110();
@@ -840,7 +839,7 @@ CHand2HandAgent* CHand2HandAgent::vfunc_2(unsigned char param) {
     thing = 0;
     ((CHand2HandAgent_ffeb0*)this)->run_000fc630();
     if (param & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

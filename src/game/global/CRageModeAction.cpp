@@ -58,7 +58,6 @@ class COrientAction : public CAction {
     Ref_223a0* mFirst;
     void helper_002326a0();
 };
-void __cdecl thunk_FUN_00267090(COrientAction*);
 extern void* gA_22400[];
 class Ref_22400 {
   public:
@@ -106,7 +105,6 @@ class CUninterruptibleAction {
     CUninterruptibleAction* f2(unsigned char flags);
     void Cleanup_002326a0();
 };
-extern void __cdecl thunk_FUN_00267090(CUninterruptibleAction*);
 extern void* g_vftable_224e0[];
 class Ref_224e0 {
   public:
@@ -182,7 +180,7 @@ COrientAction* COrientAction::vfunc_2(unsigned int flags) {
     }
     helper_002326a0();
     if (flags & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -236,7 +234,7 @@ CUninterruptibleAction* CUninterruptibleAction::f2(unsigned char flags) {
     }
     Cleanup_002326a0();
     if (flags & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

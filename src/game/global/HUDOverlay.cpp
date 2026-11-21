@@ -1281,14 +1281,13 @@ class HUDOverlay {
     char pad[0x54];
 };
 extern int hudvt, ovt;
-void thunk_FUN_00267090(HUDOverlay*);
 HUDOverlay* HUDOverlay::vfunc_0(unsigned char flags) {
     Helper_cb840* h = (Helper_cb840*)((char*)this + 0x54);
     *(void**)this = &hudvt;
     h->Fnf_000f7960();
     *(void**)this = &ovt;
     if (flags & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_000cb840

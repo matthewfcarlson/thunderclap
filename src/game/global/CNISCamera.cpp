@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_fe577214 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -102,7 +103,6 @@ class CNISCamera {
     Vec3_ac4f0* FUN_000ac4f0(Vec3_ac4f0* out);
 };
 extern "C" void __fastcall FUN_000a9620(CNISCamera*);
-void __cdecl thunk_00263f30(CNISCamera*);
 
 
 // 0x000ac2c0 FUN_000ac2c0 (248 B): equivalent/0x000ac2c0.cpp
@@ -196,7 +196,7 @@ CNISCamera* CNISCamera::vfunc_2(unsigned char flag) {
     }
     FUN_000a9620(this);
     if (flag & 1)
-        thunk_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

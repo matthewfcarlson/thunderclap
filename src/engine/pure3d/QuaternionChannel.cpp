@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f66a22d3 {} using namespace fn_f66a22d3;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -183,7 +184,6 @@ struct Obj_28b4d0 {
     virtual void f0();
     virtual void f1();
 };
-void thunk_0008d340(int*);
 struct Obj_28b520 {
     virtual void f0();
     virtual void f1();
@@ -227,7 +227,6 @@ struct Obj_28b7d0 {
     virtual void v0();
     virtual void Release();
 };
-void __cdecl Free_0008d340(void*);
 inline void Del(Obj_28b7d0*& p) {
     if (p) {
         p->Release();
@@ -610,7 +609,7 @@ SimpleChannel::SimpleChannel(int size, Owner_28b420* owner) : c(owner), d(size),
 } // namespace fn_f66a22d3
 
 // 0x0028b490 pure3d::SimpleChannel::vfunc_1 (52 B): equivalent/0x0028b490.cpp [wrapped: conflict: pure3d::Channel; pure3d::SimpleChannel]
-// sym: ?vfunc_1@SimpleChannel@pure3d@fn_0028b490@@UAEXXZ @38bf24138117 @w55a9554c6238 @v04f6ca06249a
+// sym: ?vfunc_1@SimpleChannel@pure3d@fn_0028b490@@UAEXXZ @f39bef7cf426 @we5c97ba9eb8c @ve8a4168442c8
 namespace fn_0028b490 {
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 3/4, incomplete)
 // pure3d::SimpleChannel::vfunc_1 @ 0x0028b490
@@ -632,10 +631,9 @@ struct SimpleChannel : Channel {
     void vfunc_1();
 };
 }
-void __cdecl FUN_0008d340(void*);
 void pure3d::SimpleChannel::vfunc_1() {
     if (object == 0) {
-        FUN_0008d340(data);
+        ::operator delete[](data);
         data = 0;
         return;
     }
@@ -652,10 +650,10 @@ void pure3d::SimpleChannel::vfunc_1() {
 // sym: ?vfunc_1@IntChannel@pure3d@@UAEXXZ
 void pure3d::IntChannel::vfunc_1() {
     if ((*(Obj_28b4d0 *volatile *)&this->f_0c) == 0)
-        thunk_0008d340((*(int * *)&this->f_18));
+        ::operator delete[]((*(int * *)&this->f_18));
     (*(int * *)&this->f_18) = 0;
     if ((*(Obj_28b4d0 *volatile *)&this->f_0c) == 0) {
-        thunk_0008d340((*(int * *)&this->f_14));
+        ::operator delete[]((*(int * *)&this->f_14));
         (*(int * *)&this->f_14) = 0;
         return;
     }
@@ -673,10 +671,10 @@ void pure3d::IntChannel::vfunc_1() {
 // Same code shape as 0x0028b4d0 (propagated; names are from that function)
 void pure3d::Float1Channel::vfunc_1() {
     if ((*(Obj_28b520 *volatile *)&this->f_0c) == 0)
-        thunk_0008d340((*(int * *)&this->f_18));
+        ::operator delete[]((*(int * *)&this->f_18));
     (*(int * *)&this->f_18) = 0;
     if ((*(Obj_28b520 *volatile *)&this->f_0c) == 0) {
-        thunk_0008d340((*(int * *)&this->f_14));
+        ::operator delete[]((*(int * *)&this->f_14));
         (*(int * *)&this->f_14) = 0;
         return;
     }
@@ -694,10 +692,10 @@ void pure3d::Float1Channel::vfunc_1() {
 // Same code shape as 0x0028b4d0 (propagated; names are from that function)
 void pure3d::Float2Channel::vfunc_1() {
     if ((*(Obj_28b570 *volatile *)&this->f_0c) == 0)
-        thunk_0008d340((*(int * *)&this->f_18));
+        ::operator delete[]((*(int * *)&this->f_18));
     (*(int * *)&this->f_18) = 0;
     if ((*(Obj_28b570 *volatile *)&this->f_0c) == 0) {
-        thunk_0008d340((*(int * *)&this->f_14));
+        ::operator delete[]((*(int * *)&this->f_14));
         (*(int * *)&this->f_14) = 0;
         return;
     }
@@ -756,10 +754,10 @@ void pure3d::Vector2DOFChannel::vfunc_1() {
 // Same code shape as 0x0028b4d0 (propagated; names are from that function)
 void pure3d::Vector3DOFChannel::vfunc_1() {
     if ((*(Obj_28b660 *volatile *)&this->f_0c) == 0)
-        thunk_0008d340((*(int * *)&this->f_18));
+        ::operator delete[]((*(int * *)&this->f_18));
     (*(int * *)&this->f_18) = 0;
     if ((*(Obj_28b660 *volatile *)&this->f_0c) == 0) {
-        thunk_0008d340((*(int * *)&this->f_14));
+        ::operator delete[]((*(int * *)&this->f_14));
         (*(int * *)&this->f_14) = 0;
         return;
     }
@@ -777,10 +775,10 @@ void pure3d::Vector3DOFChannel::vfunc_1() {
 // Same code shape as 0x0028b4d0 (propagated; names are from that function)
 void pure3d::QuaternionChannel::vfunc_1() {
     if ((*(Obj_28b6b0 *volatile *)&this->f_0c) == 0)
-        thunk_0008d340((*(int * *)&this->f_18));
+        ::operator delete[]((*(int * *)&this->f_18));
     (*(int * *)&this->f_18) = 0;
     if ((*(Obj_28b6b0 *volatile *)&this->f_0c) == 0) {
-        thunk_0008d340((*(int * *)&this->f_14));
+        ::operator delete[]((*(int * *)&this->f_14));
         (*(int * *)&this->f_14) = 0;
         return;
     }
@@ -809,11 +807,11 @@ void pure3d::StringChannel::vfunc_1() {
                 c--;
             } while (c != 0);
         }
-        operator delete(base);
+        ::operator delete[](base);
     }
     (*(Elem_28b760 * *)&this->f_18) = 0;
     if ((*(Ref_28b760 *volatile *)&this->f_0c) == 0) {
-        operator delete((*(void * *)&this->f_14));
+        ::operator delete[]((*(void * *)&this->f_14));
         (*(void * *)&this->f_14) = 0;
     } else {
         Ref_28b760* r = (*(Ref_28b760 *volatile *)&this->f_0c);
@@ -838,10 +836,10 @@ void pure3d::EntityChannel::vfunc_1() {
         }
     }
     if ((*(Obj_28b7d0 * *)&this->f_0c) == 0)
-        Free_0008d340((*(Obj_28b7d0 ** *)&this->f_18));
+        ::operator delete[]((*(Obj_28b7d0 ** *)&this->f_18));
     (*(Obj_28b7d0 ** *)&this->f_18) = 0;
     if ((*(Obj_28b7d0 * *)&this->f_0c) == 0) {
-        Free_0008d340((*(void * *)&this->f_14));
+        ::operator delete[]((*(void * *)&this->f_14));
         (*(void * *)&this->f_14) = 0;
     } else {
         Del((*(Obj_28b7d0 * *)&this->f_0c));
@@ -856,10 +854,10 @@ namespace fn_f66a22d3 {
 // Same code shape as 0x0028b4d0 (propagated; names are from that function)
 void BoolChannel_28b840::vfunc_1() {
     if (mObj == 0)
-        thunk_0008d340(m18);
+        ::operator delete[](m18);
     m18 = 0;
     if (mObj == 0) {
-        thunk_0008d340(m14);
+        ::operator delete[](m14);
         m14 = 0;
         return;
     }
@@ -878,10 +876,10 @@ void BoolChannel_28b840::vfunc_1() {
 // Same code shape as 0x0028b4d0 (propagated; names are from that function)
 void pure3d::ColourChannel::vfunc_1() {
     if ((*(Obj_28b890 *volatile *)&this->f_0c) == 0)
-        thunk_0008d340((*(int * *)&this->f_18));
+        ::operator delete[]((*(int * *)&this->f_18));
     (*(int * *)&this->f_18) = 0;
     if ((*(Obj_28b890 *volatile *)&this->f_0c) == 0) {
-        thunk_0008d340((*(int * *)&this->f_14));
+        ::operator delete[]((*(int * *)&this->f_14));
         (*(int * *)&this->f_14) = 0;
         return;
     }

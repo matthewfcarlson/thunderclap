@@ -664,7 +664,6 @@ class Ref_2a3d30 {
     virtual void Release();
 };
 
-extern "C" void __cdecl FUN_00263f30(void*);
 
 class ParticleSystem {
   public:
@@ -690,7 +689,7 @@ ParticleSystem* ParticleSystem::vfunc_2(unsigned char p) {
     }
     Cleanup_002a4ff0();
     if (p & 1) {
-        FUN_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }

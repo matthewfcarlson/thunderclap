@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001fc600..0x001fc690 (kind game, layer game, confidence medium), dominant class CEncounterGenerator
 #include "tree_prelude.h"
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_f2961f61 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -23,8 +24,6 @@ class CEncounterGenerator {
     virtual void D();
     virtual void E();
 };
-extern void BaseDestroy_00263f30(void*);
-extern void BaseDestroyVec_00263f40(void*);
 
 
 // 0x001fc600 CEncounterGenerator::vfunc_2 (115 B): matches/0x001fc600.cpp
@@ -44,12 +43,12 @@ CEncounterGenerator* CEncounterGenerator::vfunc_2(unsigned char flags) {
             } while (i != 0);
         }
         if (flags & 1)
-            BaseDestroyVec_00263f40(base);
+            ::content::LoadObject::operator delete[](base);
         return (CEncounterGenerator*)base;
     }
     ((CEncounterGenerator_1fc600*)this)->Destroy_001fa8b0();
     if (flags & 1)
-        BaseDestroy_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

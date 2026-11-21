@@ -7,7 +7,6 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f60bff30 {} using namespace fn_f60bff30;
 namespace fn_f60bff30 {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "game/unknown.h"
 
@@ -123,7 +122,7 @@ hulkfight::ai::TargetDistanceCondition* hulkfight::ai::TargetDistanceCondition::
     *(void***)this = hulk_at_0040fd74;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -138,7 +137,7 @@ hulkfight::ai::TargetAngleYCondition* hulkfight::ai::TargetAngleYCondition::vfun
     *(void***)this = hulk_at_0040fd94;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -153,7 +152,7 @@ hulkfight::ai::TargetDirectionCondition* hulkfight::ai::TargetDirectionCondition
     *(void***)this = hulk_at_0040fdb4;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -168,7 +167,7 @@ hulkfight::ai::TargetDistanceYCondition* hulkfight::ai::TargetDistanceYCondition
     *(void***)this = hulk_at_0040fdd4;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -183,7 +182,7 @@ hulkfight::ai::TargetOrientationCondition* hulkfight::ai::TargetOrientationCondi
     *(void***)this = hulk_at_0040fdf4;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -198,7 +197,7 @@ hulkfight::ai::ProjectileDistanceCondition* hulkfight::ai::ProjectileDistanceCon
     *(void***)this = hulk_at_0040fe14;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -213,7 +212,7 @@ hulkfight::ai::HasTargetCondition* hulkfight::ai::HasTargetCondition::vfunc_5(si
     *(void***)this = hulk_at_0040fe34;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -228,7 +227,7 @@ hulkfight::ai::TargetVelocityYCondition* hulkfight::ai::TargetVelocityYCondition
     *(void***)this = hulk_at_0040fe54;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -243,7 +242,7 @@ hulkfight::ai::TargetVelocityCondition* hulkfight::ai::TargetVelocityCondition::
     *(void***)this = hulk_at_0040fe74;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

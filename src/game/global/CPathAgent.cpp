@@ -8,6 +8,7 @@
 #define TREE_TU_BEGIN namespace fn_f58850d5 {
 #define TREE_TU_END }
 namespace fn_f58850d5 {} using namespace fn_f58850d5;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -62,14 +63,11 @@ class Thing_104970 {
     int value;
     void Set(int);
 };
-typedef unsigned int u32_104a70;
-void thunk_FUN_00267090(u32_104a70);
-struct Obj_104a70 {
-    u32_104a70 a;
+struct Obj_104a70 {   // (nat2, D134) two blocks, freed with operator delete[]
+    void* a;
     char pad[8];
-    u32_104a70 b;
+    void* b;
 };
-extern "C" void __cdecl thunk_FUN_00267090(void*);
 struct Obj_104b20 {
   public:
     void* field0;
@@ -149,7 +147,6 @@ struct Root_105ef0 {
 extern Root_105ef0* hulk_at_004dd700;
 struct Sub_105ef0 {
 };
-extern void __cdecl Ref_0008d340(void*);
 class CPathGraphAgent_105ef0 {
   public:
     void* vptr;
@@ -281,16 +278,16 @@ void FUN_001049a0() {}
 // 0x00104a70 FUN_00104a70 (25 B): matches/0x00104a70.cpp
 // sym: ?FUN_00104a70@fn_f58850d5@@YIXPAUObj_104a70@1@@Z
 void __fastcall FUN_00104a70(Obj_104a70* self) {
-    thunk_FUN_00267090(self->a);
-    thunk_FUN_00267090(self->b);
+    ::operator delete[](self->a);
+    ::operator delete[](self->b);
 }
 
 
 // 0x00104b20 FUN_00104b20 (46 B): matches/0x00104b20.cpp
 // sym: ?func@Obj_104b20@fn_f58850d5@@QAEPAXE@Z
 void* Obj_104b20::func(unsigned char b) {
-    thunk_FUN_00267090(field0);
-    thunk_FUN_00267090(fieldC);
+    ::operator delete[](field0);
+    ::operator delete[](fieldC);
     if (b & 1) {
         operator delete(this);
     }
@@ -300,7 +297,7 @@ void* Obj_104b20::func(unsigned char b) {
 } // namespace fn_f58850d5
 
 // 0x00104b50 CPathAgent::vfunc_9 (258 B): equivalent/0x00104b50.cpp [wrapped: conflict: CPathAgent]
-// sym: ?vfunc_9@CPathAgent@fn_00104b50@@UAEXXZ @35f6b8292619 @w2878c0b8d8c9 @ve5a020d896ad
+// sym: ?vfunc_9@CPathAgent@fn_00104b50@@UAEXXZ @d5ef6cfc86f9 @w64c0a9d04a8e @v0d19bd80aed6
 namespace fn_00104b50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // CPathAgent::vfunc_9 @ 0x00104b50
@@ -309,8 +306,8 @@ struct Location { void FUN_00059a50(Vec3_104b50*); };
 struct Result_104b50 { char pad[16]; Location* location; };
 struct Provider_104b50 { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual Result_104b50* slot6(); };
 struct Allocation_104b50 { void* first; char pad[8]; void* second; };
-void __cdecl FUN_0008d340(void*);
-void __cdecl FUN_0008d330(void*);
+
+
 struct CPathAgent {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual void vfunc_11();
  char pad04[4]; int state; char pad0c[76]; Provider_104b50* provider; int f5c; int f60; Allocation_104b50* allocation; int f68; int f6c; int f70; int f74; int f78; char pad7c[12]; unsigned char f88,f89; char pad8a[2]; float f8c; unsigned char f90; char pad91[3]; float f94,f98; int f9c; Vec3_104b50 position; float fac; int fb0,fb4,fb8; char padbc[28]; int fd8,fdc,fe0,fe4,fe8,fec,ff0,ff4; float ff8;
@@ -318,7 +315,7 @@ struct CPathAgent {
 void CPathAgent::vfunc_9() {
  Allocation_104b50* old=allocation;
  state=0; f5c=0; f6c=0;
- if(old) { FUN_0008d340(old->first); FUN_0008d340(old->second); FUN_0008d330(old); allocation=0; }
+ if(old) { ::operator delete[](old->first); ::operator delete[](old->second); ::operator delete(old); allocation=0; }
  f68=0; f70=0; f74=0; f78=0;
  f88=0; f89=1; f8c=1.0f; f90=0; f94=1.0f; f98=1.0f; f9c=0;
  fb8=0; fb4=0; fb0=0; fac=2.5f;
@@ -458,9 +455,12 @@ class Obj_105060 {
     virtual void A();
     virtual void B();
 };
-extern void thunk_0008d340(unsigned int);
-extern void thunk2_0008d330(void*);
 extern void* hulk_at_0040d4e0;
+struct Path_105060 {   // (nat2, D134) 0x00104a70's record: two blocks, freed with operator delete[]
+    void* a;
+    char pad[8];
+    void* b;
+};
 class CCharacterAgent_105060 {
   public:
     void* vptr;
@@ -486,9 +486,9 @@ CPathAgent::~CPathAgent() throw() {
     Obj_105060* p = m64;
     mc8 = 0;
     if (p) {
-        thunk_0008d340(*(unsigned int*)p);
-        thunk_0008d340(*(unsigned int*)((char*)p + 0xc));
-        thunk2_0008d330(p);
+        ::operator delete[](((Path_105060*)p)->a);
+        ::operator delete[](((Path_105060*)p)->b);
+        ::operator delete(p);
         m64 = 0;
     }
 }
@@ -496,15 +496,13 @@ CPathAgent::~CPathAgent() throw() {
 
 
 // 0x001050d0 CPathAgent::vfunc_4 (3405 B): equivalent/0x001050d0.cpp [wrapped: conflict: CPathAgent]
-// sym: ?vfunc_4@CPathAgent@fn_001050d0@@UAEDPAUCtx_1050d0@2@MH@Z @0928d6d1f1a5 @wd439a0970747 @v7aba736c5b3d
+// sym: ?vfunc_4@CPathAgent@fn_001050d0@@UAEDPAUCtx_1050d0@2@MH@Z @b1827d820bcf @wef0fb6a8e033 @v227f2373789c
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
 namespace fn_001050d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3022 inputs, branch coverage 130/132, incomplete)
 // CPathAgent::vfunc_4 @ 0x001050d0
-// equiv-map: ?Del340@@YAXPAX@Z = 0x0008d340
-// equiv-map: ?Del330@@YAXPAX@Z = 0x0008d330
 // Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
 // "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
 // --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
@@ -538,8 +536,8 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 extern "C" double __cdecl sqrt(double);
 #endif
 
-void __cdecl Del340(void *p);
-void __cdecl Del330(void *p);
+
+
 
 struct V3_1050d0 {
     float x, y, z;
@@ -852,9 +850,9 @@ char CPathAgent::vfunc_4(Ctx_1050d0 *a1, float a2, int a3)
             f98 = f94;
             VList *done = list;     // the original keeps the list pointer in a register across the deletes
             if (done && idx >= done->count) {
-                Del340(done->nodes);
-                Del340(done->f0c);
-                Del330(done);
+                ::operator delete[](done->nodes);
+                ::operator delete[](done->f0c);
+                ::operator delete(done);
                 list = 0;
                 idx = 0;
                 b89 = 1;
@@ -1020,10 +1018,10 @@ void __fastcall FUN(CPathGraphAgent_105ef0* self) {
     ((owners::Ring_1ae150 *)(((Sub_105ef0*)hulk_at_004dd700->sub)))->FUN_001ae150((hulk_intptr)((char*)&self->p2));
     self->mAcopy = self->mA;
     if (self->mA)
-        Ref_0008d340(self->mA);
+        ::operator delete[](self->mA);
     self->mBcopy = self->mB;
     if (self->mB)
-        Ref_0008d340(self->mB);
+        ::operator delete[](self->mB);
     Finish_000fc630(self);
 }
 
@@ -1233,20 +1231,19 @@ CPathGraphAgent::~CPathGraphAgent() {}
 // sym: ?target@CPatrolPath@fn_00106130@@QAEXXZ
 namespace fn_00106130 {
 extern "C" char DAT_0040d564[];
-typedef unsigned int u32_106130;
-void __cdecl thunk_FUN_00267090(u32_106130);
+// (nat2, D134) CPatrolPath's record (a pure3d::Entity, then its points block, freed with operator delete[])
 struct CPatrolPath {
     void* vptr;
-    char pad[0x0c];
-    u32_106130 m10;
-    u32_106130 m14;
+    int words[3];
+    void* m10;
+    int m14;
     void finish_0027afd0();
     void target();
 };
 void CPatrolPath::target() {
     vptr = (void*)((hulk_intptr)DAT_0040d564);
-    u32_106130 x = m10;
-    thunk_FUN_00267090(x);
+    void* x = m10;
+    ::operator delete[](x);
     m14 = 0;
     finish_0027afd0();
 }

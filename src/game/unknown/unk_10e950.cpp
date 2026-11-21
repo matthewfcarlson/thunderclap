@@ -7,7 +7,6 @@
 #define TREE_TU_END }
 namespace fn_f9459e3d {} using namespace fn_f9459e3d;
 namespace fn_f9459e3d {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "game/unknown.h"
 
@@ -96,7 +95,6 @@ class Track_10ea50 {
     void* vptr;
     void Fin_00236d60();
 };
-void Free_0008d330(void*);
 struct Sub_10ea50 {
     char c;
 };
@@ -151,7 +149,6 @@ class Base_10eae0 {
   public:
     void Destroy_00236d60();
 };
-extern void __cdecl thunk_FUN_00267090(hulkfight::ai::HulkActionTrack*);
 extern void* hulk_at_0040dc44[];
 class Str_10eb10 {
   public:
@@ -285,7 +282,7 @@ hulkfight::ai::PropsToSuckCondition* hulkfight::ai::PropsToSuckCondition::vfunc_
     *(void***)this = hulk_at_0040db04;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -300,7 +297,7 @@ hulkfight::ai::RandomKeyWordWaitCondition* hulkfight::ai::RandomKeyWordWaitCondi
     *(void***)this = hulk_at_0040db24;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -315,7 +312,7 @@ hulkfight::ai::TokenCondition* hulkfight::ai::TokenCondition::vfunc_5(signed cha
     *(void***)this = hulk_at_0040db44;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -330,7 +327,7 @@ hulkfight::ai::FightingOtherNPCCondition* hulkfight::ai::FightingOtherNPCConditi
     *(void***)this = hulk_at_0040db64;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -344,7 +341,7 @@ SemaphoreClearTrack_10ea50* SemaphoreClearTrack_10ea50::f(unsigned char fl) {
     FUN_0027af50(&s18);
     Fin_00236d60();
     if (fl & 1)
-        Free_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -359,7 +356,7 @@ hulkfight::ai::TokenSupressTrack* hulkfight::ai::TokenSupressTrack::vfunc_5(sign
     *(void***)this = hulk_at_0040dbb4;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -374,7 +371,7 @@ hulkfight::ai::AIHistoryCountTrack* hulkfight::ai::AIHistoryCountTrack::vfunc_5(
     *(void***)this = hulk_at_0040dbe4;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -387,7 +384,7 @@ hulkfight::ai::HulkActionTrack* hulkfight::ai::HulkActionTrack::vfunc_5(unsigned
     ((Sub_10eae0*)((char*)this + 0x18))->Destroy_0027af50();
     ((Base_10eae0*)this)->Destroy_00236d60();
     if (flags & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -415,7 +412,7 @@ hulkfight::ai::ButtonTrack* hulkfight::ai::ButtonTrack::vfunc_5(signed char flag
     *(void***)this = hulk_at_0040dc74;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -444,7 +441,7 @@ hulkfight::ai::TokenTrack* hulkfight::ai::TokenTrack::vfunc_5(signed char flags)
     *(void***)this = hulk_at_0040dcd4;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

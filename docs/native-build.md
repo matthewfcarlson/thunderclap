@@ -6549,3 +6549,9 @@ the literal before writing `sizeof(::Gen)`.
   0x00086450). Next stop: 0x00090790 (CStatsManager's measure) reads DAT_004dd700's +0x20 manager and its +0x124 /
   +0x10 words through 32-bit pads. They need a CActorManager record, which is ckpt1's follow-up (A) too.
   0x00086630 (a replay pin) still has 32-bit pad views.
+
+## nat2 (2026-11-20): free calls by name, operator new and LoadObject's operator delete defined
+
+D131/D133/D134/D135 (see docs/journal.md 2026-11-20 nat2). Natively the game's `operator new` (`??2@YAPEAX_K@Z`) and
+`operator delete` / `delete[]` and content::LoadObject's members are strong tree definitions; no free call binds by a
+name that carries an address any more. Unbound counts: see the commit message (control and proof snapshots, own maps).

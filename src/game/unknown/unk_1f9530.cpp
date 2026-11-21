@@ -6,6 +6,7 @@
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
 #include "decls/encounter.h"   // (recs1, find2 G20) CEncounterGenerator
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_f80593ac {
 #define TREE_TU_END }
 #define TREE_LOCAL_CSPHulkProp
@@ -173,9 +174,7 @@ class Obj_1fa7a0 : public HulkEncounterMap {   // (recs1) the encounter map (was
     Obj_1fa7a0* target(unsigned char flag);
     void FUN_00230f50(void (*)(), Obj_1fa7a0*);
 };
-extern void FUN_0008d330(Obj_1fa7a0*);
 extern void FUN_001f9f80();
-void thunk_FUN_00267090(void *p);
 struct Name {
     char data[12];
     ~Name();
@@ -232,7 +231,6 @@ class CCollisionAction : public CAction {
 struct ThisCall_001fa8b0 {
     void FUN_001fa8b0();
 };
-extern void thunk_FUN_00267090(CCollisionAction*);
 
 } // namespace fn_f80593ac
 
@@ -688,7 +686,7 @@ Obj_1fa7a0* Obj_1fa7a0::target(unsigned char flag) {
     FUN_00230f50(&FUN_001f9f80, this);
     ((V*)pool)->f1();
     if (flag & 1)
-        FUN_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -728,7 +726,7 @@ bool Object::FUN_001fa7d0(hulk_intptr input, int value) {
 namespace fn_f80593ac {
 
 // 0x001fa8b0 FUN_001fa8b0 (110 B): equivalent/0x001fa8b0.cpp
-// sym: ??1CEncounterGenerator@fn_f80593ac@@UAE@XZ @15f1092eeab1 @w4a436067630f @v306bc2c45655
+// sym: ??1CEncounterGenerator@fn_f80593ac@@UAE@XZ @e199415a263f @w4a34322ff1b5 @vd8ebf0cc9785
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 4/4)
 // FUN_001fa8b0 @ 0x001fa8b0
 // equiv-map: ??1IRefCount@core@@UAE@XZ = 0x0027afd0
@@ -740,7 +738,7 @@ CEncounterGenerator::~CEncounterGenerator()
     if (t != 0) {
         t->FUN_00230f50(FUN_001f9f80, t);
         ((Child_1fa8b0*)t->pool)->Release();
-        thunk_FUN_00267090(t);
+        ::operator delete(t);
     }
     task = 0;
     for (int i = 15; i >= 0; i--)
@@ -754,7 +752,7 @@ CEncounterGenerator::~CEncounterGenerator()
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     ((ThisCall_001fa8b0*)(this))->FUN_001fa8b0();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

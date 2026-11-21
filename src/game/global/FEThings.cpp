@@ -349,7 +349,6 @@ class FEThings_de110 : public FEThingsBase_de110 {
 struct FEThings_nv_de110 {
     void FUN_000ddfc0();
 };
-extern void thunk_FUN_00267090(FEThings_de110*);
 
 } // namespace fn_f4042a89
 
@@ -466,7 +465,7 @@ namespace fn_f4042a89 {
 FEThings_de110* FEThings_de110::vfunc_2(unsigned char flags) {
     ((FEThings_nv_de110*)(((FEThings*)(this))))->FUN_000ddfc0();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

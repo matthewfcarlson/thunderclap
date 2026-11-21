@@ -11,7 +11,6 @@
 #define TREE_TU_END }
 namespace fn_f2bbfa1e {} using namespace fn_f2bbfa1e;
 namespace fn_f2bbfa1e {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 namespace fn_f2bbfa1e { extern "C" char DAT_004324a8[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_f2bbfa1e { extern "C" char DAT_0043253c[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
@@ -199,7 +198,7 @@ pddiDevice_31b760* pddiDevice_31b760::vfunc_5(signed char flags) {
     *(void***)this = ((void**)DAT_004324a8);
     Destroy();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -356,7 +355,6 @@ namespace fn_0031ba30 {
 extern "C" char DAT_004324a8[];
 typedef unsigned char u8_31ba30;
 extern "C++" void __fastcall FUN_0031bae0(void*);
-extern "C++" void __cdecl thunk_FUN_00267090(void*);  // the heap's free through its `jmp` thunk
 class d3dDevice_31ba30 {
   public:
     virtual void f0();
@@ -369,7 +367,7 @@ d3dDevice_31ba30* d3dDevice_31ba30::f3(u8_31ba30 param) {
     *(void**)this = (void*)((hulk_intptr)DAT_004324a8);
     FUN_0031bae0((void*)(this));
     if (param & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0031ba30
@@ -471,11 +469,10 @@ class NonCopyable : public IRefCount {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0043253c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0031bb30

@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fe1b1ee9 {} using namespace fn_fe1b1ee9;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/physics.h"
 
 // ---- declarations shared by the functions below
@@ -80,10 +81,9 @@ struct MeshBuffers_2f9a80 {
     void FUN_002f9a80(unsigned int numVerts, unsigned int numIndices);
 };
 typedef unsigned int u32_2f9b30;
-void __cdecl thunk_FUN_00267090(u32_2f9b30);
 struct X_2f9b30 {
-    u32_2f9b30 a;
-    u32_2f9b30 b;
+    void* a;   // (nat2, D134) a block (freed with operator delete[]) and its end
+    void* b;
     void f();
 };
 extern void* Alloc_0008d6d0(unsigned int);
@@ -96,7 +96,6 @@ struct Range {
 struct Object {
     void FUN_002f9ca0(unsigned int value);
 };
-void Release_0008d340(void*);
 struct Obj_2f9cd0 {
     char pad[0x30];
     int a;
@@ -183,23 +182,21 @@ struct Entry {
 struct Item_2f9ff0 {
     void Fnf_002f9da0(int);
 };
-struct Obj_2fa030 {
-    int a;
-    int b;
+struct Obj_2fa030 {   // (nat2, D134) a range of entries (0x002f9fb0 frees their blocks), freed with operator delete[]
+    Entry* a;
+    Entry* b;
 };
-extern void __cdecl Fng_0008d340(int);
 struct Obj_2fa050 {
     void* a;
     void* b;
     void Target();
 };
-extern void __cdecl ReleaseThing_0008d340(int);
-extern void __cdecl DoPair_002f9fb0(int, int);
-struct Target_2fa0f0 {
-    int first;
-    int second;
+extern void __cdecl DoPair_002f9fb0(Entry*, Entry*);
+struct Target_2fa0f0 {   // (nat2, D134) a range of entries and a block, freed with operator delete[]
+    Entry* first;
+    Entry* second;
     int pad;
-    int third;
+    void* third;
 };
 struct BoundsData {
     char reserved[24];
@@ -553,7 +550,7 @@ void MeshBuffers_2f9a80::FUN_002f9a80(unsigned int numVerts, unsigned int numInd
 // Same code shape as 0x002a47d0 (propagated; names are from that function)
 void X_2f9b30::f() {
     if (a != 0)
-        thunk_FUN_00267090(a);
+        ::operator delete[](a);
     a = 0;
     b = 0;
 }
@@ -604,11 +601,11 @@ void Obj_2f9cd0::f() {
     hulk_intptr x = c;
     d = x;
     if (x)
-        Release_0008d340((void*)x);
+        ::operator delete[]((void*)x);
     x = a;
     b = x;
     if (x)
-        Release_0008d340((void*)x);
+        ::operator delete[]((void*)x);
 }
 
 
@@ -757,8 +754,8 @@ extern "C" hulk_intptr __cdecl FUN_002f9ff0(Item_2f9ff0* p, int count, int b) {
 // Same code shape as 0x002907f0 (propagated; names are from that function)
 void __fastcall target(Obj_2fa030* self) {
     if (self->a) {
-        f(self->a, self->b);
-        Fng_0008d340(self->a);
+        DoPair_002f9fb0(self->a, self->b);
+        ::operator delete[](self->a);
     }
 }
 
@@ -768,7 +765,7 @@ void __fastcall target(Obj_2fa030* self) {
 void Obj_2fa050::Target() {
     Cleanup(a, b);
     if (a)
-        Release_0008d340(a);
+        ::operator delete[](a);
     a = 0;
     b = 0;
 }
@@ -778,10 +775,10 @@ void Obj_2fa050::Target() {
 // sym: ?FUN_002fa0f0@fn_fe1b1ee9@@YIXPAUTarget_2fa0f0@1@@Z
 void __fastcall FUN_002fa0f0(Target_2fa0f0* object) {
     if (object->third != 0)
-        ReleaseThing_0008d340(object->third);
+        ::operator delete[](object->third);
     if (object->first != 0) {
         DoPair_002f9fb0(object->first, object->second);
-        ReleaseThing_0008d340(object->first);
+        ::operator delete[](object->first);
     }
 }
 

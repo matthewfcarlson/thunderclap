@@ -64,7 +64,6 @@ class CCollisionAction : public CAction {
     CCollisionAction* vfunc_2(unsigned char);
 };
 extern void __fastcall FUN_000dd970(void*);
-extern void thunk_FUN_00267090(CCollisionAction*);
 typedef unsigned int u32_fc100;
 struct Obj_fc100 {
     void F5_000f5fa0(hulk_uintptr, u32_fc100);   // (decl1) passes as defined
@@ -356,7 +355,6 @@ class Second {
     virtual void f66();
     virtual void Use(int);
 };
-extern "C" void __cdecl FreeFirst_0008d330(ControllerPoller_fc3e0*);
 
 
 // 0x000fb830 FUN_000fb830 (466 B): equivalent/0x000fb830.cpp
@@ -602,7 +600,7 @@ extern "C" void FUN_000fc060(const char* a1, void* a2, void* a3, void* a4) {
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     FUN_000dd970((void*)(this));
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -974,7 +972,7 @@ extern "C" void FUN_000fc3e0() {
     if ((*(ControllerPoller_fc3e0**)&DAT_004e0a64)) {
         ControllerPoller_fc3e0* p = (*(ControllerPoller_fc3e0**)&DAT_004e0a64);
         (*(ControllerPoller_fc3e0**)&DAT_004e0a64)->Close_000dd970();
-        FreeFirst_0008d330(p);
+        ::operator delete(p);
         (*(ControllerPoller_fc3e0**)&DAT_004e0a64) = 0;
     }
     if ((*(Second**)&DAT_004e0a60)) {

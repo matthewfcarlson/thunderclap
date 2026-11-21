@@ -34,7 +34,6 @@ class NonCopyable : public IRefCount {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 
 
 // 0x000b4280 FUN_000b4280 (27 B): matches/0x000b4280.cpp
@@ -58,7 +57,7 @@ extern "C" int __fastcall FUN_000b43e0(void* obj) {
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_004076ec;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

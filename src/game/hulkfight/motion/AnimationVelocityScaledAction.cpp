@@ -18,7 +18,6 @@
 namespace fn_f30d2d27 {} using namespace fn_f30d2d27;
 namespace fn_f30d2d27 {
 struct FactoryCtor { void init_002343b0(); void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 namespace fn_f30d2d27 { extern "C" char DAT_00412410[], DAT_00412450[], DAT_00412480[], DAT_004124b0[], DAT_004124e0[], DAT_004126cc[], DAT_00412540[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
@@ -443,7 +442,6 @@ struct Obj_13a840 {
     void f1_0027af50();
     void f2_002345b0();
 };
-extern void thunk_FUN_00267090(Obj_13a840*);
 class FrameReachedCondition_13a840 {
   public:
     void* vftable;
@@ -456,7 +454,6 @@ struct Obj_13a870 {
     void f1_0027af50();
     void f2_002345b0();
 };
-extern void thunk_FUN_00267090(Obj_13a870*);
 class FrameCondition_13a870 {
   public:
     void* vftable;
@@ -485,7 +482,6 @@ struct H {
 struct G_13a8a0 {
     void Fng_00236d60();
 };
-extern void __cdecl thunk_FUN_00267090(AnimationTrack_13a8a0*);
 extern int vftable_13a8a0;
 struct Helper_13a920 {
     void run_0027af50();
@@ -500,7 +496,6 @@ struct AnimationLinkedTrack_13a920 {
     AnimationLinkedTrack_13a920* vfunc_5(unsigned int);
 };
 extern void* threat_vftable_13a920;
-void destroy_0008d330(AnimationLinkedTrack_13a920*);
 struct Helper_13a960 {
     void run_0027af50();
 };
@@ -514,7 +509,6 @@ struct AnimationPhaseMatchedTrack_13a960 {
     AnimationPhaseMatchedTrack_13a960* vfunc_5(unsigned int);
 };
 extern void* threat_vftable_13a960;
-void destroy_0008d330(AnimationPhaseMatchedTrack_13a960*);
 } // namespace fn_f30d2d27
 namespace fight {
 class Params_13a9e0 {
@@ -2184,7 +2178,7 @@ FrameReachedCondition_13a840* FrameReachedCondition_13a840::vfunc_5(unsigned cha
     ((Obj_13a840*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_13a840*)p)->f2_002345b0();
     if (param & 1)
-        thunk_FUN_00267090((Obj_13a840*)p);
+        ::operator delete((Obj_13a840*)p);
     return p;
 }
 
@@ -2198,7 +2192,7 @@ FrameCondition_13a870* FrameCondition_13a870::vfunc_5(unsigned char param) {
     ((Obj_13a870*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_13a870*)p)->f2_002345b0();
     if (param & 1)
-        thunk_FUN_00267090((Obj_13a870*)p);
+        ::operator delete((Obj_13a870*)p);
     return p;
 }
 
@@ -2212,7 +2206,7 @@ AnimationTrack_13a8a0* AnimationTrack_13a8a0::vfunc_5(int param) {
     ((H*)((char*)this + 0x18))->Fnf_0027af50();
     ((G_13a8a0*)this)->Fng_00236d60();
     if (param & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -2230,7 +2224,6 @@ class Base_13a8e0 {
   public:
     void Fng_00236d60();
 };
-extern void cdel_0008d330(void*);
 extern int vftable_13a8e0;
 class AnimationChargeTrack {
   public:
@@ -2247,7 +2240,7 @@ AnimationChargeTrack* AnimationChargeTrack::vfunc_5(byte_13a8e0 param) {
     a.Fnf_0027af50();
     ((Base_13a8e0*)this)->Fng_00236d60();
     if (param & 1)
-        cdel_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0013a8e0
@@ -2263,7 +2256,7 @@ AnimationLinkedTrack_13a920* AnimationLinkedTrack_13a920::vfunc_5(unsigned int f
     h18.run_0027af50();
     other_00236d60();
     if (flags & 1)
-        destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -2277,7 +2270,7 @@ AnimationPhaseMatchedTrack_13a960* AnimationPhaseMatchedTrack_13a960::vfunc_5(un
     h18.run_0027af50();
     other_00236d60();
     if (flags & 1)
-        destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -2295,7 +2288,6 @@ struct Main_13a9a0 {
     void run_00236d60();
 };
 extern "C" char DAT_00412510[];   // (decl1) was `int vf_13a9a0` (a C++ name bound nowhere natively)
-extern void cleanup_0008d330(void*);
 class AnimationVelocityScaledTrack {
   public:
     virtual void v0();
@@ -2320,7 +2312,7 @@ AnimationVelocityScaledTrack* AnimationVelocityScaledTrack::v5(byte_13a9a0 x) {
     h18.run_0027af50();
     ((Main_13a9a0*)this)->run_00236d60();
     if (x & 1)
-        cleanup_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0013a9a0
@@ -3798,7 +3790,7 @@ AnimationAction* AnimationAction::vfunc_2(unsigned char param) {
     }
     this->Cleanup_002326a0();
     if (param & 1) {
-        opdel_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -5265,7 +5257,7 @@ void* ConditionFactoryTemplate_13e3b0::scalar_dtor(unsigned char flags) {
     base1_dtor_0013a000();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -5314,7 +5306,7 @@ void* ConditionFactoryTemplate_13e460::scalar_dtor(unsigned char flags) {
     base1_dtor_0013a080();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -5347,7 +5339,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -5395,14 +5387,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_004129f8;
     base1_dtor_0013a1e0();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0013e580
@@ -5450,14 +5441,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_00412a14;
     base1_dtor_0013a2b0();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0013e610
@@ -5505,14 +5495,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_00412a30;
     base1_dtor_0013a390();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0013e6a0
@@ -5549,14 +5538,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_00412a4c;
     base1_dtor_0013a470();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0013e730
@@ -5607,14 +5595,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_00412a68;
     base1_dtor_0013a100();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0013e7d0

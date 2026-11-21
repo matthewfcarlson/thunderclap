@@ -8,8 +8,8 @@
 #define TREE_TU_BEGIN namespace fn_f9414999 {
 #define TREE_TU_END }
 namespace fn_f9414999 {} using namespace fn_f9414999;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f9414999 {
-void __cdecl SweepTrack_DeleteThis_00263f30(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 namespace fn_f9414999 { extern "C" char DAT_00425120[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
@@ -624,7 +624,7 @@ CTriggerVolume_1fc000* CTriggerVolume_1fc000::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_004250dc;
     Destroy_0027afd0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }
@@ -720,7 +720,7 @@ CLocator_1fc390* CLocator_1fc390::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00425120;
     Destroy_0027afd0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }
@@ -785,10 +785,10 @@ int Obj_1fc480::Get() {
 } // namespace fn_f9414999
 
 // 0x001fc590 CLocator::vfunc_2 (98 B): equivalent/0x001fc590.cpp [wrapped: conflict: CLocator]
-// sym: ?vfunc_2@CLocator@fn_001fc590@@UAEPAU12@E@Z @94dbf21f93f4 @wae12fc9d0890 @v2d019d6d2b91
+// sym: ?vfunc_2@CLocator@fn_001fc590@@UAEPAU12@E@Z @a6c38f6b6f69 @w4cdf9870457c @vdd2fff737c57
 namespace fn_001fc590 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // CLocator::vfunc_2 @ 0x001fc590
-struct CLocator { virtual void vfunc_0(); virtual void vfunc_1(); virtual CLocator* vfunc_2(unsigned char flags); void FUN_001fbfa0(); }; void __cdecl FUN_00263f30(void*); void __cdecl FUN_00263f40(void*); CLocator* CLocator::vfunc_2(unsigned char flags) { if (flags & 2) { int* base = (int*)((char*)this - 4); int count = *base; for (int i=count-1; i>=0; --i) ((CLocator*)((char*)this + i*64))->FUN_001fbfa0(); if(flags & 1) FUN_00263f40(base); return (CLocator*)base; } FUN_001fbfa0(); if(flags & 1) FUN_00263f30(this); return this; }
+struct CLocator { virtual void vfunc_0(); virtual void vfunc_1(); virtual CLocator* vfunc_2(unsigned char flags); void FUN_001fbfa0(); }; CLocator* CLocator::vfunc_2(unsigned char flags) { if (flags & 2) { int* base = (int*)((char*)this - 4); int count = *base; for (int i=count-1; i>=0; --i) ((CLocator*)((char*)this + i*64))->FUN_001fbfa0(); if(flags & 1) ::content::LoadObject::operator delete[](base); return (CLocator*)base; } FUN_001fbfa0(); if(flags & 1) ::content::LoadObject::operator delete(this); return this; }
 } // namespace fn_001fc590
 

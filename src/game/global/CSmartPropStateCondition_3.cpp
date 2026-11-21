@@ -10,7 +10,6 @@
 namespace fn_f02c287b {} using namespace fn_f02c287b;
 namespace fn_f02c287b {
 struct FactoryCtor { void init_002343b0(); };   // (unb4) the factory constructors InitHelper::init stood for
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "game/global.h"
 
@@ -95,7 +94,7 @@ void* ConditionFactoryTemplate_58990::scalar_dtor(unsigned char flags) {
     base1_dtor_000499f0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

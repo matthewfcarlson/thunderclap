@@ -142,7 +142,6 @@ class d3dToonVertexShader_330d90 {
     void helper();
 };
 extern char toon_vftable;
-void thunk_FUN_00267090(d3dToonVertexShader_330d90*);
 struct Desc_330de0 {
     int format;
     char pad[24];
@@ -396,7 +395,7 @@ d3dToonVertexShader_330d90* d3dToonVertexShader_330d90::vfunc_3(unsigned char p)
         r->f1();
     helper();
     if (p & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

@@ -13,7 +13,6 @@
 namespace fn_fd5a1171 {} using namespace fn_fd5a1171;
 namespace fn_fd5a1171 {
 struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "engine/fight.h"
 extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
@@ -128,7 +127,6 @@ class C_239780 {
   public:
     void Third_00236d60();
 };
-extern void __cdecl thunk_FUN_00267090(ExecuteTrack*);
 class CStageCondition_239910;
 class ParamValue_239910 {
   public:
@@ -401,7 +399,7 @@ ExecuteTrack* ExecuteTrack::vfunc_5(int flags) {
     ((B_239780*)((char*)&p->field14))->Second_00234150();
     ((C_239780*)p)->Third_00236d60();
     if (flags & 1)
-        thunk_FUN_00267090(p);
+        ::operator delete(p);
     return p;
 }
 
@@ -639,7 +637,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

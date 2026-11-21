@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "decls/drawable_container.h"
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_fdccf8a8 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -12,7 +13,6 @@
 #define TREE_LOCAL_pure3d
 namespace fn_fdccf8a8 {} using namespace fn_fdccf8a8;
 namespace fn_fdccf8a8 {
-void __cdecl SweepTrack_DeleteThis_00263f30(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 namespace fn_fdccf8a8 { extern "C" char DAT_0042d978[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
@@ -95,7 +95,7 @@ DrawablePrimitive_2a5120* DrawablePrimitive_2a5120::vfunc_5(signed char flags) {
     *(void***)this = ((void**)DAT_0042d978);
     Destroy_0027afd0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }

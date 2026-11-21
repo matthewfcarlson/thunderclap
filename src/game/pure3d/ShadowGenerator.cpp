@@ -21,7 +21,6 @@ struct IRefCount {
     virtual void f1();
     virtual void f2();
 };
-extern void destroy_0008d330(void*);
 struct Sub_1c7e60 {
     void cleanup_002a3120();
 };
@@ -41,7 +40,7 @@ pure3d::ShadowGenerator* pure3d::ShadowGenerator::vfunc_2(unsigned char flags) {
     sub.cleanup_002a3120();
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_003f6098);
     if (flags & 1)
-        destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

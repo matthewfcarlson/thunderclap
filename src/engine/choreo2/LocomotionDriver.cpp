@@ -104,13 +104,12 @@ class LocomotionDriver {
     virtual void f13();
     virtual void f14();
 };
-extern void __cdecl thunk_FUN_00267090(LocomotionDriver*);
 LocomotionDriver* LocomotionDriver::vfunc_2(int flags) {
     *(void**)this = (void*)((hulk_intptr)DAT_00427534);
     (*(int*)&DAT_004e5ac4)--;
     ((LocomotionDriver_22aa20*)this)->Fn_002222d0();
     if (flags & 1)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0022aa20

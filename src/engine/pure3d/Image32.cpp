@@ -10,6 +10,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fbf8e46b {} using namespace fn_fbf8e46b;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -24,7 +25,7 @@ class Image {
     int f18;
     int f1c;
     int f20;
-    union { int f24; int m24; };
+    union { void* f24; void* m24; };   // (nat2, D134) the pixels, freed with operator delete[]
     char b28;
     char b29;
     char _m_pad_2a[0x2];
@@ -48,7 +49,6 @@ class Entity_2bfb10 {
 }
 namespace fn_fbf8e46b {
 extern int hulk_at_0042ea40[];
-extern void __cdecl thunk_FUN_00267090(hulk_intptr);
 extern "C" void* __cdecl FUN_00266e00(int, hulk_uintptr);
 extern "C" void __cdecl FUN_00267090(void*);
 struct Image32_2bfbe0 {
@@ -66,19 +66,16 @@ struct Image32_nv_2bfd30 {
 struct Image_2bfd30 {
     hulk_intptr vf;
     char pad[0x20];
-    int m24;
+    void* m24;   // (nat2, D134) the pixels, freed with operator delete[]
 };
-extern void __cdecl Thunk_0008d340(int);
 void Image_Init(Image_2bfd30*);
 } // namespace fn_fbf8e46b
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void* memcpy(void*, const void*, unsigned int);
 #endif
 namespace fn_fbf8e46b {
-void __cdecl free_pixels_0008d340(void*);
 void* __cdecl alloc_pixels_0008d6d0(int);
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int size);
-extern "C" void __cdecl FUN_0008d340(void* data);
 } // namespace fn_fbf8e46b
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void* memset(void*, int, unsigned int);
@@ -95,7 +92,6 @@ struct Image32 : Image_2bffc0 {
     Image32* Init();
 };
 typedef unsigned int u32_2c0070;
-void thunk_FUN_00267090(void*);
 void* FUN_0008d6d0(u32_2c0070);
 class Surface_2c0240 {
 public:
@@ -270,9 +266,9 @@ namespace fn_fbf8e46b {
 // 0x002bfb70 FUN_002bfb70 (29 B): matches/0x002bfb70.cpp
 // sym: ?Fn@Image@fn_fbf8e46b@@QAEXXZ
 void Image::Fn() {
-    int x = m24;
+    void* x = m24;
     *(hulk_intptr*)this = (hulk_intptr)hulk_at_0042ea40;
-    thunk_FUN_00267090(x);
+    ::operator delete[](x);
     Next_0027afd0();
 }
 
@@ -377,9 +373,9 @@ unsigned int GetZero() {
 // 0x002bfd30 FUN_002bfd30 (29 B): matches/0x002bfd30.cpp
 // sym: ?Image_Init@fn_fbf8e46b@@YIXPAUImage_2bfd30@1@PAX@Z
 void __fastcall Image_Init(Image_2bfd30* self, void*) {
-    int x = self->m24;
+    void* x = self->m24;
     self->vf = ((hulk_intptr)DAT_0042ea40);
-    Thunk_0008d340(x);
+    ::operator delete[](x);
     ((Image32_nv_2bfd30*)(((pure3d::Image32*)(((pure3d::Image32*)self)))))->Finish_0027afd0();
 }
 
@@ -413,13 +409,13 @@ void pure3d::Image8::vfunc_6(int width, int height, void* __p2) { const void * s
 void pure3d::Image8::vfunc_5(int w, int h) {
     this->f_10 = w;
     this->f_14 = h;
-    free_pixels_0008d340((*(void * *)&this->f_24));
+    ::operator delete[]((*(void * *)&this->f_24));
     (*(void * *)&this->f_24) = alloc_pixels_0008d6d0(this->f_14 * this->f_10);
 }
 
 
 // 0x002bfe10 pure3d::Image8::vfunc_7 (199 B): equivalent/0x002bfe10.cpp
-// sym: ?vfunc_7@Image8@pure3d@@UAEXHH@Z @c527a559ea3c @w08b69b2d0245
+// sym: ?vfunc_7@Image8@pure3d@@UAEXHH@Z @f2af56d880aa @wf6a1550121c4 @v231516f832a5
 // STATUS: equivalent (tools/equiv.py level 3: 52 inputs, branch coverage 10/10)
 // pure3d::Image8::vfunc_7 @ 0x002bfe10
 void pure3d::Image8::vfunc_7(int newWidth, int newHeight) {
@@ -439,7 +435,7 @@ void pure3d::Image8::vfunc_7(int newWidth, int newHeight) {
   unsigned char* old=(*(unsigned char * *)&this->f_24);
   this->f_10=newWidth;
   this->f_14=newHeight;
-  FUN_0008d340(old);
+  ::operator delete[](old);
  }
  (*(unsigned char * *)&this->f_24)=buffer;
 }
@@ -535,13 +531,12 @@ class Image {
   public:
     virtual void V0_00038290();
     char pad04[0x20];
-    int m24;
+    void* m24;   // (nat2, D134) the pixels, freed with operator delete[]
     virtual ~Image();
     void Finish_0027afd0();
 };
-extern void __cdecl thunk_FUN_00267090(hulk_intptr);
 Image::~Image() {
-    thunk_FUN_00267090(m24);
+    ::operator delete[](m24);
     Finish_0027afd0();
 }
 } // namespace fn_002c0010
@@ -562,15 +557,16 @@ void pure3d::Image32::vfunc_6(int w, int h, void* __p2) { const void * src = (co
 void pure3d::Image32::vfunc_5(int w, int h) {
     this->f_10 = w;
     this->f_14 = h;
-    thunk_FUN_00267090((*(void * *)&this->f_24));
+    ::operator delete[]((*(void * *)&this->f_24));
     (*(void * *)&this->f_24) = FUN_0008d6d0(this->f_14 * this->f_10 * 4);
 }
 
 
 // 0x002c00b0 pure3d::Image32::vfunc_7 (216 B): equivalent/0x002c00b0.cpp
-// sym: ?vfunc_7@Image32@pure3d@@UAEXHH@Z @360d384ac205 @w14cef8e4fa00
+// sym: ?vfunc_7@Image32@pure3d@@UAEXHH@Z @4c26c55acbfb @w2bcffee39796 @v43e7550415de
 // STATUS: equivalent (tools/equiv.py level 3: 53 inputs, branch coverage 10/10)
 // pure3d::Image32::vfunc_7 @ 0x002c00b0
+// equiv-map: ??_V@YAXPAX@Z = 0x0008d340
 void pure3d::Image32::vfunc_7(int newWidth, int newHeight) {
  int copyWidth = this->f_10 < newWidth ? this->f_10 : newWidth;
  int copyHeight = this->f_14 < newHeight ? this->f_14 : newHeight;
@@ -589,7 +585,7 @@ void pure3d::Image32::vfunc_7(int newWidth, int newHeight) {
   unsigned int* old=(*(unsigned int * *)&this->f_24);
   this->f_10=newWidth;
   this->f_14=newHeight;
-  FUN_0008d340(old);
+  ::operator delete[](old);
  }
  (*(unsigned int * *)&this->f_24)=buffer;
 }
@@ -825,46 +821,54 @@ Sprite *Loader_2c0590::FUN_002c0590(Reader *r, int unused)
 } // namespace fn_fbf8e46b
 
 // 0x002c0790 pure3d::Image::vfunc_2 (50 B): matches/0x002c0790.cpp [wrapped: conflict: pure3d::LightsChooserCache]
-// sym: ??_GLightsChooserCache@pure3d@fn_002c0790@@UAEPAXI@Z
+// sym: ?vfunc_2@LightsChooserCache_2c0790@fn_002c0790@@QAEPAXI@Z
 namespace fn_002c0790 {
 // Same code shape as 0x0029e7b0 (propagated; names are from that function)
-extern "C++" void destroyChooser_0008d340(void*);
-namespace pure3d {
-class LightsChooserCache {
-  public:
-    virtual ~LightsChooserCache();
-    void baseDtor_0027afd0();
+// (nat2, D134, D114) the scalar deleting destructor as an explicit function: the vftable (0x42ea40), the block at +0x24
+// freed with operator delete[], the entity's destructor (0x0027afd0), then (flags & 1) content::LoadObject's operator
+// delete, as the original calls (0x00263f30)
+extern "C" char DAT_0042ea40[];
+struct LightsChooserCache_2c0790 {
+    void* vftable;
     char pad[0x20];
     void* mPtr;
+    void baseDtor_0027afd0();
+    void* vfunc_2(unsigned int flags);
 };
-
-LightsChooserCache::~LightsChooserCache() {
-    destroyChooser_0008d340(mPtr);
+void* LightsChooserCache_2c0790::vfunc_2(unsigned int flags) {
+    vftable = DAT_0042ea40;
+    ::operator delete[](mPtr);
     baseDtor_0027afd0();
+    if (flags & 1)
+        ::content::LoadObject::operator delete(this);
+    return this;
 }
-} // namespace pure3d
 } // namespace fn_002c0790
 
 
 // 0x002c07d0 pure3d::Image8::vfunc_2 (50 B): matches/0x002c07d0.cpp [wrapped: conflict: pure3d::LightsChooserCache]
-// sym: ??_GLightsChooserCache@pure3d@fn_002c07d0@@UAEPAXI@Z
+// sym: ?vfunc_2@LightsChooserCache_2c07d0@fn_002c07d0@@QAEPAXI@Z
 namespace fn_002c07d0 {
 // Same code shape as 0x0029e7b0 (propagated; names are from that function)
-extern "C++" void destroyChooser(void*);
-namespace pure3d {
-class LightsChooserCache {
-  public:
-    virtual ~LightsChooserCache();
-    void baseDtor_0027afd0();
+// (nat2, D134, D114) the scalar deleting destructor as an explicit function: the vftable (0x42ea40), the block at +0x24
+// freed with operator delete[], the entity's destructor (0x0027afd0), then (flags & 1) content::LoadObject's operator
+// delete, as the original calls (0x00263f30)
+extern "C" char DAT_0042ea40[];
+struct LightsChooserCache_2c07d0 {
+    void* vftable;
     char pad[0x20];
     void* mPtr;
+    void baseDtor_0027afd0();
+    void* vfunc_2(unsigned int flags);
 };
-
-LightsChooserCache::~LightsChooserCache() {
+void* LightsChooserCache_2c07d0::vfunc_2(unsigned int flags) {
+    vftable = DAT_0042ea40;
     ::operator delete[](mPtr);
     baseDtor_0027afd0();
+    if (flags & 1)
+        ::content::LoadObject::operator delete(this);
+    return this;
 }
-} // namespace pure3d
 } // namespace fn_002c07d0
 
 
@@ -899,31 +903,34 @@ void pure3d::Image8::vfunc_12(Image8* source, int x, int y, int w, int h, int dx
 
 
 // 0x002c09a0 pure3d::Image32::vfunc_2 (50 B): matches/0x002c09a0.cpp [wrapped: conflict: pure3d::LightsChooserCache]
-// sym: ??_GLightsChooserCache@pure3d@fn_002c09a0@@UAEPAXI@Z
+// sym: ?vfunc_2@LightsChooserCache_2c09a0@fn_002c09a0@@QAEPAXI@Z
 namespace fn_002c09a0 {
 // Same code shape as 0x0029e7b0 (propagated; names are from that function)
-extern "C++" void destroyChooser(void*);
-namespace pure3d {
-class LightsChooserCache {
-  public:
-    virtual ~LightsChooserCache();
-    void baseDtor_0027afd0();
+// (nat2, D134, D114) the scalar deleting destructor as an explicit function: the vftable (0x42ea40), the block at +0x24
+// freed with operator delete[], the entity's destructor (0x0027afd0), then (flags & 1) content::LoadObject's operator
+// delete, as the original calls (0x00263f30)
+extern "C" char DAT_0042ea40[];
+struct LightsChooserCache_2c09a0 {
+    void* vftable;
     char pad[0x20];
     void* mPtr;
+    void baseDtor_0027afd0();
+    void* vfunc_2(unsigned int flags);
 };
-
-LightsChooserCache::~LightsChooserCache() {
+void* LightsChooserCache_2c09a0::vfunc_2(unsigned int flags) {
+    vftable = DAT_0042ea40;
     ::operator delete[](mPtr);
     baseDtor_0027afd0();
+    if (flags & 1)
+        ::content::LoadObject::operator delete(this);
+    return this;
 }
-} // namespace pure3d
 } // namespace fn_002c09a0
 
 
 // 0x002c09e0 FUN_002c09e0 (113 B): matches/0x002c09e0.cpp [wrapped: conflict: Image32]
 // sym: ??0Image32@fn_002c09e0@@QAE@ABV01@@Z
 namespace fn_002c09e0 {
-void Free_0008d340(void*);
 void* Alloc_0008d6d0(int);
 class Image32;
 class Image_2c09e0 {
@@ -960,7 +967,7 @@ Image32::Image32(const Image32& o) : Image_2c09e0(o) {
     int w = o.mW;
     mW = w;
     mH = h;
-    Free_0008d340(mData);
+    ::operator delete[](mData);
     mData = (int*)Alloc_0008d6d0(mH * mW * 4);
     char f = mFlag;
     mFlag = 0;

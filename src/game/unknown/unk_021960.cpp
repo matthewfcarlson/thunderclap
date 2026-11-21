@@ -674,7 +674,6 @@ struct IRef_21ec0 {
     virtual void Release();
 };
 
-void DestroyAction_0008d330(void* p);
 
 class CSmartPropSpawnAction {
   public:
@@ -706,7 +705,7 @@ CSmartPropSpawnAction* CSmartPropSpawnAction::vfunc_2(unsigned char flags) {
     }
     CleanUp_002326a0();
     if (flags & 1) {
-        DestroyAction_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

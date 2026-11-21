@@ -20,16 +20,13 @@ class Sub_181640 {
   public:
     void init_0027af50();
 };
-class PropSpawnTrack {
+// (nat2, D134) the track's record: its name (+0x10 on 32-bit) is a pointer, freed with operator delete[]; the name id
+// at +0x18 its own words
+class PropSpawnTrack : public ::hulkfight::motion::PropSpawnTrack {
   public:
-    void* vftable;
-    char pad4[0x0c];
-    int mValue;
-    char pad14[4];
     void finish_00236d60();
     void run();
 };
-extern "C" void __cdecl Free(void*);
 extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern int* hulk_at_004e14e8;
 class CCondition_1816f0 {
@@ -51,9 +48,9 @@ class PropDestroyTrack : public ::hulkfight::motion::PropDestroyTrack {
 // 0x00181640 FUN_00181640 (37 B): matches/0x00181640.cpp
 // sym: ?run@PropSpawnTrack@fn_f1f16d33@@QAEXXZ
 void PropSpawnTrack::run() {
-    vftable = (void*)((hulk_intptr)DAT_0041959c);
-    thunk(mValue);
-    ((Sub_181640*)((char*)this + 0x18))->init_0027af50();
+    *(void**)this = (void*)((hulk_intptr)DAT_0041959c);
+    ::operator delete[](f_10);
+    ((Sub_181640*)f_18)->init_0027af50();
     finish_00236d60();
 }
 

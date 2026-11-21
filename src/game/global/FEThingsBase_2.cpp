@@ -177,7 +177,6 @@ class FEContainer_ef820 {
     void* vptr;
     void Fin_000eeac0();
 };
-void Free_0008d330(void*);
 struct Sub_ef820 {
     char c;
 };
@@ -436,7 +435,6 @@ struct Mgr_f0b90 {
     char nameC[2][0x100];           // 0x1c74
     void FUN_000f0b90(const char *name);
 };
-extern void __cdecl thunk_FUN_00267090(void *p);
 
 } // namespace fn_f196c51b
 
@@ -536,7 +534,6 @@ class FEItem2 {
     virtual void B();
     virtual void C(int);
 };
-extern void __cdecl FreeThing_0008d330(void*);
 class FEContainer {
   public:
     virtual void V();
@@ -560,7 +557,7 @@ void FEContainer::Clear() {
     }
     for (int j = 0; j < 128; j++) {
         if (b[j]) {
-            FreeThing_0008d330(b[j]);
+            ::operator delete(b[j]);
             b[j] = 0;
         }
     }
@@ -2418,7 +2415,7 @@ FEThingsBase_ef920::~FEThingsBase_ef920() {
         }
     for (int i = 0; i < 64; i++)
         if (d[i]) {
-            Free_0008d330(d[i]);
+            ::operator delete(d[i]);
             d[i] = 0;
         }
     for (int i = 0; i < 2; i++)
@@ -2445,7 +2442,7 @@ FEThingsBase_ef920::~FEThingsBase_ef920() {
         A_ef920* t = m4;
         if (t) {
             t->Fin_000df700();
-            Free_0008d330(t);
+            ::operator delete(t);
             m4 = 0;
         }
     }
@@ -2453,7 +2450,7 @@ FEThingsBase_ef920::~FEThingsBase_ef920() {
         B_ef920* t = m8;
         if (t) {
             t->Fin_000f8bd0();
-            Free_0008d330(t);
+            ::operator delete(t);
             m8 = 0;
         }
     }
@@ -4217,7 +4214,7 @@ void __stdcall FUN_000f0b30(int value)
 
 
 // 0x000f0b90 FUN_000f0b90 (714 B): equivalent/0x000f0b90.cpp
-// sym: ?FUN_000f0b90@Mgr_f0b90@fn_f196c51b@@QAEXPBD@Z @a3d68c208720 @w8a1cbeb3c48a @vcf2644ec4353
+// sym: ?FUN_000f0b90@Mgr_f0b90@fn_f196c51b@@QAEXPBD@Z @ba48617508c2 @w4c2ca818d3c5 @v335a41894894
 // STATUS: equivalent (tools/equiv.py level 3: 98 inputs, branch coverage 84/92, incomplete)
 // FUN_000f0b90 @ 0x000f0b90
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d330
@@ -4265,7 +4262,7 @@ void Mgr_f0b90::FUN_000f0b90(const char *name)
     }
     for (int i = 0; i < 0x40; i++) {
         if (bufs[i] != 0) {
-            thunk_FUN_00267090(bufs[i]);
+            ::operator delete(bufs[i]);
             bufs[i] = 0;
         }
     }

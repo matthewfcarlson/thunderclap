@@ -7,8 +7,8 @@
 // 0x0011c870 FUN_0011c870 (82 B): matches/0x0011c870.cpp [isolated: conflict: strlen; on include/gen/ and not mergeable]
 // sym: ?FUN_0011c870@Obj_11c870@owners@@QAEDPBD@Z
 #include "gen/owners.h"
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 /* size_t: tree_prelude.h */
-extern "C" void __cdecl FUN_0008d340(void*);
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -21,7 +21,7 @@ extern "C" char* __cdecl strcpy(char*, const char*);
 #endif
 
 char owners::Obj_11c870::FUN_0011c870(const char* s) {
-    FUN_0008d340(str);
+    ::operator delete[](str);
     if (!s) {
         str = 0;
         return 1;

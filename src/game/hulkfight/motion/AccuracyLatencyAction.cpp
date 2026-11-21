@@ -11,7 +11,6 @@
 #define TREE_TU_END }
 namespace fn_fc8c1e47 {} using namespace fn_fc8c1e47;
 namespace fn_fc8c1e47 {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "game/hulkfight/motion.h"
 
@@ -55,7 +54,6 @@ class Track_193da0 {
     void* vptr;
     void Fin_00236d60();
 };
-void Free(void*) throw();
 struct Sub_193da0 {
     char c;
 };
@@ -250,7 +248,6 @@ class FireMissileTrack_194490 : public Track_194490 {
     T1 m128;
     ~FireMissileTrack_194490() throw();
 };
-void* __cdecl FUN_0008d340(void* p);
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int size);
 extern int* hulk_at_004e1588;
 class CCondition_1945a0 {
@@ -363,7 +360,6 @@ struct Pa8 {
     char pad[4];
 };
 extern "C" char DAT_0041b288[];   // (decl1) was `int g_FireProjectileTrackVtable` (a C++ name bound nowhere natively)
-void FUN_0008d330(void*);
 class FireProjectileTrack : public Track {
   public:
     virtual void v0();
@@ -410,7 +406,6 @@ struct Part_1950b0 {
 struct Part2_1950b0 {
     void init2_00234150();
 };
-void destroy_0008d330(void*);
 
 } // namespace fn_fc8c1e47
 
@@ -1205,11 +1200,11 @@ FireMissileTrack_194490::~FireMissileTrack_194490() throw() {
 } // namespace fn_fc8c1e47
 
 // 0x00194510 FUN_00194510 (97 B): equivalent/0x00194510.cpp
-// sym: ?FUN_00194510@Object_194510@owners@@QAEEPBD@Z @b0ce0be62dac @wb2dca91d21d9 @vad63659aaf92
+// sym: ?FUN_00194510@Object_194510@owners@@QAEEPBD@Z @2974bc1277df @w96d5283b3ad1 @v85155edb9f1d
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_00194510 @ 0x00194510
 unsigned char owners::Object_194510::FUN_00194510(const char* value) {
-    FUN_0008d340(text);
+    ::operator delete[](text);
     if (!value) { text = 0; return 1; }
     unsigned int length = 0;
     while (value[length]) ++length;
@@ -1813,7 +1808,7 @@ PropGrabbableIsMissileCondition_194ee0* PropGrabbableIsMissileCondition_194ee0::
     *(void***)this = hulk_at_0041b248;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1828,7 +1823,7 @@ PropIsMissileCondition_194f10* PropIsMissileCondition_194f10::vfunc_5(signed cha
     *(void***)this = hulk_at_0041b268;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1845,7 +1840,7 @@ FireProjectileTrack* FireProjectileTrack::vfunc_5(unsigned char flag) {
     m18.~P18_194f40();
     this->Track::~Track();
     if ((flag & 1) != 0)
-        FUN_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1859,7 +1854,7 @@ MissileThrowTrack_194fa0* MissileThrowTrack_194fa0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0041b2b8;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1891,13 +1886,12 @@ class MissilePunchTrack {
     void Setup_00236d60();
 };
 extern "C" char DAT_0041b2e8[];   // (decl1) was `int missileVftable` (a C++ name bound nowhere natively)
-extern void Cleanup_0008d330(MissilePunchTrack*);
 MissilePunchTrack* MissilePunchTrack::vfunc_5(int flag) {
     *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_0041b2e8);
     sub.Init_00234150();
     Setup_00236d60();
     if (flag & 1)
-        Cleanup_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00194fd0
@@ -1913,7 +1907,7 @@ AccuracyLatencyTrack_195000* AccuracyLatencyTrack_195000::vfunc_5(signed char fl
     *(void***)this = hulk_at_0041b318;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1938,7 +1932,6 @@ class FireBeamTrack {
     char pad[0xbc];
     FireBeamTrack* vfunc_5(unsigned char);
 };
-void destroy_0008d330(FireBeamTrack*);
 extern int hulk_at_0041b348;
 FireBeamTrack* FireBeamTrack::vfunc_5(unsigned char flag) {
     vptr = (hulk_intptr)&hulk_at_0041b348;
@@ -1950,7 +1943,7 @@ FireBeamTrack* FireBeamTrack::vfunc_5(unsigned char flag) {
     ((Obj_195030*)((char*)this + 0x18))->init27_0027af50();
     ((TrackPart*)this)->init36_00236d60();
     if (flag & 1)
-        destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00195030
@@ -1989,7 +1982,7 @@ FireGroundShockwaveTrack* FireGroundShockwaveTrack::vfunc_5(unsigned char flag) 
     ((Part_1950b0*)((char*)this + 0x40))->init_0027af50();
     baseInit_00236d60();
     if (flag & 1)
-        destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

@@ -273,13 +273,12 @@ class JointDriver_224bb0 {
   public:
     void call_0022a910();
 };
-extern void thunk_FUN_00267090(choreo2::JointDriver*);
 choreo2::JointDriver* choreo2::JointDriver::vfunc_2(byte_224bb0 param) {
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_004272f0);
     --(*(int*)&DAT_004e5aac);
     ((JointDriver_224bb0*)this)->call_0022a910();
     if (param & 1)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00224bb0

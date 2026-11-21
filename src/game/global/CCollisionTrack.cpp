@@ -1232,7 +1232,6 @@ struct CCollisionTrack {
     virtual void v11();
     char pad[0x14];
 };
-void thunk_FUN_00267090(CCollisionTrack*);
 CCollisionTrack* CCollisionTrack::vfunc_5(int flag) {
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_003fa214);
     ((H1*)((char*)this + 0x70))->Fnf_0027af50();
@@ -1242,7 +1241,7 @@ CCollisionTrack* CCollisionTrack::vfunc_5(int flag) {
     ((H1*)((char*)this + 0x18))->Fnf_0027af50();
     ((CCollisionTrack_5e070*)this)->Fnf_00236d60();
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0005e070
@@ -1308,7 +1307,6 @@ struct C_5e120 {
     int x;
     void init_00234150();
 };
-void __cdecl FreeTrack_0008d330(void* p);
 
 struct COpportunityBallTrack {
     hulk_intptr vptr;
@@ -1329,7 +1327,7 @@ COpportunityBallTrack* COpportunityBallTrack::vfunc_5(unsigned char param) {
     a.init_0027af50();
     baseInit_00068c70();
     if (param & 1) {
-        FreeTrack_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1361,7 +1359,6 @@ struct H {
 struct G_5e160 {
     void Fng_00068c70();
 };
-extern void __cdecl thunk_FUN_00267090(CProceduralDurationAnimationTrack*);
 extern int vftable_5e160;
 CProceduralDurationAnimationTrack* CProceduralDurationAnimationTrack::vfunc_5(int param) {
     *(hulk_intptr*)this = (hulk_intptr)((int*)DAT_003fa284);
@@ -1369,7 +1366,7 @@ CProceduralDurationAnimationTrack* CProceduralDurationAnimationTrack::vfunc_5(in
     ((H*)((char*)this + 0x18))->Fnf_0027af50();
     ((G_5e160*)this)->Fng_00068c70();
     if (param & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0005e160
@@ -1383,7 +1380,6 @@ typedef unsigned char BYTE;
 struct SubObj_5e1a0 {
     void Fnf_0027af50();
 };
-void destroy_0008d330(void* p);
 struct CStunAnimationTrack {
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -1408,7 +1404,7 @@ CStunAnimationTrack* CStunAnimationTrack::vfunc_5(BYTE param) {
     ((SubObj_5e1a0*)((char*)this + 0x10))->Fnf_0027af50();
     this->core_00068c70();
     if (param & 1)
-        destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0005e1a0
@@ -1432,13 +1428,12 @@ class CSnapToWallTrack : public CTrack {
     CSnapToWallTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CSnapToWallTrack* CSnapToWallTrack::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_003fa2fc;
     Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1463,13 +1458,12 @@ class CClearHitRecordsTrack : public CTrack {
     CClearHitRecordsTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CClearHitRecordsTrack* CClearHitRecordsTrack::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_003fa338;
     Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

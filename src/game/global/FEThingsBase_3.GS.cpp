@@ -14,6 +14,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f1b16f90 {} using namespace fn_f1b16f90;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -416,7 +417,7 @@ void owners::Printer_f7f60::FUN_000f7f60(int src, int a2, int a3, int a4, int a5
 namespace fn_f1b16f90 {
 
 // 0x000f8500 FUN_000f8500 (382 B): equivalent/0x000f8500.cpp
-// sym: ?FUN_000f8500@Entry_f8500@fn_f1b16f90@@QAEXPBDPAVManager_f8500@2@D@Z @3c4fc29be76f @w6422d36a8b85 @v85725020267f
+// sym: ?FUN_000f8500@Entry_f8500@fn_f1b16f90@@QAEXPBDPAVManager_f8500@2@D@Z @0d8ab9403b2c @w7327c0281e21 @v4203dd31c2db
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 26/26)
 // FUN_000f8500 @ 0x000f8500
 void Entry_f8500::FUN_000f8500(const char* name, Manager_f8500* manager, char flag) {
@@ -436,13 +437,13 @@ void Entry_f8500::FUN_000f8500(const char* name, Manager_f8500* manager, char fl
     id = newId;
     if (newId != -1) {
         if (text != 0) {
-            FUN_0008d340(text);
+            ::operator delete[](text);
             text = 0;
         }
         return;
     }
     if (text != 0) {
-        FUN_0008d340(text);
+        ::operator delete[](text);
         text = 0;
     }
     FUN_000dfcc0(prefix, 0x20, "[NITB]");

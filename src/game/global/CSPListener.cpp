@@ -3271,7 +3271,7 @@ struct CSPHulkPropInstance_1db0e0 {
 void* CSPHulkPropInstance_1db0e0::vfunc_2(unsigned int flags) {
     FUN_001d8e90();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_001db0e0

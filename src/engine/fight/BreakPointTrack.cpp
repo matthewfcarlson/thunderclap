@@ -13,7 +13,6 @@
 namespace fn_f27320e9 {} using namespace fn_f27320e9;
 namespace fn_f27320e9 {
 struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 namespace fn_f27320e9 { extern "C" char DAT_00428f70[], DAT_00428fa0[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/fight.h"
@@ -70,7 +69,6 @@ struct BreakPointTrack_nv_23f1f0 {
     void f1_00236fd0();
     void f2_00236d60();
 };
-extern void thunk_FUN_00267090(fight::BreakPointTrack*);
 class BreakPointTrack_23f1f0 {
   public:
     void* vftable;
@@ -344,7 +342,7 @@ BreakPointTrack_23f1f0* BreakPointTrack_23f1f0::vfunc_5(unsigned char param) {
     ((BreakPointTrack_nv_23f1f0*)(((fight::BreakPointTrack*)((char*)p + 0x10))))->f1_00236fd0();
     ((BreakPointTrack_nv_23f1f0*)(((fight::BreakPointTrack*)p)))->f2_00236d60();
     if (param & 1)
-        thunk_FUN_00267090((fight::BreakPointTrack*)p);
+        ::operator delete((fight::BreakPointTrack*)p);
     return p;
 }
 
@@ -529,7 +527,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

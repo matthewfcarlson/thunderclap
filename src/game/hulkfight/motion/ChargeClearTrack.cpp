@@ -8,19 +8,17 @@
 #define TREE_TU_BEGIN namespace fn_f18c5a89 {
 #define TREE_TU_END }
 namespace fn_f18c5a89 {} using namespace fn_f18c5a89;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/hulkfight/motion.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f18c5a89 {
-class TeleportToLocatorTrack_170dc0 {
+// (nat2, D134) the track's record: its name (+0x10 on 32-bit) is a pointer, freed with operator delete[]
+class TeleportToLocatorTrack_170dc0 : public ::hulkfight::motion::TeleportToLocatorTrack {
   public:
-    int* vptr;
-    char pad[12];
-    int mArg;
     void finish_00236d60();
     void run();
 };
-extern "C" void __cdecl FUN_0008d340(void *);
 extern "C" void * __cdecl FUN_0008d6d0(unsigned int);
 struct TextHolder {
     char pad[0x10];
@@ -60,19 +58,19 @@ struct Track_170eb0 {
 // sym: ?run@TeleportToLocatorTrack_170dc0@fn_f18c5a89@@QAEXXZ
 // Same code shape as 0x000f99b0 (propagated; names are from that function)
 void TeleportToLocatorTrack_170dc0::run() {
-    vptr = &rawVtable;
-    thunk(mArg);
+    *(int**)this = &rawVtable;
+    ::operator delete[](f_10);
     finish_00236d60();
 }
 
 
 // 0x00170de0 FUN_00170de0 (82 B): equivalent/0x00170de0.cpp
-// sym: ?SetText_00170de0@TextHolder@fn_f18c5a89@@QAE_NPBD@Z @479a89a7457f @wf4aa5da2059f @v828b2fe0abe5
+// sym: ?SetText_00170de0@TextHolder@fn_f18c5a89@@QAE_NPBD@Z @14db058cddd4 @w2355592c65dd @v8c42d08d2682
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // SetText_00170de0 @ 0x00170de0
 bool TextHolder::SetText_00170de0(const char *value)
 {
-    FUN_0008d340(text);
+    ::operator delete[](text);
     if (!value) {
         text = 0;
         return true;

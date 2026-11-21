@@ -13,13 +13,13 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f9a5903c {} using namespace fn_f9a5903c;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/unknown.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f9a5903c {
-extern "C" void __cdecl FUN_0008d340(void *);
 extern "C" void * __cdecl FUN_0008d6d0(unsigned int);
 extern void* hulk_at_0040449c[];
 extern void* hulk_at_004044c4[];
@@ -42,7 +42,6 @@ class CUnlockable {
     int value;                              // +0x20 (CUnlockableGallery's / CUnlockableJumpMarker's word)
     void Destroy();
 };
-extern void __cdecl thunk_FUN_00267090(void*);
 struct Tail_921d0 {
     void Fnf_0027af50();
 };
@@ -300,12 +299,12 @@ extern "C" char DAT_0049db3c[];   // (decl1) was `int typeB_93260` (a C++ name b
 } // namespace fn_f9a5903c
 
 // 0x00092120 FUN_00092120 (81 B): equivalent/0x00092120.cpp
-// sym: ?FUN_00092120@TextOwner_92120@owners@@QAEXPBD@Z @68eac8d24764 @w9f10afd4d457 @vf27c1ecc94ce
+// sym: ?FUN_00092120@TextOwner_92120@owners@@QAEXPBD@Z @17dc1854ef9f @w1ebf1a82af66 @vc44460bf3a54
 // STATUS: equivalent (tools/equiv.py level 3: 2987 inputs, branch coverage 8/8)
 // FUN_00092120 @ 0x00092120
 void owners::TextOwner_92120::FUN_00092120(const char *source) {
     if (text) {
-        FUN_0008d340(text);
+        ::operator delete[](text);
         text = 0;
     }
     if (source) {
@@ -342,7 +341,7 @@ CUnlockableMovie_92190* CUnlockableMovie_92190::ctor() {
 void CUnlockable::Destroy() {
     *(void**)this = (void*)((hulk_intptr)DAT_0040449c);
     if (w.data) {
-        thunk_FUN_00267090(w.data);
+        ::operator delete[](w.data);
         w.data = 0;
     }
     ((Tail_921d0*)&w.id)->Fnf_0027af50();
@@ -372,7 +371,6 @@ CUnlockableGallery* __fastcall FUN_00092230(CUnlockableGallery* p) {
 namespace fn_00092270 {
 extern "C" char DAT_0040449c[];
 extern "C" char DAT_004044cc[];
-void ReleaseThing_0008d340(void*);
 class Sub_92270 {
   public:
     void Fin_0027af50();
@@ -388,7 +386,7 @@ void CUnlockableGallery::destroy() {
     ((Sub_92270*)&w.idA8)->Fin_0027af50();
     *(void**)this = (void*)((hulk_intptr)DAT_0040449c);
     if (w.data) {
-        ReleaseThing_0008d340(w.data);
+        ::operator delete[](w.data);
         w.data = 0;
     }
     ((Sub_92270*)&w.id)->Fin_0027af50();

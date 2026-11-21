@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00083e30..0x00083e60 (kind game, layer game, confidence medium), dominant class CVehicle
 #include "tree_prelude.h"
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_f50ba1e5 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -8,7 +9,6 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f50ba1e5 {} using namespace fn_f50ba1e5;
 namespace fn_f50ba1e5 {
-void __cdecl SweepTrack_DeleteThis_00263f30(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "game/global.h"
 
@@ -34,7 +34,7 @@ CVehicle_83e30* CVehicle_83e30::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_003ff9c8;
     Destroy_0027afd0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }

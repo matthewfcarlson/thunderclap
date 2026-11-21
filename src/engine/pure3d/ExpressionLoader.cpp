@@ -149,8 +149,8 @@ namespace fn_fb28d753 {
 Expression_2afb70::~Expression_2afb70() {
     vptr = hulk_at_0042e30c;
 
-    operator delete(m14);
-    operator delete(m18);
+    ::operator delete[](m14);
+    ::operator delete[](m18);
     Fin_0027afd0();
 }
 
@@ -209,7 +209,6 @@ class Expression {
     void* b;
     void Do_0027afd0();
 };
-extern void __cdecl FreeObj_00263f30(void*);
 Expression* Expression::f2(int x) {
     Expression* p = this;
     void* q = p->a;
@@ -219,7 +218,7 @@ Expression* Expression::f2(int x) {
     operator delete[](q);
     p->Do_0027afd0();
     if (x & 1)
-        FreeObj_00263f30(p);
+        ::content::LoadObject::operator delete(p);
     return p;
 }
 } // namespace fn_002afe40
@@ -273,11 +272,10 @@ class NonCopyable : public SimpleChunkHandler_2aff40 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002aff40

@@ -14,12 +14,12 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f8d8f61c {} using namespace fn_f8d8f61c;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f8d8f61c { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f8d8f61c {
-extern void __cdecl FUN_0008d340(void*);
 struct ResourceInfo {
  char pad0[16];
  unsigned int count;
@@ -39,7 +39,6 @@ struct Owner_27b570 {
 struct ThisCall_0027b570 {
     void FUN_0027b570();
 };
-extern void thunk_FUN_00267090(CCollisionAction*);
 struct Record_27b670 {
     int vptr;
     int pad4;
@@ -101,8 +100,6 @@ struct Source_27bb30 {
     u32_27bb30 c;
 };
 extern void* hulk_at_0042c204[];
-void Free_0008d330(void*) throw();
-void Free2_0008d340(void*) throw();
 struct E28 {
     virtual ~E28();
     char p[0x24];
@@ -215,19 +212,19 @@ struct Frame_27c720 {
 
 
 // 0x0027b570 FUN_0027b570 (220 B): equivalent/0x0027b570.cpp
-// sym: ?cleanup@Owner_27b570@fn_f8d8f61c@@QAEXXZ @089098bc3486 @w06f77d5b9f04 @vfc40fff74600
+// sym: ?cleanup@Owner_27b570@fn_f8d8f61c@@QAEXXZ @019a40de07a7 @w8d103a509445 @ve1aaa49db5d5
 // STATUS: equivalent (tools/equiv.py level 3: 148 inputs, branch coverage 14/14)
 // FUN_0027b570 @ 0x0027b570
 void Owner_27b570::cleanup() {
  if (!info) return;
  unsigned int i;
- for (i=0; i<info->count; ++i) FUN_0008d340(entries[i]);
- for (i=0; i<extraCount; ++i) FUN_0008d340(extras[i]);
- for (i=0; i<(unsigned int)((int)(info->end-info->begin)/40); ++i) FUN_0008d340(records[i]);
- FUN_0008d340(buffer);
- FUN_0008d340(entries);
- FUN_0008d340(extras);
- FUN_0008d340(records);
+ for (i=0; i<info->count; ++i) ::operator delete[](entries[i]);
+ for (i=0; i<extraCount; ++i) ::operator delete[](extras[i]);
+ for (i=0; i<(unsigned int)((int)(info->end-info->begin)/40); ++i) ::operator delete[](records[i]);
+ ::operator delete[](buffer);
+ ::operator delete[](entries);
+ ::operator delete[](extras);
+ ::operator delete[](records);
 }
 
 
@@ -237,7 +234,7 @@ void Owner_27b570::cleanup() {
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     ((ThisCall_0027b570*)(this))->FUN_0027b570();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -366,11 +363,10 @@ class NonCopyable : public SimpleChunkHandler_27b9a0 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0027b9a0
@@ -395,11 +391,10 @@ class NonCopyable : public SimpleChunkHandler_27b9e0 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0027b9e0
@@ -532,21 +527,21 @@ Skeleton_27bc90::~Skeleton_27bc90() throw() {
     vptr = hulk_at_0042c204;
     if (--(*(int*)&DAT_0052c288) == 0) {
         if (DAT_004ce410)
-            Free_0008d330(DAT_004ce410);
+            ::operator delete(DAT_004ce410);
         DAT_004ce410 = 0;
     }
-    Free2_0008d340(m30);
+    ::operator delete[](m30);
     M2c* p = m2c;
     if (p) {
         p->Fin_0027b570();
-        Free_0008d330(p);
+        ::operator delete(p);
     }
     E28* s = m44;
     if (s) {
         E28* e = m48;
         for (; s != e; s++)
             s->~E28();
-        Free2_0008d340(m44);
+        ::operator delete[](m44);
     }
     E18* u = m38;
     E18* t = m34;
@@ -555,7 +550,7 @@ Skeleton_27bc90::~Skeleton_27bc90() throw() {
     E18* b = m34;
     m38 = b;
     if (b)
-        Free2_0008d340(b);
+        ::operator delete[](b);
 }
 
 } // namespace fn_f8d8f61c
@@ -623,7 +618,7 @@ struct Skeleton_27be60 {
 void* Skeleton_27be60::vfunc_2(unsigned int flags) {
     FUN_0027bc90();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0027be60

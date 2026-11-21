@@ -2693,7 +2693,7 @@ public:
     int f_118;
     int f_11c;
     char _pad_120[0x4];
-    int f_124;
+    void* f_124;   // (nat2, D134) a block 0x001b7590 frees with operator delete
     int f_128;
     int f_12c;
     char f_130;

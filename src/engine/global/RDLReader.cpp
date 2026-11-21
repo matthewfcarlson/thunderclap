@@ -39,7 +39,6 @@ class Ref_27ae90 {
     virtual void f0();
     virtual void f1();
 };
-void thunk_FUN_00267090(void*);
 
 } // namespace fn_f3d8c179
 
@@ -233,7 +232,7 @@ void RDLReader::vfunc_1() {
         (*(Ref_27ae90 * *)&this->f_04)->f1();
         (*(Ref_27ae90 * *)&this->f_04) = 0;
         if ((*(void * *)&this->f_08))
-            thunk_FUN_00267090((*(void * *)&this->f_08));
+            ::operator delete((*(void * *)&this->f_08));
     }
 }
 

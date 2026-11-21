@@ -33,6 +33,7 @@
 #define TREE_TU_BEGIN namespace fn_f1ddef39 {
 #define TREE_TU_END }
 namespace fn_f1ddef39 {} using namespace fn_f1ddef39;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "common.h"
 
 // ---- declarations shared by the functions below
@@ -582,7 +583,6 @@ extern "C" int __cdecl FUN_00085cd0();
 extern "C" void __cdecl FUN_00085d70();
 struct Obj_363d00 {
 };
-extern "C" void __cdecl release(void*);
 struct Item {
     hulk_intptr a;
     void* p;
@@ -946,15 +946,11 @@ class IRefCount {
   public:
     virtual void F();
 };
-extern "C" void __cdecl thunk_FUN_00267090(int);
 struct ImageConverter_3647b0 {
     void Fnf_002de240();
 };
 extern "C" {
-void __cdecl thunk_0008d340(int);
-}
-extern "C" {
-void __cdecl FUN_002f9fb0(int, int);
+void __cdecl FUN_002f9fb0(void*, void*);   // (nat2, D134) a range of entries (their blocks freed)
 }
 extern void* hulk_at_0043276c;
 struct Obj_364810 {
@@ -9161,7 +9157,6 @@ extern "C" void FUN_00363d10() {
 // sym: ?FUN_00363d50@fn_00363d50@@YAXXZ
 namespace fn_00363d50 {
 
-extern "C++" __declspec(nothrow) void __cdecl freeItem_0008d330(void*);
 struct Pair {
     int a, b;
 };
@@ -9173,7 +9168,7 @@ void FUN_00363d50() {
         --p;
         char* v = p->data;
         if (v) {
-            freeItem_0008d330(v);
+            ::operator delete(v);
             p->count = 0;
             p->data = 0;
         }
@@ -10575,7 +10570,7 @@ void FUN_00364780() {
 void FUN_00364790(void) {
     (*(void**)&DAT_004ce400) = (void*)((hulk_intptr)DAT_0042c1b4);
     if (DAT_004ce410)
-        thunk_FUN_00267090((hulk_intptr)DAT_004ce410);
+        ::operator delete(DAT_004ce410);
 }
 
 
@@ -10591,11 +10586,11 @@ extern "C" void FUN_003647b0() {
 // sym: _FUN_003647c0
 extern "C" {
 void __cdecl FUN_003647c0(void) {
-    if ((*(int*)&DAT_00555468) != 0)
-        thunk_0008d340((*(int*)&DAT_00555468));
-    if ((*(int*)&DAT_0055545c) != 0) {
-        FUN_002f9fb0((*(int*)&DAT_0055545c), (*(int*)&DAT_00555460));
-        thunk_0008d340((*(int*)&DAT_0055545c));
+    if (DAT_00555468[0] != 0)
+        ::operator delete[](DAT_00555468[0]);
+    if ((*(void**)&DAT_0055545c) != 0) {
+        FUN_002f9fb0((*(void**)&DAT_0055545c), (*(void**)&DAT_00555460));
+        ::operator delete[]((*(void**)&DAT_0055545c));
     }
 }
 }

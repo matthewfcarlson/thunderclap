@@ -50,7 +50,6 @@ class NonCopyable : public CSteeringBehaviour_109be0 {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 struct V3_109c00 {
     float x, y, z;
     hulk_freg FUN_0022d110();
@@ -197,7 +196,7 @@ CAvoidBehaviour_109ba0::CAvoidBehaviour_109ba0() {
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

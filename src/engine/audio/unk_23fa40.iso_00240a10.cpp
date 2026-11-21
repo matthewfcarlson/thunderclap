@@ -4,7 +4,7 @@
 
 
 // 0x00240a10 FUN_00240a10 (410 B): equivalent/0x00240a10.cpp [isolated: code differs from its standalone build]
-// sym: _FUN_00240a10 @f957e11d064d @wef1cf6585a8f @v16ff3bfb58f5
+// sym: _FUN_00240a10 @6d02097aa55b @w00cf82755bfd @vbbfb5e7793f9
 #include "gen/owners.h"
 #include "decls/data/engine/audio.h"
 #include "decls/data/engine/content.h"
@@ -38,7 +38,6 @@ Handle_240a10 *__cdecl FUN_00256660();
 Handle_240a10 *__cdecl FUN_00241660();
 Handle_240a10 *__cdecl FUN_0024d5a0();
 extern "C" void __cdecl FUN_0024d630();
-void __cdecl FUN_0008d330(void *p);
 
 Singleton_240a10 *__cdecl FUN_00255d20();
 Singleton_240a10 *__cdecl FUN_00255480();
@@ -98,7 +97,7 @@ extern "C" void FUN_00240a10()
     Resource_240a10 *res = (*(Resource_240a10**)&DAT_004e5ca0);
     if (res) {
         ((owners::Str_240060 *)res)->FUN_00240060();
-        FUN_0008d330(res);
+        ::operator delete(res);
     }
     (*(Resource_240a10**)&DAT_004e5ca0) = 0;
 }

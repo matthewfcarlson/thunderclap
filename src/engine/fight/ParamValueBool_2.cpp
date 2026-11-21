@@ -21,7 +21,6 @@ class Item {
   public:
     virtual void Release(int);
 };
-extern "C" void __cdecl Free(void*);
 extern "C" char DAT_00427a18[];
 struct Member_234860 {
     void Init_0027b0e0(const char*);

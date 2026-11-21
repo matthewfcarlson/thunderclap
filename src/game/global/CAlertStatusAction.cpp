@@ -31,7 +31,6 @@ class CHapticEventAction_225c0 {
     Obj_225c0* mObj;
     int mHandle;
 };
-extern void thunk_0008d330(CHapticEventAction_225c0*);
 extern void* hulk_at_003f3390[];
 class Ref_22610 {
   public:
@@ -90,7 +89,7 @@ CHapticEventAction_225c0* CHapticEventAction_225c0::f2(unsigned char flags) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flags & 1)
-        thunk_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

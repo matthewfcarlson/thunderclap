@@ -108,7 +108,6 @@ class PathLocatorTestCondition {
     void* d;   // (x64t21) a block of the game heap (the destructor frees it)
     virtual bool hulk_slot_F_00234270(void*); void FnF_002345b0();
 };
-extern "C" unsigned int __cdecl FUN_0008d340(void *);
 extern "C" void * __cdecl FUN_0008d6d0(unsigned int);
 
 } // namespace fn_f18cc536
@@ -942,19 +941,19 @@ PathLocatorTestCondition::~PathLocatorTestCondition() {
 } // namespace fn_f18cc536
 
 // 0x0011c290 FUN_0011c290 (82 B): equivalent/0x0011c290.cpp
-// sym: ?FUN_0011c290@Object_11c290@owners@@QAEHPBD@Z @8995356c7814 @wba86295ec9e7 @vbdb640ae7556
+// sym: ?FUN_0011c290@Object_11c290@owners@@QAE_NPBD@Z @d733f6a60ed8 @we25a6d3a369d @vd99bc8f9d62c
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0011c290 @ 0x0011c290
-int owners::Object_11c290::FUN_0011c290(const char *source) {
-    unsigned int result = FUN_0008d340(text);
-    if (!source) { text = 0; return (result & ~255U) | 1; }
+bool owners::Object_11c290::FUN_0011c290(const char *source) {
+    ::operator delete[](text);
+    if (!source) { text = 0; return true; }
     unsigned int length = 0;
     do { ++length; } while (source[length - 1]);
     char *allocated = (char *)FUN_0008d6d0(length);
     text = allocated;
     char *dest = allocated;
     do { *dest++ = *source; } while (*source++);
-    return ((hulk_uintptr)allocated & ~255U) | 1;
+    return true;
 }
 
 namespace fn_f18cc536 {

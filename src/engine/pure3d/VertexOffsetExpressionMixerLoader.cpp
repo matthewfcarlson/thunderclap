@@ -36,8 +36,6 @@ struct Handler {
     void FUN_002b1160(unsigned int value);
 };
 typedef unsigned char byte_2b1200;
-void __cdecl FUN_0008d340(void*);
-void __cdecl FUN_0008d330(void*);
 class Thing_2b1200 {
   public:
     void* mValue;
@@ -63,9 +61,8 @@ struct Item {
     void FUN_002b0e90(Item* source);
 };
 typedef unsigned int u32_2b1390;
-extern void __cdecl releaseThing_0008d340(u32_2b1390);
 struct Entry_2b1390 {
-    u32_2b1390 value;
+    void* value;   // (nat2, D134) a block, freed with operator delete[]
     char pad[12];
 };
 struct Obj_2b13c0 {   // (x64t21) the entry array (begin, end) on the game heap
@@ -78,7 +75,6 @@ class V {
     virtual void b() throw();
 };
 extern void __cdecl FUN_002b1390(void*, void*) throw();
-extern void __cdecl thunk_FUN_00267090(void*) throw();
 template <class T> struct Ref_2b1400 {
     T* p;
     ~Ref_2b1400() throw() {
@@ -92,7 +88,7 @@ template <int N> struct Buf_2b1400 {
     char pad[N - 4];
     ~Buf_2b1400() throw() {
         if (p)
-            thunk_FUN_00267090(p);
+            ::operator delete[](p);
     }
 };
 struct Range_2b1400 {
@@ -101,7 +97,7 @@ struct Range_2b1400 {
     ~Range_2b1400() throw() {
         if (b) {
             FUN_002b1390(b, e);
-            thunk_FUN_00267090(b);
+            ::operator delete[](b);
         }
     }
 };
@@ -160,11 +156,10 @@ class NonCopyable : public SimpleChunkHandler_2b0f60 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002b0f60
@@ -264,9 +259,9 @@ void Handler::FUN_002b1160(unsigned int value) {
 // sym: ?Destroy@Thing_2b1200@fn_f8d4917d@@QAEPAV12@E@Z
 Thing_2b1200* Thing_2b1200::Destroy(byte_2b1200 flags) {
     if (mValue != 0)
-        FUN_0008d340(mValue);
+        ::operator delete[](mValue);
     if ((flags & 1) != 0)
-        FUN_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -342,7 +337,7 @@ namespace fn_f8d4917d {
 void __cdecl FUN_002b1390(Entry_2b1390* begin, Entry_2b1390* end) {
     for (; begin != end; ++begin) {
         if (begin->value != 0)
-            releaseThing_0008d340(begin->value);
+            ::operator delete[](begin->value);
     }
 }
 
@@ -462,7 +457,7 @@ struct VertexOffsetExpressionMixer_2b1680 {
 void* VertexOffsetExpressionMixer_2b1680::vfunc_2(unsigned int flags) {
     FUN_002b1400();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002b1680

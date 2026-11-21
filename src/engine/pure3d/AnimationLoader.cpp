@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f25f8e16 {} using namespace fn_f25f8e16;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f25f8e16 { extern "C" char DAT_0042c8d0[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
 
@@ -33,13 +34,8 @@ class AnimationMemoryBlock_288820 : public NonCopyable_288820 {
     AnimationMemoryBlock_288820(unsigned int s1, unsigned int s2);
 };
 extern "C" char DAT_0042c8b4[];
-typedef unsigned int u32_288890;
-void thunk_0008d340(u32_288890);
-struct AnimationMemoryBlock_288890 {
-    hulk_uintptr vf;
-    char pad[0x14];
-    u32_288890 a;
-    u32_288890 b;
+// (nat2, D134) the block's record (its constructor 0x00288820): two buffers, freed with operator delete[]
+struct AnimationMemoryBlock_288890 : AnimationMemoryBlock_288820 {
     void target();
 };
 class Sub_288900 {
@@ -56,7 +52,6 @@ class AnimationGroup {
     int a, b, c, d;
 };
 extern void FUN_0027af50();
-extern void thunk_FUN_00267090(CCollisionAction*);
 class Item_288960 {
   public:
     virtual int A();
@@ -380,7 +375,6 @@ struct AnimationLoader {
     char pad18[0x10];
     Ref_289e60* mRef;
 };
-extern void destroy_00263f30(AnimationLoader*);
 
 
 // 0x00288820 FUN_00288820 (97 B): matches/0x00288820.cpp
@@ -398,10 +392,10 @@ AnimationMemoryBlock_288820::AnimationMemoryBlock_288820(unsigned int s1, unsign
 // 0x00288890 FUN_00288890 (38 B): matches/0x00288890.cpp
 // sym: ?target@AnimationMemoryBlock_288890@fn_f25f8e16@@QAEXXZ
 void AnimationMemoryBlock_288890::target() {
-    vf = ((hulk_intptr)DAT_0042c8b4);
-    thunk_0008d340(a);
-    thunk_0008d340(b);
-    vf = ((hulk_intptr)DAT_003f6098);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_0042c8b4);
+    ::operator delete[](buf1);
+    ::operator delete[](buf2);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_003f6098);
 }
 
 } // namespace fn_f25f8e16
@@ -438,7 +432,7 @@ AnimationGroup::AnimationGroup() {
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     FUN_0027af50();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -875,7 +869,6 @@ class AnimationGroup {
     Item_289330** items;
     Item_289330* active;
 };
-void cleanup_0008d340(void*);
 void AnimationGroup::vfunc_1() {
     if (!active) {
         for (unsigned int i = 0; i < count; ++i) {
@@ -883,7 +876,7 @@ void AnimationGroup::vfunc_1() {
             if (it)
                 it->v0(1);
         }
-        cleanup_0008d340(items);
+        ::operator delete[](items);
         return;
     }
     sub.run_0027af50();
@@ -1351,7 +1344,7 @@ struct Animation_289d90 {
 void* Animation_289d90::vfunc_2(unsigned int flags) {
     FUN_002893b0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00289d90
@@ -1391,7 +1384,7 @@ AnimationLoader* AnimationLoader::vfunc_2(byte_289e60 flags) {
     }
     *(void**)this = (void*)((hulk_intptr)DAT_003f6098);
     if (flags & 1)
-        destroy_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -1410,13 +1403,12 @@ class AnimationGroup {
     virtual void vfunc_1();
     char pad[4];
 };
-extern void __cdecl thunk_FUN_00267090(AnimationGroup*);
 AnimationGroup* AnimationGroup::vfunc_0(unsigned char flags) {
     *(void**)this = (void*)((hulk_intptr)DAT_0042c8c4);
     AnimationGroup::vfunc_1();
     ((Sub_289ea0*)((char*)this + 8))->Fnf_0027af50();
     if (flags & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00289ea0

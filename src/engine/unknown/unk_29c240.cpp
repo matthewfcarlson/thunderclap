@@ -5,12 +5,14 @@
 #include "decls/address.h"
 #include "decls/data/engine/unknown.h"
 #include "gen/owners.h"
+#include "gen/pure3d.h"   // (nat2, D134) pure3d::LightsChooserCache's record
 #define TREE_TU_BEGIN namespace fn_f1c27eb1 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CEffectStopTrack
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f1c27eb1 {} using namespace fn_f1c27eb1;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/unknown.h"
 
 // ---- declarations shared by the functions below
@@ -23,10 +25,8 @@ struct TypeInfo;
 extern TypeInfo DAT_004cf680, DAT_004c534c, DAT_004cf658, DAT_004c532c, DAT_004c5368, DAT_004cf634;
 extern "C" void* __cdecl FUN_00344e74(void*, int, TypeInfo*, TypeInfo*, int);
 extern "C" char DAT_0042d604[];
-struct LightsChooserCache {
-    void* vftable;
-    char pad[0x20];
-    int value;
+// (nat2, D134) pure3d::LightsChooserCache's record: the block at +0x24 (32-bit) is a pointer, freed with operator delete[]
+struct LightsChooserCache : ::pure3d::LightsChooserCache {
     void target();
     void finish_0027afd0();
 };
@@ -68,7 +68,7 @@ class A_29c640 {
 class B_29c640 {
   public:
     A_29c640* a;
-    int b;
+    void* b;   // (nat2, D134) freed with operator delete[] (0x0029c640)
 };
 
 } // namespace fn_f1c27eb1
@@ -124,9 +124,9 @@ namespace fn_f1c27eb1 {
 // 0x0029c530 FUN_0029c530 (29 B): matches/0x0029c530.cpp
 // sym: ?target@LightsChooserCache@fn_f1c27eb1@@QAEXXZ
 void LightsChooserCache::target() {
-    int x = value;
-    vftable = (void*)((hulk_intptr)DAT_0042d604);
-    thunk_FUN_00267090(x);
+    void* x = f_24;
+    *(void**)this = (void*)((hulk_intptr)DAT_0042d604);
+    ::operator delete[](x);
     finish_0027afd0();
 }
 
@@ -166,7 +166,7 @@ void Bank::FUN_0029c560()
 // sym: ?FUN_0029c640@fn_f1c27eb1@@YIXPAVB_29c640@1@@Z
 void __fastcall FUN_0029c640(B_29c640* p) {
     p->a->g();
-    thunk(p->b);
+    ::operator delete[](p->b);
 }
 
 } // namespace fn_f1c27eb1

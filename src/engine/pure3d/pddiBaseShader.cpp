@@ -785,7 +785,6 @@ namespace fn_00327e20 {
 extern void* vD[];
 extern void* vB[];
 extern "C" void _ReadWriteBarrier();
-extern "C" void thunk_FUN_00267090(void*);
 namespace pure3d { class pddiBaseShader; }
 namespace pure3d { class pddiBaseShader {
   public:
@@ -801,7 +800,7 @@ pure3d::pddiBaseShader* pure3d::pddiBaseShader::vfunc_3(unsigned char f) {
     vptr = (void**)DAT_00433568;
     Fini();
     if (f & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00327e20

@@ -9,7 +9,6 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f059af46 {} using namespace fn_f059af46;
 namespace fn_f059af46 {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "game/global.h"
 
@@ -34,7 +33,6 @@ class FEObject : public IValueChangedReceiver_f1350 {
 struct ThisCall_000e9030 {
     void FUN_000e9030();
 };
-extern void thunk_FUN_00267090(FEObject*);
 extern void* hulk_at_0040c42c[];
 class FEObject_f1370 {
   public:
@@ -130,7 +128,7 @@ public:
 FEObject* FEObject::vfunc_2(unsigned char flags) {
     ((ThisCall_000e9030*)(this))->FUN_000e9030();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -144,7 +142,7 @@ FEControl_f1370* FEControl_f1370::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040c42c;
     Destroy_000e9030();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

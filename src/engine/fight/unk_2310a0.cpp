@@ -13,7 +13,6 @@ namespace fn_f6bca062 {} using namespace fn_f6bca062;
 // ---- declarations shared by the functions below
 namespace fn_f6bca062 {
 extern "C" void* __cdecl FUN_0008d690(unsigned int bytes);
-extern void __cdecl FUN_0008d330(void* memory);
 struct Entry_2310a0 { unsigned int first, second; };
 struct Table_2310a0 {
  unsigned int capacity;
@@ -236,7 +235,7 @@ struct Node_231960 {
 
 
 // 0x002310a0 FUN_002310a0 (184 B): equivalent/0x002310a0.cpp
-// sym: ?FUN_002310a0@Table_2310a0@fn_f6bca062@@QAEXI@Z @2334e003f56b @w2c18ddaa7973 @v1b8832c9dd56
+// sym: ?FUN_002310a0@Table_2310a0@fn_f6bca062@@QAEXI@Z @997d8e93dc6a @w12b442bb27ac @v17fb7654e5ab
 // STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 14/14)
 // FUN_002310a0 @ 0x002310a0
 void Table_2310a0::FUN_002310a0(unsigned int newCapacity) {
@@ -259,8 +258,8 @@ void Table_2310a0::FUN_002310a0(unsigned int newCapacity) {
    if (item && item != sentinel)
     FUN_00231590(oldEntries[i].first, oldEntries[i].second, item);
   }
-  FUN_0008d330(oldSlots);
-  FUN_0008d330(oldEntries);
+  ::operator delete(oldSlots);
+  ::operator delete(oldEntries);
  }
 }
 

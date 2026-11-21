@@ -20,7 +20,6 @@ class NonCopyable_2708c0 : public ::core::IRefCount {
     virtual NonCopyable_2708c0* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable_2708c0*);
 
 
 // 0x002708c0 core::IControllerBuffer::vfunc_2 (31 B): matches/0x002708c0.cpp
@@ -29,7 +28,7 @@ void thunk_FUN_00267090(pure3d::NonCopyable_2708c0*);
 pure3d::NonCopyable_2708c0* pure3d::NonCopyable_2708c0::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

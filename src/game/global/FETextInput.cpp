@@ -8,12 +8,12 @@
 #define TREE_TU_BEGIN namespace fn_fb73efad {
 #define TREE_TU_END }
 namespace fn_fb73efad {} using namespace fn_fb73efad;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
 namespace fn_fb73efad {
 extern void* hulk_at_0040bb9c[];
-void Free_0008d340(void*) throw();
 class FEControl_dc600 {
   public:
     void* vptr;
@@ -176,37 +176,37 @@ namespace fn_fb73efad {
 FETextInput_dc600::~FETextInput_dc600() throw() {
     vptr = hulk_at_0040bb9c;
     if (m158) {
-        Free_0008d340(m158);
+        ::operator delete[](m158);
         m158 = 0;
     }
     if (m15c) {
-        Free_0008d340(m15c);
+        ::operator delete[](m15c);
         m15c = 0;
     }
     if (m160) {
-        Free_0008d340(m160);
+        ::operator delete[](m160);
         m160 = 0;
     }
     for (int i = 0; i < n; i++) {
         if (a[i]) {
-            Free_0008d340(a[i]);
+            ::operator delete[](a[i]);
             a[i] = 0;
         }
         if (b[i]) {
-            Free_0008d340(b[i]);
+            ::operator delete[](b[i]);
             b[i] = 0;
         }
     }
     if (a) {
-        Free_0008d340(a);
+        ::operator delete[](a);
         a = 0;
     }
     if (b) {
-        Free_0008d340(b);
+        ::operator delete[](b);
         b = 0;
     }
     if (m16c) {
-        Free_0008d340(m16c);
+        ::operator delete[](m16c);
         m16c = 0;
     }
     Fin_000e92b0();
@@ -273,39 +273,39 @@ void ParticleBuffers::FUN_000dc810(int newCount)
 {
     for (int i = 0; i < count; i++) {
         if (links0[i]) {
-            FUN_0008d340(links0[i]);
+            ::operator delete[](links0[i]);
             links0[i] = 0;
         }
         if (links1[i]) {
-            FUN_0008d340(links1[i]);
+            ::operator delete[](links1[i]);
             links1[i] = 0;
         }
     }
     if (links0) {
-        FUN_0008d340(links0);
+        ::operator delete[](links0);
         links0 = 0;
     }
     if (links1) {
-        FUN_0008d340(links1);
+        ::operator delete[](links1);
         links1 = 0;
     }
 
     count = newCount;
     used = 0;
     if (flags) {
-        FUN_0008d340(flags);
+        ::operator delete[](flags);
         flags = 0;
     }
     if (positions) {
-        FUN_0008d340(positions);
+        ::operator delete[](positions);
         positions = 0;
     }
     if (velocities) {
-        FUN_0008d340(velocities);
+        ::operator delete[](velocities);
         velocities = 0;
     }
     if (ids) {
-        FUN_0008d340(ids);
+        ::operator delete[](ids);
         ids = 0;
     }
 

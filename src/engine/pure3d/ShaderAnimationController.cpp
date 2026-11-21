@@ -319,7 +319,7 @@ ShaderAnimationController_2a8680* ShaderAnimationController_2a8680::f2(unsigned 
     }
     Fin_00285800();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

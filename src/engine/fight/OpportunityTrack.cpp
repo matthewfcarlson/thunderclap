@@ -14,7 +14,6 @@
 namespace fn_f6c81acf {} using namespace fn_f6c81acf;
 namespace fn_f6c81acf {
 struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 namespace fn_f6c81acf { extern "C" char DAT_00427ff0[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/fight.h"
@@ -894,7 +893,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

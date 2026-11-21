@@ -861,7 +861,7 @@ bool Object::FUN_001eadf0() {
 
 
 // 0x001eaea0 FUN_001eaea0 (437 B): equivalent/0x001eaea0.cpp
-// sym: ?FUN_001eaea0@Manager_1eaea0@fn_f014178b@@QAEXXZ @5b5e53c725f7 @w31d6a4a2bb82 @v606ffd2b69e0
+// sym: ?FUN_001eaea0@Manager_1eaea0@fn_f014178b@@QAEXXZ @972c9e2fb88e @w8fc9e543d8f4 @v930b733f3270
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 31/34, incomplete)
 // FUN_001eaea0 @ 0x001eaea0
 void Manager_1eaea0::FUN_001eaea0()
@@ -900,7 +900,7 @@ void Manager_1eaea0::FUN_001eaea0()
                     (*(Sync**)&DAT_004e3694) = 0;
                 }
             }
-            FUN_0008d330(handles[i]);
+            ::operator delete(handles[i]);
             handles[i] = 0;
         }
         n = handleCount;

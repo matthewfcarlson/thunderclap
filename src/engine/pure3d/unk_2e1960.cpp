@@ -480,7 +480,6 @@ class Thing_2e5280 {
     Part_2e5280 part;
     Thing_2e5280* Run(unsigned char flags);
 };
-void DeleteThing_0008d330(Thing_2e5280*);
 class Ref_2e5310 {
   public:
     virtual void A();
@@ -2624,7 +2623,7 @@ Obj_2e4fb0* Obj_2e4fb0::target() {
 Thing_2e5280* Thing_2e5280::Run(unsigned char flags) {
     part.Cleanup_002c6d50();
     if (flags & 1)
-        DeleteThing_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

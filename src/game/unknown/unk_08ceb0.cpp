@@ -332,6 +332,17 @@ extern "C" void* __cdecl FUN_0008d6d0(int value) {
     return FUN_00266e00(FUN_00266d90(), value);
 }
 
+} // namespace fn_fe5d7f9e
+
+// (nat2, D131) The game's global operator new / new[] are 0x0008d690 / 0x0008d6d0 (above). Their blocks keep the C
+// names the tree's callers use by address (`FUN_0008d690(int)` and a hundred aliases that bind natively only to a
+// definition with that signature), and these are the one strong definition of `operator new` / `new[]` for every
+// build (was a weak inline copy in CActorManager.cpp natively, and a by-position binding in the Wine build).
+void* __cdecl operator new(size_t n) { return FUN_0008d690((int)n); }
+void* __cdecl operator new[](size_t n) { return FUN_0008d6d0((int)n); }
+
+namespace fn_fe5d7f9e {
+
 
 // 0x0008d710 FUN_0008d710 (60 B): matches/0x0008d710.cpp
 // sym: _FUN_0008d710

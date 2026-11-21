@@ -14,6 +14,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f35954a7 {} using namespace fn_f35954a7;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f35954a7 { extern "C" char DAT_0042e5b4[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_f35954a7 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
@@ -26,13 +27,13 @@ class X_2b37a0 {
     X_2b37a0();
 };
 extern "C" char DAT_0042e554[];
-typedef unsigned int u32_2b37b0;
-void __cdecl release_0008d340(u32_2b37b0);
 struct Obj_2b37b0 {
     void* vf;
-    char pad[12];
-    u32_2b37b0 a;
-    u32_2b37b0 b;
+    int count;   // (nat2, D134) pure3d::NonCopyable's count, two words, then two blocks freed with operator delete[]
+    int f_08;
+    int f_0c;
+    void* a;
+    void* b;
 };
 struct V3_2b3820 {
     float x, y, z;
@@ -625,8 +626,8 @@ X_2b37a0::X_2b37a0() {
 // sym: ?target@fn_f35954a7@@YIXPAUObj_2b37b0@1@@Z
 void __fastcall target(Obj_2b37b0* self) {
     self->vf = (void*)((hulk_intptr)DAT_0042e554);
-    release_0008d340(self->a);
-    release_0008d340(self->b);
+    ::operator delete[](self->a);
+    ::operator delete[](self->b);
     self->vf = (void*)((hulk_intptr)DAT_003f6098);
 }
 
@@ -640,17 +641,18 @@ class ShadowMeshTopology_2b37e0 {
     virtual ~ShadowMeshTopology_2b37e0() throw();
 };
 ShadowMeshTopology_2b37e0::~ShadowMeshTopology_2b37e0() throw() {}
-void ReleaseRef_0008d340(int);
 class ShadowMeshTopology : public ShadowMeshTopology_2b37e0 {
   public:
-    int pad04[3];
-    int m10;
-    int m14;
+    int count;   // (nat2, D134) pure3d::NonCopyable's count, two words, then two blocks freed with operator delete[]
+    int f_08;
+    int f_0c;
+    void* m10;
+    void* m14;
     virtual ~ShadowMeshTopology() throw();
 };
 ShadowMeshTopology::~ShadowMeshTopology() throw() {
-    ReleaseRef_0008d340(m10);
-    ReleaseRef_0008d340(m14);
+    ::operator delete[](m10);
+    ::operator delete[](m14);
 }
 } // namespace fn_002b37e0
 
@@ -1694,8 +1696,6 @@ ShadowMeshVertices::ShadowMeshVertices(int a, int b) {
 // sym: ?vfunc_2@ShadowMeshVertices@pure3d@fn_002b50c0@@UAEPAV123@E@Z
 namespace fn_002b50c0 {
 typedef unsigned char byte_2b50c0;
-void thunk_0008d330(void*);
-void thunk_val_0008d340(unsigned int);
 extern void* hulk_at_0042e554;
 extern void* ref_vftable_2b50c0;
 namespace pure3d {
@@ -1704,15 +1704,19 @@ class ShadowMeshVertices {
     virtual void f0();
     virtual void f1();
     virtual ShadowMeshVertices* vfunc_2(byte_2b50c0);
-    char pad[0x10 - 4];
+    int count;   // (nat2, D134) pure3d::NonCopyable's count, two words, then two blocks freed with operator delete[]
+    int f_08;
+    int f_0c;
+    void* a;
+    void* b;
 };
 ShadowMeshVertices* ShadowMeshVertices::vfunc_2(byte_2b50c0 param) {
     *(void**)this = &hulk_at_0042e554;
-    thunk_val_0008d340(*(unsigned int*)((char*)this + 0x10));
-    thunk_val_0008d340(*(unsigned int*)((char*)this + 0x14));
+    ::operator delete[](a);
+    ::operator delete[](b);
     *(void**)this = ((void**)DAT_003f6098);
     if (param & 1)
-        thunk_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace pure3d
@@ -1764,8 +1768,6 @@ ShadowMeshVertices_2b5100::ShadowMeshVertices_2b5100(const ShadowMeshVertices_2b
 namespace fn_002b5200 {
 // Same code shape as 0x002b50c0 (propagated; names are from that function)
 typedef unsigned char byte_2b5200;
-void thunk_0008d330(void*);
-void thunk_val_0008d340(unsigned int);
 extern void* hulk_at_0042e564;
 extern void* ref_vftable_2b5200;
 namespace pure3d {
@@ -1774,15 +1776,19 @@ class ShadowMeshVertices {
     virtual void f0();
     virtual void f1();
     virtual ShadowMeshVertices* vfunc_2(byte_2b5200);
-    char pad[0x10 - 4];
+    int count;   // (nat2, D134) pure3d::NonCopyable's count, two words, then two blocks freed with operator delete[]
+    int f_08;
+    int f_0c;
+    void* a;
+    void* b;
 };
 ShadowMeshVertices* ShadowMeshVertices::vfunc_2(byte_2b5200 param) {
     *(void**)this = &hulk_at_0042e564;
-    thunk_val_0008d340(*(unsigned int*)((char*)this + 0x10));
-    thunk_val_0008d340(*(unsigned int*)((char*)this + 0x14));
+    ::operator delete[](a);
+    ::operator delete[](b);
     *(void**)this = ((void**)DAT_003f6098);
     if (param & 1)
-        thunk_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace pure3d
@@ -2140,8 +2146,6 @@ typedef unsigned char u8_2b5560;
 typedef unsigned int u32_2b5560;
 extern int hulk_at_0042e574;
 extern "C" char DAT_003f6098[];   // (decl1) was `int ref_vtable` (a C++ name bound nowhere natively)
-void release_0008d340(void*);
-void release_self_0008d330(void*);
 class ShadowSkinTopology {
   public:
     virtual void v0();
@@ -2154,12 +2158,12 @@ class ShadowSkinTopology {
 };
 ShadowSkinTopology* ShadowSkinTopology::vfunc_2(u8_2b5560 param) {
     *(int**)this = &hulk_at_0042e574;
-    release_0008d340((void*)b);
-    release_0008d340((void*)c);
-    release_0008d340((void*)d);
+    ::operator delete[]((void*)b);
+    ::operator delete[]((void*)c);
+    ::operator delete[]((void*)d);
     *(int**)this = &(*(int*)&DAT_003f6098);
     if (param & 1)
-        release_self_0008d330((void*)this);
+        ::operator delete((void*)this);
     return this;
 }
 } // namespace fn_002b5560
@@ -2259,7 +2263,7 @@ ShadowSkinImpl_2b56e0::~ShadowSkinImpl_2b56e0() {
         m48->Release();
         m48 = 0;
     }
-    operator delete(m74);
+    ::operator delete[](m74);
     *(void* volatile*)&vptr = ((void**)DAT_0042e5b4);
     Ref_2b56e0* t = *(Ref_2b56e0* volatile*)&m40;
     if (t) {
@@ -2613,7 +2617,7 @@ ShadowMeshImpl* ShadowMeshImpl::vfunc_2(unsigned char flags) {
     }
     BaseCleanup_002a50a0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002b6eb0
@@ -2634,7 +2638,7 @@ struct ShadowSkinImpl_2b6f10 {
 void* ShadowSkinImpl_2b6f10::vfunc_2(unsigned int flags) {
     FUN_002b56e0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002b6f10
@@ -2676,11 +2680,10 @@ class NonCopyable : public SimpleChunkHandler_2b6f70 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002b6f70
@@ -2705,11 +2708,10 @@ class NonCopyable : public SimpleChunkHandler_2b6f90 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002b6f90
@@ -2727,7 +2729,7 @@ ShadowMeshBufferImpl_2b6fb0* ShadowMeshBufferImpl_2b6fb0::f2(unsigned char flags
     }
     Fin_002a50a0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2748,13 +2750,12 @@ struct ShadowMeshBufferLoader {
     Interface_2b6ff0* member;
     ShadowMeshBufferLoader* f2(unsigned char);
 };
-extern void cleanup_00263f30(ShadowMeshBufferLoader*);
 ShadowMeshBufferLoader* ShadowMeshBufferLoader::f2(unsigned char flag) {
     vptr = &(*(void**)&DAT_0042e654);
     member->b();
     vptr = &(*(void**)&DAT_003f6098);
     if (flag & 1)
-        cleanup_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002b6ff0

@@ -10,7 +10,6 @@
 extern "C" void _ReadWriteBarrier();
 TREE_TU_BEGIN
 extern "C" char DAT_003f6098[];
-void __cdecl thunk(void*);
 TREE_TU_END
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void *__cdecl memset(void *, int, unsigned int);
@@ -51,7 +50,6 @@ class Factory {
   public:
     void Do(void*);
 };
-extern "C" void __cdecl FUN_00263f30(void* p);
 class Part {
   public:
     Part();

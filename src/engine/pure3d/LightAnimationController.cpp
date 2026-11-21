@@ -680,7 +680,7 @@ LightAnimationController_2a9300* LightAnimationController_2a9300::f2(unsigned ch
     }
     Fin_00285f50();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

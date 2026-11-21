@@ -10,13 +10,13 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f1ee0f39 {} using namespace fn_f1ee0f39;
+extern "C" void FUN_00267090(void* ptr);   // (nat2, D134) the game heap's free
 #include "engine/fight.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f1ee0f39 {
 void* __cdecl FUN_00238190(int a);
 extern "C" char* __cdecl FUN_00266e00(void* heap, int size);
-void __cdecl thunk_FUN_00267090(void* p);
 class Stream {
 public:
     virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3();
@@ -52,7 +52,7 @@ namespace fn_f1ee0f39 {
 
 
 // 0x00234c30 fight::ParamValueScript::vfunc_5 (138 B): equivalent/0x00234c30.cpp
-// sym: ?vfunc_5@ParamValueScript@fight@fn_f1ee0f39@@UAE_NHHPAVStream@3@@Z @c0eb3f2d86d3 @wd2aee8669074 @v071a33a1a32e
+// sym: ?vfunc_5@ParamValueScript@fight@fn_f1ee0f39@@UAE_NHHPAVStream@3@@Z @fc489fdeb153 @w092a626079ea @vde5570228822
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 4/4)
 // fight::ParamValueScript::vfunc_5 @ 0x00234c30
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x00267090
@@ -64,7 +64,7 @@ bool fight::ParamValueScript::vfunc_5(int a1, int, Stream* in) {
     bool ok = in->Read(f8, fc, buf, len + 1);
     if (ok)
         vfunc_6(a1, buf, len);
-    thunk_FUN_00267090(buf);
+    FUN_00267090(buf);
     return ok;
 }
 

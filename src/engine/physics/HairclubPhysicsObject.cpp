@@ -9,6 +9,7 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fa60db69 {} using namespace fn_fa60db69;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/physics.h"
 
 // ---- declarations shared by the functions below
@@ -341,7 +342,6 @@ struct SymMatrix_3093b0 {
     char pad[0x34];
     void Destroy_002fcaa0();
 };
-extern void __cdecl FreeArray_0008d340(void*);
 struct HairclubPhysicsObject {
     void* vptr;
     char pad[0x1f4];
@@ -359,7 +359,7 @@ void HairclubPhysicsObject::Destroy() {
             q--;
             q->Destroy_002fcaa0();
         }
-        FreeArray_0008d340((char*)p - 4);
+        ::operator delete[]((char*)p - 4);
     }
     BaseDestroy_002f5640();
 }
@@ -425,7 +425,7 @@ struct HairclubPhysicsObject_309500 {
 void* HairclubPhysicsObject_309500::vfunc_2(unsigned int flags) {
     FUN_003093b0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00309500

@@ -506,7 +506,6 @@ class PropAnimationAction : public Action {
     virtual int f2(char);
 };
 extern char hulk_at_00419640[];
-extern void thunk_0008d330(PropAnimationAction*);
 struct RefCounted_188a10 {
   public:
     virtual void f0();
@@ -1329,7 +1328,7 @@ int PropAnimationAction::f2(char param) {
     }
     this->Action::baseCleanup_002326a0();
     if (param & 1)
-        thunk_0008d330(this);
+        ::operator delete(this);
     return (hulk_intptr)this;
 }
 

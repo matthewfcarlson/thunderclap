@@ -43,7 +43,6 @@ class NonCopyable_2704f0 : public ::core::IMemorySpaceCopyRequest {
     virtual NonCopyable_2704f0* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable_2704f0*);
 extern "C" void __stdcall FUN_00209f01(void*);
 extern "C" void FUN_003479bc(void*);
 
@@ -117,7 +116,7 @@ MemorySpaceAsyncRequest_Copy::MemorySpaceAsyncRequest_Copy() {
 pure3d::NonCopyable_2704f0* pure3d::NonCopyable_2704f0::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

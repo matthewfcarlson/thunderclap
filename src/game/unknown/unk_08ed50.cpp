@@ -59,10 +59,6 @@ public:
     int* mData;
     IntArray_8f0b0(int count, int b, int a);
 };
-struct Obj_8f140 {
-    char pad[0x20];
-    int value;
-};
 struct Target_8f160 {
     char pad[0x18];
     long long value;
@@ -230,10 +226,11 @@ IntArray_8f0b0::IntArray_8f0b0(int count, int b, int a)
 
 
 // 0x0008f140 FUN_0008f140 (24 B): matches/0x0008f140.cpp
-// sym: ?target@fn_ff1b4d41@@YIXPAUObj_8f140@1@@Z
-void __fastcall target(Obj_8f140* self) {
-    thunk(self->value);
-    self->value = 0;
+// sym: ?target@fn_ff1b4d41@@YIXPAVIntArray_8f0b0@1@@Z
+// (nat2, D134) the array's (0x0008f0b0's record) clean-up: its element block (+0x20 on 32-bit) is a pointer
+void __fastcall target(IntArray_8f0b0* self) {
+    ::operator delete(self->mData);
+    self->mData = 0;
 }
 
 
@@ -776,11 +773,10 @@ extern "C" char DAT_00400c1c[];
 struct CStaticAllocator : GameStaticAllocator {
     void Reset();
 };
-void thunk_FUN_00267090(hulk_intptr);
 void CStaticAllocator::Reset() {
     vftable = (void*)((hulk_intptr)DAT_00400c1c);
-    thunk_FUN_00267090((hulk_intptr)bits);
-    thunk_FUN_00267090((hulk_intptr)data);
+    ::operator delete(bits);
+    ::operator delete(data);
 }
 } // namespace fn_0008ff50
 

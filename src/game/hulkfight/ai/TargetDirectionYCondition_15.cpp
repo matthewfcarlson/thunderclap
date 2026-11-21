@@ -1174,7 +1174,6 @@ struct RefCounted_1295b0 {
 };
 
 extern char hulk_at_00410004[];
-extern "C++" __declspec(nothrow) void opdel_0008d330(void*);
 
 namespace hulkfight { namespace ai { class AcquireTargetAction {
   public:
@@ -1201,7 +1200,7 @@ hulkfight::ai::AcquireTargetAction* hulkfight::ai::AcquireTargetAction::vfunc_2(
     }
     Cleanup_002326a0();
     if (flag & 1) {
-        opdel_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1219,7 +1218,6 @@ struct RefCounted_129650 {
 };
 
 extern char hulk_at_00410020[];
-extern "C++" __declspec(nothrow) void opdel(void*);
 
 namespace hulkfight { namespace ai { class ClearProjectileDistanceAction {
   public:

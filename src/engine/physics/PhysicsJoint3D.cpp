@@ -14,6 +14,7 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fca90e00 {} using namespace fn_fca90e00;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/physics.h"
 
 // ---- declarations shared by the functions below
@@ -591,7 +592,6 @@ class PhysicsJoint {
     int m20;
     hulk_intptr m24;
 };
-extern void __cdecl AddRef_0008d340(void*);
 } // namespace fn_fca90e00
 namespace physics {
 class PhysicsJoint_30ce20 {
@@ -784,8 +784,6 @@ namespace fn_fca90e00 {
 struct SymMatrix_30d3a0 {
     void Destruct_002fcaa0();
 };
-extern "C" void __cdecl FreeBuf_0008d340(void*);
-extern "C" void __cdecl DeleteObj_0008d330(void*);
 class PhysicsJoint0D_30d3a0 {
   public:
     void* vptr;
@@ -3259,7 +3257,7 @@ void __fastcall Target(PhysicsJoint* self) {
     hulk_intptr value = self->m20;
     self->m24 = value;
     if (value)
-        AddRef_0008d340((void*)value);
+        ::operator delete[]((void*)value);
 }
 
 
@@ -3428,7 +3426,6 @@ class PhysicsJoint {
     int m20;
     hulk_intptr m24;
 };
-extern void __cdecl AddRef_0008d340(void*);
 void __fastcall Target(PhysicsJoint* self) {
     *(hulk_intptr*)self = ((hulk_intptr)DAT_00431de4);
     ((SymMatrix_30cd60*)((char*)self + 0x64))->Init_002fcaa0();
@@ -3436,7 +3433,7 @@ void __fastcall Target(PhysicsJoint* self) {
     hulk_intptr value = self->m20;
     self->m24 = value;
     if (value)
-        AddRef_0008d340((void*)value);
+        ::operator delete[]((void*)value);
 }
 } // namespace fn_0030cd60
 
@@ -3602,7 +3599,6 @@ class PhysicsJoint {
     int m20;
     hulk_intptr m24;
 };
-extern void __cdecl AddRef_0008d340(void*);
 void __fastcall Target(PhysicsJoint* self) {
     *(hulk_intptr*)self = ((hulk_intptr)DAT_00431de4);
     ((SymMatrix_30d000*)((char*)self + 0x64))->Init_002fcaa0();
@@ -3610,7 +3606,7 @@ void __fastcall Target(PhysicsJoint* self) {
     hulk_intptr value = self->m20;
     self->m24 = value;
     if (value)
-        AddRef_0008d340((void*)value);
+        ::operator delete[]((void*)value);
 }
 } // namespace fn_0030d000
 
@@ -3824,7 +3820,6 @@ class PhysicsJoint {
     int m20;
     hulk_intptr m24;
 };
-extern void __cdecl AddRef_0008d340(void*);
 void __fastcall Target(PhysicsJoint* self) {
     *(hulk_intptr*)self = ((hulk_intptr)DAT_00431de4);
     ((SymMatrix_30d2f0*)((char*)self + 0x64))->Init_002fcaa0();
@@ -3832,7 +3827,7 @@ void __fastcall Target(PhysicsJoint* self) {
     hulk_intptr value = self->m20;
     self->m24 = value;
     if (value)
-        AddRef_0008d340((void*)value);
+        ::operator delete[]((void*)value);
 }
 } // namespace fn_0030d2f0
 
@@ -3844,8 +3839,6 @@ struct SymMatrix_30d320 {
     void Destruct_002fcaa0();
 };
 
-extern "C++" void __cdecl FreeBuf_0008d340(void*);
-extern "C++" void __cdecl DeleteObj_0008d330(void*);
 extern "C" char DAT_00431de4[];
 
 class PhysicsJoint {
@@ -3870,9 +3863,9 @@ void* PhysicsJoint::vfunc_0(int flags) {
     hulk_intptr v = m20;
     m24 = v;
     if (v)
-        FreeBuf_0008d340((void*)v);
+        ::operator delete[]((void*)v);
     if (flags & 1)
-        DeleteObj_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0030d320
@@ -3923,9 +3916,9 @@ void* PhysicsJoint0D_30d3a0::vfunc_0(int flags) {
     hulk_intptr v = m20;
     m24 = v;
     if (v)
-        FreeBuf_0008d340((void*)v);
+        ::operator delete[]((void*)v);
     if (flags & 1)
-        DeleteObj_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -3976,9 +3969,9 @@ void* PhysicsJoint1D_30d420::vfunc_0(int flags) {
     hulk_intptr v = m20;
     m24 = v;
     if (v)
-        FreeBuf_0008d340((void*)v);
+        ::operator delete[]((void*)v);
     if (flags & 1)
-        DeleteObj_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -4029,9 +4022,9 @@ void* PhysicsJoint3D_30d4a0::vfunc_0(int flags) {
     hulk_intptr v = m20;
     m24 = v;
     if (v)
-        FreeBuf_0008d340((void*)v);
+        ::operator delete[]((void*)v);
     if (flags & 1)
-        DeleteObj_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

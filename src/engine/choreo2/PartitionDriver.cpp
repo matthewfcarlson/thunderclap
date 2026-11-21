@@ -60,7 +60,6 @@ struct PartitionDriver_222430 {
     void helper_0022a910();
 };
 extern void* hulk_at_00427260;
-void destroy_00263f30(PartitionDriver*);
 
 
 // 0x002222f0 choreo2::PartitionDriver::vfunc_7 (4 B): matches/0x002222f0.cpp
@@ -121,7 +120,7 @@ PartitionDriver* PartitionDriver::vfunc_2(unsigned char param) {
     member->b();
     ((PartitionDriver_222430*)this)->helper_0022a910();
     if (param & 1)
-        destroy_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

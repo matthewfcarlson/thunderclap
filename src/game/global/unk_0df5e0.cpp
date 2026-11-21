@@ -14,31 +14,27 @@ namespace fn_f1bcb140 {} using namespace fn_f1bcb140;
 // ---- declarations shared by the functions below
 namespace fn_f1bcb140 {
 typedef unsigned int U_df5e0;
-void __cdecl Helper_0008d330(U_df5e0);
 struct Target_df5e0 {
-    U_df5e0 a;
-    U_df5e0 b;
+    void* a;   // (nat2, D134) two blocks, freed with operator delete
+    void* b;
     void Run();
 };
 typedef unsigned int U_df610;
-void __cdecl Helper_0008d330(U_df610);
 struct Target_df610 {
-    U_df610 a;
-    U_df610 b;
+    void* a;   // (nat2, D134) two blocks, freed with operator delete
+    void* b;
     void Run();
 };
 typedef unsigned int U_df640;
-void __cdecl Helper_0008d330(U_df640);
 struct Target_df640 {
-    U_df640 a;
-    U_df640 b;
+    void* a;   // (nat2, D134) two blocks, freed with operator delete
+    void* b;
     void Run();
 };
 typedef unsigned int U_df670;
-void __cdecl Helper_0008d330(U_df670);
 struct Target_df670 {
-    U_df670 a;
-    U_df670 b;
+    void* a;   // (nat2, D134) two blocks, freed with operator delete
+    void* b;
     void Run();
 };
 // (recs1, find2 G13) the callback tables' entries are decls/fe_callbacks.h HulkFECallback's words (were two ints: the
@@ -61,7 +57,6 @@ struct Pair_df700 {
     void *first;
     void *second;
 };
-void __cdecl thunk_FUN_00267090(void *p);
 class PairTable {
 public:
     Pair_df700 a[64];                    // 0x000
@@ -128,8 +123,8 @@ class Search_dfa60 {
 // 0x000df5e0 FUN_000df5e0 (25 B): matches/0x000df5e0.cpp
 // sym: ?Run@Target_df5e0@fn_f1bcb140@@QAEXXZ
 void Target_df5e0::Run() {
-    Helper_0008d330(a);
-    Helper_0008d330(b);
+    ::operator delete(a);
+    ::operator delete(b);
 }
 
 
@@ -137,8 +132,8 @@ void Target_df5e0::Run() {
 // sym: ?Run@Target_df610@fn_f1bcb140@@QAEXXZ
 // Same code shape as 0x000df5e0 (propagated; names are from that function)
 void Target_df610::Run() {
-    Helper_0008d330(a);
-    Helper_0008d330(b);
+    ::operator delete(a);
+    ::operator delete(b);
 }
 
 
@@ -146,8 +141,8 @@ void Target_df610::Run() {
 // sym: ?Run@Target_df640@fn_f1bcb140@@QAEXXZ
 // Same code shape as 0x000df5e0 (propagated; names are from that function)
 void Target_df640::Run() {
-    Helper_0008d330(a);
-    Helper_0008d330(b);
+    ::operator delete(a);
+    ::operator delete(b);
 }
 
 
@@ -155,8 +150,8 @@ void Target_df640::Run() {
 // sym: ?Run@Target_df670@fn_f1bcb140@@QAEXXZ
 // Same code shape as 0x000df5e0 (propagated; names are from that function)
 void Target_df670::Run() {
-    Helper_0008d330(a);
-    Helper_0008d330(b);
+    ::operator delete(a);
+    ::operator delete(b);
 }
 
 
@@ -166,27 +161,27 @@ Data_df690::Data_df690() {}
 
 
 // 0x000df700 FUN_000df700 (167 B): equivalent/0x000df700.cpp
-// sym: ?FUN_000df700@PairTable@fn_f1bcb140@@QAEXXZ @27f20bf90aa6 @w613d32e9bac4 @v82b163dde1c3
+// sym: ?FUN_000df700@PairTable@fn_f1bcb140@@QAEXXZ @4340d6e8e239 @w68623c1326cc @vc089bc2a606e
 // STATUS: equivalent (tools/equiv.py level 3: 771 inputs, branch coverage 8/8)
 // FUN_000df700 @ 0x000df700
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d330
 void PairTable::FUN_000df700()
 {
     for (int i = 63; i >= 0; i--) {
-        thunk_FUN_00267090(d[i].first);
-        thunk_FUN_00267090(d[i].second);
+        ::operator delete(d[i].first);
+        ::operator delete(d[i].second);
     }
     for (int i = 63; i >= 0; i--) {
-        thunk_FUN_00267090(c[i].first);
-        thunk_FUN_00267090(c[i].second);
+        ::operator delete(c[i].first);
+        ::operator delete(c[i].second);
     }
     for (int i = 63; i >= 0; i--) {
-        thunk_FUN_00267090(b[i].first);
-        thunk_FUN_00267090(b[i].second);
+        ::operator delete(b[i].first);
+        ::operator delete(b[i].second);
     }
     for (int i = 63; i >= 0; i--) {
-        thunk_FUN_00267090(a[i].first);
-        thunk_FUN_00267090(a[i].second);
+        ::operator delete(a[i].first);
+        ::operator delete(a[i].second);
     }
 }
 

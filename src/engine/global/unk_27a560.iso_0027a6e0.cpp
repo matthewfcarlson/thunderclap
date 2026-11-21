@@ -13,7 +13,6 @@ namespace fn_f82d3502 {
 // FUN_0027a6e0 @ 0x0027a6e0
 extern "C" void* __cdecl FUN_0008d690(unsigned int size);
 extern "C" void* __cdecl FUN_00263ea0(unsigned int size);
-extern "C" void __cdecl FUN_0008d330(void* p);
 
 struct Cursor_27a6e0 {
     int a, b;
@@ -83,7 +82,7 @@ void Dispatcher_27a6e0::FUN_0027a6e0(hulk_intptr arg1, hulk_intptr arg2) {
         }
         writer->vfunc_1();
         reader->FUN_0027aec0();
-        FUN_0008d330(reader);
+        ::operator delete(reader);
     }
 }
 } // namespace fn_f82d3502

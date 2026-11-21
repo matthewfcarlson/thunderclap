@@ -139,7 +139,6 @@ class CCollisionAction : public CAction {
     CCollisionAction* vfunc_2(unsigned char);
 };
 extern void FUN_00328be0();
-extern void thunk_FUN_00267090(CCollisionAction*);
 namespace D3D8 {
 struct CreationParameters { unsigned adapter; unsigned deviceType; void* focusWindow; unsigned behaviorFlags; };
 }
@@ -545,7 +544,6 @@ class NonCopyable_322320 : public ::pure3d::pddiExtVisibilityTest {
 };
 }
 namespace fn_f57e27cb {
-void thunk_FUN_00267090(pure3d::NonCopyable_322320*);
 class d3dExtVertexProgram_322360 {
   public:
     virtual void a0();
@@ -1039,11 +1037,10 @@ class NonCopyable : public pddiExtension_3201b0 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_003201b0
@@ -1068,11 +1065,10 @@ class NonCopyable : public pddiExtension_3201e0 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_003201e0
@@ -1097,11 +1093,10 @@ class NonCopyable : public pddiExtension_320210 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00320210
@@ -1126,11 +1121,10 @@ class NonCopyable : public pddiExtension_320240 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00320240
@@ -1398,11 +1392,10 @@ class NonCopyable : public pddiExtension_320b70 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00320b70
@@ -1415,7 +1408,7 @@ namespace fn_f57e27cb {
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     FUN_00328be0();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1444,11 +1437,10 @@ class CCollisionAction : public CAction {
 struct ThisCall_00329400 {
     void FUN_00329400();
 };
-extern void thunk_FUN_00267090(CCollisionAction*);
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     ((ThisCall_00329400*)(this))->FUN_00329400();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00320bb0
@@ -1475,11 +1467,10 @@ class CCollisionAction : public CAction {
     CCollisionAction* vfunc_2(unsigned char);
 };
 extern void __fastcall FUN_0031bcf0(void*);
-extern void thunk_FUN_00267090(CCollisionAction*);
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     FUN_0031bcf0((void*)(this));
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00320bd0
@@ -3317,11 +3308,10 @@ class NonCopyable : public pddiExtension_321fc0 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00321fc0
@@ -3368,11 +3358,10 @@ class NonCopyable : public pddiExtAntialiasControl_322040 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00322040
@@ -3459,11 +3448,10 @@ class NonCopyable : public pddiExtReadPixels_3221a0 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_003221a0
@@ -3531,11 +3519,10 @@ class NonCopyable : public pddiExtHardwareSkinning_322280 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00322280
@@ -3568,7 +3555,7 @@ u32_3222f0 d3dExtVisibilityTest_3222f0::vfunc_4(u32_3222f0 arg) {
 pure3d::NonCopyable_322320* pure3d::NonCopyable_322320::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -3713,11 +3700,10 @@ class NonCopyable : public pddiExtVertexProgram_322490 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00322490
@@ -4362,7 +4348,6 @@ class pddiExtFrameBufferTexture {
 struct Helper_323ca0 {
     void call();
 };
-void thunk_FUN_00267090(Helper_323ca0*);
 class d3dExtFrameBufferTexture : public pddiExtFrameBufferTexture, public pddiExtension {
   public:
     virtual d3dExtFrameBufferTexture* vfunc_0(u8_323ca0);
@@ -4374,7 +4359,7 @@ d3dExtFrameBufferTexture* d3dExtFrameBufferTexture::vfunc_0(u8_323ca0 param) {
     ((Helper_323ca0*)this)->call();
     *(hulk_intptr*)this = (hulk_intptr)&vt_ext;
     if (param & 1)
-        thunk_FUN_00267090((Helper_323ca0*)this);
+        ::operator delete((Helper_323ca0*)this);
     return this;
 }
 } // namespace pure3d
@@ -4397,7 +4382,6 @@ struct B_323cd0 {
 struct d3dPrimStream_323cd0 {
     void FUN_0031bcf0();
 };
-void __cdecl thunk_FUN_00267090(void*);
 namespace pure3d {
 struct Base_323cd0 {
     virtual void slot0();
@@ -4449,17 +4433,17 @@ d3dContext::~d3dContext() {
     A_323cd0* pa = a;
     if (pa) {
         pa->FUN_00328be0();
-        thunk_FUN_00267090(pa);
+        ::operator delete(pa);
     }
     B_323cd0* pb = b;
     if (pb) {
         pb->FUN_00329400();
-        thunk_FUN_00267090(pb);
+        ::operator delete(pb);
     }
     d3dPrimStream_323cd0* pc = c;
     if (pc) {
         pc->FUN_0031bcf0();
-        thunk_FUN_00267090(pc);
+        ::operator delete(pc);
     }
     r154->release();
     r158->release();
@@ -4996,11 +4980,10 @@ class NonCopyable : public pddiExtGammaControl_3245b0 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_003245b0

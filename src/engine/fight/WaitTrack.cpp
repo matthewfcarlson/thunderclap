@@ -13,8 +13,6 @@
 namespace fn_f3d35335 {} using namespace fn_f3d35335;
 namespace fn_f3d35335 {
 struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 namespace fn_f3d35335 { extern "C" char DAT_00428cf4[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_f3d35335 { extern "C" char DAT_00428d24[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
@@ -284,7 +282,7 @@ WaitTrack_23e050* WaitTrack_23e050::vfunc_5(signed char flags) {
     *(void***)this = ((void**)DAT_00428cf4);
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -542,7 +540,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

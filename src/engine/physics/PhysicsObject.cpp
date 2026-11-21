@@ -14,6 +14,7 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_ff237b18 {} using namespace fn_ff237b18;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/physics.h"
 
 // ---- declarations shared by the functions below
@@ -23,7 +24,6 @@ class SymMatrix_2f5460 : public CAction {
     SymMatrix_2f5460* vfunc_2(unsigned char);
 };
 extern void __fastcall FUN_002fcaa0(void*);
-extern void thunk_FUN_00267090(SymMatrix_2f5460*);
 namespace fight {
 class Condition_2f5590 {
   public:
@@ -218,7 +218,6 @@ extern "C" Part_2f70a0 *__cdecl FUN_0030d4f0(unsigned int a, Vec3_2f70a0 *v, uns
 Props *__cdecl FUN_002f2750(unsigned __int64 key);
 extern "C" int __cdecl FUN_00266da0(int sel);
 extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
-void __cdecl thunk_FUN_00267090(void *p);
 extern "C" int __cdecl FUN_00267760(char *buf, int n, const char *fmt, ...);
 struct Name_2f75d0 {
     char data[8];
@@ -431,7 +430,7 @@ void FUN_002f5400() {
 SymMatrix_2f5460* SymMatrix_2f5460::vfunc_2(unsigned char flags) {
     FUN_002fcaa0((void*)(this));
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1331,7 +1330,6 @@ struct D {
 struct E_2f61c0 {
     void Fne_0027af50();
 };
-extern void destroy_00263f30(PhysicsObject*);
 PhysicsObject::PhysicsObject(unsigned char flag) {
     ((A_2f61c0*)((char*)this + 0x168))->Fna_00308a60();
     ((SymMatrix_2f61c0*)((char*)this + 0x114))->Fnb_002fcaa0();
@@ -1340,7 +1338,7 @@ PhysicsObject::PhysicsObject(unsigned char flag) {
     ((E_2f61c0*)((char*)this + 0x30))->Fne_0027af50();
     finish_002fe680();
     if (flag & 1)
-        destroy_00263f30(this);
+        ::content::LoadObject::operator delete(this);
 }
 } // namespace fn_002f61c0
 
@@ -2337,18 +2335,17 @@ class NonCopyable : public SimpleChunkHandler_2f7080 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002f7080
 
 
 // 0x002f70a0 physics::PhysicsObjectLoader::vfunc_5 (1088 B): equivalent/0x002f70a0.cpp
-// sym: ?vfunc_5@PhysicsObjectLoader@physics@@UAEXPAX00H@Z @2d44a90e2176 @w4990d370eefe @v390efca9f9f8
+// sym: ?vfunc_5@PhysicsObjectLoader@physics@@UAEXPAX00H@Z @17abee679cda @w412b7b996719 @v939d0819bc7d
 // STATUS: equivalent (tools/equiv.py level 3: 236 inputs, branch coverage 44/44)
 // physics::PhysicsObjectLoader::vfunc_5 @ 0x002f70a0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
@@ -2452,7 +2449,7 @@ void physics::PhysicsObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, h
             if (parts[i] != 0)
                 delete parts[i];
         }
-        thunk_FUN_00267090(parts);
+        ::operator delete[](parts);
     } else if (f.b == 0) {
         void *mem = thunk_FUN_0008d690((unsigned int)sizeof(::physics::PhysicsObject));
         if (mem != 0)

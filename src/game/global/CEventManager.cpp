@@ -12,6 +12,7 @@
 #define TREE_TU_BEGIN namespace fn_ffd7287e {
 #define TREE_TU_END }
 namespace fn_ffd7287e {} using namespace fn_ffd7287e;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 #include "game/script_bind.h"
 
@@ -1942,28 +1943,20 @@ struct Item_1cc530 {
     char data[0x28];
     void Init_002325f0();
 };
-extern void ReleaseRef_0008d340(int);
-struct CEventManager {
-    void* vt;
-    int a;
-    int b;
-    int ref;
-    int ref2;
-    char pad[0x10];
-    Item_1cc530 items[24];
-};
+// (nat2, D134) the manager's record (gen CEventManager): the block at +0xc is a pointer, freed with operator delete[]
+struct CEventManager : ::CEventManager {};
 void __fastcall FUN_001cc530(CEventManager* self) {
-    self->vt = (void*)((hulk_intptr)DAT_00421dfc);
-    Item_1cc530* p = self->items + 24;
+    *(void**)self = (void*)((hulk_intptr)DAT_00421dfc);
+    Item_1cc530* p = (Item_1cc530*)self->_pad_24 + 24;
     int n = 24;
     do {
         --p;
         p->Init_002325f0();
         --n;
     } while (n != 0);
-    self->ref2 = self->ref;
-    if (self->ref)
-        ReleaseRef_0008d340(self->ref);
+    self->f_10 = self->f_0c;
+    if (self->f_0c)
+        ::operator delete[](self->f_0c);
 }
 } // namespace fn_001cc530
 
@@ -1973,8 +1966,6 @@ void __fastcall FUN_001cc530(CEventManager* self) {
 namespace fn_001cc570 {
 extern int hulk_at_00421dfc;
 
-void __cdecl FUN_0008d340(void*);
-void __cdecl FUN_0008d330(void*);
 
 struct Elem_1cc570 {
     char pad[0x28];
@@ -2003,10 +1994,10 @@ void* CEventManager::vfunc_0(unsigned char flags) {
     void* t = mPtr;
     mPtr2 = t;
     if (t) {
-        FUN_0008d340(t);
+        ::operator delete[](t);
     }
     if (flags & 1) {
-        FUN_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001c6610..0x001c6660 (kind game, layer game, confidence medium), dominant class content::ObjectLoader
 #include "tree_prelude.h"
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_f793680e {
 #define TREE_TU_END }
 #define TREE_LOCAL_CSPHulkProp
@@ -25,7 +26,6 @@ class NonCopyable : public LoadObject_1c6610 {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 
 
 // 0x001c6610 content::ObjectLoader::vfunc_2 (31 B): matches/0x001c6610.cpp
@@ -34,7 +34,7 @@ void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

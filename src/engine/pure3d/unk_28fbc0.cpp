@@ -10,6 +10,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f6be11fc {} using namespace fn_f6be11fc;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -51,11 +52,9 @@ class Obj_28fe30 {
     void reset_0027af00();
     Obj_28fe30* target();
 };
-typedef unsigned int u32_28fe50;
-void __cdecl thunk_FUN_00267090(u32_28fe50);
 struct Obj_28fe50 {
     char pad[8];
-    u32_28fe50 field;
+    void* field;   // (nat2, D134) a block, freed with operator delete[]
     void base_0027af50();
     void method();
 };
@@ -186,7 +185,7 @@ Obj_28fe30* Obj_28fe30::target() {
 // sym: ?method@Obj_28fe50@fn_f6be11fc@@QAEXXZ
 void Obj_28fe50::method() {
     if (field) {
-        thunk_FUN_00267090(field);
+        ::operator delete[](field);
         field = 0;
     }
     base_0027af50();

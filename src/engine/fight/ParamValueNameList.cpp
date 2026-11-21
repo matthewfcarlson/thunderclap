@@ -26,7 +26,6 @@ class ParamValueStringList {
     ParamValueStringList* vfunc_0(int);
 };
 }
-extern "C" void __cdecl thunk_FUN_00267090(fight::ParamValueStringList*);
 class Sub_235490 {
   public:
     void init_0027af50();
@@ -44,7 +43,6 @@ class ParamValueNameList {
     int pad;
     Sub_235490 sub;
 };
-extern void __cdecl thunk_FUN_00267090(ParamValueNameList*);
 } // namespace fn_faf04b50
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" int atexit(void (*)());
@@ -92,7 +90,7 @@ fight::ParamValueStringList* fight::ParamValueStringList::vfunc_0(int flag) {
     vt = (hulk_intptr)&base_vtable;
     part.Init_0027af50();
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -104,7 +102,7 @@ ParamValueNameList* ParamValueNameList::f0(int flag) {
     *(void**)p = (void*)((hulk_intptr)DAT_004279fc);
     p->sub.init_0027af50();
     if (flag & 1)
-        thunk_FUN_00267090(p);
+        ::operator delete(p);
     return p;
 }
 

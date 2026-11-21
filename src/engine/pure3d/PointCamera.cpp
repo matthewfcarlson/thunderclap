@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/pure3d.h"
 #include "gen/owners.h"
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_f8d4cfbc {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -13,7 +14,6 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f8d4cfbc {} using namespace fn_f8d4cfbc;
 namespace fn_f8d4cfbc {
-void __cdecl SweepTrack_DeleteThis_00263f30(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "engine/pure3d.h"
 
@@ -179,7 +179,7 @@ PointCamera_2c3460* PointCamera_2c3460::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042ed5c;
     Destroy_002926c0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }

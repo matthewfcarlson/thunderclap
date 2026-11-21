@@ -9,13 +9,13 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f7aa76dc {} using namespace fn_f7aa76dc;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f7aa76dc { extern "C" char DAT_003f6098[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f7aa76dc {
 extern int hulk_at_0042efc0, hulk_at_003f6098;
-extern void Free_0008d340(void*);
 class Ref_2c89b0 {
   public:
     virtual void f0();
@@ -422,21 +422,21 @@ class VertexOffsetList {
 // sym: ??1VertexList_2c89b0@fn_f7aa76dc@@QAE@XZ
 VertexList_2c89b0::~VertexList_2c89b0() {
     vptr = &hulk_at_0042efc0;
-    Free_0008d340(p14);
-    Free_0008d340(p18);
-    Free_0008d340(p1c);
-    Free_0008d340(p20);
-    Free_0008d340(p24);
-    Free_0008d340(p28);
-    Free_0008d340(p2c);
-    Free_0008d340(p30);
-    Free_0008d340(p34);
+    ::operator delete[](p14);
+    ::operator delete[](p18);
+    ::operator delete[](p1c);
+    ::operator delete[](p20);
+    ::operator delete[](p24);
+    ::operator delete[](p28);
+    ::operator delete[](p2c);
+    ::operator delete[](p30);
+    ::operator delete[](p34);
     for (int i = 0; i < 4; i++)
-        Free_0008d340(q[i]);
+        ::operator delete[](q[i]);
     for (int i = 0; i < 2; i++)
-        Free_0008d340(r[i]);
-    Free_0008d340(p50);
-    Free_0008d340(p54);
+        ::operator delete[](r[i]);
+    ::operator delete[](p50);
+    ::operator delete[](p54);
     if (a58) {
         a58->Release();
         a58 = 0;

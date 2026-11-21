@@ -10,6 +10,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_ff685ee7 {} using namespace fn_ff685ee7;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/pure3d.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -65,7 +66,6 @@ struct Inner_2a9e30 {
     char pad[0x10];
     Elem_2a9e30* elem;
 };
-void __cdecl thunk_FUN_00267090(void *p);
 extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 class Source_2a9ea0 {
 public:
@@ -102,8 +102,6 @@ class Source_2a9f30 {
     Ref_2a9f30* mRef;
 };
 extern char gVftable_2aa000[];
-extern void __cdecl freefn_0008d340(void*);
-extern void __cdecl opdel_00263f30(void*);
 class RefObj_2aa000 {
   public:
     virtual void f0();
@@ -210,7 +208,7 @@ bool pure3d::ExpressionAnimationController::vfunc_26(void* __p0) { Anim_2a9e30 *
 namespace fn_ff685ee7 {
 
 // 0x002a9ea0 FUN_002a9ea0 (135 B): equivalent/0x002a9ea0.cpp
-// sym: ?FUN_002a9ea0@ExpressionAnimationController_2a9ea0@fn_ff685ee7@@QAEXPAVSource_2a9ea0@2@@Z @80c2eb98712e @w9af7c7601a33 @veaba51858286
+// sym: ?FUN_002a9ea0@ExpressionAnimationController_2a9ea0@fn_ff685ee7@@QAEXPAVSource_2a9ea0@2@@Z @0ba56771789a @wcad4c03d24a1 @v1ea7e6c580ca
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 8/8)
 // FUN_002a9ea0 @ 0x002a9ea0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
@@ -218,7 +216,7 @@ namespace fn_ff685ee7 {
 void ExpressionAnimationController_2a9ea0::FUN_002a9ea0(Source_2a9ea0 *src)
 {
     count = 0;
-    thunk_FUN_00267090(values);
+    ::operator delete[](values);
     values = 0;
     if (src)
         src->AddRef();
@@ -330,10 +328,10 @@ ExpressionAnimationController* ExpressionAnimationController::vfunc_2(int flag) 
         *(int*)(b + 0x44) = 0;
     }
     _ReadWriteBarrier();
-    freefn_0008d340(*(void**)(b + 0x4c));
+    ::operator delete[](*(void**)(b + 0x4c));
     ((ExpressionAnimationController_2aa000*)this)->BaseDtor_00285800();
     if (flag & 1) {
-        opdel_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }

@@ -4,9 +4,10 @@
 
 
 // 0x0030fa10 FUN_0030fa10 (486 B): equivalent/0x0030fa10.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_0030fa10@Pose@fn_f6208780@@QAEXPAUSource_30fa10@2@@Z @9ba71de18a7c @wb8d1f3bf8cca @vb55bb4a40bc6
+// sym: ?FUN_0030fa10@Pose@fn_f6208780@@QAEXPAUSource_30fa10@2@@Z @f902720ba58c @w2e50b7b0bd35 @v3a5de196ea26
 #include "gen/owners.h"
 namespace fn_f6208780 {} using namespace fn_f6208780;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f6208780 {
 // STATUS: equivalent (tools/equiv.py level 3: 110 inputs, branch coverage 30/30)
 // FUN_0030fa10 @ 0x0030fa10
@@ -40,7 +41,6 @@ struct Source_30fa10 {
 };
 
 extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
-void __cdecl FUN_0008d340(void *p);
 void __fastcall FUN_0030eba0(void *self);
 void __stdcall FUN_00011520(void *base, unsigned int size, int count, void *ctor);
 
@@ -95,7 +95,7 @@ void Pose::FUN_0030fa10(Source_30fa10 *src)
             p--;
             p->FUN_0030ebd0();
         }
-        FUN_0008d340(cookie);
+        ::operator delete[](cookie);
     }
     int count = skeleton->count;
     Elem_30fa10 *arr = 0;

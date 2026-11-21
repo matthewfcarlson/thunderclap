@@ -16,6 +16,7 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CCollisionAction
 namespace fn_f03c5b48 {} using namespace fn_f03c5b48;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/pure3d/prop.h"
 
 // ---- declarations shared by the functions below
@@ -1866,7 +1867,7 @@ StateProp::StateProp(Group_27def0 *a, int b)
 
 
 // 0x0027e2d0 FUN_0027e2d0 (481 B): equivalent/0x0027e2d0.cpp [wrapped: conflict: pure3d::prop::StateProp]
-// sym: ??1StateProp@prop@pure3d@fn_0027e2d0@@QAE@XZ @8a7b4f6fbaa0 @waf0befdb14bd @v14e36a4e9b72
+// sym: ??1StateProp@prop@pure3d@fn_0027e2d0@@QAE@XZ @1ded3dbee0bd @w6935b627d618 @ve641e25d20cf
 namespace fn_0027e2d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 34 inputs, branch coverage 31/34, incomplete)
 // FUN_0027e2d0 @ 0x0027e2d0
@@ -1880,8 +1881,8 @@ struct Attachment_27e2d0 { Ref_27e2d0 *object; unsigned unused[2]; };
 struct Manager_27e2d0 { void FUN_002eecb0(unsigned); void FUN_002ee700(Item_27e2d0*); };
 struct Registry_27e2d0 { void FUN_002834b0(unsigned); };
 extern Registry_27e2d0 *__cdecl FUN_0027f250();
-extern void __cdecl FUN_0008d330(void*);
-extern void __cdecl FUN_0008d340(void*);
+
+
 struct DrawableHierarchy_27e2d0 { virtual void slot0(); void FUN_002a35f0(); };
 namespace pure3d { namespace prop {
 struct StateProp : DrawableHierarchy_27e2d0 {
@@ -1908,7 +1909,7 @@ StateProp::~StateProp() {
   Item_27e2d0 **p=items+j;
   if(*p) { (*p)->release(); *p=0; }
  }
- FUN_0008d330(items);
+ ::operator delete(items);
  for(int k=0;k<attachmentCount;++k) {
   Attachment_27e2d0 *a=attachments+k;
   if(a->object) { a->object->release(); a->object=0; }
@@ -1916,7 +1917,7 @@ StateProp::~StateProp() {
  unsigned bytes=entryCount*24u;
  unsigned *words=(unsigned*)entries;
  for(unsigned n=0;n<(bytes>>2);++n) words[n]=0;
- FUN_0008d340(entries);
+ ::operator delete[](entries);
  if(resource) { resource->release(); resource=0; }
  if(data) { data->release(); data=0; }
  if(other1) { other1->release(); other1=0; }
@@ -2133,11 +2134,10 @@ class NonCopyable : public SimpleChunkHandler_27e8b0 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0027e8b0

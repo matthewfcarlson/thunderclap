@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fdd3dec6 {} using namespace fn_fdd3dec6;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/unknown.h"
 
 // ---- declarations shared by the functions below
@@ -148,12 +149,6 @@ public:
     int state;
 
     Container_31a6b0 *FUN_0031a6b0(const Container_31a6b0 *other);
-};
-struct Obj_31a800 {
-    int value;
-    int copy;
-    char pad[0x98];
-    int state;
 };
 extern "C" {
 extern float hulk_at_004d34e8;
@@ -614,14 +609,15 @@ Container_31a6b0 *Container_31a6b0::FUN_0031a6b0(const Container_31a6b0 *other)
 
 // 0x0031a800 FUN_0031a800 (39 B): matches/0x0031a800.cpp
 // sym: @FUN_0031a800@4
-extern "C" void __fastcall FUN_0031a800(Obj_31a800* p) {
-    int i = p->value;
-    p->copy = i;
-    if (p->state == 1)
-        p->state = 2;
-    p->copy = i;
+// (nat2, D134) the writer's (0x0031a440's record) clean-up: its buffer is a pointer, freed with operator delete[]
+extern "C" void __fastcall FUN_0031a800(Object* p) {
+    char* i = p->base;
+    p->current = i;
+    if (p->fa0 == 1)
+        p->fa0 = 2;
+    p->current = i;
     if (i)
-        thunk(i);
+        ::operator delete[](i);
 }
 
 

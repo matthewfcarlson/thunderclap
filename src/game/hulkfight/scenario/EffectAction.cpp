@@ -25,8 +25,6 @@ namespace fn_fc5dbd2a {} using namespace fn_fc5dbd2a;
 void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fc5dbd2a {
 struct FactoryCtor { void init_002343b0(); void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 namespace fn_fc5dbd2a { extern "C" char DAT_0041c4f0[], DAT_0041c590[], DAT_0041c5d0[], DAT_0041c668[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/scenario.h"
@@ -750,9 +748,8 @@ struct Track_1a34e0 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-int __cdecl FUN_0008d340(void *);
 void *__cdecl FUN_0008d6d0(unsigned int);
-struct Item { char pad[0x4c]; char* text; hulk_intptr FUN_001a3750(const char* value); };
+struct Item { char pad[0x4c]; char* text; bool FUN_001a3750(const char* value); };
 } // namespace fn_fc5dbd2a
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" unsigned int __cdecl strlen(const char*);
@@ -779,7 +776,6 @@ public:
     char* name;
     bool SetName(const char* s);
 };
-extern "C" void __cdecl Free(void*);
 extern "C" void* __cdecl Alloc(hulk_uintptr);
 class Obj_1a3bc0 {
     char pad[0xac];
@@ -788,8 +784,7 @@ class Obj_1a3bc0 {
   public:
     char Set(const char* p);
 };
-struct Holder { char pad[0xb0]; char *text; hulk_intptr FUN_001a3c30(const char *source); };
-extern "C" void freeMem_0008d340(void*);
+struct Holder { char pad[0xb0]; char *text; bool FUN_001a3c30(const char *source); };
 class Obj_1a3df0 {
     char pad[0xd0];
     char* text;
@@ -828,7 +823,6 @@ class Obj_1a4020 {
   public:
     bool set(const char* s);
 };
-extern "C" void freeBuf_0008d340(void*);
 extern "C" void* allocBuf_0008d6d0(unsigned int);
 class X_1a41e0 {
     char pad[0x11c];
@@ -886,7 +880,6 @@ class Obj_1a44f0 {
   public:
     unsigned char Set(const char* s);
 };
-extern "C" void __cdecl FreeMem_0008d340(void*);
 class Obj_1a45d0 {
     char pad[0x160];
     char* name;
@@ -1057,7 +1050,7 @@ struct Object {
     char _m_pad_2c[0x30];
     char* name;
     unsigned char FUN_001a36f0(const char *value);
-    hulk_intptr FUN_001a37b0(const char* text);
+    bool FUN_001a37b0(const char* text);
     unsigned int FUN_001a5340(unsigned int index);
     void FUN_001a54a0(Vec3_1a55d0*, float*);
     void FUN_001a55d0();
@@ -1164,7 +1157,6 @@ struct Obj_1a5ad0 {
     void f1_0027af50();
     void f2_002345b0();
 };
-extern void thunk_FUN_00267090(Obj_1a5ad0*);
 class Event_StringCondition_1a5ad0 {
   public:
     void* vftable;
@@ -1213,7 +1205,6 @@ struct Obj_1a5bc0 {
     void f1_0027af50();
     void f2_002345b0();
 };
-extern void thunk_FUN_00267090(Obj_1a5bc0*);
 class Event_PropTypeCondition_1a5bc0 {
   public:
     void* vftable;
@@ -1226,7 +1217,6 @@ struct Obj_1a5bf0 {
     void f1_0027af50();
     void f2_002345b0();
 };
-extern void thunk_FUN_00267090(Obj_1a5bf0*);
 class Event_PropStateNameCondition_1a5bf0 {
   public:
     void* vftable;
@@ -1239,7 +1229,6 @@ struct Obj_1a5c20 {
     void f1_0027af50();
     void f2_002345b0();
 };
-extern void thunk_FUN_00267090(Obj_1a5c20*);
 class Event_PropNameCondition_1a5c20 {
   public:
     void* vftable;
@@ -1268,7 +1257,6 @@ class EffectTrack {
     virtual void v10();
     char pad[0x58 - 4];
 };
-void __cdecl Destroy_0008d330(EffectTrack*);
 class X_1a5e20 {
   public:
     char pad[0x24];
@@ -1671,7 +1659,6 @@ class EffectAction {
 class EffectAction_1a8f80 {
   public:
 };
-extern void __cdecl thunk_FUN_00267090(EffectAction*);
 struct Obj_1a9260 {
     Obj_1a9260* Get_00231640();
     Obj_1a9260* Target();
@@ -3408,7 +3395,6 @@ hulk_freg hulkfight::scenario::NISAnimationTrack::vfunc_7() {
 // sym: ??1NISAnimationTrack_1a34f0@fn_001a34f0@@QAE@XZ
 namespace fn_001a34f0 {
 extern void* DAT_0041c620[];
-void FUN_0008d340(void*) throw();
 class Track_1a34f0 {
   public:
     void* vptr;
@@ -3484,48 +3470,48 @@ class NISAnimationTrack_1a34f0 : public Track_1a34f0 {
 };
 NISAnimationTrack_1a34f0::~NISAnimationTrack_1a34f0() throw() {
     vptr = DAT_0041c620;
-    FUN_0008d340(m24);
-    FUN_0008d340(m4c);
-    FUN_0008d340(m5c);
-    FUN_0008d340(m60);
-    FUN_0008d340(m6c);
-    FUN_0008d340(m70);
-    FUN_0008d340(m7c);
-    FUN_0008d340(m80);
-    FUN_0008d340(m8c);
-    FUN_0008d340(m90);
-    FUN_0008d340(m9c);
-    FUN_0008d340(ma0);
-    FUN_0008d340(mac);
-    FUN_0008d340(mb0);
-    FUN_0008d340(mbc);
-    FUN_0008d340(mc0);
-    FUN_0008d340(mcc);
-    FUN_0008d340(md0);
-    FUN_0008d340(mdc);
-    FUN_0008d340(me0);
-    FUN_0008d340(mec);
-    FUN_0008d340(mf0);
-    FUN_0008d340(mfc);
-    FUN_0008d340(m100);
-    FUN_0008d340(m10c);
-    FUN_0008d340(m110);
-    FUN_0008d340(m11c);
-    FUN_0008d340(m120);
-    FUN_0008d340(m12c);
-    FUN_0008d340(m130);
-    FUN_0008d340(m13c);
-    FUN_0008d340(m140);
-    FUN_0008d340(m14c);
-    FUN_0008d340(m150);
-    FUN_0008d340(m15c);
-    FUN_0008d340(m160);
-    FUN_0008d340(m16c);
-    FUN_0008d340(m170);
-    FUN_0008d340(m17c);
-    FUN_0008d340(m180);
-    FUN_0008d340(m18c);
-    FUN_0008d340(m190);
+    ::operator delete[](m24);
+    ::operator delete[](m4c);
+    ::operator delete[](m5c);
+    ::operator delete[](m60);
+    ::operator delete[](m6c);
+    ::operator delete[](m70);
+    ::operator delete[](m7c);
+    ::operator delete[](m80);
+    ::operator delete[](m8c);
+    ::operator delete[](m90);
+    ::operator delete[](m9c);
+    ::operator delete[](ma0);
+    ::operator delete[](mac);
+    ::operator delete[](mb0);
+    ::operator delete[](mbc);
+    ::operator delete[](mc0);
+    ::operator delete[](mcc);
+    ::operator delete[](md0);
+    ::operator delete[](mdc);
+    ::operator delete[](me0);
+    ::operator delete[](mec);
+    ::operator delete[](mf0);
+    ::operator delete[](mfc);
+    ::operator delete[](m100);
+    ::operator delete[](m10c);
+    ::operator delete[](m110);
+    ::operator delete[](m11c);
+    ::operator delete[](m120);
+    ::operator delete[](m12c);
+    ::operator delete[](m130);
+    ::operator delete[](m13c);
+    ::operator delete[](m140);
+    ::operator delete[](m14c);
+    ::operator delete[](m150);
+    ::operator delete[](m15c);
+    ::operator delete[](m160);
+    ::operator delete[](m16c);
+    ::operator delete[](m170);
+    ::operator delete[](m17c);
+    ::operator delete[](m180);
+    ::operator delete[](m18c);
+    ::operator delete[](m190);
     Fin_00236d60();
 }
 } // namespace fn_001a34f0
@@ -3533,37 +3519,36 @@ NISAnimationTrack_1a34f0::~NISAnimationTrack_1a34f0() throw() {
 namespace fn_fc5dbd2a {
 
 // 0x001a36f0 FUN_001a36f0 (82 B): equivalent/0x001a36f0.cpp
-// sym: ?FUN_001a36f0@Object@fn_fc5dbd2a@@QAEEPBD@Z @730fdd4c8c33 @w964984f6113e @v07c02ba5a6a8
+// sym: ?FUN_001a36f0@Object@fn_fc5dbd2a@@QAEEPBD@Z @cd6663253d69 @wa96c21c7d783 @v20113011aaf1
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a36f0 @ 0x001a36f0
-unsigned char Object::FUN_001a36f0(const char *value) { FUN_0008d340(text); if (!value) { text = 0; return 1; } unsigned int length = 0; while (value[length]) ++length; char *copy = (char *)FUN_0008d6d0(length + 1); text = copy; do { *copy++ = *value; } while (*value++); return 1; }
+unsigned char Object::FUN_001a36f0(const char *value) { ::operator delete[](text); if (!value) { text = 0; return 1; } unsigned int length = 0; while (value[length]) ++length; char *copy = (char *)FUN_0008d6d0(length + 1); text = copy; do { *copy++ = *value; } while (*value++); return 1; }
 
 
 // 0x001a3750 FUN_001a3750 (82 B): equivalent/0x001a3750.cpp
-// sym: ?FUN_001a3750@Item@fn_fc5dbd2a@@QAEHPBD@Z @55d4d8a923e2 @w9862036b34fa @v93eade198543
+// sym: ?FUN_001a3750@Item@fn_fc5dbd2a@@QAE_NPBD@Z @d5155251b87d @w9ea8dce8d227 @vdc0d4000ce8a
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a3750 @ 0x001a3750
-hulk_intptr Item::FUN_001a3750(const char* value) { int result = FUN_0008d340(text); if (!value) { text = 0; return (result & ~255) | 1; } unsigned int length = 0; while (value[length]) ++length; char* allocated = (char*)FUN_0008d6d0(length + 1); text = allocated; char* dest = allocated; do { char c = *value++; *dest++ = c; } while (dest[-1]); return ((hulk_intptr)allocated & ~255) | 1; }
+bool Item::FUN_001a3750(const char* value) { ::operator delete[](text); if (!value) { text = 0; return true; } unsigned int length = 0; while (value[length]) ++length; char* allocated = (char*)FUN_0008d6d0(length + 1); text = allocated; char* dest = allocated; do { char c = *value++; *dest++ = c; } while (dest[-1]); return true; }
 
 
 // 0x001a37b0 FUN_001a37b0 (82 B): equivalent/0x001a37b0.cpp
-// sym: ?FUN_001a37b0@Object@fn_fc5dbd2a@@QAEHPBD@Z @60a4f059bfa7 @w6d0f2950bc79 @v2808405c9630
+// sym: ?FUN_001a37b0@Object@fn_fc5dbd2a@@QAE_NPBD@Z @2855efba6718 @w310aeff7f114 @va035e9183ef7
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a37b0 @ 0x001a37b0
-hulk_intptr Object::FUN_001a37b0(const char* text) { int result = FUN_0008d340(name); if (!text) { name = 0; return (result & ~255) | 1; } unsigned int size = 0; do { ++size; } while (text[size-1]); char* allocated = (char*)FUN_0008d6d0(size); name = allocated; char* dest = allocated; do { *dest++ = *text; } while (*text++); return ((hulk_intptr)allocated & ~255) | 1; }
+bool Object::FUN_001a37b0(const char* text) { ::operator delete[](name); if (!text) { name = 0; return true; } unsigned int size = 0; do { ++size; } while (text[size-1]); char* allocated = (char*)FUN_0008d6d0(size); name = allocated; char* dest = allocated; do { *dest++ = *text; } while (*text++); return true; }
 
 } // namespace fn_fc5dbd2a
 
 // 0x001a3810 FUN_001a3810 (82 B): equivalent/0x001a3810.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001a3810@Object@fn_001a3810@@QAEEPBD@Z @85c07aa1b87d @w7a6fce08f99c @v421b0f0626e7
+// sym: ?FUN_001a3810@Object@fn_001a3810@@QAEEPBD@Z @aef83b893771 @w7f23e13054fd @v606dc0d1baff
 namespace fn_001a3810 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a3810 @ 0x001a3810
-extern "C++" __declspec(nothrow) void __cdecl FUN_0008d340(void *);
 extern "C++" __declspec(nothrow) void * __cdecl FUN_0008d6d0(unsigned int);
 struct Object { char pad[0x60]; char *text; unsigned char FUN_001a3810(const char *source); };
 unsigned char Object::FUN_001a3810(const char *source) {
-    FUN_0008d340(text);
+    ::operator delete[](text);
     if (!source) { text = 0; return 1; }
     unsigned int size = 0;
     while (source[size]) ++size;
@@ -3576,15 +3561,14 @@ unsigned char Object::FUN_001a3810(const char *source) {
 
 
 // 0x001a3870 FUN_001a3870 (82 B): equivalent/0x001a3870.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001a3870@Object@fn_001a3870@@QAEEPBD@Z @61c7d17f6111 @wc5fc0ae62399 @vd822603426e2
+// sym: ?FUN_001a3870@Object@fn_001a3870@@QAEEPBD@Z @0d8b5b1d179a @w3fa3fcf95268 @v2ce3a6cace99
 namespace fn_001a3870 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a3870 @ 0x001a3870
-extern "C++" __declspec(nothrow) void __cdecl FUN_0008d340(void *);
 extern "C++" __declspec(nothrow) void * __cdecl FUN_0008d6d0(unsigned int);
 struct Object { char padding[0x6c]; char *text; unsigned char FUN_001a3870(const char *source); };
 unsigned char Object::FUN_001a3870(const char *source) {
-    FUN_0008d340(text);
+    ::operator delete[](text);
     if (!source) { text = 0; return 1; }
     const char *end = source;
     while (*end) ++end;
@@ -3609,7 +3593,6 @@ extern "C" unsigned __cdecl strlen(const char*);
 extern "C" char* __cdecl strcpy(char*, const char*);
 #endif
 
-void __cdecl FUN_0008d340(void*);
 void* __cdecl FUN_0008d6d0(unsigned int);
 class Obj {
     char pad[0x70];
@@ -3619,7 +3602,7 @@ class Obj {
     char set(const char* s);
 };
 char Obj::set(const char* s) {
-    FUN_0008d340(text);
+    ::operator delete[](text);
     if (!s) {
         text = 0;
         return 1;
@@ -3634,7 +3617,6 @@ char Obj::set(const char* s) {
 // 0x001a3930 FUN_001a3930 (82 B): matches/0x001a3930.cpp [wrapped: conflict: Obj]
 // sym: ?Set@Obj@fn_001a3930@@QAEDPBD@Z
 namespace fn_001a3930 {
-extern "C++" __declspec(nothrow) void release_0008d340(void*);
 extern "C++" __declspec(nothrow) void* alloc_0008d6d0(unsigned int);
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -3654,7 +3636,7 @@ class Obj {
     char Set(const char* s);
 };
 char Obj::Set(const char* s) {
-    release_0008d340(text);
+    ::operator delete[](text);
     if (!s) {
         text = 0;
         return 1;
@@ -3671,7 +3653,7 @@ namespace fn_fc5dbd2a {
 // sym: ?SetName@Obj_1a3990@fn_fc5dbd2a@@QAE_NPBD@Z
 bool Obj_1a3990::SetName(const char* s)
 {
-    thunk_FUN_00267090(name);
+    ::operator delete[](name);
     if (s == 0) {
         name = 0;
         return true;
@@ -3684,22 +3666,22 @@ bool Obj_1a3990::SetName(const char* s)
 } // namespace fn_fc5dbd2a
 
 // 0x001a3a00 FUN_001a3a00 (97 B): equivalent/0x001a3a00.cpp [wrapped: conflict: FUN_0008d340; Item]
-// sym: ?FUN_001a3a00@Item@fn_001a3a00@@QAEIPBD@Z @f3c74008bc96 @w0b615932c400 @v5ac66006fd1a
+// sym: ?FUN_001a3a00@Item@fn_001a3a00@@QAE_NPBD@Z @81bd0e330b0e @wdea02449f543 @v1b9017e69995
 namespace fn_001a3a00 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a3a00 @ 0x001a3a00
-extern "C++" __declspec(nothrow) unsigned int __cdecl FUN_0008d340(void *);
+
 extern "C++" __declspec(nothrow) void *__cdecl FUN_0008d6d0(unsigned int);
 struct Item {
     char padding[0x8c];
     char *text;
-    unsigned int FUN_001a3a00(const char *source);
+    bool FUN_001a3a00(const char *source);
 };
-unsigned int Item::FUN_001a3a00(const char *source) {
-    unsigned int result = FUN_0008d340(text);
+bool Item::FUN_001a3a00(const char *source) {
+    ::operator delete[](text);
     if (!source) {
         text = 0;
-        return (result & ~255u) | 1;
+        return true;
     }
     unsigned int length = 0;
     while (source[length]) ++length;
@@ -3709,7 +3691,7 @@ unsigned int Item::FUN_001a3a00(const char *source) {
     do {
         *dest++ = *source;
     } while (*source++);
-    return ((hulk_uintptr)allocated & ~255u) | 1;
+    return true;
 }
 } // namespace fn_001a3a00
 
@@ -3731,22 +3713,22 @@ char Obj_1a3a70::Set(const char* s) {
 } // namespace fn_fc5dbd2a
 
 // 0x001a3ae0 FUN_001a3ae0 (97 B): equivalent/0x001a3ae0.cpp [wrapped: conflict: FUN_0008d340; Object]
-// sym: ?FUN_001a3ae0@Object@fn_001a3ae0@@QAEHPBD@Z @7c5bad41b05a @w3f96d9b3db47 @vf4fddc3820a4
+// sym: ?FUN_001a3ae0@Object@fn_001a3ae0@@QAE_NPBD@Z @313d251a5c73 @w09439b70d3f5 @ve09a5ce2fa82
 namespace fn_001a3ae0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a3ae0 @ 0x001a3ae0
-extern "C++" __declspec(nothrow) void * __cdecl FUN_0008d340(void *);
+
 extern "C++" __declspec(nothrow) void * __cdecl FUN_0008d6d0(unsigned int);
 struct Object {
     char pad[0x9c];
     char *text;
-    int FUN_001a3ae0(const char *source);
+    bool FUN_001a3ae0(const char *source);
 };
-int Object::FUN_001a3ae0(const char *source) {
-    void *freeResult = FUN_0008d340(text);
+bool Object::FUN_001a3ae0(const char *source) {
+    ::operator delete[](text);
     if (!source) {
         text = 0;
-        return ((hulk_uintptr)freeResult & ~255u) | 1;
+        return true;
     }
     const char *end = source;
     while (*end) ++end;
@@ -3756,7 +3738,7 @@ int Object::FUN_001a3ae0(const char *source) {
     do {
         *destination++ = *source;
     } while (*source++);
-    return ((hulk_uintptr)allocated & ~255u) | 1;
+    return true;
 }
 } // namespace fn_001a3ae0
 
@@ -3766,7 +3748,7 @@ namespace fn_fc5dbd2a {
 // sym: ?SetName@Obj_001a3b50@fn_fc5dbd2a@@QAE_NPBD@Z
 bool Obj_001a3b50::SetName(const char* s)
 {
-    thunk_FUN_00267090(name);
+    ::operator delete[](name);
     if (s == 0) {
         name = 0;
         return true;
@@ -3792,14 +3774,14 @@ char Obj_1a3bc0::Set(const char* p) {
 
 
 // 0x001a3c30 FUN_001a3c30 (97 B): equivalent/0x001a3c30.cpp
-// sym: ?FUN_001a3c30@Holder@fn_fc5dbd2a@@QAEHPBD@Z @e19beb52aaec @wbb0cb7ccfc6e @v6209e9200514
+// sym: ?FUN_001a3c30@Holder@fn_fc5dbd2a@@QAE_NPBD@Z @4ae45914e472 @wa9eea8ca960e @v01e06621db10
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a3c30 @ 0x001a3c30
-hulk_intptr Holder::FUN_001a3c30(const char *source) {
-    int result = FUN_0008d340(text);
+bool Holder::FUN_001a3c30(const char *source) {
+    ::operator delete[](text);
     if (!source) {
         text = 0;
-        return (result & ~255) | 1;
+        return true;
     }
     const char *end = source;
     while (*end) ++end;
@@ -3807,37 +3789,37 @@ hulk_intptr Holder::FUN_001a3c30(const char *source) {
     text = dest;
     char *out = dest;
     do { *out++ = *source; } while (*source++);
-    return ((hulk_intptr)dest & ~255) | 1;
+    return true;
 }
 
 } // namespace fn_fc5dbd2a
 
 // 0x001a3ca0 FUN_001a3ca0 (97 B): equivalent/0x001a3ca0.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001a3ca0@Object@fn_001a3ca0@@QAEHPBD@Z @6bd264dd14d8 @w04ed672be95e @vf3c808432632
+// sym: ?FUN_001a3ca0@Object@fn_001a3ca0@@QAE_NPBD@Z @581795b67f1c @w9e8cbed7af27 @v11fe5789fd6a
 namespace fn_001a3ca0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a3ca0 @ 0x001a3ca0
-struct Object { char pad[0xbc]; char* text; hulk_intptr FUN_001a3ca0(const char* value); }; int __cdecl FUN_0008d340(void*); void* __cdecl FUN_0008d6d0(unsigned int); hulk_intptr Object::FUN_001a3ca0(const char* value) { int result = FUN_0008d340(text); if (!value) { text = 0; return (result & ~255) | 1; } unsigned int length = 0; while (value[length]) ++length; char* allocated = (char*)FUN_0008d6d0(length + 1); text = allocated; char* dest = allocated; do { *dest++ = *value; } while (*value++); return ((hulk_intptr)allocated & ~255) | 1; }
+struct Object { char pad[0xbc]; char* text; bool FUN_001a3ca0(const char* value); }; void* __cdecl FUN_0008d6d0(unsigned int); bool Object::FUN_001a3ca0(const char* value) { ::operator delete[](text); if (!value) { text = 0; return true; } unsigned int length = 0; while (value[length]) ++length; char* allocated = (char*)FUN_0008d6d0(length + 1); text = allocated; char* dest = allocated; do { *dest++ = *value; } while (*value++); return true; }
 } // namespace fn_001a3ca0
 
 
 // 0x001a3d10 FUN_001a3d10 (97 B): equivalent/0x001a3d10.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001a3d10@Object@fn_001a3d10@@QAEHPBD@Z @10ede74febbc @w2579a12a6f2d @v9818927576c5
+// sym: ?FUN_001a3d10@Object@fn_001a3d10@@QAE_NPBD@Z @c09a35e78ada @w4b5c3be202c4 @v271c3ec117e1
 namespace fn_001a3d10 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a3d10 @ 0x001a3d10
-int __cdecl FUN_0008d340(void *p);
+
 void * __cdecl FUN_0008d6d0(unsigned int size);
 struct Object {
     char padding[0xc0];
     char *name;
-    hulk_intptr FUN_001a3d10(const char *text);
+    bool FUN_001a3d10(const char *text);
 };
-hulk_intptr Object::FUN_001a3d10(const char *text) {
-    int result = FUN_0008d340(name);
+bool Object::FUN_001a3d10(const char *text) {
+    ::operator delete[](name);
     if (!text) {
         name = 0;
-        return (result & ~255) | 1;
+        return true;
     }
     const char *end = text;
     while (*end) ++end;
@@ -3847,17 +3829,17 @@ hulk_intptr Object::FUN_001a3d10(const char *text) {
     do {
         *destination++ = *text;
     } while (*text++);
-    return ((hulk_intptr)copy & ~255) | 1;
+    return true;
 }
 } // namespace fn_001a3d10
 
 
 // 0x001a3d80 FUN_001a3d80 (97 B): equivalent/0x001a3d80.cpp [wrapped: conflict: FUN_0008d340; Object]
-// sym: ?FUN_001a3d80@Object@fn_001a3d80@@QAEEPBD@Z @b22c8bd6058c @w2ee0837dcdbe @vedf6069efd6a
+// sym: ?FUN_001a3d80@Object@fn_001a3d80@@QAEEPBD@Z @9769f9df1802 @wacdb911b0e21 @v7870be138a69
 namespace fn_001a3d80 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a3d80 @ 0x001a3d80
-extern "C++" __declspec(nothrow) void * __cdecl FUN_0008d340(void *);
+
 extern "C++" __declspec(nothrow) void * __cdecl FUN_0008d6d0(unsigned int);
 struct Object {
     char pad[0xcc];
@@ -3865,7 +3847,7 @@ struct Object {
     unsigned char FUN_001a3d80(const char *value);
 };
 unsigned char Object::FUN_001a3d80(const char *value) {
-    FUN_0008d340(text);
+    ::operator delete[](text);
     if (!value) {
         text = 0;
         return 1;
@@ -3886,7 +3868,7 @@ namespace fn_fc5dbd2a {
 // 0x001a3df0 FUN_001a3df0 (97 B): matches/0x001a3df0.cpp
 // sym: ?SetText@Obj_1a3df0@fn_fc5dbd2a@@QAEDPBD@Z
 char Obj_1a3df0::SetText(const char* s) {
-    freeMem_0008d340(text);
+    ::operator delete[](text);
     if (!s) {
         text = 0;
         return 1;
@@ -3900,7 +3882,7 @@ char Obj_1a3df0::SetText(const char* s) {
 // 0x001a3e60 FUN_001a3e60 (97 B): matches/0x001a3e60.cpp
 // sym: ?Set@Obj_1a3e60@fn_fc5dbd2a@@QAEDPAD@Z
 char Obj_1a3e60::Set(char* s) {
-    thunk_FUN_00267090(str);
+    ::operator delete[](str);
     if (!s) {
         str = s;
         return 1;
@@ -3913,23 +3895,23 @@ char Obj_1a3e60::Set(char* s) {
 } // namespace fn_fc5dbd2a
 
 // 0x001a3ed0 FUN_001a3ed0 (97 B): equivalent/0x001a3ed0.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001a3ed0@Object@fn_001a3ed0@@QAEIPBD@Z @0524740d241f @w5b684cecafd4 @v1297104a4720
+// sym: ?FUN_001a3ed0@Object@fn_001a3ed0@@QAE_NPBD@Z @ed44832f1749 @w638b85f9f901 @v35983162c26f
 namespace fn_001a3ed0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a3ed0 @ 0x001a3ed0
-struct Object { char pad[0xe0]; char* text; unsigned int FUN_001a3ed0(const char* value); };
-unsigned int __cdecl FUN_0008d340(void*);
+struct Object { char pad[0xe0]; char* text; bool FUN_001a3ed0(const char* value); };
+
 void* __cdecl FUN_0008d6d0(unsigned int);
-unsigned int Object::FUN_001a3ed0(const char* value) {
-    unsigned int freed = FUN_0008d340(text);
-    if (!value) { text = 0; return (freed & ~255u) | 1; }
+bool Object::FUN_001a3ed0(const char* value) {
+    ::operator delete[](text);
+    if (!value) { text = 0; return true; }
     const char* end = value;
     while (*end) ++end;
     char* result = (char*)FUN_0008d6d0((unsigned int)(end - value + 1));
     text = result;
     char* dest = result;
     do { *dest++ = *value; } while (*value++);
-    return ((hulk_uintptr)result & ~255u) | 1;
+    return true;
 }
 } // namespace fn_001a3ed0
 
@@ -3953,7 +3935,6 @@ unsigned char Obj_1a3f40::Set(const char* s) {
 // 0x001a3fb0 FUN_001a3fb0 (97 B): matches/0x001a3fb0.cpp [wrapped: conflict: FUN_0008d340]
 // sym: ?Set@Obj_1a3fb0@fn_001a3fb0@@QAEDPAD@Z
 namespace fn_001a3fb0 {
-void __cdecl FUN_0008d340(void*);
 void* __cdecl FUN_0008d6d0(unsigned int);
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -3973,7 +3954,7 @@ class Obj_1a3fb0 {
     char Set(char* s);
 };
 char Obj_1a3fb0::Set(char* s) {
-    FUN_0008d340(text);
+    ::operator delete[](text);
     if (!s) {
         text = 0;
         return 1;
@@ -4002,66 +3983,65 @@ bool Obj_1a4020::set(const char* s) {
 } // namespace fn_fc5dbd2a
 
 // 0x001a4090 FUN_001a4090 (97 B): equivalent/0x001a4090.cpp [wrapped: conflict: FUN_0008d340; Holder]
-// sym: ?FUN_001a4090@Holder@fn_001a4090@@QAEIPBD@Z @f9509b6bc8eb @wed5ff5b72cff @v55479c2cfbd5
+// sym: ?FUN_001a4090@Holder@fn_001a4090@@QAE_NPBD@Z @bb069aab0220 @wfd15b5aaecce @v74d22e7fb7d7
 namespace fn_001a4090 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a4090 @ 0x001a4090
-extern "C++" __declspec(nothrow) unsigned int __cdecl FUN_0008d340(void *);
+
 extern "C++" __declspec(nothrow) void * __cdecl FUN_0008d6d0(unsigned int);
-struct Holder { char pad[0x100]; char *text; unsigned int FUN_001a4090(const char *source); };
-unsigned int Holder::FUN_001a4090(const char *source) {
-    unsigned int result = FUN_0008d340(text);
-    if (!source) { text = 0; return (result & 0xffffff00u) | 1; }
+struct Holder { char pad[0x100]; char *text; bool FUN_001a4090(const char *source); };
+bool Holder::FUN_001a4090(const char *source) {
+    ::operator delete[](text);
+    if (!source) { text = 0; return true; }
     const char *end = source;
     while (*end) ++end;
     char *destination = (char *)FUN_0008d6d0((unsigned int)(end - source + 1));
     text = destination;
     char *out = destination;
     do { *out++ = *source; } while (*source++);
-    return ((hulk_uintptr)destination & 0xffffff00u) | 1;
+    return true;
 }
 } // namespace fn_001a4090
 
 
 // 0x001a4100 FUN_001a4100 (97 B): equivalent/0x001a4100.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001a4100@Object@fn_001a4100@@QAEIPBD@Z @654f5a1fc25b @w4dc0106e81bf @v2a8ae46bdb9a
+// sym: ?FUN_001a4100@Object@fn_001a4100@@QAE_NPBD@Z @91a2a90bd241 @wb2a7a494db18 @v9c313b292fd1
 namespace fn_001a4100 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a4100 @ 0x001a4100
-extern "C" unsigned int __cdecl thunk_FUN_0008d340(void *); extern "C++" __declspec(nothrow) void * __cdecl FUN_0008d6d0(unsigned int);
-struct Object { char padding[0x10c]; char *text; unsigned int FUN_001a4100(const char *source); };
-unsigned int Object::FUN_001a4100(const char *source) {
-    unsigned int result = thunk_FUN_0008d340(text);
-    if (!source) { text = 0; return (result & 0xffffff00U) | 1; }
+extern "C++" __declspec(nothrow) void * __cdecl FUN_0008d6d0(unsigned int);
+struct Object { char padding[0x10c]; char *text; bool FUN_001a4100(const char *source); };
+bool Object::FUN_001a4100(const char *source) {
+    ::operator delete[](text);
+    if (!source) { text = 0; return true; }
     const char *end = source;
     while (*end) ++end;
     char *allocated = (char *)FUN_0008d6d0((unsigned int)(end - source + 1));
     text = allocated;
     char *destination = allocated;
     do { *destination++ = *source; } while (*source++);
-    return (((hulk_uintptr)allocated) & 0xffffff00U) | 1;
+    return true;
 }
 } // namespace fn_001a4100
 
 
 // 0x001a4170 FUN_001a4170 (97 B): equivalent/0x001a4170.cpp [wrapped: conflict: FUN_0008d340; Object]
-// sym: ?FUN_001a4170@Object@fn_001a4170@@QAEIPBD@Z @c1d6ac7e0c99 @w99e879f020a9 @vfbdaf10d9fa3
+// sym: ?FUN_001a4170@Object@fn_001a4170@@QAE_NPBD@Z @cdbfb9e5c025 @wce513114d6ee @v43b211b1c977
 namespace fn_001a4170 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a4170 @ 0x001a4170
-extern "C++" __declspec(nothrow) unsigned int __cdecl FUN_0008d340(void *);
+
 extern "C++" __declspec(nothrow) void * __cdecl FUN_0008d6d0(unsigned int);
-struct Object { char pad[0x110]; char *name; unsigned int FUN_001a4170(const char *text); };
-unsigned int Object::FUN_001a4170(const char *text) {
-    hulk_uintptr result = FUN_0008d340(name);
-    if (!text) { name = 0; return (result & 0xffffff00u) | 1; }
+struct Object { char pad[0x110]; char *name; bool FUN_001a4170(const char *text); };
+bool Object::FUN_001a4170(const char *text) {
+    ::operator delete[](name);
+    if (!text) { name = 0; return true; }
     const char *end = text;
     while (*end) ++end;
     name = (char *)FUN_0008d6d0((unsigned int)(end - text + 1));
-    result = (hulk_uintptr)name;
     char *out = name;
     do { *out++ = *text; } while (*text++);
-    return (result & 0xffffff00u) | 1;
+    return true;
 }
 } // namespace fn_001a4170
 
@@ -4070,7 +4050,7 @@ namespace fn_fc5dbd2a {
 // 0x001a41e0 FUN_001a41e0 (97 B): matches/0x001a41e0.cpp
 // sym: ?Set@X_1a41e0@fn_fc5dbd2a@@QAEEPBD@Z
 unsigned char X_1a41e0::Set(const char* s) {
-    freeBuf_0008d340(str);
+    ::operator delete[](str);
     if (!s) {
         str = 0;
         return 1;
@@ -4114,7 +4094,7 @@ unsigned char Obj_1a42c0::Set(const char* s) {
 // sym: ?SetName@Obj_001a4330@fn_fc5dbd2a@@QAE_NPBD@Z
 bool Obj_001a4330::SetName(const char* s)
 {
-    thunk_FUN_00267090(name);
+    ::operator delete[](name);
     if (s == 0) {
         name = 0;
         return true;
@@ -4143,7 +4123,7 @@ unsigned char Obj_1a43a0::Set(char* s) {
 // sym: ?SetName@Obj_001a4410@fn_fc5dbd2a@@QAE_NPBD@Z
 bool Obj_001a4410::SetName(const char* s)
 {
-    thunk_FUN_00267090(name);
+    ::operator delete[](name);
     if (s == 0) {
         name = 0;
         return true;
@@ -4156,23 +4136,23 @@ bool Obj_001a4410::SetName(const char* s)
 } // namespace fn_fc5dbd2a
 
 // 0x001a4480 FUN_001a4480 (97 B): equivalent/0x001a4480.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001a4480@Object@fn_001a4480@@QAEIPBD@Z @cdeb237fe679 @we17533420416 @v2a53f4c3db5a
+// sym: ?FUN_001a4480@Object@fn_001a4480@@QAE_NPBD@Z @15ddafc0cb82 @w08df70fb7d61 @v66b8a3761ab3
 namespace fn_001a4480 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a4480 @ 0x001a4480
-extern "C" unsigned int __cdecl thunk_FUN_0008d340(void *);
+
 extern "C++" __declspec(nothrow) void * __cdecl FUN_0008d6d0(unsigned int);
-struct Object { char pad[0x14c]; char *name; unsigned int FUN_001a4480(const char *text); };
-unsigned int Object::FUN_001a4480(const char *text) {
-    unsigned int result = thunk_FUN_0008d340(name);
-    if (!text) { name = 0; return (result & ~255u) | 1; }
+struct Object { char pad[0x14c]; char *name; bool FUN_001a4480(const char *text); };
+bool Object::FUN_001a4480(const char *text) {
+    ::operator delete[](name);
+    if (!text) { name = 0; return true; }
     const char *end = text;
     while (*end) ++end;
     char *allocated = (char *)FUN_0008d6d0((unsigned int)(end - text + 1));
     name = allocated;
     char *dest = allocated;
     do { *dest++ = *text; } while (*text++);
-    return ((hulk_uintptr)allocated & ~255u) | 1;
+    return true;
 }
 } // namespace fn_001a4480
 
@@ -4196,7 +4176,6 @@ unsigned char Obj_1a44f0::Set(const char* s) {
 // 0x001a4560 FUN_001a4560 (97 B): matches/0x001a4560.cpp [wrapped: conflict: FUN_0008d6d0]
 // sym: ?Set@Obj_1a4560@fn_001a4560@@QAE_NPAD@Z
 namespace fn_001a4560 {
-extern "C++" __declspec(nothrow) void __cdecl thunk_FUN_00267090(char*);
 extern "C++" __declspec(nothrow) char* __cdecl FUN_0008d6d0(unsigned int);
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -4215,7 +4194,7 @@ class Obj_1a4560 {
     bool Set(char*);
 };
 bool Obj_1a4560::Set(char* s) {
-    thunk_FUN_00267090(text);
+    ::operator delete[](text);
     if (!s) {
         text = 0;
         return true;
@@ -4231,7 +4210,7 @@ namespace fn_fc5dbd2a {
 // 0x001a45d0 FUN_001a45d0 (97 B): matches/0x001a45d0.cpp
 // sym: ?SetName@Obj_1a45d0@fn_fc5dbd2a@@QAEEPBD@Z
 unsigned char Obj_1a45d0::SetName(const char* s) {
-    FreeMem_0008d340(name);
+    ::operator delete[](name);
     if (!s) {
         name = 0;
         return 1;
@@ -4244,22 +4223,21 @@ unsigned char Obj_1a45d0::SetName(const char* s) {
 } // namespace fn_fc5dbd2a
 
 // 0x001a4640 FUN_001a4640 (97 B): equivalent/0x001a4640.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001a4640@Object@fn_001a4640@@QAEIPBD@Z @26dc2c456289 @w3b33cbe005c9 @vf9e7b396db26
+// sym: ?FUN_001a4640@Object@fn_001a4640@@QAE_NPBD@Z @decf28c43195 @w3e589f67513f @vb6587a0f7b68
 namespace fn_001a4640 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a4640 @ 0x001a4640
-extern unsigned int __cdecl FUN_0008d340(void *);
 extern void *__cdecl FUN_0008d6d0(unsigned int);
 struct Object {
     char padding[0x16c];
     char *text;
-    unsigned int FUN_001a4640(const char *source);
+    bool FUN_001a4640(const char *source);
 };
-unsigned int Object::FUN_001a4640(const char *source) {
-    unsigned int result = FUN_0008d340(text);
+bool Object::FUN_001a4640(const char *source) {
+    ::operator delete[](text);
     if (!source) {
         text = 0;
-        return (result & 0xffffff00) | 1;
+        return true;
     }
     const char *end = source;
     do { ++end; } while (end[-1]);
@@ -4267,7 +4245,7 @@ unsigned int Object::FUN_001a4640(const char *source) {
     text = allocated;
     char *dest = allocated;
     do { *dest++ = *source; } while (*source++);
-    return (((hulk_uintptr)allocated) & 0xffffff00) | 1;
+    return true;
 }
 } // namespace fn_001a4640
 
@@ -4285,7 +4263,6 @@ extern "C" unsigned int __cdecl strlen(const char*);
 extern "C" char* __cdecl strcpy(char*, const char*);
 #endif
 
-void __cdecl FUN_0008d340(void*);
 void* __cdecl FUN_0008d6d0(unsigned int);
 class Obj_1a46b0 {
     char pad[0x170];
@@ -4295,7 +4272,7 @@ class Obj_1a46b0 {
     char Set(const char* p);
 };
 char Obj_1a46b0::Set(const char* p) {
-    FUN_0008d340(s);
+    ::operator delete[](s);
     if (!p) {
         s = 0;
         return 1;
@@ -4308,11 +4285,10 @@ char Obj_1a46b0::Set(const char* p) {
 
 
 // 0x001a4720 FUN_001a4720 (97 B): equivalent/0x001a4720.cpp [wrapped: conflict: FUN_0008d340; Object]
-// sym: ?FUN_001a4720@Object@fn_001a4720@@QAEEPBD@Z @9ff81637498b @w530225f658bc @v896f40191f76
+// sym: ?FUN_001a4720@Object@fn_001a4720@@QAEEPBD@Z @e0f0a927086f @we9779b56256f @va66e05300adc
 namespace fn_001a4720 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a4720 @ 0x001a4720
-extern void __cdecl FUN_0008d340(void *);
 extern void * __cdecl FUN_0008d6d0(unsigned int);
 struct Object {
     char padding[0x17c];
@@ -4320,7 +4296,7 @@ struct Object {
     unsigned char FUN_001a4720(const char *value);
 };
 unsigned char Object::FUN_001a4720(const char *value) {
-    FUN_0008d340(text);
+    ::operator delete[](text);
     if (!value) {
         text = 0;
         return 1;
@@ -4336,22 +4312,22 @@ unsigned char Object::FUN_001a4720(const char *value) {
 
 
 // 0x001a4790 FUN_001a4790 (97 B): equivalent/0x001a4790.cpp [wrapped: conflict: FUN_0008d340; Object]
-// sym: ?FUN_001a4790@Object@fn_001a4790@@QAEHPBD@Z @2ba81f6bf06d @w9f34832d4ed4 @va5ff24e5ded4
+// sym: ?FUN_001a4790@Object@fn_001a4790@@QAE_NPBD@Z @235c31f35d33 @w7b6e473e6145 @vcb64c721ceeb
 namespace fn_001a4790 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a4790 @ 0x001a4790
-extern "C++" __declspec(nothrow) unsigned int __cdecl FUN_0008d340(void *);
+
 extern "C++" __declspec(nothrow) void *__cdecl FUN_0008d6d0(unsigned int);
 struct Object {
     char padding[0x180];
     char *text;
-    int FUN_001a4790(const char *source);
+    bool FUN_001a4790(const char *source);
 };
-int Object::FUN_001a4790(const char *source) {
-    unsigned int freed = FUN_0008d340(text);
+bool Object::FUN_001a4790(const char *source) {
+    ::operator delete[](text);
     if (!source) {
         text = 0;
-        return (freed & 0xffffff00u) | 1;
+        return true;
     }
     unsigned int length = 0;
     while (source[length]) ++length;
@@ -4361,21 +4337,20 @@ int Object::FUN_001a4790(const char *source) {
     do {
         *destination++ = *source;
     } while (*source++);
-    return ((hulk_uintptr)allocated & 0xffffff00u) | 1;
+    return true;
 }
 } // namespace fn_001a4790
 
 
 // 0x001a4800 FUN_001a4800 (97 B): equivalent/0x001a4800.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001a4800@Object@fn_001a4800@@QAEEPBD@Z @128c33dc03f3 @wd4c00f543ddc @vc9f15c8c8883
+// sym: ?FUN_001a4800@Object@fn_001a4800@@QAEEPBD@Z @198381a73a99 @w2cc6ae2095a0 @vf7370e76c4a6
 namespace fn_001a4800 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a4800 @ 0x001a4800
-extern "C++" __declspec(nothrow) void __cdecl FUN_0008d340(void *);
 extern "C++" __declspec(nothrow) void * __cdecl FUN_0008d6d0(unsigned int);
 struct Object { char pad[0x18c]; char *text; unsigned char FUN_001a4800(const char *source); };
 unsigned char Object::FUN_001a4800(const char *source) {
-    FUN_0008d340(text);
+    ::operator delete[](text);
     if (!source) { text = 0; return 1; }
     unsigned int length = 0;
     while (source[length]) ++length;
@@ -4388,11 +4363,11 @@ unsigned char Object::FUN_001a4800(const char *source) {
 
 
 // 0x001a4870 FUN_001a4870 (97 B): equivalent/0x001a4870.cpp [wrapped: conflict: Obj]
-// sym: ?FUN_001a4870@Obj@fn_001a4870@@QAEHPBD@Z @8dd70595b6cd @w11884c6c8fc6 @va626ba0ae153
+// sym: ?FUN_001a4870@Obj@fn_001a4870@@QAE_NPBD@Z @f782fc360890 @w77190f4306ef @v1ea7674f6b72
 namespace fn_001a4870 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a4870 @ 0x001a4870
-struct Obj { char pad[0x190]; char *text; hulk_intptr FUN_001a4870(const char *value); }; int __cdecl FUN_0008d340(void *); void * __cdecl FUN_0008d6d0(unsigned int); hulk_intptr Obj::FUN_001a4870(const char *value) { int result = FUN_0008d340(text); if (!value) { text = 0; return (result & ~255) | 1; } const char *p = value; while (*p) ++p; char *allocated = (char *)FUN_0008d6d0((unsigned int)(p - value + 1)); text = allocated; char *dst = allocated; do { *dst++ = *value; } while (*value++); return ((hulk_intptr)allocated & ~255) | 1; }
+struct Obj { char pad[0x190]; char *text; bool FUN_001a4870(const char *value); }; void * __cdecl FUN_0008d6d0(unsigned int); bool Obj::FUN_001a4870(const char *value) { ::operator delete[](text); if (!value) { text = 0; return true; } const char *p = value; while (*p) ++p; char *allocated = (char *)FUN_0008d6d0((unsigned int)(p - value + 1)); text = allocated; char *dst = allocated; do { *dst++ = *value; } while (*value++); return true; }
 } // namespace fn_001a4870
 
 namespace fn_fc5dbd2a {
@@ -4946,7 +4921,7 @@ NodeIsNotRunningCondition_1a5aa0* NodeIsNotRunningCondition_1a5aa0::vfunc_5(sign
     *(void***)this = hulk_at_0041c4d0;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -4961,7 +4936,7 @@ Event_StringCondition_1a5ad0* Event_StringCondition_1a5ad0::vfunc_5(unsigned cha
     ((Obj_1a5ad0*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_1a5ad0*)p)->f2_002345b0();
     if (param & 1)
-        thunk_FUN_00267090((Obj_1a5ad0*)p);
+        ::operator delete((Obj_1a5ad0*)p);
     return p;
 }
 
@@ -4975,7 +4950,7 @@ NodeShouldRunImmediatelyCondition_1a5b00* NodeShouldRunImmediatelyCondition_1a5b
     *(void***)this = hulk_at_0041c510;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -4990,7 +4965,7 @@ Event_LocomotionStateNamePreviousCondition_1a5b30* Event_LocomotionStateNamePrev
     *(void***)this = hulk_at_0041c530;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -5005,7 +4980,7 @@ Event_LocomotionStateNameCondition_1a5b60* Event_LocomotionStateNameCondition_1a
     *(void***)this = hulk_at_0041c550;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -5020,7 +4995,7 @@ Event_PropStateDescCondition_1a5b90* Event_PropStateDescCondition_1a5b90::vfunc_
     *(void***)this = hulk_at_0041c570;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -5035,7 +5010,7 @@ Event_PropTypeCondition_1a5bc0* Event_PropTypeCondition_1a5bc0::vfunc_5(unsigned
     ((Obj_1a5bc0*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_1a5bc0*)p)->f2_002345b0();
     if (param & 1)
-        thunk_FUN_00267090((Obj_1a5bc0*)p);
+        ::operator delete((Obj_1a5bc0*)p);
     return p;
 }
 
@@ -5049,7 +5024,7 @@ Event_PropStateNameCondition_1a5bf0* Event_PropStateNameCondition_1a5bf0::vfunc_
     ((Obj_1a5bf0*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_1a5bf0*)p)->f2_002345b0();
     if (param & 1)
-        thunk_FUN_00267090((Obj_1a5bf0*)p);
+        ::operator delete((Obj_1a5bf0*)p);
     return p;
 }
 
@@ -5063,7 +5038,7 @@ Event_PropNameCondition_1a5c20* Event_PropNameCondition_1a5c20::vfunc_5(unsigned
     ((Obj_1a5c20*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_1a5c20*)p)->f2_002345b0();
     if (param & 1)
-        thunk_FUN_00267090((Obj_1a5c20*)p);
+        ::operator delete((Obj_1a5c20*)p);
     return p;
 }
 
@@ -5078,7 +5053,7 @@ EffectTrack* EffectTrack::vfunc_5(unsigned char flag) {
     ((Helper_1a5c50*)((char*)this + 0x18))->Init_0027af50();
     ((TrackBase_1a5c50*)this)->InitTrack_00236d60();
     if (flag & 1)
-        Destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -6878,7 +6853,7 @@ EffectAction* EffectAction::f2(int flags) {
         m1c = 0;
     ((fight::Action *)(((EffectAction_1a8f80*)this)))->FUN_002326a0();
     if (flags & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -7688,7 +7663,7 @@ void* ConditionFactoryTemplate_1aa470::scalar_dtor(unsigned char flags) {
     base1_dtor_001a2d50();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -7728,7 +7703,7 @@ void* ConditionFactoryTemplate_1aa510::scalar_dtor(unsigned char flags) {
     base1_dtor_001a2e20();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -7761,7 +7736,7 @@ void* ConditionFactoryTemplate_1aa5c0::scalar_dtor(unsigned char flags) {
     base1_dtor_001a2e80();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -7809,7 +7784,7 @@ void* ConditionFactoryTemplate_1aa670::scalar_dtor(unsigned char flags) {
     base1_dtor_001a2ef0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -7849,7 +7824,7 @@ void* ConditionFactoryTemplate_1aa710::scalar_dtor(unsigned char flags) {
     base1_dtor_001a2f60();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -7892,7 +7867,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -7978,7 +7953,7 @@ void* ConditionFactoryTemplate_1aaa40::scalar_dtor(unsigned char flags) {
     base1_dtor_001a2db0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -8025,7 +8000,7 @@ void* ConditionFactoryTemplate_1aaae0::scalar_dtor(unsigned char flags) {
     base1_dtor_001a2fc0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -8072,7 +8047,7 @@ void* ConditionFactoryTemplate_1aab80::scalar_dtor(unsigned char flags) {
     base1_dtor_001a3030();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -8105,7 +8080,7 @@ void* ConditionFactoryTemplate_1aac20::scalar_dtor(unsigned char flags) {
     base1_dtor_001a30a0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -8153,14 +8128,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_0041d17c;
     base1_dtor_001a3110();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_001aacb0

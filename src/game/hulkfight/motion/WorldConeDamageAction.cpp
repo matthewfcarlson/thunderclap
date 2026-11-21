@@ -15,8 +15,6 @@
 namespace fn_f3c8e3e3 {} using namespace fn_f3c8e3e3;
 namespace fn_f3c8e3e3 {
 struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 namespace fn_f3c8e3e3 { extern "C" char DAT_00412f14[], DAT_00412f74[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_f3c8e3e3 { extern "C" char DAT_00413034[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
@@ -312,7 +310,6 @@ class Base_1447b0 {
   public:
     void Fng_00236d60();
 };
-extern void cdel_0008d330(void*);
 extern int vftable_1447b0;
 class HitEffectTrack_1447b0 {
   public:
@@ -338,7 +335,6 @@ struct Obj_144820 {
     void f1_0027af50();
     void f2_00236d60();
 };
-extern void thunk_FUN_00267090(Obj_144820*);
 class WorldDamageTrack_144820 {
   public:
     void* vftable;
@@ -870,7 +866,6 @@ struct SlowMotionAction {
     float measured;
     bool vfunc_3(int a, int b);
 };
-void destroy_0008d330(SlowMotionAction* p);
 extern void* hulk_at_00413088[];
 class BaseAction {
   public:
@@ -885,7 +880,6 @@ class MBAction : public BaseAction {
     char pad2[0x2c - 0x20 - 4 - 0];
 };
 extern void* motionVtable[];
-extern void DeleteThunk_0008d330(MotionBlurAction*);
 struct RefCounted_145d50 {
   public:
     virtual void f0();
@@ -2266,7 +2260,7 @@ HitEffectTrack_1447b0* HitEffectTrack_1447b0::vfunc_5(byte_1447b0 param) {
     a.Fnf_0027af50();
     ((Base_1447b0*)this)->Fng_00236d60();
     if (param & 1)
-        cdel_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -2280,7 +2274,7 @@ SlowMotionTrack_1447f0* SlowMotionTrack_1447f0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00412f44;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -2295,7 +2289,7 @@ WorldDamageTrack_144820* WorldDamageTrack_144820::vfunc_5(unsigned char param) {
     ((Obj_144820*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_144820*)p)->f2_00236d60();
     if (param & 1)
-        thunk_FUN_00267090((Obj_144820*)p);
+        ::operator delete((Obj_144820*)p);
     return p;
 }
 
@@ -2309,7 +2303,7 @@ WorldConeDamageTrack_144850* WorldConeDamageTrack_144850::vfunc_5(signed char fl
     *(void***)this = hulk_at_00412fa4;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -2324,7 +2318,7 @@ MotionBlurTrack_144880* MotionBlurTrack_144880::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00412fd4;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -2339,7 +2333,7 @@ MotionTrailStopTrack_1448b0* MotionTrailStopTrack_1448b0::vfunc_5(signed char fl
     *(void***)this = hulk_at_00413004;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3132,7 +3126,7 @@ SlowMotionAction* SlowMotionAction::vfunc_2(unsigned char flags) {
         member = 0;
     ((fight::Action *)this)->FUN_002326a0();
     if (flags & 1)
-        destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -3163,7 +3157,7 @@ MotionBlurAction* MotionBlurAction::vfunc_2(int flag) {
         mObject = 0;
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1)
-        DeleteThunk_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -3424,7 +3418,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -3472,14 +3466,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_004134b8;
     base1_dtor_00143920();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00146610
@@ -3555,14 +3548,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_004134d4;
     base1_dtor_001439f0();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_001466e0
@@ -3615,14 +3607,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_004134f0;
     base1_dtor_00143a90();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00146790
@@ -3670,14 +3661,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_0041350c;
     base1_dtor_001436f0();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00146820
@@ -3725,14 +3715,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_00413528;
     base1_dtor_00143860();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_001468b0

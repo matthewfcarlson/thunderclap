@@ -147,7 +147,6 @@ class d3dToon2VertexShader_32ffe0 {
     Obj_32ffe0* p88;
     void helper();
 };
-void thunk_FUN_00267090(d3dToon2VertexShader_32ffe0*);
 
 
 // 0x0032fc40 FUN_0032fc40 (62 B): matches/0x0032fc40.cpp
@@ -353,7 +352,7 @@ d3dToon2VertexShader_32ffe0* d3dToon2VertexShader_32ffe0::vfunc_3(unsigned char 
         p84->b();
     helper();
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

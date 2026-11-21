@@ -27,7 +27,6 @@ class NonCopyable : public CSoundCommand_1f0a10 {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 struct SoundSystem { void FUN_001ea560(unsigned int effect, unsigned int value); };
 struct SoundGlobal { char pad[4]; SoundSystem* system; };
 class CSoundCommand {
@@ -51,7 +50,7 @@ public:
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_004245a4;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

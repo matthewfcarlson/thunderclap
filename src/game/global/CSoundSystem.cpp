@@ -211,7 +211,6 @@ class Aux_1f1310 {
   public:
     void Fnf_0027af50();
 };
-extern void done_0008d330(void*);
 class C_1f1310 {
   public:
     void* a;
@@ -1071,11 +1070,10 @@ class NonCopyable : public FileLoader_1f1250 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_001f1250
@@ -1119,7 +1117,7 @@ void __fastcall target(C_1f1310* self) {
     void* p = self->a;
     if (p) {
         ((Aux_1f1310*)((char*)p + 0xa0))->Fnf_0027af50();
-        done_0008d330(p);
+        ::operator delete(p);
         self->a = 0;
     }
     if (self->b) {

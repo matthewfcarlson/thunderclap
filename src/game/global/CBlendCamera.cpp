@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "gen/owners.h"
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_fb8d9fac {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -123,7 +124,6 @@ struct CBlendCamera {
     void call29_000a91b0();
     void call9620_000a9620();
 };
-void __cdecl thunk_FUN_00267090(CBlendCamera*);
 
 } // namespace fn_fb8d9fac
 
@@ -194,7 +194,7 @@ CBlendCamera* CBlendCamera::vfunc_2(byte_98990 param) {
     self->call29_000a91b0();
     self->call9620_000a9620();
     if (param & 1)
-        thunk_FUN_00267090(self);
+        ::content::LoadObject::operator delete(self);
     return self;
 }
 

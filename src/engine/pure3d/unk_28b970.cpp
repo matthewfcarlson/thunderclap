@@ -12,11 +12,11 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f8c9e634 {} using namespace fn_f8c9e634;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f8c9e634 {
-void __cdecl thunk_FUN_0008d340(void *);
 extern void *DAT_0042c920[];
 extern void *DAT_0042c930[];
 struct Resource {
@@ -55,7 +55,6 @@ struct IntChannel : public FUN_0028b420 {
 }
 extern void* g_f2[];
 extern void* hulk_at_0042c920[];
-void __cdecl Drop_0008d340(void*);
 class Res_28ba20 {
   public:
     virtual void F0();
@@ -71,7 +70,7 @@ class IntChannel_28ba20 {
     void* p2;
     void Reset() {
         if (!p0)
-            Drop_0008d340(p1);
+            ::operator delete[](p1);
         else {
             _ReadWriteBarrier();
             if (p0) {
@@ -156,7 +155,7 @@ class Float2Channel_28bc20 {
     void* p2;
     void Reset() {
         if (!p0)
-            Drop_0008d340(p1);
+            ::operator delete[](p1);
         else {
             _ReadWriteBarrier();
             if (p0) {
@@ -168,7 +167,6 @@ class Float2Channel_28bc20 {
     }
     void F();
 };
-void thunk_FUN_00267090(void*);
 class Owner_28bcd0 {
 public:
     virtual void vfunc_0();
@@ -189,7 +187,7 @@ class SimpleChannel : public Channel {
 public:
     __forceinline virtual ~SimpleChannel() {
         if (owner == 0) {
-            thunk_FUN_00267090(frames);
+            ::operator delete[](frames);
         } else if (owner != 0) {
             owner->vfunc_1();
             owner = 0;
@@ -343,7 +341,7 @@ class StringChannel_28c240 {
     void* p2;
     void Reset() {
         if (!p0)
-            Drop_0008d340(p1);
+            ::operator delete[](p1);
         else {
             _ReadWriteBarrier();
             if (p0) {
@@ -372,7 +370,7 @@ class EntityChannel_28c310 {
     void* p2;
     void Reset() {
         if (!p0)
-            Drop_0008d340(p1);
+            ::operator delete[](p1);
         else {
             _ReadWriteBarrier();
             if (p0) {
@@ -401,7 +399,7 @@ class BoolChannel_28c3e0 {
     void* p2;
     void Reset() {
         if (!p0)
-            Drop_0008d340(p1);
+            ::operator delete[](p1);
         else {
             _ReadWriteBarrier();
             if (p0) {
@@ -446,7 +444,7 @@ class ColourChannel_28c4f0 {
     void* p2;
     void Reset() {
         if (!p0)
-            Drop_0008d340(p1);
+            ::operator delete[](p1);
         else {
             _ReadWriteBarrier();
             if (p0) {
@@ -551,13 +549,13 @@ struct Parent_28cfd0 {
 
 
 // 0x0028b970 FUN_0028b970 (70 B): equivalent/0x0028b970.cpp
-// sym: ?FUN_0028b970@SimpleChannel@fn_f8c9e634@@QAEXXZ @a744b4570613 @wc2f041e4b675 @v122a684ecf70
+// sym: ?FUN_0028b970@SimpleChannel@fn_f8c9e634@@QAEXXZ @9529eead8ff0 @w298d5c361b40 @vd656135e48d5
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 3/4, incomplete)
 // FUN_0028b970 @ 0x0028b970
 void SimpleChannel::FUN_0028b970() {
     vtable = DAT_0042c930;
     if (resource == 0) {
-        thunk_FUN_0008d340(data);
+        ::operator delete[](data);
     } else {
         resource->FUN_00000001();
         resource = 0;
@@ -585,7 +583,7 @@ IntChannel::IntChannel(int first, void* second) : FUN_0028b420(first, second) {
 void IntChannel_28ba20::F() {
     vptr = g_f2;
     if (!p0)
-        Drop_0008d340(p2);
+        ::operator delete[](p2);
     p2 = 0;
     Reset();
     vptr = (void**)DAT_0042c930;
@@ -631,10 +629,10 @@ namespace fn_f8c9e634 {
 Float1Channel_28bb10::~Float1Channel_28bb10() {
     vptr = hulk_at_0042c97c;
     if (!m0c)
-        operator delete(m18);
+        ::operator delete[](m18);
     m18 = 0;
     if (!m0c) {
-        operator delete(m14);
+        ::operator delete[](m14);
     } else {
         _ReadWriteBarrier();
         if (m0c) {
@@ -645,7 +643,7 @@ Float1Channel_28bb10::~Float1Channel_28bb10() {
     m14 = 0;
     vptr = hulk_at_0042c930;
     if (!m0c) {
-        operator delete(m14);
+        ::operator delete[](m14);
         m14 = 0;
     } else {
         _ReadWriteBarrier();
@@ -680,7 +678,7 @@ Float2Channel::Float2Channel(int x, hulk_intptr y) : Base_28bba0(x, y) {
 void Float2Channel_28bc20::F() {
     vptr = g_f2;
     if (!p0)
-        Drop_0008d340(p2);
+        ::operator delete[](p2);
     p2 = 0;
     Reset();
     vptr = (void**)DAT_0042c930;
@@ -690,14 +688,13 @@ void Float2Channel_28bc20::F() {
 
 
 // 0x0028bcd0 FUN_0028bcd0 (110 B): equivalent/0x0028bcd0.cpp
-// sym: ??1VectorChannel@pure3d@fn_f8c9e634@@UAE@XZ @7cd129283b1a @w7f462c1e9446 @v3cd90214063e
+// sym: ??1VectorChannel@pure3d@fn_f8c9e634@@UAE@XZ @1433e250e9d1 @w5a17753f5b05 @v5036c5707b29
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 6/8, incomplete)
 // FUN_0028bcd0 @ 0x0028bcd0
-// equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
 namespace pure3d {
 VectorChannel::~VectorChannel() {
     if (owner == 0) {
-        thunk_FUN_00267090(frames);
+        ::operator delete[](frames);
     } else if (owner != 0) {
         owner->vfunc_1();
         owner = 0;
@@ -726,13 +723,11 @@ Vector1DOFChannel::Vector1DOFChannel(int a, hulk_intptr b) : VectorChannel_28bd4
 } // namespace fn_f8c9e634
 
 // 0x0028bdb0 FUN_0028bdb0 (103 B): equivalent/0x0028bdb0.cpp [wrapped: conflict: pure3d::Channel]
-// sym: ??1Vector1DOFChannel@pure3d@fn_0028bdb0@@UAE@XZ @725c91af60f2 @w26cb4bdfe256 @v9db96a54de0c
+// sym: ??1Vector1DOFChannel@pure3d@fn_0028bdb0@@UAE@XZ @55b2d1d32669 @w389aacec98b1 @va04b1060ab6e
 namespace fn_0028bdb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 5/6, incomplete)
 // FUN_0028bdb0 @ 0x0028bdb0
 // equiv-map: ??1Channel@pure3d@@UAE@XZ = 0x0028bcd0
-// equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
-void thunk_FUN_00267090(void*);
 class Owner_28bdb0 {
 public:
     virtual void vfunc_0();
@@ -755,10 +750,10 @@ public:
 };
 pure3d::Vector1DOFChannel::~Vector1DOFChannel() {
     if (owner == 0)
-        thunk_FUN_00267090(values);
+        ::operator delete[](values);
     values = 0;
     if (owner == 0) {
-        thunk_FUN_00267090(frames);
+        ::operator delete[](frames);
         frames = 0;
     } else {
         if (owner != 0) {
@@ -793,12 +788,12 @@ Vector2DOFChannel_28be20::Vector2DOFChannel_28be20(int x, hulk_intptr y) : Vecto
 void Vector2DOFChannel_28beb0::F() {
     if (!p0) {
         vptr = g_f2;
-        Drop_0008d340(p2);
+        ::operator delete[](p2);
     } else
         vptr = g_f2;
     p2 = 0;
     if (!p0) {
-        Drop_0008d340(p1);
+        ::operator delete[](p1);
     } else {
         _ReadWriteBarrier();
         if (p0) {
@@ -839,13 +834,11 @@ Vector3DOFChannel_28bf20* Vector3DOFChannel_28bf20::Construct(int a, hulk_intptr
 } // namespace fn_f8c9e634
 
 // 0x0028bfb0 FUN_0028bfb0 (103 B): equivalent/0x0028bfb0.cpp [wrapped: conflict: pure3d::Channel]
-// sym: ??1Vector3DOFChannel@pure3d@fn_0028bfb0@@UAE@XZ @ca4634c1bc08 @w5069b4fdf171 @v8bc91a621d84
+// sym: ??1Vector3DOFChannel@pure3d@fn_0028bfb0@@UAE@XZ @8564b08743c3 @w1e921f0aeeec @vbb6a65e49fff
 namespace fn_0028bfb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 5/6, incomplete)
 // FUN_0028bfb0 @ 0x0028bfb0
 // equiv-map: ??1Channel@pure3d@@UAE@XZ = 0x0028bcd0
-// equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
-void thunk_FUN_00267090(void*);
 class Owner_28bfb0 {
 public:
     virtual void vfunc_0();
@@ -867,10 +860,10 @@ public:
 };
 pure3d::Vector3DOFChannel::~Vector3DOFChannel() {
     if (owner == 0)
-        thunk_FUN_00267090(values);
+        ::operator delete[](values);
     values = 0;
     if (owner == 0) {
-        thunk_FUN_00267090(frames);
+        ::operator delete[](frames);
         frames = 0;
     } else {
         if (owner != 0) {
@@ -885,12 +878,10 @@ pure3d::Vector3DOFChannel::~Vector3DOFChannel() {
 
 
 // 0x0028c040 FUN_0028c040 (110 B): equivalent/0x0028c040.cpp [wrapped: conflict: pure3d::Channel; pure3d::SimpleChannel]
-// sym: ??1RotationChannel@pure3d@fn_0028c040@@UAE@XZ @69dc5d1951a0 @w57f312baaa6f @v072c5ff5be06
+// sym: ??1RotationChannel@pure3d@fn_0028c040@@UAE@XZ @401dc245f558 @w2ed0a7e7da1a @v26697640bccb
 namespace fn_0028c040 {
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 6/8, incomplete)
 // FUN_0028c040 @ 0x0028c040
-// equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
-void thunk_FUN_00267090(void*);
 class Owner_28c040 {
 public:
     virtual void vfunc_0();
@@ -912,7 +903,7 @@ public:
             owner->vfunc_1();
             owner = 0;
         } else {
-            thunk_FUN_00267090(frames);
+            ::operator delete[](frames);
         }
         frames = 0;
     }
@@ -923,7 +914,7 @@ public:
 };
 RotationChannel::~RotationChannel() {
     if (owner == 0) {
-        thunk_FUN_00267090(frames);
+        ::operator delete[](frames);
     } else if (owner != 0) {
         owner->vfunc_1();
         owner = 0;
@@ -966,12 +957,12 @@ QuaternionChannel* QuaternionChannel::Construct(int a, hulk_intptr b)
 void QuaternionChannel_28c130::F() {
     if (!p0) {
         vptr = g_f2;
-        Drop_0008d340(p2);
+        ::operator delete[](p2);
     } else
         vptr = g_f2;
     p2 = 0;
     if (!p0) {
-        Drop_0008d340(p1);
+        ::operator delete[](p1);
     } else {
         _ReadWriteBarrier();
         if (p0) {
@@ -1169,7 +1160,7 @@ namespace fn_f8c9e634 {
 void BoolChannel_28c3e0::F() {
     vptr = g_f2;
     if (!p0)
-        Drop_0008d340(p2);
+        ::operator delete[](p2);
     p2 = 0;
     Reset();
     vptr = (void**)DAT_0042c930;
@@ -1209,7 +1200,7 @@ ColourChannel_28c470* ColourChannel_28c470::Construct(int a, hulk_intptr b)
 void ColourChannel_28c4f0::F() {
     vptr = g_f2;
     if (!p0)
-        Drop_0008d340(p2);
+        ::operator delete[](p2);
     p2 = 0;
     Reset();
     vptr = (void**)DAT_0042c930;

@@ -676,7 +676,6 @@ class Action_19adf0 {
   public:
     void* vptr;
 };
-void Free_0008d330(void*) throw();
 class FireProjectileAction_19adf0 : public Action_19adf0 {
   public:
     char pad[0x18];
@@ -2074,7 +2073,7 @@ FireProjectileAction_19adf0* FireProjectileAction_19adf0::f2(unsigned char fl) {
         m1c = 0;
     ((fight::Action *)(Action_19adf0 *)this)->FUN_002326a0();
     if (fl & 1)
-        Free_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

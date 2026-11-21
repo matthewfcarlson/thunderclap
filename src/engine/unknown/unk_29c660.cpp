@@ -12,6 +12,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f3bb83d9 {} using namespace fn_f3bb83d9;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/unknown.h"
 
 // ---- declarations shared by the functions below
@@ -107,7 +108,6 @@ class Inner_29cc40 {
     virtual void a();
     virtual void b();
 };
-void thunk2_0008d340(void*);
 class Target_29cc40 {
   public:
     Inner_29cc40* mObj;
@@ -124,7 +124,6 @@ class Owner_29cc70 {
     Item_29cc70* a[4];
     Owner_29cc70* run(unsigned char);
 };
-extern void __cdecl cleanup_0008d330(Owner_29cc70*);
 struct Item_29ccb0 {
     char pad0[0x14];
     unsigned int packed;
@@ -515,7 +514,7 @@ void Pool_29cb70::FUN_0029cb70(unsigned int since)
 // sym: ?run@Target_29cc40@fn_f3bb83d9@@QAEPAV12@E@Z
 Target_29cc40* Target_29cc40::run(unsigned char flags) {
     mObj->b();
-    thunk2_0008d340(mArg);
+    ::operator delete[](mArg);
     if (flags & 1)
         ::operator delete(this);
     return this;
@@ -530,7 +529,7 @@ Owner_29cc70* Owner_29cc70::run(unsigned char flags) {
     a[1]->f1();
     a[0]->f1();
     if (flags & 1)
-        cleanup_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

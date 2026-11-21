@@ -515,6 +515,9 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     float timeBegin;
+    int f_10;     // (nat2, D134) the factory allocates 0x1c bytes
+    void* f_14;   // two strings the destructor (0x0012edc0) frees with operator delete[]
+    void* f_18;
 };
 
 // .?AVDialogueAction@hulkfight@@  vftable 0x41146c (6)
@@ -536,9 +539,11 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     float f_0c;
-    char _pad_10[0x8];
+    void* f_10;   // (nat2, D134) four strings the destructor (0x0012eb80) frees with operator delete[]
+    void* f_14;
     int f_18;
-    char _pad_1c[0x8];
+    void* f_1c;
+    void* f_20;
     char f_24;
 };
 
@@ -656,6 +661,7 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     float f_0c;
+    void* f_10;   // (nat2, D134) a string the destructor (0x0012e8b0) frees with operator delete[] (0x14 bytes)
 };
 
 // .?AVStatEndTrialAction@hulkfight@@  vftable 0x4114dc (6)
@@ -677,6 +683,7 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     float f_0c;
+    void* f_10;   // (nat2, D134) a string the destructor (0x0012ef20) frees with operator delete[] (0x14 bytes)
 };
 
 // .?AVStatTrack@hulkfight@@  vftable 0x4113d4 (11)
@@ -751,7 +758,7 @@ public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
-    char _pad_10[0x4];
+    char* name;   // (nat2, D134) freed by the destructor with operator delete[]
     float value;
 };
 
@@ -951,7 +958,7 @@ public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
-    int f_10;
+    char* f_10;   // (nat2, D134) a name the destructor (0x0010cd00) frees with operator delete[]
 };
 
 // .?AVHasGroundPointCondition@ai@hulkfight@@  vftable 0x40eaa0 (7)
@@ -1007,7 +1014,7 @@ public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
-    char _pad_10[0x4];
+    char* name;   // (nat2, D134) freed by the destructor with operator delete[]
     float value;
 };
 
@@ -1028,6 +1035,8 @@ public:
     HulkActionRecentCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
+    int f_0c;     // (nat2, D134) the factory (0x00114190) allocates 0x14 bytes and zeroes +0xc and +0x10
+    char* f_10;   // a name the destructor (0x0010cae0) frees with operator delete[]
 };
 
 // .?AVHulkActionTrack@ai@hulkfight@@  vftable 0x40dc14 (11)
@@ -1060,7 +1069,7 @@ public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
-    char _pad_10[0x4];
+    char* name;   // (nat2, D134) freed by the destructor with operator delete[]
     float value;
 };
 
@@ -1486,7 +1495,7 @@ public:
     int f_2c;
     int f_30;
     int f_34;
-    int f_38;
+    void* f_38;   // (nat2, D134) a name the destructor (0x0011c840) frees with operator delete[]
     char f_3c;
     char f_3d;
     char _pad_3e[0xa];
@@ -3024,7 +3033,7 @@ public:
     char f_24;
     char f_25;
     char _pad_26[0x2];
-    int f_28;
+    char* f_28;   // (nat2, D134) a name: the destructor 0x00170460 frees it with operator delete[]
 };
 
 // .?AVFallAction@motion@hulkfight@@  vftable 0x411d84 (6)
@@ -5431,8 +5440,9 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     float f_0c;
-    int f_10;
-    char _pad_14[0xc];
+    char* f_10;   // (nat2, D134) a name: the destructor 0x00181640 frees it with operator delete[]
+    char _pad_14[0x4];
+    unsigned int f_18[2];   // (nat2) a core::NameId (its destructor 0x0027af50 runs in 0x00181640)
     int f_20;
     int f_24;
     int f_28;
@@ -6077,7 +6087,7 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     float f_0c;
-    int f_10;
+    char* f_10;   // (nat2, D134) the locator's name: the destructor 0x00170dc0 frees it with operator delete[]
 };
 
 // .?AVTeleportTrack@motion@hulkfight@@  vftable 0x417b68 (11)
@@ -6710,7 +6720,7 @@ public:
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     float timeBegin;
     float timeEnd;
-    int f_14;
+    void* f_14;   // (nat2, D134) the script name the destructor (0x001a1440) frees with operator delete[]
     int f_18;
 };
 

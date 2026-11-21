@@ -4,9 +4,10 @@
 
 
 // 0x0030f870 FUN_0030f870 (403 B): equivalent/0x0030f870.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_0030f870@Skeleton@fn_f9a2be07@@QAEXPAV12@@Z @a9b029d99c01 @w1c20363e5edc @v9bc0bbb359a8
+// sym: ?FUN_0030f870@Skeleton@fn_f9a2be07@@QAEXPAV12@@Z @602def4b0c00 @w25ff685a734c @v9d6f84fb45e5
 #include "gen/owners.h"
 namespace fn_f9a2be07 {} using namespace fn_f9a2be07;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f9a2be07 {
 // STATUS: equivalent (tools/equiv.py level 3: 75 inputs, branch coverage 30/30)
 // FUN_0030f870 @ 0x0030f870
@@ -23,7 +24,6 @@ public:
 
 void FUN_0030eba0();
 extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
-void __cdecl FUN_0008d340(void *p);
 void __stdcall FUN_00011520(void *p, unsigned int size, int count, void (*ctor)());
 
 class Shared {
@@ -65,7 +65,7 @@ void Skeleton::FUN_0030f870(Skeleton *other)
         int *block = (int *)old - 1;
         for (int i = *block - 1; i >= 0; i--)
             old[i].FUN_0030ebd0();
-        FUN_0008d340(block);
+        ::operator delete[](block);
     }
 
     int n = shared->count;

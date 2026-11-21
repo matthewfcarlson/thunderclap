@@ -112,7 +112,6 @@ class Thing_2665c0 {
     void First_00266440();
     Thing_2665c0* Target(unsigned char);
 };
-void __cdecl Third_0008d330(Thing_2665c0*);
 struct Other_2665f0 {
     virtual void f0();
     virtual void f1();
@@ -130,7 +129,6 @@ struct LoadInventory_2665f0 {
 };
 extern void* hulk_at_0042aec8;
 extern void* hulk_at_003f6098;
-extern void thunk_0008d330(void*);
 extern "C" char DAT_0042aec8[];
 class Ref_266630 {
   public:
@@ -154,8 +152,6 @@ class LoadInventory {
     Ops* mA;
     Ref_266630* mB;
 };
-void thunk_FUN_00267090(void*);
-void thunk_FUN_00267090(LoadInventory*);
 
 } // namespace fn_fa919a6c
 
@@ -354,7 +350,7 @@ Thing_2665c0* Thing_2665c0::Target(unsigned char flags) {
     First_00266440();
     ((owners::C_231050 *)this)->FUN_00231050();
     if (flags & 1)
-        Third_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -367,7 +363,7 @@ void LoadInventory_2665f0::run() {
     if (x) {
         ((Helper_2665f0*)x)->f0_00266440();
         ((Helper_2665f0*)x)->f1_00231050();
-        thunk_0008d330(x);
+        ::operator delete(x);
     }
     if (b)
         ((Other_2665f0*)b)->f1();
@@ -383,13 +379,13 @@ LoadInventory* LoadInventory::vfunc_2(unsigned char b) {
     if (p) {
         p->Fna_00266440();
         p->Fnb_00231050();
-        thunk_FUN_00267090((void*)p);
+        ::operator delete((void*)p);
     }
     if (mB)
         mB->f1();
     *(hulk_intptr*)this = ((hulk_intptr)DAT_003f6098);
     if (b & 1)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

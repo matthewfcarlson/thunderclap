@@ -264,7 +264,6 @@ struct Thing_1f3830 {
     Helper_1f3830 sub;
     Thing_1f3830* F(unsigned char);
 };
-void __cdecl thunk_FUN_00267090(Thing_1f3830*);
 struct Item_1f38a0 {
     int a;
     void* h;
@@ -1146,7 +1145,7 @@ Thing_1f3830* Thing_1f3830::F(unsigned char flags) {
     sub.Run_0027af50();
     ((Helper_1f3830*)this)->Run_0027af50();
     if (flags & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1157,7 +1156,6 @@ Thing_1f3830* Thing_1f3830::F(unsigned char flags) {
 namespace fn_001f3860 {
 typedef unsigned char byte_1f3860;
 extern void __cdecl release_0024af00(void*);
-extern void __cdecl destroy_0008d330(void*);
 extern int hulk_at_00424ae4;
 struct CSoundSequenceVoice {
     int* vf;
@@ -1171,7 +1169,7 @@ CSoundSequenceVoice* CSoundSequenceVoice::FUN_001f3860(byte_1f3860 flags) {
         m = 0;
     }
     if (flags & 1)
-        destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_001f3860
@@ -2225,13 +2223,12 @@ void State_1f4f00::reset(){
 
 
 // 0x001f54c0 FUN_001f54c0 (380 B): equivalent/0x001f54c0.cpp [wrapped: conflict: CSoundSequenceVoice]
-// sym: ?FUN_001f54c0@SoundMgr@fn_001f54c0@@QAEXXZ @3dc8012e7f7a @w06cf7e069b94 @vc50eb7ade043
+// sym: ?FUN_001f54c0@SoundMgr@fn_001f54c0@@QAEXXZ @a4bd4e986e4f @wbe6c48a1f385 @v407eae8ac6ac
 namespace fn_001f54c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 26/26)
 // FUN_001f54c0 @ 0x001f54c0
 
 
-void FUN_0008d330(void* p);
 void FUN_002497e0(void* p);
 void FUN_00249a90(void* handle, void* out);
 void FUN_0024a800(void* handle, int arg);
@@ -2289,7 +2286,7 @@ void SoundMgr::FUN_001f54c0()
         if (b) {
             b->second.FUN_0027af50();
             b->first.FUN_0027af50();
-            FUN_0008d330(b);
+            ::operator delete(b);
         }
         buffers[i] = 0;
     }
@@ -2344,7 +2341,7 @@ void SoundMgr::FUN_001f54c0()
                 FUN_0024af00(handle);
                 v->handle = 0;
             }
-            FUN_0008d330(v);
+            ::operator delete(v);
         }
         voices[i] = 0;
     }

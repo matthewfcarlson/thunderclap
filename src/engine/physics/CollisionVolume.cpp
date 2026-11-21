@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fecd5d4c {} using namespace fn_fecd5d4c;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/physics.h"
 
 // ---- declarations shared by the functions below
@@ -164,8 +165,6 @@ public:
     void FUN_00306930(Item_306930 *item);
 };
 typedef unsigned char byte_306a90;
-extern void __cdecl Ref_0008d340(void*);
-extern void __cdecl Free_0008d330(void*);
 struct Obj_306a90 {
     int a;
     hulk_intptr b;
@@ -173,8 +172,6 @@ struct Obj_306a90 {
 };
 extern void* DAT_00431b74[];
 extern void* DAT_003f6098[];
-void FUN_0008d330(void*) throw();
-void FUN_0008d340(void*) throw();
 class Ref_306ac0 {
   public:
     virtual void F0();
@@ -560,9 +557,9 @@ Obj_306a90* Obj_306a90::Run(byte_306a90 flags) {
     hulk_intptr value = a;
     b = value;
     if (value)
-        Ref_0008d340((void*)value);
+        ::operator delete[]((void*)value);
     if (flags & 1)
-        Free_0008d330((void*)this);
+        ::operator delete((void*)this);
     return this;
 }
 
@@ -579,8 +576,8 @@ CollisionVolume_306ac0::~CollisionVolume_306ac0() throw() {
         if (p) {
             p->e = p->b;
             if (p->b)
-                FUN_0008d340(p->b);
-            FUN_0008d330(p);
+                ::operator delete[](p->b);
+            ::operator delete(p);
         }
     }
     vptr = DAT_003f6098;

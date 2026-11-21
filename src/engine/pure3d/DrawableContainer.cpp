@@ -13,6 +13,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f6d01fd6 {} using namespace fn_f6d01fd6;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f6d01fd6 { extern "C" char DAT_0042d8f8[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_f6d01fd6 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
@@ -234,7 +235,6 @@ struct IntVector_2a4760 {          // (x64t19) a group's children: pointers (int
     IntVector_2a4760(const IntVector_2a4760 &other) throw();
 };
 typedef unsigned int u32_2a47d0;
-void __cdecl thunk_FUN_00267090(void*);   // (x64t19) the block as a pointer (a u32 did not bind natively)
 struct X_2a47d0 {                 // (x64t19) a vector's two pointers (u32 words natively truncated them)
     void* a;
     void* b;
@@ -263,10 +263,8 @@ class Container_2a4890 {
 struct ThisCall_002a4890 {
     void FUN_002a4890();
 };
-extern void thunk_FUN_00267090(CCollisionAction*);
 struct Element_2a4a50 { virtual void unused(); virtual void release(); };
 struct Array_2a4a50 { unsigned int unknown; Element_2a4a50** begin; Element_2a4a50** end; };
-extern "C" void __cdecl FUN_0008d340(void*);
 struct Object { virtual void retain(); virtual void release(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void attach(unsigned value); };
 struct Uid_2a4b00 { unsigned lo, hi; };
 struct Factory_2a4b00 { virtual void retain(); virtual void release(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void create(Object** out, Uid_2a4b00* id, Reader* reader, unsigned arg); };
@@ -657,11 +655,10 @@ class NonCopyable : public NonCopyable_2a46b0 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_002a46b0
@@ -729,7 +726,7 @@ IntVector_2a4760::IntVector_2a4760(const IntVector_2a4760 &other) throw()
 // sym: ?f@X_2a47d0@fn_f6d01fd6@@QAEXXZ
 void X_2a47d0::f() {
     if (a != 0)
-        thunk_FUN_00267090(a);
+        ::operator delete[](a);
     a = 0;
     b = 0;
 }
@@ -776,7 +773,7 @@ void Container_2a4890::Clear() {
             ++i;
         } while (i < n);
     if (begin)
-        thunk_FUN_00267090(begin);   // (x64t19) by its address name ("Free" had no definition natively)
+        ::operator delete[](begin);   // (x64t19) by its address name ("Free" had no definition natively)
 }
 
 
@@ -786,13 +783,13 @@ void Container_2a4890::Clear() {
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     ((ThisCall_002a4890*)(this))->FUN_002a4890();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
 
 // 0x002a4a50 FUN_002a4a50 (171 B): equivalent/0x002a4a50.cpp
-// sym: ?resizeArray@fn_f6d01fd6@@YGXPAUArray_2a4a50@1@I@Z @b8b3b96c2b6b @w4100c333ea1e @vd0f5cf6ed0fd
+// sym: ?resizeArray@fn_f6d01fd6@@YGXPAUArray_2a4a50@1@I@Z @c712f893a072 @we180eade6bad @v60028b0ac2f5
 // STATUS: equivalent (tools/equiv.py level 3: 52 inputs, branch coverage 16/18, incomplete)
 // FUN_002a4a50 @ 0x002a4a50
 void __stdcall resizeArray(Array_2a4a50* a, unsigned int count) {
@@ -802,7 +799,7 @@ void __stdcall resizeArray(Array_2a4a50* a, unsigned int count) {
         if(*slot) { (*slot)->release(); *slot=0; }
         ++i;
     }
-    if(a->begin) FUN_0008d340(a->begin);
+    if(a->begin) ::operator delete[](a->begin);
     a->begin=0;
     a->end=0;
     if(count) {
@@ -936,7 +933,7 @@ void __fastcall Target(Container_2a4da0* self) {
         Item_2a4da0* end = self->end;
         for (; p != end; p = (Item_2a4da0*)((char*)p + sizeof(HulkDrawableGroup)))   // (x64t19) a group
             p->FUN_002a4890();
-        thunk_FUN_00267090(self->begin);   // (x64t19) by its address name
+        ::operator delete[](self->begin);   // (x64t19) by its address name
     }
 }
 
@@ -1076,7 +1073,6 @@ extern "C" char DAT_0042d90c[];
 struct Group_2a4ff0 : HulkDrawableGroup {
     void FUN_002a4890();   // the group's destructor: releases the drawable and the children, frees the vector
 };
-void __cdecl thunk_FUN_00267090(void*);
 struct DrawableHierarchy_2a4ff0 {
     void FUN_002a35f0();   // pure3d::DrawableHierarchy's destructor
 };
@@ -1093,7 +1089,7 @@ DrawableContainer::~DrawableContainer() throw() {
             p->FUN_002a4890();
             ++p;
         }
-        thunk_FUN_00267090(groups);
+        ::operator delete[](groups);
     }
     ((DrawableHierarchy_2a4ff0*)this)->FUN_002a35f0();
 }

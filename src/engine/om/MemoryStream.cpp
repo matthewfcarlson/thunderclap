@@ -65,7 +65,6 @@ class NonCopyable : public Stream_2472c0 {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 
 
 // 0x00247220 FUN_00247220 (65 B): matches/0x00247220.cpp
@@ -107,7 +106,7 @@ MemoryStream::MemoryStream(int a, int b, unsigned char c) {
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_00423f20;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

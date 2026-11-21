@@ -14,7 +14,6 @@ namespace fn_faec65c3 {} using namespace fn_faec65c3;
 namespace fn_faec65c3 {
 extern "C" char DAT_00400c1c[];
 typedef unsigned char u8_8ff70;
-extern void thunk_FUN_00267090(void*);
 class CStaticAllocator {
   public:
     virtual CStaticAllocator* vfunc_0(u8_8ff70);
@@ -29,10 +28,10 @@ class CStaticAllocator {
 CStaticAllocator* CStaticAllocator::vfunc_0(u8_8ff70 flags) {
     void* a = p14;
     *(void**)this = (void*)((hulk_intptr)DAT_00400c1c);
-    thunk_FUN_00267090(a);
-    thunk_FUN_00267090(p10);
+    ::operator delete(a);
+    ::operator delete(p10);
     if (flags & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

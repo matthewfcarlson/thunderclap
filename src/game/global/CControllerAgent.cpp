@@ -9,7 +9,6 @@
 #define TREE_TU_END }
 namespace fn_f8104e0e {} using namespace fn_f8104e0e;
 namespace fn_f8104e0e {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "game/global.h"
 
@@ -291,7 +290,7 @@ CControllerAgent_fd0c0* CControllerAgent_fd0c0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040d098;
     Destroy_000fc630();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

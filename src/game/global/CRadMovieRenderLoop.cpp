@@ -173,12 +173,8 @@ static inline int memcmp_lit(const char *a, const char *b, unsigned n)
             return (unsigned char)*a - (unsigned char)*b;
     return 0;
 }
-typedef unsigned int u32_1b7590;
-struct Obj_1b7590 {
-    char pad[0x124];
-    volatile u32_1b7590 field;
-};
-extern void __cdecl thunk(u32_1b7590);
+// (nat2, D134) the FMV manager's record (its constructor 0x001b84f0): the block at +0x124 (32-bit) is a pointer
+struct Obj_1b7590 : ::CFMVManager {};
 struct Inner_1b7590 {
     void method_001bf860(int);
 };
@@ -648,12 +644,13 @@ const void* __stdcall FUN_001b73c0(const char* name) {
 // 0x001b7590 FUN_001b7590 (59 B): matches/0x001b7590.cpp
 // sym: ?target@fn_fbeebd58@@YIXPAUObj_1b7590@1@@Z
 void __fastcall target(Obj_1b7590* p) {
-    u32_1b7590 x = p->field;
+    void* volatile* f = (void* volatile*)&p->f_124;
+    void* x = *f;
     if (x) {
-        thunk(x);
-        p->field = 0;
+        ::operator delete(x);
+        *f = 0;
     }
-    p->field = 0;
+    *f = 0;
     hulk_at_004dd700->value->method_001bf860(1);
 }
 
@@ -743,13 +740,12 @@ class CRadMovieRenderLoop {
     char pad[8];
     RenderThing_1b7790* member;
 };
-extern void destroy_0008d330(CRadMovieRenderLoop*);
 CRadMovieRenderLoop* CRadMovieRenderLoop::vfunc_2(unsigned char flags) {
     *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_0041dc30);
     member->f1();
     *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f6098;
     if (flags & 1)
-        destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_001b7790

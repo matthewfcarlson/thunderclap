@@ -58,7 +58,6 @@ class TrackFactoryTemplate {
     void Dtor_Base2_00236ab0();
     void* DeletingDtor(unsigned char flags);
 };
-void DeallocateObject_00263f30(void* p);
 
 } // namespace fn_fe1f4182
 
@@ -95,7 +94,7 @@ void* TrackFactoryTemplate::DeletingDtor(unsigned char flags) {
     Dtor_Base1_0010d4a0();
     Dtor_Base2_00236ab0();
     if (flags & 1) {
-        DeallocateObject_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }

@@ -26,7 +26,6 @@ class ParamValueBool {
     ParamValueBool* vfunc_0(int);
 };
 }
-extern "C" void __cdecl thunk_FUN_00267090(fight::ParamValueBool*);
 class Part_2353c0 {
   public:
     void Init_0027af50();
@@ -40,7 +39,6 @@ class ParamValueName {
     ParamValueName* vfunc_0(int);
 };
 }
-extern "C++" void __cdecl thunk_FUN_00267090(fight::ParamValueName*);
 
 
 // 0x00235300 fight::ParamValueBool::vfunc_0 (39 B): matches/0x00235300.cpp
@@ -49,7 +47,7 @@ fight::ParamValueBool* fight::ParamValueBool::vfunc_0(int flag) {
     vt = (hulk_intptr)&base_vtable;
     part.Init_0027af50();
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -79,13 +77,12 @@ class ParamValueInt : public ParamValue {
   public:
     virtual ParamValueInt* f0(int);
 };
-extern void Cleanup_0008d330(ParamValueInt*);
 ParamValueInt* ParamValueInt::f0(int flags) {
     int* q = (int*)this;
     *(hulk_intptr*)q = ((hulk_intptr)DAT_004279fc);
     inner.Init_0027af50();
     if (flags & 1)
-        Cleanup_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00235330
@@ -117,10 +114,9 @@ class ParamValueFloat : public ParamValue {
     virtual void vfunc_5() HULK_PURE64;
     Sub_235360 sub;
 };
-extern void __cdecl thunk_FUN_00267090(ParamValueFloat*);
 ParamValueFloat::ParamValueFloat(unsigned int flags) {
     if (flags & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
 }
 } // namespace fn_00235360
 
@@ -149,12 +145,11 @@ namespace fight { class ParamValueString : public ParamValue {
     virtual void vfunc_5();
     Part_235390 part;
 }; }
-extern void thunk_FUN_00267090(fight::ParamValueString*);
 fight::ParamValueString* fight::ParamValueString::vfunc_0(int x) {
     *(hulk_intptr*)this = (hulk_intptr)&hulk_at_004279fc;
     part.Init_0027af50();
     if (x & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00235390
@@ -168,7 +163,7 @@ fight::ParamValueName* fight::ParamValueName::vfunc_0(int flag) {
     vt = (hulk_intptr)&base_vtable;
     part.Init_0027af50();
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

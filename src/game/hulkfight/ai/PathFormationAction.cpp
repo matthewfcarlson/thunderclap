@@ -12,7 +12,6 @@
 namespace fn_fbabf3f2 {} using namespace fn_fbabf3f2;
 void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fbabf3f2 {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "game/hulkfight/ai.h"
 
@@ -82,7 +81,6 @@ class PathFormationTrack_11c450 : public Track_11c450 {
     void* m34;
     ~PathFormationTrack_11c450();
 };
-extern "C" void __cdecl release(void*);
 extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 } // namespace fn_fbabf3f2
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -205,7 +203,6 @@ struct Track_11c830 {
     virtual void tfunc9();
 };
 class PathTrack;
-void __cdecl thunk_0008d340(int);
 class Init_11c840 {
   public:
     void init_0027af50();
@@ -214,12 +211,18 @@ class Base_11c840 {
   public:
     void base_00236d60();
 };
+// (nat2, D134) hulkfight::ai::PathTrack's words (gen): fight::Track's f_04 / f_08, eleven words, the name (a pointer,
+// freed with operator delete[]), two flags, then the name id at +0x40 (32-bit)
 class PathTrack {
   public:
     virtual ~PathTrack();
-    char pad[0x34];
-    int m38;
-    char pad3c[4];
+    void* f_04;
+    int f_08;
+    int w0c[11];
+    void* m38;
+    char f_3c, f_3d;
+    char pad3e[2];
+    unsigned int nameId[2];
 };
 extern int hulk_at_004a5e68;
 typedef unsigned int u32_11c920;
@@ -322,8 +325,6 @@ struct PathFormationTrack : Track {
     void helper_00236d60();
     virtual PathFormationTrack* vfunc_5(unsigned char);
 };
-void thunk_FUN_00267090(void*);
-void other_free_0008d330(void*);
 extern void* hulk_at_0040f4d0[];
 class Track_11cc70 {
   public:
@@ -855,8 +856,8 @@ namespace fn_fbabf3f2 {
 // 0x0011c840 FUN_0011c840 (37 B): matches/0x0011c840.cpp
 // sym: ??1PathTrack@fn_fbabf3f2@@UAE@XZ
 PathTrack::~PathTrack() {
-    thunk_0008d340(m38);
-    ((Init_11c840*)((char*)this + 0x40))->init_0027af50();
+    ::operator delete[](m38);
+    ((Init_11c840*)nameId)->init_0027af50();
     ((Base_11c840*)this)->base_00236d60();
 }
 
@@ -935,7 +936,7 @@ RoutTrack_11cc00* RoutTrack_11cc00::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040f470;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -945,10 +946,10 @@ RoutTrack_11cc00* RoutTrack_11cc00::vfunc_5(signed char flags) {
 // sym: ?vfunc_5@PathFormationTrack@fn_fbabf3f2@@UAEPAU12@E@Z
 PathFormationTrack* PathFormationTrack::vfunc_5(unsigned char flag) {
     *(void**)this = (void*)((hulk_intptr)DAT_0040f4a0);
-    thunk_FUN_00267090(member);
+    ::operator delete[](member);
     helper_00236d60();
     if (flag & 1)
-        other_free_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -962,7 +963,7 @@ StrafeRunTrack_11cc70* StrafeRunTrack_11cc70::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040f4d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -977,7 +978,7 @@ StrafeLateralHBTrack_11cca0* StrafeLateralHBTrack_11cca0::vfunc_5(signed char fl
     *(void***)this = hulk_at_0040f500;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -992,7 +993,7 @@ StrafeCircleHBTrack_11ccd0* StrafeCircleHBTrack_11ccd0::vfunc_5(signed char flag
     *(void***)this = hulk_at_0040f530;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1007,7 +1008,7 @@ StrafeCircleTrack_11cd00* StrafeCircleTrack_11cd00::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040f560;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1017,8 +1018,6 @@ StrafeCircleTrack_11cd00* StrafeCircleTrack_11cd00::vfunc_5(signed char flags) {
 // 0x0011cd30 hulkfight::ai::PathTrack::vfunc_5 (58 B): matches/0x0011cd30.cpp [wrapped: conflict: PathTrack]
 // sym: ?vfunc_5@PathTrack@fn_0011cd30@@UAEPAV12@H@Z
 namespace fn_0011cd30 {
-extern "C++" void __cdecl opdel1_0008d340(void*);
-extern "C++" void __cdecl opdel2_0008d330(void*);
 extern const char hulk_at_0040f590[];
 
 class M40 {
@@ -1044,11 +1043,11 @@ class PathTrack {
 
 PathTrack* PathTrack::vfunc_5(int flag) {
     *(void**)this = (void*)hulk_at_0040f590;
-    opdel1_0008d340(*(void**)((char*)this + 0x38));
+    ::operator delete[](*(void**)((char*)this + 0x38));
     ((M40*)((char*)this + 0x40))->~M40();
     this->BaseDtor_00236d60();
     if (flag & 1) {
-        opdel2_0008d330((void*)this);
+        ::operator delete((void*)this);
     }
     return this;
 }

@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_f0d621c3 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CEffectStopTrack
@@ -10,7 +11,6 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f0d621c3 {} using namespace fn_f0d621c3;
 namespace fn_f0d621c3 {
-void __cdecl SweepTrack_DeleteThis_00263f30(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 namespace fn_f0d621c3 { extern "C" char DAT_004288b4[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/fight.h"
@@ -116,7 +116,7 @@ Store_23c5e0* Store_23c5e0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042886c;
     Destroy_0023c660();
     if (flags & 1) {
-        SweepTrack_DeleteThis_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }

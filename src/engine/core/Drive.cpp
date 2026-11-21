@@ -211,7 +211,6 @@ class NonCopyable : public IMutable_272ce0 {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 extern "C" void FUN_00266f00(unsigned, void*);
 class Part_272d90 {
   public:
@@ -500,7 +499,7 @@ XboxDrive* MakeXboxDrive() {
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0042b85c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

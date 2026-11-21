@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_f8469354 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CEffectStopTrack
@@ -262,13 +263,12 @@ namespace fight { class Reference {
     char pad[0x28 - 4];
     void Init_00233970();
 }; }
-extern void __cdecl FUN_00263f30(fight::Reference*);
 fight::Reference* fight::Reference::vfunc_2(int flag) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00428824);
     ((Elem_23c4d0*)((char*)this + 0x28))->Fn_00234150();
     Init_00233970();
     if (flag & 1)
-        FUN_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0023c4d0

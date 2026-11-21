@@ -10,6 +10,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fe79e145 {} using namespace fn_fe79e145;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -110,7 +111,6 @@ namespace fn_fe79e145 {
 struct Sub_2a1180 {
 };
 extern int hulk_at_0042d694;
-extern void Free_0008d340(void*);
 class Ref_2a11b0 {
   public:
     virtual void f0();
@@ -365,7 +365,7 @@ LightGroup_2a11b0::~LightGroup_2a11b0() throw() {
     cap = 0;
     _ReadWriteBarrier();
     if (arr)
-        Free_0008d340(arr);
+        ::operator delete[](arr);
 }
 
 } // namespace fn_fe79e145
@@ -385,7 +385,7 @@ struct LightGroup_2a1210 {
 void* LightGroup_2a1210::vfunc_2(unsigned int flags) {
     FUN_002a11b0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002a1210

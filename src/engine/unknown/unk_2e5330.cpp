@@ -9,6 +9,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f6f319cd {} using namespace fn_f6f319cd;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/unknown.h"
 
 // ---- declarations shared by the functions below
@@ -97,7 +98,6 @@ struct Item_2e5920 {
     int a, b, c;
 };
 extern "C" void __fastcall FUN_002c6d50(Item_2e5920*);
-void __cdecl Finish_0008d340(Item_2e5920*);
 struct Owner_2e5920 {
     Item_2e5920* begin;
     Item_2e5920* end;
@@ -370,9 +370,9 @@ bool Buffer_2e5770::Create(unsigned int count, void* arg) {
 // Same code shape as 0x002b1200 (propagated; names are from that function)
 Thing_2e5820* Thing_2e5820::Destroy(byte_2e5820 flags) {
     if (mValue != 0)
-        FUN_0008d340(mValue);
+        ::operator delete[](mValue);
     if ((flags & 1) != 0)
-        FUN_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -412,7 +412,7 @@ void __fastcall Target(Owner_2e5920* self) {
             FUN_002c6d50((Item_2e5920*)((char*)p + 4));
             p = (Item_2e5920*)((char*)p + 12);
         }
-        Finish_0008d340(self->begin);
+        ::operator delete[](self->begin);
     }
 }
 

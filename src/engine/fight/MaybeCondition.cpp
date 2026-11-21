@@ -14,8 +14,6 @@
 namespace fn_fc1ade79 {} using namespace fn_fc1ade79;
 namespace fn_fc1ade79 {
 struct FactoryCtor { void init_002343b0(); };   // (unb4) the factory constructors InitHelper::init stood for
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "engine/fight.h"
 void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
@@ -305,7 +303,7 @@ MaybeCondition_2383f0* MaybeCondition_2383f0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_004281f0;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -320,7 +318,7 @@ RandomCondition_238420* RandomCondition_238420::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00428210;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -492,7 +490,7 @@ void* ConditionFactoryTemplate_238780::scalar_dtor(unsigned char flags) {
     base1_dtor_002381e0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -540,7 +538,7 @@ void* ConditionFactoryTemplate_238820::scalar_dtor(unsigned char flags) {
     base1_dtor_00238240();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

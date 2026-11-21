@@ -146,7 +146,6 @@ struct Obj_23ab40 {
     char pad[0x100];
     Obj_23ab40* next;
 };
-extern void __cdecl thunk_FUN_00267090(Obj_23ab40*);
 class ScriptReader_23ab40 {
   public:
     char pad[0x12c];
@@ -338,7 +337,6 @@ class StreamStringReader_23b350 {
     char pad[8];
     RenderThing_23b350* member;
 };
-extern void destroy_00263f30(StreamStringReader_23b350*);
 extern void* hulk_at_0042866c[];
 class Ref_23b3b0 {
   public:
@@ -631,7 +629,7 @@ void ScriptReader_23ab40::f() {
                 while (x) {
                     Obj_23ab40* cur = x;
                     x = x->next;
-                    thunk_FUN_00267090(cur);
+                    ::operator delete(cur);
                 }
             }
             p -= 0x18;
@@ -972,11 +970,10 @@ class NonCopyable : public LoadObject_23b240 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0023b240
@@ -1009,11 +1006,10 @@ class NonCopyable : public StringReader_23b2a0 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0023b2a0
@@ -1028,7 +1024,7 @@ IFileStringReader* IFileStringReader::vfunc_2(int flag) {
     p->f1();
     vt = ((hulk_intptr)DAT_003f6098);
     if (flag & 1)
-        ::operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -1084,7 +1080,7 @@ StreamStringReader_23b350* StreamStringReader_23b350::vfunc_2(unsigned char flag
     member->f1();
     *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_003f6098);
     if (flags & 1)
-        destroy_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -1105,7 +1101,7 @@ struct Reader_23b390 {
 void* Reader_23b390::vfunc_2(unsigned int flags) {
     FUN_00232c30();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0023b390

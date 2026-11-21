@@ -78,7 +78,6 @@ class Action_176370 {
   public:
     void* vptr;
 };
-void Free(void*);
 struct Sub_176370 {
     char c;
 };

@@ -12,6 +12,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f0220b18 {} using namespace fn_f0220b18;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/unknown.h"
 
 // ---- declarations shared by the functions below
@@ -84,9 +85,9 @@ struct Elem_304260 {
 void __cdecl FUN_003032d0(Elem_304260 *first, int hole, int len, Elem_304260 value);
 extern "C" void* __cdecl FUN_0008d6d0(int);
 // (x64t9-pw) the contact buffer's begin and end (decls/physics_world.h HulkContactBuffer), pointer-sized
-struct Target_304350 {
-    hulk_intptr a;
-    hulk_intptr b;
+struct Target_304350 {   // (nat2, D134) a block and its end; the block is freed with operator delete[]
+    void* a;
+    void* b;
 };
 extern "C++" void __cdecl FUN_00304370(void *, void *, int);
 struct Thing_304500 {
@@ -396,10 +397,10 @@ namespace fn_f0220b18 {
 // 0x00304350 FUN_00304350 (17 B): matches/0x00304350.cpp
 // sym: @FUN_00304350@4
 extern "C" void __fastcall FUN_00304350(Target_304350* self) {
-    hulk_intptr v = self->a;
+    void* v = self->a;
     self->b = v;
     if (v)
-        thunk_FUN_00267090(v);
+        ::operator delete[](v);
 }
 
 } // namespace fn_f0220b18

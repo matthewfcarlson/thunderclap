@@ -14,7 +14,6 @@ namespace fn_fd836fc7 {} using namespace fn_fd836fc7;
 void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fd836fc7 {
 struct FactoryCtor { void init_002343b0(); void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "game/hulkfight/scenario.h"
 void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
@@ -120,8 +119,6 @@ class LuaTrack : public Track_1a13f0 {
     void helper_00236d60();
 };
 extern int hulk_at_0041c318;
-void ReleaseA_0008d340(void* p);
-void ReleaseB_0008d330(void* p);
 class ParamValueScript_1a1930 {
   public:
     ParamValueScript_1a1930(int);
@@ -394,7 +391,7 @@ LuaCondition_1a1330::~LuaCondition_1a1330() {
 // FUN_001a1350 @ 0x001a1350
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
 bool StrHolder_1a1350::FUN_001a1350(const char* src, int len) {
-    thunk_FUN_00267090(text);
+    ::operator delete[](text);
     if (src != 0 && len > 0) {
         text = FUN_0008d6d0(len + 1);
         memcpy(text, src, len);
@@ -486,17 +483,19 @@ hulk_freg LuaTrack_1a1430::GetExtent() {
 namespace fn_001a1440 {
 typedef unsigned int u32_1a1440;
 extern "C" char DAT_0041c318[];   // (decl1) was `void* LuaTrack_vft` (a C++ name bound nowhere natively)
-void __cdecl cleanup_0008d340(u32_1a1440);
 struct LuaTrack {
     void* vft;
-    char pad[0x10];
-    u32_1a1440 field14;
+    void* f_04;
+    int f_08;
+    float timeBegin;
+    float timeEnd;
+    void* field14;
     void Tail_00236d60();
     void Run();
 };
 void LuaTrack::Run() {
     vft = &(*(void**)&DAT_0041c318);
-    cleanup_0008d340(field14);
+    ::operator delete[](field14);
     Tail_00236d60();
 }
 } // namespace fn_001a1440
@@ -508,7 +507,7 @@ namespace fn_fd836fc7 {
 // SetScript_001a1460 @ 0x001a1460
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
 bool StrHolder_1a1460::SetScript_001a1460(const char* src, int len) {
-    thunk_FUN_00267090(text);
+    ::operator delete[](text);
     if (src != 0 && len > 0) {
         text = FUN_0008d6d0(len + 1);
         memcpy(text, src, len);
@@ -587,10 +586,10 @@ void* LuaCondition_1a1800::vfunc_5(unsigned char flag) {
 // sym: ?vfunc_5@LuaTrack@fn_fd836fc7@@UAEPAV12@E@Z
 LuaTrack* LuaTrack::vfunc_5(u8_1a1840 param) {
     *(hulk_intptr*)this = (hulk_intptr)&hulk_at_0041c318;
-    ReleaseA_0008d340((void*)m14);
+    ::operator delete[]((void*)m14);
     helper_00236d60();
     if (param & 1)
-        ReleaseB_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -915,7 +914,7 @@ void* ConditionFactoryTemplate_1a1dd0::scalar_dtor(unsigned char flags) {
     base1_dtor_001a12d0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -965,7 +964,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

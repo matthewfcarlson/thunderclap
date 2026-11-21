@@ -40,7 +40,7 @@ struct VE {
                 p->s.Fini_002c6d50();
                 p++;
             }
-            operator delete(b);
+            ::operator delete[](b);   // (nat2, D134) the game's 0x0008d340
         }
     }
 };
@@ -49,7 +49,7 @@ struct VP {
     char pad[8];
     void Fini() throw() {
         if (b)
-            operator delete(b);
+            ::operator delete[](b);   // (nat2, D134) the game's 0x0008d340
     }
 };
 class VertexAnimKeyFrame_2e5a70 {
@@ -133,12 +133,15 @@ struct Frame_2e5b20 {
 };
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int size);
 extern "C" void __cdecl FUN_002e59b0(void* data, unsigned int count, int value);
-void thunk_FUN_00267090(hulk_intptr);
-struct Obj_2e6210 {   // (x64t21) the array (begin, end) on the game heap
-    int* a;
-    int* b;
+struct Key_2e61c0 {   // (nat2, D134) an element: its data block (freed with operator delete[]) and two words
+    void* data;
+    int w4, w8;
 };
-extern "C" void __cdecl FUN_002e61c0(int *, int *);
+struct Obj_2e6210 {   // (x64t21) the array (begin, end) on the game heap
+    Key_2e61c0* a;
+    Key_2e61c0* b;
+};
+extern "C" void __cdecl FUN_002e61c0(Key_2e61c0 *, Key_2e61c0 *);
 } // namespace fn_f411a916
 inline void* operator new(size_t, void* p) throw() { return p; }
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -234,9 +237,9 @@ void VertexAnimKeyFrame_2e5a70::f() {
         } while (--n);
     }
     if (m20)
-        operator delete(m20);
+        ::operator delete[](m20);
     if (m14)
-        operator delete(m14);
+        ::operator delete[](m14);
     vptr = hulk_at_003f6098;
 }
 
@@ -438,10 +441,10 @@ namespace fn_f411a916 {
 
 // 0x002e61c0 FUN_002e61c0 (41 B): matches/0x002e61c0.cpp
 // sym: _FUN_002e61c0
-extern "C" void FUN_002e61c0(int* first, int* last) {
-    for (; first != last; first += 3) {
-        if (*first != 0)
-            thunk_FUN_00267090(*first);
+extern "C" void FUN_002e61c0(Key_2e61c0* first, Key_2e61c0* last) {
+    for (; first != last; ++first) {
+        if (first->data != 0)
+            ::operator delete[](first->data);
     }
 }
 
@@ -484,11 +487,10 @@ void __fastcall target(Obj_2e6210* self) {
 } // namespace fn_f411a916
 
 // 0x002e6270 FUN_002e6270 (208 B): equivalent/0x002e6270.cpp [wrapped: conflict: core::IRefCount; pure3d::VertexAnimKeyFrameList]
-// sym: ??1VertexAnimKeyFrameList@pure3d@fn_002e6270@@QAE@XZ @20f1b7da7cc3 @w83a324895167 @vac98942c2d76
+// sym: ??1VertexAnimKeyFrameList@pure3d@fn_002e6270@@QAE@XZ @47372ffb0e7a @w7f11ea9305b5 @vcdd0f5ae3287
 namespace fn_002e6270 {
 // STATUS: equivalent (tools/equiv.py level 3: 37 inputs, branch coverage 18/20, incomplete)
 // FUN_002e6270 @ 0x002e6270
-void __cdecl FUN_0008d340(void*) throw();
 namespace core { struct IRefCount { virtual void slot0() throw(); virtual void slot1() throw(); ~IRefCount() throw() {} }; }
 struct Item_2e6270 { virtual void slot0() throw(); virtual void slot1() throw(); };
 struct Group_2e6270 { Item_2e6270** begin; Item_2e6270** end; Item_2e6270** capacity; };
@@ -511,10 +513,10 @@ VertexAnimKeyFrameList::~VertexAnimKeyFrameList() throw() {
  Group_2e6270* p=groups;
  if(p) {
   Group_2e6270* stop=groupsEnd;
-  while(p!=stop) { if(p->begin) FUN_0008d340(p->begin); ++p; }
-  FUN_0008d340(groups);
+  while(p!=stop) { if(p->begin) ::operator delete[](p->begin); ++p; }
+  ::operator delete[](groups);
  }
- if(begin) FUN_0008d340(begin);
+ if(begin) ::operator delete[](begin);
 }
 }
 } // namespace fn_002e6270

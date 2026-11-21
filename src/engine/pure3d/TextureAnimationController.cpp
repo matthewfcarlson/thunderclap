@@ -216,7 +216,7 @@ TextureAnimationController_2a9570* TextureAnimationController_2a9570::f2(unsigne
     }
     Fin_00285800();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

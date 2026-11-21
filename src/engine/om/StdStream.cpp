@@ -12,7 +12,6 @@ namespace fn_f5a236af {} using namespace fn_f5a236af;
 namespace fn_f5a236af {
 typedef int FILE;
 extern "C" int __cdecl fclose(FILE*);
-extern "C" void __cdecl destroy_0008d330(void*);
 extern int hulk_at_0042920c[];
 extern int hulk_at_00423f20[];
 namespace om {
@@ -35,7 +34,7 @@ om::StdStream* om::StdStream::vfunc_0(unsigned char flags) {
         fclose(file);
     vt = hulk_at_00423f20;
     if (flags & 1)
-        destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

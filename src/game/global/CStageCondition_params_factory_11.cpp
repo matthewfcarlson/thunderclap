@@ -9,7 +9,6 @@
 #define TREE_TU_END }
 namespace fn_fbd5c058 {} using namespace fn_fbd5c058;
 namespace fn_fbd5c058 {
-void __cdecl SweepTrack_DeleteThis_00263f30(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "game/global.h"
 
@@ -102,7 +101,7 @@ ConditionFactoryTemplate_0526f0* ConditionFactoryTemplate_0526f0::vfunc_5(signed
     *(void***)this = hulk_at_003f8660;
     Destroy_002343d0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }

@@ -111,7 +111,6 @@ class NonCopyable_333c30 : public ::core::IRefCount {
     virtual NonCopyable_333c30* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable_333c30*);
 class Ref_333c50 {
   public:
     virtual void Release();
@@ -436,7 +435,7 @@ Item_333bf0* Holder_333bf0::Set(Item_333bf0* item) {
 pure3d::NonCopyable_333c30* pure3d::NonCopyable_333c30::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

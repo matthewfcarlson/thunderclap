@@ -15,7 +15,6 @@ class RefObj_1616c0 {
     virtual void Release();
 };
 
-void __cdecl DeleteObj_0008d330(void*);
 
 struct ClimbLocomotionAction {
     void* mVptr;
@@ -47,7 +46,7 @@ ClimbLocomotionAction* ClimbLocomotionAction::vfunc_2(unsigned char flags) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flags & 1)
-        DeleteObj_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

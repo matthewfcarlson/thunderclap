@@ -843,7 +843,6 @@ struct CEffectTrack {
     CEffectTrack* vfunc_5(byte_60b40);
     void helper_00236d60();
 };
-extern void cleanup_0008d330(CEffectTrack*);
 CEffectTrack* CEffectTrack::vfunc_5(byte_60b40 flags) {
     vf = ((hulk_intptr)DAT_003faa80);
     a30.init_0027af50();
@@ -851,7 +850,7 @@ CEffectTrack* CEffectTrack::vfunc_5(byte_60b40 flags) {
     a18.init_0027af50();
     helper_00236d60();
     if (flags & 1)
-        cleanup_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00060b40
@@ -875,13 +874,12 @@ class CEffectStopTrack : public CTrack {
     CEffectStopTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CEffectStopTrack* CEffectStopTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003faab4;
     Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

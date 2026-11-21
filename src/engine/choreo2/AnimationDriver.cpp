@@ -804,14 +804,13 @@ struct AnimationDriver {
     void Cleanup_002222d0();
     AnimationDriver* vfunc_2(u8_2259e0 flag);
 };
-void thunk_00263f30(AnimationDriver*);
 AnimationDriver* AnimationDriver::vfunc_2(u8_2259e0 flag) {
     this->vptr = (void*)((hulk_intptr)DAT_00427368);
     this->member->f1();
     --DAT_004e5ab4;
     this->Cleanup_002222d0();
     if (flag & 1)
-        thunk_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002259e0

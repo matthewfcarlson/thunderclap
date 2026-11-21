@@ -8,6 +8,7 @@
 #define TREE_TU_BEGIN namespace fn_f477ab1c {
 #define TREE_TU_END }
 namespace fn_f477ab1c {} using namespace fn_f477ab1c;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -47,11 +48,9 @@ struct Ref_e8980 {
     virtual void a();
     virtual void release();
 };
-struct FEBillboardAnimation_e8980 {
-    int* vptr;
-    unsigned int resource;
-    char pad[4];
-    Ref_e8980* child;
+// (nat2, D134) the animation's record (FEAnimation: the resource at +4 is a pointer, freed with operator delete[];
+// the child at +0xc)
+struct FEBillboardAnimation_e8980 : ::FEAnimation {
     void cleanup();
 };
 extern "C" char DAT_0040c3d0[];
@@ -328,22 +327,22 @@ namespace fn_f477ab1c {
 // 0x000e8980 FUN_000e8980 (78 B): matches/0x000e8980.cpp
 // sym: ?cleanup@FEBillboardAnimation_e8980@fn_f477ab1c@@QAEXXZ
 void FEBillboardAnimation_e8980::cleanup() {
-    vptr = &billboardVtable;
-    Ref_e8980* volatile* pc = &child;
+    *(int**)this = &billboardVtable;
+    Ref_e8980* volatile* pc = (Ref_e8980* volatile*)&f_0c;
     Ref_e8980* c = *pc;
     if (c) {
         c->release();
-        child = 0;
+        f_0c = 0;
     }
-    vptr = &animationVtable;
+    *(int**)this = &animationVtable;
     c = *pc;
     if (c) {
         c->release();
-        child = 0;
+        f_0c = 0;
     }
-    if (resource) {
-        thunk(resource);
-        resource = 0;
+    if (f_04) {
+        ::operator delete[](f_04);
+        f_04 = 0;
     }
 }
 

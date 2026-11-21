@@ -4475,7 +4475,7 @@ struct Obj_e04f0 {
 // matches/0x000e2ac0.cpp (stub Obj_e2ac0), size 0xb0
 struct Obj_e2ac0 {
     char pad[0xac]; // +0x00
-    volatile int field; // +0xac
+    void* volatile field; // +0xac (nat2, D134) a block 0x000e2ac0 frees with operator delete before replacing it
     void FUN_000e2ac0(hulk_intptr);
 };
 // matches/0x000e2c60.cpp (stub C_e2c60), size 0x140
@@ -4747,8 +4747,8 @@ struct State_f7930 {
 // matches/0x000f7960.cpp (stub Thing_f7960), size 0x14
 struct Thing_f7960 {
     char pad[0x0c]; // +0x00
-    unsigned int mSecond; // +0x0c
-    unsigned int mFirst; // +0x10
+    void* mSecond; // +0x0c (nat2, D134) two blocks 0x000f7960 frees with operator delete[]
+    void* mFirst; // +0x10
     void FUN_000f7960();
 };
 // matches/0x000f79a0.cpp (stub Obj_f79a0), size 0x24 (0x28)
@@ -4763,7 +4763,7 @@ struct Obj_f79a0 {
 // matches/0x000f7a10.cpp (stub Obj_f7a10), size 0x24
 struct Obj_f7a10 {
     char pad[0x10]; // +0x00
-    int m10; // +0x10
+    void* m10; // +0x10 (nat2, D134) a block 0x000f7a10 frees with operator delete[]
     int m14; // +0x14
     char pad18[8]; // +0x18
     int m20; // +0x20
@@ -5254,7 +5254,7 @@ struct O_10c700 {
 struct Obj_10c9b0 {
     char pad[0x10]; // +0x00
     char* text; // +0x10
-    unsigned int FUN_0010c9b0(const char* value);
+    bool FUN_0010c9b0(const char* value);   // (nat2, D134) a setter: `mov al, 1`
 };
 // matches/0x0010cb00.cpp (stub Obj), size 0x14 (0x18)
 struct Obj_10cb00 {
@@ -6149,7 +6149,7 @@ struct X_11c1e0 {
 struct Object_11c290 {
     char pad[12]; // +0x00
     char *text; // +0x0c (+0x10)
-    int FUN_0011c290(const char *source);
+    bool FUN_0011c290(const char *source);   // (nat2, D134) a bool setter (mov al, 1)
 };
 // matches/0x0011c470.cpp (stub Obj), size 0x38 (0x40)
 struct Obj_11c470 {
@@ -6527,7 +6527,7 @@ struct Object_12ec20 {
 struct Item_12ec80 {
     char pad[0x1c]; // +0x00
     char *text; // +0x1c (+0x20)
-    hulk_intptr FUN_0012ec80(const char *source);
+    bool FUN_0012ec80(const char *source);   // (nat2, D134) a bool setter (mov al, 1)
 };
 // equivalent/0x0012ece0.cpp (stub Thing), size 0x24 (0x28)
 struct Thing_12ece0 {
@@ -6539,7 +6539,7 @@ struct Thing_12ece0 {
 struct Object_12ef40 {
     char pad[16]; // +0x00
     char* value; // +0x10
-    unsigned int FUN_0012ef40(const char* text);
+    bool FUN_0012ef40(const char* text);   // (nat2, D134) a setter: `mov al, 1`
 };
 // matches/0x00133010.cpp (stub Obj_133010), size 0x10
 struct Obj_133010 {
@@ -12634,7 +12634,7 @@ struct Obj_1c59e0 {
 // matches/0x001c5b10.cpp (stub Obj_1c5b10), size 0x128
 struct Obj_1c5b10 {
     char pad[0x128]; // +0x00
-    void FUN_001c5b10(unsigned int arg);
+    void FUN_001c5b10(const void* arg);   // (nat2, D134) a key (0x001c75e0 / 0x001c7550 take its address)
 };
 // matches/0x001c5e40.cpp (stub Obj_1c5e40), size 0x8
 struct Obj_1c5e40 {
@@ -12656,7 +12656,7 @@ struct Obj_1c5ef0 {
 // matches/0x001c5f20.cpp (stub Target_1c5f20), size 0x8
 struct Target_1c5f20 {
     char pad[4]; // +0x00
-    unsigned int value; // +0x04
+    void* value; // +0x04 (nat2, D134) a block 0x001c5f20 frees with operator delete
     void FUN_001c5f20();
 };
 // matches/0x001c5f30.cpp (stub Thing_1c5f30), size 0x10 (0x18)

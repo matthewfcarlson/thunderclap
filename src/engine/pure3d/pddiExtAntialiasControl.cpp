@@ -35,7 +35,6 @@ class NonCopyable : public pddiExtension_3200c0 {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 
 
 // 0x0031ffc0 FUN_0031ffc0 (105 B): equivalent/0x0031ffc0.cpp
@@ -65,7 +64,7 @@ void* Target_320080::FUN_00320080() {
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

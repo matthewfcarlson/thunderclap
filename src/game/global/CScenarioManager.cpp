@@ -620,7 +620,6 @@ class CScenarioManager_1d0340 : public CAction_1d0340 {
 struct CScenarioManager_nv_1d0340 {
     void FUN_001cf690();
 };
-extern void thunk_FUN_00267090(CScenarioManager_1d0340*);
 
 
 // 0x001cc5e0 FUN_001cc5e0 (6 B): matches/0x001cc5e0.cpp
@@ -3317,7 +3316,7 @@ namespace fn_fdf9c5a9 {
 CScenarioManager_1d0340* CScenarioManager_1d0340::vfunc_2(unsigned char flags) {
     ((CScenarioManager_nv_1d0340*)(((CScenarioManager*)(this))))->FUN_001cf690();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

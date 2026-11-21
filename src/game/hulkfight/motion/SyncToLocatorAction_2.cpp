@@ -96,7 +96,6 @@ class Action_175db0 {
   public:
     void* vptr;
 };
-void Free(void*);
 struct Sub_175db0 {
     char c;
 };

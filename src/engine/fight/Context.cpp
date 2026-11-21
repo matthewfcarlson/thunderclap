@@ -315,7 +315,7 @@ struct Context_236920 {
 void* Context_236920::vfunc_2(unsigned int flags) {
     FUN_002368d0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00236920

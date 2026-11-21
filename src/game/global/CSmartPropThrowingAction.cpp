@@ -42,7 +42,6 @@ class CSmartPropThrowingAction_21fe0 {
   public:
     void Go_002326a0();
 };
-extern void thunk_FUN_00267090(CSmartPropThrowingAction*);
 
 
 // 0x00021fa0 CSmartPropThrowAction::vfunc_2 (57 B): matches/0x00021fa0.cpp
@@ -72,7 +71,7 @@ CSmartPropThrowingAction* CSmartPropThrowingAction::V2(int flag) {
     }
     ((CSmartPropThrowingAction_21fe0*)this)->Go_002326a0();
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

@@ -842,7 +842,7 @@ HulkPixelLock* pure3d::d3dTexture::vfunc_13(unsigned int level, int unused) {
 
 
 // 0x00326a10 pure3d::d3dTexture::vfunc_14 (189 B): equivalent/0x00326a10.cpp [wrapped: conflict: pure3d::d3dTexture]
-// sym: ?vfunc_14@d3dTexture@pure3d@fn_00326a10@@QAEXH@Z @e9a8123f9dcf @w0400036c699c @vcef82bad93f9
+// sym: ?vfunc_14@d3dTexture@pure3d@fn_00326a10@@QAEXH@Z @5cdb7a2fa13d @w38c5511e188d @vc038e78eaf6d
 namespace fn_00326a10 {
 // STATUS: equivalent (tools/equiv.py level 3: 85 inputs, branch coverage 10/10)
 // pure3d::d3dTexture::vfunc_14 @ 0x00326a10
@@ -854,7 +854,6 @@ void __stdcall XGSwizzleBox(void*, unsigned, unsigned, unsigned, void*, unsigned
 }
 // equiv-conv: FUN_00325f30 eax
 extern "C++" __declspec(nothrow) int FUN_00325f30(int format);
-void __cdecl FUN_0008d330(void*);
 
 namespace pure3d {
 struct d3dTexture : HulkD3dTexture {
@@ -870,7 +869,7 @@ void d3dTexture::vfunc_14(int) {
             int bytesPerPixel = FUN_00325f30(volumeDesc[0]) >> 3;
             XGRAPHC::XGSwizzleBox((void*)(((hulk_uintptr)buffer + 0xf) & ~(hulk_uintptr)0xf), 0, 0, 0, lockedBox.bits, volumeDesc[4], volumeDesc[5], volumeDesc[6], 0, bytesPerPixel);
         }
-        FUN_0008d330(buffer);
+        ::operator delete(buffer);
         buffer = 0;
     }
 }
@@ -971,7 +970,6 @@ d3dTexture* d3dTexture::FUN_00326b40(void* ctx) {
 // (x64t20) an explicit function: gen's `pure3d::d3dTexture::~d3dTexture() {}` stood for it, which natively defines
 // no function for the vftable slot (the release of the copyright sprite's texture reached `hulk_x_00326c40`)
 namespace fn_00326c40 {
-void __cdecl thunk_FUN_00267090(void*);
 struct d3dTexture_326c40 {
     void FUN_00326290();   // the destructor's body
     d3dTexture_326c40* vfunc_3(unsigned char flags);
@@ -979,7 +977,7 @@ struct d3dTexture_326c40 {
 d3dTexture_326c40* d3dTexture_326c40::vfunc_3(unsigned char flags) {
     FUN_00326290();
     if (flags & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00326c40

@@ -59,7 +59,6 @@ class FalseCondition_23d2f0 : public Condition_23d2f0 {
   public:
     FalseCondition_23d2f0* vfunc_5(signed char flags);
 };
-extern "C" void __cdecl FUN_0008d330(void* p);
 extern int hulk_at_00491ca8;
 extern "C" char DAT_00428afc[];
 class Sub_23d360 {
@@ -166,7 +165,7 @@ FalseCondition_23d2f0* FalseCondition_23d2f0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00428ad0;
     Destroy_002345b0();
     if (flags & 1) {
-        FUN_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -221,7 +220,7 @@ ConditionFactoryTemplate_23d3d0* ConditionFactoryTemplate_23d3d0::vfunc_5(signed
     *(void***)this = hulk_at_00428afc;
     Destroy_002343d0();
     if (flags & 1) {
-        FUN_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }

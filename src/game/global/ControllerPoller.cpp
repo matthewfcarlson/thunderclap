@@ -13,7 +13,6 @@ namespace fn_f09842b8 {} using namespace fn_f09842b8;
 namespace fn_f09842b8 {
 extern void* hulk_at_0040bcb4;
 extern void* hulk_at_0040bc80;
-void __cdecl Release_0008d330(void*);
 class ControllerState_dd7a0 {
   public:
     void* vt;
@@ -243,11 +242,11 @@ namespace fn_f09842b8 {
 void ControllerState_dd7a0::Clear() {
     vt = &hulk_at_0040bcb4;
     if (a) {
-        Release_0008d330(a);
+        ::operator delete(a);
         a = 0;
     }
     if (b) {
-        Release_0008d330(b);
+        ::operator delete(b);
         b = 0;
     }
     vt = &hulk_at_0040bc80;
@@ -528,22 +527,21 @@ class ControllerState {
     virtual void vfunc_11();
     hulk_intptr p4, p8, mA, mB;
 };
-extern void __cdecl thunk_FUN_00267090(void*);
 extern "C" char DAT_0040bcb4[];   // (decl1) was `void* cvtable_ddb80` (a C++ name bound nowhere natively)
 extern "C" char DAT_0040bc80[];   // (decl1) was `void* ivtable` (a C++ name bound nowhere natively)
 ControllerState* ControllerState::vfunc_0(unsigned char param) {
     *(void**)this = &(*(void**)&DAT_0040bcb4);
     if (mA) {
-        thunk_FUN_00267090((void*)mA);
+        ::operator delete((void*)mA);
         mA = 0;
     }
     if (mB) {
-        thunk_FUN_00267090((void*)mB);
+        ::operator delete((void*)mB);
         mB = 0;
     }
     *(void**)this = &(*(void**)&DAT_0040bc80);
     if (param & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_000ddb80

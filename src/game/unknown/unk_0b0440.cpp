@@ -37,10 +37,9 @@ class A_b06e0 {
     int m4;
     A_b06e0();
 };
-void __cdecl ReleaseThing_0008d330(uint);
 struct Obj_b0710 {
-    uint a;
-    uint b;
+    void* a;   // (nat2, D134) a block's end and the block, freed with operator delete
+    void* b;
     void Clear();
 };
 extern "C" int FUN_00096670(const char*, const char*, int);
@@ -170,7 +169,6 @@ struct Container_b0e20 {
     virtual int count(const char* name);
     virtual Button_b0e20* get(const char* name, int index);
 };
-void __cdecl thunk_FUN_00267090(void*);
 struct Object {
     char pad0[0x10];
     Container_b0e20* container;
@@ -332,7 +330,7 @@ A_b06e0::A_b06e0() {
 // sym: ?Clear@Obj_b0710@fn_f3cf613f@@QAEXXZ
 void Obj_b0710::Clear() {
     if (b) {
-        ReleaseThing_0008d330(b);
+        ::operator delete(b);
         a = 0;
         b = 0;
     }
@@ -636,13 +634,13 @@ void Object::FUN_000b0e20() {
     if (data) {
         for (int i = 0; i < n; ++i) {
             if (data[i]) {
-                thunk_FUN_00267090(data[i]);
+                ::operator delete(data[i]);
                 data[i] = 0;
             }
         }
     }
     if (data) {
-        thunk_FUN_00267090(data);
+        ::operator delete(data);
         data = 0;
     }
 }

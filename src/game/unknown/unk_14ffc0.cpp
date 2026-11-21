@@ -7,7 +7,6 @@
 #define TREE_TU_END }
 namespace fn_fb14e9c5 {} using namespace fn_fb14e9c5;
 namespace fn_fb14e9c5 {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "game/unknown.h"
 
@@ -138,7 +137,6 @@ struct Obj_150420 {
     void f1_0027af50();
     void f2_002345b0();
 };
-extern void thunk_FUN_00267090(Obj_150420*);
 class CollisionThrownObjectCondition_150420 {
   public:
     void* vftable;
@@ -160,7 +158,6 @@ struct Obj_150480 {
     void f1_00234150();
     void f2_002345b0();
 };
-extern void thunk_FUN_00267090(Obj_150480*);
 class CollisionSourceNodeCondition_150480 {
   public:
     void* vftable;
@@ -182,7 +179,6 @@ struct Obj_1504e0 {
     void f1_0027af50();
     void f2_002345b0();
 };
-extern void thunk_FUN_00267090(Obj_1504e0*);
 class CollisionTargetNameCondition_1504e0 {
   public:
     void* vftable;
@@ -222,7 +218,6 @@ struct Obj_1505a0 {
     void f1_0027af50();
     void f2_002345b0();
 };
-extern void thunk_FUN_00267090(Obj_1505a0*);
 class CollisionSourceNameCondition_1505a0 {
   public:
     void* vftable;
@@ -294,7 +289,6 @@ class HitReactionTrack {
     void BaseCall_00236d60();
     HitReactionTrack(int);
 };
-extern void __cdecl thunk_FUN_00267090(HitReactionTrack*);
 extern void* hulk_at_00414300[];
 class Track_1506c0 {
   public:
@@ -446,7 +440,7 @@ InterruptAccumulatorCondition_1501e0* InterruptAccumulatorCondition_1501e0::vfun
     *(void***)this = hulk_at_00413f70;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -461,7 +455,7 @@ CollisionSourceForceMagnitudeCondition_150210* CollisionSourceForceMagnitudeCond
     *(void***)this = hulk_at_00413f90;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -476,7 +470,7 @@ CollisionThrowCondition_150240* CollisionThrowCondition_150240::vfunc_5(signed c
     *(void***)this = hulk_at_00413fb0;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -491,7 +485,7 @@ CollisionSourceSizeCondition_150270* CollisionSourceSizeCondition_150270::vfunc_
     *(void***)this = hulk_at_00413fd0;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -506,7 +500,7 @@ CollisionSourceTypeCondition_1502a0* CollisionSourceTypeCondition_1502a0::vfunc_
     *(void***)this = hulk_at_00413ff0;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -521,7 +515,7 @@ CollisionTargetPriorityCondition_1502d0* CollisionTargetPriorityCondition_1502d0
     *(void***)this = hulk_at_00414010;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -536,7 +530,7 @@ CollisionDevastatorCondition_150300* CollisionDevastatorCondition_150300::vfunc_
     *(void***)this = hulk_at_00414030;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -551,7 +545,7 @@ HitPushbackCondition_150330* HitPushbackCondition_150330::vfunc_5(signed char fl
     *(void***)this = hulk_at_00414050;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -566,7 +560,7 @@ CollisionTargetIsTargetCondition_150360* CollisionTargetIsTargetCondition_150360
     *(void***)this = hulk_at_00414070;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -581,7 +575,7 @@ CollisionTargetSizeCondition_150390* CollisionTargetSizeCondition_150390::vfunc_
     *(void***)this = hulk_at_00414090;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -596,7 +590,7 @@ CollisionSourceIsMissileCondition_1503c0* CollisionSourceIsMissileCondition_1503
     *(void***)this = hulk_at_004140b0;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -611,7 +605,7 @@ HitPushbackVelocityCondition_1503f0* HitPushbackVelocityCondition_1503f0::vfunc_
     *(void***)this = hulk_at_004140d0;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -626,7 +620,7 @@ CollisionThrownObjectCondition_150420* CollisionThrownObjectCondition_150420::vf
     ((Obj_150420*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_150420*)p)->f2_002345b0();
     if (param & 1)
-        thunk_FUN_00267090((Obj_150420*)p);
+        ::operator delete((Obj_150420*)p);
     return p;
 }
 
@@ -640,7 +634,7 @@ CollisionExplosionCondition_150450* CollisionExplosionCondition_150450::vfunc_5(
     *(void***)this = hulk_at_00414110;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -655,7 +649,7 @@ CollisionSourceNodeCondition_150480* CollisionSourceNodeCondition_150480::vfunc_
     ((Obj_150480*)((char*)p + 0x10))->f1_00234150();
     ((Obj_150480*)p)->f2_002345b0();
     if (param & 1)
-        thunk_FUN_00267090((Obj_150480*)p);
+        ::operator delete((Obj_150480*)p);
     return p;
 }
 
@@ -669,7 +663,7 @@ CollisionChargeCondition_1504b0* CollisionChargeCondition_1504b0::vfunc_5(signed
     *(void***)this = hulk_at_00414150;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -684,7 +678,7 @@ CollisionTargetNameCondition_1504e0* CollisionTargetNameCondition_1504e0::vfunc_
     ((Obj_1504e0*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_1504e0*)p)->f2_002345b0();
     if (param & 1)
-        thunk_FUN_00267090((Obj_1504e0*)p);
+        ::operator delete((Obj_1504e0*)p);
     return p;
 }
 
@@ -698,7 +692,7 @@ CollisionDamageHealthCompareCondition_150510* CollisionDamageHealthCompareCondit
     *(void***)this = hulk_at_00414190;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -713,7 +707,7 @@ CollisionTargetTypeCondition_150540* CollisionTargetTypeCondition_150540::vfunc_
     *(void***)this = hulk_at_004141b0;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -728,7 +722,7 @@ CollisionInterruptPriorityCondition_150570* CollisionInterruptPriorityCondition_
     *(void***)this = hulk_at_004141d0;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -743,7 +737,7 @@ CollisionSourceNameCondition_1505a0* CollisionSourceNameCondition_1505a0::vfunc_
     ((Obj_1505a0*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_1505a0*)p)->f2_002345b0();
     if (param & 1)
-        thunk_FUN_00267090((Obj_1505a0*)p);
+        ::operator delete((Obj_1505a0*)p);
     return p;
 }
 
@@ -757,7 +751,7 @@ InterruptAccumulatorSetTrack_1505d0* InterruptAccumulatorSetTrack_1505d0::vfunc_
     *(void***)this = hulk_at_00414210;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -772,7 +766,7 @@ HitThrowTrack_150600* HitThrowTrack_150600::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00414240;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -800,7 +794,7 @@ HitPauseTrack_150660* HitPauseTrack_150660::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_004142a0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -811,7 +805,7 @@ HitPauseTrack_150660* HitPauseTrack_150660::vfunc_5(signed char flags) {
 HitReactionTrack::HitReactionTrack(int flag) {
     BaseCall_00236d60();
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
 }
 
 
@@ -824,7 +818,7 @@ HitWaitTrack_1506c0* HitWaitTrack_1506c0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00414300;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -839,7 +833,7 @@ InterruptPriorityTrack_1506f0* InterruptPriorityTrack_1506f0::vfunc_5(signed cha
     *(void***)this = hulk_at_00414330;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -854,7 +848,7 @@ HitOrientToPushbackTrack_150720* HitOrientToPushbackTrack_150720::vfunc_5(signed
     *(void***)this = hulk_at_00414360;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -869,7 +863,7 @@ HitFloatTrack_150750* HitFloatTrack_150750::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00414390;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -884,7 +878,7 @@ ClearFightParamsHitRecordTrack_150780* ClearFightParamsHitRecordTrack_150780::vf
     *(void***)this = hulk_at_004143c0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -899,7 +893,7 @@ HitPushbackAddTrack_1507b0* HitPushbackAddTrack_1507b0::vfunc_5(signed char flag
     *(void***)this = hulk_at_004143f0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -914,7 +908,7 @@ HealthTrack_1507e0* HealthTrack_1507e0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00414420;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -929,7 +923,7 @@ HitDamageTrack_150810* HitDamageTrack_150810::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00414450;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -944,7 +938,7 @@ GroundSlideTrack_150840* GroundSlideTrack_150840::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00414480;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -959,7 +953,7 @@ HitPushbackTrack_150870* HitPushbackTrack_150870::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_004144b0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -974,7 +968,7 @@ NoHitPushbackTrack_1508a0* NoHitPushbackTrack_1508a0::vfunc_5(signed char flags)
     *(void***)this = hulk_at_004144e0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

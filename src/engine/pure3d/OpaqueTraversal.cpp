@@ -10,6 +10,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_ff737d4f {} using namespace fn_ff737d4f;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_ff737d4f { extern "C" char DAT_0042d78c[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
 
@@ -373,9 +374,9 @@ OpaqueTraversal_2a2de0::~OpaqueTraversal_2a2de0() {
     vptr = hulk_at_0042d78c;
     _ReadWriteBarrier();
     if (m2c)
-        operator delete(m2c);
+        ::operator delete[](m2c);
     if (m20)
-        operator delete(m20);
+        ::operator delete[](m20);
     Fin_002c6aa0();
 }
 

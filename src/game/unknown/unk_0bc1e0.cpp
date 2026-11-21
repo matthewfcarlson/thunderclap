@@ -11,6 +11,7 @@
 #define TREE_TU_BEGIN namespace fn_f87c96cc {
 #define TREE_TU_END }
 namespace fn_f87c96cc {} using namespace fn_f87c96cc;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/unknown.h"
 
 // ---- declarations shared by the functions below
@@ -112,7 +113,6 @@ public:
 struct Obj_bc4d0;
 extern void* g_b_bc4d0;
 void __cdecl Fa_000fc130(void*);
-void __cdecl Release_0008d340(void*);
 Obj_bc4d0* Fc_000fc1b0();
 struct Obj_bc4d0 {
     void Fd_000f7ce0();
@@ -241,13 +241,13 @@ void Main_bc4d0::Run() {
     for (i = 0; i < 0x80; i++) {
         if (!a[i])
             break;
-        Release_0008d340(a[i]);
+        ::operator delete[](a[i]);
         a[i] = 0;
     }
     for (i = 0; i < 0x80; i++) {
         if (!b[i])
             break;
-        Release_0008d340(b[i]);
+        ::operator delete[](b[i]);
         b[i] = 0;
     }
     FUN_000fc160();

@@ -25,7 +25,6 @@ class NonCopyable : public NonCopyable_1c1200 {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 
 
 // 0x001c1200 pure3d::GameDrawableInfo::vfunc_2 (31 B): matches/0x001c1200.cpp
@@ -34,7 +33,7 @@ void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

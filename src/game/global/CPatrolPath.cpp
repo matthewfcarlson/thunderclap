@@ -2,6 +2,7 @@
 // object 0x00106550..0x001065b0 (kind game, layer game, confidence medium), dominant class CPatrolPath
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_f9481d31 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -14,7 +15,6 @@ void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d3
 // ---- declarations shared by the functions below
 namespace fn_f9481d31 {
 extern "C" char DAT_0040d564[];
-void DeleteThing_00263f30(void*);
 class CPatrolPath {
   public:
     virtual void a();
@@ -37,7 +37,7 @@ CPatrolPath* CPatrolPath::vfunc_2(unsigned char flag) {
     this->field14 = 0;
     this->InitMember_0027afd0();
     if (flag & 1)
-        DeleteThing_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

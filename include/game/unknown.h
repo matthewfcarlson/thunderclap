@@ -27,9 +27,7 @@ TREE_TU_END
 extern "C" int sprintf(char* dst, const char* fmt, ...);
 #endif
 TREE_TU_BEGIN
-void __cdecl thunk(int);
 extern "C" void __cdecl FUN_000fc160();
-extern "C" void opdel(void*);
 extern int check(void*, int, int*, int*, int);
 TREE_TU_END
 #endif

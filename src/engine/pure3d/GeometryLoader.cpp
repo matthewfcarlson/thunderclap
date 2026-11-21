@@ -829,7 +829,7 @@ struct Geometry_2c3040 {
 void* Geometry_2c3040::vfunc_2(unsigned int flags) {
     FUN_002c28d0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002c3040
@@ -915,7 +915,7 @@ GeometryLoader_2c3160* GeometryLoader_2c3160::f2(unsigned char flags) {
     }
     vptr = hulk_at_003f6098;
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

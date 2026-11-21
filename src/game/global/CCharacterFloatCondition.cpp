@@ -8,7 +8,6 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f995c03d {} using namespace fn_f995c03d;
 namespace fn_f995c03d {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "game/global.h"
 
@@ -34,7 +33,7 @@ CCharacterFloatCondition* CCharacterFloatCondition::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_003f6d50;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

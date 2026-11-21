@@ -369,7 +369,7 @@ struct PhysicsJointMatrixModifier_2fc3e0 {
 void* PhysicsJointMatrixModifier_2fc3e0::vfunc_2(unsigned int flags) {
     FUN_0030eb50();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002fc3e0
@@ -392,7 +392,7 @@ struct RootMatrixDriver_2fc400 {
 void* RootMatrixDriver_2fc400::vfunc_2(unsigned int flags) {
     FUN_0030eb50();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002fc400

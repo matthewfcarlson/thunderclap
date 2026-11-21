@@ -458,7 +458,7 @@ struct LocomotionSteerDriver_228aa0 {
 void* LocomotionSteerDriver_228aa0::vfunc_2(unsigned int flags) {
     FUN_00228590();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00228aa0

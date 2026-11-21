@@ -57,7 +57,6 @@ class CClimbingAction {
     void Run_002326a0();
     CClimbingAction* Target(char);
 };
-extern void __cdecl thunk_FUN_00267090(CClimbingAction*);
 
 
 // 0x000216a0 CAction::vfunc_2 (57 B): matches/0x000216a0.cpp
@@ -110,7 +109,7 @@ CClimbingAction* CClimbingAction::Target(char flag) {
     }
     Run_002326a0();
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

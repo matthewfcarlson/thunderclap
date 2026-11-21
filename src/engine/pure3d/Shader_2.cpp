@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0028f240..0x0028f280 (kind game, layer engine, confidence medium), dominant class pure3d::Shader
 #include "tree_prelude.h"
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_f7efdb18 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -46,7 +47,7 @@ Shader_28f240* Shader_28f240::f2(unsigned char flags) {
     }
     Fin_0027afd0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

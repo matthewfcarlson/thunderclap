@@ -19,7 +19,6 @@ class NonCopyable_24d3d0 : public IRefCount {
 };
 }
 namespace fn_fbe9f2e3 {
-void thunk_FUN_00267090(pure3d::NonCopyable_24d3d0*);
 
 } // namespace fn_fbe9f2e3
 
@@ -37,7 +36,7 @@ void om::MetaTypeAttribBase::vfunc_3(hulk_intptr a) {
 pure3d::NonCopyable_24d3d0* pure3d::NonCopyable_24d3d0::f2(unsigned char param) {
     *(void**)this = (void**)DAT_00429420;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

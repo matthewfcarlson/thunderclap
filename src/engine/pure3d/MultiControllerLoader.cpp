@@ -10,6 +10,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f35e48b8 {} using namespace fn_f35e48b8;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f35e48b8 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
 
@@ -97,11 +98,10 @@ class NonCopyable : public SimpleChunkHandler_2b23c0 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002b23c0
@@ -126,11 +126,10 @@ class NonCopyable : public SimpleChunkHandler_2b2400 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002b2400
@@ -242,7 +241,6 @@ class MultiController {
     void Finish_00284ac0();
 };
 extern void* hulk_at_0042e4d4;
-void Free_0008d340(void*);
 void __fastcall FUN_002b28d0(MultiController* self) {
     unsigned int i = 0;
     unsigned int n = self->count;
@@ -259,7 +257,7 @@ void __fastcall FUN_002b28d0(MultiController* self) {
         } while (i < self->count);
     }
     if (self->items)
-        Free_0008d340(self->items);
+        ::operator delete[](self->items);
     self->Finish_00284ac0();
 }
 } // namespace fn_002b28d0
@@ -291,7 +289,7 @@ struct MultiController_2b2be0 {
 void* MultiController_2b2be0::vfunc_2(unsigned int flags) {
     FUN_002b28d0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002b2be0

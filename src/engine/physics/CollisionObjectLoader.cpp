@@ -12,6 +12,7 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fa930a40 {} using namespace fn_fa930a40;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fa930a40 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/physics.h"
 
@@ -111,7 +112,6 @@ class X_307ef0 {
     char* next();
 };
 struct Entry_307f30 { unsigned a,b; void* resource; unsigned char c,d; char pad[2]; };
-extern "C" void __cdecl FUN_0008d340(void*);
 struct Flags_307f30 { int size; int capacity; unsigned char* data;  };
 struct Object { int count; Entry_307f30* entries; Flags_307f30 flags; void FUN_00307f30(int); };
 extern "C" char DAT_00431c90[];
@@ -871,7 +871,7 @@ char* X_307ef0::next() {
 
 
 // 0x00307f30 FUN_00307f30 (226 B): equivalent/0x00307f30.cpp
-// sym: ?FUN_00307f30@Object@fn_fa930a40@@QAEXH@Z @e77a25a32722 @w8fbe1a65936f @v3620570ea101
+// sym: ?FUN_00307f30@Object@fn_fa930a40@@QAEXH@Z @807f63745bd8 @w73fec051c2f6 @vc71c4561d017
 // STATUS: equivalent (tools/equiv.py level 3: 44 inputs, branch coverage 18/18)
 // FUN_00307f30 @ 0x00307f30
 void Object::FUN_00307f30(int n) {
@@ -879,8 +879,8 @@ void Object::FUN_00307f30(int n) {
  if(old) {
   int* header = reinterpret_cast<int*>(old)-1;
   int oldCount=*header;
-  for(int i=oldCount-1;i>=0;--i) FUN_0008d340(old[i].resource);
-  FUN_0008d340(header);
+  for(int i=oldCount-1;i>=0;--i) ::operator delete[](old[i].resource);
+  ::operator delete[](header);
  }
  flags.size=0;
  count=n;
@@ -933,11 +933,10 @@ class NonCopyable : public SimpleChunkHandler_308040 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00308040
@@ -975,11 +974,10 @@ class NonCopyable : public SimpleChunkHandler_308080 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00308080

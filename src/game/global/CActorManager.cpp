@@ -656,9 +656,6 @@ class Closure2_30290 : public ScriptClosureView {
     Closure2_30290(const char*, Owner*, Fn_30290) throw();
 };
 } // namespace fn_f8e68f21
-inline void* operator new(hulk_uintptr n) throw() {
-    return FUN_0008d690((unsigned int)n);
-}
 namespace fn_f8e68f21 {
 typedef void (Owner::*Fn_302e0)(const char*, int);
 class Registry_302e0 {

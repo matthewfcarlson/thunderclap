@@ -14,7 +14,6 @@
 namespace fn_facdac2a {} using namespace fn_facdac2a;
 namespace fn_facdac2a {
 struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 namespace fn_facdac2a { extern "C" char DAT_004110e0[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight.h"
@@ -143,7 +142,6 @@ struct PostEvent_StringTrack_nv_12db20 {
     void f1_0027af50();
     void f2_00236d60();
 };
-extern void thunk_FUN_00267090(hulkfight::PostEvent_StringTrack*);
 class PostEvent_StringTrack_12db20 {
   public:
     void* vftable;
@@ -406,7 +404,7 @@ PostEvent_StringTrack_12db20* PostEvent_StringTrack_12db20::vfunc_5(unsigned cha
     ((PostEvent_StringTrack_nv_12db20*)(((hulkfight::PostEvent_StringTrack*)((char*)p + 0x10))))->f1_0027af50();
     ((PostEvent_StringTrack_nv_12db20*)(((hulkfight::PostEvent_StringTrack*)p)))->f2_00236d60();
     if (param & 1)
-        thunk_FUN_00267090((hulkfight::PostEvent_StringTrack*)p);
+        ::operator delete((hulkfight::PostEvent_StringTrack*)p);
     return p;
 }
 
@@ -646,7 +644,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

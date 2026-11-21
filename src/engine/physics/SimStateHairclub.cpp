@@ -443,7 +443,6 @@ struct Ref_2fe530 {
     virtual void a();
     virtual void b();
 };
-void release_0008d330(SimStateHairclub*);
 SimStateHairclub* SimStateHairclub::vfunc_2(unsigned char p) {
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_004319a4);
     Ref_2fe530* volatile* pm = &member;
@@ -454,7 +453,7 @@ SimStateHairclub* SimStateHairclub::vfunc_2(unsigned char p) {
     }
     cleanup_002ef2c0();
     if (p & 1)
-        release_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_002fe530

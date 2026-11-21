@@ -12,6 +12,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f2e163a0 {} using namespace fn_f2e163a0;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f2e163a0 { extern "C" char DAT_003f6098[], DAT_0042d714[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
 
@@ -294,7 +295,7 @@ ShadowTraversal_2a17c0::~ShadowTraversal_2a17c0() {
         m2c = 0;
     }
     if (m3c)
-        operator delete(m3c);
+        ::operator delete[](m3c);
     sub.Fini_002a3120();
     m18 = ((void**)DAT_003f6098);
     Fin_002c6aa0();

@@ -274,7 +274,7 @@ TrackFactory_236d10* TrackFactory_236d10::vfunc_5(signed char flags) {
     *(void***)this = ((void**)DAT_00427f54);
     Destroy();
     if (flags & 1) {
-        ::operator delete(this);
+        ::content::LoadObject::operator delete(this);
     }
     return this;
 }
@@ -330,7 +330,6 @@ class Track : public Param {
     void helper();
     Param* mThing;
 };
-void __cdecl thunk_FUN_00267090(Track*);
 Track* Track::v5(int flag) {
     Param* p = mThing;
     *(void**)this = (void*)((int*)DAT_00427f70);
@@ -339,7 +338,7 @@ Track* Track::v5(int flag) {
     mThing = 0;
     helper();
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00236d90

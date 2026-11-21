@@ -58,7 +58,6 @@ class NonCopyable_24ece0 : public IRefCount {
 };
 }
 namespace fn_f983a9d8 {
-void thunk_FUN_00267090(pure3d::NonCopyable_24ece0*);
 } // namespace fn_f983a9d8
 extern "C" __int64 __cdecl FUN_002672f0(const char*, int, int) throw();
 namespace fn_f983a9d8 {
@@ -281,7 +280,7 @@ bool FUN_0024ebe0(Writer_24ebe0 *w, const unsigned char *bytes)
 pure3d::NonCopyable_24ece0* pure3d::NonCopyable_24ece0::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0042991c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

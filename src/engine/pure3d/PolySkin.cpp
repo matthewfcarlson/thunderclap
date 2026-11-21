@@ -440,7 +440,7 @@ struct PolySkin_2b7e30 {
 void* PolySkin_2b7e30::vfunc_2(unsigned int flags) {
     FUN_002b7c00();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002b7e30

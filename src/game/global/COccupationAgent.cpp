@@ -441,7 +441,6 @@ extern int hulk_at_0040d468;
 struct COccupationAgent_1037f0 {
     void run_000fc630();
 };
-void __cdecl thunk_FUN_00267090(void*);
 class COccupationAgent {
   public:
     virtual void v0();
@@ -478,7 +477,7 @@ COccupationAgent* COccupationAgent::vfunc_2(unsigned char param) {
     thing = 0;
     ((COccupationAgent_1037f0*)this)->run_000fc630();
     if (param & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_001037f0

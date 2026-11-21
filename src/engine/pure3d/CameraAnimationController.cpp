@@ -251,7 +251,7 @@ CameraAnimationController_293890* CameraAnimationController_293890::f2(unsigned 
     }
     Fin_00285f50();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

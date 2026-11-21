@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x000832e0..0x00083320 (kind game, layer game, confidence medium), dominant class CCow
 #include "tree_prelude.h"
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_f6f327b7 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -17,7 +18,6 @@ struct Holder_832e0 {
     virtual void release();
 };
 extern char hulk_at_003ff90c[];
-extern void __cdecl thunk_FUN_00267090(void*);
 struct CCow {
     void* vfptr;
     char pad[0x38];
@@ -38,7 +38,7 @@ CCow* CCow::vfunc_2(byte_832e0 flags) {
     }
     helper_0027afd0();
     if (flags & 1)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

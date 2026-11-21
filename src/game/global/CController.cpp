@@ -137,7 +137,6 @@ class Item_add70 {
     virtual void f();
     virtual void Release();
 };
-extern "C" void __cdecl Free(void*);
 class CController_add70 {
   public:
     char pad[0x10];
@@ -253,7 +252,6 @@ extern char hulk_at_00405d38, hulk_at_003f6098;
 struct ThisCall_000ad990 {
     void FUN_000ad990();
 };
-void thunk_FUN_00267090(CController*);
 class Entry_ae5a0;
 class Item_ae5a0 {
   public:
@@ -781,7 +779,7 @@ CController* CController::vfunc_2(int flags) {
     second_000add70();
     *(void**)this = &hulk_at_003f6098;
     if (flags & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

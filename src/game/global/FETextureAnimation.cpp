@@ -20,7 +20,6 @@ class FEPoseAnimation_f11f0 {
     void* vptr;
     void Fin_000e8730();
 };
-void Free_0008d330(void*) throw();
 struct Sub_f11f0 {
     char c;
 };
@@ -46,7 +45,7 @@ FEParticleAnimation_f11f0* FEParticleAnimation_f11f0::f(unsigned char fl) {
     }
     Fin_000e8730();
     if (fl & 1)
-        Free_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

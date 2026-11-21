@@ -9,25 +9,22 @@
 #define TREE_TU_BEGIN namespace fn_fefa0dcd {
 #define TREE_TU_END }
 namespace fn_fefa0dcd {} using namespace fn_fefa0dcd;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/hulkfight/motion.h"
 
 // ---- declarations shared by the functions below
 namespace fn_fefa0dcd {
-typedef unsigned int u32_170100;
-extern void __cdecl thunk_FUN_00267090(u32_170100);
 extern int hulk_at_00417988;
 struct Helper_170100 {
     void call_0027af50();
 };
-class SyncToLocatorTrack {
+// (nat2, D134) the track's record: the locator name (+0x28 on 32-bit) is a pointer, freed with operator delete[]; the
+// name id at +0x20
+class SyncToLocatorTrack : public ::hulkfight::motion::SyncToLocatorTrack {
   public:
-    int* vftable;
-    char pad[0x28 - 4];
-    u32_170100 field;
     void f();
     void finish_00236d60();
 };
-void thunk_FUN_00267090(void*);
 extern "C" char* __cdecl FUN_0008d6d0(unsigned int);
 extern int* hulk_at_004e1318;
 class CCondition_1701c0 {
@@ -61,10 +58,10 @@ struct Track_170220 {
 // 0x00170100 FUN_00170100 (37 B): matches/0x00170100.cpp
 // sym: ?f@SyncToLocatorTrack@fn_fefa0dcd@@QAEXXZ
 void SyncToLocatorTrack::f() {
-    u32_170100 x = field;
-    vftable = &hulk_at_00417988;
-    thunk_FUN_00267090(x);
-    ((Helper_170100*)((char*)this + 0x20))->call_0027af50();
+    void* x = f_28;
+    *(int**)this = &hulk_at_00417988;
+    ::operator delete[](x);
+    ((Helper_170100*)(_pad_1c + 4))->call_0027af50();
     finish_00236d60();
 }
 
@@ -75,7 +72,7 @@ void SyncToLocatorTrack::f() {
 // FUN_00170130 @ 0x00170130
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
 bool owners::StrHolder_170130::FUN_00170130(const char* src, int len) {
-    thunk_FUN_00267090(text);
+    ::operator delete[](text);
     if (src != 0 && len > 0) {
         text = FUN_0008d6d0(len + 1);
         memcpy(text, src, len);

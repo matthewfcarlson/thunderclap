@@ -12,7 +12,6 @@
 namespace fn_fe0ef8b4 {} using namespace fn_fe0ef8b4;
 namespace fn_fe0ef8b4 {
 struct FactoryCtor { void init_002343b0(); };   // (unb4) the factory constructors InitHelper::init stood for
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "engine/fight.h"
 void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
@@ -190,14 +189,13 @@ class SubConditionGroupCondition {
     virtual void v6();
     void Finalize_002345b0();
 };
-extern void __cdecl DestroySub_0008d330(SubConditionGroupCondition*);
 SubConditionGroupCondition* SubConditionGroupCondition::vfunc_5(int flags) {
     Part_23c930* p = (Part_23c930*)((char*)this + 12);
     *(hulk_uintptr*)this = ((hulk_intptr)DAT_004288fc);
     p->Init_00236fd0();
     Finalize_002345b0();
     if (flags & 1)
-        DestroySub_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0023c930
@@ -301,7 +299,7 @@ void* ConditionFactoryTemplate_23cb10::scalar_dtor(unsigned char flags) {
     base1_dtor_0023c8b0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

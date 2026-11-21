@@ -139,7 +139,6 @@ class Thing_1c6c40 {
     Part_1c6c40 part;
     Thing_1c6c40* Run(unsigned char flags);
 };
-void DeleteThing_0008d330(Thing_1c6c40*);
 
 
 // 0x001c6660 FUN_001c6660 (153 B): equivalent/0x001c6660.cpp
@@ -309,7 +308,7 @@ void B_1c6bd0::run() {
 Thing_1c6c40* Thing_1c6c40::Run(unsigned char flags) {
     part.Cleanup_001c27c0();
     if (flags & 1)
-        DeleteThing_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

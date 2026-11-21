@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fec45b2c {} using namespace fn_fec45b2c;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/physics.h"
 
 // ---- declarations shared by the functions below
@@ -29,7 +30,6 @@ class Obj_3103e0 {
     virtual void Kill(int);
     virtual void Release();
 };
-extern void Free_0008d340(void*);
 struct ArticulatedPhysicsObject_nv_3103e0 {
     void Tail_002f5640();
 };
@@ -473,8 +473,8 @@ void physics::ArticulatedPhysicsObject::FUN_003103e0() {
         if (p)
             p->Kill(1);
     }
-    Free_0008d340((*(Obj_3103e0 ** *)&this->f_1f8));
-    Free_0008d340((*(void * *)&this->f_1fc));
+    ::operator delete[]((*(Obj_3103e0 ** *)&this->f_1f8));
+    ::operator delete[]((*(void * *)&this->f_1fc));
     ((ArticulatedPhysicsObject_nv_3103e0*)this)->Tail_002f5640();
 }
 
@@ -807,7 +807,7 @@ struct ArticulatedPhysicsObject_310e70 {
 void* ArticulatedPhysicsObject_310e70::vfunc_2(unsigned int flags) {
     FUN_003103e0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00310e70

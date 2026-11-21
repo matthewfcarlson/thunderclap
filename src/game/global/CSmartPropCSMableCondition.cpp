@@ -11,7 +11,6 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f5d3a323 {} using namespace fn_f5d3a323;
 namespace fn_f5d3a323 {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "game/global.h"
 
@@ -38,7 +37,6 @@ class CSmartPropCSMableCondition_4cb70 {
     void Fna_0027af50();
     void Fnb_002345b0();
 };
-void thunk_FUN_00267090(void*);
 extern void* hulk_at_003f6d50[];
 class CCondition_4cbb0 {
   public:
@@ -60,7 +58,7 @@ CSmartPropGrabbableNameCondition* CSmartPropGrabbableNameCondition::vfunc_5(int 
     *(void (**)())s = &vt_cond;
     ((CSmartPropCSMableCondition_4cb70*)s)->Fnb_002345b0();
     if (p & 1)
-        thunk_FUN_00267090(s);
+        ::operator delete(s);
     return s;
 }
 
@@ -74,7 +72,7 @@ CSmartPropCSMableCondition* CSmartPropCSMableCondition::vfunc_5(signed char flag
     *(void***)this = hulk_at_003f6d50;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }

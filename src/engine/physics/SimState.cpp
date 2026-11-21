@@ -144,7 +144,6 @@ class SimState_2ef7f0 {
 typedef char hulk_size_2ef7f0[(sizeof(SimState_2ef7f0) == sizeof(HulkSimState)) ? 1 : -1];   // (x64t6) the record's size on every build
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_00431214[];
-void freeit_0008d330(void*);
 class Obj_2ef850 {
   public:
     virtual void a();
@@ -561,7 +560,7 @@ SimState* SimState::f2(unsigned char flag) {
     }
     *(void**)this = (void*)((hulk_intptr)DAT_003f6098);
     if (flag & 1)
-        freeit_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 

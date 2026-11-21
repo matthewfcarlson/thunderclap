@@ -1655,20 +1655,24 @@ def platform_shim(cp):  # noqa: C901
     return out
 
 
+OP_DELETE_CLASS = re.compile(r"\?\?3(?:[A-Za-z_]\w*@)+@SAXPAX@Z")   # a class's static operator delete(void*)
+
+
 def deleting_destructors(defs, defined):
     """Fix 6b: the scalar deleting destructors (`??_GX@@UAEPAXI@Z`) the verification build defines and clang doesn't.
 
     MSVC 7.1 emits `??_G` as a COMDAT wherever the source defines a virtual destructor; clang (MS ABI) emits it
     only with the class's vftable, i.e. in a TU that constructs the class. The game's vftables (vtables.s) and
     the stub vftables' slot 0 point at it. Each is synthesized here from MSVC's own definition of the function:
-    in the verification build it calls exactly the complete destructor `??1X` and the global `operator delete`
-    (checked per function from the MSVC object's relocations; anything else is left alone), so it is
+    in the verification build it calls exactly the complete destructor `??1X` and an `operator delete`: the global one
+    or a class's own (`??3LoadObject@content@@SAXPAX@Z`, D135: content::LoadObject's descendants) (checked per
+    function from the MSVC object's relocations; anything else is left alone), so it is
 
         X* __thiscall X::`scalar deleting destructor'(unsigned flags)
-        { this->X::~X(); if (flags & 1) ::operator delete(this); return this; }
+        { this->X::~X(); if (flags & 1) operator delete(this); return this; }
 
-    with `??1X` the clang-compiled destructor from the same source. No source or MSVC input changes; MS-ABI only
-    (Itanium emits its deleting destructor D0 with the vtable)."""
+    with `??1X` the clang-compiled destructor from the same source and `operator delete` the one MSVC's calls. No
+    source or MSVC input changes; MS-ABI only (Itanium emits its deleting destructor D0 with the vtable)."""
     want = {a: s for a, s in defs.items() if s.startswith("??_G") and s.endswith("PAXI@Z") and s not in defined}
     st = collections.Counter({"verified ??_G missing from the clang objects": len(want)})
     out, asm, refs = {}, ["\t.text"], set()
@@ -1676,7 +1680,6 @@ def deleting_destructors(defs, defined):
         return {"symbols": out, "references": refs, "asm": None, "stats": dict(st)}
     by_sym = {c["symbol"]: c for c in tree_checks() if c.get("symbol") in set(want.values())}
     objs = tree_objects({c["tu"] for c in by_sym.values()})
-    delete = "??3@YAXPAX@Z"
     for a, s in sorted(want.items()):
         dtor = "??1" + s[4:-len("PAXI@Z")] + "@XZ"
         c = by_sym.get(s)
@@ -1686,7 +1689,9 @@ def deleting_destructors(defs, defined):
         coff = compare.Coff(objs[c["tu"]])
         sym = next((x for x in coff.function_symbols() if x[0] == s), None)
         called = sorted({t[0] for off, t, typ, ab in coff.function_relocs(sym) if t}) if sym else None
-        if called != sorted({dtor, delete}):
+        # the global operator delete or a class's static one (`??3Class@ns@@SAXPAX@Z`)
+        delete = next((x for x in called or () if x == "??3@YAXPAX@Z" or OP_DELETE_CLASS.fullmatch(x)), None)
+        if delete is None or called != sorted({dtor, delete}):
             st["skipped: MSVC's definition calls something else (%s)" % ("no symbol" if sym is None else "relocations")] += 1
             continue
         if dtor not in defined:

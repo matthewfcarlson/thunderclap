@@ -408,7 +408,6 @@ class CollisionOBB : public CollisionVolume {
     char pad[0x78];
 };
 } // namespace physics
-void cleanup_0008d330(physics::CollisionOBB*);
 physics::CollisionOBB* physics::CollisionOBB::vfunc_2(byte_2fba40 flag) {
     CollisionOBB* self = this;
     *(hulk_ulongptr*)self = ((hulk_intptr)DAT_004317dc);
@@ -416,7 +415,7 @@ physics::CollisionOBB* physics::CollisionOBB::vfunc_2(byte_2fba40 flag) {
     ((H2_2fba40*)((char*)self + 0x3c))->Fnf_0030ea00();
     ((CollisionOBB_2fba40*)self)->Fnf_00306ac0();
     if (flag & 1)
-        cleanup_0008d330(self);
+        ::operator delete(self);
     return self;
 }
 } // namespace fn_002fba40

@@ -9,6 +9,7 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f346547a {} using namespace fn_f346547a;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f346547a { extern "C" char DAT_00432148[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/physics.h"
 
@@ -30,10 +31,9 @@ struct T_30eba0 {
     u32_30eba0 last;
     T_30eba0();
 };
-extern "C" void __cdecl thunk_FUN_00267090(int);
 struct Target_30ebd0 {
     char pad[0x10];
-    int value;
+    void* value;   // (nat2, D134) a block 0x0030ebd0 frees with operator delete
 };
 struct Block_30ebe0 {
     unsigned int x[0x15];
@@ -339,7 +339,6 @@ class Table {
 };
 extern void* hulk_at_0043211c[];
 extern void* hulk_at_003f6098[];
-extern "C++" __declspec(nothrow) void thunk_FUN_00267090(void*) throw();
 struct Elem_30f810 {
     char pad[0xc0];
     void Fini_0030ebd0() throw();
@@ -374,7 +373,6 @@ class PoseEngine_30fc90 {
     Ref_30fc90*** arr;
     Ref_30fc90*** rows;
 };
-void __cdecl drop_0008d340(void*);
 } // namespace fn_f346547a
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void* __cdecl memmove(void*, const void*, unsigned int);
@@ -513,7 +511,7 @@ T_30eba0::T_30eba0() : a0(0), a1(0), a2(0), a3(0), a4(0), c1(), c2(), last(0) {}
 // 0x0030ebd0 FUN_0030ebd0 (11 B): matches/0x0030ebd0.cpp
 // sym: ?FUN_0030ebd0@fn_f346547a@@YIXPAUTarget_30ebd0@1@PAX@Z
 void __fastcall FUN_0030ebd0(Target_30ebd0* self, void*) {
-    thunk_FUN_00267090(self->value);
+    ::operator delete(self->value);
 }
 
 
@@ -1100,7 +1098,7 @@ Pose_30f810::~Pose_30f810() throw() {
             e--;
             e->Fini_0030ebd0();
         }
-        thunk_FUN_00267090((int*)a - 1);
+        ::operator delete[]((int*)a - 1);
     }
     if (ref)
         ref->release();
@@ -1168,12 +1166,12 @@ void PoseEngine_30fc90::V() {
                 r->B();
                 --j;
             }
-            drop_0008d340(rows[i]);
+            ::operator delete[](rows[i]);
             --i;
         } while (i >= 0);
     }
-    drop_0008d340(rows);
-    drop_0008d340(arr);
+    ::operator delete[](rows);
+    ::operator delete[](arr);
     obj8->B();
     objc->B();
     *(void**)this = &(*(void**)&DAT_003f6098);

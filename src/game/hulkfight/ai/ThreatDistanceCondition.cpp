@@ -16,8 +16,6 @@
 #define TREE_TU_END }
 namespace fn_f9c2e0ac {} using namespace fn_f9c2e0ac;
 namespace fn_f9c2e0ac {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 namespace fn_f9c2e0ac { extern "C" char DAT_00410c54[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/ai.h"
@@ -355,7 +353,6 @@ struct ThreatDistanceCondition_12bc00 {
     void f1_0027af50();
     void f2_002345b0();
 };
-extern void thunk_FUN_00267090(ThreatDistanceCondition_12bc00*);
 class ThreatCondition {
   public:
     void* vftable;
@@ -388,7 +385,6 @@ struct ThreatAngleCondition {
     ThreatAngleCondition* vfunc_5(int);
     void Second_002345b0();
 };
-void Cleanup_0008d330(ThreatAngleCondition*);
 extern char vtable_12bc60[];
 extern void* hulk_at_00410c34[];
 class Condition_12bc90 {
@@ -405,7 +401,6 @@ class Helper_12bd00 {
     void call1_0027af50();
     void call2_00236d60();
 };
-void FUN_0008d330(ThreatDodgeTrack*);
 class Ref {
   public:
     virtual void Add();
@@ -1462,7 +1457,7 @@ ThreatCondition* ThreatCondition::vfunc_5(unsigned char param) {
     ((ThreatDistanceCondition_12bc00*)((char*)p + 0x10))->f1_0027af50();
     ((ThreatDistanceCondition_12bc00*)p)->f2_002345b0();
     if (param & 1)
-        thunk_FUN_00267090((ThreatDistanceCondition_12bc00*)p);
+        ::operator delete((ThreatDistanceCondition_12bc00*)p);
     return p;
 }
 
@@ -1486,7 +1481,7 @@ ThreatAngleCondition* ThreatAngleCondition::vfunc_5(int flag) {
     sub.FnF_0027af50();
     Second_002345b0();
     if (flag & 1)
-        Cleanup_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1500,7 +1495,7 @@ ShotFailCountCondition_12bc90* ShotFailCountCondition_12bc90::vfunc_5(signed cha
     *(void***)this = hulk_at_00410c34;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1523,14 +1518,13 @@ struct ThreatBallTrack {
     ThreatBallTrack* vfunc_5(unsigned int);
 };
 extern void* threat_vftable_12bcc0;
-void destroy_0008d330(ThreatBallTrack*);
 ThreatBallTrack* ThreatBallTrack::vfunc_5(unsigned int flags) {
     vptr = ((void**)DAT_00410c54);
     h30.run_0027af50();
     h18.run_0027af50();
     other_00236d60();
     if (flags & 1)
-        destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0012bcc0
@@ -1544,7 +1538,7 @@ ThreatDodgeTrack* ThreatDodgeTrack::vfunc_5(unsigned char flags) {
     ((Helper_12bd00*)((char*)this + 0x20))->call1_0027af50();
     ((Helper_12bd00*)this)->call2_00236d60();
     if (flags & 1)
-        FUN_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -2662,7 +2656,7 @@ void* ConditionFactoryTemplate_12d570::scalar_dtor(unsigned char flags) {
     base1_dtor_0012b530();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2675,7 +2669,7 @@ void* ConditionFactoryTemplate_12d620::scalar_dtor(unsigned char flags) {
     base1_dtor_0012b3b0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2707,7 +2701,7 @@ void* ConditionFactoryTemplate_12d6e0::scalar_dtor(unsigned char flags) {
     base1_dtor_0012b430();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2737,7 +2731,7 @@ void* ConditionFactoryTemplate_12d7a0::scalar_dtor(unsigned char flags) {
     base1_dtor_0012b4b0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2763,7 +2757,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor_0012b5a0();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 
@@ -2782,14 +2776,13 @@ struct TrackFactoryTemplate {
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&hulk_at_004110a8;
     base1_dtor_0012b670();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_0012d8f0

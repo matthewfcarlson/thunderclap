@@ -268,7 +268,7 @@ struct CCivilian_81670 {
 void* CCivilian_81670::vfunc_2(unsigned int flags) {
     FUN_00081340();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00081670

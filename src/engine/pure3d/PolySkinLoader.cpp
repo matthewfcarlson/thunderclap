@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/content.h"
 #include "gen/pure3d.h"
+#include "gen/content.h"   // (nat2, D134) content::LoadObject's operator delete
 #define TREE_TU_BEGIN namespace fn_f2d93049 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -17,7 +18,6 @@ namespace fn_f2d93049 {} using namespace fn_f2d93049;
 // ---- declarations shared by the functions below
 namespace fn_f2d93049 {
 extern int hulk_at_0042e6e4, hulk_at_003f6098;
-extern void Free_00263f30(void*);
 class Ref_2b8040 {
   public:
     virtual void f0();
@@ -48,7 +48,7 @@ PolySkinLoader_2b8040* PolySkinLoader_2b8040::vfunc2(unsigned char f) {
     }
     vptr = &hulk_at_003f6098;
     if (f & 1)
-        Free_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

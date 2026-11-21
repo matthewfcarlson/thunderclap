@@ -9,7 +9,6 @@
 namespace fn_f26bd952 {} using namespace fn_f26bd952;
 namespace fn_f26bd952 {
 struct FactoryCtor { void init_002343b0(); };   // (unb4) the factory constructors InitHelper::init stood for
-void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "game/hulkfight/motion.h"
 
@@ -95,7 +94,7 @@ void* ConditionFactoryTemplate_164ff0::scalar_dtor(unsigned char flags) {
     base1_dtor_0015b7c0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 

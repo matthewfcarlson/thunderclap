@@ -14,15 +14,12 @@ void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d3
 // ---- declarations shared by the functions below
 namespace fn_f659ad5b {
 extern "C" int hulk_at_00417a48;
-class DriftToPositionTrack {
+// (nat2, D134) the track's record: its name (+0x28 on 32-bit) is a pointer, freed with operator delete[]
+class DriftToPositionTrack : public ::hulkfight::motion::DriftToPositionTrack {
   public:
-    hulk_intptr vf;
-    char pad[0x24];
-    int value;
     void f();
     void tail_00236d60();
 };
-extern "C" void __cdecl Free(void*);
 extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 inline void Copy(char* dst, const char* src) {
     char c;
@@ -62,8 +59,8 @@ struct Track_170550 {
 // 0x00170460 FUN_00170460 (29 B): matches/0x00170460.cpp
 // sym: ?f@DriftToPositionTrack@fn_f659ad5b@@QAEXXZ
 void DriftToPositionTrack::f() {
-    vf = (hulk_intptr)&hulk_at_00417a48;
-    thunk(value);
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_00417a48;
+    ::operator delete[](f_28);
     tail_00236d60();
 }
 

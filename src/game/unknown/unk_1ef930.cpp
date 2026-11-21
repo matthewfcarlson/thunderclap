@@ -29,8 +29,6 @@ class Obj_1ef990 {
     Sub_1ef990 sub;
     void* Run(int flags);
 };
-extern void __cdecl thunk_0008d330(Obj_1ef990*);
-void __cdecl thunk_FUN_00267090(void* p);
 struct Id_1ef9c0 {
 };
 struct Slot_1ef9c0 {
@@ -127,7 +125,7 @@ namespace fn_f158e6c4 {
 void* Obj_1ef990::Run(int flags) {
     sub.Cleanup_0027af50();
     if (flags & 1)
-        thunk_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -151,7 +149,7 @@ void Pool_1ef9c0::FUN_001ef9c0(bool release) {
         Resource_1ef9c0* r = resource;
         if (r) {
             r->FUN_001f1c80();
-            thunk_FUN_00267090(r);
+            ::operator delete(r);
         }
         resource = 0;
     }

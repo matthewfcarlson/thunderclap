@@ -49,7 +49,6 @@ class CCollisionAction : public CAction {
 struct ThisCall_0027aec0 {
     void FUN_0027aec0();
 };
-extern void thunk_FUN_00267090(CCollisionAction*);
 class Slot_27a630 {
   public:
     char pad[8];
@@ -142,7 +141,7 @@ namespace fn_ff5ed045 {
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     ((ThisCall_0027aec0*)(this))->FUN_0027aec0();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

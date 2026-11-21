@@ -2236,7 +2236,6 @@ class Entity {
 };
 } // namespace om
 extern "C++" void * __cdecl FUN_00244b20(void *, void *);
-void thunk_FUN_00267090(om::Entity*);
 om::Entity* om::Entity::vfunc_2(unsigned char param) {
     void* p = (*(void**)&DAT_004cc08c);
     mVptr = (unsigned long*)((hulk_intptr)DAT_00429158);
@@ -2244,7 +2243,7 @@ om::Entity* om::Entity::vfunc_2(unsigned char param) {
     --DAT_004e5f0c;
     mVptr = (unsigned long*)((hulk_intptr)DAT_003f6098);
     if (param & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00245270

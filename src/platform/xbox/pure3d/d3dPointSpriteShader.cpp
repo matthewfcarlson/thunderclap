@@ -457,7 +457,7 @@ d3dPointSpriteShader_32d390* d3dPointSpriteShader_32d390::vfunc_3(u8_32d390 dest
         member->f1();
     ((d3dPointSpriteShader_nv_32d390*)(((pure3d::d3dPointSpriteShader*)(((pure3d::d3dPointSpriteShader*)this)))))->run();
     if (destroy & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

@@ -56,8 +56,6 @@ extern "C" void FUN_000528d0();
 extern "C" void FUN_000527d0();
 extern "C" void FUN_00053fe0();
 extern "C" void FUN_00056570();
-void __cdecl FUN_0008d330(void*);
-void __cdecl FUN_0008d340(void*);
 TREE_TU_END
 #ifdef TREE_LOCAL_CCollisionTrack
 TREE_TU_BEGIN
@@ -106,7 +104,6 @@ class IRefCount {
     virtual void f2();
 };
 typedef unsigned __int64 U64;
-void FreeMem(void*);
 TREE_TU_END
 extern "C" int __cdecl __vsnprintf(char*, int, const char*, void*);   // (x64t11) the C runtime's C name (native_crt_table.h binds it)
 TREE_TU_BEGIN
@@ -137,14 +134,12 @@ TREE_TU_BEGIN
 extern unsigned int DAT_004d9968;
 extern int billboardVtable;
 extern int animationVtable;
-void thunk(unsigned int);
 extern "C" char DAT_0040bfe0[];
 void ReleaseThing(void*);
 extern void* handvtable;
 typedef unsigned __int64 ID;
 extern "C" void* FUN_00266e00(int heap, int size);
 extern "C" int __cdecl FUN_00096600(const char *a, const char *b);
-void thunk(void*);
 extern "C" void __cdecl FUN_00240bb0();
 extern "C" int __cdecl FUN_002673a0(hulk_intptr, int);
 TREE_TU_END

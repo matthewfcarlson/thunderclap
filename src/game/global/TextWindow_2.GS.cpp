@@ -9,6 +9,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f89be21d {} using namespace fn_f89be21d;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -138,7 +139,6 @@ public:
 struct StringTable_ecf10 {
     unsigned short *FUN_000f83f0(FontRef *face, int zero);
 };
-void __cdecl thunk_FUN_00267090(void *p);
 extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 class TextBox_ecf10 {
 public:
@@ -160,7 +160,7 @@ public:
 
 
 // 0x000ecf10 FUN_000ecf10 (1092 B): equivalent/0x000ecf10.cpp
-// sym: ?FUN_000ecf10@TextBox_ecf10@fn_f89be21d@@QAEXM@Z @7088b6ecc13f @w6ecddf823ce9 @vce3280d71bdf
+// sym: ?FUN_000ecf10@TextBox_ecf10@fn_f89be21d@@QAEXM@Z @a413f8de9ff9 @w8b06b9f6ac30 @veba6344651bb
 // STATUS: equivalent (tools/equiv.py level 3: 4234 inputs, branch coverage 48/52, incomplete)
 // FUN_000ecf10 @ 0x000ecf10
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
@@ -188,7 +188,7 @@ void TextBox_ecf10::FUN_000ecf10(float maxWidth)
     f.src_.t14 = owner->v17(this);
     f.x.cells[f.x.cursor].a.f = owner->v16(this) * f.src_.t14;
     if (buf != 0) {
-        thunk_FUN_00267090(buf);
+        ::operator delete[](buf);
         buf = 0;
     }
     buf = 0;

@@ -15,7 +15,6 @@
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fc049dac {} using namespace fn_fc049dac;
 namespace fn_fc049dac {
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 namespace fn_fc049dac { extern "C" char DAT_004327b0[], DAT_004329cc[], DAT_004329d4[], DAT_004329dc[], DAT_004329e4[], DAT_004329ec[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_fc049dac { extern "C" char DAT_0043276c[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
@@ -320,7 +319,6 @@ class pddiRenderContext_31cb20 {
     pddiRenderContext_31cb20();
 };
 extern void FUN_00328260();
-extern void thunk_FUN_00267090(CCollisionAction*);
 } // namespace fn_fc049dac
 namespace pure3d {
 struct State {
@@ -497,7 +495,6 @@ struct pddiStack {
     void* field_c;
 };
 extern int stack_vftable;
-extern void __cdecl thunk_FUN_00267090(void*);
 class Obj_31e490 {
   public:
     Obj_31e490* Get();
@@ -885,7 +882,7 @@ pddiRenderContext_31c780* pddiRenderContext_31c780::vfunc_5(signed char flags) {
     *(void***)this = ((void**)DAT_004325f4);
     Destroy();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -911,11 +908,10 @@ class NonCopyable : public IRefCount {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0031c7c0
@@ -1034,7 +1030,7 @@ pddiRenderContext_31cb20::pddiRenderContext_31cb20() {
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     FUN_00328260();
     if ((flags & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -2972,9 +2968,9 @@ void pddiStack_31e330::f() {
 // sym: ?vfunc_0@pddiStack@fn_fc049dac@@UAEPAU12@E@Z
 pddiStack* pddiStack::vfunc_0(unsigned char flag) {
     *(hulk_intptr*)this = (hulk_intptr)((int*)DAT_004327b0);
-    thunk_FUN_00267090(field_c);
+    ::operator delete(field_c);
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -3452,11 +3448,10 @@ class NonCopyable : public pddiExtension_31ea80 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0031ea80
@@ -3573,11 +3568,10 @@ class NonCopyable : public pddiExtMemRegistration_31ed20 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0031ed20
@@ -3636,12 +3630,11 @@ struct pddiStack {
     void* field_c;
 };
 extern int stack_vftable;
-extern void __cdecl thunk_FUN_00267090(void*);
 pddiStack* pddiStack::vfunc_0(unsigned char flag) {
     *(hulk_intptr*)this = (hulk_intptr)((int*)DAT_004329cc);
-    thunk_FUN_00267090(field_c);
+    ::operator delete(field_c);
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0031edb0
@@ -3702,12 +3695,11 @@ struct pddiStack {
     void* field_c;
 };
 extern int stack_vftable;
-extern void __cdecl thunk_FUN_00267090(void*);
 pddiStack* pddiStack::vfunc_0(unsigned char flag) {
     *(hulk_intptr*)this = (hulk_intptr)((int*)DAT_004329d4);
-    thunk_FUN_00267090(field_c);
+    ::operator delete(field_c);
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0031ee70
@@ -3775,12 +3767,11 @@ struct pddiStack {
     void* field_c;
 };
 extern int stack_vftable;
-extern void __cdecl thunk_FUN_00267090(void*);
 pddiStack* pddiStack::vfunc_0(unsigned char flag) {
     *(hulk_intptr*)this = (hulk_intptr)((int*)DAT_004329dc);
-    thunk_FUN_00267090(field_c);
+    ::operator delete(field_c);
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0031ef70
@@ -3841,12 +3832,11 @@ struct pddiStack {
     void* field_c;
 };
 extern int stack_vftable;
-extern void __cdecl thunk_FUN_00267090(void*);
 pddiStack* pddiStack::vfunc_0(unsigned char flag) {
     *(hulk_intptr*)this = (hulk_intptr)((int*)DAT_004329e4);
-    thunk_FUN_00267090(field_c);
+    ::operator delete(field_c);
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0031f040
@@ -3902,12 +3892,11 @@ struct pddiStack {
     void* field_c;
 };
 extern int stack_vftable;
-extern void __cdecl thunk_FUN_00267090(void*);
 pddiStack* pddiStack::vfunc_0(unsigned char flag) {
     *(hulk_intptr*)this = (hulk_intptr)((int*)DAT_004329ec);
-    thunk_FUN_00267090(field_c);
+    ::operator delete(field_c);
     if (flag & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_0031f110

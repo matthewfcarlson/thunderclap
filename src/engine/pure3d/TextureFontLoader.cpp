@@ -16,6 +16,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f54d8eff {} using namespace fn_f54d8eff;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -223,7 +224,7 @@ struct Font_294de0 {
 void* Font_294de0::vfunc_2(unsigned int flags) {
     FUN_0027afd0();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00294de0
@@ -787,7 +788,7 @@ void TextureFont::vfunc_19(const unsigned short* text, char flags)
 
 
 // 0x00295520 FUN_00295520 (157 B): equivalent/0x00295520.cpp [wrapped: conflict: pure3d::TextureFont]
-// sym: ??1TextureFont@pure3d@fn_00295520@@UAE@XZ @f9ddd5953911 @wf93631554206 @vbb65297de042
+// sym: ??1TextureFont@pure3d@fn_00295520@@UAE@XZ @584df769eb23 @w47dd944793ad @v54e7d2f7d8b9
 namespace fn_00295520 {
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 14/14)
 // FUN_00295520 @ 0x00295520
@@ -800,7 +801,6 @@ struct FontEntry {
     void FUN_002c3ac0();
 };
 struct ArrayHeader { unsigned count; };
-void __cdecl FUN_0008d340(void*);
 namespace pure3d {
 struct TextureFont {
     virtual ~TextureFont();
@@ -825,7 +825,7 @@ TextureFont::~TextureFont() {
             *slot = 0;
         }
     }
-    FUN_0008d340(resources);
+    ::operator delete[](resources);
     if (entries) {
         ArrayHeader* header = reinterpret_cast<ArrayHeader*>(entries) - 1;
         unsigned count = header->count;
@@ -836,9 +836,9 @@ TextureFont::~TextureFont() {
                 end->FUN_002c3ac0();
             } while (--count);
         }
-        FUN_0008d340(header);
+        ::operator delete[](header);
     }
-    FUN_0008d340(allocation);
+    ::operator delete[](allocation);
     FUN_0027afd0();
 }
 }
@@ -877,24 +877,23 @@ class NonCopyable : public SimpleChunkHandler_2955e0 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002955e0
 
 
 // 0x00295620 pure3d::TextureFontLoader::vfunc_5 (1530 B): equivalent/0x00295620.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase; pure3d::Entity; pure3d::Shader (+1)]
-// sym: ?F@TextureFontLoader@fn_00295620@@QAEXPAPAVTextureFont@pure3d@2@PA_KPAUStream@2@PAVFactory_295620@2@@Z @d4c4eef5ad54 @wefb8d413856c @v932818c34fbd
+// sym: ?F@TextureFontLoader@fn_00295620@@QAEXPAPAVTextureFont@pure3d@2@PA_KPAUStream@2@PAVFactory_295620@2@@Z @9907d8c8c90d @w8ed599b39ee1 @vbbea805ed1ff
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_00295620 {
 // STATUS: equivalent (tools/equiv.py level 3: 120 inputs, branch coverage 46/50, incomplete)
 // pure3d::TextureFontLoader::vfunc_5 @ 0x00295620
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
-// equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
+// equiv-map: ??_V@YAXPAX@Z = 0x0008d340
 // Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
 // "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
 // --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
@@ -930,7 +929,6 @@ extern "C" void *memset(void *dst, int c, unsigned int n);
 
 extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 void *thunk_FUN_0008d690(unsigned int size);
-void __cdecl thunk_FUN_00267090(void *p);
 
 
 namespace pure3d { class Shader; }
@@ -1201,8 +1199,8 @@ void TextureFontLoader::F(pure3d::TextureFont **out, unsigned __int64 *outId, St
                         end--;
                         end->FUN_002c3ac0();
                     }
-                    thunk_FUN_00267090(fr.raw);
-                    thunk_FUN_00267090(font->codes);
+                    ::operator delete[](fr.raw);
+                    ::operator delete[](font->codes);
                 }
                 s->reader->FUN_002647e0(&fr.v4c, 1, 4, 1);
                 unsigned int g = fr.v4c;

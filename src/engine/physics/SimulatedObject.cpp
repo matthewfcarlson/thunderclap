@@ -332,14 +332,13 @@ struct SimulatedObject {
     Ref_2fe730* member;
     void helper_0027afd0();
 };
-void thunk_00263f30(SimulatedObject*);
 SimulatedObject* SimulatedObject::vfunc_2(unsigned int flag) {
     *(void**)this = ((void**)DAT_00431a04);
     if (member)
         member->b();
     helper_0027afd0();
     if (flag & 1)
-        thunk_00263f30(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002fe730

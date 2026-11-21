@@ -13,6 +13,7 @@
 #define TREE_TU_BEGIN namespace fn_fa3ff49b {
 #define TREE_TU_END }
 namespace fn_fa3ff49b {} using namespace fn_fa3ff49b;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fa3ff49b { extern "C" char DAT_003fb104[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
 void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
@@ -1263,7 +1264,6 @@ struct Other {
     char pad[16];
     float x;
 };
-extern "C" int thunk_FUN_00267090(int);
 struct Value { char pad[16]; unsigned int low; unsigned int high; };
 class Obj_66a10 {
   public:
@@ -3298,7 +3298,6 @@ class CWeaponCollisionTrack {
     SubB_62d70 s48;
     CWeaponCollisionTrack* vfunc_5(unsigned char p);
 };
-void destroy_0008d330(CWeaponCollisionTrack*);
 CWeaponCollisionTrack* CWeaponCollisionTrack::vfunc_5(unsigned char p) {
     vf = (hulk_intptr)&hulk_at_003faf2c;
     s48.init2_0027af50();
@@ -3306,7 +3305,7 @@ CWeaponCollisionTrack* CWeaponCollisionTrack::vfunc_5(unsigned char p) {
     s2c.init_00234150();
     ((CWeaponCollisionTrack_62d70*)this)->finish_00236d60();
     if (p & 1)
-        destroy_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00062d70
@@ -3378,7 +3377,6 @@ CSmartPropAttachTrack::CSmartPropAttachTrack() {
 namespace fn_00062e40 {
 extern int hulk_at_003faf60;
 struct CSmartPropAttachTrack;
-void FUN_0008d330(CSmartPropAttachTrack*);
 struct A_62e40 {
     void Fnf_0027af50();
 };
@@ -3409,7 +3407,7 @@ CSmartPropAttachTrack* CSmartPropAttachTrack::vfunc_5(unsigned char p) {
     ((A_62e40*)((char*)this + 0x18))->Fnf_0027af50();
     ((B_62e40*)this)->Fnf_00068c70();
     if (p & 1)
-        FUN_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00062e40
@@ -3425,7 +3423,6 @@ struct CSmartPropUpdateAttachmentTrack {
 };
 void __fastcall Init_0027af50(void*);
 void __fastcall Setup_00068c70(CSmartPropUpdateAttachmentTrack*);
-void __cdecl Destroy_0008d330(CSmartPropUpdateAttachmentTrack*);
 CSmartPropUpdateAttachmentTrack* __fastcall
 CSmartPropUpdateAttachmentTrack_vfunc_5(CSmartPropUpdateAttachmentTrack* p, void*, byte_62e80 b) {
     *(hulk_ulongptr*)p = ((hulk_intptr)DAT_003faf9c);
@@ -3433,7 +3430,7 @@ CSmartPropUpdateAttachmentTrack_vfunc_5(CSmartPropUpdateAttachmentTrack* p, void
     Init_0027af50((char*)p + 0x18);
     Setup_00068c70(p);
     if (b & 1)
-        Destroy_0008d330(p);
+        ::operator delete(p);
     return p;
 }
 } // namespace fn_00062e80
@@ -3465,7 +3462,6 @@ struct Helper_62ec0 {
     void call_0027af50();
 };
 extern void* hulk_at_003fafd8[];
-extern void FUN_0008d330(CSmartPropSpawnTrack*);
 CSmartPropSpawnTrack* CSmartPropSpawnTrack::vfunc_5(unsigned char p) {
     ((void**)this)[0] = hulk_at_003fafd8;
     ((Helper_62ec0*)((char*)this + 0xc8))->call_0027af50();
@@ -3473,7 +3469,7 @@ CSmartPropSpawnTrack* CSmartPropSpawnTrack::vfunc_5(unsigned char p) {
     ((Helper_62ec0*)((char*)this + 0x98))->call_0027af50();
     finish_00068c70();
     if (p & 1)
-        FUN_0008d330(this);
+        ::operator delete(this);
     return this;
 }
 } // namespace fn_00062ec0
@@ -3497,13 +3493,12 @@ class CSmartPropSetStateTrack : public CTrack {
     CSmartPropSetStateTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CSmartPropSetStateTrack* CSmartPropSetStateTrack::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_003fb014;
     Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3528,13 +3523,12 @@ class CSmartPropDetachTrack : public CTrack {
     CSmartPropDetachTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CSmartPropDetachTrack* CSmartPropDetachTrack::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_003fb050;
     Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3559,13 +3553,12 @@ class CSmartPropThrowTrack : public CTrack {
     CSmartPropThrowTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CSmartPropThrowTrack* CSmartPropThrowTrack::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_003fb08c;
     Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3590,13 +3583,12 @@ class CSmartPropThrowingTrack : public CTrack {
     CSmartPropThrowingTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CSmartPropThrowingTrack* CSmartPropThrowingTrack::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_003fb0c8;
     Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3621,13 +3613,12 @@ class CSmartPropDropTrack : public CTrack {
     CSmartPropDropTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CSmartPropDropTrack* CSmartPropDropTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003fb104;
     Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3652,13 +3643,12 @@ class CSmartPropEventTrack : public CTrack {
     CSmartPropEventTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CSmartPropEventTrack* CSmartPropEventTrack::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_003fb144;
     Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3683,13 +3673,12 @@ class CSmartPropRemoveInstanceTrack : public CTrack {
     CSmartPropRemoveInstanceTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CSmartPropRemoveInstanceTrack* CSmartPropRemoveInstanceTrack::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_003fb180;
     Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3714,13 +3703,12 @@ class CPropActorSetStateTrack : public CTrack {
     CPropActorSetStateTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CPropActorSetStateTrack* CPropActorSetStateTrack::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_003fb1bc;
     Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis_0008d330(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -5966,9 +5954,10 @@ int __cdecl FUN_00066900(const Item* a, const Other* b) {
 
 
 // 0x00066930 FUN_00066930 (16 B): matches/0x00066930.cpp
-// sym: ?FUN_00066930@fn_fa3ff49b@@YADH@Z
-char __cdecl FUN_00066930(int a) {
-    thunk_FUN_00267090(a);
+// sym: ?FUN_00066930@fn_fa3ff49b@@YADPAX@Z
+// (nat2, D134) an element destroyer (its callers pass it by address): the element is a block, freed with operator delete[]
+char __cdecl FUN_00066930(void* a) {
+    ::operator delete[](a);
     return 1;
 }
 
@@ -5994,11 +5983,11 @@ int __cdecl FUN_00066980(const unsigned __int64* a, const Obj* b) {
 } // namespace fn_fa3ff49b
 
 // 0x00066a00 FUN_00066a00 (16 B): matches/0x00066a00.cpp [wrapped: conflict: thunk_FUN_00267090]
-// sym: ?FUN_00066a00@fn_00066a00@@YA_NH@Z
+// sym: ?FUN_00066a00@fn_00066a00@@YA_NPAX@Z
 namespace fn_00066a00 {
-extern "C++" __declspec(nothrow) void __cdecl thunk_FUN_00267090(int);
-bool __cdecl FUN_00066a00(int a) {
-    thunk_FUN_00267090(a);
+// (nat2, D134) an element destroyer (its callers pass it by address): the element is a block, freed with operator delete[]
+bool __cdecl FUN_00066a00(void* a) {
+    ::operator delete[](a);
     return true;
 }
 } // namespace fn_00066a00

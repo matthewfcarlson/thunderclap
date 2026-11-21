@@ -57,7 +57,6 @@ class NonCopyable : public NonCopyable_236a70 {
     virtual NonCopyable* f2(unsigned char);
 };
 }
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 
 
 // 0x00236940 FUN_00236940 (123 B): matches/0x00236940.cpp
@@ -121,7 +120,7 @@ Params::Params() : x(0), value(0) {
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f54565b1 {} using namespace fn_f54565b1;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/hulkfight.h"
 
 // ---- declarations shared by the functions below
@@ -49,8 +50,6 @@ struct B {
     char pad[16];
     unsigned int x;
 };
-extern "C" int __cdecl thunk_FUN_00267090(int);
-char __cdecl thunk_FUN_00267090(void* p);
 struct Rec_1ad5c0 {
     int a, b, c, d, e;
 };
@@ -317,8 +316,9 @@ int __cdecl FUN_001ad4f0(A* a, B* b) {
 
 // 0x001ad550 FUN_001ad550 (16 B): matches/0x001ad550.cpp
 // sym: _FUN_001ad550
-extern "C" bool __cdecl FUN_001ad550(int x) {
-    thunk_FUN_00267090(x);
+// (nat2, D134) an element destroyer (called by address): the element is a block, freed with operator delete[]
+extern "C" bool __cdecl FUN_001ad550(void* x) {
+    ::operator delete[](x);
     return true;
 }
 
@@ -326,7 +326,7 @@ extern "C" bool __cdecl FUN_001ad550(int x) {
 // 0x001ad560 FUN_001ad560 (16 B): matches/0x001ad560.cpp
 // sym: _FUN_001ad560
 extern "C" char __cdecl FUN_001ad560(void* p) {
-    thunk_FUN_00267090(p);
+    ::operator delete[](p);
     return 1;
 }
 

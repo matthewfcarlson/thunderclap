@@ -44,7 +44,6 @@ class Action_173c50 {
   public:
     void* vptr;
 };
-void Free(void*);
 struct Sub_173c50 {
     char c;
 };

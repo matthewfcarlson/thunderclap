@@ -142,7 +142,6 @@ struct d3dBumpMapVertexShader_333170 {
     void FUN_00327930();
     d3dBumpMapVertexShader_333170* vfunc_3(byte_333170);
 };
-void thunk_FUN_00267090(d3dBumpMapVertexShader_333170*);
 
 
 // 0x00332ba0 FUN_00332ba0 (13 B): matches/0x00332ba0.cpp
@@ -389,7 +388,7 @@ d3dBumpMapVertexShader_333170* d3dBumpMapVertexShader_333170::vfunc_3(byte_33317
         m80->f1();
     FUN_00327930();
     if (param & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return this;
 }
 

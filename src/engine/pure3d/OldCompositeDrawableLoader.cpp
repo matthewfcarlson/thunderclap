@@ -440,7 +440,6 @@ class Target_299170 {
     Ref_299170* mRef;
     hulk_intptr Destroy(int flags);
 };
-extern void __cdecl thunk_FUN_00267090(Target_299170*);
 typedef unsigned int u32_2991b0;
 typedef unsigned char u8_299230;
 class Ref_299250 {
@@ -656,14 +655,13 @@ class ActivePrimitiveList_299cd0 {
     Sub_299cd0 s3c;
     ActivePrimitiveList_299cd0(unsigned char n) throw();
 };
-extern void __cdecl Release_0008d340(void*) throw();
 extern void __cdecl FUN_00299ac0(void*, void*) throw();
 template <int N> struct Buf_299fa0 {
     void* p;
     char pad[N - 4];
     ~Buf_299fa0() {
         if (p)
-            Release_0008d340(p);
+            ::operator delete[](p);
     }
 };
 struct Range_299fa0 {
@@ -672,7 +670,7 @@ struct Range_299fa0 {
     ~Range_299fa0() {
         if (b) {
             FUN_00299ac0(b, e);
-            Release_0008d340(b);
+            ::operator delete[](b);
         }
     }
 };
@@ -1134,7 +1132,7 @@ hulk_intptr Target_299170::Destroy(int flags) {
         mRef = 0;
     }
     if (flags & 1)
-        thunk_FUN_00267090(this);
+        ::operator delete(this);
     return (hulk_intptr)this;
 }
 
@@ -1283,11 +1281,10 @@ class NonCopyable : public SimpleChunkHandler_299430 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00299430
@@ -1312,11 +1309,10 @@ class NonCopyable : public SimpleChunkHandler_299470 {
     virtual NonCopyable* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
     *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_00299470
@@ -1446,7 +1442,7 @@ struct CompositeDrawable_2998b0 {
 void* CompositeDrawable_2998b0::vfunc_2(unsigned int flags) {
     FUN_00299250();
     if (flags & 1)
-        operator delete(this);
+        ::content::LoadObject::operator delete(this);
     return this;
 }
 } // namespace fn_002998b0
@@ -1994,7 +1990,7 @@ void* pure3d::CompositeDrawable::vfunc_4() {
 
 
 // 0x0029a630 pure3d::OldCompositeDrawableLoader::vfunc_5 (2764 B): equivalent/0x0029a630.cpp [wrapped: macros]
-// sym: ?vfunc_5@OldCompositeDrawableLoader@pure3d@fn_0029a630@@UAEXPAPAUCompositeDrawable@23@PA_KPAUChunk@3@PAULoadInventory@content@3@@Z @de52ec1b5966 @w1ecb9ff1cf19 @ve9156efc0064
+// sym: ?vfunc_5@OldCompositeDrawableLoader@pure3d@fn_0029a630@@UAEXPAPAUCompositeDrawable@23@PA_KPAUChunk@3@PAULoadInventory@content@3@@Z @93ecf333a7d1 @w071ec238e8fc @v48d2b5c2bddc
 inline void* operator new(size_t,void* p) { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
@@ -2044,7 +2040,7 @@ struct Name { void FUN_0027b040(char*); char bytes[0x38]; };
 struct Object { virtual void add(); virtual void release(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void attach(Object*); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual int kind(); char pad[0x3c]; float visibility; void* owner; Object* FUN_0027b240(); };
 struct Entry { int unused; int joint; Object* object; }; struct Group { virtual void add(); char p4[4]; unsigned char* starts; char pc[8]; unsigned char* counts; char p18[0x24]; Entry* entries; Group* FUN_00299cd0(int); void FUN_00298870(); };
 namespace pure3d { struct CompositeDrawable { virtual void v0_00038290(); virtual void v1_000382a0(); virtual void v2(); virtual void v3_00298280(); virtual void v4_0029a170(); virtual void v5_00298270(); virtual void v6_00298b30(int, int); virtual void v7_00298c00(); virtual void v8_00298cb0(hulk_intptr, int); virtual void v9_00298e60(); virtual void v10_00298f00(void*); virtual void v11_00298260(); virtual void done_002992c0(); char p4[4]; Name name; Object* skeleton; Group* group; int a,b,c; void FUN_002a3480(); }; struct OldCompositeDrawableLoader { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void vfunc_5(CompositeDrawable**,UID*,Chunk*,content::LoadInventory*); }; }
-void* __cdecl FUN_00263ea0(int); void* __cdecl FUN_0008d690(int); void* __cdecl FUN_0008d6d0(int); void __cdecl FUN_0008d340(void*);  
+void* __cdecl FUN_00263ea0(int); void* __cdecl FUN_0008d690(int); void* __cdecl FUN_0008d6d0(int);  
 template <> inline content::LoadInventory::DynamicCaster<pure3d::ParticleSystem>::DynamicCaster() { vftable = DAT_0040cb24; }
 template <> inline content::LoadInventory::DynamicCaster<pure3d::Geometry>::DynamicCaster() { vftable = DAT_0040a20c; }
 template <> inline content::LoadInventory::DynamicCaster<pure3d::BillboardObject>::DynamicCaster() { vftable = DAT_0040cb1c; }
@@ -2110,7 +2106,7 @@ void pure3d::OldCompositeDrawableLoader::vfunc_5(CompositeDrawable** result,UID*
  if(category==1) objects[i]->attach(composite->skeleton); objects[i]->owner=composite; ++index;
  }
  }
- composite->group->FUN_00298870(); composite->done_002992c0(); FUN_0008d340(w.skins); FUN_0008d340(w.geometries); FUN_0008d340(w.particles); FUN_0008d340(w.billboards); FUN_0008d340(w.geometryJoints); FUN_0008d340(w.particleJoints); FUN_0008d340(w.billboardJoints); *result=composite;
+ composite->group->FUN_00298870(); composite->done_002992c0(); ::operator delete[](w.skins); ::operator delete[](w.geometries); ::operator delete[](w.particles); ::operator delete[](w.billboards); ::operator delete[](w.geometryJoints); ::operator delete[](w.particleJoints); ::operator delete[](w.billboardJoints); *result=composite;
 }
 } // namespace fn_0029a630
 #undef READ

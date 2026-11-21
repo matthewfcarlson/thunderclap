@@ -5,17 +5,18 @@
 
 
 // 0x0012ec80 FUN_0012ec80 (82 B): equivalent/0x0012ec80.cpp [isolated: conflict: FUN_0008d340; on include/gen/ and not mergeable]
-// sym: ?FUN_0012ec80@Item_12ec80@owners@@QAEHPBD@Z @3fe6b841677b @wf797545cfe4b @v28608246cc2f
+// sym: ?FUN_0012ec80@Item_12ec80@owners@@QAE_NPBD@Z @d106ec912a91 @w7cb51f969019 @vb1c4409544aa
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0012ec80 @ 0x0012ec80
 #include "gen/owners.h"
-int __cdecl FUN_0008d340(void *);
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
+
 void * __cdecl FUN_0008d6d0(unsigned int);
-hulk_intptr owners::Item_12ec80::FUN_0012ec80(const char *source) {
-    int result = FUN_0008d340(text);
+bool owners::Item_12ec80::FUN_0012ec80(const char *source) {
+    ::operator delete[](text);
     if (!source) {
         text = 0;
-        return (result & ~255) | 1;
+        return true;
     }
     const char *end = source;
     do { ++end; } while (end[-1]);
@@ -23,6 +24,6 @@ hulk_intptr owners::Item_12ec80::FUN_0012ec80(const char *source) {
     text = dest;
     char *allocated = dest;
     do { *dest++ = *source++; } while (source[-1]);
-    return (((hulk_intptr)allocated) & ~255) | 1;
+    return true;
 }
 
