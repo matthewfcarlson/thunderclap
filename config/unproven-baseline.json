@@ -166,13 +166,13 @@
   "0x000a97e0": {
    "modes": {
     "wine": {
-     "code": "ab65e7069f67",
-     "accepted": "2026-11-20T18:43:01",
+     "code": "8620f342a003",
+     "accepted": "2026-11-20T19:09:24",
      "by": "unproven-accept",
-     "why": "integ7 (item 8, rev5): the field items landed, dt is still free: a dt below about -709 overflows clang's exp(-t) (0x000a97e0_native_orange_negdt); --wine waits for the dt contract (D152b on the derived vfunc_35s)"
+     "why": "integ7 revert of 286556dd8 (the field-item trap fired in play3 at frame 8,730, ckpt1 control 106054): the block is back to its pre-contract code, unproven in --wine as before (D126 seed: 8620f342a003)"
     }
    },
-   "why": "integ7 (item 8, rev5): the field items landed, dt is still free: a dt below about -709 overflows clang's exp(-t) (0x000a97e0_native_orange_negdt); --wine waits for the dt contract (D152b on the derived vfunc_35s)"
+   "why": "integ7 revert of 286556dd8 (the field-item trap fired in play3 at frame 8,730, ckpt1 control 106054): the block is back to its pre-contract code, unproven in --wine as before (D126 seed: 8620f342a003)"
   },
   "0x000aa450": {
    "modes": {
