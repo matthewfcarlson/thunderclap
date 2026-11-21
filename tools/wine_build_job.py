@@ -485,7 +485,8 @@ def cmd_submit(a):
         if not os.path.exists(rec):
             sys.exit("no recording " + rec)
         ov["nbrun/rec.hrp"] = rec
-        spec["replay"] = {"frames": a.frames, "timeout": a.replay_timeout, "env": dict(e.split("=", 1) for e in a.replay_env or [])}
+        spec["replay"] = {"frames": a.frames, "timeout": a.replay_timeout, "env": dict(e.split("=", 1) for e in a.replay_env or []),
+                          "name": os.path.splitext(os.path.basename(a.replay))[0]}   # (ckpt1: its reference, build/ckpt/NAME.ckref)
     with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as tf:
         json.dump(spec, tf)
     ov["nbrun/spec.json"] = tf.name

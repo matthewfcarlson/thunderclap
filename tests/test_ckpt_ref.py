@@ -56,6 +56,16 @@ class T(unittest.TestCase):
         self.assertIn(HULK, r[7])
         self.assertNotIn(SOUND, r[8])
 
+    def test_make_three_runs(self):
+        a = self.path("a", recs(10))
+        b = self.path("b", recs(10))
+        c = self.path("c", recs(10, {(4, PARTICLE): (5, 6)}))     # A and B agree by chance; a third run does not
+        ref = os.path.join(self.d, "ref3")
+        self.assertEqual(self.run_tool("make", a, b, c, "--name", "t", "--out", ref).returncode, 0)
+        r = ckpt_ref.read(ref)[2]
+        self.assertNotIn(PARTICLE, r[4])
+        self.assertIn(PARTICLE, r[5])
+
     def test_check_first_divergence_and_drift(self):
         ref = self.path("ref", recs(20), ckpt_ref.MAGIC_REF)
         base = recs(20)

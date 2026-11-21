@@ -2124,3 +2124,19 @@ blocks fight::Action's whole family: the records come first there.
   - Regress fixtures stay at their counts: a fixture tests one checker rule (here boolafter: a bool read after a call),
     never the block. A block's own correctness is its ledger proof at 3,000 or its unproven-baseline entry, and a
     held block's known defect belongs to that entry.
+
+## 2026-11-20 ckpt1: the reference gate travels to the hosts; play3's particle frames are the original's (D161)
+
+- `build/ckpt` (the original's reference checkpoints, local derived data) is one of `wine_build_run.INPUT_DIRS`, so it
+  goes to the hosts one way with the other inputs; a build job with a replay checks its run against the recording's
+  reference (`nb-out/ckref-check.json`, `summary.json` `ckref`). `ckpt_gate`'s GATE line carries the reference gate's
+  status (`GATE ok (ref: ok)`) and `--require-ref` fails when it cannot run. Wine pair (studio, HEAD d69586757,
+  private input copies): control 105887, proof 106018 (from a private clone of the change, seeded): the same image
+  (d9693ed2), GATE ok (ref: ok), also with `--require-ref`; the proof's own check found the reference on the host.
+  A first proof (106011) failed on a variable clash in the new job-side check, fixed before landing.
+- The 143 play3 frames after 12,923 where the Wine build's particle tag differed from a two-run reference are the
+  original's own: a third original run disagrees with the two runs' agreement at 12,923 and 13,542 too (the
+  point/plane/sphere and sprite-emitter generators; the first sprite updater's state is equal in all). Two runs can
+  agree there by chance, so references are now made from three runs (`ckpt_ref.py make A B C`).
+- docs/checkpoints.md has the proposed D155 rule (R1-R5, not implemented; the user decides) and the follow-ups
+  (shared records for the probe's pointer chain; the probe calling the game's getters).

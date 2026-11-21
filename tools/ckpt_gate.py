@@ -18,7 +18,8 @@ The reference gate (ckpt1, D161; docs/checkpoints.md): when both runs wrote the 
 (trace.txt.ckref, HULK_CKREF=1, the replay default) and the original's reference is on this machine (--ref, default
 build/ckpt/play3.ckref; local derived data), no (frame, tag) the control matched against the original may diverge in
 the proof (tools/ckpt_ref.py check --control). Not checked (said so) without a reference, or a control without records;
-a proof without records when the control has them fails. Exit 1 when a gate fails.
+a proof without records when the control has them fails; --require-ref fails whenever it cannot run. The GATE line
+carries the reference gate's status ("GATE ok (ref: ok)", "(ref: not checked: ...)"). Exit 1 when a gate fails.
 """
 import argparse
 import json
@@ -57,25 +58,25 @@ def ckref_path(x):
 
 
 def ref_gate(control, proof, ref_path):
-    """0/1: the reference gate (docs/checkpoints.md "Comparing a build")."""
+    """(0/1, status word): the reference gate (docs/checkpoints.md "Comparing a build")."""
     sys.path.insert(0, os.path.join(ROOT, "tools"))
     import ckpt_ref
     cp, pp = ckref_path(control), ckref_path(proof)
     if not os.path.exists(ref_path):
         print("ref gate: not checked (no reference %s on this machine)" % os.path.relpath(ref_path, ROOT))
-        return 0
+        return 0, "not checked: no reference"
     if not cp:
         print("ref gate: not checked (the control has no trace.txt.ckref)")
-        return 0
+        return 0, "not checked: control without records"
     if not pp:
         print("ref gate: FAILED (the proof has no trace.txt.ckref, the control has)")
-        return 1
+        return 1, "FAILED: proof without records"
     _m, vf, ref, _u = ckpt_ref.read(ref_path)
     _m, vc, ctl, _u = ckpt_ref.read(cp)
     _m, vp, run, unav = ckpt_ref.read(pp)
     if not vf == vc == vp:
         print("ref gate: not checked (probe versions: reference v%d, control v%d, proof v%d)" % (vf, vc, vp))
-        return 0
+        return 0, "not checked: probe versions differ"
     new, lacks = ckpt_ref.gate(run, unav, ctl, ref)
     res = ckpt_ref.first_divergence(run, ref, unav)
     firsts = ", ".join("%s %s%s" % (ckpt_ref.name(t), d["first"], "" if d["drift"] else " logic")
@@ -83,7 +84,7 @@ def ref_gate(control, proof, ref_path):
     print("ref gate: %d reference frames; proof's first divergences from the original: %s; control-ok/proof-diverged "
           "(frame, tag) %d%s; reference frames the proof lacks %d" % (
               len(ref), firsts or "none", len(new), (" (first %d %s)" % new[0]) if new else "", lacks))
-    return 1 if new or lacks else 0
+    return (1, "FAILED") if new or lacks else (0, "ok")
 
 
 def summary(d):
@@ -101,6 +102,8 @@ def main(argv):
     ap.add_argument("proof")
     ap.add_argument("--strict-prng", action="store_true", help="also fail when a prng hash differs from the control's")
     ap.add_argument("--known", default="", help="comma list of frames to mark as known transients in the listing")
+    ap.add_argument("--require-ref", action="store_true", help="fail when the reference gate cannot run (no reference, "
+                    "a control or proof without records, other probe versions)")
     ap.add_argument("--ref", default=os.path.join(ROOT, "build/ckpt/play3.ckref"),
                     help="the original's reference for the reference gate (tools/ckpt_ref.py make)")
     a = ap.parse_args(argv)
@@ -155,8 +158,12 @@ def main(argv):
                 " -> FAILED (--strict-prng)" if changed and a.strict_prng else (" (CHANGED: the particles differ; see docs/wine-replay.md)" if changed else "")))
             if changed and a.strict_prng:
                 fail = 1
-    fail |= ref_gate(a.control, a.proof, a.ref)
-    print("GATE " + ("FAILED" if fail else "ok"))
+    rf, rs = ref_gate(a.control, a.proof, a.ref)
+    fail |= rf
+    if a.require_ref and rs.startswith("not checked"):
+        print("ref gate: FAILED (--require-ref: %s)" % rs)
+        fail, rs = 1, "FAILED: required, " + rs
+    print("GATE %s (ref: %s)" % ("FAILED" if fail else "ok", rs))
     return fail
 
 

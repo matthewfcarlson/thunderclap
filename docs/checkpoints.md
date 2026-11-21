@@ -126,13 +126,14 @@ with the checkpoint ring every few seconds; the per-actor values are hashed in t
 ```sh
 # a from-boot replay of the recording in xemu with the probe (an xemu queue job; -snapshot as always)
 build/venv/bin/python tools/hybrid_test.py replay build/replays/play3.json --syncio --ckref OUT.ckref [--ckref-dump F]
-# twice (two hosts), then the reference: per frame, each tag both runs agree on
-build/venv/bin/python tools/ckpt_ref.py make A.ckref B.ckref --name play3 --out build/ckpt/play3.ckref
+# three times (two hosts or more), then the reference: per frame, each tag all runs agree on
+build/venv/bin/python tools/ckpt_ref.py make A.ckref B.ckref C.ckref --name play3 --out build/ckpt/play3.ckref
 ```
 
 A recording's VM snapshots hold the hooks they were recorded with, so references come from replays from boot (play3:
-about 50 minutes per run). `make` keeps a (frame, tag) only where both runs agree and drops the disagreeing tags of a
-frame, never the whole frame; the sidecar `play3.ckref.json` counts what was dropped. References are derived game
+about 50 minutes per run). `make` keeps a (frame, tag) only where all runs agree and drops the disagreeing tags of a
+frame, never the whole frame (three runs: two runs can agree by chance where the original is not deterministic,
+"The particle tag" below); the sidecar `play3.ckref.json` counts what was dropped. References are derived game
 data: they stay in `build/ckpt/`, never committed. A probe change bumps the probe version; `ckpt_ref` refuses a run
 and a reference of different versions, so new references are recorded with it.
 
@@ -154,8 +155,12 @@ build/venv/bin/python tools/ckpt_ref.py diff TRACE_OR_DUMP_A TRACE_OR_DUMP_B --f
 `--env HULK_CKREF=0` turns it off) and `wine_build_run.py` brings `trace.txt.ckref` back beside the trace.
 `tools/ckpt_gate.py CONTROL PROOF` adds the `ref` gate to the checkpoint and prng gates: with the reference on the
 machine (`--ref`, default `build/ckpt/play3.ckref`) and records from both runs, it fails on any (frame, tag) the
-control matched against the original and the proof does not, and on reference frames the proof lacks. It says "not
-checked" without a reference, or for a control without records (a control from before D161).
+control matched against the original and the proof does not, and on reference frames the proof lacks. The GATE line
+carries its status (`GATE ok (ref: ok)`, `(ref: not checked: ...)`), and `--require-ref` fails whenever it cannot run
+(no reference, a control or proof without records, other probe versions); controls from before D161 stay "not
+checked" until they age out. The references travel to the queue hosts one way with the other local inputs
+(`build/ckpt` is in `wine_build_run.INPUT_DIRS`), and a build job with a replay checks its own run against the
+recording's reference (`nb-out/ckref-check.json`, `summary.json` `ckref`).
 
 `check` reports per tag the frames compared and diverged, the first divergence, whether it is float drift or logic,
 and the last matching frame before it. With `--control` the verdict is the gate: no (frame, tag) that the control run
@@ -172,6 +177,85 @@ matched may diverge in the run (the control's own divergences are the known ones
 **The Wine build against play3's reference (v2):** flow, clock and mission match at every frame. The known
 ckpt_gate transients are float drift (the quantised hashes agree): the camera from frame 5,875 (the 5880/5910
 checkpoints) and Hulk and the actors from 34,240 (34260).
+
+## Proposal: when a refactor needs no re-proof (D155; not implemented, the user decides)
+
+A change to an `equivalent` or `matches` block today needs a fresh proof (`equiv.py` at 3,000 inputs, `--wine`,
+`--x64`) or a byte match. The proposal: a block whose changed code the reference recordings demonstrably run may
+instead be validated by the reference checkpoints.
+
+**R1. Which references.** The reference set is every recording with a three-run reference in `build/ckpt/` of the
+current probe version (today play3). The set, its probe version and each reference's content hash are named in a
+tracked manifest (`config/ckpt-refs.json`: names and hashes only, no game data), so a validation states exactly what it
+was checked against. A reference is re-recorded (two runs) when the probe version changes.
+
+**R2. Reached means the changed blocks ran.** A refactor qualifies only if every basic block of the changed
+function(s) that the change touches is hit by some reference recording, measured by block-mode coverage
+(`tools/cover.py list --bb`, one replay per reference with `HULK_COVER`) on the change's own image: the changed
+function's blocks in the proof image, matched to the hit list. Function-entry coverage is not enough (a reached
+function can still have its changed branch unrun: in play3 a third of the reached functions do not run every block).
+A function on an ICF-folded address counts as **unreached** (a hit cannot say which folded function ran) unless the
+coverage build is linked without folding (`/opt:noicf`, a coverage-only link option to add).
+
+**R3. The gate.** A control (HEAD) and a proof (with the change) on one host and the same inputs, every reference
+replayed: `ckpt_gate` GATE ok, including the reference gate (no (frame, tag) the control matched against the original
+diverges in the proof) on **every** reference, and no reference frame lacking. Observable tags (`sound`) and tags the
+originals disagree on are outside the gate by construction.
+
+**R4. What stays.** A block that fails R2 keeps today's rule (a proof or a byte match). So do: blocks whose effect
+the probe cannot see (rendering, audio mixing, file and save I/O, until the `obs` and `save` tags exist; R2 alone does
+not show that a block's outputs reach a hashed tag), blocks that only a 64-bit build runs, and `matches` blocks whose
+bytes the change alters (a byte match is a different claim from behaviour). The ledger records a checkpoint
+validation as its own kind (`ckpt`, naming the references, the coverage run and the pair), never as an `equiv` proof,
+so a later re-proof requirement can find every block validated this way.
+
+**R5. After the 32-bit builds are gone.** The rule then runs on the native build: the native replay with the probe
+(the same tags; the actor and mission tags need the records of "Follow-ups" before they are available natively),
+coverage from a native instrumented build (`-fsanitize-coverage=trace-pc-guard` or the same one-shot breakpoints), and
+the same reference files: they come from the original in xemu, so they outlive the Wine build. Until a native replay
+matches the references as far as the Wine build does today, R1-R3 run on the Wine build.
+
+**Coverage today (play3).** 15,379 of 27,486 functions reached, about 58% of the bytes by block: under R2 most of
+the front end, the memory card, movies and ~40 move families stay on proofs until recordings reach them (the
+recording checklist below).
+
+## Follow-ups
+
+**(A) Shared records for the probe's pointer chain (native correctness; owner: the records lane, when native
+reaches gameplay).** The actors and mission tags walk world (0x4dd700) +0x20 (the actor manager) and +0x2c (the
+scenario manager), the actor manager's count (+0xc), handle list (+0x10), main actor (+0x124) and handle table
+(`*(+0)` +0x44: count +4, items +8 of 0x24 bytes, flags +0xc), and the actor's scene node (+0x10) and its drawable
+(+0x18, position +0x40). gen spells only the CCharacter and CScenarioManager fields; the rest are read at 32-bit
+offsets, so natively those tags are unavailable. The game's own code reads the same objects through TU-local
+stand-ins (`Obj_59a50`/`Data_59a50` in CFightParamsCollision.cpp, the local views of the world in 277 TUs that name
+`DAT_004dd700`, 21 TUs that call the handle-table functions 0x59ba0/0x59c10), so natively the layout that matters is
+whatever those stand-ins say. The task: records `Sim` (the world), `CActorManager` (a gen class body; it has no RTTI
+class of its own), the handle table and its item, and the scene node and drawable, in records.h or gen; convert the
+stand-ins in those TUs to them; whole-tree verify (no code_changed), `gen_headers.py --probe`, the x64 gate, a Wine
+pair, re-pin the D139 movers `--from-ledger`. Estimate: the world record alone reaches 277 TUs (the D74/D77 risk of a
+header most TUs include), so a lane-week class of work in two or three landings (world first, then the actor
+manager and table, then the scene node), each with its own whole-tree verify and Wine pair. The probe then reads
+through the records and the native tags become available.
+
+**(B) The probe calls the game's read-only getters (D161).** Where a getter exists, the probe calls it instead of
+reading offsets, so its reads follow the game code's own layout on every build: 0x59c10 (handle to actor, through
+0x59ba0) and 0x59a50 (the scene node's position). Each was checked side-effect free from its listing (reads only;
+0x59a50 writes only its output). In xemu they are called at the probe point (inside GameClock::Update, on the game
+thread). Not yet implemented.
+
+**(C) Particle frames.** See "The particle tag" below.
+
+### The particle tag (phase 4a)
+
+Against the two-run play3 reference the Wine build differed in the particle tag at 143 frames after 12,923, all at
+frames where the two original runs agreed. The original is the cause, not the Wine build: a third original run
+(xemu dump 105756) disagrees with the A = B agreement at 12,923 and 13,542 too, and at 13,542 the field dumps show
+which generators: the first sprite updater's MWC and guard (words 0-2) and the unset second one (3-5) are equal in all
+runs, while the point/plane/sphere generator (6-7) and the sprite emitter (8-9) differ between the Wine build and the
+third original run as much as between original runs. After about frame 12,918 the original's particle streams follow
+audio-driven event timing (wine-replay.md), and two runs can coincide at single frames by chance. So references are
+made from **three** runs (`ckpt_ref.py make A B C`): a (frame, tag) is kept only where all agree, which removes those
+chance agreements; the particle and sound tags stay frame by frame as before.
 
 ## Recordings needed for broad coverage
 

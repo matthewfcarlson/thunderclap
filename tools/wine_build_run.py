@@ -46,7 +46,8 @@ TREE_TU_DIRS = ("src/game/", "src/engine/", "src/platform/xbox/")
 INPUT_FILES = ["build/functions.csv", "build/rtti.json", "build/xbsymbols.txt", "build/port/platform_calls.json"]
 TP = "build/third_party/out/"
 INPUT_DIRS = ["build/data/src", TP + "pddi-win32/obj", TP + "win32/lib", TP + "sdl-backends/win32", TP + "sdl-win32",
-              TP + "fs1/win32", TP + "ffmpeg-win32/movies", TP + "ffmpeg-win32/dll"]
+              TP + "fs1/win32", TP + "ffmpeg-win32/movies", TP + "ffmpeg-win32/dll",
+              "build/ckpt"]     # (ckpt1, D161: the original's reference checkpoints, local derived data; one-way to hosts)
 IMAGE_FILES = ["hulk-strict.exe", "SDL3.dll", "hulkmovie.dll", "avutil-60.dll", "avcodec-62.dll", "avformat-62.dll"]
 DLL_SRC = {"SDL3.dll": "sdl-win32/SDL3.dll", "hulkmovie.dll": "ffmpeg-win32/movies/hulkmovie.dll",
            "avutil-60.dll": "ffmpeg-win32/dll/avutil-60.dll", "avcodec-62.dll": "ffmpeg-win32/dll/avcodec-62.dll",
@@ -512,7 +513,7 @@ def main():
     # wine_link's workers read it half written, and the resulting equiv errors were cached, so the binding map and the
     # image depended on that race. The host's own build/equiv has the file.)
     link_to(os.path.join(lin, "build/equiv"), os.path.join(home, "build/equiv"))
-    for n in ("functions.csv", "rtti.json", "xbsymbols.txt", "port", "data", "third_party"):
+    for n in ("functions.csv", "rtti.json", "xbsymbols.txt", "port", "data", "third_party", "ckpt"):
         link_to(os.path.join(lin, "build", n), os.path.join(inp, "build", n))
     tcache = os.path.join(croot, caches["tree"])
     os.makedirs(tcache, exist_ok=True)
@@ -697,6 +698,16 @@ def main():
                       "trace.txt.cov"):     # (ckpt1: HULK_COVER's hits, tools/cover.py)
             if os.path.exists(os.path.join(out, "replay", extra)):
                 shutil.copyfile(os.path.join(out, "replay", extra), os.path.join(out, extra))
+        # (ckpt1, D161) the run against the original's reference, when the inputs carry one for this recording
+        ref = os.path.join(inp, "build/ckpt", (rpl.get("name") or "play3") + ".ckref")
+        ckp = os.path.join(out, "trace.txt.ckref")
+        if os.path.exists(ref) and os.path.exists(ckp):
+            r_ = subprocess.run([py, os.path.join(lin, "tools/ckpt_ref.py"), "check", ckp, "--ref", ref, "--json",
+                                 os.path.join(out, "ckref-check.json")], capture_output=True, text=True)
+            summ["ckref"] = {"ref": os.path.basename(ref), "first": (jload(os.path.join(out, "ckref-check.json"), {})
+                                                                   .get("first")), "rc": r_.returncode}
+        else:
+            summ["ckref"] = {"ref": None, "why": "no reference" if not os.path.exists(ref) else "no records"}
         shutil.rmtree(os.path.join(out, "replay"), ignore_errors=True)
         if not ck or (rpl.get("frames") and ck[-1][0] < rpl["frames"]):
             finish(5, "the replay reached frame %s, wanted %s" % (ck[-1][0] if ck else None, rpl.get("frames")))

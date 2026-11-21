@@ -4,8 +4,8 @@ docs/checkpoints.md).
 
   # a run's frame records (the Wine build's HULK_CKREF=1 trace.txt.ckref, or an xemu run's, same format): summary
   build/venv/bin/python tools/ckpt_ref.py show RUN.ckref
-  # a reference from two runs of the original: a (frame, tag) is kept only where both runs agree
-  build/venv/bin/python tools/ckpt_ref.py make A.ckref B.ckref --name play3 --out build/ckpt/play3.ckref
+  # a reference from runs of the original (at least two; three recommended): a (frame, tag) is kept only where all agree
+  build/venv/bin/python tools/ckpt_ref.py make A.ckref B.ckref [C.ckref ...] --name play3 --out build/ckpt/play3.ckref
   # a build against a reference: per tag the first diverging frame, float drift or logic, the verdict; with --cover a
   # coverage report (tools/cover.py report --json), the functions first entered in the window before the divergence
   build/venv/bin/python tools/ckpt_ref.py check RUN.ckref --ref build/ckpt/play3.ckref [--cover cover.json] [--json OUT]
@@ -84,26 +84,35 @@ def cmd_show(a):
 
 
 def cmd_make(a):
-    _, pa, ra, ua = read(a.a)
-    _, pb, rb, ub = read(a.b)
-    if pa != pb:
-        sys.exit("probe versions differ: %d vs %d" % (pa, pb))
+    runs = [read(p) for p in a.runs]
+    if len(runs) < 2:
+        sys.exit("a reference needs at least two runs of the original")
+    pv = {r[1] for r in runs}
+    if len(pv) > 1:
+        sys.exit("probe versions differ: %s" % sorted(pv))
+    pa = runs[0][1]
+    recs = [r[2] for r in runs]
+    unavs = [r[3] for r in runs]
+    frames = set.intersection(*[set(r) for r in recs])
     out, dropped = {}, collections.Counter()
-    for fr in sorted(set(ra) & set(rb)):
+    for fr in sorted(frames):
         keep = {}
-        for t in set(ra[fr]) & set(rb[fr]):
-            if (ua[fr] | ub[fr]) & (1 << t):
+        un = 0
+        for u in unavs:
+            un |= u[fr]
+        for t in set.intersection(*[set(r[fr]) for r in recs]):
+            if un & (1 << t):
                 continue
-            if ra[fr][t][0] == rb[fr][t][0]:
-                keep[t] = ra[fr][t]
+            if len({r[fr][t][0] for r in recs}) == 1:
+                keep[t] = recs[0][fr][t]
             else:
                 dropped[name(t)] += 1
         if keep:
             out[fr] = keep
     write(a.out, pa, out)
-    meta = {"recording": a.name, "probe": pa, "sources": [os.path.abspath(a.a), os.path.abspath(a.b)],
+    meta = {"recording": a.name, "probe": pa, "sources": [os.path.abspath(p) for p in a.runs],
             "frames": len(out), "last": max(out) if out else None, "dropped_disagreeing": dict(dropped),
-            "only_in_one": len(set(ra) ^ set(rb))}
+            "not_in_all": len(set.union(*[set(r) for r in recs]) - frames)}
     json.dump(meta, open(a.out + ".json", "w"), indent=1)
     print(json.dumps(meta))
 
@@ -242,8 +251,7 @@ def main():
     s = sp.add_parser("show")
     s.add_argument("file")
     s = sp.add_parser("make")
-    s.add_argument("a")
-    s.add_argument("b")
+    s.add_argument("runs", nargs="+")
     s.add_argument("--name", required=True)
     s.add_argument("--out", required=True)
     s = sp.add_parser("check")
