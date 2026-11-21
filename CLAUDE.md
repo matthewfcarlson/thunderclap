@@ -213,7 +213,10 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
 - **Proving a change to shared code** (headers, records, renames, anything beyond one checked block): a control (HEAD
   without the change) and a proof (with it) on the same host and the same local inputs, `--gfx --replay play3 --frames 60000`;
   seed the proof from its control with `--state seed:CONTROL`; gate with `tools/ckpt_gate.py CONTROL PROOF` (the proof
-  must be ok wherever the control is). Commit messages name the control, the proof and the gate result. Pin control and
+  must be ok wherever the control is). ckpt_gate also runs the reference gate against the original (replays write
+  `trace.txt.ckref` by default; reference `build/ckpt/play3.ckref`, local and copied to the hosts with the inputs): its
+  GATE line says `ref: ok` or why it was `not checked`; pass `--require-ref` once both control and proof come from tools
+  with D161 (a9daeead1), and treat `not checked` as a failure (ckpt1). Commit messages name the control, the proof and the gate result. Pin control and
   proof to one host, and don't run your own 1-slot jobs while your 8-slot proof is queued (they count against your share).
 - **64-bit gate**: a change may not make a block newly differ in layout, ptrtrunc or crash64 under `equiv.py --x64`
   (`tools/x64_gate.py`, `docs/equivalence.md` "64-bit gate"); `config/x64-baseline.json` lists the known ones. Run
