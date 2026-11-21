@@ -2,6 +2,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x000ac610..0x000acda0 (kind game, layer game, confidence high), dominant class CScriptCamera
 #include "tree_prelude.h"
+#include "compat/pre.h"
 #include "compat/ptr.h"
 #define TREE_TU_BEGIN namespace fn_fb8b2f7e {
 #define TREE_TU_END }
@@ -108,11 +109,17 @@ public:
 
 
 // 0x000acad0 CScriptCamera::vfunc_35 (576 B): equivalent/0x000acad0.cpp
-// sym: ?vfunc_35@CScriptCamera@fn_fb8b2f7e@@UAEXPAUCameraArgs@2@MHH@Z @ada854d6011d @wd883cd24883b @vcfef3bcf9d08
+// sym: ?vfunc_35@CScriptCamera@fn_fb8b2f7e@@UAEXPAUCameraArgs@2@MHH@Z @ada854d6011d @w8f772ce24ace @vff5004964f75
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 10/10)
 // CScriptCamera::vfunc_35 @ 0x000acad0
+// (integ8, D152b) dt is the frame time: this block passes it on to 0x000a97e0, whose contract is ge(dt, 0)
+// pre: ge(arg2, 0)
+// pre-callers: 0x00405c90 (CScriptCamera's vftable slot 35: the camera update's frame time; passed on to 0x000a97e0
+// at 0x000accd8). play3 to 60000 (Wine build job 100781, HULK_TRACE_FUNCS on 0x000a97e0): every call into 0x000a97e0
+// from its six call sites passes dt in [0, 0.033333]; none negative or NaN
 void CScriptCamera::vfunc_35(CameraArgs* args, float dt, int flag, int extra)
 {
+    HULK_PRE_GE(dt, 0.0f);
     char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
     if (!frozen) {
         float dur0 = duration;

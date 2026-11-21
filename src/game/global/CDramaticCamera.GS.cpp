@@ -2,6 +2,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x000a8340..0x000a9050 (kind game, layer game, confidence high), dominant class CDramaticCamera
 #include "tree_prelude.h"
+#include "compat/pre.h"
 #define TREE_TU_BEGIN namespace fn_fac52fcb {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -225,8 +226,14 @@ public:
 // sym: ?vfunc_35@CDramaticCamera@fn_fac52fcb@@UAEXPAUEvent_a8520@2@MHH@Z
 // STATUS: equivalent (tools/equiv.py level 3: 3021 inputs, branch coverage 6/6)
 // CDramaticCamera::vfunc_35 @ 0x000a8520
+// (integ8, D152b) dt is the frame time: this block passes it on to 0x000a97e0, whose contract is ge(dt, 0)
+// pre: ge(arg2, 0)
+// pre-callers: 0x004057e0 (CDramaticCamera's vftable slot 35: the camera update's frame time; passed on to 0x000a97e0
+// at 0x000a8600). play3 to 60000 (Wine build job 100781, HULK_TRACE_FUNCS on 0x000a97e0): every call into 0x000a97e0
+// from its six call sites passes dt in [0, 0.033333]; none negative or NaN
 void CDramaticCamera::vfunc_35(Event_a8520 *e, float dt, int a, int b)
 {
+    HULK_PRE_GE(dt, 0.0f);
     char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
     if (!disabled) {
         if (!controller->vfunc_22()) {
@@ -248,7 +255,7 @@ void CDramaticCamera::vfunc_35(Event_a8520 *e, float dt, int a, int b)
 
 
 // 0x000a89c0 FUN_000a89c0 (1442 B): equivalent/0x000a89c0.cpp
-// sym: ?F@Picker@fn_fac52fcb@@QAEHPAUArg1@2@PAHPAMHMPAUMat4@2@PAUV3@2@@Z @988b9f8d4548 @w80a344672e9e @v7477600913b8
+// sym: ?F@Picker@fn_fac52fcb@@QAEHPAUArg1@2@PAHPAMHMPAUMat4@2@PAUV3@2@@Z @988b9f8d4548 @we0a2edc6700f @v7477600913b8
 // STATUS: equivalent (tools/equiv.py level 3: 952 inputs, branch coverage 66/82, incomplete)
 // FUN_000a89c0 @ 0x000a89c0
 int Picker::F(Arg1 *a1, int *ids, float *weights, int n, float bias, Mat4 *m, V3 *pt)

@@ -2,6 +2,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00098460..0x000989d0 (kind game, layer game, confidence medium), dominant class CBlendCamera
 #include "tree_prelude.h"
+#include "compat/pre.h"
 #include "compat/ptr.h"
 #define TREE_TU_BEGIN namespace fn_f237209c {
 #define TREE_TU_END }
@@ -88,11 +89,18 @@ public:
 
 
 // 0x000985b0 CBlendCamera::vfunc_35 (982 B): equivalent/0x000985b0.cpp
-// sym: ?vfunc_35@CBlendCamera@fn_f237209c@@UAEXHMHH@Z @e02b303da7af @wda348128bd2a @v47951b1a91a1
+// sym: ?vfunc_35@CBlendCamera@fn_f237209c@@UAEXHMHH@Z @e02b303da7af @wfee52225cb37 @v48508b5db8d9
 // STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 20/20)
 // CBlendCamera::vfunc_35 @ 0x000985b0
+// (integ8, D152b) dt is the frame time: this block passes it on to 0x000a97e0, whose contract is ge(dt, 0)
+// pre: ge(arg2, 0)
+// pre-callers: 0x00404bc8 (CBlendCamera's vftable slot 35: the camera update passes its frame time; this block passes
+// a2 on to 0x000a97e0 at 0x0009896a and to its two cameras' slot 35). play3 to 60000 (Wine build job 100781,
+// HULK_TRACE_FUNCS on 0x000a97e0): every call into 0x000a97e0 from its six call sites passes dt in [0, 0.033333];
+// none negative or NaN
 void CBlendCamera::vfunc_35(int a1, float a2, int a3, int a4)
 {
+    HULK_PRE_GE(a2, 0.0f);
     char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
     if (blendA) {
         camA->vfunc_35(a1, a2, 0, 0);

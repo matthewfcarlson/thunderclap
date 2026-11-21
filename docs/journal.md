@@ -2305,3 +2305,18 @@ blocks fight::Action's whole family: the records come first there.
 - Left out for other lanes' open batches: unk_0240b0.cpp, CStatsManager.cpp and CTimeManager.cpp (gfx4's C12b), and
   CCharacterTemplateManager.cpp (gfx1's 0x00047890).
 - The replay pins stay untouched. The ControllerXBox `GetTime` declaration that 0x00269170 calls is excluded.
+
+## 2026-11-21 integ8: 0x000a97e0's dt chain and guarded shake times landed (D152b, D164 (b))
+- **The dt contract.** 0x000a97e0 (CGameCamera::vfunc_35) states `ge(arg2, 0)`. Its six call sites are
+  0x000985b0, 0x000a75d0, 0x000a8520, 0x000abb90, 0x000ac420 and 0x000acad0. In play3 to 60,000 (job 100781) all
+  55,843 calls pass dt in [0, 0.033333].
+- **The callers' own domains (D152b).** Each caller that passes its own dt states it: 0x985b0, 0xa8520 (matches) and
+  0xacad0 state `ge(arg2, 0)`. 0xac420 (matches) declares the float as an int, so it states
+  `range(arg2, 0, 0x7f800000)`: the bits of +0 to +inf. Their callers are vftable slots only. 0xa75d0 already stated
+  it. 0xabb90 passes min(clock, 0.1), which D165's `ge(ret, 0)` on 0x00085f80 now keeps non-negative in its proofs.
+- **The guarded shake times** (integ7's items `ge(time) if gt(duration)`, with the constructor census) are in the tree
+  block again. The `--wine` proof needs them: with dt alone, input 1950 still failed on a stale negative time.
+  0xa97e0 is now proven in both modes and leaves the unproven baseline.
+- **0x000a89c0** (CDramaticCamera) had its clang code changed by the pre.h include, and was re-proved in `--wine`.
+- Wine pair (studio): control 108981 (45cd75af4), proof 108991, play3 60000: GATE ok (ref: ok). No trap: integ7's frame
+  8,730 trap came from unguarded idle shakes, and the guard now covers them.

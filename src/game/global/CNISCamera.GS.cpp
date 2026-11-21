@@ -2,6 +2,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x000ac2c0..0x000ac610 (kind game, layer game, confidence high), dominant class CNISCamera
 #include "tree_prelude.h"
+#include "compat/pre.h"
 #define TREE_TU_BEGIN namespace fn_f5bd0829 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -61,8 +62,15 @@ public:
 // sym: ?vfunc_35@CNISCamera@fn_f5bd0829@@UAEXHHHH@Z
 // STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 4/4)
 // CNISCamera::vfunc_35 @ 0x000ac420
+// (integ8, D152b) dt is the frame time: this block passes it on to 0x000a97e0, whose contract is ge(dt, 0)
+// pre: range(arg2, 0, 0x7f800000)
+// pre-callers: 0x00405bb8 (CNISCamera's vftable slot 35: the camera update's frame time, a float this view declares
+// int: its bits in [0, 0x7f800000] are the floats in [+0, +inf], never a negative or a NaN; passed on to 0x000a97e0
+// at 0x000ac481). play3 to 60000 (Wine build job 100781, HULK_TRACE_FUNCS on 0x000a97e0): every call into 0x000a97e0
+// from its six call sites passes dt in [0, 0.033333]; none negative or NaN
 void CNISCamera::vfunc_35(int a, int b, int c, int d)
 {
+    HULK_PRE_RANGE(b, 0, 0x7f800000);
     char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
     if (!locked && lens != 0) {
         SetMode(lens->Mode());
