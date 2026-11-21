@@ -375,6 +375,10 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   callers that were missing stubs and change behaviour (no-fmv bound QueueMovie: start-up now plays the intro); compare
   the link report's "references hooked" before and after. The shared host SDL is headless: a window run needs
   `HULK_MAC_SDL=<SDL3 built with SDL_VIDEO=ON>`; `HULK_GFX_RENDERER=noop` needs none.
+  A probe crash on a 64-bit build may come from another tag than the one whose words just went native: dump the tags
+  (HULK_CKREF_DUMP) first. A flow-tag mismatch can be solved without an xemu dump by brute-forcing its small words
+  against the reference hash (build/recs2/scripts/flow_solve.py). gen CScenarioManager's f_04 (the World) and f_08 are
+  pointers: a scenario-manager view starts `void* vftable; void* f04; void* f08;` (recs2).
 - **wasm32 port** (wasm1, D188/D190, docs/wasm-port.md): tools/wasm_port.py builds every tree TU to one wasm module linked
   by address (data at XBE addresses, x86-convention packers, an address dispatcher); host code in src/platform/wasm/. It
   races the 64-bit native build on the same play3 test plus rollback needs (thousands of update frames/s, cheap snapshots,
