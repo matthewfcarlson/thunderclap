@@ -200,7 +200,8 @@ offset: write `- offsetof(Item, link)`. A gen member whose `this` is cast to a l
 move the block into a record-derived class (gfx7, C16/C17). Byte-count ring and vector arithmetic (`(end-begin)>>3`, `count*16`) bakes in the 32-bit element size;
 element-typed pointer arithmetic compiles to the same MSVC bytes. A callee declared with a different IR signature from its
 definition (int vs pointer, void vs a returned pointer) does not bind natively and the run stops on `missing`: declare it
-as defined. A native hang: attach with `lldb -p PID --batch -s FILE` and break in the wait loop's callees (HULK_HANG
+as defined. One narrow exception: native_unbound binds a member-declared call to a zero-argument C function
+(R(ptr) -> R(), no sret/inreg) and lists each such site in the link report's worklist (gfx11, rev5). A native hang: attach with `lldb -p PID --batch -s FILE` and break in the wait loop's callees (HULK_HANG
 samples show only the loop). `jobq.py cancel --name ME` cancels all your unfinished jobs and needs `--all`; cancel by id (D110).
 `pure3d::X::~X() {}` standing for a `??_G` scalar deleting destructor defines nothing natively; write it as an explicit
 function: the body by its address, then the free when `flags & 1`. A raw `(char*)this + HULK_SPE(k)` in a pad view reads
