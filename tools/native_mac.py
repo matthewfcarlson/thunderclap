@@ -654,6 +654,11 @@ def code_owned64(defs, crt_addr, defined64):
              if it["kind"] == "vtable" or it["kind"].startswith("rtti_")}
     st, undefined = collections.Counter(), set()
     lab = lambda a: "_DAT_%08x" % a      # noqa: E731
+    # (render1) a replay entry hook (native_hooks.h `entry`, ready) takes the vftable slots of its function too, as the
+    # Wine link's entry wrapper does (every vftable slot goes through it); only when the image links the replay layer
+    import native_bind as nb_
+    entry_hooks = {a_: h_ for k_, a_, _o, h_, st_, _w in nb_.hook_rows() if k_ == "entry" and st_ == "ready"} \
+        if nb_.macos_sdl() is not None else {}
 
     def rel(v, here):
         if not v:
@@ -678,7 +683,9 @@ def code_owned64(defs, crt_addr, defined64):
                 sa = a + 4 + 4 * i
                 if sa != a and "DAT_%08x" % sa not in defined64:
                     out += ['\t.globl\t"%s"' % lab(sa), '"%s":' % lab(sa)]
-                t = defs.sym64(v) or crt_addr.get(v)
+                t = entry_hooks.get(v) or defs.sym64(v) or crt_addr.get(v)
+                if v in entry_hooks:
+                    st["vftable slots to a replay entry hook (native_hooks.h)"] += 1
                 if t:
                     st["vftable slots bound"] += 1
                 else:
@@ -1015,8 +1022,10 @@ def ld64(objs, aliases, unbound, extra_asm=()):
     # the replay hooks (native_hooks.h): applied when the replay layer is linked (with SDL3), else reported
     renames = {o: dict(m) for o, m in (LINK_STATE.get("addr_renames") or {}).items()}  # (the address bindings)
     hook_rep = {"applied": "no (the image has no replay layer: no SDL3)"}
+    hook_retarget = None
     if "replay" in shim_cfg and LINK_STATE.get("defs") is not None:
-        ren, thunks, rep = nb.plan_hooks(game_syms, LINK_STATE["defs"].sym64, "macho", table)
+        hook_retarget = {}
+        ren, thunks, rep = nb.plan_hooks(game_syms, LINK_STATE["defs"].sym64, "macho", table, retarget_out=hook_retarget)
         for s_ in sorted({x for _dd, us in host_syms.values() for x in us} - host_def - game_def):
             # (host code's other calls into the game by address: hulk_orig_<addr>, FUN_<addr>)
             m_ = nb.ORIG.match(s_)
@@ -1043,7 +1052,8 @@ def ld64(objs, aliases, unbound, extra_asm=()):
         asm_def |= set().union(*(dd for dd, _u in nm_macho([th + ".o"]).values()))
         hook_rep = {"applied": "yes (rows whose 'applied' is yes)", "rows": rep,
                     "thunks": {n: f for n, f in sorted(thunks.items())}}
-    objs, bind_st = nb.apply(objs, binding, game_syms, os.path.join(d, "bound"), "macho", extra=renames)
+    objs, bind_st = nb.apply(objs, binding, game_syms, os.path.join(d, "bound"), "macho", extra=renames,
+                             retarget=hook_retarget)
     hooks = host_undef - game_def - asm_def - host_def - sys_def - {"hulk_game_main"}
     want = ((set(unbound) - set(binding)) | (host_undef - game_def - asm_def)) - host_def - sys_def - hooks
     dem = cp.undname(sorted(s for s in want if s.startswith("?")))

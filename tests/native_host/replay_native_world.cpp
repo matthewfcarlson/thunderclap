@@ -28,6 +28,10 @@ unsigned char DAT_004e5ad0[20] = {0x34, 0x12, 0, 0, 0x78, 0x56, 0, 0};   // the 
 int DAT_0049fb40 = 2;                                                     // g_BootSequenceStep (skip-intro sets 6)
 void* DAT_004e231c[1];                                                    // the logic view singleton: null at first
 void* DAT_004e5acc[1] = {DAT_004e5ad0};                                   // the game's pointer to its RNG
+void* DAT_004dd700[1];                                                    // the world: absent (render1: the probe's flow tag)
+// pure3d's particle generators (the probe's particle tag; replay_native.cpp prng_bytes)
+unsigned char DAT_00554be4[8] = {1, 2, 3, 4, 5, 6, 7, 8}, DAT_00554bec[4], DAT_00554bf0[8], DAT_00554bf8[4],
+    DAT_00554bfc[8], DAT_00554c04[8];
 // core::GetMicroseconds64 0x00267f40: the hooked call in Update goes to the virtual clock instead (a zero here makes
 // an unhooked run diverge)
 U64_86450 FUN_00267f40() { return 0; }

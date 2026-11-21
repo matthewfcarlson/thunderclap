@@ -39,10 +39,10 @@
     H(data, 0x00255250, 0x004e5acc, hulk_seq_rng_ptr, ready, "seq-rng: SeqCommandLogicOr::vfunc_0") \
     H(site, 0x002549a0, 0x000113e0, hulk_seq_randint, ready, "seq-rng: SeqEventSilence::vfunc_2 -> RandInt") \
     H(site, 0x00254c80, 0x000113e0, hulk_seq_randint, ready, "seq-rng: SeqEventLogicRepeat's state -> RandInt") \
-    H(entry, 0x00269170, 0, hulk_nhook_pad_poll, layout, \
+    H(entry, 0x00269170, 0, hulk_nhook_pad_poll, ready, \
       "ControllerSystemXBox::vfunc_12: the poll's rate limit off with a recording open (request C; the pad's +0x12a0/+0x12a4)") \
-    H(entry, 0x001b7310, 0, hulk_nhook_fmv_queue, layout, "no-fmv: CFMVManager::QueueMovie returns at once (`ret 0xc`)") \
-    H(entry, 0x001b7d10, 0, hulk_nhook_fmv_render, layout, "no-fmv: the FMV render takes its finished path (+0xc, +8)") \
+    H(entry, 0x001b7310, 0, hulk_nhook_fmv_queue, ready, "no-fmv: CFMVManager::QueueMovie returns at once (`ret 0xc`)") \
+    H(entry, 0x001b7d10, 0, hulk_nhook_fmv_render, ready, "no-fmv: the FMV render takes its finished path (+0xc, +8)") \
     H(entry, 0x00272fc0, 0, hulk_nhook_drive_post, layout, "syncio: core::DriveThread's post (the drive's +0x8c count)") \
     H(entry, 0x00272df0, 0, hulk_nhook_drive_pump, layout, "syncio: core::Drive::vfunc_3, the lockstep drive pump") \
     H(entry, 0x0008c470, 0, hulk_nhook_save_selftest, ready, \

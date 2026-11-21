@@ -456,3 +456,40 @@ lists only the tree's names) and checks `kBase*` against gen before linking.
 Measured (2026-11-20, HEAD + the start-up fixes of docs/native-build.md "gfx1"): device, display, context and bgfx
 Noop come up headless and World init's effect queues pass (CDecalQueue's prim buffers, the light queue's shader, the
 motion trail queue); the next stop is outside graphics (0x001fad00, a file stream's truncated pointer).
+
+## 13. Replays and the reference gate (render1, 2026-11-21)
+
+The native image replays a recording as the Wine build does (`HULK_INPUT_SOURCE=replay:FILE.hrp`): the replay driver
+(src/platform/sdl/host/replay_native.cpp) and the link's hooks (native_hooks.h, applied by native_bind.plan_hooks)
+give it the recording's input, the fixed-step clock, the seeds and the sound code's private generators, and write
+the legacy checkpoint lines and, with `HULK_CKREF=1`, the semantic probe's records (`TRACE.ckref`, the Wine build's
+format). On 64-bit the probe marks flow, hulk, actors and mission unavailable (their words are read at 32-bit offsets
+until gen spells them); clock, rng, camera, particle and sound are hashed.
+
+```sh
+P=build/venv/bin/python
+$P tools/native_replay.py run --exe NATIVE_DIR/link/hulk-mac --out build/ME/run --frames 60000   # then the check
+$P tools/native_replay.py check RUN.ckref --frames 60000 [--control CONTROL.ckref] [--json OUT]  # any build's records
+```
+
+`run` sets the Wine replay's defaults plus `HULK_GFX_RENDERER=noop` and the dummy audio driver, stops the image at the
+checkpoint of `--frames`, and writes result.json (frames reached, how it ended) and check.json. `check` is
+tools/ckpt_ref.py's check plus, with `--frames`, a record at every reference frame up to N; it reads the records of any
+build (Wine, native, wasm), so builds race on the same test.
+
+**Hooks the link places.** `entry` rows rename the references to the function in every other object and, now, retarget
+the references inside the defining object (other functions, a vftable there) and the function's slots in the link's
+vftables (rtti.s: the pad poll 0x00269170 is reached only through core::ControllerSystemXBox's vftable). A `site` /
+`data` row renames only the names the caller itself references; where another function of the same object references
+the same name, `tools/macho_retarget.py` moves only the caller's relocations to the hook (a new undefined symbol at the
+end of the object's symbol table; ARM64_RELOC_ADDEND entries untouched). Applied now: the clock entry and tick, the
+GameClock constructor's first timestamp (0x00087e30, retargeted), the new-game seed (0x00086630), the pad
+constructor's reads (0x002692c0), sound-rng / seq-rng, the pad poll's rate limit (0x00269170, the system's
+interval / last poll at native +0x1c70 / +0x1c74) and no-fmv (0x001b7310 / 0x001b7d10: the words 0x001b7d10's own
+native code tests, movie +0x10, paused +8). Still `layout`: the syncio drive hooks (0x00272fc0, 0x00272df0).
+tests/native_host/replay_native_test.py checks the driver, the clock hooks and the records.
+
+**A window.** The shared host SDL (build/third_party/out/sdl-host, tools/wine_sdl.py build_host) is built without video,
+so a native run without `HULK_GFX_RENDERER=noop` fails "SDL not built with video support". `HULK_MAC_SDL=DIR` points
+native_bind at another SDL3 install; one built with `-DSDL_VIDEO=ON -DSDL_OPENGL=OFF -DSDL_OPENGLES=OFF
+-DSDL_VULKAN=OFF` (otherwise as build_host) opens the window and runs bgfx Metal (600 frames, 0 draws, 2026-11-21).

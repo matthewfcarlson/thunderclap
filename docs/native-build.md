@@ -6718,3 +6718,16 @@ name that carries an address any more. Unbound counts: see the commit message (c
   0x00293d40 / 0x00293da0 (View), 0x002bdf90 (a vftable stub). 0x0028faf0's callers declare `(int)`, its
   definition is `Target_28faf0::run(bool)`: declare as defined. unk_0b4cf0.cpp's Temp_b8860 has the same 36-byte
   text buffer.
+
+## render1: native replay harness (2026-11-21, D187/D192)
+
+- Native replay of play3 (noop renderer) reaches the replay start-up ("replay: flags 0x3ecd tweaks 0x3 seed 0x1234")
+  and stops before frame 0 in game code (gfx9): Owner_f7850::Cleanup from Thing_1bde90::target reads 0xd0100000eb8 at
+  the subtitle manager's +0x48 (two 32-bit words); owners::Thing_1bde50's Prepare / Finish are really 0x000f6fe0 /
+  0x000f7110 on the FE overlay class and bind to missing stubs natively. The non-replay start-up (no skip-intro) does not
+  take this path.
+- Landed: the per-caller relocation retarget (tools/macho_retarget.py), hooks in vftable slots, the pad-poll and no-fmv
+  hooks, the native HULK_CKREF writer, tools/native_replay.py (docs/native-mac.md section 13).
+- Metal (shelved): the shared host SDL has no video; a private video SDL (HULK_MAC_SDL) gives a bgfx Metal window,
+  600 frames presented, 0 draws (bgfxContext slots 106 / 107 are stubs), no crash. HULK_GFX_FRAMES's exit loops
+  on hulk_host_ExitProcess (unbound from platformAfterFrame).

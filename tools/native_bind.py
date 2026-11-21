@@ -232,10 +232,12 @@ def spell(sym, fmt):
     return "_" + sym if fmt == "macho" else sym.replace("@", "#")
 
 
-def apply(objs, binding, syms, outdir, fmt, jobs=2, extra=None):
+def apply(objs, binding, syms, outdir, fmt, jobs=2, extra=None, retarget=None):
     """Rename, in each game object that references a bound name, the reference to the row's target (llvm-objcopy
     --redefine-sym on a copy in `outdir`). `syms`: {obj: (defined, undefined)} in MS spelling; `extra`: {obj: {name:
     new name}}, renames of that object's undefined names that take precedence (the replay hooks: plan_hooks()).
+    `retarget`: {obj: [(name, new name, [owner functions])]}, Mach-O only: only the relocations inside those functions
+    move to the new name (tools/macho_retarget.py; plan_hooks' per-caller site hooks), applied before the renames.
     Returns (objects for the link, stats). Copies are reused when the object and its rename list are unchanged."""
     os.makedirs(outdir, exist_ok=True)
     exe = cp.tool("llvm-objcopy")
@@ -246,12 +248,18 @@ def apply(objs, binding, syms, outdir, fmt, jobs=2, extra=None):
         m = {s: binding[s] for s in u if s in binding and binding[s] != s}
         m.update({s: t for s, t in (extra or {}).get(o, {}).items() if s in u})
         ren = sorted(m.items())
-        if not ren:
+        rt = sorted((retarget or {}).get(o, []), key=repr) if fmt == "macho" else []
+        if not ren and not rt:
             out.append(o)
             continue
-        st["objects with renamed references"] += 1
-        st["references renamed (per object)"] += len(ren)
+        if ren:
+            st["objects with renamed references"] += 1
+            st["references renamed (per object)"] += len(ren)
+        if rt:
+            st["objects with retargeted relocations"] += 1
         text = "".join("%s %s\n" % (spell(s, fmt), spell(t, fmt)) for s, t in ren)
+        text += "".join("retarget %s %s %s\n" % (spell(s, fmt), spell(t, fmt), " ".join(
+            ("!" + spell(w[1:], fmt)) if w.startswith("!") else spell(w, fmt) for w in ws)) for s, t, ws in rt)
         key = hashlib.sha1(text.encode() + open(o, "rb").read()).hexdigest()[:16]
         dst = os.path.join(outdir, "%s.%s.o" % (os.path.basename(o)[:-2], key))
         out.append(dst)
@@ -262,9 +270,23 @@ def apply(objs, binding, syms, outdir, fmt, jobs=2, extra=None):
         # (one --redefine-sym per name, not a --redefine-syms file: that file format takes `#` for a comment, and
         # ELF spells MS names with `#`)
         o, dst, text = item
-        args = ["--redefine-sym=%s=%s" % tuple(l.split(" ")) for l in text.splitlines()]
+        lines = text.splitlines()
+        args = ["--redefine-sym=%s=%s" % tuple(l.split(" ")) for l in lines if not l.startswith("retarget ")]
         with open(dst + ".map", "w") as f:
             f.write(text)
+        plans = [(w[1], w[2], w[3:]) for w in (l.split(" ") for l in lines if l.startswith("retarget "))]
+        if plans:
+            import macho_retarget
+            try:
+                moved = macho_retarget.retarget(o, dst + ".rt", plans)
+            except ValueError as e:
+                return "%s: retarget: %s" % (o, e)
+            with open(dst + ".map", "a") as f:
+                f.write("".join("moved %s +0x%x in %s: %s -> %s\n" % r_ for r_ in moved))
+            o = dst + ".rt"
+        if not args:
+            os.replace(o, dst)
+            return None
         r = subprocess.run([exe] + args + [o, dst + ".tmp"], capture_output=True, text=True)
         if r.returncode:
             return "%s: %s" % (o, r.stderr.strip()[:300])
@@ -394,10 +416,13 @@ def reloc_owners(obj, fmt):
     return out
 
 
-def plan_hooks(game_syms, sym64, fmt, table=None, rows=None, statuses=("ready",)):
+def plan_hooks(game_syms, sym64, fmt, table=None, rows=None, statuses=("ready",), retarget_out=None):
     """The replay hooks of native_hooks.h on a link's game objects. `game_syms`: {obj: (defined, undefined)};
     `sym64(addr)`: the tree's 64-bit definition at an XBE address, or None. Returns (renames {obj: {name: hook}},
-    thunks {hulk_orig_<addr>: definition or None}, report rows)."""
+    thunks {hulk_orig_<addr>: definition or None}, report rows). With `retarget_out` (a dict, Mach-O): a site / data
+    row whose callee another function of the caller's object also references, and an entry row's references inside
+    the defining object (other functions and vftables there), are planned there as per-function relocation moves
+    ({obj: [(name, hook, [owners])]}, apply()'s `retarget`) instead of being left out (render1)."""
     t = table or Table()
     rows = rows if rows is not None else hook_rows()
     definer = {}
@@ -423,7 +448,11 @@ def plan_hooks(game_syms, sym64, fmt, table=None, rows=None, statuses=("ready",)
             r["references hooked (per object)"] = n
             if f and f in definer:
                 inner = sum(1 for fn, s in reloc_owners(definer[f], fmt) if s == f and fn and fn != f)
-                if inner:
+                if inner and retarget_out is not None and fmt == "macho":
+                    retarget_out.setdefault(definer[f], []).append((f, hook, ["!" + f]))
+                    r["references inside the defining object, retargeted"] = inner
+                    n += inner
+                elif inner:
                     r["calls inside the defining object, not hooked"] = inner
             r["applied"] = "yes" if n else "no references"
             continue
@@ -441,7 +470,20 @@ def plan_hooks(game_syms, sym64, fmt, table=None, rows=None, statuses=("ready",)
         if not names:
             r["applied"] = "no (the caller's object does not reference 0x%08x)" % other
             continue
-        others = sorted({fn for fn, s in reloc_owners(o, fmt) if s in names and fn != c})
+        owned = reloc_owners(o, fmt)
+        mine = {s for fn, s in owned if fn == c and s in names}
+        if mine:
+            names = mine     # (render1) only the names the caller itself references
+        others = sorted({fn for fn, s in owned if s in names and fn != c})
+        if others and retarget_out is not None and fmt == "macho":
+            for s in sorted(names):
+                retarget_out.setdefault(o, []).append((s, hook, [c]))
+            r["applied"] = "yes (the caller's relocations only; other functions of the object keep it: %s)" % (
+                ", ".join(str(x) for x in others[:3]))
+            r["references hooked"] = len(names)
+            if kind == "site":
+                thunks.setdefault("hulk_orig_%08x" % other, callee)
+            continue
         if others:
             r["applied"] = "no (other functions of the object reference it: %s)" % ", ".join(str(x) for x in others[:3])
             continue
@@ -508,7 +550,7 @@ SDL_SRCS = ["src/platform/sdl/audio/hulk_audio.cpp", "src/platform/sdl/audio/xad
             "src/platform/sdl/fs/hulk_saves.cpp", "src/platform/sdl/movies/bink_player.cpp",
             "src/platform/sdl/movies/movie.c"]
 TP_OUT = os.path.join(ROOT, "build/third_party/out")
-MAC_SDL = os.path.join(TP_OUT, "sdl-host")
+MAC_SDL = os.environ.get("HULK_MAC_SDL") or os.path.join(TP_OUT, "sdl-host")
 MAC_FFMPEG = os.path.join(TP_OUT, "ffmpeg-host/install")
 MAC_FRAMEWORKS = ["CoreAudio", "AudioToolbox", "CoreFoundation", "IOKit", "GameController", "CoreHaptics",
                   "ForceFeedback", "Foundation", "AVFoundation", "CoreMotion", "Carbon", "AppKit", "Metal", "QuartzCore",

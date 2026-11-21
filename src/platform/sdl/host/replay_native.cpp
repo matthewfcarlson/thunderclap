@@ -37,8 +37,17 @@ extern unsigned char DAT_004e5ad0[];   // the gameplay RNG's two MWC words
 extern unsigned char DAT_0049fb40[];   // g_BootSequenceStep
 extern unsigned char DAT_004e231c[];   // the logic view singleton pointer (camera position at +0x4c)
 extern unsigned char DAT_004e5acc[];   // the game's pointer to its RNG state
+extern unsigned char DAT_004dd700[];   // the world pointer (pointer-sized on 64-bit)
+// the particle generators (pure3d; the Wine build's hulk_prng_bytes reads the same six items)
+extern unsigned char DAT_00554be4[], DAT_00554bec[], DAT_00554bf0[], DAT_00554bf8[], DAT_00554bfc[], DAT_00554c04[];
 // the game's functions, through the link's thunks to the tree's definitions (native_bind.py)
 void hulk_orig_00086450(void* clock);           // GameClock::Update
+void hulk_orig_00269170(void* system);          // core::ControllerSystemXBox::vfunc_12, the pad poll
+unsigned hulk_orig_00267f80(void);              // core::GetMilliseconds (the poll's own time)
+void hulk_orig_001b7310(void* fmv, const char* name, unsigned param, unsigned flag);   // CFMVManager::QueueMovie
+void hulk_orig_001b7d10(void* fmv, void* pads, void* voices);                          // the FMV render
+void hulk_orig_001b7970(void* fmv);             // the FMV manager's stop
+void hulk_orig_00333ef0(void);                  // the movie player's finish
 void* hulk_orig_000964d0(void);                 // the gameplay RNG accessor
 int hulk_orig_000113e0(int lo, int hi);         // RandInt
 unsigned long long hulk_orig_00267f00(void);    // core::GetMicroseconds (the seed's source)
@@ -98,7 +107,88 @@ static void log_line(const char* fmt, ...) {
     hulk_native_log(line);
 }
 
+extern "C" hulk_u32 hulk_native_frame_no;   // (shim_posix.cpp: the frame number xdk/snapshot.cpp reads)
 static hulk_u32 g_snd_calls;   // sound-rng draws served from the private state (the Wine build's "sound rng" count)
+static hulk_u32 g_snd_rng[4] = {0x2F6B6F2Au, 0x1F123BB5u, 0, 0};   // hybrid/hooks.cpp: the sound code's own states
+static hulk_u32 g_snd_rand = 0x5EEDu;
+
+static void prng_bytes(unsigned char* b) {    // (replay_hooks.cpp hulk_prng_bytes)
+    memcpy(b, DAT_00554be4, 8);
+    memcpy(b + 8, DAT_00554bec, 4);
+    memcpy(b + 12, DAT_00554bf0, 8);
+    memcpy(b + 20, DAT_00554bf8, 4);
+    memcpy(b + 24, DAT_00554bfc, 8);
+    memcpy(b + 32, DAT_00554c04, 8);
+}
+
+// ckpt1 (docs/checkpoints.md) natively (render1, D187): HULK_CKREF=1 writes the semantic probe's records to
+// HULK_TRACE_FILE + ".ckref" in replay_hooks.cpp's format (tools/ckpt_ref.py reads both). The probe is the same source;
+// on 64-bit it reports the tags it reads at 32-bit offsets (flow, hulk, actors, mission) as unavailable until gen spells
+// their words, and hashes clock, rng, camera, sound and particle as the Wine build does.
+#include "../ckpt/ckpt_probe.cpp"
+static void ckref_dump(void*, int tag, const char* name, unsigned index, unsigned bits, int is_float) {
+    log_line("ckdump f=%u t=%d %s[%u] %08x%s", hulk_native_frame_no - 1, tag, name, index, bits, is_float ? " f" : "");
+}
+static int frame_range(const char* v, hulk_u32* from, hulk_u32* to) {
+    if (!v || !*v)
+        return 0;
+    char* e;
+    *from = *to = (hulk_u32)strtoul(v, &e, 10);
+    if (*e == '-')
+        *to = (hulk_u32)strtoul(e + 1, 0, 10);
+    return 1;
+}
+static void ckref_frame(hulk_u32 fno, const HulkCkptState* st, const unsigned char* pb) {
+    static int on = -1;
+    static FILE* f;
+    static int dump_on;
+    static hulk_u32 dump_from, dump_to;
+    if (on < 0) {
+        on = env_flag("HULK_CKREF");
+        if (on) {
+            const char* tp = getenv("HULK_TRACE_FILE");
+            char path[600];
+            snprintf(path, sizeof(path), "%s.ckref", tp && *tp ? tp : "hulk-startup-trace.txt");
+            f = fopen(path, "wb");
+            hulk_u32 hdr[3] = {0x524b4348u /* "HCKR" */, 1, HULK_PROBE_VERSION};
+            if (f)
+                fwrite(hdr, 4, 3, f);
+            dump_on = frame_range(getenv("HULK_CKREF_DUMP"), &dump_from, &dump_to);
+        }
+    }
+    if (!on || !f)
+        return;
+    HulkProbeInputs in;
+    memset(&in, 0, sizeof(in));
+    in.rng = st->rng;
+    in.boot_step = st->boot_step;
+    in.view_ptr = (const void* const*)DAT_004e231c;   // (the probe reads the view at +0x4c: the same on both builds)
+    in.clock = st->clock;                              // (the 32-bit image of the clock block: hulk_nreplay_ckpt_image)
+    in.clock_at_entry = st->clock_at_entry;
+    in.prng = pb;
+    in.snd_rng = g_snd_rng;
+    in.snd_rand = &g_snd_rand;
+    in.world_ptr = (const void* const*)DAT_004dd700;
+    unsigned mask = HULK_PROBE_CHEAP_MASK | (fno % HULK_PROBE_FULL_EVERY == 0 ? HULK_PROBE_FULL_MASK : 0);
+    HulkProbeRecord rec;
+    int dumping = dump_on && fno >= dump_from && fno <= dump_to;
+    hulk_probe_frame(fno, &in, mask, &rec, dumping ? ckref_dump : 0, 0);
+    rec.mask |= 1u << HULK_PT_LEGACY;
+    rec.exact[HULK_PT_LEGACY] = rec.quant[HULK_PT_LEGACY] = hulk_ckpt_hash(fno, st);
+    hulk_u32 out[3 + 2 * HULK_PT_COUNT];
+    hulk_u32 n = 0;
+    out[n++] = rec.frame;
+    out[n++] = rec.mask;
+    out[n++] = rec.unavailable;
+    for (int t = 0; t < HULK_PT_COUNT; t++)
+        if (rec.mask & (1u << t)) {
+            out[n++] = rec.exact[t];
+            out[n++] = rec.quant[t];
+        }
+    fwrite(out, 4, n, f);
+    if (fno % 300 == 0)
+        fflush(f);
+}
 
 // One frame: the checkpoint (when this frame is one) and its trace lines, as replay_hooks.cpp's hulk_native_frame.
 extern "C" hulk_u32 hulk_native_frame_no;   // (shim_posix.cpp: the frame number xdk/snapshot.cpp reads)
@@ -108,6 +198,9 @@ extern "C" void hulk_nreplay_frame(const void* clock) {
     HulkCkptState st;
     const void* view = *(const void* const*)DAT_004e231c;
     hulk_nreplay_ckpt_image(DAT_004e5ad0, DAT_0049fb40, view, clock, &img, &st);
+    unsigned char pb[HULK_PRNG_BYTES];
+    prng_bytes(pb);
+    ckref_frame(hulk_native_frame_no - 1, &st, pb);
     int r = hulk_ckpt_update(&st);
     if (r < 0)
         return;
@@ -166,8 +259,6 @@ static int replay_open(HulkReplayInfo* ri) {
     return known;
 }
 
-static hulk_u32 g_snd_rng[4] = {0x2F6B6F2Au, 0x1F123BB5u, 0, 0};   // hybrid/hooks.cpp: the sound code's own states
-static hulk_u32 g_snd_rand = 0x5EEDu;
 // seq-rng: the audio sequencer's reads of the RNG pointer (native_hooks.h `data` rows) read this instead: the game's
 // pointer, or the sound code's state with a recording whose flags include seq-rng
 extern "C" { void* hulk_seq_rng_ptr; }
@@ -190,6 +281,65 @@ extern "C" void hulk_replay_startup(void) {
         hulk_seq_rng_ptr = g_snd_rng;
     log_line("replay: flags 0x%x tweaks 0x%x seed 0x%x, %u entries, %u checkpoints", ri.flags, ri.tweaks, ri.seed,
              ri.entries, ri.checkpoints);
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// The hooks that read a game object (native_hooks.h `entry` rows; render1, D187/D192). Each reads the words the
+// hooked function's own 64-bit code reads (offsets from its native object; tests/native_host checks them).
+//
+// C (pad poll, 0x00269170 core::ControllerSystemXBox::vfunc_12; replay_hooks.cpp hulk_hook_pad_poll): with a
+// recording open the poll's rate limit goes: the last poll time is set to `now - interval`. records.h's
+// CoreControllerSystemXBox interval / lastPoll (32-bit +0x12a0 / +0x12a4; natively +0x1c70 / +0x1c74: four
+// 0x710-byte controllers from +0x30).
+struct HulkPadPollLayout64 {
+    unsigned interval, last_poll;
+};
+static const HulkPadPollLayout64 kPadPoll = {0x1c70, 0x1c74};
+
+extern "C" void hulk_nhook_pad_poll(void* system) {
+    if (system && replay_open(0)) {
+        unsigned char* p = (unsigned char*)system;
+        hulk_u32 interval;
+        memcpy(&interval, p + kPadPoll.interval, 4);
+        hulk_u32 last = hulk_orig_00267f80() - interval;
+        memcpy(p + kPadPoll.last_poll, &last, 4);
+    }
+    hulk_orig_00269170(system);
+}
+
+// F no-fmv (tweak bit 1): CFMVManager::QueueMovie 0x001b7310 queues nothing; the FMV render 0x001b7d10, when it has
+// a movie and is not paused, takes its "status 0: finished" path (0x00333ef0, then the stop 0x001b7970). The words
+// are those 0x001b7d10's native code tests: the movie at +0x10, the paused byte at +8 (its Player_1b7d10 view; gen's
+// CFMVManager has the vftable at +0 and f_08 at +0xc natively: render1 reported the view's 32-bit pad to gfx9).
+struct HulkFmvLayout64 {
+    unsigned movie, paused;
+};
+static const HulkFmvLayout64 kFmv = {0x10, 0x8};
+
+static int no_fmv(void) {
+    HulkReplayInfo ri;
+    return replay_open(&ri) && (ri.tweaks & 2);
+}
+
+// (the flag is a byte the MS ABI caller does not widen: passed on as the register it came in)
+extern "C" void hulk_nhook_fmv_queue(void* fmv, const char* name, unsigned param, unsigned flag) {
+    if (no_fmv())
+        return;
+    hulk_orig_001b7310(fmv, name, param, flag);
+}
+
+extern "C" void hulk_nhook_fmv_render(void* fmv, void* pads, void* voices) {
+    if (fmv && no_fmv()) {
+        const unsigned char* p = (const unsigned char*)fmv;
+        void* movie;
+        memcpy(&movie, p + kFmv.movie, sizeof(movie));
+        if (movie && !p[kFmv.paused]) {
+            hulk_orig_00333ef0();
+            hulk_orig_001b7970(fmv);
+            return;
+        }
+    }
+    hulk_orig_001b7d10(fmv, pads, voices);
 }
 
 // ---------------------------------------------------------------------------------------------------------------

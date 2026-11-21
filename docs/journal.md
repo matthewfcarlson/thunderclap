@@ -2468,3 +2468,14 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
 - 0x001f1270's 20-byte object is CSoundSystem (singleton DAT_004e370c, its script bindings' object): managers.h's
   record is now HulkSoundSystem; the 0x524-byte CSoundResourceManager it allocates is decls/sound_resources.h's.
 - After C18 native start-up runs the main loop (Lua GC, controller polls) and presents frames with 0 draws, unpaced.
+
+## 2026-11-21 render1: the native replay harness
+- Natively the link's per-caller site hooks were refused whenever another function of the caller's object referenced
+  the callee's name. Two of the three refusals were different names for the same address (0x00086630 and 0x00088c30
+  each declare their own `FUN_00267f00`), which was enough to fix them. The real overlap (0x00087e30 vs 0x00086000) needed
+  relocation surgery: a Mach-O object's relocations name symbols by index, so a new undefined symbol appended at the
+  end of the table (the undefined range ends it, so no index moves) lets one function's calls go elsewhere.
+- A virtual function's entry hook must also take its vftable slots: the pad poll 0x00269170 had no direct caller
+  at all ("no references"), so the hook never ran until rtti.s pointed the slot at it.
+- The shared host SDL3 is headless by construction (SDL_VIDEO=OFF), so "real renderer" runs failed at SDL video init
+  before reaching bgfx; with video on, bgfx Metal comes up and presents.

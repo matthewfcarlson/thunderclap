@@ -149,8 +149,11 @@ def main():
         json.dump({"version": 2, "flags": ["fixed-dt", "vclock", "ckpt"], "tweaks": ["skip-intro"], "seed": 4660,
                    "inputs": [[0, 0, [0] * 8, [0] * 4]], "checkpoints": [[f, h] for f, h in sorted(ck.items())]},
                   open(rec, "w"))
+        trace = os.path.join(out, "trace-%s.txt" % ("control" if control else "replay"))
+        if os.path.exists(trace + ".ckref"):
+            os.remove(trace + ".ckref")
         env = dict(os.environ, HULK_INPUT_SOURCE="replay:" + rec, HULK_CKPT="1", HULK_VCLOCK="1",
-                   SDL_VIDEO_DRIVER="dummy", SDL_AUDIO_DRIVER="dummy")
+                   SDL_VIDEO_DRIVER="dummy", SDL_AUDIO_DRIVER="dummy", HULK_CKREF="1", HULK_TRACE_FILE=trace)
         r = subprocess.run([image, str(FRAMES)], capture_output=True, text=True, env=env)
         print(r.stdout.strip())
         m = re.search(r"^stats frames (\d+) checked (\d+) matched (\d+) mismatched (\d+) first_bad (-?\d+)", r.stdout, re.M)
@@ -160,6 +163,15 @@ def main():
         frames, checked, matched, mism, first_bad = map(int, m.groups())
         ok = (frames == FRAMES and checked == len(want) and
               ((matched, mism, first_bad) == (len(want) - 1, 1, 30) if control else (matched, mism) == (len(want), 0)))
+        # (render1) the semantic probe's records (HULK_CKREF=1): one per frame, the legacy hash of the frames the
+        # recording checks equal to the model's, the 64-bit unavailable tags flagged (tools/ckpt_ref.py reads them)
+        import ckpt_ref
+        _m, pv, recs, unav = ckpt_ref.read(trace + ".ckref")
+        legacy = {f: recs[f][0][0] for f in want if f in recs and 0 in recs[f]}
+        ck_ok = (pv == 3 and len(recs) == FRAMES and legacy == want and all(
+            unav[f] & (1 << 4) and recs[f].get(2) and recs[f].get(3) for f in recs))
+        print("ckref: %d records, probe v%d, legacy hashes %s" % (len(recs), pv, "equal" if legacy == want else legacy))
+        ok = ok and ck_ok
         print("%s: %s" % ("control (one recorded hash off)" if control else "replay", "ok" if ok else "FAILED"))
         rc |= 0 if ok else 1
     print("replay_native_test: %s" % ("ok" if rc == 0 else "FAILED"))
