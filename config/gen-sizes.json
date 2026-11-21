@@ -3273,7 +3273,7 @@
 "hulkfight::DebugPrintTrack": 28,
 "hulkfight::DialogueAction": 36,
 "hulkfight::DialogueTrack": 40,
-"hulkfight::GameStateCondition": 28,
+"hulkfight::GameStateCondition": 24,
 "hulkfight::LocationCondition": 28,
 "hulkfight::MissionProgressCondition": 24,
 "hulkfight::NISSoundAction": 36,

@@ -62,7 +62,7 @@ class Target_86240 : public HulkGame {   // (recs1) CGame on its record (was cha
   public:
     void Run();
 };
-extern bool FUN_0008db80();
+extern "C" unsigned char __cdecl FUN_0008db80(void);   // (decl2) as defined (unk_08ceb0.cpp)
 extern "C" void FUN_0008db90();
 // (recs1) CGame's getters on its record (decls/managers.h HulkGame; the views were 32-bit pads, then the word as
 // `unsigned int`: natively the lower half of a pointer at a 32-bit offset)
@@ -307,7 +307,7 @@ class B_86da0 {
   public:
     void a();
 };
-bool b80();
+extern "C" unsigned char __cdecl FUN_0008db80(void);   // (decl2) as defined (unk_08ceb0.cpp)
 // (decl1) `thunk` / `f656a0` -> common.h's thunk_FUN_00270a50 (the jmp thunk 0x002696a0 to 0x00270a50) and game/global.h's
 // FUN_002656a0: the invented names had no definition natively
 class C_86da0 {
@@ -346,7 +346,7 @@ class CActorManager_87270 {
   public:
     void f();
 };
-extern "C" void* __cdecl FUN_0008d690(unsigned int size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl2) as defined (unk_08ceb0.cpp)
 } // namespace fn_f5b26912
 inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 namespace fn_f5b26912 {
@@ -929,7 +929,7 @@ void Target_86630::FUN_00086630() {
 } // namespace fn_f5b26912
 
 // 0x00086790 FUN_00086790 (359 B): equivalent/0x00086790.cpp [wrapped: conflict: World]
-// sym: ?FUN_00086790@Object@fn_00086790@@QAEXXZ @5cd506111fd2 @w4663f3f857b1 @v4f37f2096294
+// sym: ?FUN_00086790@Object@fn_00086790@@QAEXXZ @5cd506111fd2 @we57bfb5844fd @vde6a44102781
 namespace fn_00086790 {
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 21/26, incomplete)
 // FUN_00086790 @ 0x00086790
@@ -969,7 +969,7 @@ struct Pump_86790 { void FUN_000bd1b0(int); };
 struct State_86790 { void* vftable; char b4; unsigned char active; };   // (gfx2) the drive-error callback (0x0008e090)
 extern "C" void FUN_002684c0();
 State_86790* FUN_0008e090();
-bool FUN_0008db80();
+extern "C" unsigned char __cdecl FUN_0008db80(void);   // (decl2) as defined (unk_08ceb0.cpp)
 struct Renderer_86790 { char pad[0xd8]; int state; void FUN_0028f9a0(); void FUN_0028faf0(int); };
 struct Manager_86790 { void FUN_000afe80(); };
 struct Subsystem_86790 { void* words[6]; /* (gfx3) CGame's words (HulkGame) */ Manager_86790* manager; };
@@ -1082,7 +1082,7 @@ void A_86a40::Run(float arg) {
 } // namespace fn_f5b26912
 
 // 0x00086ad0 FUN_00086ad0 (479 B): equivalent/0x00086ad0.cpp [wrapped: conflict: FUN_0008db80; FUN_0008e090; World]
-// sym: ?FUN_00086ad0@Game_86ad0@fn_00086ad0@@QAEXXZ @5ca94bb2f9e5 @w80c3b5488e5e @vc6d4895115de
+// sym: ?FUN_00086ad0@Game_86ad0@fn_00086ad0@@QAEXXZ @5ca94bb2f9e5 @w80c3b5488e5e @v9efb8a8cefe8
 namespace fn_00086ad0 {
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 36/38, incomplete)
 // FUN_00086ad0 @ 0x00086ad0
@@ -1168,7 +1168,7 @@ struct Renderer_86ad0 {
 
 Flags_86ad0 *FUN_0008e090();
 extern "C" void FUN_002684c0();
-char FUN_0008db80();
+extern "C" unsigned char __cdecl FUN_0008db80(void);   // (decl2) as defined (unk_08ceb0.cpp)
 
 void Game_86ad0::FUN_00086ad0()
 {
@@ -1360,7 +1360,7 @@ void A_86da0::run() {
     if (y)
         ((owners::Thing_1eb2a0 *)y)->FUN_001eb2a0(0.0f, false);
     if (x) {
-        while (b80()) {
+        while (FUN_0008db80()) {
             FUN_0008db90();
             x->a();
         }
@@ -1977,7 +1977,7 @@ unsigned __int64 FUN_0027b020(const char* s);                 // string hash
 unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
-extern "C" void* __cdecl FUN_0008d690(unsigned int size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl2) as defined (unk_08ceb0.cpp)
 
 
 class __declspec(novtable) MethodBase_87b40 : public ScriptFunctionFields {

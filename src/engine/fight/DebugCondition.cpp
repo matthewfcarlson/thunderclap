@@ -103,10 +103,17 @@ class Factory_23d780 {
     int m0c;
     int m10;
 };
+// (decl2) the object V5 builds: gen fight::DebugCondition's words (the vftable, fight::Condition's f_04 / f_08, compare,
+// mode); fight::Condition's constructor 0x00234590 as defined (the owner, returns this)
 struct DebugCondition_nv_23d780 {
-    void InitFn_00234590(int);
+    void* vftable;
+    void* f_04;
+    void* f_08;
+    int m0c;
+    int m10;
+    void* InitFn_00234590(void*);
 };
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl2) the allocator as defined (unk_08ceb0.cpp)
 extern int hulk_at_00428bc0;
 struct ConditionFactoryTemplate_23d7c0 {
     void* m_vptr;
@@ -275,10 +282,10 @@ extern "C" void FUN_0023d710(Owner* owner, void* ptr) {
 // 0x0023d780 fight::ConditionFactoryTemplate<fight::DebugCondition>::vfunc_5 (54 B): matches/0x0023d780.cpp
 // sym: ?V5@Factory_23d780@fn_fd383094@@UAEPAXXZ
 void* Factory_23d780::V5() {
-    Factory_23d780* p = (Factory_23d780*)Alloc(0x14);
+    DebugCondition_nv_23d780* p = (DebugCondition_nv_23d780*)FUN_0008d690((unsigned int)sizeof(::fight::DebugCondition));
     if (p) {
-        ((DebugCondition_nv_23d780*)(((fight::DebugCondition*)(((fight::DebugCondition*)p)))))->InitFn_00234590(0);
-        *(hulk_ulongptr*)p = ((hulk_intptr)DAT_00428b64);
+        p->InitFn_00234590(0);
+        p->vftable = (void*)((hulk_intptr)DAT_00428b64);
         p->m0c = 0;
         p->m10 = 0;
         return p;

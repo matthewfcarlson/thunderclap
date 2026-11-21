@@ -54,13 +54,14 @@ class Store_23c5e0 : public Bank_23c5e0 {
   public:
     Store_23c5e0* vfunc_5(signed char flags);
 };
-class Branch_23c620 {
-  public:
-    virtual void Fnf_00038290();
-    Branch_23c620(int);
+// (decl2) fight::Bank's base is fight::Branch, whose constructor is Branch::Build 0x00232e90 (Branch.cpp), called by
+// its address as declared there; the vftable word is the game's 0x004288b4 by address (no local polymorphic stand-in).
+struct Branch_23c620 {
+    Branch_23c620* Build_00232e90(unsigned int);
 };
-class Bank : public Branch_23c620 {
+class Bank {
   public:
+    void* vftable;
     Bank();
 };
 class Bank_23c640 {
@@ -124,7 +125,10 @@ Store_23c5e0* Store_23c5e0::vfunc_5(signed char flags) {
 
 // 0x0023c620 FUN_0023c620 (20 B): matches/0x0023c620.cpp
 // sym: ??0Bank@fn_f0d621c3@@QAE@XZ
-Bank::Bank() : Branch_23c620(0) {}
+Bank::Bank() {
+    ((Branch_23c620*)this)->Build_00232e90(0);
+    vftable = DAT_004288b4;
+}
 
 
 // 0x0023c640 FUN_0023c640 (25 B): matches/0x0023c640.cpp

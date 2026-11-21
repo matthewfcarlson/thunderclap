@@ -106,7 +106,7 @@ struct Obj_243d0 {
     void* member;
     void* go_00036d00();
 };
-void InitGlobal_000436f0();
+extern "C" void __cdecl FUN_000436f0(void);   // (decl2) as defined (CCharacter.cpp)
 int __stdcall FUN_00024400(int a, int b);
 struct Y_244a0 {
     void Fng_00044be0(int);
@@ -1534,7 +1534,7 @@ struct T_2b690 {
     void init_0002a890();
     void fini_0002c110();
 };
-extern void globalf_00232bb0();
+extern "C" void __cdecl FUN_00232bb0(void);   // (decl2) as defined (unk_232780.cpp)
 struct Name_2b730 {
     unsigned int lo, hi;
     Name_2b730 *FUN_0027b0e0(const char *name);
@@ -1830,7 +1830,7 @@ void* __fastcall FUN_000243d0(Obj_243d0* self) {
 // sym: ?FUN_000243f0@X_243f0@owners@@QAEXH@Z
 void owners::X_243f0::FUN_000243f0(hulk_intptr x) {
     value = x;   // (gfx3) the world pointer, whole (an `int` truncated it natively)
-    InitGlobal_000436f0();
+    FUN_000436f0();
 }
 
 
@@ -8465,7 +8465,7 @@ void T_2b690::A() {
         d->Release();
         d = 0;
     }
-    globalf_00232bb0();
+    FUN_00232bb0();
     Elem_2b690* e = (Elem_2b690*)((char*)p3 + sizeof(p3));   // (gfx3) the effects' end (+0xc50), by member
     for (int i = 0; i < 16; i++) {
         e = (Elem_2b690*)((char*)e - 0x68);

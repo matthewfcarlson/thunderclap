@@ -320,7 +320,7 @@ typedef unsigned char(__fastcall* Fn_911e0)(CActorManager_911e0*);
 struct CStatsManager_91250 {
     void FUN_00091250(char *, char *, int);
 };
-extern "C" void* FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl2) as defined (unk_08ceb0.cpp)
 } // namespace fn_f6df19d8
 inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 namespace fn_f6df19d8 {

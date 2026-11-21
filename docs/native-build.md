@@ -6689,3 +6689,9 @@ name that carries an address any more. Unbound counts: see the commit message (c
   ("frame 0 presented (0 draws)", noop renderer).
 - Native stop now: SIGSEGV at 0x20 in 0x00293ef0 (pure3d view set-up, `Target : HulkView`) called from 0x000bdd60
   (Menu_bdd60, unk_0bc1e0.cpp): most likely a view pointer the frontend reads at a 32-bit offset (null `this`).
+
+### decl2 batch C1 (2026-11-21)
+- Four of gfx1's six `missing-continue` constructors are fixed by records that store game vftables by address, with the base
+  constructors called by address: the script_bind.h closure in 0x106e90 (0x94fb0/0x1e7470 held out); Bank, Camera and ZeroBlock.
+  Allocation-size views are now gen sizeof for 0x56b30, 0x1328a0, 0x139710, 0x23ce70, 0x23d780 and 0x23de30.
+  Native unbound (mac): 9571 -> 9558 (control 110325 / proof 110461 snapshots).

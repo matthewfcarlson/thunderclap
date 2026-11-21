@@ -99,16 +99,16 @@ class TrackFactoryTemplate_23ce30 {
 };
 extern "C++" void FUN_0023cce0();
 typedef unsigned int u32_23ce70;
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl2) the allocator as defined (unk_08ceb0.cpp)
 extern "C" char DAT_00428980[];   // (decl1) was `u32_23ce70 PlatformVtable` (a C++ name bound nowhere natively)
+// (decl2) gen fight::PlatformCondition's words: the vftable, fight::Condition's f_04 / f_08, the four platform flags;
+// fight::Condition's constructor 0x00234590 as defined (the owner, returns this)
 class PlatformCondition_23ce70 {
   public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    char pad[8];
-    void init_00234590(int);
+    void* vftable;
+    void* f_04;
+    void* f_08;
+    void* init_00234590(void*);
     u8 flags[4];
 };
 extern int hulk_at_004289ec;
@@ -321,7 +321,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<fight::PlatformCondition
 // 0x0023ce70 fight::ConditionFactoryTemplate<fight::PlatformCondition>::vfunc_5 (54 B): matches/0x0023ce70.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VPlatformCondition@fight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<fight::PlatformCondition>::vfunc_5() {
-    PlatformCondition_23ce70* p = (PlatformCondition_23ce70*)Alloc(0x10);
+    PlatformCondition_23ce70* p = (PlatformCondition_23ce70*)FUN_0008d690((unsigned int)sizeof(::fight::PlatformCondition));
     if (p != 0) {
         p->init_00234590(0);
         p->flags[0] = 1;

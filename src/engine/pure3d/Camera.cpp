@@ -510,20 +510,18 @@ void View::FUN_00292cc0(PosArg pos, Out *out)
 // 0x00292d70 FUN_00292d70 (75 B): matches/0x00292d70.cpp [wrapped: conflict: Camera]
 // sym: ??0Camera@fn_00292d70@@QAE@XZ
 namespace fn_00292d70 {
-class Entity_292d70 {
+// (decl2) pure3d::Camera on a record: pure3d::Entity's constructor 0x0027b070 (Entity.cpp) called by its address, the
+// game's vftable 0x0042cedc by address (the local polymorphic stand-ins had clang's own vftable and an Entity
+// constructor no build defines natively). Entity's words as pure3d::Entity's (vftable, three words); the Camera's own
+// words from +0x10 are 32-bit scalars (gen pure3d::Camera).
+extern "C" char DAT_0042cedc[];
+class Camera {
   public:
-    virtual void b0_00038290();
-    Entity_292d70();
-};
-class Camera : public Entity_292d70 {
-  public:
-    virtual void v0() = 0;
-    virtual void v1() = 0;
-    virtual void v2() = 0;
-    virtual void v3() = 0;
-    virtual void v4() = 0;
-    virtual void hulk_slot_vfunc_5(float, float) = 0; void vfunc_5_002926d0(float, float);
-    char p0[0x18];
+    void* vftable;
+    int words[3];
+    unsigned int f_10;
+    unsigned int f_14;
+    int f_18;
     float a;
     float b;
     char p1[0x28];
@@ -532,9 +530,13 @@ class Camera : public Entity_292d70 {
         void init_0022b980();
     } sub1, sub2;
     unsigned char flag;
+    Camera* FUN_0027b070();   // pure3d::Entity::Entity
+    void vfunc_5_002926d0(float, float);   // pure3d::Camera::vfunc_5, called directly
     Camera();
 };
-Camera::Camera() : Entity_292d70() {
+Camera::Camera() {
+    FUN_0027b070();
+    vftable = DAT_0042cedc;
     vfunc_5_002926d0(1.5707964f, 1.0f);
     a = 1.0f;
     b = 1000.0f;

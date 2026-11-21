@@ -2397,3 +2397,36 @@ vftable stores into is written as an explicit function storing the game's vftabl
 view's own vftable is clang's natively), and the `eh vector constructor/destructor iterator` calls pass sizeof(cell).
 Also 0x000af170 (CGameController's source) and 0x000d6c30 (COverlayManager's view) on their records. Native start-up
 passes the controller set-up and the first frame callees and stops in 0x00207410 (CWorldStreamManager's 32-bit views).
+
+## 2026-11-21 decl2: constructors called by address; allocation sizes from gen (batch C1)
+
+- **The constructors the native run missed (gfx1's `missing-continue` list) were local polymorphic stand-ins.**
+  Each declared a base-class constructor that no build defines natively (`Base(const char*, int)` of the script
+  bindings, `Branch_23c620(int)`, `Entity_292d70()`, `Obj()`), and each got clang's own vftable natively. They are now
+  records that store the game's vftables by address and call the real constructors by their addresses:
+  - 0x00106e90 (CPatrolPathManager): the Closure<1> is include/game/script_bind.h's ScriptClosure<ScriptMethod1<...>>
+    with the instantiation's Method1 / Closure1 vftables. The manager stores its own vftable by address.
+  - 0x0023c620 fight::Bank: fight::Branch's constructor is Branch::Build 0x00232e90, called as declared there
+    (`Branch* (unsigned)`), then the Bank vftable 0x004288b4.
+  - 0x00292d70 pure3d::Camera: pure3d::Entity's constructor 0x0027b070 by address, the Entity words as
+    `void* vftable; int words[3]`, then gen Camera's scalars.
+  - 0x001b6990: the object is the zeroed block that 0x001b6850 constructs (ZeroBlock).
+- **Allocation sizes (decl1's held-out list).** Naming the allocator FUN_0008d690 lets the x64 gate see 32-bit literal
+  sizes, so each site now uses `sizeof` of gen's class and a view of the class's real words:
+  - 0x00056b30, 0x0023ce70, 0x0023de30, 0x0023d780: views on fight::Condition's words (vftable, f_04, f_08).
+    fight::Condition's constructor 0x00234590 is declared as defined, `void* (void*)`.
+  - 0x00139710: the constructor 0x00133c20 is declared returning `void*`.
+  - 0x001328a0: gen hulkfight::GameStateCondition had one word too many (`int f_18`: 0x1c, but the factory allocates
+    0x18 and writes up to +0x14). The word is gone and the size is recorded.
+- Still open: FallAction 0x00138c50 (gen 0x30, allocation 0x38), HitThrowAction 0x001573a0 (gen 0x34, allocation
+  0x40), StopTrack 0x0023e9a0 (gen 0x14, allocation 0x18). Each needs the class's words from its constructor first.
+  0x001a1090 is a multi-base polymorphic stand-in that returns the object as u32.
+- Held out (D181): 0x00094fb0 and 0x001e7470 (CUnlockablesManager / CSPManager closures). 0x00094fb0's --wine run
+  hits the stub-snprintf case: SetName's strlen runs past the 0x20-byte buffer the stubbed 0x000964a0 leaves
+  unterminated (0x2e vs 0x22). 0x001e7470 has one --wine input with a byte difference (0x40 vs 0x3f) in the object
+  passed to a 0x0027b040 call, and in an 8-way split two shards hit nothing but timeouts. Both need integ9's checker
+  fixes first. The diffs are in build/decl2 (unlock-94fb0.diff, stream-1e7470.diff).
+- Callee declarations from batch K, after C13 / C14: in unk_0240b0 0x000436f0 and 0x00232bb0 are declared as defined.
+  In CTimeManager, FUN_0008db80 is `extern "C" unsigned char` everywhere except 0x00086a40's (gfx5's), and the
+  allocator is declared as defined. 0x00086790 and 0x00086ad0 are re-proven in both modes. CStatsManager's allocator
+  is declared as defined.

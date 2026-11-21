@@ -150,13 +150,16 @@ class TrackFactoryTemplate_23ddf0 {
     TrackImpl mTrack;
 };
 extern "C" char DAT_00428bf8[];
-extern void* __cdecl alloc_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl2) the allocator as defined (unk_08ceb0.cpp)
+// (decl2) gen fight::CommentCondition's words: the vftable, fight::Condition's f_04 / f_08, f_0c; fight::Condition's
+// constructor 0x00234590 as defined (the owner, returns this)
 class CommentCondition_23de30 {
   public:
     hulk_intptr vtable;
-    char pad[8];
-    int value;
-    void Init_00234590(int);
+    void* f_04;
+    void* f_08;
+    void* value;
+    void* Init_00234590(void*);
 };
 extern int hulk_at_00428ca0;
 struct ConditionFactoryTemplate_23de60 {
@@ -489,9 +492,9 @@ template <> void* fight::ConditionFactoryCasterTemplate<fight::CommentCondition>
 // 0x0023de30 fight::ConditionFactoryTemplate<fight::CommentCondition>::vfunc_5 (47 B): matches/0x0023de30.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCommentCondition@fight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<fight::CommentCondition>::vfunc_5() {
-    CommentCondition_23de30* p = (CommentCondition_23de30*)alloc_0008d690(0x10);
+    CommentCondition_23de30* p = (CommentCondition_23de30*)FUN_0008d690((unsigned int)sizeof(::fight::CommentCondition));
     if (p) {
-        p->Init_00234590(3);
+        p->Init_00234590((void*)3);
         p->vtable = ((hulk_intptr)DAT_00428bf8);
         p->value = 0;
         return (void*)(p);

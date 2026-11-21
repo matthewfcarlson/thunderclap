@@ -555,8 +555,7 @@ public:
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     void* f_0c;
     int compare;
-    void* f_14;
-    int f_18;
+    void* f_14; // (decl2) the object ends here: 0x0012dfe0's factory (0x001328a0) allocates 0x18 and writes +0x0c..+0x14
 };
 
 // .?AVLocationCondition@hulkfight@@  vftable 0x4112a4 (7)

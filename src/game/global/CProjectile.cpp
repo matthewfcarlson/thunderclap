@@ -22,11 +22,9 @@ struct A_1b68d0 {
     char pad[12];
     int value;
 };
-class Obj {
-  public:
-    Obj();
-    char data[0x80];
-};
+// (decl2) 0x001b6990's object is the zeroed block 0x001b6850 constructs (ZeroBlock above); Obj had a constructor
+// no build defines natively.
+typedef ZeroBlock Obj;
 } // namespace fn_f270ee22
 void* __cdecl operator new(size_t) HULK_NEW_THROW;
 namespace fn_f270ee22 {

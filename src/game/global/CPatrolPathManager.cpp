@@ -730,10 +730,15 @@ extern char DAT_0048e0e4, DAT_0048e0f0;
 #define tString DAT_0048e0f0
 // CPatrolPathManager and the members it binds to Lua (their types are the game's Closure<N> instantiations, see
 // matches/0x00106d80.cpp and 0x00106e30.cpp for the helpers'); complete before any pointer to a member is formed.
+// (decl2) CPatrolPathManager and the Closure<1> it builds are records with the game's vftables by address
+// (CPatrolPathManager's 0x0040d630; Method1 / Closure1<CPatrolPathManager, bool, const char*>'s 0x0040d5b8 /
+// 0x0040d5e8, include/game/script_bind.h): the local polymorphic stand-ins had clang's own vftables and a Function
+// constructor no build defines natively.
+extern "C" char DAT_0040d630[], DAT_0040d5b8[], DAT_0040d5e8[];
 class CPatrolPathManager {
 public:
     CPatrolPathManager(int a);
-    virtual void* v0_00106f80(char);
+    void* vftable;
     int f4;
     int f8;
     void* fc;
@@ -741,26 +746,23 @@ public:
     bool FUN_00106980(const char*);                     // path_Remove
     bool FUN_00106440(const char*, int, math::Vector);  // path_SetPoint
 };
-// Function's fields (include/decls/data/script.h) after the vftable; Method1 keeps the bound member-function pointer.
-class Base : public ScriptFunctionFields { public: virtual void v(); Base(const char*, int) throw(); };
-template<class C, class R, class A1> class Method1 : public Base { public: R (C::*f)(A1); Method1(const char* n, R (C::*x)(A1), const void* r, const void* a1) : Base(n, 1) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); } virtual void v(); };
-template<class C, class R, class A1> class Closure1 : public Method1<C, R, A1> { public: C* owner; Closure1(const char* n, C* o, R (C::*f)(A1), const void* r, const void* a1) : Method1<C, R, A1>(n, f, r, a1) { owner = o; } virtual void v(); };
 class Registry { public:
     void FUN_001d3b70(const char*, void*);
     void FUN_00106d80(const char*, CPatrolPathManager*, bool (CPatrolPathManager::*)(const char*, bool, int));
     void FUN_00106e30(const char*, CPatrolPathManager*, bool (CPatrolPathManager::*)(const char*, int, math::Vector));
 };
 extern "C" Registry* __cdecl FUN_001d4c90(void);   // (decl1) as defined (ScriptHandler.cpp)
-#define G1(n, b, R, A1) { r->FUN_001d3b70(n, new Closure1<CPatrolPathManager, R, A1>(n, this, &CPatrolPathManager::FUN_##b, &t##R, &t##A1)); }
+#define G1(n, b, R, A1, MV, CV) { r->FUN_001d3b70(n, new hulk_script::ScriptClosure<hulk_script::ScriptMethod1<CPatrolPathManager, R, A1>, CPatrolPathManager>(n, this, &CPatrolPathManager::FUN_##b, DAT_##MV, DAT_##CV)); }
 #define O(n, c, b) { r->FUN_##c(n, this, &CPatrolPathManager::FUN_##b); }
 CPatrolPathManager::CPatrolPathManager(int a) {
     f4 = a;
+    vftable = DAT_0040d630;
     f8 = 0;
     fc = FUN_0008d6d0(a * 4);
     Registry* r = FUN_001d4c90();
     if (r) {
 O("path_Add", 00106d80, 00106900)
-G1("path_Remove", 00106980, Bool, String)
+G1("path_Remove", 00106980, Bool, String, 0040d5b8, 0040d5e8)
 O("path_SetPoint", 00106e30, 00106440)
     }
 }

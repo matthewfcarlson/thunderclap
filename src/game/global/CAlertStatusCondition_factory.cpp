@@ -27,12 +27,13 @@ class TrackFactoryTemplate_56af0 {
     int mPad;
     TrackImpl mTrack;
 };
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl2) the allocator as defined (unk_08ceb0.cpp)
 struct InitObj_56b30 {
     void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
-struct CAlertStatusCondition_56b30 {
-    hulk_intptr a, b, c, d, e;
+struct CAlertStatusCondition_56b30 {   // (decl2) gen CAlertStatusCondition: vftable, fight::Condition's f_04 / f_08, compare, status
+    hulk_intptr a, b, c;
+    int d, e;
 };
 extern int hulk_at_003f900c;
 struct ConditionFactoryTemplate_56b70 {
@@ -64,7 +65,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CAlertStatusCondition>::
 // 0x00056b30 fight::ConditionFactoryTemplate<CAlertStatusCondition>::vfunc_5 (54 B): matches/0x00056b30.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCAlertStatusCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CAlertStatusCondition>::vfunc_5() {
-    CAlertStatusCondition_56b30* p = (CAlertStatusCondition_56b30*)Alloc(sizeof(::CAlertStatusCondition));
+    CAlertStatusCondition_56b30* p = (CAlertStatusCondition_56b30*)FUN_0008d690((unsigned int)sizeof(::CAlertStatusCondition));
     if (p != 0) {
         ((InitObj_56b30*)p)->Init_00234590(0);
         p->a = ((hulk_intptr)DAT_003f7404);
