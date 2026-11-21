@@ -447,3 +447,22 @@ void ff_sched_stats(void) {
             (unsigned long long)n_swaps, (unsigned long long)n_setjmps, n_setjmps ? (double)sj_bytes / n_setjmps : 0.0,
             (unsigned long long)n_longjmps);
 }
+
+/* the stacks and Asyncify buffers in the arena (fibers' and continuations'): [lo, hi) pairs into out, their count.
+ * Their dead bytes depend on the code generation, not on the game: frame.c's game hash leaves them out. */
+int ff_stack_ranges(uint32_t* out, int cap) {
+    int n = 0;
+    for (uint32_t i = 0; i < MAX_OBJS && n + 3 <= cap; i++) {
+        hulk_obj* o = &SIM->objs[i];
+        if (o->kind != OBJ_FIBER || !o->ctx) continue;
+        hfiber* c = PTR(o->ctx);
+        out[2 * n] = c->stack_lo, out[2 * n + 1] = c->stack_hi, n++;
+        out[2 * n] = c->buf, out[2 * n + 1] = c->buf + c->size, n++;
+        if (n < cap) out[2 * n] = o->ctx, out[2 * n + 1] = o->ctx + sizeof *c, n++;   /* (saved stack pointers) */
+    }
+    hcont* k = PTR(SIM->sj_conts);
+    if (k && n < cap) out[2 * n] = SIM->sj_conts, out[2 * n + 1] = SIM->sj_conts + MAX_CONTS * sizeof *k, n++;
+    for (int i = 0; k && i < MAX_CONTS && n < cap; i++)
+        if (k[i].buf) out[2 * n] = k[i].buf, out[2 * n + 1] = k[i].buf + k[i].cap, n++;
+    return n;
+}

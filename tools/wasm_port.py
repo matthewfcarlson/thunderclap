@@ -52,16 +52,39 @@ CLANG = os.path.join(LLVM, "clang++")
 EMCC = os.environ.get("HULK_EMCC", "emcc")
 HOST_DIR = os.path.join(ROOT, "src/platform/wasm")
 
+# The game's code is optimised (HULK_WASM_OPT=O0 for clang -O0's, every function optnone): the front end runs as -O1
+# without LLVM's passes (no optnone; the IR keeps -O0's shape for bind_tu), the back end optimises. As the Wine
+# build's opt1 (tools/clang_probe.py): decompiled code's undefined behaviour stays as -O0 has it where a switch exists
+# (falling off a value-returning function, loops without side effects, library calls). The TUs the Wine build keeps
+# at -O0 (tools/wine_opt_exclude.txt: at -O1 they leave play3's checkpoints) stay -O0 here too.
+O0_FRONT = ["-O0"]
+OPT_FRONT = (O0_FRONT if os.environ.get("HULK_WASM_OPT", "O1") == "O0" else
+             ["-O1", "-Xclang", "-disable-llvm-passes", "-fno-strict-return", "-fno-finite-loops", "-fno-builtin"])
+OPT_EXCLUDE = os.environ.get("HULK_WASM_OPT_EXCLUDE") or os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                                                     "wine_opt_exclude.txt")
+
 # the Wine build's `msvc` configuration (tools/clang_probe.py CONFIGS["msvc"], SSE float), as IR
 DIALECT = ["-Xclang", "-fno-wchar", "-fno-operator-names", "-Wno-c++11-narrowing", "-Wno-address-of-temporary"]
-FRONT = (["--target=i686-pc-windows-msvc", "-fms-extensions", "-fms-compatibility", "-fms-compatibility-version=13.10",
-          "-std=c++14", "-O0", "-S", "-emit-llvm", "-include", "compat/native.h", "-fno-strict-aliasing", "-fwrapv",
+FRONT_ = (["--target=i686-pc-windows-msvc", "-fms-extensions", "-fms-compatibility", "-fms-compatibility-version=13.10",
+          "-std=c++14", "@OPT@", "-S", "-emit-llvm", "-include", "compat/native.h", "-fno-strict-aliasing", "-fwrapv",
           "-fno-delete-null-pointer-checks"] + DIALECT
          + ["-msse2", "-mfpmath=sse", "-ffp-eval-method=double", "-ffp-contract=off", "-fcheck-new", "-fno-exceptions",
             "-w", "-DHULK_WASM=1"])
+_EXCL = None
+
+
+def front_flags(rel):
+    """FRONT for snapshot TU rel: optimised unless OPT_EXCLUDE names it."""
+    global _EXCL
+    if _EXCL is None:
+        _EXCL = set(l.strip() for l in open(OPT_EXCLUDE) if l.strip() and not l.startswith("#")) \
+            if os.path.exists(OPT_EXCLUDE) else set()
+    opt = O0_FRONT if rel in _EXCL else OPT_FRONT
+    i = FRONT_.index("@OPT@")
+    return FRONT_[:i] + opt + FRONT_[i + 1:]
 BACK = ["--target=wasm32-unknown-emscripten", "-O1", "-c", "-Wno-override-module"]
 HOST_CFLAGS = ["-O1", "-Wall", "-Wextra", "-Werror"]
-VERSION = "wasm2-1"          # bump when bind_tu() changes (object cache key)
+VERSION = "wasm2-2"          # bump when bind_tu() changes (object cache key)
 SYNTH = 0xF0000000
 
 # library code inside .text (tools/platform_map.py) and the library sections after it
@@ -135,7 +158,7 @@ def name_address(n):
 def tu_key(rel):
     """Content key of a TU: its text plus every header of the snapshot (one digest)."""
     return hashlib.sha1(open(os.path.join(SNAP, rel), "rb").read() + include_digest().encode()
-                        + " ".join(FRONT).encode()).hexdigest()[:20]
+                        + " ".join(front_flags(rel)).encode()).hexdigest()[:20]
 
 
 _DIGEST = None
@@ -167,7 +190,7 @@ def front(rel):
     os.makedirs(d, exist_ok=True)
     ll = os.path.join(d, "%s.%s.ll" % (flat(rel)[-80:], key))
     if not os.path.exists(ll):
-        cmd = [CLANG] + FRONT + ["-I" + os.path.join(SNAP, "include"), "-I" + os.path.join(SNAP, "repo-include"),
+        cmd = [CLANG] + front_flags(rel) + ["-I" + os.path.join(SNAP, "include"), "-I" + os.path.join(SNAP, "repo-include"),
                                  os.path.join(SNAP, rel), "-o", ll + ".tmp"]
         r = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
         if r.returncode:
@@ -413,7 +436,7 @@ def _probe_front(tu, probes, key):
     # (the TU by #include keeps its own directory's includes)
     open(cpp, "w").write('#include "%s"\n// wasm_port: devirtualized calls made virtual again\n%s\n'
                          % (os.path.join(SNAP, tu), "\n".join(probes)))
-    cmd = [CLANG] + FRONT + ["-I" + os.path.join(SNAP, "include"), "-I" + os.path.join(SNAP, "repo-include"),
+    cmd = [CLANG] + front_flags(tu) + ["-I" + os.path.join(SNAP, "include"), "-I" + os.path.join(SNAP, "repo-include"),
                              cpp, "-o", ll + ".tmp"]
     r = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
     if r.returncode:
@@ -1015,9 +1038,9 @@ def host_sources():
 
 
 def _wasm_opt():
-    """Binaryen's wasm-opt: HULK_WASM_OPT, Emscripten's own (Homebrew: libexec/binaryen), or on PATH."""
-    if os.environ.get("HULK_WASM_OPT"):
-        return os.environ["HULK_WASM_OPT"]
+    """Binaryen's wasm-opt: HULK_WASM_OPT_BIN, Emscripten's own (Homebrew: libexec/binaryen), or on PATH."""
+    if os.environ.get("HULK_WASM_OPT_BIN"):
+        return os.environ["HULK_WASM_OPT_BIN"]
     e = os.path.realpath(shutil.which(EMCC) or EMCC)
     for d in (os.path.dirname(e), os.path.dirname(os.path.dirname(e))):
         for sub in ("binaryen/bin/wasm-opt", "libexec/binaryen/bin/wasm-opt"):
@@ -1090,7 +1113,8 @@ def asyncify(raw, out):
     return subprocess.run([WASM_OPT, raw, "-o", out, "-g", "--asyncify",
                            "--pass-arg=asyncify-removelist@ff_sched_loop",
                            "--pass-arg=asyncify-imports@hulk.none", "-O1"] + WASM_FEATURES,
-                          capture_output=True, text=True, errors="replace")
+                          capture_output=True, text=True, errors="replace",
+                          env=dict(os.environ, BINARYEN_CORES=os.environ.get("BINARYEN_CORES", "2")))
 
 
 def cmd_link(a):

@@ -16,7 +16,7 @@ build/wasm/hulk-aot isos/extracted/default.xbe
 ```
 
 Needs Homebrew LLVM (`HULK_LLVM_BIN`, default `/opt/homebrew/opt/llvm/bin`), Emscripten (`emcc`; its Binaryen
-`wasm-opt`, or `HULK_WASM_OPT`) and, for `aot`, wabt's `wasm2c` (`brew install wabt`; `HULK_WASM2C`).
+`wasm-opt`, or `HULK_WASM_OPT_BIN`) and, for `aot`, wabt's `wasm2c` (`brew install wabt`; `HULK_WASM2C`).
 
 **Inputs.** A clang_probe snapshot of the tree (`HULK_WASM_SNAP`, default `build/wasm/cp/snap`: the output of
 `tools/tree_tu.py materialize` copied by `tools/clang_probe.py --snapshot`; manifest.json and report.json give each
@@ -139,6 +139,22 @@ the area has the x86 layout. The host's printf family reads a `va_list` as x86 s
   name; `rtti.c` compares names without it (as the native host does).
 
 ## Status
+
+- 2026-11-21 (wasm2, optimised game code): the game's TUs were compiled as clang -O0 emits them (`optnone` on every
+  function). The front end now runs as the Wine build's opt1 (`-O1 -Xclang -disable-llvm-passes -fno-strict-return
+  -fno-finite-loops -fno-builtin`; the IR keeps -O0's shape for bind_tu) and the back end's -O1 optimises; the four TUs
+  of `tools/wine_opt_exclude.txt` stay -O0 (`HULK_WASM_OPT_EXCLUDE`; `HULK_WASM_OPT=O0` builds everything as before).
+  After START: node 1,500 -> 4,900 frames/s, compiled 3,500 -> 6,300 (idle screen: compiled 10,000 either way).
+  Snapshot / restore unchanged (0.69 / 0.66 ms compiled). `-fno-builtin` leaves `memmove` a call to the game's CRT
+  (0x345130, now a host function).
+  **The -O0 and -O1 builds are not the same game yet**: the *game hash* (the state without the stacks, the Asyncify
+  buffers, the fiber contexts and the continuations, whose bytes depend on code generation; `HULK_GAMEDUMP=PATH`
+  writes those bytes) differs from the first frame (vertex-like floats 0x3f7f80xx at -O0 vs 0x4a7e00xx at -O1, and
+  12,288 MemoryHeapSlot-like records at -O0 that are zeros at -O1). A prefix search over the TUs (a mixed link per
+  step) found `src/engine/content/LoadStream.cpp` first, but with only it at -O0 the hash is still -O1's, so several
+  TUs take part; the semantic checkpoints (play3's ckref) are the gate that decides, not this byte hash. The same
+  build gives the same game hash under node and compiled (to 20,000 frames with START presses); the full state hash
+  also depends on the environment's bytes (the C library's heap: host pointers reach dead stack bytes).
 
 - 2026-11-21 (wasm2, the standalone module): the C-driven scheduler, setjmp/longjmp and the wasm2c build. Update
   frames/s (no rendering), idle screen / after START: node (V8) 6,800 / 1,500; compiled (wasm2c, clang -O2, arm64)

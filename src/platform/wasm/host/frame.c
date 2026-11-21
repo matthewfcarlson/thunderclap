@@ -21,6 +21,29 @@ uint64_t ff_state_hash(void) {
     h = fnv(PTR(ARENA_LO), ff_arena_top() - ARENA_LO, h);
     return h;
 }
+/* the game's part of the state: the state without the stacks and Asyncify buffers (the main thread's stack, the
+ * fibers' and the continuations' in the arena), whose dead bytes depend on how the code was compiled: two builds of
+ * the same game (-O0 and -O1) give the same game hash */
+int ff_stack_ranges(uint32_t* out, int cap);
+static int by_lo(const void* a, const void* b) {
+    uint32_t x = *(const uint32_t*)a, y = *(const uint32_t*)b;
+    return (x > y) - (x < y);
+}
+uint64_t ff_game_hash(void) {
+    static uint32_t r[2 * 512];
+    int n = ff_stack_ranges(r, 512);
+    qsort(r, n, 8, by_lo);
+    uint64_t h = 0xcbf29ce484222325ull;
+    h = fnv(PTR(STATE_DATA_LO), XBE_END - STATE_DATA_LO, h);
+    h = fnv(PTR(0x00F00000u), sizeof(hulk_sim), h);
+    uint32_t at = ARENA_LO, top = ff_arena_top();
+    for (int i = 0; i < n; i++) {
+        if (r[2 * i] > at) h = fnv(PTR(at), (r[2 * i] < top ? r[2 * i] : top) - at, h);
+        if (r[2 * i + 1] > at) at = r[2 * i + 1];
+    }
+    if (top > at) h = fnv(PTR(at), top - at, h);
+    return h;
+}
 uint32_t ff_state_bytes(void) { return (XBE_END - STATE_DATA_LO) + 0x00100000u + sizeof(hulk_sim) + (ff_arena_top() - ARENA_LO); }
 /* HULK_DUMP=PATH: the state's bytes at the end of the run, in hash order (finding what differs between runs) */
 #include "hulk_io.h"
@@ -31,6 +54,30 @@ static void dump_state(const char* path) {
     off += (uint32_t)hio_write(f, PTR(STATE_DATA_LO), XBE_END - STATE_DATA_LO, off);
     off += (uint32_t)hio_write(f, PTR(0x00E00000u), 0x00100000u + sizeof(hulk_sim), off);
     hio_write(f, PTR(ARENA_LO), ff_arena_top() - ARENA_LO, off);
+    hio_close(f);
+}
+/* HULK_GAMEDUMP=PATH: the game's part of the state (ff_game_hash's bytes, the left-out ranges as zeros): the image's
+ * data from 0x48ca80, the sim block, then the arena from 16 MB */
+static void dump_game(const char* path) {
+    static const uint8_t zero[65536];
+    static uint32_t r[2 * 512];
+    int32_t f = hio_open(path, HIO_CREATE);
+    if (f < 0) return;
+    uint32_t off = 0;
+    off += (uint32_t)hio_write(f, PTR(STATE_DATA_LO), XBE_END - STATE_DATA_LO, off);
+    off += (uint32_t)hio_write(f, PTR(0x00F00000u), sizeof(hulk_sim), off);
+    int n = ff_stack_ranges(r, 512);
+    qsort(r, n, 8, by_lo);
+    uint32_t at = ARENA_LO, top = ff_arena_top();
+    for (int i = 0; i <= n; i++) {
+        uint32_t lo = i < n ? (r[2 * i] < top ? r[2 * i] : top) : top, hi = i < n ? (r[2 * i + 1] < top ? r[2 * i + 1] : top) : top;
+        if (lo > at) off += (uint32_t)hio_write(f, PTR(at), lo - at, off), at = lo;
+        while (hi > at) {
+            uint32_t k = hi - at < sizeof zero ? hi - at : sizeof zero;
+            off += (uint32_t)hio_write(f, zero, k, off);
+            at += k;
+        }
+    }
     hio_close(f);
 }
 /* a snapshot and a restore of the whole state (timing only: HULK_SNAPTEST) */
@@ -93,8 +140,10 @@ static void frame_end(void* unused) {
         ff_sched_stats();
         if (getenv("HULK_THREADS")) ff_dump_threads();
         if (getenv("HULK_DUMP")) dump_state(getenv("HULK_DUMP"));
+        if (getenv("HULK_GAMEDUMP")) dump_game(getenv("HULK_GAMEDUMP"));
         if (getenv("HULK_SNAPTEST")) snap_test();
-        else fprintf(stderr, "hulk: state hash 0x%016llx (%u bytes)\n", (unsigned long long)ff_state_hash(), ff_state_bytes());
+        else fprintf(stderr, "hulk: state hash 0x%016llx (%u bytes), game hash 0x%016llx\n",
+                     (unsigned long long)ff_state_hash(), ff_state_bytes(), (unsigned long long)ff_game_hash());
         double now = ff_now_ms();
         fprintf(stderr, "hulk: %u frames in %.2f s (%.0f frames/s)\n", SIM->frame, (now - t0) / 1000.0,
                 SIM->frame * 1000.0 / (now - t0));

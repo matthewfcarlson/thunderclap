@@ -269,6 +269,7 @@ FFG(00345e70) { UNUSED; RET((uintptr_t)strstr(PTR(ARG(0)), PTR(ARG(1)))); }
 FFG(00348340) { UNUSED; RET((uintptr_t)strpbrk(PTR(ARG(0)), PTR(ARG(1)))); }
 FFG(00347380) { UNUSED; RET(strcspn(PTR(ARG(0)), PTR(ARG(1)))); }
 FFG(00348290) { UNUSED; RET((uintptr_t)memchr(PTR(ARG(0)), (int)ARG(1), ARG(2))); }
+FFG(00345130) { UNUSED; RET((uintptr_t)memmove(PTR(ARG(0)), PTR(ARG(1)), ARG(2))); }       /* memmove */
 FFG(003465c6) {                                     /* strtok: its position is in the sim block */
     UNUSED;
     char* s = ARG(0) ? PTR(ARG(0)) : PTR(SIM->strtok_next);
