@@ -1467,7 +1467,7 @@ class TrackFactoryCasterTemplate_1324d0 {   // (fix2) was polymorphic (virtual b
     void *vftable;
     TrackFactoryCasterTemplate_1324d0() { vftable = DAT_004118e0; }
 };
-extern void* __cdecl Find_00236ac0(const char*, TrackFactoryCasterTemplate_1324d0*);
+extern void* __cdecl FUN_00236ac0(const char*, TrackFactoryCasterTemplate_1324d0*);
 class Owner {
   public:
     void Set_002367c0(void*);
@@ -1485,7 +1485,7 @@ class TrackFactoryCasterTemplate_132560 {   // (fix2) was polymorphic (virtual b
     void *vftable;
     TrackFactoryCasterTemplate_132560() { vftable = DAT_00411904; }
 };
-void* __cdecl find_00236ac0(const char*, TrackFactoryCasterTemplate_132560*);
+void* __cdecl FUN_00236ac0(const char*, TrackFactoryCasterTemplate_132560*);
 extern "C" char DAT_0041191c[];   // (fix2) the game's caster vftable 0x41191c
 class TrackFactoryCasterTemplate_1325c0 {   // (fix2) was polymorphic (virtual bool Cast_00131200(void*);): clang's own vftable natively, the game's by address now
   public:
@@ -5221,7 +5221,7 @@ DebugPrintAction_1321d0* DebugPrintAction_1321d0::f2(unsigned char flags) {
 // sym: _FUN_001324d0
 extern "C" void FUN_001324d0(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_1324d0 caster;
-    void* p = Find_00236ac0(name, &caster);
+    void* p = FUN_00236ac0(name, &caster);
     owner->Set_002367c0(p);
 }
 
@@ -5268,7 +5268,7 @@ extern "C" void __cdecl FUN_00132530(Owner* owner, void* name) {
 // sym: _FUN_00132560
 extern "C" void __cdecl FUN_00132560(Obj* obj, const char* name) {
     TrackFactoryCasterTemplate_132560 caster;
-    obj->apply_002367c0(find_00236ac0(name, &caster));
+    obj->apply_002367c0(FUN_00236ac0(name, &caster));
 }
 
 } // namespace fn_f587a2cf
@@ -5282,14 +5282,14 @@ class TrackFactoryCasterTemplate_132590 {   // (fix2) was polymorphic (virtual b
     void *vftable;
     TrackFactoryCasterTemplate_132590() { vftable = DAT_00411910; }
 };
-extern "C++" __declspec(nothrow) void* __cdecl Find_00236ac0(char*, TrackFactoryCasterTemplate_132590*);
+extern "C++" __declspec(nothrow) void* __cdecl FUN_00236ac0(char*, TrackFactoryCasterTemplate_132590*);
 class Owner {
   public:
     void Add_002367c0(void*);
 };
 extern "C" void __cdecl FUN_00132590(Owner* owner, char* name) {
     TrackFactoryCasterTemplate_132590 caster;
-    owner->Add_002367c0(Find_00236ac0(name, &caster));
+    owner->Add_002367c0(FUN_00236ac0(name, &caster));
 }
 } // namespace fn_00132590
 

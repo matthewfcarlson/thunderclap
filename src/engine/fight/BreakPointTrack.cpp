@@ -208,7 +208,7 @@ extern char hulk_at_00428ffc[];
 struct Track {
     virtual void V();
 };
-extern "C" Track* __cdecl FUN_00236ac0(int, Track*);
+extern "C" Track* __cdecl FUN_00236ac0(hulk_intptr, Track*);   // (gfx1) the name as hulk_intptr (a pointer natively, as the definition takes it)
 struct Receiver_23f500 {
     void Finish_002367c0(Track*);
 };
@@ -478,7 +478,7 @@ BreakPointAction_23f4a0* BreakPointAction_23f4a0::f2(unsigned char flags) {
 
 // 0x0023f500 FUN_0023f500 (38 B): matches/0x0023f500.cpp
 // sym: _FUN_0023f500
-extern "C" void FUN_0023f500(Receiver_23f500* c, int b) {
+extern "C" void FUN_0023f500(Receiver_23f500* c, hulk_intptr b) {
     Track t;
     *(void**)&t = hulk_at_00428ffc;
     Track* p = FUN_00236ac0(b, &t);

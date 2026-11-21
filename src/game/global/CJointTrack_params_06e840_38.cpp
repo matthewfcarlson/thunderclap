@@ -61,7 +61,7 @@ namespace fn_f4b6f30b {
 struct TrackFactoryCasterTemplate {
     void* vftable;
 };
-extern void FUN_00236ac0(u32_73000, void**);
+extern void FUN_00236ac0(hulk_intptr, void**);   // (gfx1) the name as hulk_intptr (a pointer natively, as the definition takes it)
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];

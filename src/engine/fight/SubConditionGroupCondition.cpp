@@ -87,7 +87,7 @@ extern "C" char DAT_0042893c[];   // fight::ConditionFactoryCasterTemplate<fight
 struct ConditionFactoryCasterTemplate_23ca70 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
-extern "C" void* __cdecl Find(void*, ConditionFactoryCasterTemplate_23ca70*);
+extern "C" void* __cdecl FUN_002343e0(void*, ConditionFactoryCasterTemplate_23ca70*);   // (gfx1) its own name: `Find` stood for several functions natively (ambiguous binding)
 } // namespace fn_fe0ef8b4
 inline void* __cdecl operator new(size_t, void* where) {
     return where;
@@ -256,7 +256,7 @@ namespace fn_fe0ef8b4 {
 extern "C" void FUN_0023ca70(Factory* f, void* p) {
     ConditionFactoryCasterTemplate_23ca70 c;
     c.vftable = (void*)DAT_0042893c;   // (sweep-caster-fix1) the game's vftable by address
-    f->Do(Find(p, &c));
+    f->Do(FUN_002343e0(p, &c));
 }
 
 } // namespace fn_fe0ef8b4

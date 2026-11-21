@@ -751,7 +751,7 @@ template <class T> struct ParamName_12cd80 : Base_12cd80 {
 namespace fn_f9c2e0ac {
 extern "C" char DAT_00410ec0[];
 typedef unsigned int u32_12d0e0;
-extern u32_12d0e0 __cdecl FUN_002343e0(u32_12d0e0, void*);
+extern u32_12d0e0 __cdecl FUN_002343e0(hulk_intptr, void*);   // (gfx1) the name as hulk_intptr (a pointer natively, as the definition takes it)
 struct Obj_12d0e0 {
     void Fn_00236760(u32_12d0e0);
 };
@@ -776,7 +776,7 @@ class TrackFactoryCasterTemplate_12d2e0 {   // (fix2) was polymorphic (virtual b
     void *vftable;
     TrackFactoryCasterTemplate_12d2e0() { vftable = DAT_00410ed8; }
 };
-extern "C" int __cdecl find(void*, TrackFactoryCasterTemplate_12d2e0*);
+extern "C++" hulk_intptr __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_12d2e0*);   // (gfx1) its own name: `find` stood for several functions natively (ambiguous binding)
 extern "C" char DAT_00410c34[];
 extern "C" void* __cdecl alloc(hulk_uintptr);
 struct ThreatDistanceCondition_12d530 {
@@ -2576,7 +2576,7 @@ namespace fn_f9c2e0ac {
 // sym: _FUN_0012d2e0
 extern "C" void FUN_0012d2e0(Obj* o, void* p) {
     TrackFactoryCasterTemplate_12d2e0 c;
-    o->apply_002367c0(find(p, &c));
+    o->apply_002367c0(FUN_00236ac0(p, &c));
 }
 
 } // namespace fn_f9c2e0ac

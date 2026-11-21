@@ -180,7 +180,7 @@ extern char hulk_at_004284e4[];
 struct Track {
     virtual void V();
 };
-extern "C" Track* __cdecl FUN_00236ac0(int, Track*);
+extern "C" Track* __cdecl FUN_00236ac0(hulk_intptr, Track*);   // (gfx1) the name as hulk_intptr (a pointer natively, as the definition takes it)
 struct Receiver_239c50 {
     void Finish_002367c0(Track*);
 };
@@ -596,7 +596,7 @@ namespace fn_fd5a1171 {
 
 // 0x00239c50 FUN_00239c50 (38 B): matches/0x00239c50.cpp
 // sym: _FUN_00239c50
-extern "C" void FUN_00239c50(Receiver_239c50* c, int b) {
+extern "C" void FUN_00239c50(Receiver_239c50* c, hulk_intptr b) {
     Track t;
     *(void**)&t = hulk_at_004284e4;
     Track* p = FUN_00236ac0(b, &t);

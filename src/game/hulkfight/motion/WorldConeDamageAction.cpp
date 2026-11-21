@@ -912,7 +912,7 @@ extern "C" char DAT_004132b8[];   // fight::TrackFactoryCasterTemplate<hulkfight
 struct TrackFactoryCasterTemplate_146130 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
-extern void* __cdecl Find_00236ac0(const char*, TrackFactoryCasterTemplate_146130*);
+extern void* __cdecl FUN_00236ac0(const char*, TrackFactoryCasterTemplate_146130*);
 class Factory {
   public:
     void Add_002367c0(void*);
@@ -921,7 +921,7 @@ extern "C" char DAT_004132d0[];   // fight::TrackFactoryCasterTemplate<hulkfight
 struct TrackFactoryCasterTemplate_146370 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
-extern void* Find_00236ac0(const char*, TrackFactoryCasterTemplate_146370*);
+extern void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_146370*);
 } // namespace fn_f3c8e3e3
 inline void* __cdecl operator new(size_t, void* where) {
     return where;
@@ -3270,7 +3270,7 @@ namespace fn_f3c8e3e3 {
 extern "C" void __cdecl FUN_00146130(Factory* factory, const char* name) {
     TrackFactoryCasterTemplate_146130 caster;
     caster.vftable = (void*)DAT_004132b8;   // (sweep-caster-fix1) the game's vftable by address
-    factory->Add_002367c0(Find_00236ac0(name, &caster));
+    factory->Add_002367c0(FUN_00236ac0(name, &caster));
 }
 
 
@@ -3305,7 +3305,7 @@ namespace fn_f3c8e3e3 {
 void FUN_00146370(Obj* obj, const char* name) {
     TrackFactoryCasterTemplate_146370 caster;
     caster.vftable = (void*)DAT_004132d0;   // (sweep-caster-fix1) the game's vftable by address
-    obj->Set_002367c0(Find_00236ac0(name, &caster));
+    obj->Set_002367c0(FUN_00236ac0(name, &caster));
 }
 
 } // namespace fn_f3c8e3e3
@@ -3387,7 +3387,8 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::SlowMotio
         ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_1464e0* t = new (mem) TrackFactoryTemplate_1464e0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_00145540();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_00145540();
         return (void*)(t);
     }
     return (void*)(0);
@@ -3439,7 +3440,8 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::WorldCone
         ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_1465b0* t = new (mem) TrackFactoryTemplate_1465b0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_001456b0();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_001456b0();
         return (void*)(t);
     }
     return (void*)(0);
@@ -3493,7 +3495,8 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::MotionBlu
         ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_146640* t = new (mem) TrackFactoryTemplate_146640();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_00145990();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_00145990();
         return (void*)(t);
     }
     return (void*)(0);
@@ -3575,7 +3578,8 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::MotionTra
         ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_146710* t = new (mem) TrackFactoryTemplate_146710();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_00145b00();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_00145b00();
         return (void*)(t);
     }
     return (void*)(0);
@@ -3634,7 +3638,8 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::HitEffect
         ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_1467c0* t = new (mem) TrackFactoryTemplate_1467c0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_00145f90();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_00145f90();
         return (void*)(t);
     }
     return (void*)(0);
@@ -3688,7 +3693,8 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::WorldDama
         ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_146850* t = new (mem) TrackFactoryTemplate_146850();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_00146190();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_00146190();
         return (void*)(t);
     }
     return (void*)(0);

@@ -239,7 +239,7 @@ extern "C" char DAT_004283ac[];   // fight::ConditionFactoryCasterTemplate<fight
 struct ConditionFactoryCasterTemplate_2391d0 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
-extern "C" void* Find(const char*, ConditionFactoryCasterTemplate_2391d0*);
+extern "C" void* FUN_002343e0(const char*, ConditionFactoryCasterTemplate_2391d0*);   // (gfx1) its own name: `Find` stood for several functions natively (ambiguous binding)
 extern "C" char DAT_004283b8[];   // fight::TrackFactoryCasterTemplate<fight::PrintTrack>::vftable
 struct TrackFactoryCasterTemplate_239200 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
@@ -717,7 +717,7 @@ PrintAction_239150* PrintAction_239150::f2(unsigned char flags) {
 extern "C" void FUN_002391d0(Obj* obj, const char* name) {
     ConditionFactoryCasterTemplate_2391d0 caster;
     caster.vftable = (void*)DAT_004283ac;   // (sweep-caster-fix1) the game's vftable by address
-    obj->Set_00236760(Find(name, &caster));
+    obj->Set_00236760(FUN_002343e0(name, &caster));
 }
 
 

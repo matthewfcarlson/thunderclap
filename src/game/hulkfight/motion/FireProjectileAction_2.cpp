@@ -73,7 +73,7 @@ class Owner {
     void Apply_002367c0(void*);
     void Set_002367c0(void*);
 };
-extern "C" void* Lookup(void*, TrackFactoryCasterTemplate_19c050*);
+extern "C" void* FUN_00236ac0(void*, TrackFactoryCasterTemplate_19c050*);   // (gfx1) its own name: `Lookup` stood for several functions natively (ambiguous binding)
 } // namespace fn_fdcf800c
 inline void* operator new(size_t, void* p) throw() { return p; }
 namespace fn_fdcf800c {
@@ -238,27 +238,27 @@ class Obj {
     void Do_002367c0(void*);
     void Set_002367c0(void*);
 };
-void* Cast_00236ac0(void*, TrackFactoryCasterTemplate_19c690*);
+void* FUN_00236ac0(void*, TrackFactoryCasterTemplate_19c690*);
 extern "C" char DAT_0041b9a8[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::MissilePunchTrack>::vftable
 struct TrackFactoryCasterTemplate_19c6c0 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
-void* __cdecl Find_00236ac0(void*, TrackFactoryCasterTemplate_19c6c0*);
+void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_19c6c0*);
 extern "C" char DAT_0041b9b4[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::AccuracyLatencyTrack>::vftable
 struct TrackFactoryCasterTemplate_19c6f0 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
-extern void* Find_00236ac0(void*, TrackFactoryCasterTemplate_19c6f0*);
+extern void* FUN_00236ac0(void*, TrackFactoryCasterTemplate_19c6f0*);
 extern "C" char DAT_0041b9c0[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::FireBeamTrack>::vftable
 struct TrackFactoryCasterTemplate_19c720 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
-void* __cdecl Find_00236ac0(void*, TrackFactoryCasterTemplate_19c720*);
+void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_19c720*);
 extern "C" char DAT_0041b9cc[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::FireMissileTrack>::vftable
 struct TrackFactoryCasterTemplate_19d130 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
-void* Find_00236ac0(const char*, TrackFactoryCasterTemplate_19d130*);
+void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_19d130*);
 } // namespace fn_fdcf800c
 namespace hulkfight { namespace motion {
 class FireMissileTrack_19d160 {
@@ -512,13 +512,12 @@ public:
 };
 }
 namespace fn_fdcf800c {
-struct CasterA {
-    CasterA() {}
-    virtual bool Cast_0019a180(void*);
-};
-struct CasterB {
-    CasterB() {}
-    virtual bool Cast_0019a1e0(void*);
+// (gfx1) the casters as the word their inline constructors write: the game's vftables by address (local polymorphic
+// stand-ins got clang's own vftables natively, an 8-byte word in the 4-byte slot)
+extern "C" char DAT_0041b978[];   // fight::ConditionFactoryCasterTemplate<...> (slot 0: 0x0019a180)
+extern "C" char DAT_0041b984[];   // fight::ConditionFactoryCasterTemplate<...> (slot 0: 0x0019a1e0)
+struct Caster_19e3e0 {
+    void* vftable;
 };
 extern "C" void* __cdecl FUN_002343e0(const char*, void*);
 class Registry {
@@ -764,7 +763,7 @@ namespace fn_fdcf800c {
 extern "C" void FUN_0019c050(Owner* owner, void* value) {
     TrackFactoryCasterTemplate_19c050 caster;
     caster.vftable = (void*)DAT_0041b990;   // (sweep-caster-fix1) the game's vftable by address
-    owner->Apply_002367c0(Lookup(value, &caster));
+    owner->Apply_002367c0(FUN_00236ac0(value, &caster));
 }
 
 
@@ -820,7 +819,7 @@ namespace fn_fdcf800c {
 extern "C" void FUN_0019c690(Obj* obj, void* p) {
     TrackFactoryCasterTemplate_19c690 c;
     c.vftable = (void*)DAT_0041b99c;   // (sweep-caster-fix1) the game's vftable by address
-    obj->Do_002367c0(Cast_00236ac0(p, &c));
+    obj->Do_002367c0(FUN_00236ac0(p, &c));
 }
 
 
@@ -829,7 +828,7 @@ extern "C" void FUN_0019c690(Obj* obj, void* p) {
 extern "C" void FUN_0019c6c0(Obj* a, void* b) {
     TrackFactoryCasterTemplate_19c6c0 c;
     c.vftable = (void*)DAT_0041b9a8;   // (sweep-caster-fix1) the game's vftable by address
-    void* p = Find_00236ac0(b, &c);
+    void* p = FUN_00236ac0(b, &c);
     a->Do_002367c0(p);
 }
 
@@ -839,7 +838,7 @@ extern "C" void FUN_0019c6c0(Obj* a, void* b) {
 extern "C" void FUN_0019c6f0(Obj* o, void* name) {
     TrackFactoryCasterTemplate_19c6f0 c;
     c.vftable = (void*)DAT_0041b9b4;   // (sweep-caster-fix1) the game's vftable by address
-    void* p = Find_00236ac0(name, &c);
+    void* p = FUN_00236ac0(name, &c);
     o->Set_002367c0(p);
 }
 
@@ -849,7 +848,7 @@ extern "C" void FUN_0019c6f0(Obj* o, void* name) {
 extern "C" void __cdecl FUN_0019c720(Obj* obj, void* arg) {
     TrackFactoryCasterTemplate_19c720 caster;
     caster.vftable = (void*)DAT_0041b9c0;   // (sweep-caster-fix1) the game's vftable by address
-    void* p = Find_00236ac0(arg, &caster);
+    void* p = FUN_00236ac0(arg, &caster);
     obj->Set_002367c0(p);
 }
 
@@ -923,7 +922,7 @@ namespace fn_fdcf800c {
 extern "C" void FUN_0019d130(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_19d130 caster;
     caster.vftable = (void*)DAT_0041b9cc;   // (sweep-caster-fix1) the game's vftable by address
-    owner->Set_002367c0(Find_00236ac0(name, &caster));
+    owner->Set_002367c0(FUN_00236ac0(name, &caster));
 }
 
 
@@ -1016,11 +1015,11 @@ class Obj {
   public:
     void Use_002367c0(void*);
 };
-void* Find_00236ac0(void*, fight::TrackFactoryCasterTemplate*);
+void* FUN_00236ac0(void*, fight::TrackFactoryCasterTemplate*);
 extern "C" void FUN_0019de20(Obj* obj, void* value) {
     fight::TrackFactoryCasterTemplate caster;
     caster.vftable = (void*)DAT_0041b9d8;   // (sweep-caster-fix1) the game's vftable by address
-    void* found = Find_00236ac0(value, &caster);
+    void* found = FUN_00236ac0(value, &caster);
     obj->Use_002367c0(found);
 }
 } // namespace fn_0019de20
@@ -1074,13 +1073,11 @@ namespace fn_fdcf800c {
 // 0x0019e3e0 FUN_0019e3e0 (77 B): matches/0x0019e3e0.cpp
 // sym: _FUN_0019e3e0
 extern "C" void __cdecl FUN_0019e3e0(Registry* reg) {
-    int slot;
-    CasterA* a = reinterpret_cast<CasterA*>(&slot);
-    a->CasterA::CasterA();
-    reg->Add_00236760(FUN_002343e0(DAT_0041c1b0, a));
-    CasterB* b = reinterpret_cast<CasterB*>(&slot);
-    b->CasterB::CasterB();
-    reg->Add_00236760(FUN_002343e0(DAT_0041c1a0, b));
+    Caster_19e3e0 slot;
+    slot.vftable = (void*)DAT_0041b978;
+    reg->Add_00236760(FUN_002343e0(DAT_0041c1b0, &slot));
+    slot.vftable = (void*)DAT_0041b984;
+    reg->Add_00236760(FUN_002343e0(DAT_0041c1a0, &slot));
 }
 
 } // namespace fn_fdcf800c

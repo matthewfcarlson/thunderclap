@@ -495,14 +495,14 @@ class ConditionFactoryCasterTemplate_1ac2e0 {   // (fix2) was polymorphic (virtu
     void *vftable;
     ConditionFactoryCasterTemplate_1ac2e0() { vftable = DAT_0041d60c; }
 };
-int __cdecl FUN_002343e0(int, ConditionFactoryCasterTemplate_1ac2e0*);
+hulk_intptr __cdecl FUN_002343e0(hulk_intptr, ConditionFactoryCasterTemplate_1ac2e0*);   // (gfx1) the name as hulk_intptr (a pointer natively, as the definition takes it)
 extern "C" char DAT_0041d618[];   // (fix2) the game's caster vftable
 class ConditionFactoryCasterTemplate_1ac310 {   // (fix2) was polymorphic (virtual bool cast_001abcb0(void*);): clang's vftable natively
   public:
     void *vftable;
     ConditionFactoryCasterTemplate_1ac310() { vftable = DAT_0041d618; }
 };
-extern "C" void* __cdecl find(void*, ConditionFactoryCasterTemplate_1ac310*);
+extern "C++" void* __cdecl FUN_002343e0(void*, ConditionFactoryCasterTemplate_1ac310*);   // (gfx1) its own name: `find` stood for several functions natively (ambiguous binding)
 extern "C" char DAT_0041d630[];   // (fix2) the game's caster vftable
 class ConditionFactoryCasterTemplate_1ac460 {   // (fix2) was polymorphic (virtual bool cast_001abdb0(void*);): clang's vftable natively
   public:
@@ -1973,7 +1973,7 @@ extern "C" void FUN_001ac2b0(Arg* obj, void* key) {
 
 // 0x001ac2e0 FUN_001ac2e0 (38 B): matches/0x001ac2e0.cpp
 // sym: _FUN_001ac2e0
-extern "C" void FUN_001ac2e0(Owner* owner, int id) {
+extern "C" void FUN_001ac2e0(Owner* owner, hulk_intptr id) {
     ConditionFactoryCasterTemplate_1ac2e0 c;
     owner->Apply_00236760(FUN_002343e0(id, &c));
 }
@@ -1983,7 +1983,7 @@ extern "C" void FUN_001ac2e0(Owner* owner, int id) {
 // sym: _FUN_001ac310
 extern "C" void FUN_001ac310(Obj* obj, void* arg) {
     ConditionFactoryCasterTemplate_1ac310 c;
-    obj->apply_00236760(find(arg, &c));
+    obj->apply_00236760(FUN_002343e0(arg, &c));
 }
 
 } // namespace fn_fc09f66d

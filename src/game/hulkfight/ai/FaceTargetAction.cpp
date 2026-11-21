@@ -322,7 +322,7 @@ class TrackFactoryCasterTemplate_10bf20 : public TrackFactoryCaster_10bf20 {
   public:
     TrackFactoryCasterTemplate_10bf20() { vftable = DAT_0040d908; }
 };
-extern "C" int __cdecl FUN_00236ac0(const char*, TrackFactoryCaster_10bf20*);
+extern "C" hulk_intptr __cdecl FUN_00236ac0(const char*, TrackFactoryCaster_10bf20*);   // (gfx1) the factory as hulk_intptr (a pointer natively, as the definition returns it)
 class Factory {
   public:
     void add_002367c0(int);
@@ -1039,7 +1039,8 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::FaceTargetTra
         ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_10bf70* t = new (mem) TrackFactoryTemplate_10bf70();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_0010bc00();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_0010bc00();
         return (void*)(t);
     }
     return (void*)(0);
@@ -1087,7 +1088,8 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::FaceMotionTra
         ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_10c020* t = new (mem) TrackFactoryTemplate_10c020();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_0010bca0();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_0010bca0();
         return (void*)(t);
     }
     return (void*)(0);

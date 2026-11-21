@@ -60,7 +60,7 @@ class Obj {
     __int64 run();
     void Fn(int, int);
 };
-extern "C" __int64 __cdecl helper(hulk_intptr, int, int);
+extern "C" __int64 __cdecl FUN_002672f0(hulk_intptr, int, int);   // (gfx1) its own name: `helper` stood for several functions natively (ambiguous binding)
 extern "C" char DAT_00427898[];
 typedef unsigned int u32_232e90;
 struct Branch_232e90 {
@@ -277,7 +277,7 @@ extern "C" void FUN_00232d70(hulk_intptr a, int b) {
 // 0x00232e00 FUN_00232e00 (40 B): matches/0x00232e00.cpp
 // sym: ?Fn@Obj@fn_f3f1aadd@@QAEXHH@Z
 void Obj::Fn(int a, int b) {
-    v10(helper(a, 0, 0), b);
+    v10(FUN_002672f0(a, 0, 0), b);
 }
 
 

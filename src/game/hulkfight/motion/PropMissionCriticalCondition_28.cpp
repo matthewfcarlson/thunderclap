@@ -72,7 +72,7 @@ class Obj {
   public:
     void Apply_002367c0(void*);
 };
-extern "C" void* Find(void*, TrackFactoryCasterTemplate_189f30*);
+extern "C++" void* FUN_00236ac0(void*, TrackFactoryCasterTemplate_189f30*);   // (gfx1) its own name: `Find` stood for several functions natively (ambiguous binding)
 extern "C" char DAT_0041a150[];   // (fix2) the game's caster vftable
 class TrackFactoryCasterTemplate_18a0d0 {   // (fix2) was polymorphic (virtual bool cast_00186ec0(void*);): clang's vftable natively
   public:
@@ -83,7 +83,7 @@ class Track {
   public:
     void apply_002367c0(void*);
 };
-extern "C" void* find(void*, TrackFactoryCasterTemplate_18a0d0*);
+extern "C++" void* FUN_00236ac0(void*, TrackFactoryCasterTemplate_18a0d0*);   // (gfx1) its own name: `find` stood for several functions natively (ambiguous binding)
 } // namespace fn_f6684e61
 inline void* operator new(size_t, void* p) throw() { return p; }
 namespace fn_f6684e61 {
@@ -331,7 +331,7 @@ class Host {
   public:
     void Set_002367c0(void*);
 };
-extern "C" void* __cdecl Lookup(void*, TrackFactoryCasterTemplate_18ab70*);
+extern "C++" void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_18ab70*);   // (gfx1) its own name: `Lookup` stood for several functions natively (ambiguous binding)
 } // namespace fn_f6684e61
 namespace hulkfight { namespace motion {
 class BallAndChainShootTrack_18abd0 {
@@ -816,7 +816,7 @@ namespace fn_f6684e61 {
 // sym: _FUN_00189f30
 extern "C" void FUN_00189f30(Obj* o, void* p) {
     TrackFactoryCasterTemplate_189f30 c;
-    o->Apply_002367c0(Find(p, &c));
+    o->Apply_002367c0(FUN_00236ac0(p, &c));
 }
 
 } // namespace fn_f6684e61
@@ -907,7 +907,7 @@ namespace fn_f6684e61 {
 // sym: _FUN_0018a0d0
 extern "C" void FUN_0018a0d0(Track* track, void* name) {
     TrackFactoryCasterTemplate_18a0d0 caster;
-    track->apply_002367c0(find(name, &caster));
+    track->apply_002367c0(FUN_00236ac0(name, &caster));
 }
 
 
@@ -1067,7 +1067,7 @@ namespace fn_f6684e61 {
 // sym: _FUN_0018ab70
 extern "C" void __cdecl FUN_0018ab70(Host* host, void* key) {
     TrackFactoryCasterTemplate_18ab70 caster;
-    void* result = Lookup(key, &caster);
+    void* result = FUN_00236ac0(key, &caster);
     host->Set_002367c0(result);
 }
 

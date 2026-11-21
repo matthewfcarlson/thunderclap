@@ -97,7 +97,7 @@ class Object {
   public:
     void Use_002367c0(void*);
 };
-extern "C" void* Find(void*, TrackFactoryCasterTemplate_129f50*);
+extern "C++" void* FUN_00236ac0(void*, TrackFactoryCasterTemplate_129f50*);   // (gfx1) its own name: `Find` stood for several functions natively (ambiguous binding)
 extern "C" char DAT_00410728[];   // fight::TrackFactoryCasterTemplate<hulkfight::ai::AcquireTargetTrack>::vftable
 struct TrackFactoryCasterTemplate_129f80 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
@@ -213,7 +213,7 @@ namespace fn_f63a58e9 {
 extern "C" void FUN_00129f50(Object* obj, void* name) {
     TrackFactoryCasterTemplate_129f50 caster;
     caster.vftable = (void*)DAT_0041071c;   // (sweep-caster-fix1) the game's vftable by address
-    obj->Use_002367c0(Find(name, &caster));
+    obj->Use_002367c0(FUN_00236ac0(name, &caster));
 }
 
 

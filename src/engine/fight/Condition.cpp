@@ -18,14 +18,15 @@ namespace fn_fc77ac82 { extern "C" char DAT_00427990[]; }   // (x64t7) the game 
 
 // ---- declarations shared by the functions below
 namespace fn_fc77ac82 {
-class Entity_2343b0 {
+// (gfx1) fight::ConditionFactory on pure3d::Entity's words, its vftable 0x00427990 stored by address and the Entity
+// constructor 0x0027b070 called by its address: a local polymorphic stand-in got clang's own vftable natively and its
+// base constructor bound nothing
+class ConditionFactory {
   public:
-    Entity_2343b0();
-    virtual void Fn_00038290();
-};
-class ConditionFactory : public Entity_2343b0 {
-  public:
+    void* vftable;
+    int entityWords[3];
     ConditionFactory();
+    ConditionFactory* FUN_0027b070();   // pure3d::Entity::Entity
 };
 typedef unsigned int U_2343e0;
 typedef unsigned __int64 U64_2343e0;
@@ -105,7 +106,10 @@ class ConditionFactory_234560 : public Entity_234560 {
 
 // 0x002343b0 FUN_002343b0 (18 B): matches/0x002343b0.cpp
 // sym: ??0ConditionFactory@fn_fc77ac82@@QAE@XZ
-ConditionFactory::ConditionFactory() {}
+ConditionFactory::ConditionFactory() {
+    FUN_0027b070();
+    vftable = (void*)DAT_00427990;
+}
 
 
 // 0x002343d0 FUN_002343d0 (11 B): matches/0x002343d0.cpp

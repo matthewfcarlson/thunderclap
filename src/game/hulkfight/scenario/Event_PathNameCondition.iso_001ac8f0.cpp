@@ -33,7 +33,7 @@ class ConditionFactoryTemplate_1ac8f0 {
     TrackImpl mTrack;
 };
 
-void postInit();
+void FUN_001ac370();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
 
 template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Event_CharacterTemplateCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -42,7 +42,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Eve
         ((InitHelper*)mem)->init_002343b0();
         ConditionFactoryTemplate_1ac8f0* t = new (mem) ConditionFactoryTemplate_1ac8f0();
         t->mTrack.setup_0027b040(arg);
-        postInit();
+        FUN_001ac370();
         return (void*)(t);
     }
     return (void*)(0);

@@ -656,7 +656,7 @@ extern "C" char DAT_0041b09c[];   // fight::TrackFactoryCasterTemplate<hulkfight
 struct TrackFactoryCasterTemplate_191910 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
-void* __cdecl Find_00236ac0(const char*, TrackFactoryCasterTemplate_191910*);
+void* __cdecl FUN_00236ac0(const char*, TrackFactoryCasterTemplate_191910*);
 extern "C" char DAT_0041b0b4[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::TankLocomotionTrack>::vftable
 struct TrackFactoryCasterTemplate_191b10 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
@@ -665,7 +665,7 @@ class Owner {
   public:
     void Set_002367c0(void*);
 };
-void* Find_00236ac0(const char*, TrackFactoryCasterTemplate_191b10*);
+void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_191b10*);
 } // namespace fn_fc171dfe
 inline void* __cdecl operator new(size_t, void* where) {
     return where;
@@ -2488,7 +2488,7 @@ namespace fn_fc171dfe {
 extern "C" void __cdecl FUN_00191910(Obj* obj, const char* name) {
     TrackFactoryCasterTemplate_191910 caster;
     caster.vftable = (void*)DAT_0041b09c;   // (sweep-caster-fix1) the game's vftable by address
-    obj->Set_002367c0(Find_00236ac0(name, &caster));
+    obj->Set_002367c0(FUN_00236ac0(name, &caster));
 }
 
 } // namespace fn_fc171dfe
@@ -2526,11 +2526,11 @@ class Obj {
   public:
     void Set_002367c0(void*);
 };
-extern "C++" __declspec(nothrow) void* __cdecl Find_00236ac0(const char*, TrackFactoryCasterTemplate_191ae0*);
+extern "C++" __declspec(nothrow) void* __cdecl FUN_00236ac0(const char*, TrackFactoryCasterTemplate_191ae0*);
 extern "C" void FUN_00191ae0(Obj* obj, const char* name) {
     TrackFactoryCasterTemplate_191ae0 caster;
     caster.vftable = (void*)DAT_0041b0a8;   // (sweep-caster-fix1) the game's vftable by address
-    void* p = Find_00236ac0(name, &caster);
+    void* p = FUN_00236ac0(name, &caster);
     obj->Set_002367c0(p);
 }
 } // namespace fn_00191ae0
@@ -2542,7 +2542,7 @@ namespace fn_fc171dfe {
 extern "C" void FUN_00191b10(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_191b10 caster;
     caster.vftable = (void*)DAT_0041b0b4;   // (sweep-caster-fix1) the game's vftable by address
-    void* p = Find_00236ac0(name, &caster);
+    void* p = FUN_00236ac0(name, &caster);
     owner->Set_002367c0(p);
 }
 
@@ -2558,7 +2558,8 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::Simulatio
         ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_191b40* t = new (mem) TrackFactoryTemplate_191b40();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_001910d0();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_001910d0();
         return (void*)(t);
     }
     return (void*)(0);
@@ -2605,7 +2606,8 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::TankLocom
         ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_191bf0* t = new (mem) TrackFactoryTemplate_191bf0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_00191170();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_00191170();
         return (void*)(t);
     }
     return (void*)(0);
@@ -2658,7 +2660,8 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::ImpulseVe
         ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_191c80* t = new (mem) TrackFactoryTemplate_191c80();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_00191940();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_00191940();
         return (void*)(t);
     }
     return (void*)(0);

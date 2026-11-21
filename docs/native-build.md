@@ -6531,3 +6531,10 @@ the literal before writing `sizeof(::Gen)`.
   Wine control 105471 / proof 105752: GATE ok.
 - Next stops: the ambiguous callee names (74 in the binding map: `postInit` in every fight caster's vfunc_1, `Find`,
   `Check`, `alloc`, ...): decl1 takes the family as a generator; 0x0023d420's `Find` is the current stop.
+
+## gfx2: native start-up, continued (2026-11-21)
+
+- C9 (gfx1's batch, landed by gfx2): ambiguous callee names take their targets' addresses (`postInit` in every fight
+  caster's vfunc_1, the 0x002343e0 / 0x00236ac0 lookups' `Find` / `find` / `Lookup` / ...); ConditionFactory 0x002343b0
+  on pure3d::Entity's words; the lookups' names and results pointer-sized. Headless start-up then runs through every
+  engine and fight registration into hulkfight's tracks (next stop: JointTrackerTrack_3_26's 0x0017d610).

@@ -33,7 +33,7 @@ class TrackFactoryTemplate_139640 {
     TrackImpl mTrack;
 };
 
-void postInit();
+void FUN_00137e40();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
 
 template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::BounceTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -42,7 +42,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::BounceTra
         ((InitHelper*)mem)->init_00236a90();
         TrackFactoryTemplate_139640* t = new (mem) TrackFactoryTemplate_139640();
         t->mTrack.setup_0027b040(arg);
-        postInit();
+        FUN_00137e40();
         return (void*)(t);
     }
     return (void*)(0);

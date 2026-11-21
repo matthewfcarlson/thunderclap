@@ -62,8 +62,8 @@ class Helper_23d140 {
   public:
     void Init_002343b0();
 };
-extern "C" void* __cdecl alloc(hulk_uintptr);
 extern "C" char DAT_00428a44[];
+void* thunk_FUN_0008d690(unsigned int size);   // (gfx1) the allocator's thunk 0x00263ea0
 typedef unsigned int u32_23d180;
 struct Init_23d180 {
     void init_00234590(hulk_intptr);   // (decl1) passes as defined
@@ -207,7 +207,7 @@ template <> bool fight::ConditionFactoryCasterTemplate<fight::OrCondition>::vfun
 
 
 // 0x0023d0a0 fight::ConditionFactoryCasterTemplate<fight::NotCondition>::vfunc_1 (55 B): matches/0x0023d0a0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?V1@ConditionFactoryCasterTemplate@fn_0023d0a0@@UAEPAV12@H@Z
+// sym: ?V1@ConditionFactoryCasterTemplate@fn_0023d0a0@@UAEPAV12@PAX@Z
 namespace fn_0023d0a0 {
 extern "C" char DAT_00428a7c[];
 class ConditionFactoryCaster {
@@ -219,22 +219,26 @@ class BaseAllocated {
   public:
     void Init_002343b0();
 };
-class Elem_23d0a0 {
-  public:
+// (gfx1) the factory's words (pure3d::Entity: the vftable, the count, the name's two words; 0x10 bytes on 32-bit): a
+// `p + 8` put the name 4 bytes early natively
+struct Factory_23d0a0 {
+    void* vftable;
+    int count;
+    unsigned int name[2];
 };
 extern "C++" void* __cdecl alloc_00263ea0(unsigned int);
 class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
   public:
     virtual void V0();
-    virtual ConditionFactoryCasterTemplate* V1(int);
+    virtual ConditionFactoryCasterTemplate* V1(void*);   // (gfx1) the name: a pointer, as 0x002343e0's visitor passes it
 };
 void ConditionFactoryCasterTemplate::V0() {}
-ConditionFactoryCasterTemplate* ConditionFactoryCasterTemplate::V1(int x) {
-    BaseAllocated* p = (BaseAllocated*)alloc_00263ea0(0x10);
+ConditionFactoryCasterTemplate* ConditionFactoryCasterTemplate::V1(void* x) {
+    BaseAllocated* p = (BaseAllocated*)alloc_00263ea0(sizeof(Factory_23d0a0));
     if (p) {
         p->Init_002343b0();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_00428a7c);
-        ((owners::Target_27b040 *)(((Elem_23d0a0*)((char*)p + 8))))->FUN_0027b040((hulk_uintptr)x);
+        ((owners::Target_27b040 *)((Factory_23d0a0*)p)->name)->FUN_0027b040((hulk_uintptr)x);
         return (ConditionFactoryCasterTemplate*)p;
     }
     return 0;
@@ -276,7 +280,7 @@ ConditionFactoryTemplate_23d110* ConditionFactoryTemplate_23d110::vfunc_5(signed
 // sym: ?vfunc_1@?$ConditionFactoryCasterTemplate@VOrCondition@fight@@@fight@@UAEPAXPAX@Z
 template <> void* fight::ConditionFactoryCasterTemplate<fight::OrCondition>::vfunc_1(void* __p0) { void * p = (void *)__p0;
 
-    void* q = alloc(sizeof(::fight::ConditionFactoryTemplate< ::fight::OrCondition>));
+    void* q = thunk_FUN_0008d690(sizeof(::fight::ConditionFactoryTemplate< ::fight::OrCondition>));   // (gfx1) its own name: `alloc` stood for several functions natively
     if (q) {
         ((Helper_23d140*)q)->Init_002343b0();
         *(hulk_uintptr*)q = ((hulk_intptr)DAT_00428a98);

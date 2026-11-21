@@ -159,7 +159,7 @@ class Obj {
     void use_002367c0(void*);
     void Do_002367c0(void*);
 };
-extern "C" void* find(void*, TrackFactoryCasterTemplate_162280*);
+extern "C" void* FUN_00236ac0(void*, TrackFactoryCasterTemplate_162280*);   // (gfx1) its own name: `find` stood for several functions natively (ambiguous binding)
 } // namespace fn_f95ed483
 namespace hulkfight { namespace motion {
 class LocomotionStrafe4Track_1622b0 {
@@ -759,7 +759,7 @@ namespace fn_f95ed483 {
 extern "C" void FUN_00162280(Obj* obj, void* p) {
     TrackFactoryCasterTemplate_162280 c;
     c.vftable = (void*)DAT_00415f28;   // (sweep-caster-fix1) the game's vftable by address
-    void* v = find(p, &c);
+    void* v = FUN_00236ac0(p, &c);
     obj->run_002367c0(v);
 }
 

@@ -1706,7 +1706,7 @@ extern "C" char DAT_0041c84c[];   // fight::ConditionFactoryCasterTemplate<hulkf
 struct ConditionFactoryCasterTemplate_1a94a0 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
-extern "C" void* find(void*, ConditionFactoryCasterTemplate_1a94a0*);
+extern "C++" void* FUN_002343e0(void*, ConditionFactoryCasterTemplate_1a94a0*);   // (gfx1) its own name: `find` stood for several functions natively (ambiguous binding)
 extern "C" char DAT_0041c864[];   // fight::ConditionFactoryCasterTemplate<hulkfight::scenario::NodeShouldRunImmediatelyCondition>::vftable
 struct ConditionFactoryCasterTemplate_1a9560 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
@@ -1722,17 +1722,17 @@ extern "C" char DAT_0041c870[];   // fight::ConditionFactoryCasterTemplate<hulkf
 struct ConditionFactoryCasterTemplate_1a9590 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
-void* __cdecl Find_002343e0(void*, ConditionFactoryCasterTemplate_1a9590*);
+void* __cdecl FUN_002343e0(void*, ConditionFactoryCasterTemplate_1a9590*);
 extern "C" char DAT_0041c87c[];   // fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Event_LocomotionStateNameCondition>::vftable
 struct ConditionFactoryCasterTemplate_1a95c0 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
-void* __cdecl Find_002343e0(void*, ConditionFactoryCasterTemplate_1a95c0*);
+void* __cdecl FUN_002343e0(void*, ConditionFactoryCasterTemplate_1a95c0*);
 extern "C" char DAT_0041c894[];   // fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Event_PropTypeCondition>::vftable
 struct ConditionFactoryCasterTemplate_1a9620 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
-void* __cdecl Find_002343e0(char*, ConditionFactoryCasterTemplate_1a9620*);
+void* __cdecl FUN_002343e0(char*, ConditionFactoryCasterTemplate_1a9620*);
 extern "C" char DAT_0041c8a0[];   // fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Event_PropStateNameCondition>::vftable
 struct ConditionFactoryCasterTemplate_1a96b0 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
@@ -1765,12 +1765,12 @@ class Obj {
     void* Get_00236760(ConditionFactoryCasterTemplate_1a9740*);
     void Find_002367c0(void*);
 };
-extern ConditionFactoryCasterTemplate_1a9740* __cdecl Lookup_002343e0(void*, ConditionFactoryCasterTemplate_1a9740*);
+extern ConditionFactoryCasterTemplate_1a9740* __cdecl FUN_002343e0(void*, ConditionFactoryCasterTemplate_1a9740*);
 extern "C" char DAT_0041c8b8[];   // fight::TrackFactoryCasterTemplate<hulkfight::scenario::EffectTrack>::vftable
 struct TrackFactoryCasterTemplate_1a97d0 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
-extern "C" void* FindTrack(void*, TrackFactoryCasterTemplate_1a97d0*);
+extern "C++" void* FUN_00236ac0(void*, TrackFactoryCasterTemplate_1a97d0*);   // (gfx1) its own name: `FindTrack` stood for several functions natively (ambiguous binding)
 extern "C" char DAT_0041c8c4[];   // fight::TrackFactoryCasterTemplate<hulkfight::scenario::NISAnimationTrack>::vftable
 struct TrackFactoryCasterTemplate_1a9a90 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
@@ -7137,7 +7137,7 @@ hulk_intptr LoadInventory::Load(void* p) {
 extern "C" void FUN_001a94a0(Obj* obj, void* value) {
     ConditionFactoryCasterTemplate_1a94a0 caster;
     caster.vftable = (void*)DAT_0041c84c;   // (sweep-caster-fix1) the game's vftable by address
-    void* p = find(value, &caster);
+    void* p = FUN_002343e0(value, &caster);
     obj->set_00236760(p);
 }
 
@@ -7150,7 +7150,7 @@ extern "C" char DAT_0041c858[];   // fight::ConditionFactoryCasterTemplate<hulkf
 struct ConditionFactoryCasterTemplate_1a94d0 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
-extern "C++" __declspec(nothrow) void* __cdecl Find_002343e0(void*, ConditionFactoryCasterTemplate_1a94d0*);
+extern "C++" __declspec(nothrow) void* __cdecl FUN_002343e0(void*, ConditionFactoryCasterTemplate_1a94d0*);
 class Factory {
   public:
     void Use_00236760(void*);
@@ -7158,7 +7158,7 @@ class Factory {
 extern "C" void __cdecl FUN_001a94d0(Factory* factory, void* item) {
     ConditionFactoryCasterTemplate_1a94d0 caster;
     caster.vftable = (void*)DAT_0041c858;   // (sweep-caster-fix1) the game's vftable by address
-    factory->Use_00236760(Find_002343e0(item, &caster));
+    factory->Use_00236760(FUN_002343e0(item, &caster));
 }
 } // namespace fn_001a94d0
 
@@ -7179,7 +7179,7 @@ extern "C" void FUN_001a9560(Owner* owner, void* value) {
 extern "C" void __cdecl FUN_001a9590(Obj* obj, void* value) {
     ConditionFactoryCasterTemplate_1a9590 caster;
     caster.vftable = (void*)DAT_0041c870;   // (sweep-caster-fix1) the game's vftable by address
-    void* p = Find_002343e0(value, &caster);
+    void* p = FUN_002343e0(value, &caster);
     obj->Apply_00236760(p);
 }
 
@@ -7189,7 +7189,7 @@ extern "C" void __cdecl FUN_001a9590(Obj* obj, void* value) {
 extern "C" void __cdecl FUN_001a95c0(Obj* obj, void* p) {
     ConditionFactoryCasterTemplate_1a95c0 caster;
     caster.vftable = (void*)DAT_0041c87c;   // (sweep-caster-fix1) the game's vftable by address
-    obj->Do_00236760(Find_002343e0(p, &caster));
+    obj->Do_00236760(FUN_002343e0(p, &caster));
 }
 
 } // namespace fn_fc5dbd2a
@@ -7202,7 +7202,7 @@ struct ConditionFactoryCasterTemplate_1a95f0 {   // (sweep-caster-fix1) the word
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 class Desc;
-extern Desc* __cdecl lookup_002343e0(const char*, ConditionFactoryCasterTemplate_1a95f0*);
+extern Desc* __cdecl FUN_002343e0(const char*, ConditionFactoryCasterTemplate_1a95f0*);
 class Owner {
   public:
     void use_00236760(Desc*);
@@ -7210,7 +7210,7 @@ class Owner {
 extern "C" void FUN_001a95f0(Owner* p, const char* s) {
     ConditionFactoryCasterTemplate_1a95f0 c;
     c.vftable = (void*)DAT_0041c888;   // (sweep-caster-fix1) the game's vftable by address
-    Desc* d = lookup_002343e0(s, &c);
+    Desc* d = FUN_002343e0(s, &c);
     p->use_00236760(d);
 }
 } // namespace fn_001a95f0
@@ -7222,7 +7222,7 @@ namespace fn_fc5dbd2a {
 extern "C" void __cdecl FUN_001a9620(Owner* owner, char* name) {
     ConditionFactoryCasterTemplate_1a9620 c;
     c.vftable = (void*)DAT_0041c894;   // (sweep-caster-fix1) the game's vftable by address
-    void* p = Find_002343e0(name, &c);
+    void* p = FUN_002343e0(name, &c);
     owner->Use_00236760(p);
 }
 
@@ -7241,7 +7241,7 @@ extern "C" void FUN_001a96b0(Receiver* r, void* p) {
 extern "C" void* FUN_001a9740(Obj* o, void* p) {
     ConditionFactoryCasterTemplate_1a9740 c;
     c.vftable = (void*)DAT_0041c8ac;   // (sweep-caster-fix1) the game's vftable by address
-    return o->Get_00236760(Lookup_002343e0(p, &c));
+    return o->Get_00236760(FUN_002343e0(p, &c));
 }
 
 
@@ -7250,7 +7250,7 @@ extern "C" void* FUN_001a9740(Obj* o, void* p) {
 extern "C" void FUN_001a97d0(Obj* obj, void* name) {
     TrackFactoryCasterTemplate_1a97d0 caster;
     caster.vftable = (void*)DAT_0041c8b8;   // (sweep-caster-fix1) the game's vftable by address
-    obj->Find_002367c0(FindTrack(name, &caster));
+    obj->Find_002367c0(FUN_00236ac0(name, &caster));
 }
 
 
@@ -7662,7 +7662,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Nod
         ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_1aa400* t = new (mem) TrackFactoryTemplate_1aa400();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_001a6f30();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_001a6f30();
         return (void*)(t);
     }
     return (void*)(0);
@@ -7708,7 +7709,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Nod
         ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_1aa4a0* t = new (mem) TrackFactoryTemplate_1aa4a0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_001a6f90();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_001a6f90();
         return (void*)(t);
     }
     return (void*)(0);
@@ -7747,7 +7749,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Eve
         ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_1aa540* t = new (mem) TrackFactoryTemplate_1aa540();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_001a6ff0();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_001a6ff0();
         return (void*)(t);
     }
     return (void*)(0);
@@ -7779,7 +7782,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Eve
         ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_1aa5f0* t = new (mem) TrackFactoryTemplate_1aa5f0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_001a70b0();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_001a70b0();
         return (void*)(t);
     }
     return (void*)(0);
@@ -7826,7 +7830,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Eve
         ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_1aa6a0* t = new (mem) TrackFactoryTemplate_1aa6a0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_001a7170();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_001a7170();
         return (void*)(t);
     }
     return (void*)(0);
@@ -7865,7 +7870,8 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::scenario::NISAnim
         ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_1aa740* t = new (mem) TrackFactoryTemplate_1aa740();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_001a71e0();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_001a71e0();
         return (void*)(t);
     }
     return (void*)(0);
@@ -7960,7 +7966,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Eve
         ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_1aa9d0* t = new (mem) TrackFactoryTemplate_1aa9d0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_001a9500();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_001a9500();
         return (void*)(t);
     }
     return (void*)(0);
@@ -7992,7 +7999,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Eve
         ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_1aaa70* t = new (mem) TrackFactoryTemplate_1aaa70();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_001a9650();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_001a9650();
         return (void*)(t);
     }
     return (void*)(0);
@@ -8038,7 +8046,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Eve
         ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_1aab10* t = new (mem) TrackFactoryTemplate_1aab10();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_001a96e0();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_001a96e0();
         return (void*)(t);
     }
     return (void*)(0);
@@ -8084,7 +8093,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Eve
         ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_1aabb0* t = new (mem) TrackFactoryTemplate_1aabb0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_001a9770();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_001a9770();
         return (void*)(t);
     }
     return (void*)(0);
@@ -8116,7 +8126,8 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::scenario::EffectT
         ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_1aac50* t = new (mem) TrackFactoryTemplate_1aac50();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_001a9800();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_001a9800();
         return (void*)(t);
     }
     return (void*)(0);

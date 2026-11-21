@@ -23,7 +23,7 @@ class Obj {
   public:
     void Apply_00236760(void*);
 };
-extern "C" void* Get(void*, ConditionFactoryCasterTemplate_23d220*);
+extern "C++" void* FUN_002343e0(void*, ConditionFactoryCasterTemplate_23d220*);   // (gfx1) by its address: `Get` bound by relocation position only (not natively)
 struct ConditionFactoryCasterTemplate_23d250 {
     void* vftable;
 };
@@ -102,7 +102,7 @@ class ConditionFactoryTemplate_23d3d0 : public ConditionFactory_23d3d0 {
 extern "C" void FUN_0023d220(Obj* obj, void* x) {
     ConditionFactoryCasterTemplate_23d220 caster;
     caster.vftable = (void*)DAT_00428a64;
-    void* p = Get(x, &caster);
+    void* p = FUN_002343e0(x, &caster);
     obj->Apply_00236760(p);
 }
 

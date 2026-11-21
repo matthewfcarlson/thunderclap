@@ -697,7 +697,7 @@ class TrackFactoryCasterTemplate_139390 {   // (fix2) was polymorphic (virtual i
     void *vftable;
     TrackFactoryCasterTemplate_139390() { vftable = DAT_00412184; }
 };
-extern "C" int __cdecl first(int, TrackFactoryCasterTemplate_139390*);
+extern "C" hulk_intptr __cdecl FUN_00236ac0(hulk_intptr, TrackFactoryCasterTemplate_139390*);   // (gfx1) its own name: `first` stood for several functions natively (ambiguous binding)
 extern "C" char DAT_00411bb8[];
 class FlyingDashTrack_139430 {
   public:
@@ -2033,9 +2033,9 @@ namespace fn_f0de5d41 {
 
 // 0x00139390 FUN_00139390 (38 B): matches/0x00139390.cpp
 // sym: _FUN_00139390
-extern "C" void FUN_00139390(Obj* o, int n) {
+extern "C" void FUN_00139390(Obj* o, hulk_intptr n) {
     TrackFactoryCasterTemplate_139390 c;
-    int r = first(n, &c);
+    int r = FUN_00236ac0(n, &c);
     o->second_002367c0(r);
 }
 

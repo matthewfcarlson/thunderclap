@@ -94,7 +94,7 @@ class Owner {
   public:
     void apply_00236760(void*);
 };
-void* locate_002343e0(const char*, ConditionFactoryCasterTemplate_2386b0*);
+void* FUN_002343e0(const char*, ConditionFactoryCasterTemplate_2386b0*);
 class RandomCondition {
   public:
     virtual void F();
@@ -104,7 +104,7 @@ class Obj_2386e0 {
     virtual void A();
     void Use_00236760(void*);
 };
-extern void* Build_002343e0(void* arg, void* storage);
+extern void* FUN_002343e0(void* arg, void* storage);
 extern "C" char DAT_0042827c[];
 } // namespace fn_fc1ade79
 inline void* __cdecl operator new(size_t, void* where) {
@@ -145,7 +145,7 @@ class TrackFactoryTemplate_2387b0 {
     TrackImpl mTrack;
 };
 extern "C" char DAT_00428210[];
-extern "C" void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);   // (gfx1) its own name: `alloc` stood for several functions natively (ambiguous binding)
 struct RandomCondition_2387f0 {
     hulk_intptr vf;
     int pad[2];
@@ -435,7 +435,7 @@ namespace fn_fc1ade79 {
 // sym: _FUN_002386b0
 extern "C" void FUN_002386b0(Owner* owner, const char* name) {
     ConditionFactoryCasterTemplate_2386b0 c;
-    void* p = locate_002343e0(name, &c);
+    void* p = FUN_002343e0(name, &c);
     owner->apply_00236760(p);
 }
 
@@ -445,7 +445,7 @@ extern "C" void FUN_002386b0(Owner* owner, const char* name) {
 extern "C" void FUN_002386e0(void* a, void* b) {
     RandomCondition local;
     *(hulk_intptr*)&local = (hulk_intptr)DAT_0042827c;
-    void* r = Build_002343e0(b, &local);
+    void* r = FUN_002343e0(b, &local);
     ((Obj_2386e0*)a)->Use_00236760(r);
 }
 
@@ -461,7 +461,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<fight::MaybeCondition>::
         ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_238710* t = new (mem) TrackFactoryTemplate_238710();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_002385b0();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_002385b0();
         return (void*)(t);
     }
     return (void*)(0);
@@ -507,7 +508,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<fight::RandomCondition>:
         ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_2387b0* t = new (mem) TrackFactoryTemplate_2387b0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_00238610();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_00238610();
         return (void*)(t);
     }
     return (void*)(0);
@@ -517,7 +519,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<fight::RandomCondition>:
 // 0x002387f0 fight::ConditionFactoryTemplate<fight::RandomCondition>::vfunc_5 (47 B): matches/0x002387f0.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VRandomCondition@fight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<fight::RandomCondition>::vfunc_5() {
-    RandomCondition_2387f0* p = (RandomCondition_2387f0*)alloc(0x10);
+    RandomCondition_2387f0* p = (RandomCondition_2387f0*)FUN_0008d690(sizeof(RandomCondition_2387f0));   // (gfx1) 0x10 on 32-bit; the record's size natively
     if (p) {
         p->Init_00234590(0);
         p->vf = ((hulk_intptr)DAT_00428210);

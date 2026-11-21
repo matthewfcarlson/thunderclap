@@ -46,7 +46,8 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::ChargeTra
         ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_17e030* t = new (mem) TrackFactoryTemplate_17e030();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_00179c10();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_00179c10();
         return (void*)(t);
     }
     return (void*)(0);
@@ -63,7 +64,8 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::SnapToGro
         ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_17e0f0* t = new (mem) TrackFactoryTemplate_17e0f0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_00179d60();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_00179d60();
         return (void*)(t);
     }
     return (void*)(0);

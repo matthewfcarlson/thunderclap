@@ -84,7 +84,7 @@ class Caster_1136e0 {
     void* vftable;   // (sweep-caster-land) the word its inline constructor writes (was a local polymorphic stand-in:
                      // clang's own vftable natively, whose slot had no definition)
 };
-void other_002343e0(void*, Caster_1136e0*);
+void FUN_002343e0(void*, Caster_1136e0*);
 extern "C" char DAT_0040e568[];   // fight::ConditionFactoryCasterTemplate<hulkfight::ai::DefendingCondition>'s vftable
 class Caster_113900 {
   public:
@@ -96,21 +96,21 @@ class Obj {
     void apply_00236760(void*);
     int Get_00236760(void*);
 };
-extern "C" void* find(const char*, Caster_113900*);
+extern "C++" void* FUN_002343e0(const char*, Caster_113900*);   // (gfx1) its own name: `find` stood for several functions natively (ambiguous binding)
 extern "C" char DAT_0040e5a4[];   // fight::ConditionFactoryCasterTemplate<hulkfight::ai::LeashedCondition>'s vftable
 class Caster_1139f0 {
   public:
     void* vftable;   // (sweep-caster-land) the word its inline constructor writes (was a local polymorphic stand-in:
                      // clang's own vftable natively, whose slot had no definition)
 };
-extern void* lookup_002343e0(const char*, Caster_1139f0*);
+extern void* FUN_002343e0(const char*, Caster_1139f0*);
 extern "C" char DAT_0040e5d4[];   // fight::ConditionFactoryCasterTemplate<hulkfight::ai::HulkActionCountCondition>'s vftable
 class Caster {
   public:
     void* vftable;   // (sweep-caster-land) the word its inline constructor writes (was a local polymorphic stand-in:
                      // clang's own vftable natively, whose slot had no definition)
 };
-extern "C" void* Find(const char*, Caster*);
+extern "C" void* FUN_002343e0(const char*, Caster*);   // (gfx1) its own name: `Find` stood for several functions natively (ambiguous binding)
 
 
 // 0x001133f0 hulkfight::ai::SemaphoreWaitAction::vfunc_2 (71 B): matches/0x001133f0.cpp
@@ -214,7 +214,7 @@ KeywordWaitAction_113530* KeywordWaitAction_113530::vfunc_2(int flag) {
 void target(void* p) {
     Caster_1136e0 c;
     c.vftable = (void*)DAT_0040e5d4;   // (sweep-caster-land) the game's vftable by address
-    other_002343e0(p, &c);
+    FUN_002343e0(p, &c);
 }
 
 } // namespace fn_f054a7c3
@@ -232,11 +232,11 @@ class Target {
   public:
     void Apply_00236760(void*);
 };
-void* __cdecl Find_002343e0(void*, Caster_1138a0*);
+void* __cdecl FUN_002343e0(void*, Caster_1138a0*);
 extern "C" void FUN_001138a0(Target* target, void* value) {
     Caster_1138a0 caster;
     caster.vftable = (void*)DAT_0040e550;   // (sweep-caster-land) the game's vftable by address
-    target->Apply_00236760(Find_002343e0(value, &caster));
+    target->Apply_00236760(FUN_002343e0(value, &caster));
 }
 } // namespace fn_001138a0
 
@@ -250,7 +250,7 @@ class Caster {
     void* vftable;   // (sweep-caster-land) the word its inline constructor writes (was a local polymorphic stand-in:
                      // clang's own vftable natively, whose slot had no definition)
 };
-extern "C++" void* __cdecl Lookup_002343e0(void*, Caster*);
+extern "C++" void* __cdecl FUN_002343e0(void*, Caster*);
 class Object {
   public:
     void Set_00236760(void*);
@@ -258,7 +258,7 @@ class Object {
 void __cdecl Target(Object* obj, void* name) {
     Caster caster;
     caster.vftable = (void*)DAT_0040e55c;   // (sweep-caster-land) the game's vftable by address
-    void* p = Lookup_002343e0(name, &caster);
+    void* p = FUN_002343e0(name, &caster);
     obj->Set_00236760(p);
 }
 } // namespace fn_001138d0
@@ -270,7 +270,7 @@ namespace fn_f054a7c3 {
 extern "C" void FUN_00113900(Obj* obj, const char* name) {
     Caster_113900 caster;
     caster.vftable = (void*)DAT_0040e568;   // (sweep-caster-land) the game's vftable by address
-    void* p = find(name, &caster);
+    void* p = FUN_002343e0(name, &caster);
     obj->apply_00236760(p);
 }
 
@@ -285,7 +285,7 @@ class Caster_113930 {
     void* vftable;   // (sweep-caster-land) the word its inline constructor writes (was a local polymorphic stand-in:
                      // clang's own vftable natively, whose slot had no definition)
 };
-void* __cdecl Find_002343e0(void*, Caster_113930*);
+void* __cdecl FUN_002343e0(void*, Caster_113930*);
 class Obj {
   public:
     void Apply_00236760(void*);
@@ -293,7 +293,7 @@ class Obj {
 extern "C" void __cdecl FUN_00113930(Obj* obj, void* item) {
     Caster_113930 caster;
     caster.vftable = (void*)DAT_0040e574;   // (sweep-caster-land) the game's vftable by address
-    void* p = Find_002343e0(item, &caster);
+    void* p = FUN_002343e0(item, &caster);
     obj->Apply_00236760(p);
 }
 } // namespace fn_00113930
@@ -320,11 +320,11 @@ class Owner {
   public:
     void Set_00236760(void*);
 };
-void* Find_002343e0(const char*, fight::ConditionFactoryCaster*);
+void* FUN_002343e0(const char*, fight::ConditionFactoryCaster*);
 extern "C" void FUN_00113990(Owner* owner, const char* name) {
     fight::ConditionFactoryCasterTemplate<hulkfight::ai::PropsToChuckCondition> caster;
     caster.vftable = (void*)DAT_0040e58c;
-    owner->Set_00236760(Find_002343e0(name, &caster));
+    owner->Set_00236760(FUN_002343e0(name, &caster));
 }
 } // namespace fn_00113990
 
@@ -335,7 +335,7 @@ namespace fn_f054a7c3 {
 extern "C" void FUN_001139f0(Obj* obj, const char* name) {
     Caster_1139f0 caster;
     caster.vftable = (void*)DAT_0040e5a4;   // (sweep-caster-land) the game's vftable by address
-    void* p = lookup_002343e0(name, &caster);
+    void* p = FUN_002343e0(name, &caster);
     obj->apply_00236760(p);
 }
 
@@ -350,7 +350,7 @@ class Caster {
     void* vftable;   // (sweep-caster-land) the word its inline constructor writes (was a local polymorphic stand-in:
                      // clang's own vftable natively, whose slot had no definition)
 };
-extern "C++" void* __cdecl find_002343e0(void*, Caster*);
+extern "C++" void* __cdecl FUN_002343e0(void*, Caster*);
 class Factory {
   public:
     void apply_00236760(void*);
@@ -358,7 +358,7 @@ class Factory {
 extern "C" void __cdecl FUN_00113a20(Factory* f, void* p) {
     Caster caster;
     caster.vftable = (void*)DAT_0040e5b0;   // (sweep-caster-land) the game's vftable by address
-    f->apply_00236760(find_002343e0(p, &caster));
+    f->apply_00236760(FUN_002343e0(p, &caster));
 }
 } // namespace fn_00113a20
 
@@ -376,11 +376,11 @@ class Factory {
   public:
     void Add_00236760(void*);
 };
-extern "C++" void* Find_002343e0(const char*, Caster*);
+extern "C++" void* FUN_002343e0(const char*, Caster*);
 void Function(Factory* factory, const char* name) {
     Caster c;
     c.vftable = (void*)DAT_0040e5bc;   // (sweep-caster-land) the game's vftable by address
-    factory->Add_00236760(Find_002343e0(name, &c));
+    factory->Add_00236760(FUN_002343e0(name, &c));
 }
 } // namespace fn_00113a50
 
@@ -398,11 +398,11 @@ class Obj {
   public:
     void Set_00236760(void*);
 };
-void* Find_002343e0(hulk_intptr, Caster*);   // (decl1) passes as defined
+void* FUN_002343e0(hulk_intptr, Caster*);   // (decl1) passes as defined
 extern "C" void FUN_00113a80(Obj* obj, hulk_intptr id) {
     Caster caster;
     caster.vftable = (void*)DAT_0040e5c8;   // (sweep-caster-land) the game's vftable by address
-    obj->Set_00236760(Find_002343e0(id, &caster));
+    obj->Set_00236760(FUN_002343e0(id, &caster));
 }
 } // namespace fn_00113a80
 
@@ -413,7 +413,7 @@ namespace fn_f054a7c3 {
 extern "C" int FUN_00113ab0(Obj* obj, const char* name) {
     Caster caster;
     caster.vftable = (void*)DAT_0040e5d4;   // (sweep-caster-land) the game's vftable by address
-    return obj->Get_00236760(Find(name, &caster));
+    return obj->Get_00236760(FUN_002343e0(name, &caster));
 }
 
 } // namespace fn_f054a7c3
@@ -438,11 +438,11 @@ class Obj {
   public:
     void Do_00236760(void*);
 };
-extern "C++" void* Lookup_002343e0(void*, fight::ConditionFactoryCasterTemplate<hulkfight::ai::PropsToSuckCondition>*);
+extern "C++" void* FUN_002343e0(void*, fight::ConditionFactoryCasterTemplate<hulkfight::ai::PropsToSuckCondition>*);
 extern "C" void FUN_00113ae0(Obj* obj, void* b) {
     fight::ConditionFactoryCasterTemplate<hulkfight::ai::PropsToSuckCondition> caster;
     caster.vftable = (void*)DAT_0040e5e0;
-    obj->Do_00236760(Lookup_002343e0(b, &caster));
+    obj->Do_00236760(FUN_002343e0(b, &caster));
 }
 } // namespace fn_00113ae0
 
@@ -460,11 +460,11 @@ class Owner {
   public:
     void Fn_00236760(void*);
 };
-void* __cdecl Find_002343e0(void*, Caster*);
+void* __cdecl FUN_002343e0(void*, Caster*);
 extern "C" void __cdecl FUN_00113b10(Owner* o, void* key) {
     Caster c;
     c.vftable = (void*)DAT_0040e5ec;   // (sweep-caster-land) the game's vftable by address
-    void* p = Find_002343e0(key, &c);
+    void* p = FUN_002343e0(key, &c);
     o->Fn_00236760(p);
 }
 } // namespace fn_00113b10
@@ -483,11 +483,11 @@ class Factory {
   public:
     void use_00236760(void*);
 };
-extern "C++" void* __cdecl lookup_002343e0(const char*, Caster*);
+extern "C++" void* __cdecl FUN_002343e0(const char*, Caster*);
 extern "C" void __cdecl FUN_00113b40(Factory* f, const char* name) {
     Caster c;
     c.vftable = (void*)DAT_0040e5f8;   // (sweep-caster-land) the game's vftable by address
-    void* p = lookup_002343e0(name, &c);
+    void* p = FUN_002343e0(name, &c);
     f->use_00236760(p);
 }
 } // namespace fn_00113b40
@@ -507,11 +507,11 @@ class Owner {
   public:
     void Set_00236760(void*);
 };
-void* __cdecl Find_002343e0(void*, Caster_113b70*);
+void* __cdecl FUN_002343e0(void*, Caster_113b70*);
 extern "C" void __cdecl FUN_00113b70(Owner* owner, void* key) {
     SpecificCaster caster;
     caster.vftable = (void*)DAT_0040e604;   // (sweep-caster-land) the game's vftable by address
-    owner->Set_00236760(Find_002343e0(key, &caster));
+    owner->Set_00236760(FUN_002343e0(key, &caster));
 }
 } // namespace fn_00113b70
 
@@ -527,11 +527,11 @@ struct Caster {
 struct Owner {
     void Apply_002367c0(void*);
 };
-extern "C++" void* __cdecl Find_00236ac0(const char*, Caster*);
+extern "C++" void* __cdecl FUN_00236ac0(const char*, Caster*);
 void __cdecl Target(Owner* owner, const char* name) {
     Caster caster;
     caster.vftable = (void*)DAT_0040e610;   // (sweep-caster-land) the game's vftable by address
-    void* p = Find_00236ac0(name, &caster);
+    void* p = FUN_00236ac0(name, &caster);
     owner->Apply_002367c0(p);
 }
 } // namespace fn_00113ba0
@@ -550,11 +550,11 @@ class Obj {
   public:
     void Apply_002367c0(void*);
 };
-extern void* __cdecl Find_00236ac0(void*, Caster_113bd0*);
+extern void* __cdecl FUN_00236ac0(void*, Caster_113bd0*);
 extern "C" void FUN_00113bd0(Obj* obj, void* arg) {
     Caster_113bd0 caster;
     caster.vftable = (void*)DAT_0040e61c;   // (sweep-caster-land) the game's vftable by address
-    obj->Apply_002367c0(Find_00236ac0(arg, &caster));
+    obj->Apply_002367c0(FUN_00236ac0(arg, &caster));
 }
 } // namespace fn_00113bd0
 
@@ -572,11 +572,11 @@ class Obj {
   public:
     void set_002367c0(void*);
 };
-extern void* find_00236ac0(const char*, Caster*);
+extern void* FUN_00236ac0(const char*, Caster*);
 extern "C" void FUN_00113c30(Obj* obj, const char* name) {
     Caster c;
     c.vftable = (void*)DAT_0040e634;   // (sweep-caster-land) the game's vftable by address
-    void* p = find_00236ac0(name, &c);
+    void* p = FUN_00236ac0(name, &c);
     obj->set_002367c0(p);
 }
 } // namespace fn_00113c30
@@ -595,11 +595,11 @@ class Owner {
   public:
     void use_002367c0(void*);
 };
-void* find_00236ac0(void*, Caster*);
+void* FUN_00236ac0(void*, Caster*);
 extern "C" void FUN_00113c60(Owner* owner, void* value) {
     Caster caster;
     caster.vftable = (void*)DAT_0040e640;   // (sweep-caster-land) the game's vftable by address
-    void* p = find_00236ac0(value, &caster);
+    void* p = FUN_00236ac0(value, &caster);
     owner->use_002367c0(p);
 }
 } // namespace fn_00113c60
@@ -614,7 +614,7 @@ class Caster {
     void* vftable;   // (sweep-caster-land) the word its inline constructor writes (was a local polymorphic stand-in:
                      // clang's own vftable natively, whose slot had no definition)
 };
-void* __cdecl Find_00236ac0(void*, Caster*);
+void* __cdecl FUN_00236ac0(void*, Caster*);
 class Owner {
   public:
     void* Get_002367c0(void*);
@@ -622,7 +622,7 @@ class Owner {
 extern "C" void* __cdecl FUN_00113c90(Owner* owner, void* p) {
     Caster caster;
     caster.vftable = (void*)DAT_0040e64c;   // (sweep-caster-land) the game's vftable by address
-    void* x = Find_00236ac0(p, &caster);
+    void* x = FUN_00236ac0(p, &caster);
     return owner->Get_002367c0(x);
 }
 } // namespace fn_00113c90
@@ -641,11 +641,11 @@ class Obj {
   public:
     void take_002367c0(void*);
 };
-extern "C++" void* lookup_00236ac0(void*, Caster*);
+extern "C++" void* FUN_00236ac0(void*, Caster*);
 extern "C" void FUN_00113cc0(Obj* obj, void* name) {
     Caster caster;
     caster.vftable = (void*)DAT_0040e658;   // (sweep-caster-land) the game's vftable by address
-    obj->take_002367c0(lookup_00236ac0(name, &caster));
+    obj->take_002367c0(FUN_00236ac0(name, &caster));
 }
 } // namespace fn_00113cc0
 
@@ -664,11 +664,11 @@ class Factory {
   public:
     void Set_002367c0(Token*);
 };
-Token* Find_00236ac0(void*, Caster*);
+Token* FUN_00236ac0(void*, Caster*);
 extern "C" void FUN_00113cf0(Factory* f, void* p) {
     Caster c;
     c.vftable = (void*)DAT_0040e664;   // (sweep-caster-land) the game's vftable by address
-    f->Set_002367c0(Find_00236ac0(p, &c));
+    f->Set_002367c0(FUN_00236ac0(p, &c));
 }
 } // namespace fn_00113cf0
 
@@ -686,11 +686,11 @@ class Owner {
   public:
     void Add_002367c0(void*);
 };
-extern "C++" void* __cdecl Find_00236ac0(void*, Caster*);
+extern "C++" void* __cdecl FUN_00236ac0(void*, Caster*);
 extern "C" void FUN_00113d20(Owner* owner, void* track) {
     Caster caster;
     caster.vftable = (void*)DAT_0040e670;   // (sweep-caster-land) the game's vftable by address
-    owner->Add_002367c0(Find_00236ac0(track, &caster));
+    owner->Add_002367c0(FUN_00236ac0(track, &caster));
 }
 } // namespace fn_00113d20
 

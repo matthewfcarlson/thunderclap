@@ -458,11 +458,11 @@ extern char hulk_at_00428c94[];
 struct Track {
     virtual void V();
 };
-extern "C" Track* __cdecl FUN_00236ac0(int, Track*);
+extern "C" Track* __cdecl FUN_00236ac0(hulk_intptr, Track*);   // (gfx1) the name as hulk_intptr (a pointer natively, as the definition takes it)
 struct Receiver_23ddc0 {
     void Finish_002367c0(Track*);
 };
-extern "C" void FUN_0023ddc0(Receiver_23ddc0* c, int b) {
+extern "C" void FUN_0023ddc0(Receiver_23ddc0* c, hulk_intptr b) {
     Track t;
     *(void**)&t = hulk_at_00428c94;
     Track* p = FUN_00236ac0(b, &t);
@@ -481,7 +481,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<fight::CommentCondition>
         ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_23ddf0* t = new (mem) TrackFactoryTemplate_23ddf0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_0023dc90();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_0023dc90();
         return (void*)(t);
     }
     return (void*)(0);
@@ -527,7 +528,8 @@ template <> void* fight::TrackFactoryCasterTemplate<fight::CommentTrack>::vfunc_
         ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_23de90* t = new (mem) TrackFactoryTemplate_23de90();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        postInit();
+        void FUN_0023dcf0();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
+        FUN_0023dcf0();
         return (void*)(t);
     }
     return (void*)(0);

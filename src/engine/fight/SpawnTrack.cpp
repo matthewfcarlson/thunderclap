@@ -193,7 +193,7 @@ class TrackFactoryCasterTemplate_23efe0 {   // (fix2) was polymorphic (virtual b
     void *vftable;
     TrackFactoryCasterTemplate_23efe0() { vftable = DAT_00428f2c; }
 };
-extern "C" void* __cdecl Find(void*, TrackFactoryCasterTemplate_23efe0*);
+extern "C" void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_23efe0*);   // (gfx1) its own name: `Find` stood for several functions natively (ambiguous binding)
 class Obj {
   public:
     void Set_002367c0(void*);
@@ -645,7 +645,7 @@ SpawnAction_23ef70* SpawnAction_23ef70::f2(unsigned char flags) {
 // sym: _FUN_0023efe0
 extern "C" void FUN_0023efe0(Obj* obj, void* name) {
     TrackFactoryCasterTemplate_23efe0 caster;
-    obj->Set_002367c0(Find(name, &caster));
+    obj->Set_002367c0(FUN_00236ac0(name, &caster));
 }
 
 

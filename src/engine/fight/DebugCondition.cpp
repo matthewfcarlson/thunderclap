@@ -28,7 +28,7 @@ class ConditionFactoryCasterTemplate_23d420 {   // (fix2) was polymorphic (virtu
     void *vftable;
     ConditionFactoryCasterTemplate_23d420() { vftable = DAT_00428af0; }
 };
-extern "C" void* Find(const char*, ConditionFactoryCasterTemplate_23d420*);
+extern "C++" void* FUN_002343e0(const char*, ConditionFactoryCasterTemplate_23d420*);   // (gfx1) its own name: `Find` stood for several functions natively (ambiguous binding)
 class Owner {
   public:
     void Apply_00236760(void*);
@@ -123,7 +123,7 @@ struct ConditionFactoryTemplate_23d7c0 {
 // sym: _FUN_0023d420
 extern "C" void FUN_0023d420(Owner* owner, const char* name) {
     ConditionFactoryCasterTemplate_23d420 caster;
-    void* p = Find(name, &caster);
+    void* p = FUN_002343e0(name, &caster);
     owner->Apply_00236760(p);
 }
 

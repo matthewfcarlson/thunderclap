@@ -33,7 +33,7 @@ class ConditionFactoryTemplate_239230 {
     TrackImpl mTrack;
 };
 
-void postInit();
+void FUN_00238f70();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
 
 template <> void* fight::ConditionFactoryCasterTemplate<fight::PrintCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -42,7 +42,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<fight::PrintCondition>::
         ((InitHelper*)mem)->init_002343b0();
         ConditionFactoryTemplate_239230* t = new (mem) ConditionFactoryTemplate_239230();
         t->mTrack.setup_0027b040(arg);
-        postInit();
+        FUN_00238f70();
         return (void*)(t);
     }
     return (void*)(0);
