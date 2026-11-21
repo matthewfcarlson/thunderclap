@@ -213,7 +213,15 @@ LoadStream.cpp (0x263f30 `__declspec(noinline)`); a LoadObject descendant's dele
 unaddressed operator name to the wrong call (`??_V` paired with 0x0008d6d0), add `// equiv-map: NAME = 0xADDR` to the block:
 a mapping hint, not a relaxation (nat2). In `--wine` mode a directed input never patches the original's .rdata, even through a fuzzed
 pointer (`rooverlay`; a run mostly of such inputs is `rooverlay_dominated`): a `--wine` difference on a strcmp/memcmp
-against a literal, on an input pointing an argument into .rdata, is that rule's territory, not a source bug (integ9, 0x000b0a50). A `??_G` written as an explicit function keeps `X::~X() {}` (other TUs'
+against a literal, on an input pointing an argument into .rdata, is that rule's territory, not a source bug (integ9, 0x000b0a50). `// vclass: +0xOFF .?AVClass@ns@@ EVIDENCE` pins the
+pop of the original's indirect call at entry+OFF: the checker requires every class of the RTTI family to pop the same N in
+that slot, N allowed by the original's stack model, and EVIDENCE citing the object word's writers (function starts or
+vftables); an unresolved line is `vclass_bad`, and a split is pinned only when it takes exactly N. Write one for each call a
+`split_unpinned` run names (`split_unpinned_first` gives the input). vsplit/msplit pair our call with the original's by
+slot (the n-th call through the same displacement, clang's `mov reg,[base+disp]; call reg` traced to its load); an
+unpaired call takes no split (D177, integ10). Shard reports merge only under the checker version that ran them (D181).
+The game's snprintf FUN_000964a0 is modelled by MSVC's rules (an output of exactly n characters stays unterminated):
+never "fix" an unterminated stub buffer by always terminating it (D181). A `??_G` written as an explicit function keeps `X::~X() {}` (other TUs'
 native code references `??1X`) and has `??_G`'s signature, `void* vfunc_N(unsigned int flags)` (D114). For the script-binding gen templates (Closure/Method/Function) no native
 `template class` line or destructor specialization is needed any more: either one re-instantiates gen's polymorphic
 templates natively (RTTI, unbound `??1`) (script2, a47fd3f2c).
