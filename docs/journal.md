@@ -2559,3 +2559,18 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   (CAmbientsManager::vfunc_1, "BitDef"), and the tiles around the hulk's tile 229 have no road bits in either of the
   two tables loaded at frame 439, so 0x0007a420 finds no cell from the data. Frame 445 draws 4 here (0x0007a420 1,
   0x0007a8f0 2: the one path is 270+ units away, one more after them); the reference draws 6.
+
+## 2026-11-21 wasm5: the region game data parses on wasm (MyBufferStream::vfunc_3's eax)
+
+- Oracle: a Wine build replaying play3 matches the reference at every probed frame, so its HULK_TRACE_FUNCS /
+  HULK_TRACE_SPAN probes (studio, a private `git archive HEAD` workspace) say what the reference does where the wasm run
+  differs. The default workspace ships the checkout's dirty TUs and materialize then refuses their unproven blocks.
+- Frame 445's two extra draws in the reference are CSPHulkPropInstance's per-frame update (0x001d8fc0:
+  `rng->FUN_00078780() < 0.005f` for a prop whose physics object is awake): two props woken at 445 by
+  AICollisionSolverAgent's contact callback (0x001b2560 -> UnitUpdate 0x001b0090 -> 0x001d7510).
+- The wasm run had 24 props in the world where the Wine build has 45, from 98 CSPManager records instead of 220:
+  every region's game data buffer (0x001fab00 -> 0x00337c20) failed to parse. 0x00337c20 reads the stream's slot 3
+  as the bytes read (`read(&size, 4) < 4`); 0x001fa9e0 is a void in the source that leaves the clamped count in eax.
+  It returns the count under HULK_PORT_ABI now (the 32-bit code is unchanged). Records, entries and world objects
+  then match the Wine build (220 / 215 / 45). The first divergence stays rng 446: in the reference the props collide
+  from frame 442 (0x001b2560 called 5, 5, 20, 21 times in 442..445); on wasm it runs only twice, at 441.

@@ -140,15 +140,25 @@ typedef unsigned char byte;
 extern "C" void * __cdecl memcpy(void *, const void *, unsigned int);
 #endif
 
-struct Stream_1fa9e0 { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(void *, unsigned int); virtual void vfunc_4(); };
-struct MyBufferStream : Stream_1fa9e0 { byte *data; int length; int position; virtual void vfunc_3(void *destination, unsigned int count); };
-void MyBufferStream::vfunc_3(void *destination, unsigned int count) {
+// HULK_PORT_ABI (include/compat/ptr.h): the original leaves the clamped count in eax and its reader (0x00337c20:
+// `read(&size, 4) < 4`) uses it as the bytes read; the port builds return it (wasm5), the 32-bit builds keep void
+#if defined(HULK_PORT_ABI)
+typedef int Ret_1fa9e0;
+#else
+typedef void Ret_1fa9e0;
+#endif
+struct Stream_1fa9e0 { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual Ret_1fa9e0 vfunc_3(void *, unsigned int); virtual void vfunc_4(); };
+struct MyBufferStream : Stream_1fa9e0 { byte *data; int length; int position; virtual Ret_1fa9e0 vfunc_3(void *destination, unsigned int count); };
+Ret_1fa9e0 MyBufferStream::vfunc_3(void *destination, unsigned int count) {
     int available = length - position;
     if ((int)(position + count) > length) count = available;
     if ((int)count > 0) {
         memcpy(destination, data + position, count);
         position += count;
     }
+#if defined(HULK_PORT_ABI)
+    return (int)count;
+#endif
 }
 } // namespace fn_001fa9e0
 
@@ -229,7 +239,11 @@ public:
     virtual void* v0_001fae60(int);
     virtual bool v1_001fa9c0(void*);
     virtual void v2();
+#if defined(HULK_PORT_ABI)
+    virtual int v3_001fa9e0(void*, int);   // returns the bytes read on the port builds (0x001fa9e0, wasm5)
+#else
     virtual void v3_001fa9e0(void*, int);
+#endif
     virtual bool vfunc_4_001faa30();
     void* buffer;
     int size;
