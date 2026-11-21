@@ -262,7 +262,10 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   original breaks it; vftable-slot callers are listed unprobed. A contract that compiles into the Wine image (any HULK_PRE_* / HULK_POST_*, new or changed) is a shared
   change: it lands only with a Wine pair (play3 to 60000, ckpt_gate ok). A range item on an object word also needs every
   constructor of its class family to store the word in range: a census of writers says nothing about a word nobody writes
-  (integ7: 0x000a97e0's uninitialized idle shake times trapped play3 at frame 8,730).
+  (integ7: 0x000a97e0's uninitialized idle shake times trapped play3 at frame 8,730). The item names the word with its type (`// pre: ge(*this+0xOFF.f32, c)`; the suffix is required), the macro names
+  the field (`HULK_PRE_GE(shake[0].time, 0.0f)`; tools/pre_field.py probes the offset), and the block's own `// pre-writers:`
+  cites the census's writers (raw ones may be dismissed in `// pre-writers-dismissed: 0xINSN (why)`). `EQUIV_ON=plant:...` plants
+  input words for regress cases only; like any switch, a run with it proves nothing (integ7, rev5).
 - **Field bounds** (x64bounds): a pointer field the code indexes with a caller's index gets `HULK_COUNT(count_field)`
   (typed pointee) or `HULK_COUNT_BYTES(count_field, n)` (void*) on its declaration (include/compat/hulk_annot.h; nothing
   in compiled builds), its comment citing every writer of the pointer; the count field carries `HULK_RANGE(lo, hi)`
@@ -297,7 +300,9 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
 Heavy jobs (`equiv.py` beyond quick single checks, tree builds, regress suites, scans, sweeps) go through the shared queue,
 `tools/jobq.py` (`docs/compute.md`): `submit`, `wait`, `status`. It spreads jobs over the remote hosts (mac2, mac1, studio);
 the laptop takes only `wine-gfx` (graphics) jobs. Batches of equivalence checks: `tools/jobq_equiv.py`, or `--jobq` on
-`equiv_batch.py`, `promote_dispatch.py` and `tests/equiv/regress.py`. At most 2 local processes for interactive debugging.
+`equiv_batch.py`, `promote_dispatch.py` and `tests/equiv/regress.py`. At most 2 local processes for interactive debugging. Keep the laptop's disk at 20 GB free or more: a full disk stops every agent's
+shell and crashes the queue daemon, and a restart loses running jobs (11-20: 0x88020's two ~15 h proofs). Delete your own
+workspaces and fetched job outputs once landed.
 Wine runs are `--needs wine`. xemu jobs always carry `-snapshot`. Full Wine builds go through `tools/wine_build_job.py`
 (`--host local` only on purpose; graphics runs stay on the laptop), replays through `tools/wine_replay_job.py`.
 Terms: the *Wine build* is the 32-bit clang image run under Wine (`tools/wine_*.py`, `docs/wine-*.md`, `HULK_WINE_*`; the old
