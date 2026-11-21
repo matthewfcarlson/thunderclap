@@ -37,7 +37,7 @@ struct Object {
     void target(const char*,const char*,const char*,const char*,unsigned,unsigned);
 };
 int FUN_000fc310();
-extern "C" int FUN_000fc320();
+extern "C" int __cdecl FUN_000fc320(void);   // (decl1) as defined (unk_0fb830.cpp)
 struct Slot_b5030 {  };
 struct Holder_b5030 { Slot_b5030 *FUN_00086270(); };
 } // namespace fn_fedc4c02
@@ -365,7 +365,7 @@ struct Obj_b8c90 {
 Obj_b8c90* GetObj_000fc310();
 extern "C" void __cdecl FUN_000fc170(int);   // (decl1) as defined (unk_0fb830.cpp)
 extern "C" int __cdecl CallB_000fc310();
-extern "C" int __cdecl CallC_000fc320();
+extern "C" int __cdecl FUN_000fc320(void);   // (decl1) as defined (unk_0fb830.cpp)
 class Renderer_b90c0 {
   public:
     void FUN_001b98e0(float a, float b, float c, float d, float e, float f);
@@ -2166,7 +2166,7 @@ void JumpMarkers::FUN_000b8e70(int unused)
 void owners::Target_b9090::FUN_000b9090(int value) {
     FUN_000fc170(value);
     if (CallB_000fc310() == 0) {
-        if (CallC_000fc320() == 0) {
+        if (FUN_000fc320() == 0) {
             state = 4;
         }
     }
@@ -2230,7 +2230,7 @@ extern "C" void __cdecl FUN_000fc280(const char*);
 void* __cdecl FUN_000fc260(const char*);
 Item_b92f0* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 int __cdecl FUN_000fc1b0();
-extern "C" int __cdecl FUN_000fc320();
+extern "C" int __cdecl FUN_000fc320(void);   // (decl1) as defined (unk_0fb830.cpp)
 extern "C" void __cdecl FUN_000fc2e0();
 void __cdecl FUN_000fc1a0();
 extern "C" unsigned int __cdecl FUN_00267f80();

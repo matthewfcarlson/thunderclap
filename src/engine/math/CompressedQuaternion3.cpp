@@ -15,7 +15,7 @@ namespace fn_f5ce7ee6 {
 // ---- declarations shared by the functions below
 namespace fn_f5ce7ee6 {
 extern char DAT_0042caa8[];
-void* __cdecl FUN_0008d6d0(unsigned size);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 void __stdcall FUN_00011520(void* base, unsigned size, int count, void* ctor);
 // the element constructor (thiscall: the element first; returns it), passed to the vector helper as a function
 void* __fastcall FUN_00289ed0(void* element);
@@ -114,7 +114,7 @@ struct Q_28d510 {
     unsigned int a, b, c, d;
 };
 typedef void(__fastcall* Callback_28d750)(void*);
-extern void* Alloc_0008d6d0(unsigned int);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern void __stdcall VecNew_00011520(void*, int, int, Callback_28d750);
 class Mem_28d750 {
   public:
@@ -221,7 +221,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 namespace fn_f5ce7ee6 {
 
 // 0x0028d150 FUN_0028d150 (128 B): equivalent/0x0028d150.cpp
-// sym: ?Construct@CompressedQuaternionChannel_28d150@fn_f5ce7ee6@@QAEPAV12@HH@Z @f10c6386eb38 @wc2c5966b9184 @v3ff99cc219ea
+// sym: ?Construct@CompressedQuaternionChannel_28d150@fn_f5ce7ee6@@QAEPAV12@HH@Z @f10c6386eb38 @wc2c5966b9184 @v8c2a4510f8f9
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_0028d150 @ 0x0028d150
 // 0x0028d150: channel constructor holding 8-byte elements, allocated from the parent pool or the heap
@@ -353,7 +353,7 @@ void IntChannel::vfunc_1() {
 
 
 // 0x0028d490 FUN_0028d490 (128 B): equivalent/0x0028d490.cpp
-// sym: ?Construct@CompressedQuaternionChannel_28d490@fn_f5ce7ee6@@QAEPAV12@HH@Z @a45d72a5574e @wdf654e962429 @v8fa3f69921ae
+// sym: ?Construct@CompressedQuaternionChannel_28d490@fn_f5ce7ee6@@QAEPAV12@HH@Z @a45d72a5574e @wdf654e962429 @vbbfc09ee655f
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_0028d490 @ 0x0028d490
 // 0x0028d490: channel constructor holding 6-byte elements, allocated from the parent pool or the heap
@@ -551,7 +551,7 @@ CompressedQuaternionChannel_28d750::CompressedQuaternionChannel_28d750(int x, hu
     m18 = 0;
     if (mc == 0) {
         int n = m10;
-        void* p = Alloc_0008d6d0(n * 4);
+        void* p = FUN_0008d6d0(n * 4);
         m18 = (p ? (VecNew_00011520(p, 4, n, ElemCtor), p) : 0);
         return;
     }
@@ -745,11 +745,11 @@ void IntChannel::vfunc_1() {
 
 
 // 0x0028dae0 FUN_0028dae0 (124 B): equivalent/0x0028dae0.cpp [wrapped: conflict: CompressedQuaternionChannel]
-// sym: ??0CompressedQuaternionChannel@fn_0028dae0@@QAE@HH@Z @d07eef88b34f @w0fa26bdcaac3 @v8aee96523193
+// sym: ??0CompressedQuaternionChannel@fn_0028dae0@@QAE@HH@Z @d07eef88b34f @w0fa26bdcaac3 @vcc2bd606d04e
 namespace fn_0028dae0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0028dae0 @ 0x0028dae0
-void *__cdecl FUN_0008d6d0(unsigned int size);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 void __stdcall FUN_00011520(void *base, unsigned int size, int count, void *ctor);
 // the element constructor (thiscall: the element first; returns it), passed to the vector helper as a function
 void* __fastcall FUN_00289ef0(void* element);

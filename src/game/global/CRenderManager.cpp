@@ -24,7 +24,7 @@ namespace fn_ff10b020 {
 struct View_nv_1b8690 {
     pure3d::View *FUN_00294880();
 };
-extern "C" void *__cdecl FUN_0008d690(unsigned int n);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 // (recs1) CRenderManager on its record (decls/managers.h; was `int pad0; View* child; int v[4]`)
 class Owner_1b8690 : public HulkRenderManager {
 public:
@@ -3154,7 +3154,7 @@ void Registry_1bb880::FUN_001bb880(const char* name, Owner_1bb880* object, Fn_1b
 
 
 // 0x001bb990 FUN_001bb990 (1676 B): equivalent/0x001bb990.cpp [wrapped: conflict: CRenderManager; Closure1; Closure3; Closure4 (+6)]
-// sym: ??0CRenderManager@fn_001bb990@@QAE@XZ @16ff379d94d9 @wb96e5264ca53 @v28aa03bbd789
+// sym: ??0CRenderManager@fn_001bb990@@QAE@XZ @16ff379d94d9 @wb96e5264ca53 @v15b68b28bc9b
 namespace fn_001bb990 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 36/36)
 // FUN_001bb990 @ 0x001bb990
@@ -3213,7 +3213,7 @@ class Shader_1bb990 {
     char pad2[0x20 - 0x14];
 };
 
-extern "C" void* FUN_0008d690(unsigned size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 void* FUN_00263ea0(unsigned size);
 
 

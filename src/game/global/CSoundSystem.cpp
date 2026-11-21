@@ -366,7 +366,7 @@ class C_1f22f0 {
     void FnH_001f1350(float);
     void Run(float, bool);
 };
-extern "C" void* FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 } // namespace fn_ffeee61e
 inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 namespace fn_ffeee61e {
@@ -1321,7 +1321,7 @@ void Node::Run() {
         Node* q = n;
         n = q->next;
         q->Run();
-        Destroy_0008d330(q);
+        operator delete(q);
     }
     Item_1f1c80* x = second;
     while (x) {
@@ -1334,7 +1334,7 @@ void Node::Run() {
             z->Del(1);
         }
         q->Clean_0027af50();
-        Destroy_0008d330(q);
+        operator delete(q);
     }
     ((Item_1f1c80*)((char*)&this->value.data[0]))->Clean_0027af50();
 }
@@ -1938,7 +1938,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 
 
-extern "C" void *__cdecl FUN_0008d690(unsigned int size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 
 template <class T> struct TypeName;
 template <> struct TypeName<void> { static const char *get() { return ((const char*)&DAT_0048e100); } };

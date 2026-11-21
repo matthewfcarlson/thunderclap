@@ -213,7 +213,7 @@ namespace fn_fd836fc7 {
 extern char DAT_004c1600;
 extern "C" void __cdecl FUN_001a1350();
 extern "C" char DAT_0041c3ac[];
-extern "C" void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class Base_1a1b00 {
   public:
     virtual void V0();
@@ -241,7 +241,7 @@ struct Param_1a1c40 {};
 struct LuaAction_1a1c40 {
     u32_1a1c40 call_001a1880(u32_1a1c40, hulk_uintptr, u32_1a1c40);
 };
-extern "C++" __declspec(nothrow) void* __cdecl FUN_0008d690(int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern void* hulk_at_0041c390[];
 class Ref_1a1c70 {
   public:

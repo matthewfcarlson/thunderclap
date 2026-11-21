@@ -623,7 +623,7 @@ class Actor_30040 {
 };
 struct Vector_301b0 { float x, y, z; };
 struct CActorManager_301b0 { bool FUN_000301b0(const char *, Vector_301b0); };
-extern "C" void* FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 } // namespace fn_f8e68f21
 inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 namespace fn_f8e68f21 {
@@ -6838,7 +6838,7 @@ namespace fn_00031310 {
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 314/314)
 // FUN_00031310 @ 0x00031310
 
-extern "C" void* FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class CActorManager;
 extern char DAT_0048e128,DAT_0048e0e4,DAT_0048e0f0,DAT_0048e134,DAT_0048e100,DAT_0048e10c;
 char FUN_001d04d0(const void*) throw();

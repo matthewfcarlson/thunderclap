@@ -186,14 +186,14 @@ struct Destination {
     char pad1[0x2e];
     unsigned char flag;
 };
-unsigned int* __cdecl FUN_002e6780(Source** source, unsigned int color, unsigned char flag);
+extern "C" unsigned int * __cdecl FUN_002e6780(void*, unsigned int, signed char);   // (decl1) as defined (unk_2e6780.cpp)
 struct Color { char pad[12]; unsigned int value; char pad2[8]; unsigned char alpha; };
 struct Palette { char pad[40]; signed char *entries; };
 unsigned int * __cdecl FUN_002e6840(Color **color, unsigned int value, unsigned int alpha);
 struct Lookup { char pad0[0x24]; unsigned *values; signed char *highBytes; };
 struct Root { char pad0[HULK_SPE(0x1bc)]; Lookup *lookup; };
 struct Result { char pad0[0xc]; unsigned value; char pad1[8]; unsigned char secondFlag; char pad2[0x25]; unsigned char firstFlag; };
-unsigned * __cdecl FUN_002e6780(Root **root, unsigned packed, unsigned flag);
+extern "C" unsigned int * __cdecl FUN_002e6780(void*, unsigned int, signed char);   // (decl1) as defined (unk_2e6780.cpp)
 unsigned * __cdecl FUN_002e6840(Root **root, unsigned value, unsigned flag);
 struct Curves_2d17b0 {
     char pad0[0x14];
@@ -636,7 +636,7 @@ extern "C" void FUN_002d1730() {
 
 
 // 0x002d1740 FUN_002d1740 (88 B): equivalent/0x002d1740.cpp
-// sym: _FUN_002d1740 @5cbb0586a35b @w570925626566 @vdd406f7e6916
+// sym: _FUN_002d1740 @0dd6b53ba0f0 @w146854dcaab3 @v94c9aa91c118
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002d1740 @ 0x002d1740
 extern "C" void __cdecl FUN_002d1740(int unused, int index, Root *root, Result *result) {

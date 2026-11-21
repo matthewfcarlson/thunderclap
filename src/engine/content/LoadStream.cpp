@@ -288,7 +288,7 @@ struct Obj_2656a0 {
 };
 struct Config_2656b0 { unsigned first, second, count, value; };
 struct Block_2656b0 { unsigned capacity, count, used; char padding[12]; void* slots; void* entries; int sentinel; void FUN_00231550(unsigned, unsigned, unsigned); };
-extern void* __cdecl FUN_0008d690(unsigned);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" void* __cdecl FUN_0008d6d0(unsigned);
 extern "C" void __cdecl FUN_0026dd70(void*, void*, void*, unsigned, unsigned);   // (x64t13) as defined (unk_26d480.cpp)
 // (x64t8) the registry's record (decls/loaders.h HulkContentRegistry)
@@ -347,7 +347,7 @@ struct Obj_265b70 : HulkContentRegistry {
     unsigned tail;                 // +0x38 (not set by the constructor)
     Obj_265b70* FUN_002656b0(Params* p);
 };
-void* FUN_0008d690(int size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 
 } // namespace fn_fa1126e6
 
@@ -1164,7 +1164,7 @@ extern "C" void __cdecl FUN_002656a0(void) {
 
 
 // 0x002656b0 FUN_002656b0 (264 B): equivalent/0x002656b0.cpp
-// sym: ?FUN_002656b0@Object@fn_fa1126e6@@QAEPAU12@PAUConfig_2656b0@2@@Z @cec56271febd @w6f98310057fa @vdcb55796e93d
+// sym: ?FUN_002656b0@Object@fn_fa1126e6@@QAEPAU12@PAUConfig_2656b0@2@@Z @cec56271febd @w6f98310057fa @vc3c74ba4dd50
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 10/10)
 // FUN_002656b0 @ 0x002656b0
 Object* Object::FUN_002656b0(Config_2656b0* config) {

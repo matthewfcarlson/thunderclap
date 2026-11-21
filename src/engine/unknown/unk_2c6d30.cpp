@@ -55,7 +55,7 @@ struct Object {
 extern "C" void* memset(void*, int, size_t);
 #endif
 namespace fn_f3d8c80d {
-extern "C" void* __cdecl FUN_0008d6d0(unsigned);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" void __stdcall FUN_00011520(void*, unsigned, unsigned, void*);
 extern "C" void __cdecl FUN_00011090();
 class Obj_2c7180 {
@@ -76,7 +76,7 @@ class Obj_2c7210 {
     void* value;
 };
 extern "C" void __cdecl FUN_000c7920();
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" void __stdcall Init(void*, int, int, const float*);
 typedef void (__cdecl *Callback)();
 extern "C++" void __stdcall FUN_00011520(void*, unsigned int, int, Callback);
@@ -463,7 +463,7 @@ void __fastcall FUN_002c7210(Obj_2c7210* self) {
 void owners::Obj_2c7240::FUN_002c7240(int index) {
     if (entries[index] == 0) {
         int n = count;
-        void* p = Alloc(n * 8);
+        void* p = FUN_0008d6d0(n * 8);
         if (p)
             Init(p, 8, n, (const float*)((hulk_intptr)(void (__cdecl*)())&FUN_000c7920));
         else

@@ -2,6 +2,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001f0ab0..0x001f2db0 (kind game, layer game, confidence high), dominant class CSoundSystem
 #include "tree_prelude.h"
+#include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
 #include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_fddead73 {
@@ -15,7 +16,7 @@ struct CSoundCommand_PlayDialogueEvent_nv_1f1740 {
     CSoundCommand_PlayDialogueEvent* FUN_001f0630(const char*, void*, unsigned, unsigned);
 };
 struct Manager_1f1740 { void FUN_001ef260(CSoundCommand_PlayDialogueEvent*); };
-extern void* __cdecl FUN_0008d710(unsigned, unsigned);
+extern "C" void* __cdecl FUN_0008d710(hulk_intptr, int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct CSoundCommand_PlayMissionDialogueEvent_nv_1f17f0 {
     CSoundCommand_PlayMissionDialogueEvent* FUN_001f0760(const char*, void*, unsigned, unsigned, unsigned, unsigned);
 };
@@ -38,7 +39,7 @@ public:
 struct CSoundCommand_PlayMusicEvent_nv_1f1970 {
     void *FUN_001f0810(const char *name, int b, int c);
 };
-void *__cdecl FUN_0008d710(int size, int tag);
+extern "C" void* __cdecl FUN_0008d710(hulk_intptr, int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct Frame_1f1970 {
     Mgr_1f1970 *mgr;
     char buf[0x40];

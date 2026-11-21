@@ -37,7 +37,7 @@ class SemaphoreWaitTrack_114e20 {
     virtual void e();
     virtual void f();
 };
-extern "C" void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct BaseInit {
     void go_00236d40();
 };
@@ -74,7 +74,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::SemaphoreWait
 // 0x00114e20 fight::TrackFactoryTemplate<hulkfight::ai::SemaphoreWaitTrack>::vfunc_5 (75 B): matches/0x00114e20.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VSemaphoreWaitTrack@ai@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::ai::SemaphoreWaitTrack>::vfunc_5() {
-    SemaphoreWaitTrack_114e20* p = (SemaphoreWaitTrack_114e20*)alloc(sizeof(::hulkfight::ai::SemaphoreWaitTrack));
+    SemaphoreWaitTrack_114e20* p = (SemaphoreWaitTrack_114e20*)FUN_0008d690(sizeof(::hulkfight::ai::SemaphoreWaitTrack));
     if (p != 0) {
         ((BaseInit*)p)->go_00236d40();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0040dd04);

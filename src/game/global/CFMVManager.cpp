@@ -369,7 +369,7 @@ class Thing_1b8350 {
     void Run(hulk_intptr, int);
 };
 extern int getval_00267f80();
-extern "C" void* FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 } // namespace fn_ff8e53b8
 inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 namespace fn_ff8e53b8 {
@@ -1023,7 +1023,7 @@ void Registry_1b8490::FUN_001b8490(const char* a1, CFMVManager_1b8490* a2, Fn_1b
 } // namespace fn_ff8e53b8
 
 // 0x001b84f0 FUN_001b84f0 (298 B): equivalent/0x001b84f0.cpp [wrapped: conflict: CFMVManager; Closure2; Closure4; Method4]
-// sym: ??0CFMVManager@fn_001b84f0@@QAE@XZ @ddc99796e563 @w42cf53cdf2f6 @v36221daddd24
+// sym: ??0CFMVManager@fn_001b84f0@@QAE@XZ @ddc99796e563 @w42cf53cdf2f6 @v05914fa6402a
 namespace fn_001b84f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_001b84f0 @ 0x001b84f0
@@ -1087,7 +1087,7 @@ struct Closure4_1b84f0 : hulk_script::ScriptVftable, ScriptFunctionFields {
 };
 
 extern "C" Registry_1b84f0* FUN_001d4c90();
-extern "C" void* FUN_0008d690(unsigned size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 
 CFMVManager::CFMVManager() {
     field_04 = 0;

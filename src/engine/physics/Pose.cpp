@@ -45,7 +45,7 @@ struct Obj_30ebe0 {
     unsigned int c;
     void Copy(Obj_30ebe0*);
 };
-extern "C" void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class A_30ecb0 {
   public:
     char pad[0xc];
@@ -537,7 +537,7 @@ void owners::A_30ec20::FUN_0030ec20(int x) {
 // sym: ?FUN_0030ec70@Buffer_30ec70@owners@@QAE_NI@Z
 bool owners::Buffer_30ec70::FUN_0030ec70(hulk_uintptr value) {
     if (data == 0) {
-        data = (unsigned int*)Allocate(count << 2);
+        data = (unsigned int*)FUN_0008d690(count << 2);
         count = 0;
     }
     data[count] = ((unsigned int)value);

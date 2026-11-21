@@ -155,7 +155,7 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
 };
 extern int hulk_at_0049850c;
 typedef unsigned int U_23e880;
-extern void* __cdecl FUN_0008d690(int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class Helper_23e880 {
   public:
     U_23e880 FUN_0023e610(U_23e880, hulk_uintptr, U_23e880, U_23e880);

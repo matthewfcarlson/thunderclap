@@ -677,7 +677,7 @@ class Owner_f6f60 : public HulkFEStringTable {   // (gfx1) on the record (was 32
   public:
     void Clear();
 };
-extern "C" void* __cdecl allocbuf_0008d6d0(int);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" void __cdecl freebuf(void*);
 class Buffer_f6ff0 : public HulkFEStringTable {   // (gfx1) the record's text pool
   public:
@@ -718,7 +718,7 @@ struct Item_f78f0 {
     unsigned int a, b, c, d;
 };
 typedef unsigned int U32_f7960;
-extern void* __cdecl FUN_0008d6d0(int);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern void __cdecl FUN_000fb690(void*, const short*, int);
 class Item_f7ce0 {
   public:
@@ -6345,7 +6345,7 @@ extern "C" void __cdecl FUN_000f6530(void * source, void * dest) {
 extern "C" char* __cdecl FUN_000f6610(const char* s) {
     if (s) {
         hulk_uintptr n = strlen(s) + 1;
-        char* d = (char*)malloc(n);
+        char* d = (char*)FUN_0008d6d0(n);
         if (!d)
             return 0;
         memcpy(d, s, n);
@@ -6802,7 +6802,7 @@ namespace fn_f5892d97 {
 void Buffer_f6ff0::Reserve(int n) {
     if (n > poolCapacity) {
         void* old = pool;
-        void* fresh = allocbuf_0008d6d0(n * 2);
+        void* fresh = FUN_0008d6d0(n * 2);
         pool = (unsigned short*)fresh;
         if (old) {
             memcpy(fresh, old, used * 2);
@@ -7384,7 +7384,7 @@ Obj_f83c0* __fastcall Copy(Obj_f83c0* self, void*, Obj_f83c0* src) {
 } // namespace fn_f5892d97
 
 // 0x000f83f0 FUN_000f83f0 (269 B): equivalent/0x000f83f0.cpp [wrapped: conflict: Context; Object]
-// sym: ?target@Object@fn_000f83f0@@QAEPAXPAUContext@2@PAUParameters_f83f0@2@@Z @e2bf39d00b70 @w02c1560e46d3 @v1e9b2d1a6b0b
+// sym: ?target@Object@fn_000f83f0@@QAEPAXPAUContext@2@PAUParameters_f83f0@2@@Z @e2bf39d00b70 @w02c1560e46d3 @v0336021e208c
 namespace fn_000f83f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // FUN_000f83f0 @ 0x000f83f0
@@ -7393,7 +7393,7 @@ struct Context { char pad0[12]; void** entries; int maxIndex; char pad14[16]; Ra
 struct Frame_f83f0 { float unused0, unused1, scale, unused3; };
 struct Parameters_f83f0 { Frame_f83f0 frames[8]; char pad80[8]; int frameIndex; };
 extern "C" unsigned int __cdecl FUN_00294b80(void*);
-void* __cdecl FUN_0008d6d0(unsigned int);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" void __cdecl FUN_000fb830(void*, unsigned int, void*, float, RateProvider*);
 struct Object { int providerIndex; char pad4[8]; void* cache; void* source; int sourceIndex; unsigned char enabled; char pad19[3]; float value; int version; void* target(Context*, Parameters_f83f0*); };
 void* Object::target(Context* context, Parameters_f83f0* parameters) {

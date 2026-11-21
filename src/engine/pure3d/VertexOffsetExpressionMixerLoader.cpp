@@ -22,8 +22,8 @@ class VertexOffsetExpressionMixerLoader : public HulkChunkHandler {
   public:
     VertexOffsetExpressionMixerLoader();
 };
-extern void* Alloc_0008d6d0(unsigned int);
-void* __cdecl FUN_0008d6d0(unsigned size);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" void __cdecl FUN_002b0e40(void* data, unsigned count, int value);
 struct Pair { unsigned a; unsigned b; };
 struct Thing {  void FUN_002b1120(unsigned value); };
@@ -171,7 +171,7 @@ bool owners::Buffer_2b0fb0::FUN_002b0fb0(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {
-        begin = (int*)Alloc_0008d6d0(count * 8);
+        begin = (int*)FUN_0008d6d0(count * 8);
         if (begin != 0) {
             end = (int*)((char*)begin + count * 8);
             Init(begin, count, arg);
@@ -191,7 +191,7 @@ bool owners::Buffer_2b1010::FUN_002b1010(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {
-        int* p = (int*)Alloc_0008d6d0(count * 4);
+        int* p = (int*)FUN_0008d6d0(count * 4);
         begin = p;
         if (p != 0) {
             end = p + count;
@@ -206,7 +206,7 @@ bool owners::Buffer_2b1010::FUN_002b1010(unsigned int count, void* arg) {
 
 
 // 0x002b1070 FUN_002b1070 (94 B): equivalent/0x002b1070.cpp
-// sym: ?FUN_002b1070@Buffer_2b1070@owners@@QAE_NIH@Z @45ffaba623c5 @w884a6d38e63d @v7f94b611206b
+// sym: ?FUN_002b1070@Buffer_2b1070@owners@@QAE_NIH@Z @45ffaba623c5 @w884a6d38e63d @v4c22d8275148
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002b1070 @ 0x002b1070
 bool owners::Buffer_2b1070::FUN_002b1070(unsigned count, hulk_intptr value) {
@@ -305,7 +305,7 @@ namespace fn_002b1330 {
 struct E_2b1330 {
     char b[16];
 };
-extern "C++" __declspec(nothrow) void* __cdecl Alloc_0008d6d0(unsigned int);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C++" __declspec(nothrow) void __cdecl Init_002b12d0(void*, unsigned int, void*);
 class Buffer_2b1330 {
   public:
@@ -317,7 +317,7 @@ char Buffer_2b1330::Create(unsigned int count, void* arg) {
     if (data)
         return 0;
     if (count > 0) {
-        data = (E_2b1330*)Alloc_0008d6d0(count * sizeof(E_2b1330));
+        data = (E_2b1330*)FUN_0008d6d0(count * sizeof(E_2b1330));
         if (data) {
             end = data + count;
             Init_002b12d0(data, count, arg);

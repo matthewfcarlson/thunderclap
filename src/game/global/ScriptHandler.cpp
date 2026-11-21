@@ -390,7 +390,7 @@ extern T_1d4530* hulk_at_004dd700;
 struct ScriptHandler_1d4c90 {
     ScriptHandler_1d4c90* FUN_001d4830();
 };
-void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 
 
 // 0x001d0620 FUN_001d0620 (114 B): matches/0x001d0620.cpp
@@ -2478,7 +2478,7 @@ inline void* operator new(hulk_uintptr, void* p) throw() {
     return p;
 }
 namespace fn_001d4580 {
-extern "C++" __declspec(nothrow) void* __cdecl FUN_0008d690(int x);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C++" __declspec(nothrow) int __cdecl FUN_001d22a0(LuaVMState* L);
 extern "C++" __declspec(nothrow) void __cdecl FUN_00213550(LuaVMState* L, void* p);
 extern "C++" __declspec(nothrow) void __cdecl FUN_002134a0(LuaVMState* L, LuaVMCFunction fn, int n);
@@ -2524,7 +2524,7 @@ void Owner_1d4580::FUN_001d4580(const char* a, ScriptHandler_1d4580* b, Fn_1d458
 // 0x001d45f0 FUN_001d45f0 (108 B): matches/0x001d45f0.cpp [wrapped: conflict: Closure1_1d4170]
 // sym: ?FUN_001d45f0@Owner_1d45f0@fn_001d45f0@@QAEXPBDPAVScriptHandler_1d45f0@2@P832@AEM0@Z@Z
 namespace fn_001d45f0 {
-extern "C++" __declspec(nothrow) void* __cdecl FUN_0008d690(int x);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C++" __declspec(nothrow) int __cdecl FUN_001d22a0(LuaVMState* L);
 extern "C++" __declspec(nothrow) void __cdecl FUN_00213550(LuaVMState* L, void* p);
 extern "C++" __declspec(nothrow) void __cdecl FUN_002134a0(LuaVMState* L, LuaVMCFunction fn, int n);
@@ -2570,7 +2570,7 @@ void Owner_1d45f0::FUN_001d45f0(const char* a, ScriptHandler_1d45f0* b, Fn_1d45f
 // 0x001d4660 FUN_001d4660 (108 B): matches/0x001d4660.cpp [wrapped: conflict: Closure1_1d4210]
 // sym: ?FUN_001d4660@Owner_1d4660@fn_001d4660@@QAEXPBDPAVScriptHandler_1d4660@2@P832@AEPBD0@Z@Z
 namespace fn_001d4660 {
-extern "C++" __declspec(nothrow) void* __cdecl FUN_0008d690(int x);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C++" __declspec(nothrow) int __cdecl FUN_001d22a0(LuaVMState* L);
 extern "C++" __declspec(nothrow) void __cdecl FUN_00213550(LuaVMState* L, void* p);
 extern "C++" __declspec(nothrow) void __cdecl FUN_002134a0(LuaVMState* L, LuaVMCFunction fn, int n);
@@ -2619,7 +2619,7 @@ void Owner_1d4660::FUN_001d4660(const char* a, ScriptHandler_1d4660* b, Fn_1d466
 // 0x001d4750 FUN_001d4750 (108 B): matches/0x001d4750.cpp [wrapped: conflict: Closure1]
 // sym: ?FUN_001d4750@Owner_1d4750@fn_001d4750@@QAEXPBDPAVScriptHandler_1d4750@2@P832@AE?AW4script_state@32@0@Z@Z
 namespace fn_001d4750 {
-extern "C++" __declspec(nothrow) void* __cdecl FUN_0008d690(int x);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C++" __declspec(nothrow) int __cdecl FUN_001d22a0(LuaVMState* L);
 extern "C++" __declspec(nothrow) void __cdecl FUN_00213550(LuaVMState* L, void* p);
 extern "C++" __declspec(nothrow) void __cdecl FUN_002134a0(LuaVMState* L, LuaVMCFunction fn, int n);
@@ -2666,7 +2666,7 @@ void Owner_1d4750::FUN_001d4750(const char* a, ScriptHandler_1d4750* b, Fn_1d475
 // 0x001d47c0 FUN_001d47c0 (108 B): matches/0x001d47c0.cpp [wrapped: conflict: Closure1_1d43b0]
 // sym: ?FUN_001d47c0@Owner_1d47c0@fn_001d47c0@@QAEXPBDPAVScriptHandler_1d47c0@2@P832@AE_N0@Z@Z
 namespace fn_001d47c0 {
-extern "C++" __declspec(nothrow) void* __cdecl FUN_0008d690(int x);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C++" __declspec(nothrow) int __cdecl FUN_001d22a0(LuaVMState* L);
 extern "C++" __declspec(nothrow) void __cdecl FUN_00213550(LuaVMState* L, void* p);
 extern "C++" __declspec(nothrow) void __cdecl FUN_002134a0(LuaVMState* L, LuaVMCFunction fn, int n);
@@ -2710,7 +2710,7 @@ void Owner_1d47c0::FUN_001d47c0(const char* a, ScriptHandler_1d47c0* b, Fn_1d47c
 
 
 // 0x001d4830 FUN_001d4830 (1114 B): equivalent/0x001d4830.cpp [wrapped: conflict: Closure1; Closure2; Method1; Method2 (+1)]
-// sym: ??0ScriptHandler@fn_001d4830@@QAE@XZ @50592479c1e6 @wf75ffbdf0d7a @v2665e6c27732
+// sym: ??0ScriptHandler@fn_001d4830@@QAE@XZ @50592479c1e6 @wf75ffbdf0d7a @vb2713d637dee
 namespace fn_001d4830 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001d4830 @ 0x001d4830
@@ -2747,7 +2747,7 @@ unsigned __int64 FUN_0027b020(const char* s);                 // string hash
 unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
-void *FUN_0008d690(unsigned int size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 
 
 class __declspec(novtable) MethodBase_1d4830 : public ScriptFunctionFields {

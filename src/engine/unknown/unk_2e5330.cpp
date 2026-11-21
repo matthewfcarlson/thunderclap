@@ -20,7 +20,7 @@ struct V {
 struct Triple {
     unsigned int a, b, c;
 };
-extern void* FUN_0008d6d0(unsigned int);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct IntVec2 {
     int *first;
     int *last;
@@ -50,7 +50,7 @@ struct Obj_2e55e0 {
 struct E_2e5640 {
     char b[16];
 };
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" void __cdecl Init(void*, unsigned int, void*);
 class Buffer_2e5640 {
   public:
@@ -233,7 +233,7 @@ extern "C" int* FUN_002e54a0(int* dst, int count, const int* src) {
 
 
 // 0x002e54e0 FUN_002e54e0 (110 B): equivalent/0x002e54e0.cpp
-// sym: ??0IntVec2@fn_f6f319cd@@QAE@ABU01@@Z @e6af28e42022 @w28f00e00918c @v5637f724d077
+// sym: ??0IntVec2@fn_f6f319cd@@QAE@ABU01@@Z @e6af28e42022 @w28f00e00918c @vf4f7276b3e10
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 9/10, incomplete)
 // FUN_002e54e0 @ 0x002e54e0
 IntVec2::IntVec2(const IntVec2 &other)
@@ -286,7 +286,7 @@ char Buffer_2e5640::Create(unsigned int count, void* arg) {
     if (data)
         return 0;
     if (count > 0) {
-        data = (E_2e5640*)Alloc(count * sizeof(E_2e5640));
+        data = (E_2e5640*)FUN_0008d6d0(count * sizeof(E_2e5640));
         if (data) {
             end = data + count;
             Init(data, count, arg);
@@ -301,7 +301,7 @@ char Buffer_2e5640::Create(unsigned int count, void* arg) {
 } // namespace fn_f6f319cd
 
 // 0x002e56a0 FUN_002e56a0 (94 B): equivalent/0x002e56a0.cpp
-// sym: ?FUN_002e56a0@Buffer_2e56a0@owners@@QAE_NIH@Z @88434c616f9f @w24ced63e9050 @v0c4de4a40d65
+// sym: ?FUN_002e56a0@Buffer_2e56a0@owners@@QAE_NIH@Z @88434c616f9f @w24ced63e9050 @v99c2de65ba16
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002e56a0 @ 0x002e56a0
 bool owners::Buffer_2e56a0::FUN_002e56a0(unsigned count, hulk_intptr value) {
@@ -322,7 +322,7 @@ bool owners::Buffer_2e56a0::FUN_002e56a0(unsigned count, hulk_intptr value) {
 
 
 // 0x002e5700 FUN_002e5700 (94 B): equivalent/0x002e5700.cpp
-// sym: ?FUN_002e5700@Buffer_2e5700@owners@@QAE_NIPAX@Z @ed4c823653e2 @w5a1a88dab7a6 @v561c275d23b8
+// sym: ?FUN_002e5700@Buffer_2e5700@owners@@QAE_NIPAX@Z @ed4c823653e2 @w5a1a88dab7a6 @v0c7542218b0a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002e5700 @ 0x002e5700
 bool owners::Buffer_2e5700::FUN_002e5700(unsigned int count, void* source) {

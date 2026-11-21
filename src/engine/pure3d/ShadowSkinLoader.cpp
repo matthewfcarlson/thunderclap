@@ -1669,7 +1669,7 @@ void C_2b5050::f() {
 // 0x002b5070 FUN_002b5070 (76 B): matches/0x002b5070.cpp [wrapped: conflict: alloc]
 // sym: ??0ShadowMeshVertices@fn_002b5070@@QAE@HH@Z
 namespace fn_002b5070 {
-extern "C++" __declspec(nothrow) void* alloc_0008d6d0(unsigned int);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 class ShadowMeshVertices {
   public:
     virtual ~ShadowMeshVertices();
@@ -1686,8 +1686,8 @@ ShadowMeshVertices::ShadowMeshVertices(int a, int b) {
     p2 = 0;
     count = a;
     count2 = b;
-    p1 = alloc_0008d6d0(a * 12);
-    p2 = alloc_0008d6d0(count2 * 12);
+    p1 = FUN_0008d6d0(a * 12);
+    p2 = FUN_0008d6d0(count2 * 12);
 }
 } // namespace fn_002b5070
 
@@ -1726,7 +1726,7 @@ ShadowMeshVertices* ShadowMeshVertices::vfunc_2(byte_2b50c0 param) {
 // 0x002b5100 FUN_002b5100 (176 B): matches/0x002b5100.cpp [wrapped: conflict: alloc]
 // sym: ??0ShadowMeshVertices_2b5100@fn_002b5100@@QAE@ABU01@@Z
 namespace fn_002b5100 {
-void* __cdecl alloc_0008d6d0(unsigned int) throw();
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct V3_2b5100 {
     unsigned a, b, c;
     void Set(const V3_2b5100& s) {
@@ -1753,8 +1753,8 @@ ShadowMeshVertices_2b5100::ShadowMeshVertices_2b5100(const ShadowMeshVertices_2b
     unsigned i = 0;
     m8 = o.m8;
     mc = o.mc;
-    m10 = (V3_2b5100*)alloc_0008d6d0(m8 * 12);
-    m14 = (V3_2b5100*)alloc_0008d6d0(mc * 12);
+    m10 = (V3_2b5100*)FUN_0008d6d0(m8 * 12);
+    m14 = (V3_2b5100*)FUN_0008d6d0(mc * 12);
     for (; i < m8; i++)
         m10[i].Set(o.m10[i]);
     for (i = 0; i < mc; i++)
@@ -2206,15 +2206,15 @@ bool pure3d::ShadowSkinImpl::vfunc_3() {
 
 
 // 0x002b5610 FUN_002b5610 (202 B): equivalent/0x002b5610.cpp [wrapped: conflict: pure3d::ShadowSkinImpl]
-// sym: ??0ShadowSkinImpl@pure3d@fn_002b5610@@QAE@PAUFUN_002b52e0@2@@Z @46ee39bc68fe @w2cffcacc2f43 @vb9c0de90260a
+// sym: ??0ShadowSkinImpl@pure3d@fn_002b5610@@QAE@PAUFUN_002b52e0@2@@Z @46ee39bc68fe @w2cffcacc2f43 @vd8b511ef94dd
 namespace fn_002b5610 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_002b5610 @ 0x002b5610
 struct Ref_2b5610 { virtual void AddRef(); virtual void Release(); char pad[12]; unsigned count; };
 struct Matrix { char data[64]; void FUN_0022b980(); };
 struct ShadowMeshVertices_2b5610 : Ref_2b5610 { ShadowMeshVertices_2b5610* FUN_002b5100(Ref_2b5610*); };
-void* __cdecl FUN_0008d6d0(unsigned);
-void* __cdecl FUN_0008d690(unsigned);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct FUN_002b52e0 { virtual void dummy(); char pad04[12]; unsigned type; char pad14[52]; Ref_2b5610* object; char pad4c[36]; Ref_2b5610* resource; Matrix* matrices; Ref_2b5610* resource2; unsigned tail; FUN_002b52e0(FUN_002b52e0*); };
 namespace pure3d {
 struct ShadowSkinImpl : FUN_002b52e0 { virtual void dummy(); ShadowSkinImpl(FUN_002b52e0*); };
@@ -2548,7 +2548,7 @@ class ShadowMeshBufferLoader : public HulkShadowMeshBufferLoader {
 };
 // (x64t7) the allocator and PrimGroupLoader's constructor (0x002df7f0) with their signatures (pointers; were `int`);
 // (x64t8) the PrimGroupLoader allocated at its record's size (decls/loaders.h HulkPrimGroupLoader)
-extern "C++" __declspec(nothrow) void* __cdecl alloc_mem_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 void* __fastcall init_obj_002df7f0(void*);
 ShadowMeshBufferLoader* __fastcall target(ShadowMeshBufferLoader* self) {
     self->refs = 0;
@@ -2556,7 +2556,7 @@ ShadowMeshBufferLoader* __fastcall target(ShadowMeshBufferLoader* self) {
     self->f0c = 0;
     self->f10 = 0;
     self->vftable = (void*)DAT_0042e654;
-    void* p = alloc_mem_0008d690(sizeof(HulkPrimGroupLoader));
+    void* p = FUN_0008d690(sizeof(HulkPrimGroupLoader));
     self->primGroups = p ? init_obj_002df7f0(p) : 0;
     return self;
 }
@@ -2762,7 +2762,7 @@ ShadowMeshBufferLoader* ShadowMeshBufferLoader::f2(unsigned char flag) {
 
 
 // 0x002b7020 pure3d::ShadowSkinLoader::vfunc_5 (2176 B): equivalent/0x002b7020.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?v5@ShadowSkinLoader@pure3d@fn_002b7020@@UAE_KPAPAVTarget_2b7020@3@PA_KPAVReader@3@PAVInv_2b7020@3@@Z @9f82dc1b1162 @w8bb263191933 @v97e68f25161c
+// sym: ?v5@ShadowSkinLoader@pure3d@fn_002b7020@@UAE_KPAPAVTarget_2b7020@3@PA_KPAVReader@3@PAVInv_2b7020@3@@Z @9f82dc1b1162 @w8bb263191933 @v81f7b8b6270f
 inline void *operator new(size_t, void *p) { return p; }
 namespace fn_002b7020 {
 // STATUS: equivalent (tools/equiv.py level 3: 119 inputs, branch coverage 99/99)
@@ -2818,8 +2818,8 @@ template<class T> struct DynamicCaster { void *vftable; DynamicCaster(); };
 }
 }
 
-void *__cdecl FUN_0008d690(unsigned int size);
-void *__cdecl FUN_0008d6d0(unsigned int size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" void *__cdecl FUN_00266e00(int a, int b);
 extern "C" void __cdecl FUN_00267090(void *a);
 

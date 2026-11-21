@@ -233,7 +233,7 @@ class ParamValueInt_237770 : public ParamValue_237770 {
     int pad;
 };
 extern int hulk_at_0049850c;
-void* __cdecl FUN_0008d690(unsigned size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct Sub_2379e0 { int w[3]; };
 class Node {
   public:
@@ -297,7 +297,7 @@ typedef unsigned int u32_237b20;
 struct Grapple_237b20 {
     hulk_uintptr ctor_002372c0();
 };
-extern void* __cdecl Alloc_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern int hulk_at_004280c8;
 
 
@@ -822,7 +822,7 @@ namespace fn_f6c81acf {
 
 
 // 0x002379e0 fight::OpportunityTrack::vfunc_10 (138 B): equivalent/0x002379e0.cpp
-// sym: ?vfunc_10@OpportunityTrack@fn_f6c81acf@@UAEPAXPAX00@Z @5055f2e746bf @w061700de61cc @vde638bdc978a
+// sym: ?vfunc_10@OpportunityTrack@fn_f6c81acf@@UAEPAXPAX00@Z @5055f2e746bf @w061700de61cc @vb5c81d545168
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // fight::OpportunityTrack::vfunc_10 @ 0x002379e0
 void* OpportunityTrack::vfunc_10(void* a1, void* a2, void* a3) {
@@ -877,7 +877,7 @@ template <> void* fight::TrackFactoryCasterTemplate<fight::OpportunityTrack>::vf
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VOpportunityTrack@fight@@@fight@@UAEPAXXZ
 // Same code shape as 0x0006f850 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<fight::OpportunityTrack>::vfunc_5() {
-    Grapple_237b20* p = (Grapple_237b20*)Alloc_0008d690(0x2c);
+    Grapple_237b20* p = (Grapple_237b20*)FUN_0008d690(0x2c);
     if (p)
         return (void*)(p->ctor_002372c0());
     return (void*)(0);

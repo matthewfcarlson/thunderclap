@@ -2288,3 +2288,20 @@ blocks fight::Action's whole family: the records come first there.
   passes the forced x64 gate: equivalent, and `layout` with the post switched off.
 - Re-proved callers whose views now name 0x85f80's post: 0xabb90 0xd05f0 0xec360 0x1bfcc0 0x1c04e0 (msvc and --wine at
   3,000). Regress r2 747/747. tests/test_ret_post.py. The x64 harness does not draw returns yet (fail-closed).
+
+## 2026-11-21 decl1: the callee-declaration rewrites that equivalent blocks held back (batch K)
+
+- gen_decl ran again on a fresh relocation map with equivalent blocks allowed: 55 TUs, 52 equivalent blocks re-proven
+  at 3,000 compared inputs, MSVC and --wine.
+  - Most of the earlier deferred list (287 sites) had meanwhile landed through other lanes, nat2's new/delete batch
+    most of all.
+  - 0x001f1c80 (CSoundSystem) calls the free as `operator delete`, so the free-name baseline is down to 1 entry
+    (CUnlockablesManager.GS 0x00094fb0, script2's).
+- **A binding fix exposes allocation sizes.** Spelling the allocator 0x0008d690 by its own name lets the --x64 harness
+  see the allocation, and 29 blocks with 32-bit literal sizes became new `layout` failures. Examples: the caster
+  factories' `Alloc(0x20)`, FEThingsBase_3's TextButton (0x15c on 32-bit, 0x168 natively) and CTokenString.
+  - Those TUs' allocator declarations are left as they were (exclusions in build/decl1/exclR.txt).
+  - The allocation sizes are their own task: a `sizeof(record)` per site, checked against gen's size.
+- Left out for other lanes' open batches: unk_0240b0.cpp, CStatsManager.cpp and CTimeManager.cpp (gfx4's C12b), and
+  CCharacterTemplateManager.cpp (gfx1's 0x00047890).
+- The replay pins stay untouched. The ControllerXBox `GetTime` declaration that 0x00269170 calls is excluded.

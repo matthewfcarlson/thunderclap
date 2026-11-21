@@ -260,7 +260,7 @@ class CCondition_10c870 {
   public:
     virtual int vfunc_0(int);
 };
-extern "C" void * __cdecl FUN_0008d6d0(unsigned int size);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct Owner { char pad[0x10]; char *text; bool SetText_0010c8d0(const char *source); };
 extern int* hulk_at_004e0b00;
 class CCondition_10c950 {
@@ -277,7 +277,7 @@ class CCondition_10caa0 {
   public:
     virtual int vfunc_0(int);
 };
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 } // namespace fn_f15aa14c
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" unsigned int __cdecl strlen(const char*);
@@ -1152,7 +1152,7 @@ char owners::Obj_10cb00::FUN_0010cb00(const char* p) {
         s = 0;
         return 1;
     }
-    s = (char*)Alloc(strlen(p) + 1);
+    s = (char*)FUN_0008d6d0(strlen(p) + 1);
     strcpy(s, p);
     return 1;
 }
@@ -1225,7 +1225,7 @@ char Obj::SetText_0010cc40(const char* s) {
         name = 0;
         return 1;
     }
-    name = (char*)AllocMem(strlen(s) + 1);
+    name = (char*)FUN_0008d6d0(strlen(s) + 1);
     strcpy(name, s);
     return 1;
 }

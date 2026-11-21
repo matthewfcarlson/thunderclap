@@ -58,7 +58,7 @@ class CommentTrack_23d950 {
     void* d;   // (x64t21) a block of the game heap (its destructor frees it)
     virtual bool hulk_slot_F_00234270(void*); void FnF_00236d60();
 };
-extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class Obj {
   public:
     char _m_pad_0[0xc];
@@ -213,7 +213,7 @@ char owners::Obj_23d880::FUN_0023d880(const char* s) {
         text = 0;
         return 1;
     }
-    text = (char*)AllocMem(strlen(s) + 1);
+    text = (char*)FUN_0008d6d0(strlen(s) + 1);
     strcpy(text, s);
     return 1;
 }

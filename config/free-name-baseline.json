@@ -1,11 +1,8 @@
 {
  "comment": "D149: matches blocks that call one of the game's frees (operator delete / delete[], FREE_NAMES) under another name, when the gate began. Only shrinks (verify --relocs --update-free-baseline); add with tree_tu.py free-name-accept --why. decl1 removes them.",
  "seed_why": "D149 (user, 2026-11-19): free-by-other-name gates as a shrink-only ratchet; the matches blocks calling a game free under another name at 509f9aa2e (whole-tree verify --relocs, job 95138); decl1 removes them",
- "total": 2,
+ "total": 1,
  "tus": {
-  "src/game/global/CSoundSystem.cpp": {
-   "0x001f1c80": ["?Destroy_0008d330@fn_ffeee61e@@YAXPAX@Z"]
-  },
   "src/game/global/CUnlockablesManager.GS.cpp": {
    "0x00094fb0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_00094fb0@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_00094fb0@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   }

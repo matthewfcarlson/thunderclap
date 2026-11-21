@@ -131,7 +131,7 @@ extern "C" unsigned int strlen(const char*);
 namespace fn_fe5d7f9e {
 extern "C" int __cdecl FUN_00096600(int, const char*);
 extern "C" void __cdecl FnA_002696a0();
-extern "C" void __cdecl FnB_002656a0();
+extern "C" void __cdecl FUN_002656a0(void);   // (decl1) as defined (LoadStream.cpp)
 extern "C" void __cdecl FnC_0026ed70();
 extern "C" void __cdecl FnD_00333ef0();
 extern "C" bool __cdecl FUN_0008ed50(void*);   // (gfx3) as defined: 0x0008ed50 is a `bool X::f()` member (unk_08ed50.cpp)
@@ -423,7 +423,7 @@ extern "C" void __stdcall FUN_0008dad0(int x) {}
 // sym: _FUN_0008db00
 extern "C" void __cdecl FUN_0008db00(void* /*this, unused: callers pass it (unb4)*/) {
     FnA_002696a0();
-    FnB_002656a0();
+    FUN_002656a0();
     FnC_0026ed70();
     FnD_00333ef0();
 }

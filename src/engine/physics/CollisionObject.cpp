@@ -52,14 +52,14 @@ class Obj_3046f0 {
     Inner_3046f0* inner() const { return (Inner_3046f0*)f20; }
     void Set(char x);
 };
-extern "C" void* __cdecl AllocFunc_0008d6d0(int size);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 } // namespace fn_f3c9f944
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void* __cdecl memcpy(void* dst, const void* src, size_t size);
 #endif
 namespace fn_f3c9f944 {
 struct Element_304930 { unsigned int a,b,c,d,e; void FUN_00304640(); };
-void* __cdecl FUN_0008d6d0(unsigned int);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 void __stdcall FUN_00011520(void*, unsigned int, int, void (Element_304930::*)());
 } // namespace fn_f3c9f944
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -67,7 +67,7 @@ extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 #endif
 namespace fn_f3c9f944 {
 struct Array_304930 { volatile int count; volatile int capacity; Element_304930* volatile data; unsigned char pad; volatile unsigned char copyMembers; void FUN_00304930(int n); };
-void* __cdecl FUN_0008d6d0(int size);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct Pair_304a10 {
     int a;
     int b;
@@ -415,7 +415,7 @@ void owners::Buffer_3048a0::FUN_003048a0(int newCapacity) {
     if (mCapacity >= newCapacity)
         return;
 
-    void* newData = AllocFunc_0008d6d0(newCapacity);
+    void* newData = FUN_0008d6d0(newCapacity);
     if (mSize > 0) {
         if (mFlag) {
             for (int i = 0; i < mSize; ++i) {
@@ -434,7 +434,7 @@ void owners::Buffer_3048a0::FUN_003048a0(int newCapacity) {
 namespace fn_f3c9f944 {
 
 // 0x00304930 FUN_00304930 (211 B): equivalent/0x00304930.cpp
-// sym: ?FUN_00304930@Array_304930@fn_f3c9f944@@QAEXH@Z @1737705636fa @w14ade3c36963 @v1daf81282da7
+// sym: ?FUN_00304930@Array_304930@fn_f3c9f944@@QAEXH@Z @1737705636fa @w14ade3c36963 @v81001c0fd4c0
 // STATUS: equivalent (tools/equiv.py level 3: 267 inputs, branch coverage 15/16, incomplete)
 // FUN_00304930 @ 0x00304930
 void Array_304930::FUN_00304930(int n) {
@@ -463,7 +463,7 @@ void Array_304930::FUN_00304930(int n) {
 
 
 // 0x00304a10 FUN_00304a10 (133 B): equivalent/0x00304a10.cpp
-// sym: ?Reserve@PairArray@fn_f3c9f944@@QAEXH@Z @5cc35e3a5f62 @w1f8dacc25c08 @vd2182f5da149
+// sym: ?Reserve@PairArray@fn_f3c9f944@@QAEXH@Z @5cc35e3a5f62 @w1f8dacc25c08 @v5db0f0d9ed5c
 // STATUS: equivalent (tools/equiv.py level 3: 12195 inputs, branch coverage 11/12, incomplete)
 // FUN_00304a10 @ 0x00304a10
 // FUN_00304a10 @ 0x00304a10
@@ -898,7 +898,7 @@ void T_305190::Add(int a, int b, int c, unsigned char d) {
 
 
 // 0x00305210 FUN_00305210 (261 B): equivalent/0x00305210.cpp
-// sym: ?FUN_00305210@Container_305210@fn_f3c9f944@@QAEPAU12@PBU12@@Z @33030c1dfc86 @wd58a9064c163 @vb150e4f562ce
+// sym: ?FUN_00305210@Container_305210@fn_f3c9f944@@QAEPAU12@PBU12@@Z @33030c1dfc86 @wd58a9064c163 @va6a06548d2fc
 // STATUS: equivalent (tools/equiv.py level 3: 53 inputs, branch coverage 20/20)
 // FUN_00305210 @ 0x00305210
 Container_305210* Container_305210::FUN_00305210(const Container_305210* source) {

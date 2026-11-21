@@ -400,7 +400,7 @@ class CActorManager_d6300 {
   public:
     void invoke(const char*);
 };
-extern "C" void* FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 } // namespace fn_f27eef39
 inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 namespace fn_f27eef39 {

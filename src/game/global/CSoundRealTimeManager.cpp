@@ -348,7 +348,7 @@ struct S8_1ebaf0 {
 struct Obj_1ebaf0 {
     char d[12];
 };
-void Use_00240760(void*);
+extern "C" void __cdecl FUN_00240760(void*);   // (decl1) as defined (unk_23fa40.cpp)
 struct Path_1ebbc0 {
  char storage[72];
  void FUN_001ef370(const char*);
@@ -811,7 +811,7 @@ struct Pair_1ee540 {
     const char* s;
     float f;
 };
-extern "C" void* FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 } // namespace fn_f014178b
 inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 namespace fn_f014178b {
@@ -1354,7 +1354,7 @@ void __stdcall Fn(const char* s) {
     } else {
         *(S8_1ebaf0*)DAT_0049caa4 = *(const S8_1ebaf0*)"english";
     }
-    Use_00240760(((Obj_1ebaf0 *)((owners::String_23fc40 *)&o)->FUN_0023fc40(DAT_0049caa4, (hulk_intptr)2)));
+    FUN_00240760(((Obj_1ebaf0 *)((owners::String_23fc40 *)&o)->FUN_0023fc40(DAT_0049caa4, (hulk_intptr)2)));
     ((owners::Str_240060 *)&o)->FUN_00240060();
 }
 
@@ -2839,7 +2839,7 @@ void Registry_1ee770::FUN_001ee770(const char* a1, CSoundSimManager_1ee770* a2, 
 } // namespace fn_f014178b
 
 // 0x001eebc0 FUN_001eebc0 (139 B): equivalent/0x001eebc0.cpp [wrapped: macros]
-// sym: ?Register@CSoundSimManager@fn_001eebc0@@QAEXXZ @84d9f26a9299 @we2c8ff18873f @vd2bfe81fd970
+// sym: ?Register@CSoundSimManager@fn_001eebc0@@QAEXXZ @84d9f26a9299 @we2c8ff18873f @v804f879f6623
 namespace fn_001eebc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 4/4)
 // FUN_001eebc0 @ 0x001eebc0
@@ -2872,7 +2872,7 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 
-void* FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class CSoundSimManager;
 namespace math { class Vector { public: float x, y, z; }; }
 typedef float Float; typedef bool Bool; typedef int Int; typedef void Void;

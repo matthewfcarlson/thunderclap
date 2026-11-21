@@ -2892,15 +2892,15 @@ class CMotionTrail : public DrawablePrimitive_282790 {
     void* r;
     CMotionTrail();
 };
-extern void* __cdecl Alloc_0008d6d0(unsigned int);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 void CMotionTrail::V() {}
 CMotionTrail::CMotionTrail() {
     a = 0;
     b = 0;
     x = 1;
-    p = Alloc_0008d6d0(8000);
-    q = Alloc_0008d6d0(0x18);
-    r = Alloc_0008d6d0(0x48);
+    p = FUN_0008d6d0(8000);
+    q = FUN_0008d6d0(0x18);
+    r = FUN_0008d6d0(0x48);
 }
 } // namespace fn_00282790
 
@@ -3566,14 +3566,14 @@ void Object::update(float dt) {
 
 
 // 0x00283730 FUN_00283730 (162 B): equivalent/0x00283730.cpp [wrapped: conflict: CMotionTrail]
-// sym: ?FUN_00283730@CMotionTrailQueue@fn_00283730@@QAEPAV12@XZ @5e0d8f4c334f @w5fb9867707b2 @v9d4efc95eba7
+// sym: ?FUN_00283730@CMotionTrailQueue@fn_00283730@@QAEPAV12@XZ @5e0d8f4c334f @w5fb9867707b2 @v492227497b7b
 namespace fn_00283730 {
 // STATUS: equivalent (tools/equiv.py level 3: 2865 inputs, branch coverage 4/4)
 // FUN_00283730 @ 0x00283730
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 extern "C" char DAT_0042c48c[];
 extern "C" char DAT_0042c52c[];
-void *FUN_0008d6d0(unsigned int size);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 void *thunk_FUN_0008d690(unsigned int size);
 
 class CMotionTrail {

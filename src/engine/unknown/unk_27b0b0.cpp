@@ -44,8 +44,8 @@ extern "C" pure3d::Pose* __cdecl FUN_0008d690(int);
 struct Matrix { unsigned int words[16];   };
 struct Local_27b270 { unsigned int words[4];  };
 struct Object { char pad[16]; unsigned int count; Local_27b270* locals; Matrix* localMatrices; Matrix* worldMatrices; Matrix* inverseMatrices; unsigned int unknown24; unsigned short* parents; void update(); };
-extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
-extern "C" void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 
 
 // 0x0027b0b0 FUN_0027b0b0 (42 B): matches/0x0027b0b0.cpp
@@ -150,7 +150,7 @@ extern "C" char* FUN_0027b340(const char* source) {
 bool owners::Buffer_27b3b0::FUN_0027b3b0(int count) {
     int* p;
     if (count != 0) {
-        p = (int*)Allocate(count * 24);
+        p = (int*)FUN_0008d6d0(count * 24);
         mStart = p;
         if (p != 0) {
             mCurrent = p;

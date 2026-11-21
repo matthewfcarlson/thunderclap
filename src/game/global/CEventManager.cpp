@@ -481,7 +481,7 @@ public:
 };
 namespace fn_ffd7287e {
 int __cdecl FUN_00266da0(int value);
-void *__cdecl FUN_0008d690(unsigned int size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 int __cdecl FUN_001cb3a0(const Item_1cbfe0 *a, const Item_1cbfe0 *b);
 struct ItemVec_1cbfe0 {
     Item_1cbfe0 *begin;
@@ -1771,7 +1771,7 @@ void Registry_1cc2c0::FUN_001cc2c0(const char* a1, Owner* a2, Fn_1cc2c0 a3) {
 } // namespace fn_ffd7287e
 
 // 0x001cc360 FUN_001cc360 (462 B): equivalent/0x001cc360.cpp [wrapped: conflict: CEventManager; Closure1; FUN_001d4c90; Method1]
-// sym: ??0CEventManager@fn_001cc360@@QAE@XZ @2794076606d3 @w2a783f2bd06f @vc0aad6efad6c
+// sym: ??0CEventManager@fn_001cc360@@QAE@XZ @2794076606d3 @w2a783f2bd06f @v0f238306ac87
 namespace fn_001cc360 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_001cc360 @ 0x001cc360
@@ -1803,7 +1803,7 @@ unsigned __int64 FUN_0027b020(const char* s);                 // string hash
 unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
-extern "C++" __declspec(nothrow) void *FUN_0008d690(unsigned int size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" void *FUN_0008d6d0(unsigned int size);
 
 

@@ -37,7 +37,7 @@ class Obj_15a5e0 {
     virtual void v4();
     virtual void v5();
 };
-extern "C" void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class Temp_15a5e0 {
   public:
     void Init_00234590(hulk_intptr);   // (decl1) passes as defined
@@ -77,7 +77,7 @@ namespace fn_ff9138b1 {
 // 0x0015a5e0 fight::ConditionFactoryTemplate<hulkfight::motion::CollisionTargetNameCondition>::vfunc_5 (55 B): matches/0x0015a5e0.cpp
 // sym: ?Factory_vfunc5@fn_ff9138b1@@YAPAXPAVObj_15a5e0@1@@Z
 void* Factory_vfunc5(Obj_15a5e0* self) {
-    Obj_15a5e0* p = (Obj_15a5e0*)alloc(sizeof(::hulkfight::motion::CollisionTargetNameCondition));
+    Obj_15a5e0* p = (Obj_15a5e0*)FUN_0008d690(sizeof(::hulkfight::motion::CollisionTargetNameCondition));
     if (p) {
         ((Temp_15a5e0*)p)->Init_00234590(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_00414170);

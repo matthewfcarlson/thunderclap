@@ -247,7 +247,7 @@ class CActorManager_203130 {
   public:
     void invoke(const char*);
 };
-extern "C" void* FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 } // namespace fn_f0f2b8a0
 inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 namespace fn_f0f2b8a0 {
@@ -1896,7 +1896,7 @@ void Registry_2033d0::FUN_002033d0(const char* name, Owner_2033d0* object, Fn_20
 
 
 // 0x00203490 FUN_00203490 (449 B): equivalent/0x00203490.cpp [wrapped: conflict: CWorldCollisionManager; Closure1; Method1]
-// sym: ?FUN_00203490@CWorldCollisionManager@fn_00203490@@QAEXXZ @6a2da78fa6f4 @wd85084ceb28a @v57cff13b36ed
+// sym: ?FUN_00203490@CWorldCollisionManager@fn_00203490@@QAEXXZ @6a2da78fa6f4 @wd85084ceb28a @v978d5e15b3b6
 namespace fn_00203490 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_00203490 @ 0x00203490
@@ -1931,7 +1931,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 namespace math { class Vector; }
 
 extern char DAT_0048e10c;
-extern "C" void* FUN_0008d690(unsigned size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 
 
 template <class T> struct TypeTag;

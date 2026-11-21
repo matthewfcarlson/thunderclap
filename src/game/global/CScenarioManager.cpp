@@ -586,7 +586,7 @@ struct CScenarioManager_1ccc30 {
     void* stored;
     void FUN_001ccc30(void* volatile arg);
 };
-extern "C" void* FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 } // namespace fn_fdf9c5a9
 inline void* operator new(hulk_uintptr, void* p) throw() {
     return p;
@@ -3014,7 +3014,7 @@ unsigned __int64 FUN_0027b020(const char* s);                 // string hash
 unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
-extern "C" void* __cdecl FUN_0008d690(unsigned int size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 
 
 enum eMissionObjectiveState { eMOS_dummy };

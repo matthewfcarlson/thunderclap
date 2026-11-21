@@ -741,7 +741,7 @@ struct CSoundVoiceManager_1f5b40 { void callback(char*, char*, char*, int); };
 struct VoiceArgs { char* first; char* second; char* third; int fourth; };
 int FUN_00247930(int a, int b);
 void FUN_00247a90(int a, int b, int c);
-extern "C" void* FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 } // namespace fn_f7fca51a
 inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 namespace fn_f7fca51a {
@@ -2132,7 +2132,7 @@ void Sound_1f4c50::FUN_001f4c50()
 } // namespace fn_f7fca51a
 
 // 0x001f4f00 FUN_001f4f00 (1470 B): equivalent/0x001f4f00.cpp [wrapped: conflict: FUN_002673a0; Node]
-// sym: ?reset@State_1f4f00@fn_001f4f00@@QAEXXZ @70e6e7143721 @w3b90d0da241c @v4467bdeedefd
+// sym: ?reset@State_1f4f00@fn_001f4f00@@QAEXXZ @70e6e7143721 @w3b90d0da241c @vb358fccae354
 namespace fn_001f4f00 {
 // STATUS: equivalent (tools/equiv.py level 3: 25 inputs, branch coverage 86/86)
 // FUN_001f4f00 @ 0x001f4f00
@@ -2172,8 +2172,8 @@ void __cdecl FUN_0024a800(U_1f4f00,int);
 void __cdecl FUN_002497e0(U_1f4f00);
 void __cdecl FUN_0024af00(U_1f4f00);
 bool __cdecl FUN_00249b40(U_1f4f00);
-void __cdecl FUN_00240bb0();
-void __cdecl FUN_002656a0();
+extern "C" void __cdecl FUN_00240bb0();   // (decl1) as defined (unk_23fa40.cpp)
+extern "C" void __cdecl FUN_002656a0(void);   // (decl1) as defined (LoadStream.cpp)
 struct Small_1f4f00 { char pad[8]; void FUN_0027b040(int); void FUN_0027af60(int,int); };
 struct Block_1f4f00 { Small_1f4f00 first,second; U_1f4f00 values[8]; char pad[0x74-0x30]; U_1f4f00 type,flag; char gap[4]; struct Entry { Q_1f4f00 q; U_1f4f00 r; char pad[28]; } entries[4]; };
 struct Resource_1f4f00 { void FUN_001e8ac0(); };
@@ -2223,7 +2223,7 @@ void State_1f4f00::reset(){
 
 
 // 0x001f54c0 FUN_001f54c0 (380 B): equivalent/0x001f54c0.cpp [wrapped: conflict: CSoundSequenceVoice]
-// sym: ?FUN_001f54c0@SoundMgr@fn_001f54c0@@QAEXXZ @a4bd4e986e4f @wbe6c48a1f385 @v407eae8ac6ac
+// sym: ?FUN_001f54c0@SoundMgr@fn_001f54c0@@QAEXXZ @a4bd4e986e4f @wbe6c48a1f385 @v43fddc525636
 namespace fn_001f54c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 26/26)
 // FUN_001f54c0 @ 0x001f54c0
@@ -2234,8 +2234,8 @@ void FUN_00249a90(void* handle, void* out);
 void FUN_0024a800(void* handle, int arg);
 bool FUN_00249b40(void* handle);
 void FUN_0024af00(void* handle);
-extern "C" void FUN_00240bb0();
-void FUN_002656a0();
+extern "C" void __cdecl FUN_00240bb0();   // (decl1) as defined (unk_23fa40.cpp)
+extern "C" void __cdecl FUN_002656a0(void);   // (decl1) as defined (LoadStream.cpp)
 
 struct Part_1f54c0 {
     char data[8];
@@ -2371,7 +2371,7 @@ char Player_1f5640::FUN_001f5640(int obj, int arg)
 } // namespace fn_f7fca51a
 
 // 0x001f56b0 FUN_001f56b0 (293 B): equivalent/0x001f56b0.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001f56b0@Object@fn_001f56b0@@QAE_NPAXH@Z @7a0ab0849bfa @w641e83b8513b @v6f176b4906f9
+// sym: ?FUN_001f56b0@Object@fn_001f56b0@@QAE_NPAXH@Z @7a0ab0849bfa @w641e83b8513b @v4653c14ad139
 namespace fn_001f56b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20011 inputs, branch coverage 16/16)
 // FUN_001f56b0 @ 0x001f56b0
@@ -2384,7 +2384,7 @@ extern bool __cdecl FUN_00249b40(void*);
 extern int __cdecl FUN_002673a0(const char*,int);
 extern void __cdecl FUN_00247890(void*,float);
 extern void __cdecl thunk_FUN_00270a50();
-extern void __cdecl FUN_002656a0();
+extern "C" void __cdecl FUN_002656a0(void);   // (decl1) as defined (LoadStream.cpp)
 extern void __cdecl FUN_0024a800(void*,int);
 struct Object {
  char pad0[0xc8]; Resource_1f56b0* resource; char padcc[0x334-0xcc]; float scale;
@@ -3234,7 +3234,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 
 
-extern "C" void *FUN_0008d690(unsigned int size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" void *FUN_0008d710(unsigned int size, int tag);
 
 template <class T> struct TypeName;

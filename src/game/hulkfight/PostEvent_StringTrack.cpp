@@ -199,7 +199,7 @@ struct Ref_12dcf0 {
     virtual void f0();
     virtual void f1();
 };
-extern void* Alloc_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct Memory_12dcf0 {
     void Init_00232660();
 };
@@ -258,7 +258,7 @@ class TrackFactoryTemplate_12df30 {
     TrackImpl mTrack;
 };
 extern "C++" __declspec(nothrow) void FUN_0012de30();
-extern void* FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" char DAT_004110e0[];   // (decl1) was `void* PostEvent_StringTrack_vtable` (a C++ name bound nowhere natively)
 struct Helper_12df70 {
     void FUN_00236d40();
@@ -518,7 +518,7 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::PostEvent_StringTr
 // sym: ?vfunc_10@PostEvent_StringTrack@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::PostEvent_StringTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr __p2) { Ref_12dcf0 * param = (Ref_12dcf0 *)__p2;
 
-    char* p = (char*)Alloc_0008d690(0x24);
+    char* p = (char*)FUN_0008d690(0x24);
     if (p) {
         ((Memory_12dcf0*)p)->Init_00232660();
         *(void**)(p + 0x1c) = this;

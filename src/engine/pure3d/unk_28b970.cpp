@@ -31,7 +31,7 @@ struct SimpleChannel {
     void *data;
     void FUN_0028b970();
 };
-void* __cdecl FUN_0008d6d0(unsigned size);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct Allocator {
     void* FUN_002888c0(unsigned int, int);
 };
@@ -110,7 +110,7 @@ namespace pure3d {
 extern void __fastcall ElemCtor_000c7920(void*);
 }
 namespace pure3d {
-extern void* Alloc_0008d6d0(unsigned int);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 }
 namespace pure3d {
 extern void __stdcall VecNew_00011520(void*, int, int, Callback_28bba0);
@@ -202,7 +202,7 @@ public:
     virtual ~VectorChannel();
 };
 }
-void* Alloc_0008d6d0(int n);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct Allocator_28bd40 {  };
 class VectorChannel_28bd40 {
   public:
@@ -596,7 +596,7 @@ void IntChannel_28ba20::F() {
 // 0x0028bab0 FUN_0028bab0 (87 B): matches/0x0028bab0.cpp [wrapped: conflict: FUN_0008d6d0]
 // sym: ??0Float1Channel_28bab0@fn_0028bab0@@QAE@HH@Z
 namespace fn_0028bab0 {
-void* __cdecl FUN_0008d6d0(unsigned int);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 class Mem_28bab0 {
   public:
 };
@@ -664,7 +664,7 @@ Float2Channel::Float2Channel(int x, hulk_intptr y) : Base_28bba0(x, y) {
     m18 = 0;
     if (mc == 0) {
         int n = m10;
-        void* p = Alloc_0008d6d0(n * 8);
+        void* p = FUN_0008d6d0(n * 8);
         m18 = (hulk_intptr)(p ? (VecNew_00011520(p, 8, n, ElemCtor_000c7920), p) : 0);
         return;
     }
@@ -715,7 +715,7 @@ Vector1DOFChannel::Vector1DOFChannel(int a, hulk_intptr b) : VectorChannel_28bd4
     hulk_intptr c = m0c;
     p[4] = 0;
     if (c == 0)
-        m28 = Alloc_0008d6d0(m10 << 2);
+        m28 = FUN_0008d6d0(m10 << 2);
     else
         m28 = ((void *)((owners::C_2888c0 *)(((Allocator_28bd40*)c)))->FUN_002888c0((unsigned)(m10 << 2), 3));
 }
@@ -775,7 +775,7 @@ Vector2DOFChannel_28be20::Vector2DOFChannel_28be20(int x, hulk_intptr y) : Vecto
     m28 = 0;
     if (mc == 0) {
         int n = m10;
-        void* p = Alloc_0008d6d0(n * 8);
+        void* p = FUN_0008d6d0(n * 8);
         m28 = (hulk_intptr)(p ? (VecNew_00011520(p, 8, n, ElemCtor), p) : 0);
         return;
     }
@@ -807,7 +807,7 @@ void Vector2DOFChannel_28beb0::F() {
 
 
 // 0x0028bf20 FUN_0028bf20 (130 B): equivalent/0x0028bf20.cpp
-// sym: ?Construct@Vector3DOFChannel_28bf20@fn_f8c9e634@@QAEPAV12@HH@Z @6e464a0bbc85 @wab18543f1773 @v0eccf7cc0e10
+// sym: ?Construct@Vector3DOFChannel_28bf20@fn_f8c9e634@@QAEPAV12@HH@Z @6e464a0bbc85 @wab18543f1773 @v2eeed6580d5d
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_0028bf20 @ 0x0028bf20
 // 0x0028bf20: channel constructor holding 12-byte elements, allocated from the parent pool or the heap
@@ -927,7 +927,7 @@ RotationChannel::~RotationChannel() {
 namespace fn_f8c9e634 {
 
 // 0x0028c0b0 FUN_0028c0b0 (126 B): equivalent/0x0028c0b0.cpp
-// sym: ?Construct@QuaternionChannel@fn_f8c9e634@@QAEPAV12@HH@Z @9b97d2549955 @w56dff3c77ee2 @v0a5fe6973527
+// sym: ?Construct@QuaternionChannel@fn_f8c9e634@@QAEPAV12@HH@Z @9b97d2549955 @w56dff3c77ee2 @v8de79f0da6b8
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0028c0b0 @ 0x0028c0b0
 // 0x0028c0b0: quaternion channel constructor holding 16-byte elements, allocated from the parent pool or the heap
@@ -991,7 +991,7 @@ struct Allocator {
     Name_28c1a0 *FUN_002888c0(unsigned int bytes, int flags);
 };
 
-void *__cdecl FUN_0008d6d0(unsigned int size);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 void __stdcall FUN_00011520(void *p, unsigned int size, unsigned int count, void (Name_28c1a0::*ctor)());
 
 namespace pure3d {
@@ -1058,7 +1058,7 @@ void StringChannel_28c240::F() {
 namespace fn_0028c2a0 {
 // FUN_0028c2a0 @ 0x0028c2a0
 // equiv-map: ??0Channel@pure3d@@QAE@HPAVOwner@@@Z = 0x0028b420
-extern void* __cdecl FUN_0008d6d0(unsigned int size);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void* __cdecl memset(void*, int, unsigned int);
@@ -1125,7 +1125,7 @@ namespace fn_0028c370 {
 extern "C" void* memset(void*, int, unsigned);
 #endif
 
-void* FUN_0008d6d0(unsigned int n);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct Allocator_28c370 { void* Alloc2_002888c0(unsigned n, int f); };
 class SimpleChannel_28c370 {
   public:
@@ -1170,7 +1170,7 @@ void BoolChannel_28c3e0::F() {
 
 
 // 0x0028c470 FUN_0028c470 (128 B): equivalent/0x0028c470.cpp
-// sym: ?Construct@ColourChannel_28c470@fn_f8c9e634@@QAEPAV12@HH@Z @61f9315b2fde @w87134c3f6ce3 @va037514796bd
+// sym: ?Construct@ColourChannel_28c470@fn_f8c9e634@@QAEPAV12@HH@Z @61f9315b2fde @w87134c3f6ce3 @v6cc8a6a89698
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_0028c470 @ 0x0028c470
 // 0x0028c470: channel constructor holding 4-byte elements, allocated from the parent pool or the heap

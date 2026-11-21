@@ -14,7 +14,7 @@ namespace fn_fc71db16 {} using namespace fn_fc71db16;
 
 // ---- declarations shared by the functions below
 namespace fn_fc71db16 {
-void *__cdecl FUN_0008d690(unsigned int size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct Stream {
     HULK_TYPE64(int, bool) FUN_002647e0(void *buf, int count, int size, int flag);
 };
@@ -59,7 +59,7 @@ extern "C" void* memmove(void*, const void*, unsigned);
 extern "C" void* memset(void*, int, unsigned);
 #endif
 namespace fn_fc71db16 {
-void* Alloc_0008d690(unsigned int n);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 // (x64t7) The channel loader and its default handler as the words their constructors write, with the game's
 // vftables stored by address (the local classes' own virtuals were declared only, so natively their slots were stubs);
 // the handler's AddRef through its stored vftable (Ref_28e9b0's slot 0). Both are pure3d::NonCopyable's words first
@@ -220,7 +220,7 @@ pure3d::ColourChannel::~ColourChannel() {}
 namespace fn_fc71db16 {
 
 // 0x0028e160 FUN_0028e160 (2075 B): equivalent/0x0028e160.cpp
-// sym: ?FUN_0028e160@fn_fc71db16@@YGPAUPrim_28e160@1@PAVReader@1@HPAUParent_28e160@1@@Z @e744502806f8 @w2e580b65e337 @vb82a7a20832a
+// sym: ?FUN_0028e160@fn_fc71db16@@YGPAUPrim_28e160@1@PAVReader@1@HPAUParent_28e160@1@@Z @e744502806f8 @w2e580b65e337 @v915c480563f3
 // STATUS: equivalent (tools/equiv.py level 3: 20158 inputs, branch coverage 84/84)
 // FUN_0028e160 @ 0x0028e160
 Prim_28e160 *__stdcall FUN_0028e160(Reader *R, int unused, Parent_28e160 *parent)
@@ -365,7 +365,7 @@ ChannelLoader::ChannelLoader() {
     vftable = (void*)DAT_0042c95c;
     count = 0;
     memset(tbl, 0, sizeof(tbl));
-    DefaultChannelHandler_28e9b0* h = (DefaultChannelHandler_28e9b0*)Alloc_0008d690(sizeof(DefaultChannelHandler_28e9b0));
+    DefaultChannelHandler_28e9b0* h = (DefaultChannelHandler_28e9b0*)FUN_0008d690(sizeof(DefaultChannelHandler_28e9b0));
     if (h) {
         h->a = 0;
         h->vftable = (void*)DAT_0042ca8c;

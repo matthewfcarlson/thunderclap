@@ -961,7 +961,7 @@ namespace math {
 class Vector_2007b0 { public: float x, y, z; };
 }
 namespace fn_f3d6a774 {
-extern "C" void* FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 } // namespace fn_f3d6a774
 inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 namespace fn_f3d6a774 {
@@ -4803,14 +4803,14 @@ void Registry_200b10::FUN_00200b10(const char* a1, CTriggerVolumeManager_200b10*
 } // namespace fn_f3d6a774
 
 // 0x00200c10 FUN_00200c10 (2853 B): equivalent/0x00200c10.cpp [wrapped: macros]
-// sym: ?Register@CTriggerVolumeManager@fn_00200c10@@QAEXH@Z @51b6c8a8c724 @wf1887f9a64ce @vb3bf370d62ac
+// sym: ?Register@CTriggerVolumeManager@fn_00200c10@@QAEXH@Z @51b6c8a8c724 @wf1887f9a64ce @v6eb57fdc69cd
 void* operator new(hulk_uintptr) throw();
 namespace fn_00200c10 {
 // STATUS: equivalent (tools/equiv.py level 3: 485 inputs, branch coverage 66/66)
 // FUN_00200c10 @ 0x00200c10
 
 
-void* FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 char FUN_001d04d0(const void*) throw();
 class CTriggerVolumeManager;
 namespace math { class Vector { public: float x, y, z; }; }

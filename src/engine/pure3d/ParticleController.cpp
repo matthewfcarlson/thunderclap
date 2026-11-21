@@ -105,7 +105,7 @@ struct X_2a7340 {
     void* b;
     void f();
 };
-extern void* Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" int * __cdecl FUN_002a72b0(int *, int, const int *);
 class Buffer_2a7370 {
   public:
@@ -174,7 +174,7 @@ struct Source_2a75a0 {
     int valueA;
     int valueB;
 };
-void *__cdecl FUN_0008d6d0(unsigned int size);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 class Holder_2a75a0 {
 public:
     virtual void v0();
@@ -420,7 +420,7 @@ bool Buffer_2a7370::Create(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {
-        int* p = (int*)Alloc(count * 4);
+        int* p = (int*)FUN_0008d6d0(count * 4);
         begin = p;
         if (p != 0) {
             end = p + count;
@@ -450,13 +450,13 @@ ParticleController_2a73d0::ParticleController_2a73d0() {
 } // namespace fn_fa907639
 
 // 0x002a7410 FUN_002a7410 (197 B): equivalent/0x002a7410.cpp [wrapped: conflict: pure3d::ParticleController]
-// sym: ??0ParticleController@pure3d@fn_002a7410@@QAE@ABU012@@Z @34a597f705f9 @w0c75339472c1 @v52706a85a19c
+// sym: ??0ParticleController@pure3d@fn_002a7410@@QAE@ABU012@@Z @34a597f705f9 @w0c75339472c1 @v6b28e33bfd9e
 namespace fn_002a7410 {
 // STATUS: equivalent (tools/equiv.py level 3: 56 inputs, branch coverage 12/12)
 // FUN_002a7410 @ 0x002a7410
 typedef unsigned int uint;
 struct RefObject_2a7410 { virtual void AddRef(); virtual void Release(); };
-void* __cdecl FUN_0008d6d0(uint);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct SimpleFrameController_2a7410 { virtual void v0(); char pad[0x3c]; SimpleFrameController_2a7410(const SimpleFrameController_2a7410&); };
 namespace pure3d {
 struct ParticleController : SimpleFrameController_2a7410 {
@@ -544,7 +544,7 @@ void* pure3d::ParticleController::vfunc_4() {
 namespace fn_fa907639 {
 
 // 0x002a75a0 FUN_002a75a0 (340 B): equivalent/0x002a75a0.cpp
-// sym: ?FUN_002a75a0@Holder_2a75a0@fn_fa907639@@QAEXPBUSource_2a75a0@2@@Z @a620bfc1d615 @w9827aafacf21 @v8eafa693420d
+// sym: ?FUN_002a75a0@Holder_2a75a0@fn_fa907639@@QAEXPBUSource_2a75a0@2@@Z @a620bfc1d615 @w9827aafacf21 @v3fbf972243a3
 // STATUS: equivalent (tools/equiv.py level 3: 34 inputs, branch coverage 25/30, incomplete)
 // FUN_002a75a0 @ 0x002a75a0
 void Holder_2a75a0::FUN_002a75a0(const Source_2a75a0 *src)

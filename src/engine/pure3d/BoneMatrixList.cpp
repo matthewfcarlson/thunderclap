@@ -18,7 +18,7 @@ namespace fn_fa9c7cf4 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game 
 
 // ---- declarations shared by the functions below
 namespace fn_fa9c7cf4 {
-extern void* Alloc_0008d6d0(unsigned int);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" void FUN_002e1440(void*, unsigned int, void*);
 struct Mat_2e1750 {
     char d[64];
@@ -40,7 +40,7 @@ class BoneMatrixList : public NonCopyable_2e1750 {
 struct Mat_2e17c0 {
     char d[64];
 };
-void *__cdecl FUN_0008d6d0(unsigned int n);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct MatVec {
     char pad0[8];
     Mat_2e17c0 *begin;
@@ -87,7 +87,7 @@ bool owners::Buffer_2e16f0::FUN_002e16f0(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {
-        int* p = (int*)Alloc_0008d6d0(count * sizeof(int));   // (allocsize1) the words by their element (ints: the fill copies an int)
+        int* p = (int*)FUN_0008d6d0(count * sizeof(int));   // (allocsize1) the words by their element (ints: the fill copies an int)
         begin = p;
         if (p != 0) {
             end = p + count;
@@ -105,7 +105,7 @@ namespace fn_fa9c7cf4 {
 // 0x002e1750 FUN_002e1750 (104 B): matches/0x002e1750.cpp
 // sym: ??0BoneMatrixList@fn_fa9c7cf4@@QAE@I@Z
 BoneMatrixList::BoneMatrixList(unsigned n) {
-    if (n > 0 && (b = (Mat_2e1750*)Alloc_0008d6d0(n * 64)) != 0) {
+    if (n > 0 && (b = (Mat_2e1750*)FUN_0008d6d0(n * 64)) != 0) {
         c = b + n;
     } else {
         b = 0;
@@ -117,7 +117,7 @@ BoneMatrixList::BoneMatrixList(unsigned n) {
 
 
 // 0x002e17c0 FUN_002e17c0 (117 B): equivalent/0x002e17c0.cpp
-// sym: ??0BoneMatrixList@pure3d@fn_fa9c7cf4@@QAE@PAUMatVec@2@@Z @bada2f6a719c @w95fb3f2fe9f9 @v9b56aefaa814
+// sym: ??0BoneMatrixList@pure3d@fn_fa9c7cf4@@QAE@PAUMatVec@2@@Z @bada2f6a719c @w95fb3f2fe9f9 @v5fc9607177dc
 // STATUS: equivalent (tools/equiv.py level 3: 54 inputs, branch coverage 8/8)
 // FUN_002e17c0 @ 0x002e17c0
 pure3d::BoneMatrixList::BoneMatrixList(MatVec *src)

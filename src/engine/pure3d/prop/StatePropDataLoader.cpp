@@ -81,7 +81,7 @@ class StatePropDataLoader : public HulkChunkHandler {
   public:
     StatePropDataLoader();
 };
-extern void* Alloc_0008d6d0(unsigned int);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" int * __cdecl FUN_002904d0(int *, int, const int *);
 struct Obj_2907f0 {   // (nat2, D134) a range of items (0x00290500 frees their blocks), freed with operator delete[]
     void* a;
@@ -95,7 +95,7 @@ class Item_290810 {
     void Init_0027af00();
     void Configure_0027af70(Item_290810*);
 };
-void* __cdecl FUN_0008d6d0(unsigned size);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" void * __cdecl FUN_00290810(void *, int, void *);
 struct Temp_290ad0 {
     char pad[8];
@@ -119,7 +119,7 @@ void owners::Obj_28fe80::FUN_0028fe80(const char* src) {
         text = 0;
     }
     if (src) {
-        text = (char*)allocMem(strlen(src) + 1);
+        text = (char*)FUN_0008d6d0(strlen(src) + 1);
         strcpy(text, src);
     }
 }
@@ -130,7 +130,7 @@ void owners::Obj_28fe80::FUN_0028fe80(const char* src) {
 namespace fn_0028ff00 {
 // STATUS: equivalent (tools/equiv.py level 3: 19 inputs, branch coverage 10/10)
 // FUN_0028ff00 @ 0x0028ff00
-extern "C++" __declspec(nothrow) void *__cdecl FUN_0008d6d0(unsigned int size);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void *memset(void *dst, int c, unsigned int n);
@@ -658,7 +658,7 @@ bool owners::Buffer_290790::FUN_00290790(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {
-        int* p = (int*)Alloc_0008d6d0(count * 4);
+        int* p = (int*)FUN_0008d6d0(count * 4);
         begin = p;
         if (p != 0) {
             end = p + count;
@@ -759,7 +759,7 @@ pure3d::prop::StatePropData::~StatePropData() {
 
 
 // 0x002909c0 FUN_002909c0 (93 B): equivalent/0x002909c0.cpp
-// sym: ?FUN_002909c0@Buffer_2909c0@owners@@QAE_NII@Z @2a59f40fe8ec @w392a9e2e36cf @v6ca5895797bb
+// sym: ?FUN_002909c0@Buffer_2909c0@owners@@QAE_NII@Z @2a59f40fe8ec @w392a9e2e36cf @v9be6c86e9261
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002909c0 @ 0x002909c0
 bool owners::Buffer_2909c0::FUN_002909c0(unsigned count, hulk_uintptr value) {

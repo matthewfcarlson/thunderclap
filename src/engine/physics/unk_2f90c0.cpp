@@ -21,7 +21,7 @@ class Obj_2f91e0 {
     int m0, m1, m2, m3;
     Obj_2f91e0();
 };
-void *__cdecl FUN_0008d6d0(unsigned int n);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct Block {
     int a, b, c, d;
 };
@@ -86,7 +86,7 @@ struct X_2f9b30 {
     void* b;
     void f();
 };
-extern void* Alloc_0008d6d0(unsigned int);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" unsigned int * __cdecl FUN_002f98c0(unsigned int *, unsigned int, unsigned int *);
 struct Buffer { char pad[4]; unsigned short *end; unsigned short *limit; void FUN_002f9bc0(unsigned short *position, hulk_uintptr count, unsigned short *source); };
 struct Range {
@@ -451,7 +451,7 @@ void owners::Buffer_2f9930::FUN_002f9930(U16* src, int count, hulk_intptr value)
 namespace fn_fe1b1ee9 {
 
 // 0x002f9990 FUN_002f9990 (109 B): equivalent/0x002f9990.cpp
-// sym: ?FUN_002f9990@Vec_2f9990@fn_fe1b1ee9@@QAEPAU12@PAU12@@Z @92b4875a4ad7 @wc322c23ff22e @vc6ab6fe5492a
+// sym: ?FUN_002f9990@Vec_2f9990@fn_fe1b1ee9@@QAEPAU12@PAU12@@Z @92b4875a4ad7 @wc322c23ff22e @v1066d3f49c57
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_002f9990 @ 0x002f9990
 Vec_2f9990 *Vec_2f9990::FUN_002f9990(Vec_2f9990 *src)
@@ -478,7 +478,7 @@ Vec_2f9990 *Vec_2f9990::FUN_002f9990(Vec_2f9990 *src)
 } // namespace fn_fe1b1ee9
 
 // 0x002f9a00 FUN_002f9a00 (122 B): equivalent/0x002f9a00.cpp
-// sym: ?FUN_002f9a00@WideVector_2f9a00@owners@@QAEPAU12@PBU12@@Z @8a2fd686264b @w167a691ca854 @v4aff39c1f888
+// sym: ?FUN_002f9a00@WideVector_2f9a00@owners@@QAEPAU12@PBU12@@Z @8a2fd686264b @w167a691ca854 @v17df37b93730
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 9/10, incomplete)
 // FUN_002f9a00 @ 0x002f9a00
 owners::WideVector_2f9a00* owners::WideVector_2f9a00::FUN_002f9a00(const owners::WideVector_2f9a00* other) {
@@ -564,7 +564,7 @@ bool owners::Buffer_2f9b60::FUN_002f9b60(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {
-        begin = (int*)Alloc_0008d6d0(count * 8);
+        begin = (int*)FUN_0008d6d0(count * 8);
         if (begin != 0) {
             end = (int*)((char*)begin + count * 8);
             FUN_002f98c0((unsigned int *)(void *)begin, count, (unsigned int *)(void *)arg);
@@ -830,7 +830,7 @@ void Range_2fa1f0::FUN_002fa1f0(Desc_2fa1f0 *d, Skeleton *s)
 
 
 // 0x002fa4e0 FUN_002fa4e0 (150 B): equivalent/0x002fa4e0.cpp
-// sym: _FUN_002fa4e0 @5fc8fd3e849c @w4d3b2daffd43 @v944d1340b22e
+// sym: _FUN_002fa4e0 @5fc8fd3e849c @w4d3b2daffd43 @vc3cdeb71d694
 // STATUS: equivalent (tools/equiv.py level 3: 185 inputs, branch coverage 14/16, incomplete)
 // FUN_002fa4e0 @ 0x002fa4e0
 extern "C" void FUN_002fa4e0(unsigned int n, unsigned int a, unsigned int b)

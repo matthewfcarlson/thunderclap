@@ -36,7 +36,7 @@ struct Locale {
 struct TextEntry_b5250 {
 };
 Locale *__cdecl FUN_000fc1b0();
-void __cdecl FUN_000fc020(char *buf, int size, const char *fmt, ...);
+extern "C" void __cdecl FUN_000fc020(void*, int, const void*, ...);   // (decl1) as defined (unk_0fb830.cpp)
 extern "C" void __cdecl FUN_000fc000(char *buf, int size, const char *fmt, ...);
 
 
@@ -60,7 +60,7 @@ extern "C" bool __cdecl FUN_000b51c0(int language) {
 
 
 // 0x000b5250 FUN_000b5250 (544 B): equivalent/0x000b5250.cpp
-// sym: ?FUN_000b5250@fn_f61f5a00@@YGXPAUTextEntry_b5250@1@PBD111111@Z @b0f71453a6a3 @wc3beff6ed1fa @v2bc36c11fb6d
+// sym: ?FUN_000b5250@fn_f61f5a00@@YGXPAUTextEntry_b5250@1@PBD111111@Z @b0f71453a6a3 @wc3beff6ed1fa @v4b1d9928d4a7
 // STATUS: equivalent (tools/equiv.py level 3: 7848 inputs, branch coverage 14/14)
 // FUN_000b5250 @ 0x000b5250
 void __stdcall FUN_000b5250(TextEntry_b5250 *entry, const char *key, const char *k2, const char *k3,
@@ -138,7 +138,7 @@ void __stdcall FUN_000b5250(TextEntry_b5250 *entry, const char *key, const char 
 } // namespace fn_f61f5a00
 
 // 0x000b5670 FUN_000b5670 (146 B): equivalent/0x000b5670.cpp [wrapped: conflict: FUN_000fc020; FUN_000fc1b0; FUN_000fc260]
-// sym: _FUN_000b5670@4 @f3e2a63f5acc @wb29615edabf4 @v15ae6e625cea
+// sym: _FUN_000b5670@4 @f3e2a63f5acc @wb29615edabf4 @vd2106d3b4513
 namespace fn_000b5670 {
 // STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 3/3)
 // FUN_000b5670 @ 0x000b5670
@@ -165,7 +165,7 @@ public:
 
 extern Panel_b5670 *__cdecl FUN_000fc260(const char *name);
 extern Texts_b5670 *__cdecl FUN_000fc1b0();
-extern int __cdecl FUN_000fc020(char *buf, int size, const char *fmt, ...);
+extern "C" void __cdecl FUN_000fc020(void*, int, const void*, ...);   // (decl1) as defined (unk_0fb830.cpp)
 
 extern "C" void __stdcall FUN_000b5670(hulk_intptr amount)
 {
@@ -419,7 +419,7 @@ struct World {
 
 FEObject *__cdecl FUN_000fc260(const char *name);
 Language *__cdecl FUN_000fc1b0();
-void __cdecl FUN_000fc020(char *buf, int size, const char *fmt, ...);
+extern "C" void __cdecl FUN_000fc020(void*, int, const void*, ...);   // (decl1) as defined (unk_0fb830.cpp)
 
 struct Frame {
     String s;
@@ -803,7 +803,7 @@ void Briefing::FUN_000b79a0(Slot_b79a0 a1, Slot_b79a0 a2)
 
 
 // 0x000b7cd0 FUN_000b7cd0 (800 B): equivalent/0x000b7cd0.cpp [wrapped: conflict: FEControl; FEObject; FUN_000964a0; FUN_000fc3d0 (+1)]
-// sym: ?FUN_000b7cd0@HintMenu_b7cd0@fn_000b7cd0@@QAEXXZ @0e4de9b54608 @w58cf47f0bad0 @vc6491f66437a
+// sym: ?FUN_000b7cd0@HintMenu_b7cd0@fn_000b7cd0@@QAEXXZ @0e4de9b54608 @w58cf47f0bad0 @ve73bf0f6e45e
 namespace fn_000b7cd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 282 inputs, branch coverage 75/76, incomplete)
 // FUN_000b7cd0 @ 0x000b7cd0
@@ -915,7 +915,7 @@ struct Unlocks_b7cd0 {
 FEObject* FUN_000fc260(const char* name);
 UiMgr_b7cd0* FUN_000fc3d0();
 extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
-void FUN_000fc020(unsigned short* buf, int count, const unsigned short* fmt, ...);
+extern "C" void __cdecl FUN_000fc020(void*, int, const void*, ...);   // (decl1) as defined (unk_0fb830.cpp)
 
 struct Frame_b7cd0 {
     int count;

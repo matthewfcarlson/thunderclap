@@ -20,7 +20,7 @@ struct Sub_91bc0 {
 struct Tail_91be0 {
     void Fnf_0027af50();
 };
-void* __cdecl allocbuf_0008d6d0(unsigned int);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 } // namespace fn_f9898967
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" unsigned __cdecl strlen(const char*);
@@ -100,7 +100,7 @@ class Obj_91ef0 {
   public:
     void dtor_0027af50();
 };
-extern "C" void * __cdecl FUN_0008d6d0(unsigned int);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class C_92040 {
     char pad[0x30];
 
@@ -145,7 +145,7 @@ void X::Set(const char* s) {
         str = 0;
     }
     if (s) {
-        str = (char*)allocbuf_0008d6d0(strlen(s) + 1);
+        str = (char*)FUN_0008d6d0(strlen(s) + 1);
         strcpy(str, s);
     }
 }

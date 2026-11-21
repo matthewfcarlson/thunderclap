@@ -687,7 +687,7 @@ class Sub {
     Sub();
 };
 extern char VT_18eb80[];
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern int hulk_at_0041ae7c;
 struct ConditionFactoryTemplate_18ebc0 {
     void* m_vptr;

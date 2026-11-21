@@ -18,7 +18,7 @@ extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 // ---- declarations shared by the functions below
 namespace fn_f5715835 {
 typedef unsigned int u32_1a0ca0;
-extern void* __cdecl Alloc_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct NewThing {
     int Init_0019b500(hulkfight::motion::FireBeamTrack*, void*);
 };
@@ -57,7 +57,7 @@ class TrackFactoryTemplate_1a0d90 {
     int mPad;
     TrackImpl mTrack;
 };
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern int hulk_at_0041b268[];
 class Prop_1a0dd0 {
   public:
@@ -83,7 +83,7 @@ class TrackFactoryTemplate_1a0e40 {
     int mPad;
     TrackImpl mTrack;
 };
-extern void* __cdecl Allocate_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct Track_1a0e80 {
     void* Init_00193e20();
 };
@@ -147,7 +147,7 @@ namespace core {
 class IRefCount_1a0fd0 {};
 }
 namespace fn_f5715835 {
-extern "C" void* __cdecl Allocator_0008d690(unsigned int size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class TrackFactoryTemplate_1a1050 {
   public:
     TrackFactoryTemplate_1a1050() {}
@@ -204,7 +204,7 @@ struct Obj_1a1120 {
 hulk_intptr hulkfight::motion::FireBeamTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_1a0ca0 a = (u32_1a0ca0)__p0; u32_1a0ca0 b = (u32_1a0ca0)__p1; void * p = (void *)__p2;
 
     if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0))) {
-        NewThing* q = (NewThing*)Alloc_0008d690(0x98);
+        NewThing* q = (NewThing*)FUN_0008d690(0x98);
         if (q)
             return q->Init_0019b500(this, p);
     }
@@ -233,7 +233,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::PropG
 // 0x001a0d30 fight::ConditionFactoryTemplate<hulkfight::motion::PropGrabbableIsMissileCondition>::vfunc_5 (44 B): matches/0x001a0d30.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VPropGrabbableIsMissileCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::PropGrabbableIsMissileCondition>::vfunc_5() {
-    Item_1a0d30* p = (Item_1a0d30*)Alloc_0008d690(sizeof(::hulkfight::motion::PropGrabbableIsMissileCondition));
+    Item_1a0d30* p = (Item_1a0d30*)FUN_0008d690(sizeof(::hulkfight::motion::PropGrabbableIsMissileCondition));
     if (p) {
         p->Init_00234590(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0041b248);
@@ -330,7 +330,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::MissileTh
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VMissileThrowTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 // Same code shape as 0x00070420 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::MissileThrowTrack>::vfunc_5() {
-    void* p = Allocate_0008d690(sizeof(::hulkfight::motion::MissileThrowTrack));
+    void* p = FUN_0008d690(sizeof(::hulkfight::motion::MissileThrowTrack));
     if (p)
         return (void*)(((Track_1a0e80*)p)->Init_00193e20());
     return (void*)(0);
@@ -435,7 +435,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::AccuracyL
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VAccuracyLatencyTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::AccuracyLatencyTrack>::vfunc_5() {
     hulkfight::motion::AccuracyLatencyTrack_1a0fd0* track =
-        (hulkfight::motion::AccuracyLatencyTrack_1a0fd0*)Allocator_0008d690(sizeof(::hulkfight::motion::AccuracyLatencyTrack));
+        (hulkfight::motion::AccuracyLatencyTrack_1a0fd0*)FUN_0008d690(sizeof(::hulkfight::motion::AccuracyLatencyTrack));
     if (track) {
         track->Init_00236d40();
         *(hulk_intptr*)track = ((hulk_intptr)DAT_0041b318);
@@ -551,7 +551,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::FireBeamT
 // 0x001a1120 fight::TrackFactoryTemplate<hulkfight::motion::FireBeamTrack>::vfunc_5 (27 B): matches/0x001a1120.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VFireBeamTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::FireBeamTrack>::vfunc_5() {
-    Obj_1a1120* p = (Obj_1a1120*)Alloc_0008d690(sizeof(::hulkfight::motion::FireBeamTrack));
+    Obj_1a1120* p = (Obj_1a1120*)FUN_0008d690(sizeof(::hulkfight::motion::FireBeamTrack));
     if (p)
         return (void*)(p->Init_00194030());
     return (void*)(0);

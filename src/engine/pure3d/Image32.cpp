@@ -74,8 +74,8 @@ void Image_Init(Image_2bfd30*);
 extern "C" void* memcpy(void*, const void*, unsigned int);
 #endif
 namespace fn_fbf8e46b {
-void* __cdecl alloc_pixels_0008d6d0(int);
-extern "C" void* __cdecl FUN_0008d6d0(unsigned int size);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 } // namespace fn_fbf8e46b
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void* memset(void*, int, unsigned int);
@@ -92,7 +92,7 @@ struct Image32 : Image_2bffc0 {
     Image32* Init();
 };
 typedef unsigned int u32_2c0070;
-void* FUN_0008d6d0(u32_2c0070);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 class Surface_2c0240 {
 public:
     virtual void v0();
@@ -410,7 +410,7 @@ void pure3d::Image8::vfunc_5(int w, int h) {
     this->f_10 = w;
     this->f_14 = h;
     ::operator delete[]((*(void * *)&this->f_24));
-    (*(void * *)&this->f_24) = alloc_pixels_0008d6d0(this->f_14 * this->f_10);
+    (*(void * *)&this->f_24) = FUN_0008d6d0(this->f_14 * this->f_10);
 }
 
 
@@ -931,7 +931,7 @@ void* LightsChooserCache_2c09a0::vfunc_2(unsigned int flags) {
 // 0x002c09e0 FUN_002c09e0 (113 B): matches/0x002c09e0.cpp [wrapped: conflict: Image32]
 // sym: ??0Image32@fn_002c09e0@@QAE@ABV01@@Z
 namespace fn_002c09e0 {
-void* Alloc_0008d6d0(int);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 class Image32;
 class Image_2c09e0 {
   public:
@@ -968,7 +968,7 @@ Image32::Image32(const Image32& o) : Image_2c09e0(o) {
     mW = w;
     mH = h;
     ::operator delete[](mData);
-    mData = (int*)Alloc_0008d6d0(mH * mW * 4);
+    mData = (int*)FUN_0008d6d0(mH * mW * 4);
     char f = mFlag;
     mFlag = 0;
     Image_2c09e0* b = this;

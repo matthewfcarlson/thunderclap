@@ -20,7 +20,7 @@ namespace fn_f3cf613f {} using namespace fn_f3cf613f;
 
 // ---- declarations shared by the functions below
 namespace fn_f3cf613f {
-extern "C" void* __cdecl FUN_0008d690(unsigned int size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 } // namespace fn_f3cf613f
 inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 namespace fn_f3cf613f {
@@ -196,7 +196,7 @@ void Registry_b0440::FUN_000b0440(const char* name, CHapticControllerManager* ow
 } // namespace fn_f3cf613f
 
 // 0x000b0500 FUN_000b0500 (440 B): equivalent/0x000b0500.cpp [wrapped: conflict: Closure0; Method0]
-// sym: ??0CHapticControllerManager@fn_000b0500@@QAE@PAVSource_b0500@1@@Z @efef6eacfb67 @w82588783fb58 @v1d4baa8a3924
+// sym: ??0CHapticControllerManager@fn_000b0500@@QAE@PAVSource_b0500@1@@Z @efef6eacfb67 @w82588783fb58 @v31f683454723
 namespace fn_000b0500 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_000b0500 @ 0x000b0500
@@ -243,7 +243,7 @@ struct Registry_b0500 {
     void FUN_001d3b70(const char* name, void* closure);
 };
 extern "C" Registry_b0500* FUN_001d4c90();
-extern "C" void* FUN_0008d690(unsigned size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 
 class Source_b0500 {
   public:

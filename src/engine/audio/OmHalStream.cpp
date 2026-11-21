@@ -212,7 +212,7 @@ struct Tmp_25cab0 {
     void* FUN_0023fb00();
 };
 struct Holder_25cab0 { void* FUN_0023fb00(); };
-void* __cdecl FUN_00240780();
+extern "C" void* __cdecl FUN_00240780(void);   // (decl1) as defined (unk_23fa40.cpp)
 void __cdecl FUN_0025c920(Tmp_25cab0* out, int a1, Key_25cab0* id, void* x);
 Holder_25cab0* __cdecl FUN_0024c710();
 void* __cdecl FUN_002631f0(void* a, void* b, int c, int d, int e, void* f, int g);

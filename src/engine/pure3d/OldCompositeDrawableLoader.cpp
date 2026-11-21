@@ -619,13 +619,13 @@ class Obj {
 };
 extern "C" unsigned __int64 __cdecl Make(int);
 extern int hulk_at_0042d51c;
-extern void* Alloc_0008d6d0(unsigned int) throw();
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct Buf_299cd0 {
     char* b;
     char* e;
     void Init(unsigned n) throw() {
         if (n > 0) {
-            b = (char*)Alloc_0008d6d0(n);
+            b = (char*)FUN_0008d6d0(n);
             if (b) {
                 e = b + n;
                 return;
@@ -1328,12 +1328,12 @@ struct Entry { unsigned char active; char pad[3]; unsigned int first; unsigned i
 
 
 // 0x00299680 FUN_00299680 (140 B): equivalent/0x00299680.cpp [wrapped: conflict: pure3d::CompositeDrawable]
-// sym: ??0ActiveControllerList@CompositeDrawable@pure3d@fn_00299680@@QAE@E@Z @2262c52792c1 @w55f110165b7c @v606ab62c2dcf
+// sym: ??0ActiveControllerList@CompositeDrawable@pure3d@fn_00299680@@QAE@E@Z @2262c52792c1 @w55f110165b7c @v9aebda640ae1
 namespace fn_00299680 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_00299680 @ 0x00299680
 // pure3d::CompositeDrawable::ActiveControllerList constructor: three arrays sized by a byte count.
-void* __cdecl FUN_0008d6d0(unsigned int size);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 
 namespace pure3d {
 class CompositeDrawable {
@@ -1689,11 +1689,11 @@ ActivePrimitiveList_299cd0::ActivePrimitiveList_299cd0(unsigned char n) throw() 
 } // namespace fn_f40ca5f7
 
 // 0x00299da0 FUN_00299da0 (512 B): equivalent/0x00299da0.cpp [wrapped: conflict: pure3d::CompositeDrawable::ActivePrimitiveList]
-// sym: ??0ActivePrimitiveList@CompositeDrawable@pure3d@fn_00299da0@@QAE@ABV0123@@Z @b09fa57c1a75 @w77af69ce1da9 @v073f10fbc533
+// sym: ??0ActivePrimitiveList@CompositeDrawable@pure3d@fn_00299da0@@QAE@ABV0123@@Z @b09fa57c1a75 @w77af69ce1da9 @v884f211c52dc
 namespace fn_00299da0 {
 // STATUS: equivalent (tools/equiv.py level 3: 26 inputs, branch coverage 24/24)
 // FUN_00299da0 @ 0x00299da0
-void* FUN_0008d6d0(unsigned int size);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 
 class Ref_299da0 {
 public:

@@ -6609,3 +6609,9 @@ name that carries an address any more. Unbound counts: see the commit message (c
   `A_86a40::Run(int)`: the frame time travels as int bits through its callees), 0x001d1160 / 0x001d15d0 (script
   handler; member spellings of a fastcall / an owners stub), 0x001eb2a0 (sound update), 0x000879c0 (the copyright
   wait, a member spelling of a free function).
+
+## decl1 (2026-11-21): batch K, callee declarations in equivalent blocks
+
+- 55 TUs, 52 equivalent blocks re-proven (MSVC + --wine), CSoundSystem 0x001f1c80's free as operator delete (free-name
+  baseline 2 -> 1). The x64 gate is ok. The 29 allocation-size `layout` blocks this would have exposed are held out.
+  The Wine pair is in the commit message.

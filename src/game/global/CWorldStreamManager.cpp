@@ -536,7 +536,7 @@ class Manager_2062d0 {
   public:
     void Register_00265210(Loader_2062d0*, unsigned int);
 };
-extern "C" void* FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 } // namespace fn_f49dcb8d
 inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 namespace fn_f49dcb8d {
@@ -3606,7 +3606,7 @@ bool Table_208040::FUN_00208040(int a, int b)
 } // namespace fn_f49dcb8d
 
 // 0x00208210 FUN_00208210 (1544 B): equivalent/0x00208210.cpp [wrapped: conflict: CWorldStreamManager; Closure1; Method1]
-// sym: ??0CWorldStreamManager@fn_00208210@@QAE@XZ @db195b140561 @w47512810076e @v36401eacd201
+// sym: ??0CWorldStreamManager@fn_00208210@@QAE@XZ @db195b140561 @w47512810076e @v3896335b1920
 namespace fn_00208210 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 24/24)
 // FUN_00208210 @ 0x00208210
@@ -3640,7 +3640,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 class CWorldStreamManager;
 
-extern "C" void* FUN_0008d690(unsigned size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" char* __cdecl strncpy(char*, const char*, hulk_uintptr);

@@ -189,7 +189,7 @@ public:
     float jz;               // 0x7c
     void FUN_0022eb00(Vec3_22eb00 *out);
 };
-extern void* __cdecl Alloc_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern void __stdcall Init_00011520(void*, unsigned int, unsigned int, void(__cdecl*)());
 extern void* ElemCtor_000a9e50(void*); /* (unb4) as defined; address taken only */
 class Obj_22eda0 {
@@ -248,7 +248,7 @@ struct Animator_22f120 {
     bool FUN_0022ef20(int flag, float position);
     void* FUN_0022f120(void* output);
 };
-void* FUN_0008d690(unsigned int size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 void FUN_000a9e50(void* p);
 void __stdcall FUN_00011520(void* base, int stride, int count, void (*fn)(void*));
 struct Matrix4_22f230 {
@@ -308,7 +308,7 @@ struct Segment_22f7e0 {
  void FUN_0022e670(uint_22f7e0, Point_22f7e0*, Point_22f7e0*, Point_22f7e0*, Point_22f7e0*);
 };
 hulk_freg __cdecl FUN_0022f760(Segment_22f7e0*, float);
-void* __cdecl FUN_0008d690(uint_22f7e0);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct Curve_22f7e0 {
  char padding[0x108];
  unsigned char closed;
@@ -1616,7 +1616,7 @@ void Obj_22eda0::Target(unsigned int n) {
         data2 = 0;
         count = n;
         if (n > 0) {
-            void* p = Alloc_0008d690(n << 4);
+            void* p = FUN_0008d690(n << 4);
             if (p)
                 Init_00011520(p, 0x10, n, (void (*)())ElemCtor_000a9e50);
             else
@@ -1711,7 +1711,7 @@ void* Animator_22f120::FUN_0022f120(void* output) {
 
 
 // 0x0022f230 FUN_0022f230 (456 B): equivalent/0x0022f230.cpp
-// sym: ?FUN_0022f230@Shape_22f230@fn_f0c6a717@@QAEPAU12@PBU12@@Z @393b9728d232 @w692cde685c0f @v08e139b6acf5
+// sym: ?FUN_0022f230@Shape_22f230@fn_f0c6a717@@QAEPAU12@PBU12@@Z @393b9728d232 @w692cde685c0f @v01de331fef03
 // STATUS: equivalent (tools/equiv.py level 3: 48 inputs, branch coverage 24/24)
 // FUN_0022f230 @ 0x0022f230
 Shape_22f230* Shape_22f230::FUN_0022f230(const Shape_22f230* src)
@@ -1759,7 +1759,7 @@ Shape_22f230* Shape_22f230::FUN_0022f230(const Shape_22f230* src)
 
 
 // 0x0022f400 FUN_0022f400 (472 B): equivalent/0x0022f400.cpp
-// sym: ?FUN_0022f400@Shape_22f400@fn_f0c6a717@@QAEPAU12@PBU12@@Z @01f36da48dcd @waf099d1770f4 @vce4ed40188eb
+// sym: ?FUN_0022f400@Shape_22f400@fn_f0c6a717@@QAEPAU12@PBU12@@Z @01f36da48dcd @waf099d1770f4 @v1b85a375816c
 // STATUS: equivalent (tools/equiv.py level 3: 43 inputs, branch coverage 24/24)
 // FUN_0022f400 @ 0x0022f400
 Shape_22f400* Shape_22f400::FUN_0022f400(const Shape_22f400* src)
@@ -1826,7 +1826,7 @@ hulk_freg FUN_0022f760(Sampler_22f760* s, float t)
 
 
 // 0x0022f7e0 FUN_0022f7e0 (370 B): equivalent/0x0022f7e0.cpp
-// sym: ?FUN_0022f7e0@Curve_22f7e0@fn_f0c6a717@@QAEMI@Z @ef2393e2869c @we524fe1d23ff @ve208a6e20af3
+// sym: ?FUN_0022f7e0@Curve_22f7e0@fn_f0c6a717@@QAEMI@Z @ef2393e2869c @we524fe1d23ff @v85127dd66416
 // STATUS: equivalent (tools/equiv.py level 3: 341 inputs, branch coverage 21/22, incomplete)
 // FUN_0022f7e0 @ 0x0022f7e0
 // equiv-conv: FUN_0022f760 edi stack
@@ -1851,12 +1851,12 @@ float Curve_22f7e0::FUN_0022f7e0(uint_22f7e0 index) {
 } // namespace fn_f0c6a717
 
 // 0x0022f960 FUN_0022f960 (251 B): equivalent/0x0022f960.cpp [wrapped: conflict: Object]
-// sym: ?target@Object@fn_0022f960@@QAEMXZ @43978d3237d6 @w6fe9f703410c @v405809a85cdc
+// sym: ?target@Object@fn_0022f960@@QAEMXZ @43978d3237d6 @w6fe9f703410c @v4beeb4debaeb
 namespace fn_0022f960 {
 // STATUS: equivalent (tools/equiv.py level 3: 2518 inputs, branch coverage 24/24)
 // FUN_0022f960 @ 0x0022f960
 // FUN_0022f960 @ 0x0022f960
-extern "C++" void* __cdecl FUN_0008d690(unsigned int bytes);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct Object {
  char pad[0x108];
  unsigned char enabled;
