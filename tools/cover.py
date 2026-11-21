@@ -138,13 +138,23 @@ def area_of(tu):
 
 
 def cmd_report(a):
-    hits, hdr = {}, None
+    hits, epochs, hdr = {}, {}, None
     for l in open(a.cov):
         if l.startswith("cover"):
             hdr = l.strip()
             continue
-        x, fr = l.split()
-        hits[int(x, 16)] = int(fr)
+        w = l.split()
+        hits[int(w[0], 16)] = int(w[1])
+        if len(w) > 2:          # (HULK_COVER_EPOCH: the windows in which the address ran)
+            epochs[int(w[0], 16)] = int(w[2])
+        if len(w) > 3 and a.frames:
+            # (rev5, D162 piece 1) only the windows inside the frames a reference compares count: the bitmap's
+            # windows (k*n .. k*n+n-1) that overlap --frames FROM-TO
+            n = int(re.search(r"epoch (\d+)", hdr or "").group(1))
+            lo, hi = (int(x) for x in a.frames.split("-"))
+            bits = bytes.fromhex(w[3])
+            epochs[int(w[0], 16)] = sum(1 for k in range(len(bits) * 8) if bits[k // 8] >> (k % 8) & 1
+                                        and k * n <= hi and k * n + n - 1 >= lo)
     syms = load_map(a.map)
     by_sym = {}
     for va, s, _o in syms:
@@ -214,6 +224,8 @@ def cmd_report(a):
             st["est_covered_bytes"] += b["size"] * frac
             bt["est_covered_bytes"] += b["size"] * frac
             b["frac"] = frac
+            hit_ep = [epochs.get(x, 0) for x, _n in bbs[b["va"]] if x in hits]
+            b["min_epochs"] = min(hit_ep) if hit_ep and epochs else None
         if fr is not None:
             st["reached"] += 1
             st["reached_bytes"] += b["size"]
@@ -238,13 +250,18 @@ def cmd_report(a):
             v["reached_bytes"], 100.0 * v["reached_bytes"] / max(1, v["bytes"]), v["unmapped"], v["folded"],
             v["bb_blocks"], v["bb_hit"], 100.0 * v["est_covered_bytes"] / max(1, v["bytes"])))
     print("first hit by frame (thousands):", " ".join("%d:%d" % kv for kv in sorted(first.items())))
+    if epochs:
+        hist = collections.Counter(min(e, 64) for e in epochs.values())
+        print("block windows (HULK_COVER_EPOCH; 64 = 64 or more):", " ".join("%d:%d" % kv for kv in sorted(hist.items())))
     if a.json:
         json.dump({"header": hdr, "found": found, "areas": stat, "total": tot,
+                   "block_epochs": {"%08x" % x: e for x, e in epochs.items()},
                    "first_by_kframe": first,
                    "tus": by_tu,
                    "reached": [{"addr": "0x%08x" % b["addr"], "name": b["name"], "size": b["size"], "tu": b["tu"],
                                 "frame": fr, "folded": at_va[b["va"]] > 1, "label": bool(b.get("label")),
-                                "block_frac": None if b.get("frac") is None else round(b["frac"], 3)}
+                                "block_frac": None if b.get("frac") is None else round(b["frac"], 3),
+                                "min_block_epochs": b.get("min_epochs")}
                                for b, fr in reached],
                    "unreached": [{"addr": "0x%08x" % b["addr"], "name": b["name"], "size": b["size"], "tu": b["tu"]}
                                  for b in unreached],
@@ -268,6 +285,8 @@ def main():
     s.add_argument("--bindings")
     s.add_argument("--tree", default=ROOT)
     s.add_argument("--blocks", help="list --bb's OUT.blocks.json: block-level byte coverage")
+    s.add_argument("--frames", metavar="FROM-TO", help="count only the windows overlapping these frames (the frames "
+                   "the recording's reference compares; needs a hit file with window bitmaps)")
     s.add_argument("--json")
     a = ap.parse_args()
     return {"list": cmd_list, "report": cmd_report}[a.cmd](a)

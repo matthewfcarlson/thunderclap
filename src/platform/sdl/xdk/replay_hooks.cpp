@@ -139,6 +139,7 @@ extern "C" unsigned HULK_CDECL hulk_session_small_hash(hulk_u32 fno) {
     return hulk_session_state_hash(fno, &st, pb);
 }
 static void hulk_ckref_frame(hulk_u32 fno, const HulkCkptState* st, const unsigned char* pb);
+extern "C" void HULK_CDECL hulk_cov_frame(hulk_u32 fno);   // (startup.cpp: HULK_COVER_EPOCH's re-arming)
 extern "C" void HULK_CDECL hulk_native_frame(const void* clock) {
     hulk_io_frame_sync();
     hulk_last_clock = clock;
@@ -202,6 +203,7 @@ extern "C" void HULK_CDECL hulk_native_frame(const void* clock) {
         }
     }
     hulk_ckref_frame(hulk_native_frame_no - 1, &st, pb);     // (ckpt1: HULK_CKREF, the semantic probe)
+    hulk_cov_frame(hulk_native_frame_no - 1);
     int r = hulk_ckpt_update(&st);
     static unsigned logged, bad;
     HulkCkptStats s;

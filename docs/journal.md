@@ -2155,3 +2155,14 @@ blocks fight::Action's whole family: the records come first there.
   --wine / --x64 wait for a dt contract, whose D152b obligations reach the five derived cameras' vfunc_35 (0x000abb90
   passes a clock callee's result as dt).
 - The checker digest now covers tools/pre_field.py (a change there changes level 2's verdicts).
+
+## 2026-11-20 ckpt1: block coverage counted by windows (D162/D163 piece 1, rev5 ADOPT)
+
+- `HULK_COVER_EPOCH=n` (with `HULK_COVER`): every n frames the frame hook re-arms the blocks hit in the window just
+  ended, so the coverage file records, per block, the windows it ran in (a 256-window bitmap; `cover.py report
+  --frames FROM-TO` counts only windows inside a reference's compared frames). play3 at n=300 (job 106050): of 85,504
+  hit blocks, 25.5% ran in a single window (mostly load and init code), 27.6% in at most two, 32.2% in at most five;
+  the two historical float-bug functions ran in 7-136 windows per block. D162's minimum is therefore two windows within
+  one reference. Wine pair on the default env: control 107197 (gfx2, 65e8e60c1), proof 107231 seeded from it: GATE ok
+  (ref: ok), --require-ref.
+- The reference manifest (piece 2, 559d63013): `config/ckpt-refs.json`, play3 from three original runs.

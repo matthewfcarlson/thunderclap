@@ -775,8 +775,12 @@ static hulk_u32 HULK_STDCALL hulk_profiler(void* arg) {
 // hex VA per line, ascending; tools/cover.py makes it from the link's .map: every function entry, or every basic-block
 // leader); an int3 replaces each listed byte before the initializers run, and the first execution of one restores the
 // byte, notes the frame (hulk_native_frame_no) and resumes there, so each address costs one exception per run and the
-// game's code and state are unchanged. The hits (`addr frame` lines after a `cover listed N hit H frame F` header)
-// are rewritten to HULK_TRACE_FILE + ".cov" every 2 s while new ones come in (the run may be killed at any time).
+// game's code and state are unchanged. The hits (`addr frame epochs` lines after a `cover listed N hit H frame F
+// epoch E` header) are rewritten to HULK_TRACE_FILE + ".cov" every 2 s while new ones come in (the run may be killed
+// at any time). HULK_COVER_EPOCH=n (D162): every n frames the addresses hit in the epoch just ended are armed again
+// (hulk_cov_frame, from the frame hook), so `epochs` counts the n-frame windows in which each address ran, and a
+// fourth column gives which: a bitmap of the first 256 windows (64 hex digits, window k = frames k*n .. k*n+n-1, bit k
+// of the little-endian bytes), so a reader can count only the windows a reference compares (rev5, D162 piece 1).
 // 32-bit Wine build only; off when unset.
 #if defined(__i386__) || defined(_M_IX86)
 static hulk_u32* hulk_cov_addr_;
@@ -784,6 +788,12 @@ static hulk_u32* hulk_cov_frame_;
 static unsigned char* hulk_cov_byte_;
 static hulk_u32 hulk_cov_n_;
 static volatile hulk_u32 hulk_cov_hits_;
+static hulk_u32* hulk_cov_epochs_;           // windows in which the address ran
+static hulk_u32* hulk_cov_last_;             // the last window counted (+1; 0 = none)
+static hulk_u32* hulk_cov_rearm_;            // indices hit in the current window
+static volatile hulk_u32 hulk_cov_nrearm_;
+static hulk_u32 hulk_cov_epoch_len_, hulk_cov_epoch_ = 1;
+static unsigned char* hulk_cov_bits_;        // 32 bytes per address: the windows (first 256) in which it ran
 
 static int hulk_cov_find(hulk_u32 a) {
     hulk_u32 lo = 0, hi = hulk_cov_n_;
@@ -806,10 +816,19 @@ static hulk_u32 HULK_STDCALL hulk_cov_handler(hulk_exception_pointers* ep) {
         a--;
     if (i < 0)
         return 0;
-    if (hulk_cov_frame_[i] == 0xffffffffu) {
+    if (hulk_cov_last_[i] != hulk_cov_epoch_) {
         *(volatile unsigned char*)a = hulk_cov_byte_[i];
-        hulk_cov_frame_[i] = hulk_native_frame_no;
-        hulk_cov_hits_++;
+        if (hulk_cov_frame_[i] == 0xffffffffu) {
+            hulk_cov_frame_[i] = hulk_native_frame_no;
+            hulk_cov_hits_++;
+        }
+        hulk_cov_last_[i] = hulk_cov_epoch_;
+        hulk_cov_epochs_[i]++;
+        hulk_u32 w = hulk_cov_epoch_len_ ? hulk_native_frame_no / hulk_cov_epoch_len_ : 0;
+        if (hulk_cov_bits_ && w < 256)
+            hulk_cov_bits_[i * 32 + w / 8] |= (unsigned char)(1u << (w % 8));
+        if (hulk_cov_epoch_len_)
+            hulk_cov_rearm_[__sync_fetch_and_add(&hulk_cov_nrearm_, 1u)] = (hulk_u32)i;
     }
     ((hulk_u32*)ep->context)[0xb8 / 4] = a;    // CONTEXT.Eip: run the restored instruction
     return 0xffffffffu;                         // EXCEPTION_CONTINUE_EXECUTION
@@ -817,32 +836,57 @@ static hulk_u32 HULK_STDCALL hulk_cov_handler(hulk_exception_pointers* ep) {
 
 static void hulk_cov_dump(void) {
     const char* tp = hulk_host_getenv("HULK_TRACE_FILE");
-    char path[600], line[64];
+    char path[600], line[160];
     hulk_host__snprintf(path, sizeof(path), "%s.cov", tp && *tp ? tp : "hulk-startup-trace.txt");
     hulk_host_file* f = hulk_host_fopen(path, "w");
     if (!f)
         return;
-    hulk_host__snprintf(line, sizeof(line), "cover listed %u hit %u frame %u\n", hulk_cov_n_, hulk_cov_hits_,
-                        hulk_native_frame_no);
+    hulk_host__snprintf(line, sizeof(line), "cover listed %u hit %u frame %u epoch %u\n", hulk_cov_n_, hulk_cov_hits_,
+                        hulk_native_frame_no, hulk_cov_epoch_len_);
     hulk_host_fputs(line, f);
     for (hulk_u32 i = 0; i < hulk_cov_n_; i++)
         if (hulk_cov_frame_[i] != 0xffffffffu) {
-            hulk_host__snprintf(line, sizeof(line), "%08x %u\n", hulk_cov_addr_[i], hulk_cov_frame_[i]);
+            int n = hulk_host__snprintf(line, sizeof(line), "%08x %u %u", hulk_cov_addr_[i], hulk_cov_frame_[i],
+                                        hulk_cov_epochs_[i]);
+            if (hulk_cov_bits_ && n > 0) {
+                static const char hex[] = "0123456789abcdef";
+                char* p = line + n;
+                *p++ = ' ';
+                for (int k = 0; k < 32; k++) {
+                    unsigned char b = hulk_cov_bits_[i * 32 + k];
+                    *p++ = hex[b >> 4];
+                    *p++ = hex[b & 15];
+                }
+                *p = 0;
+            }
             hulk_host_fputs(line, f);
+            hulk_host_fputs("\n", f);
         }
     hulk_host_fclose(f);
 }
 
 static hulk_u32 HULK_STDCALL hulk_cov_dumper(void*) {
-    hulk_u32 last = 0xffffffffu;
+    hulk_u32 last = 0xffffffffu, last_epoch = 0;
     for (;;) {
         hulk_host_Sleep(2000);
         hulk_u32 h = hulk_cov_hits_;
-        if (h != last)
+        if (h != last || hulk_cov_epoch_ != last_epoch)
             hulk_cov_dump();
         last = h;
+        last_epoch = hulk_cov_epoch_;
     }
     return 0;
+}
+
+// The frame hook (replay_hooks.cpp hulk_native_frame): at each window's end, arm again what ran in it.
+extern "C" void HULK_CDECL hulk_cov_frame(hulk_u32 fno) {
+    if (!hulk_cov_epoch_len_ || !hulk_cov_n_ || fno == 0 || fno % hulk_cov_epoch_len_)
+        return;
+    hulk_u32 n = hulk_cov_nrearm_;
+    hulk_cov_epoch_++;                       // (hits from here on count for the new window)
+    for (hulk_u32 k = 0; k < n; k++)
+        *(volatile unsigned char*)hulk_cov_addr_[hulk_cov_rearm_[k]] = 0xcc;
+    hulk_cov_nrearm_ = 0;
 }
 
 static void hulk_cov_init(const char* list) {
@@ -862,6 +906,9 @@ static void hulk_cov_init(const char* list) {
     hulk_cov_addr_ = (hulk_u32*)hulk_host_malloc(cap * 4);
     hulk_cov_frame_ = (hulk_u32*)hulk_host_malloc(cap * 4);
     hulk_cov_byte_ = (unsigned char*)hulk_host_malloc(cap);
+    hulk_cov_epochs_ = (hulk_u32*)hulk_host_malloc(cap * 4);
+    hulk_cov_last_ = (hulk_u32*)hulk_host_malloc(cap * 4);
+    hulk_cov_rearm_ = (hulk_u32*)hulk_host_malloc(cap * 4);
     hulk_u32 n = 0, v = 0, digits = 0, bad = 0;
     for (char* p = text;; p++) {
         char c = *p;
@@ -891,8 +938,16 @@ static void hulk_cov_init(const char* list) {
     for (hulk_u32 i = 0; i < n; i++) {
         hulk_cov_byte_[i] = *(unsigned char*)hulk_cov_addr_[i];
         hulk_cov_frame_[i] = 0xffffffffu;
+        hulk_cov_epochs_[i] = 0;
+        hulk_cov_last_[i] = 0;
     }
     hulk_cov_n_ = n;
+    hulk_cov_epoch_len_ = hulk_env_u32("HULK_COVER_EPOCH", 0);
+    if (hulk_cov_epoch_len_) {
+        hulk_cov_bits_ = (unsigned char*)hulk_host_malloc(n * 32);
+        for (hulk_u32 i = 0; i < n * 32; i++)
+            hulk_cov_bits_[i] = 0;
+    }
     hulk_host_AddVectoredExceptionHandler(1, (void*)hulk_cov_handler);
     for (hulk_u32 i = 0; i < n; i++)
         *(volatile unsigned char*)hulk_cov_addr_[i] = 0xcc;
