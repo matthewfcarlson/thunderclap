@@ -389,6 +389,9 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   clang_probe snapshot and a Wine binding map of the same tree (`HULK_WASM_SNAP`, `HULK_WASM_BINDINGS`). A block pinned to a
   this-adjustor thunk (`@@W4AE...`) is a stand-in that makes cl emit the thunk: ports take the thunk from the XBE's
   bytes. `XGetDiskSectorSizeA("D:\\")` must return 0x800, or the game stays on TBS_STOP_PIRATING (0x88020).
+  The module is standalone (no Emscripten JS): Binaryen Asyncify driven from C (sched.c `ff_sched_loop`), setjmp/longjmp
+  as Asyncify continuations; `wasm_port.py aot` builds build/wasm/hulk-aot through wasm2c (`brew install wabt`). Compare
+  wasm builds by the game hash (`HULK_GAMEDUMP`), not the full state hash: dead stack bytes carry host pointers.
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
