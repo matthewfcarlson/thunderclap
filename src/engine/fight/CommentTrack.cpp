@@ -138,7 +138,7 @@ extern "C" char DAT_00428c88[];   // fight::ConditionFactoryCasterTemplate<fight
 struct ConditionFactoryCasterTemplate_23dd90 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
-extern "C" void* lookup(void*, ConditionFactoryCasterTemplate_23dd90*);
+extern "C" void* FUN_002343e0(void*, ConditionFactoryCasterTemplate_23dd90*);   // (gfx1) its own name: `lookup` stood for 7 functions
 } // namespace fn_f40d2254
 inline void* __cdecl operator new(size_t, void* where) {
     return where;
@@ -446,7 +446,7 @@ namespace fn_f40d2254 {
 extern "C" void FUN_0023dd90(Obj* a, void* b) {
     ConditionFactoryCasterTemplate_23dd90 caster;
     caster.vftable = (void*)DAT_00428c88;   // (sweep-caster-fix1) the game's vftable by address
-    a->use_00236760(lookup(b, &caster));
+    a->use_00236760(FUN_002343e0(b, &caster));
 }
 
 } // namespace fn_f40d2254

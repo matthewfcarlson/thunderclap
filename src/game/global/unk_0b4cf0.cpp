@@ -167,7 +167,6 @@ class Widget {
     virtual void f24();
     virtual void set(int);
 };
-extern "C" void* __cdecl lookup(const char*);
 extern "C" Widget* __cdecl convert(void*, int, void*, void*, int);
 extern int hulk_at_0049dba4, hulk_at_0049dbbc;
 extern "C" int __cdecl makeName_000fc260(const char*);
@@ -979,7 +978,7 @@ void Panel_b5920::FUN_000b5920(int enable)
 // sym: ?FUN_000b5a30@Owner_b5a30@owners@@QAEXXZ
 // data: name = DAT_00407b14
 void owners::Owner_b5a30::FUN_000b5a30() {
-    Widget* w = convert(lookup(((char*)&DAT_00407b14)), 0, &hulk_at_0049dba4, &hulk_at_0049dbbc, 0);
+    Widget* w = convert(FUN_000fc260(((char*)&DAT_00407b14)), 0, &hulk_at_0049dba4, &hulk_at_0049dbbc, 0);
     if (w && state)
         w->set(state[5] == 0);
 }

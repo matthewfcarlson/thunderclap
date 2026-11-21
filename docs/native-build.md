@@ -6515,3 +6515,19 @@ the literal before writing `sizeof(::Gen)`.
   type descriptors: natively the strings arrive as 'b' cells, 0x100000001 = two `true` words); with ASLR off start-up
   takes another path and stops in the front end (Obj_dddc0 with a null `this`, 0x000fc060's FEThings constructor
   missing): an address-ordered container or an uninitialised read; DAT_00527f64's width.
+- C3-C7 (11-20): the stand-ins' slot args (C3), data type descriptors as rtti_td + the runtime's `__ptr64`-blind type
+  compare (C5), allocator / constructor declarations as defined, a fight node's words and FEThings' size (C6), the
+  front end's string table as one record (HulkFEStringTable, C7). Headless start-up then runs through the front end.
+- C8: 0x00025a90 constructs CCharacterTemplateManager through `struct FUN_00047890` + placement new (drive1's pattern;
+  a member spelling bound nothing natively) and the definition takes the owner as `void*`. Fight's list nodes are
+  fight::Context (decls/fight_context.h): 32-bit pads put `next` and the two tables early natively (unk_232780's
+  Entry, Condition/Track's Node, Context's 0x00236760 / 0x00236790 / 0x002367c0 / 0x002367f0, which now probe through
+  decls/loaders.h's FUN_00231160). The node lookups 0x00236790 / 0x002367f0 return the factory as hulk_intptr and
+  take the key as two words, as defined; the visitors take and return pointers (the casters' slots 0 / 1);
+  0x00236ac0 takes the name as `const char*` (an `int` parameter refused all ~100 callers natively); 0x00236940 has
+  its callers' one parameter. The extern "C" `lookup` stood for seven functions (the map lists it as ambiguous): six
+  sites now carry their target's address name. Checks: whole-tree verify 105738-105745 + 105753 clean (gen probe 0
+  problems), x64 gate ok (105747), 0x00047890 / 0x00025a90 re-proven (105600/105601, 105608/105609, hash 105751),
+  Wine control 105471 / proof 105752: GATE ok.
+- Next stops: the ambiguous callee names (74 in the binding map: `postInit` in every fight caster's vfunc_1, `Find`,
+  `Check`, `alloc`, ...): decl1 takes the family as a generator; 0x0023d420's `Find` is the current stop.

@@ -34,9 +34,11 @@ extern "C" U_2343e0 __cdecl FUN_00266da0(U_2343e0);   // (decl1) as defined (unk
 } // namespace fn_fc77ac82
 U64_2343e0 __cdecl FUN_002672f0(hulk_uintptr,U_2343e0,U_2343e0);
 namespace fn_fc77ac82 {
-struct Node { U_2343e0 head; char pad[12]; Node* next; U_2343e0 FUN_00236790(U64_2343e0); };
+// (gfx1) a fight node's words (vftable, refs, the two name words, next): a 4-byte head and a 12-byte pad put `next` 8
+// bytes early natively; 0x00236790 takes the key as its two words, as defined (Context.cpp)
+struct Node { void* vftable; int refs; U_2343e0 first; U_2343e0 second; Node* next; hulk_intptr FUN_00236790(int lo, int hi); };
 struct List_2343e0 { Node* first; };
-struct Visitor { virtual bool accept(U_2343e0)=0; virtual U_2343e0 fallback(U_2343e0)=0; };
+struct Visitor { virtual bool accept(void*)=0; virtual void* fallback(void*)=0; };   // (gfx1) as the casters' slots 0 / 1 take them (_NPAX, PAXPAX)
 class Ref_2344a0 {
   public:
     virtual void f0();
@@ -125,14 +127,14 @@ hulk_uintptr __cdecl target(hulk_uintptr arg, Visitor* visitor) {
  U64_2343e0 key=FUN_002672f0(arg,0,0);
  Node* node=list->first;
  while(node) {
- U_2343e0 result=node->FUN_00236790(key);
- if(visitor->accept(result)) { FUN_00266da0(old); return result; }
+ void* result=(void*)node->FUN_00236790((int)key,(int)(key>>32));
+ if(visitor->accept(result)) { FUN_00266da0(old); return (hulk_uintptr)result; }
  node=node->next;
  }
  }
- U_2343e0 result=visitor->fallback(arg);
+ void* result=visitor->fallback((void*)arg);
  FUN_00266da0(old);
- return result;
+ return (hulk_uintptr)result;
 }
 
 

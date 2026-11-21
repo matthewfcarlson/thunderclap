@@ -199,7 +199,9 @@ struct Entry_46140 {
 };
 class CCharacterTemplateManager_46140 {
 public:
-    char pad00[0xc];
+    void* vftable;
+    void* owner;   // (gfx1) the words of 0x00047890's constructor (a 0xc pad put count 4 bytes early natively)
+    int capacity;
     int count;
     Entry_46140 **entries;
 
@@ -1063,7 +1065,7 @@ struct Node { char pad[24]; char name[21]; void FUN_0027aac0(const char*, const 
 struct CCharacterTemplate_47770 { virtual void retain(); virtual void release(); CCharacterTemplate_47770* FUN_00045840(); void FUN_000464c0(void*, Node*); };
 extern void* __cdecl FUN_0008d690(unsigned);
 struct RDLHandler { virtual void vfunc_0(Context*,Node*); virtual void vfunc_1(); };
-struct CCharacterTemplateManager : RDLHandler { int unknown; int capacity; int count; CCharacterTemplate_47770** entries; CCharacterTemplate_47770* FUN_00044ad0(unsigned __int64); virtual void vfunc_0(Context*,Node*); };
+struct CCharacterTemplateManager : RDLHandler { void* unknown; int capacity; int count; CCharacterTemplate_47770** entries; CCharacterTemplate_47770* FUN_00044ad0(unsigned __int64); virtual void vfunc_0(Context*,Node*); };
 void CCharacterTemplateManager::vfunc_0(Context* context, Node* node) {
  void* data=context->data;
  const char* expected="RdlCharacterTemplate";
@@ -1095,7 +1097,7 @@ void Registry_47840::FUN_00047840(const char* a1, Owner* a2, Fn_47840 a3) {
 } // namespace fn_f8b6a7cf
 
 // 0x00047890 FUN_00047890 (192 B): equivalent/0x00047890.cpp [wrapped: conflict: CCharacterTemplateManager; Closure1; Method1]
-// sym: ??0CCharacterTemplateManager@fn_00047890@@QAE@II@Z @36cdb94ef1ad @wa8d7a72c594c @v610e4e5baf88
+// sym: ??0CCharacterTemplateManager@fn_00047890@@QAE@PAXI@Z @36cdb94ef1ad @wa8d7a72c594c @v11ec1934494e
 inline void* __cdecl operator new(hulk_uintptr,void* p) { return p; }
 namespace fn_00047890 {
 // STATUS: equivalent (tools/equiv.py level 3: 22 inputs, branch coverage 4/4)
@@ -1137,10 +1139,11 @@ extern "C" Registry_47890* __cdecl FUN_001d4c90();
 class CCharacterTemplateManager {
 public:
  virtual void slot0_00047770(void*, void*);
- uint_47890 owner,count,used;
+ void* owner;   // (gfx1) the owner (0x00025a90 passes itself): a pointer
+ uint_47890 count,used;
  uint_47890* entries;
  void FUN_00046140(const char*);
- CCharacterTemplateManager(uint_47890,uint_47890);
+ CCharacterTemplateManager(void*,uint_47890);
 };
 template<class T,class R,class A> class Method1 : public ScriptFunctionFields {
 public:
@@ -1152,7 +1155,7 @@ public:
  T* object;
 };
 struct CallbackBase { void FUN_001d0480(const char*,int); };
-CCharacterTemplateManager::CCharacterTemplateManager(uint_47890 arg,uint_47890 n) {
+CCharacterTemplateManager::CCharacterTemplateManager(void* arg,uint_47890 n) {
  owner=arg; count=n; used=0;
  entries=(uint_47890*)FUN_0008d6d0(n*4);
  uint_47890* p=entries;

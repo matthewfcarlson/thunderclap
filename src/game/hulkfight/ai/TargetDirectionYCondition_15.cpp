@@ -84,7 +84,6 @@ struct Info {
     int x;
 };
 extern Info hulk_at_0049850c, hulk_at_004a8dd0;
-extern "C" void* __cdecl lookup(void*, int, Info*, Info*, int);
 } // namespace fn_f253994b
 namespace fight {
 class TrackFactoryCaster_128480 {
@@ -772,7 +771,7 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::AcquireTargetT
  // namespace fight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::ClearProjectileDistanceTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return lookup(p, 0, &hulk_at_0049850c, &hulk_at_004a8dd0, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&hulk_at_0049850c, (hulk_intptr)&hulk_at_004a8dd0, 0) != 0;   // (gfx1) its own name: `lookup` stood for 7 functions natively (ambiguous binding)
 }
 
 

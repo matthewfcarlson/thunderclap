@@ -19,9 +19,11 @@ extern "C" int32_t __cdecl FUN_00266da0(int32_t);   // (x64t16, D70) the heap id
 } // namespace fn_f5a78e74
 extern "C" Key_236ac0 __cdecl FUN_002672f0(hulk_intptr, int, int);
 namespace fn_f5a78e74 {
-struct Node { char pad[16]; Node* next; int FUN_002367f0(Key_236ac0); };
+// (gfx1) fight::Context's words (vftable, refs, the two name words, next: decls/fight_context.h); 0x002367f0 takes the key
+// as its two words and returns the factory, as defined (Context.cpp)
+struct Node { void* vftable; int refs; unsigned int first; unsigned int second; Node* next; hulk_intptr FUN_002367f0(int lo, int hi); };
 struct List_236ac0 { Node* first; };
-struct Visitor { virtual bool accept(int)=0; virtual int fallback(int)=0; };
+struct Visitor { virtual bool accept(void*)=0; virtual void* fallback(void*)=0; };   // (gfx1) as the casters' slots 0 / 1 take them (_NPAX, PAXPAX)
 class Ref_236b70 {
   public:
     virtual void f0();
@@ -164,21 +166,22 @@ void __fastcall FUN_00236ab0(CEffectStopTrack* self) {
 
 
 // 0x00236ac0 FUN_00236ac0 (163 B): matches/0x00236ac0.cpp
-// sym: ?target@fn_f5a78e74@@YAHHPAUVisitor@1@@Z
+// sym: ?target@fn_f5a78e74@@YAPAXPBDPAUVisitor@1@@Z
 // FUN_00236ac0 @ 0x00236ac0
-int __cdecl target(int value, Visitor* visitor) {
+// (gfx1) the name is a pointer, as every caller passes it
+void* __cdecl target(const char* value, Visitor* visitor) {
  int old = FUN_00266da0(FUN_00238190(0));
  List_236ac0* list = (*(List_236ac0**)&DAT_004e5af8);
  if (list) {
-  Key_236ac0 key=FUN_002672f0(value,0,0);
+  Key_236ac0 key=FUN_002672f0((hulk_intptr)value,0,0);
   Node* node=list->first;
   while (node) {
-   int result=node->FUN_002367f0(key);
+   void* result=(void*)node->FUN_002367f0((int)key,(int)(key>>32));
    if(visitor->accept(result)) { FUN_00266da0(old); return result; }
    node=node->next;
   }
  }
- int result=visitor->fallback(value);
+ void* result=visitor->fallback((void*)value);
  FUN_00266da0(old);
  return result;
 }

@@ -13,6 +13,7 @@
 #define TREE_TU_END }
 namespace fn_f6d645d0 {} using namespace fn_f6d645d0;
 #include "game/unknown.h"
+inline void* operator new(size_t, void* p) { return p; }   // (gfx1) the template manager's placement construction
 
 // ---- declarations shared by the functions below
 namespace fn_f6d645d0 {
@@ -527,8 +528,11 @@ struct Slot_25a90 {
     char pad[0x1f];
 };
 struct Thing_25a90;
-struct CCharacterTemplateManager_25a90 {
-    CCharacterTemplateManager_25a90 *FUN_00047890(Thing_25a90 *owner, int n);
+struct CCharacterTemplateManager_25a90;
+// (gfx1) CCharacterTemplateManager's constructor 0x00047890, as a constructor of a view named by its address, so the
+// native link binds it (a member function spelling bound nowhere: the object stayed unconstructed natively)
+struct FUN_00047890 {
+    FUN_00047890(Thing_25a90 *owner, int n);
 };
 struct Obj908 {
     Obj908 *FUN_00067ea0();
@@ -3149,7 +3153,7 @@ void Params::Set(int a_, int b_, const Vec3I* p0, const Vec3I* p1, float lo_, fl
 
 
 // 0x00025a90 FUN_00025a90 (671 B): equivalent/0x00025a90.cpp
-// sym: ?FUN_00025a90@Thing_25a90@fn_f6d645d0@@QAEPAU12@XZ @0cf2b4a86fbe @w3441c748adf0 @vc5f9ff5bd9ff
+// sym: ?FUN_00025a90@Thing_25a90@fn_f6d645d0@@QAEPAU12@XZ @ec8d71337962 @wcb229e9b611a @v40b37b15fc2e
 // STATUS: equivalent (tools/equiv.py level 3: 6310 inputs, branch coverage 16/16)
 // FUN_00025a90 @ 0x00025a90
 // FUN_00025a90 @ 0x00025a90
@@ -3192,7 +3196,7 @@ Thing_25a90 *Thing_25a90::FUN_00025a90()
 
     void *mem = FUN_0008d690(sizeof(::CCharacterTemplateManager));
     if (mem)
-        f04 = ((CCharacterTemplateManager_25a90 *)mem)->FUN_00047890(this, 0x20);
+        f04 = (CCharacterTemplateManager_25a90 *)new (mem) FUN_00047890(this, 0x20);
     else
         f04 = 0;
     mem = FUN_0008d690(0x908);

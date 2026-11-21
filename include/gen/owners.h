@@ -14439,7 +14439,7 @@ struct Obj_2359b0 {
 // matches/0x00236790.cpp (stub Target_236790), size 0x14
 struct Target_236790 {
     char pad[0x14]; // +0x00
-    int FUN_00236790(int a, int b);
+    hulk_intptr FUN_00236790(int a, int b);   // (gfx1) the factory found: a pointer
 };
 // matches/0x00237230.cpp (stub Obj_237230), size 0x10
 struct Obj_237230 {

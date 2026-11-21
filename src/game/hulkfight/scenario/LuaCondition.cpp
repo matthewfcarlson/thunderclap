@@ -271,7 +271,7 @@ class Obj {
   public:
     void apply_00236760(void*);
 };
-extern "C" void* __cdecl lookup(const char*, ConditionFactoryCasterTemplate_1a1cf0*);
+extern "C" void* __cdecl FUN_002343e0(const char*, ConditionFactoryCasterTemplate_1a1cf0*);   // (gfx1) its own name: `lookup` stood for 7 functions natively (ambiguous binding)
 extern "C" char DAT_0041c418[];   // (fix2) the game's caster vftable
 class TrackFactoryCasterTemplate_1a1d20 {   // (fix2) was polymorphic (virtual bool cast_001a1a90(void*);): clang's vftable natively
   public:
@@ -868,7 +868,7 @@ LuaAction_1a1c70* LuaAction_1a1c70::f2(unsigned char flags) {
 // sym: _FUN_001a1cf0
 extern "C" void __cdecl FUN_001a1cf0(Obj* obj, const char* name) {
     ConditionFactoryCasterTemplate_1a1cf0 caster;
-    obj->apply_00236760(lookup(name, &caster));
+    obj->apply_00236760(FUN_002343e0(name, &caster));
 }
 
 

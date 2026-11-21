@@ -32,7 +32,7 @@ extern "C" void FUN_002380a0(void* a, const char* s);
 extern "C" void FUN_0023efe0(void* a, const char* s);
 extern "C" void FUN_0023e930(void* a, const char* s);
 extern "C" void FUN_0023e3f0(void* a, const char* s);
-typedef unsigned int U_236a30;
+typedef void* U_236a30;   // (gfx1) the registry: a pointer, as 0x00236940 / 0x002369c0 take it
 void FUN_00236940(U_236a30);
 extern "C" void __cdecl FUN_002369c0(void *);
 extern void* hulk_at_003f6098;
@@ -61,8 +61,9 @@ void thunk_FUN_00267090(pure3d::NonCopyable*);
 
 
 // 0x00236940 FUN_00236940 (123 B): matches/0x00236940.cpp
-// sym: ?target@fn_f44dc5d7@@YAXPAXH@Z
-void __cdecl target(void* self, int unused) {
+// sym: ?target@fn_f44dc5d7@@YAXPAX@Z
+// (gfx1) one parameter, as every caller passes it (an unused second one kept the native callers unbound)
+void __cdecl target(void* self) {
     FUN_0023dd90(self, "comment");
     FUN_0023d710(self, "debug");
     FUN_0023d420(self, "false");
@@ -92,10 +93,10 @@ extern "C" void FUN_002369c0(void* p) {
 
 
 // 0x00236a30 FUN_00236a30 (22 B): matches/0x00236a30.cpp
-// sym: ?FUN_00236a30@fn_f44dc5d7@@YAXI@Z
+// sym: ?FUN_00236a30@fn_f44dc5d7@@YAXPAX@Z
 void FUN_00236a30(U_236a30 x) {
     FUN_00236940(x);
-    FUN_002369c0((void *)(hulk_uintptr)(unsigned int)x);
+    FUN_002369c0(x);
 }
 
 

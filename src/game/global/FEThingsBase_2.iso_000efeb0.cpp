@@ -8,13 +8,13 @@
 // sym: ?vfunc_59@FEThingsBase@@UAEHH@Z
 #include "gen/global.h"
 
-extern "C" int __cdecl lookup(int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (gfx1) the allocator by its own name: `lookup` stood for 7 functions natively
 struct MenuSelector_nv_efeb0 {
     hulk_intptr call_000ebef0(int, int);   // (decl1) passes as defined
 };
 
 int FEThingsBase::vfunc_59(int arg) {
-    hulk_intptr p = lookup(0x3db0);
+    hulk_intptr p = (hulk_intptr)FUN_0008d690(0x3db0);
     if (p)
         return ((MenuSelector_nv_efeb0*)(((MenuSelector*)(((MenuSelector*)p)))))->call_000ebef0(arg, 0);
     return 0;

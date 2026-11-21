@@ -2,6 +2,7 @@
 // object 0x002366e0..0x00236940 (kind game, layer engine, confidence medium), dominant class fight::Context
 #include "tree_prelude.h"
 #include "decls/fight_context.h"   // (decl1) fight::Context's words
+#include "decls/loaders.h"   // (gfx1) the table probe FUN_00231160
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -51,8 +52,8 @@ struct Helper_236760 {
     void Run_00231590(int, int, Param*);
 };
 struct Owner_236760 {
-    char pad[0x14];
-    Helper_236760 helper;
+    void* vftable; int entityWords[3]; void* object;   // (gfx1) fight::Context's words (decls/fight_context.h): a 32-bit pad put the tables 8 / 0x18 bytes early natively
+    Helper_236760 helper;   // tableA
     bool Target(Param* p);
 };
 class Helper_236790 {
@@ -75,8 +76,9 @@ class Sub_2367c0 {
 };
 class Owner_2367c0 {
   public:
-    char pad[0x38];
-    Sub_2367c0 sub;
+    void* vftable; int entityWords[3]; void* object;   // (gfx1) fight::Context's words (decls/fight_context.h): a 32-bit pad put the tables 8 / 0x18 bytes early natively
+    HulkHashTableWords tableA;
+    Sub_2367c0 sub;   // tableB
     bool F(Source_2367c0*);
 };
 struct Inner_2367f0 {};
@@ -86,9 +88,10 @@ struct Tmp_2367f0 {
     hulk_intptr Fnf_00231180(int, int);   // (decl1) passes as defined
 };
 struct Obj_2367f0 {
-    char pad[0x38];
-    Inner_2367f0 inner;
-    int target(int, int);
+    void* vftable; int entityWords[3]; void* object;   // (gfx1) fight::Context's words (decls/fight_context.h): a 32-bit pad put the tables 8 / 0x18 bytes early natively
+    HulkHashTableWords tableA;
+    Inner_2367f0 inner;   // tableB
+    hulk_intptr target(int, int);   // (gfx1) the factory found: a pointer
 };
 class Obj_236820 {
   public:
@@ -171,9 +174,11 @@ bool Owner_236760::Target(Param* p) {
 
 // 0x00236790 FUN_00236790 (41 B): matches/0x00236790.cpp
 // sym: ?FUN_00236790@Target_236790@owners@@QAEHHH@Z
-int owners::Target_236790::FUN_00236790(int a, int b) {
-    Helper_236790 h((char*)this + 0x14);
-    return h.Run_00231180(a, b);
+hulk_intptr owners::Target_236790::FUN_00236790(int a, int b) {
+    // (gfx1) the record's table (a +0x14 put it 0xc bytes early natively), probed by the probe's constructor's address
+    // (decls/loaders.h; a local helper class bound nothing natively)
+    ::FUN_00231160 h((hulk_intptr)&((HulkFightContext*)this)->tableA);
+    return (hulk_intptr)h.FUN_00231180(a, b);
 }
 
 namespace fn_feea6610 {
@@ -191,9 +196,9 @@ bool Owner_2367c0::F(Source_2367c0* src) {
 
 // 0x002367f0 FUN_002367f0 (41 B): matches/0x002367f0.cpp
 // sym: ?target@Obj_2367f0@fn_feea6610@@QAEHHH@Z
-int Obj_2367f0::target(int a, int b) {
-    Tmp_2367f0 t(&inner);
-    return t.Fnf_00231180(a, b);
+hulk_intptr Obj_2367f0::target(int a, int b) {
+    ::FUN_00231160 t((hulk_intptr)&inner);   // (gfx1) the probe by its constructor's address (decls/loaders.h)
+    return (hulk_intptr)t.FUN_00231180(a, b);
 }
 
 

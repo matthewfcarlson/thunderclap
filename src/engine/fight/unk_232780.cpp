@@ -31,7 +31,9 @@ class List_232810 {
     Node* head;
     Node* Get(int index);
 };
-struct Entry { char pad[8]; unsigned int first; unsigned int second; Entry *next; };
+// (gfx1) a fight node's words (vftable, refs, the two name words, next: Node below): an 8-byte pad put the name and
+// `next` 4 and 8 bytes early natively
+struct Entry { void *vftable; int refs; unsigned int first; unsigned int second; Entry *next; };
 struct Collection { Entry *head; Entry *FUN_00232840(unsigned int first, unsigned int second); };
 class X_232a30 {
   public:

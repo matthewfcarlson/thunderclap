@@ -1694,7 +1694,6 @@ extern "C" char DAT_0041c8d0[];   // content::LoadInventory::DynamicCaster<pure3
 struct DynamicCaster_1a9420 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
-extern "C" __int64 __cdecl lookup(void*, int, int);
 class LoadInventory {
   public:
     virtual void a();
@@ -7122,13 +7121,14 @@ template class fight::ParamNameConstList<hulkfight::scenario::EffectTrack>; // (
 #endif
 
 namespace fn_fc5dbd2a {
+unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length (decls/address.h)
 
 // 0x001a9420 FUN_001a9420 (50 B): matches/0x001a9420.cpp
 // sym: ?Load@LoadInventory@fn_fc5dbd2a@@QAEHPAX@Z
 hulk_intptr LoadInventory::Load(void* p) {
     DynamicCaster_1a9420 caster;
     caster.vftable = (void*)DAT_0041c8d0;   // (sweep-caster-fix1) the game's vftable by address
-    return d(&caster, lookup(p, 0, 0));
+    return d(&caster, FUN_002672f0((const char*)p, 0, 0));   // (gfx1) its own name: `lookup` stood for 7 functions natively (ambiguous binding)
 }
 
 
