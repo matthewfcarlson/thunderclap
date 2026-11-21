@@ -166,6 +166,17 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
+  "0x000b9bf0": {
+   "modes": {
+    "wine": {
+     "code": "e039c97b18d5",
+     "accepted": "2026-11-21T09:25:03",
+     "why": "D154: rooverlay_dominated under 3d027e12e: --wine at 3,000 (job 111174, checker c881deece6f7) reads the original's .rdata through a pointer on 1772 inputs; the proof predates rooverlay",
+     "by": "unproven-accept"
+    }
+   },
+   "why": "D154: rooverlay_dominated under 3d027e12e: --wine at 3,000 (job 111174, checker c881deece6f7) reads the original's .rdata through a pointer on 1772 inputs; the proof predates rooverlay"
+  },
   "0x000ba040": {
    "modes": {
     "msvc": {
@@ -205,6 +216,17 @@
     }
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
+  },
+  "0x000c9bd0": {
+   "modes": {
+    "wine": {
+     "code": "0b96e6b2b2da",
+     "accepted": "2026-11-21T09:25:04",
+     "why": "D154: rooverlay_dominated under 3d027e12e: --wine at 3,000 (job 111175, checker c881deece6f7) reads the original's .rdata through a pointer on 2969 inputs; the proof predates rooverlay",
+     "by": "unproven-accept"
+    }
+   },
+   "why": "D154: rooverlay_dominated under 3d027e12e: --wine at 3,000 (job 111175, checker c881deece6f7) reads the original's .rdata through a pointer on 2969 inputs; the proof predates rooverlay"
   },
   "0x000ddac0": {
    "modes": {
@@ -734,6 +756,17 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
+  "0x00232870": {
+   "modes": {
+    "wine": {
+     "code": "d8e04a308a58",
+     "accepted": "2026-11-21T09:25:04",
+     "why": "D154: rooverlay_dominated under 3d027e12e: --wine at 3,000 (job 111176, checker c881deece6f7) reads the original's .rdata through a pointer on 1535 inputs; the proof predates rooverlay",
+     "by": "unproven-accept"
+    }
+   },
+   "why": "D154: rooverlay_dominated under 3d027e12e: --wine at 3,000 (job 111176, checker c881deece6f7) reads the original's .rdata through a pointer on 1535 inputs; the proof predates rooverlay"
+  },
   "0x002411b0": {
    "modes": {
     "msvc": {
@@ -1237,5 +1270,5 @@
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   }
  },
- "total": 137
+ "total": 140
 }
