@@ -103,7 +103,7 @@ TUs) shows no `code_changed`. MSVC 7.1 orders two equal spill slots by the TU's 
 that exact code and view in every mode).
 Never leave an unchecked local commit on the shared main: another agent's push publishes it. Build it on a side ref
 (`git commit-tree` + `git update-ref refs/heads/<agent>`) and push `<sha>:refs/heads/main` once checked (in zsh write
-`${C}:refs/...`; `$C:r` is a history modifier). After that push, run `tools/sync_main.py`: it fast-forwards the shared
+`${C}:refs/...` and `git show ${B}:path`; `$C:r` / `$B:c` are history modifiers). After that push, run `tools/sync_main.py`: it fast-forwards the shared
 checkout's main without touching others' uncommitted edits (queue jobs are based on the local HEAD, and a lagging main
 runs old tools; `jobq submit` warns when main is behind origin/main). When a block casts `this` to a record, declare the class as that record:
 `--x64` builds `this` from the declared class, and an owners.h pad stub is read past its end natively.
@@ -162,7 +162,12 @@ pure3d::Entity is 0x14 bytes natively (vftable, count, two name words): views wr
 `void* vftable; int refs; name`, never `char pad[0x10]`/`pad[8]`; a view of the image registry derives from
 `HulkImageRegistry`. A game name that is another XDK row's name binds through `native_bind.GAME_NAME_ROWS` (D98).
 A frame or view sized by a 32-bit pad (`char data[0x18]`) overruns natively: spell it with the record's words or
-`sizeof(record)`. A pad macro that maps 32-bit offsets to native ones scales by `sizeof(void*)/4` (or uses offsetof),
+`sizeof(record)`. A view's `char pad[N]` inside an all-pointer record's range (the World's 0x00..0x5c, CGame's 0x00..0x50) is
+`void* pad[N/4]`: same 32-bit layout and checker view, native offsets; `struct World` also names the physics world
+(DAT_00554c10) and parameters, so rewrite only where it is DAT_004dd700 (gfx3). An ICF'd callee defined as a member
+(`bool X::f()`) is declared at C-name call sites with the definition's IR shape (`extern "C" bool FUN_<addr>(void*)`): an
+`int(int)` spelling binds the missing stub, which returns 0 (gfx3: 0x8ed50 made the native loop quit). Merging native_mac
+shard reports merges `inits` (and `objects` / `failed`) too: a missing initializer leaves static objects with null vftables. A pad macro that maps 32-bit offsets to native ones scales by `sizeof(void*)/4` (or uses offsetof),
 never by `__clang__`: the Wine build is 32-bit clang too (recs1 batch 4). Byte-count ring and vector arithmetic (`(end-begin)>>3`, `count*16`) bakes in the 32-bit element size;
 element-typed pointer arithmetic compiles to the same MSVC bytes. A callee declared with a different IR signature from its
 definition (int vs pointer, void vs a returned pointer) does not bind natively and the run stops on `missing`: declare it
