@@ -254,6 +254,14 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
 
 ## Builds and proofs
 
+- **macOS-first mode (user, D187, 2026-11-21; in force until the user ends it).** The goal is the headless macOS native
+  build (HULK_GFX_RENDERER=noop) replaying play3 with checkpoints close to the original's (build/ckpt/play3.ckref); the
+  native replay is the check. Start-up fixes land with: matches blocks in touched TUs still MATCH with relocations ok;
+  an equivalent block whose code changed recorded with `tree_tu.py unproven-accept ADDR --modes M --why "D187 macOS-first:
+  ..."` instead of a re-proof (a proof backlog for later); the native build still compiling and linking, and the commit
+  message saying what native start-up reaches. No Wine pair, whole-tree verify or x64 gate is required for these landings
+  (run the gate when it helps find layout bugs). Checker and tool changes still need regress and the reviewer. The rest
+  of this section is the full bar, which applies again when the mode ends.
 - **Wine build** (dev/verification): `tools/wine_build_job.py submit/wait/compare` runs tree materialize, clang probe, Wine
   link and an optional replay as one queue job (`docs/compute.md` "Wine builds", `docs/wine-build.md`). It reads the
   committed tree (the only source since merge-once (d); a control of an older commit must be submitted with that
