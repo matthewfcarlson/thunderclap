@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "gen/owners.h"
+#include "gen/global.h"   // (gfx6) CGameController
 #define TREE_TU_BEGIN namespace fn_fb9e703c {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -62,10 +63,11 @@ struct Stick_af170 {
     float x;
     float y;
 };
-class InputTracker {
+// (gfx6) gen's CGameController: the source is its f_08 (pure3d::NonCopyable's words before it are pointer-sized
+// natively; `char pad0[8]` read the reference count as the source), then the 0xa4 bytes 0x000af110 zeroes
+class InputTracker : public ::CGameController {
 public:
-    char pad0[8];
-    Source_af170 *source;
+    Source_af170 *source() { return (Source_af170 *)f_08; }
     Track tracks[11];
     Stick_af170 sticks[2];
     void FUN_000af170(float dt);
@@ -161,13 +163,13 @@ CGameController* CGameController::vfunc_2(unsigned char flag) {
 
 
 // 0x000af170 FUN_000af170 (348 B): equivalent/0x000af170.cpp
-// sym: ?FUN_000af170@InputTracker@fn_fb9e703c@@QAEXM@Z @ff51fcab7152 @w13700d501880 @v9bf3b6c89067
+// sym: ?FUN_000af170@InputTracker@fn_fb9e703c@@QAEXM@Z @ff51fcab7152 @w351270f0bd1c @va7ce81f03b04
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 34/34)
 // FUN_000af170 @ 0x000af170
 void InputTracker::FUN_000af170(float dt)
 {
     Samples in;
-    source->FUN_000ada70(&in);
+    source()->FUN_000ada70(&in);
     for (int i = 0; i < 11; i++) {
         float v = in.v[i];
         advance(tracks[i].state, tracks[i].held, dt, v > 0.0f);

@@ -490,10 +490,9 @@ struct Target_d6b20 {
  char pad0[4]; Owner_d6b20* owner; unsigned state; char padC[32]; Effect_d6b20* effect;
  void FUN_000d6b20(hulk_uintptr unused);
 };
-struct X {
-    char pad[4];
-    Obj* obj;
-    int state;
+// (gfx6) COverlayManager on its record (decls/managers.h; was `char pad[4]; Obj* obj; int state;`, which natively read
+// the view from the vftable's high half): the view's camera
+struct X : HulkOverlayManager {
     void Run(float);   // (gfx4) the frame time 0x00086a40 passes (unused)
 };
 extern "C" void __cdecl use_000c5a60(void*);
@@ -2214,7 +2213,7 @@ void Target_d6b20::FUN_000d6b20(hulk_uintptr unused) {
 // sym: ?Run@X@fn_f27eef39@@QAEXM@Z
 void X::Run(float) {
     if (state != 3) {
-        void* p = obj->p;
+        void* p = ((HulkView*)view)->camera;
         use_000c5a60(__RTDynamicCast(p, 0, (void*)(hulk_at_0049e11c), (void*)(hulk_at_004a0a40), 0));
         if (state == 2)
             state = 0;

@@ -31,10 +31,10 @@ struct Registry_b0440 {
     void FUN_001d3b70(const char*, void*);
     void FUN_000b0440(const char* name, CHapticControllerManager* owner, void (CHapticControllerManager::*fn)());
 };
-class A_b06e0 {
+class A_b06e0 {   // (gfx6, C15) a CPhysicalController::Names cell: {count, data}
   public:
     int m0;
-    int m4;
+    char* m4;
     A_b06e0();
 };
 struct Obj_b0710 {
@@ -43,41 +43,24 @@ struct Obj_b0710 {
     void Clear();
 };
 extern "C" int FUN_00096670(const char*, const char*, int);
-class Obj_b0810 {
+// (gfx6, C15) the CPhysicalController views on gen's record (its native layout)
+class Obj_b0810 : public ::CPhysicalController {
   public:
-    char pad[0x110];
-    struct E {
-        int count;
-        hulk_intptr base;
-    } e[11];
     char* get(int a, int b);
 };
-struct C_b0850 {
-    int data[100];
+struct C_b0850 : public ::CPhysicalController {
     int* Get(int, int, int);
 };
 struct Item {
     int count;
     int* value;
 };
-struct Entry_b0930 {
-    int count;
-    void* ptr;
-};
-class Obj_b0930 {
+class Obj_b0930 : public ::CPhysicalController {
   public:
-    char pad[0x290];
-    Entry_b0930 entries[13];
     void* Get(int a, int b);
 };
-class C_b0970 {
+class C_b0970 : public ::CPhysicalController {
   public:
-    struct E {
-        int count;
-        void* ptr;
-    };
-    char pad[0x2f8];
-    E entries[6];
     void* f(int x, int y, int z);
 };
 extern "C" unsigned char* FUN_000b09c0(int a, hulk_intptr b);
@@ -139,10 +122,8 @@ class Owner_b0db0 {
     virtual void A();
     virtual void Release();
 };
-class Obj_b0db0 {
+class Obj_b0db0 : public ::CPhysicalController {
   public:
-    char pad0[0x10];
-    Owner_b0db0* p;
     void Run();
 };
 void cleanup_000b0cf0(int, int, void*, void*, void*);
@@ -169,13 +150,7 @@ struct Container_b0e20 {
     virtual int count(const char* name);
     virtual Button_b0e20* get(const char* name, int index);
 };
-struct Object {
-    char pad0[0x10];
-    Container_b0e20* container;
-    char pad14[0x40];
-    int state;
-    char pad58[0x450];
-    void** data;
+struct Object : public ::CPhysicalController {
     void FUN_000b0e20();
 };
 
@@ -409,8 +384,8 @@ namespace fn_f3cf613f {
 char* Obj_b0810::get(int a, int b) {
     if (a < 0 || a >= 11)
         return ((char*)&DAT_003f335c);
-    if (b >= 0 && b < e[a].count)
-        return (char*)e[a].base + b * 32;
+    if (b >= 0 && b < f_110[a].count)
+        return f_110[a].data + b * 32;
     return ((char*)&DAT_003f335c);
 }
 
@@ -419,9 +394,9 @@ char* Obj_b0810::get(int a, int b) {
 // sym: ?Get@C_b0850@fn_f3cf613f@@QAEPAHHHH@Z
 int* C_b0850::Get(int x, int y, int z) {
     if (x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 3) {
-        int* p = data + (z + (y + 15 + x * 2) * 3) * 2;
-        if (p[0] > 0)
-            return (int*)p[1];
+        Names* p = &f_168[z + (y + x * 2) * 3];
+        if (p->count > 0)
+            return (int*)p->data;
     }
     return ((int*)&DAT_003f335c);
 }
@@ -459,8 +434,8 @@ int* __cdecl FUN_000b08e0(int a, int b, int c) {
 void* Obj_b0930::Get(int a, int b) {
     if (a < 0 || a >= 13)
         return ((float*)&DAT_003f335c);
-    if (b >= 0 && b < entries[a].count)
-        return (char*)entries[a].ptr + b * 32;
+    if (b >= 0 && b < f_290[a].count)
+        return f_290[a].data + b * 32;
     return ((float*)&DAT_003f335c);
 }
 
@@ -474,10 +449,10 @@ void* C_b0970::f(int x, int y, int z) {
         return (void*)((hulk_intptr)((char*)&DAT_003f335c));
     if (z < 0 || z >= 3)
         return (void*)((hulk_intptr)((char*)&DAT_003f335c));
-    E* p = &entries[z + (y + x * 2) * 3];
+    Names* p = &f_2f8[z + (y + x * 2) * 3];
     if (p->count <= 0)
         return (void*)((hulk_intptr)((char*)&DAT_003f335c));
-    return p->ptr;
+    return p->data;
 }
 
 
@@ -609,12 +584,12 @@ void __cdecl FUN_000b0cf0(int groupCount, int recordCount, Group_b0cf0** groups,
 // 0x000b0db0 FUN_000b0db0 (94 B): matches/0x000b0db0.cpp
 // sym: ?Run@Obj_b0db0@fn_f3cf613f@@QAEXXZ
 void Obj_b0db0::Run() {
-    if (p) {
-        cleanup_000b0cf0(0xd, 2, (char*)this + 0x3e4, (char*)this + 0x418, (char*)this + 0x488);
-        cleanup_000b0cf0(0xb, 2, (char*)this + 0x358, (char*)this + 0x384, (char*)this + 0x48c);
-        if (p) {
-            p->Release();
-            p = 0;
+    if (f_10) {
+        cleanup_000b0cf0(0xd, 2, f_3e4, f_418, &f_488);
+        cleanup_000b0cf0(0xb, 2, f_358, f_384, &f_48c);
+        if (f_10) {
+            ((Owner_b0db0*)f_10)->Release();
+            f_10 = 0;
         }
     }
 }
@@ -623,25 +598,25 @@ void Obj_b0db0::Run() {
 // 0x000b0e20 FUN_000b0e20 (201 B): matches/0x000b0e20.cpp
 // sym: ?FUN_000b0e20@Object@fn_f3cf613f@@QAEXXZ
 void Object::FUN_000b0e20() {
-    if (state == 2 || !container || !data)
+    if (f_54 == 2 || !f_10 || !f_4a8)
         return;
-    int n = container->count("Button");
+    int n = ((Container_b0e20*)f_10)->count("Button");
     for (int i = 0; i < n; ++i) {
-        Button_b0e20* button = container->get("Button", i);
-        if (button && data[i])
-            button->apply(data[i]);
+        Button_b0e20* button = ((Container_b0e20*)f_10)->get("Button", i);
+        if (button && f_4a8[i])
+            button->apply(f_4a8[i]);
     }
-    if (data) {
+    if (f_4a8) {
         for (int i = 0; i < n; ++i) {
-            if (data[i]) {
-                ::operator delete(data[i]);
-                data[i] = 0;
+            if (f_4a8[i]) {
+                ::operator delete(f_4a8[i]);
+                f_4a8[i] = 0;
             }
         }
     }
-    if (data) {
-        ::operator delete(data);
-        data = 0;
+    if (f_4a8) {
+        ::operator delete(f_4a8);
+        f_4a8 = 0;
     }
 }
 

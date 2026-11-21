@@ -2387,3 +2387,13 @@ blocks fight::Action's whole family: the records come first there.
 - **Old table, new object in 0x001b93a0.** `DAT_0052c2a8->v85(DAT_0052c2a8->v86() == 0)`: the original reads the
   vftable once and the device again after v86; clang read both before. integ9's Wine-mode rooverlay made it visible
   (HEAD's source fails --wine at 3 of 41 inputs); hulk_slot spells the original's order.
+
+## 2026-11-21 gfx6: CPhysicalController typed (C15)
+
+gen CPhysicalController now names the words its constructor 0x000b23c0 writes and 0x000b0a50 fills (name lists,
+4-point nodes, axis rows, the device, the callbacks); the 19 functions of CPhysicalController.cpp and unk_0b0440.cpp
+that use the controller derive from it. A gen-derived view whose constructor / destructor the original inlines the
+vftable stores into is written as an explicit function storing the game's vftables by address (a local polymorphic
+view's own vftable is clang's natively), and the `eh vector constructor/destructor iterator` calls pass sizeof(cell).
+Also 0x000af170 (CGameController's source) and 0x000d6c30 (COverlayManager's view) on their records. Native start-up
+passes the controller set-up and the first frame callees and stops in 0x00207410 (CWorldStreamManager's 32-bit views).

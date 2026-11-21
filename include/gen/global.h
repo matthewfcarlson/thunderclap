@@ -4469,37 +4469,43 @@ public:
 // .?AVCPhysicalController@@  vftable 0x406088 (3)
 class CPhysicalController : public ::pure3d::NonCopyable {
 public:
+    // (gfx6, C15) the words as the constructor 0x000b23c0 (CPhysicalController.cpp) writes them and 0x000b0a50's two
+    // calls (0x000b1aa0) fill them, so every view has their native layout:
+    // a list of 32-byte names that 0x000b1020 grows (owners::StringTable_b1020)
+    struct Names { int count; char* data; };
+    // a stick's points by [side][axis] and whether each is a button (0x000b0a50's `flag`)
+    struct Axes { void* point[2][3]; int button[2][3]; };
     virtual ~CPhysicalController(); // overrides core::IRefCount slot 2
     int f_08;
     char f_0c;
     char f_0d;
     char _pad_0e[0x2];
-    int f_10;
-    char _pad_14[0x40];
+    void* f_10;           // the input device (0x000b1aa0: 0x002684b0()->Find(f_14))
+    char f_14[0x40];      // its name
     int f_54;
-    // (allocsize1) the words the constructor 0x000b23c0 (CPhysicalController.cpp) writes, so the record has their native
-    // size (FUN_000ae090 allocates sizeof): four zeroed int blocks each followed by 2x6 two-word cells, two arrays of
-    // the 0x10-byte nodes it allocates (pointers), each followed by 2x(6+6) words, and two strings {capacity, text}
-    int f_58[22];
-    int f_b0[24];
-    int f_110[22];
-    int f_168[24];
-    int f_1c8[26];
-    int f_230[24];
-    int f_290[26];
-    int f_2f8[24];
-    void* f_358[11];
-    int f_384[24];
-    void* f_3e4[13];
-    int f_418[24];
-    int f_478;
-    char* f_47c;
-    int f_480;
-    char* f_484;
-    int f_488;
-    int f_48c;
-    char _pad_490[0x18];
-    int f_4a8;
+    Names f_58[11];       // the buttons' names, then their [2][6] pairs; f_110 / f_168 copies (0x000b1db0)
+    Names f_b0[12];
+    Names f_110[11];
+    Names f_168[12];
+    Names f_1c8[13];      // the same for the sticks
+    Names f_230[12];
+    Names f_290[13];
+    Names f_2f8[12];
+    void** f_358[11];     // a 0x10-byte (4-pointer) node of points per button, allocated by the constructor
+    Axes f_384[2];
+    void** f_3e4[13];     // the same per stick
+    Axes f_418[2];
+    Names f_478;
+    Names f_480;
+    void* f_488;
+    void* f_48c;
+    float f_490;          // 0x000b2810's dead zones
+    float f_494;
+    float f_498;
+    float f_49c;
+    float f_4a0;
+    float f_4a4;
+    void** f_4a8;         // a sControllerInputPointCallback per button (0x000b1c90)
     int f_4ac;
 };
 

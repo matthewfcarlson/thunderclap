@@ -6646,3 +6646,22 @@ name that carries an address any more. Unbound counts: see the commit message (c
   0x0023f720 / 0x0023f760 as members (their missing stub had switched off the simulation, the frontend, physics,
   lighting and vsync natively), 0x001d1160 a member taking the frame time. Native env: build/gfx5/nat (the C13
   proof's snapshot compiled in 12 shards; build/gfx5/nat/step.sh links in build/gfx5/w5 and runs headless noop).
+
+## gfx6: native start-up, continued (2026-11-21)
+
+- C15: gen CPhysicalController typed from its constructor 0x000b23c0 and 0x000b0a50's two calls: `Names {count,
+  data}` lists (f_58..f_2f8, f_478, f_480), the 4-point nodes `void** f_358[11]` / `f_3e4[13]`, `Axes {point[2][3],
+  button[2][3]}` f_384 / f_418, the device f_10, the callbacks f_4a8 (32-bit size unchanged, 0x4b0). Every view in
+  CPhysicalController.cpp and unk_0b0440.cpp derives from it; the constructor and destructor are explicit functions
+  storing the game's vftables by address (0x00406088, 0x003f6098) and constructing / destroying the cells by their
+  native size. 0x000b30c0 takes the Names list and the Axes rows (it read counts at a stride of two ints and a
+  pointer/int union). 0x000b06e0's cell is {int, char*}. The native crash in 0x000b0cf0 (32-bit `this + 0x3e4`) is gone.
+- Same stop: 0x000af170 (InputTracker) read CGameController's source at `pad0[8]` (natively the reference count): now
+  gen ::CGameController's f_08. 0x000d6c30 read COverlayManager's view and its camera at 32-bit pads: now
+  HulkOverlayManager / HulkView.
+- Native stop now: 0x00207410 (CWorldStreamManager, Player_207410's `pad0[0x578]` / `pad588[...]` views) passes a
+  32-bit-offset word to 0x00266710. Next (C16): the ~20 manager views of CWorldStreamManager.cpp onto
+  decls/managers.h's HulkWorldStreamManager / HulkWorldMemoryPool (the constructor 0x00208210 already is).
+- Local iteration after a symbol change: the snapshot's report.json carries the address -> 32-bit symbol table that
+  binds callers (D117); rename the definition's old symbol there and in a private copy of the map
+  (build/gfx5/nat/maps/bindings-c15.json), or the caller stays `missing` ("definition without a unique 64-bit symbol").
