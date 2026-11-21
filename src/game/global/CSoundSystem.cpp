@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001f0ab0..0x001f2db0 (kind game, layer game, confidence high), dominant class CSoundSystem
 #include "tree_prelude.h"
+#include "decls/sound_resources.h"   // (gfx7, C17) the sound resource manager's words
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -180,15 +181,24 @@ extern "C" void* __cdecl FUN_0008d710(hulk_intptr size, int heap);   // (decl1, 
 struct SoundBank_1f1270 {
     hulk_intptr vptr;
     int f04;
-    char pad08[0x198 - 8];
+    char pad08[HULK_SRM(sequenceCount) - HULK_SRM(refs) - sizeof(int)];   // (gfx7) decls/sound_resources.h
     int f198;
-    char pad19c[0x4bc - 0x19c];
+    char pad19c[HULK_SRM(clipCount) - HULK_SRM(sequenceCount) - sizeof(int)];
     int f4bc;
-    char pad4c0[0x510 - 0x4c0];
-    int f510, f514, f518, f51c;
+    char pad4c0[HULK_SRM(mixCount) - HULK_SRM(clipCount) - sizeof(int)];
+    int f510;
+    void* f514;   // the current mix
+    void* f518;   // the clip inventory
+    int f51c;
     char f520;
     char pad521[3];
 };
+HULK_SRM_CHECK(sizeof(SoundBank_1f1270) == sizeof(HulkSoundResources));
+HULK_SRM_AT(SoundBank_1f1270, f198, sequenceCount);
+HULK_SRM_AT(SoundBank_1f1270, f4bc, clipCount);
+HULK_SRM_AT(SoundBank_1f1270, f510, mixCount);
+HULK_SRM_AT(SoundBank_1f1270, f518, inventory);
+HULK_SRM_AT(SoundBank_1f1270, f520, flag);
 struct SoundEngine {
     SoundEngine *FUN_001f4ba0(SoundBank_1f1270 *bank);
 };
@@ -1086,7 +1096,7 @@ namespace fn_ffeee61e {
 // FUN_001f1270 @ 0x001f1270
 SoundResourceManager *SoundResourceManager::FUN_001f1270()
 {
-    SoundBank_1f1270 *b = (SoundBank_1f1270 *)FUN_00263ed0(0x524, 6);
+    SoundBank_1f1270 *b = (SoundBank_1f1270 *)FUN_00263ed0((int)sizeof(HulkSoundResources), 6);
     if (b) {
         b->f04 = 0;
         b->vptr = (hulk_intptr)DAT_0042476c;

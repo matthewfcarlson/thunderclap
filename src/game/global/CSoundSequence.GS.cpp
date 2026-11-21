@@ -2,6 +2,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001e8c20..0x001e9de0 (kind game, layer game, confidence high), dominant class CSoundSequence
 #include "tree_prelude.h"
+#include "decls/sound_resources.h"   // (gfx7, C17) the sound resource manager's words
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
@@ -30,7 +31,9 @@ namespace fn_f9024596 {
 extern "C" int __cdecl FUN_00240750();
 extern "C" void __cdecl FUN_00243090(int, float);
 struct Entry_1e95c0 { int state; };
-struct Target_1e95c0 { char pad[0x19c]; Entry_1e95c0* entries[200]; int count; void FUN_002696a0(); void update(float time, bool active); };
+struct Target_1e95c0 { char pad[HULK_SRM(clips)]; Entry_1e95c0* entries[200]; int count; void FUN_002696a0(); void update(float time, bool active); };
+HULK_SRM_AT(Target_1e95c0, entries, clips);
+HULK_SRM_AT(Target_1e95c0, count, clipCount);
 struct IdPair_1e9960 {
     unsigned int lo;
     unsigned int hi;
@@ -43,7 +46,7 @@ struct Slot_1e9960 {
 };
 class Registry_1e9960 {
 public:
-    char pad00[0x4c0];
+    char pad00[HULK_SRM(mixes)];
     Slot_1e9960 *slots[20];
     int count;
 

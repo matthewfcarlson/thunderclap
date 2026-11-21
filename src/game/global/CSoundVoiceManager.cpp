@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001f2e40..0x001f6bc0 (kind game, layer game, confidence high), dominant class CSoundVoiceManager
 #include "tree_prelude.h"
+#include "decls/sound_resources.h"   // (gfx7, C17) the sound resource manager's words
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -142,7 +143,7 @@ struct Registry_1f31a0 {
     Entry_1f31a0 *FUN_001f31a0(const Id_1f31a0 *key);
 };
 struct Resource_1f32b0 { char pad[0x18]; int id; void FUN_001e8a90(); };
-struct Manager_1f32b0 { char pad[0x518]; int context; };
+struct Manager_1f32b0 { char pad[HULK_SRM(inventory)]; int context; };   // (gfx7) the inventory, read as an int (0x0024ace0's parameter)
 struct State_1f32b0 { char pad[0x334]; float value; };
 extern "C" int __cdecl FUN_00240750();
 extern int __cdecl FUN_0024ace0(int, int*, int, int, int, int*);

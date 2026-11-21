@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001e9e70..0x001eab10 (kind game, layer game, confidence high), dominant class CSoundResourceManager
 #include "tree_prelude.h"
+#include "decls/sound_resources.h"   // (gfx7, C17) the sound resource manager's words
 #include "decls/load_inventory.h"   // (x64t5) HULK_LOADINVENTORY_SIZE
 #include "compat/ptr.h"
 #include "decls/data/engine/content.h"
@@ -61,11 +62,13 @@ struct Entry_1ea190 {
     unsigned f10;
 };
 struct Pool_1ea190 {
-    char pad00[0x19c];
+    char pad00[HULK_SRM(clips)];
     Entry_1ea190 *entries[200];
     int count;
     Entry_1ea190 *FUN_001e9900(Key_1ea190 *key);
 };
+HULK_SRM_AT(Pool_1ea190, entries, clips);
+HULK_SRM_AT(Pool_1ea190, count, clipCount);
 struct Source_1ea190 {
     char pad00[0x10];
     Key_1ea190 key;
@@ -292,7 +295,7 @@ int Collector_1ea190::FUN_001ea190(Request *req, List_1ea190 *list)
 {
     Item_1ea190 *it = 0;
     if (list->head)
-        it = (Item_1ea190 *)((char *)list->head - 4);
+        it = (Item_1ea190 *)((char *)list->head - HULK_SRM_OFF(Item_1ea190, link));   // (gfx7) the item from its link (natively +8)
     while (it) {
         List_1ea190 *sub = (List_1ea190 *)FUN_00344e74(it, 0, DAT_004c7150, DAT_004c7170, 0);
         if (sub) {
@@ -337,7 +340,7 @@ int Collector_1ea190::FUN_001ea190(Request *req, List_1ea190 *list)
                 usedCount++;
             }
         }
-        it = it->link.next ? (Item_1ea190 *)((char *)it->link.next - 4) : 0;
+        it = it->link.next ? (Item_1ea190 *)((char *)it->link.next - HULK_SRM_OFF(Item_1ea190, link)) : 0;
     }
     return 0;
 }
@@ -561,7 +564,7 @@ void Closure1_1ea540::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (
 namespace fn_001ea560 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_001ea560 @ 0x001ea560
-struct Caster { virtual void f0(); virtual void f1(); virtual void f2(); virtual char* f3(void* type, int a, int b); }; struct Obj { char pad[0x518]; Caster* caster; void FUN_001ea560(int a,int b); }; struct DynamicCaster { virtual void f(); }; namespace content { namespace LoadInventory { struct DynamicCasterListenerEffectXBox { virtual void Fnf_001e9de0(void*); }; } } extern "C" void __cdecl FUN_00241280(void*,int,int); void Obj::FUN_001ea560(int a,int b) { content::LoadInventory::DynamicCasterListenerEffectXBox marker; char* result=caster->f3(&marker,a,b); if(result) FUN_00241280(result+0x28,0,0); }
+struct Caster { virtual void f0(); virtual void f1(); virtual void f2(); virtual char* f3(void* type, int a, int b); }; struct Obj { char pad[HULK_SRM(inventory)]; Caster* caster; void FUN_001ea560(int a,int b); }; struct DynamicCaster { virtual void f(); }; namespace content { namespace LoadInventory { struct DynamicCasterListenerEffectXBox { virtual void Fnf_001e9de0(void*); }; } } extern "C" void __cdecl FUN_00241280(void*,int,int); void Obj::FUN_001ea560(int a,int b) { content::LoadInventory::DynamicCasterListenerEffectXBox marker; char* result=caster->f3(&marker,a,b); if(result) FUN_00241280(result+0x28,0,0); }
 } // namespace fn_001ea560
 
 
@@ -629,7 +632,7 @@ struct Arg_1ea5a0 {
 
 class ClipUser {
 public:
-    char pad0[0x518];
+    char pad0[HULK_SRM(inventory)];
     ClipLookup_1ea5a0 *clips;
     void Acquire(Arg_1ea5a0 arg);
 };
@@ -688,7 +691,7 @@ template <> inline LoadInventory::DynamicCaster<audio::Clip>::DynamicCaster() { 
 
 struct Resource_1ea700 { virtual void slot0(); virtual void release(); char pad[0x1e]; unsigned short refs; };
 struct Inventory_1ea700 { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual Resource_1ea700* lookup(content::LoadInventory::DynamicCaster<audio::Clip>*, unsigned, unsigned); virtual void slot4(); virtual void remove(Resource_1ea700*); };
-struct System_1ea700 { char pad[0x518]; Inventory_1ea700* inventory; };
+struct System_1ea700 { char pad[HULK_SRM(inventory)]; Inventory_1ea700* inventory; };
 struct Key_1ea700 { unsigned first, second; };
 struct Request { unsigned state; Key_1ea700* key; unsigned size; unsigned unused; unsigned category; void FUN_001ea700(); };
 void Request::FUN_001ea700() {
@@ -792,7 +795,7 @@ extern "C" int FUN_001e91c0();
 
 class CSoundResourceManager {
 public:
-    char pad000[0x518];
+    char pad000[HULK_SRM(inventory)];
     LoadInventory_1ea8b0 *streams;
     int param;
 

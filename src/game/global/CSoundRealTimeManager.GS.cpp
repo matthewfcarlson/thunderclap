@@ -2,6 +2,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001eab10..0x001eecb0 (kind game, layer game, confidence high), dominant class CSoundRealTimeManager
 #include "tree_prelude.h"
+#include "decls/sound_resources.h"   // (gfx7, C17) the sound resource manager's words
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
@@ -115,7 +116,7 @@ extern int __cdecl FUN_00242c30(void *mgr, hulk_intptr v);
 extern "C" bool __cdecl FUN_001e9bc0(Pair_1eab10 p);
 class Player_1eab10 {
 public:
-    char pad0[0x518];
+    char pad0[HULK_SRM(inventory)];
     Sink_1eab10 *sink;             // 0x518
     int FUN_001e98b0(Pair_1eab10 *p);
     Track *FUN_001e97f0();

@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001e8710..0x001e8c20 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
+#include "decls/sound_resources.h"   // (gfx7, C17) the sound resource manager's words
 #include "compat/ptr.h"
 #include "decls/data/records.h"
 #include "decls/data/engine/content.h"
@@ -39,18 +40,22 @@ class Item_1e8880 {
 };
 class Holder_1e8880 {
   public:
-    char pad[8];
+    char pad[HULK_SRM(sequences)];
     Item_1e8880* mItems[100];
     int mCount;
     void Remove(Item_1e8880* item);
 };
+HULK_SRM_AT(Holder_1e8880, mItems, sequences);
+HULK_SRM_AT(Holder_1e8880, mCount, sequenceCount);
 extern "C" hulk_intptr __cdecl FUN_0008d710(hulk_intptr, int);   // (decl1) as defined (unk_08ceb0.cpp)
 class Thing_1e8910 {
   public:
-    char pad[0x19c];
-    int items[200];
+    char pad[HULK_SRM(clips)];
+    hulk_intptr items[200];   // (gfx7) the clip entries (pointers)
     int count;
 };
+HULK_SRM_AT(Thing_1e8910, items, clips);
+HULK_SRM_AT(Thing_1e8910, count, clipCount);
 extern "C" char DAT_00423f28[];
 typedef unsigned int u32_1e8960;
 extern "C" hulk_intptr __cdecl FUN_0008d710(hulk_intptr, int);   // (decl1) as defined (unk_08ceb0.cpp)
@@ -61,11 +66,13 @@ struct SoundMix {
 };
 class Manager_1e8960 {
   public:
-    char pad[0x4c0];
+    char pad[HULK_SRM(mixes)];
     SoundMix* slots[20];
     int count;
     SoundMix* Add();
 };
+HULK_SRM_AT(Manager_1e8960, slots, mixes);
+HULK_SRM_AT(Manager_1e8960, count, mixCount);
 class Sub_1e8a60 {
   public:
 };
@@ -187,7 +194,7 @@ void Holder_1e8880::Remove(Item_1e8880* item) {
 int __fastcall Target(Thing_1e8910* self) {
     if (self->count >= 200)
         return 0;
-    int value = FUN_0008d710(0x14, 6);
+    hulk_intptr value = FUN_0008d710(0x14, 6);
     self->items[self->count] = value;
     value = self->items[self->count];
     ++self->count;

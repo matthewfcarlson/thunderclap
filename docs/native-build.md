@@ -6680,3 +6680,12 @@ name that carries an address any more. Unbound counts: see the commit message (c
 - Native stop now: 0x001e95c0 (CSoundSequence.GS.cpp, Target_1e95c0) reads the sound resource manager (RTTI
   CSoundResourceManager, 0x524 bytes, 0x001f1270 allocates it, DAT_004e3690) at 32-bit offsets: 100 sequences at 8,
   200 clips at 0x19c, 20 mixes at 0x4c0, the current mix 0x514, the inventory 0x518 are pointers.
+- C17: the sound resource manager (RTTI CSoundResourceManager, 0x524 bytes, 0x001f1270 allocates it, DAT_004e3690)
+  is the record include/decls/sound_resources.h HulkSoundResources (only the 7 sound TUs include it): 100 sequences,
+  200 clip entries, 20 mixes, the current mix, the clip inventory (pointers), their counts. The views in unk_1e8710,
+  CSoundSequence(.GS), CSoundResourceManager, CSoundSystem, CSoundRealTimeManager.GS and CSoundVoiceManager size
+  their pads by it (HULK_SRM / HULK_SRM_AT, as C16); 0x001f1270 allocates sizeof(HulkSoundResources). No 32-bit
+  code or view change. The native crash in 0x001e95c0 is gone and native start-up presents its first frame
+  ("frame 0 presented (0 draws)", noop renderer).
+- Native stop now: SIGSEGV at 0x20 in 0x00293ef0 (pure3d view set-up, `Target : HulkView`) called from 0x000bdd60
+  (Menu_bdd60, unk_0bc1e0.cpp): most likely a view pointer the frontend reads at a 32-bit offset (null `this`).

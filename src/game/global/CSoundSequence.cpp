@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001e8c20..0x001e9de0 (kind game, layer game, confidence high), dominant class CSoundSequence
 #include "tree_prelude.h"
+#include "decls/sound_resources.h"   // (gfx7, C17) the sound resource manager's words
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
@@ -118,7 +119,7 @@ extern "C" void __cdecl FUN_00240eb0();
 extern "C" void __cdecl FUN_00240a10();
 class Manager_1e9680 {
 public:
-    char pad0[8];
+    char pad0[HULK_SRM(sequences)];
     Item_1e9680 *items[100];
     int itemCount;
     void *blocks[200];
@@ -127,8 +128,14 @@ public:
     int entryCount;
     void FUN_001e9680();
 };
+HULK_SRM_AT(Manager_1e9680, items, sequences);
+HULK_SRM_AT(Manager_1e9680, blocks, clips);
+HULK_SRM_AT(Manager_1e9680, entries, mixes);
+HULK_SRM_AT(Manager_1e9680, entryCount, mixCount);
 struct Entry { char pad[0x10]; int first; int second; };
-struct Owner { char pad[8]; Entry* entries[100]; int count; Entry* FUN_001e9860(int first, int second); };
+struct Owner { char pad[HULK_SRM(sequences)]; Entry* entries[100]; int count; Entry* FUN_001e9860(int first, int second); };
+HULK_SRM_AT(Owner, entries, sequences);
+HULK_SRM_AT(Owner, count, sequenceCount);
 struct Key_1e98b0 {
     int a;
     int b;
@@ -140,11 +147,12 @@ struct Entry_1e98b0 {
 };
 class Obj_1e98b0 {
   public:
-    char pad[8];
+    char pad[HULK_SRM(sequences)];
     void* items[100];
     int count;
     void* find(Key_1e98b0* key);
 };
+HULK_SRM_AT(Obj_1e98b0, count, sequenceCount);
 struct Pair_1e9900 {
     int a, b;
 };
@@ -154,11 +162,13 @@ struct Item_1e9900 {
 };
 class Obj_1e9900 {
   public:
-    char pad[0x19c];
+    char pad[HULK_SRM(clips)];
     Item_1e9900* items[200];
     int count;
     void* Find(int* key);
 };
+HULK_SRM_AT(Obj_1e9900, items, clips);
+HULK_SRM_AT(Obj_1e9900, count, clipCount);
 int CheckThing_00240750();
 void ApplyThing_00242f60(int, int, float);
 struct Obj_1e9a90 {
@@ -174,10 +184,11 @@ void __cdecl FUN_002416c0(void *mixer, int handle, float volume);
 void __cdecl FUN_00242f60(void *mixer, int handle, float volume);
 class Mixer {
 public:
-    char pad0[0x514];
+    char pad0[HULK_SRM(currentMix)];
     Sound_1e9b20 *current;
     void FUN_001e9b20(unsigned int volume);
 };
+HULK_SRM_AT(Mixer, current, currentMix);
 struct Pair_1e9bc0 {
     int a;
     int b;
@@ -421,11 +432,12 @@ struct CSoundSequence {
 };
 class Owner_1e97f0 {
   public:
-    char pad0[8];
+    char pad0[HULK_SRM(sequences)];
     CSoundSequence* slots[100];
     int count;
     CSoundSequence* Add();
 };
+HULK_SRM_AT(Owner_1e97f0, count, sequenceCount);
 CSoundSequence* Owner_1e97f0::Add() {
     if (count >= 100)
         return 0;
