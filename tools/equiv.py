@@ -4194,6 +4194,7 @@ class Run:
         self.cmp_obs = {}           # jcc -> observation of the comparison that fed it
         self.cmp_obs2 = {}          # ... the second time (a loop's next iteration)
         self.str_obs = []           # compares of a buffer with a literal in .rdata (directed inputs plant it)
+        self.modelled = 0           # (integ10, D181) stub calls run as SNPRINTF_MODELS' behaviour
         self.memfwd = 0             # (integ1, rev4) overlapping memcpy calls of ours performed as a forward copy (memfwd)
         self.str_eq = []            # (integ1, strcase) our strcmp-family calls: (epoch, first string's address, second string)
         self.deref_obs = []         # (round 13, objptr) [(pointer key, its source, disp)] (directed inputs)
@@ -5360,6 +5361,7 @@ class Run:
                            "float_ret": fret, "fret_view": fret_view, "at": insn.addr, "tail": tail, "pointees": pointees, "known": known,
                            "ret_to": insn.addr + insn.size,
                            "conv": bool(conv), "argw": argw, "esp": esp, "arg_unw": arg_unw, "cpop": self.cpop, "own_words": self.own_words,
+                           "islot": _icall_slot(insn, self.view),
                            "in_body": self.view.in_body(insn.addr),
                            "via_object": self._is_virtual_on_ecx(insn), "cdecl_site": self.cdecl_site, "fuzzed_ptr": fuzzed_ptr,
                            "x87args": x87a})
@@ -5558,6 +5560,14 @@ class Run:
                     self.fmem.pop(w, None)
                     self.stack_written.update(range(w, w + 4))
                     self.fill_src[w] = (k, j_, off_)
+        if not tail and known and insn.target is not None and target in SNPRINTF_MODELS and "snmodel" not in EQUIV_OFF:
+            m_ = self._snprintf_model(target, args, in_frame)
+            if m_ is not None:
+                wr_, eax = m_
+                if wr_:
+                    uc.mem_write(args[0][0], wr_)
+                    self.stack_written.update(range(args[0][0], args[0][0] + len(wr_)))   # (the callee's, as a fill)
+                self.modelled += 1
         if fill_log is not None:
             uc = real_uc
             self._fill_same(k, args, fill_log, in_frame, sp, arg_hi)
@@ -5767,6 +5777,54 @@ class Run:
         if above and min(above) < top:
             top, what = min(above), "a saved register or return address"
         return top - v, what
+
+    def _snprintf_model(self, target, args, in_frame):
+        """(integ10, D181; rev5) FUN_000964a0(buf, n, fmt, ...) run as MSVC's _vsnprintf and the wrapper's terminator
+        (_snprintf_effect), from a format in its side's read-only image data and the call's stack words: (bytes to
+        write at buf, eax), or None to keep the generic stub (another function at the address, an unsupported
+        conversion, a format outside the image's constants, a fault reading an argument, n beyond 64 KB). Both sides
+        get the same bytes and return from the same format and arguments."""
+        if self.__dict__.get("_snm_ok", {}).get(target) is None:
+            self.__dict__.setdefault("_snm_ok", {})[target] = \
+                hashlib.sha1(self.prog.read(target, 47)).hexdigest() == SNPRINTF_MODELS[target]
+        if not self._snm_ok[target] or len(args) < 3:
+            return None
+        buf, n, fmt_a = args[0][0], args[1][0], args[2][0]
+        n = n - (1 << 32) if n & 0x80000000 else n
+        if n > 1 << 16:
+            return None
+        # a constant: ours's own literal, or the XBE's .rdata (the original's; ours's MSVC object binds its literals there)
+        lit_ = (self.view.is_ours and OURS <= fmt_a < OURS + OURS_SIZE) or \
+            any(lo_ <= fmt_a < hi_ for lo_, hi_ in self.prog.rdata_ranges())
+        if not lit_:
+            return None
+        esp = self.reg("esp")
+        nxt = [esp + 12]
+
+        def word():
+            a_ = nxt[0]
+            nxt[0] += 4
+            return self._read_u32(a_)
+
+        def cstr(a, lim):
+            out_ = bytearray()
+            while lim is None or len(out_) < lim:
+                if len(out_) >= 1 << 16:
+                    raise Fault("intrinsic_access")
+                b_ = self._mem((a + len(out_)) & M32, 1)[0]
+                if b_ == 0:
+                    break
+                out_.append(b_)
+            return bytes(out_)
+        try:
+            text = _fmt_msvc(self._cstr(fmt_a, limit=4096), word, cstr)
+        except Exception:      # noqa: BLE001  (a fault reading the format or an argument: the generic stub)
+            return None
+        if text is None:
+            return None
+        if n > 0 and not (in_frame(buf) and in_frame(buf + n - 1)):
+            return None     # (a buffer outside the frame: the generic stub, whose memory checks see every store)
+        return _snprintf_effect(text, n)
 
     def _callee_extent(self, insn, target, known, conv, k, argbase, put, in_frame, firsts):
         """The real callee writes this far through a pointer to one of our locals (callee_writes). The
@@ -9566,12 +9624,338 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
 _ICALL_MODEL = {}
 
 
+VCLASS_PINS = {}            # (integ9, D177) this run's {original indirect call address: bytes its callee pops}
+
+
+def vclass_pop(prog, entry, line):
+    """(integ9, D177) `// vclass: +0xOFF CLASS EVIDENCE`: the object of the original's indirect call at ENTRY+OFF
+    (`call [reg+disp]`) is a CLASS (its RTTI name) or derives from it; EVIDENCE says why (reviewed, as pre-callers).
+    Checked against the XBE: every class whose RTTI lists CLASS as a non-virtual base (and CLASS itself) has a vftable
+    at CLASS's subobject offset, and the function in its slot disp/4 pops the same N bytes on every `ret` (a slot whose
+    function never returns, _purecall, is no object's); N must be one of the pops the original's own stack model allows
+    there. Returns ((call address, N, [vftables read]), None) or (None, why)."""
+    m = re.match(r"^\+0x([0-9a-fA-F]+)\s+(\.\?A[UV]\S+@@)\s+(\S.*)$", line)
+    if not m:
+        return None, "not `+0xOFF .?AVClass@ns@@ evidence`"
+    at = entry + int(m.group(1), 16)
+    cls = m.group(2)
+    # (rev5) a floor under the reviewed evidence: it cites at least one address (0xADDR or FUN_ADDR), and every one is a
+    # function start or a vftable of the XBE (a citation never points nowhere)
+    cites = {int(x, 16) for x in re.findall(r"(?:\b0x|\bFUN_)([0-9a-fA-F]{6,8})\b", m.group(3))}
+    if not cites:
+        return None, "the evidence cites no address (0xADDR / FUN_ADDR of the writers or constructors it rests on)"
+    bad_ = sorted(a for a in cites if a not in prog.funcs and a not in prog.vftables)
+    if bad_:
+        return None, "the evidence cites %s, neither a function nor a vftable" % ", ".join("0x%08x" % a for a in bad_)
+    if at not in {entry + o for o in range(prog.funcs[entry][0])}:
+        return None, "+0x%s is outside the function" % m.group(1)
+    ins = next(prog.md.disasm(prog.read(at, 16), at), None) if hasattr(prog, "md") else None
+    if ins is None:
+        md_ = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+        md_.detail = True
+        ins = next(md_.disasm(prog.read(at, 16), at), None)
+    if ins is None or ins.mnemonic != "call":
+        return None, "0x%08x is not an indirect call through a register (%s)" % (
+            at, ins and "%s %s" % (ins.mnemonic, ins.op_str))
+    mm = re.match(r"^dword ptr \[(e[a-ds][xip]|e[sd]i)(?: \+ (0x[0-9a-f]+|\d+))?\]$", ins.op_str)
+    if not mm:
+        return None, "0x%08x: `%s %s` is not `call [reg+disp]`" % (at, ins.mnemonic, ins.op_str)
+    disp = int(mm.group(2), 0) if mm.group(2) else 0
+    if cls not in prog.rtti:
+        return None, "%s is not a class of the XBE's RTTI" % cls
+    pops, vts = set(), []
+    for name, c in sorted(prog.rtti.items()):
+        if name == cls:
+            off = 0
+        else:
+            b = [x for x in c.get("bases") or () if x.get("name") == cls]
+            if not b:
+                continue
+            if any(x.get("pdisp", -1) != -1 for x in b) or len({x.get("mdisp") for x in b}) != 1:
+                return None, "%s reaches %s through a virtual or repeated base" % (name, cls)
+            off = b[0]["mdisp"]
+        vt = [v for v in c.get("vtables") or () if v.get("offset") == off]
+        if len(vt) != 1:
+            return None, "%s has %d vftables at %s's offset %d" % (name, len(vt), cls, off)
+        sl = vt[0].get("slots") or []
+        if disp % 4 or disp // 4 >= len(sl):
+            return None, "%s's vftable 0x%08x has no slot at +0x%x" % (name, vt[0]["address"], disp)
+        f = sl[disp // 4]
+        if prog.noreturn(f) or _is_purecall(prog, f):
+            continue        # (_purecall: an abstract class's slot no object has at run time)
+        p_ = _ret_pops(prog, f, slots=sl)
+        if p_ is None:
+            return None, "the pop of %s's slot %d (0x%08x) is unknown" % (name, disp // 4, f)
+        pops.add(p_)
+        vts.append("0x%08x" % vt[0]["address"])
+    if len(pops) != 1:
+        return None, "the slot's functions pop %s" % (sorted(pops) or "nothing (no class has a callable slot)")
+    n = pops.pop()
+    feas = _static_icall_pops(entry).get(at)
+    if feas is not None and n not in feas:
+        return None, "the original's stack model allows pops %s at 0x%08x, not %d" % (sorted(feas), at, n)
+    return (at, n, vts), None
+
+
+def _is_purecall(prog, f):
+    """(integ9, D177) The CRT's _purecall: an optional handler call through a global, then `push 0x19` (_RT_PURECALL,
+    R6025) and a call of the runtime-error exit (`mov eax, [g]; test eax, eax; je; call eax; push 0x19; call X`)."""
+    try:
+        b = prog.read(f, 0x12)
+    except Exception:   # noqa: BLE001
+        return False
+    return b[0] == 0xA1 and b[5:9] == bytes.fromhex("85c07402") and b[9:11] == bytes.fromhex("ffd0") and \
+        b[11:14] == bytes.fromhex("6a19e8")
+
+
+def _self_vjump(prog, f):
+    """(integ9, D177) The vftable displacement D when function F ends in a tail jump through its own object's vftable:
+    `mov R, [ecx]; ...; jmp [R+D]` with ecx never written in F and no ret or other exit (0x0031e840,
+    pddiBaseContext::vfunc_16). Else None."""
+    if f not in prog.funcs:
+        return None
+    md_ = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    md_.detail = True
+    ins = list(md_.disasm(prog.read(f, prog.funcs[f][0]), f))
+    if not ins or sum(1 for i in ins if i.mnemonic == "jmp" or i.mnemonic.startswith(("ret", "j", "call"))) != 1:
+        return None
+    last = ins[-1]
+    m = re.match(r"^dword ptr \[(e[a-d]x|e[sd]i) \+ (0x[0-9a-f]+)\]$", last.op_str) if last.mnemonic == "jmp" else None
+    if not m:
+        return None
+    reg = m.group(1)
+    loads = [i for i in ins[:-1] if i.mnemonic == "mov" and i.op_str == "%s, dword ptr [ecx]" % reg]
+    if len(loads) != 1:
+        return None
+    k = ins.index(loads[0])
+    for i in ins:
+        _r, w_ = i.regs_access()
+        if any(i.reg_name(x) == "ecx" for x in w_):
+            return None
+        if ins.index(i) > k and i is not last and any(i.reg_name(x) == reg for x in w_):
+            return None
+    return int(m.group(2), 16)
+
+
+def _ret_pops(prog, f, depth=0, slots=None):
+    """(integ9, D177) The bytes function F pops when every `ret` of it pops the same (a tail-only function: its tail
+    callee's; with SLOTS, F's object's vftable, a tail jump through that same vftable: that slot's), else None."""
+    if slots is not None and depth < 4:
+        d_ = _self_vjump(prog, f)
+        if d_ is not None:
+            if d_ % 4 or d_ // 4 >= len(slots):
+                return None
+            return _ret_pops(prog, slots[d_ // 4], depth + 1, slots)
+    body = (f, f + prog.funcs[f][0]) if f in prog.funcs else None
+    view = CodeView(prog.read, f, body, prog)
+    try:
+        view.build(limit=4000)
+    except Exception:   # noqa: BLE001
+        return None
+    rets = {i.ret_imm for i in view.insns.values() if i.kind == "ret"}
+    if len(rets) == 1:
+        return rets.pop()
+    if not rets and depth < 4:
+        ts = {i.target for i in view.insns.values() if i.kind == "jmp" and i.target is not None and
+              not view.internal_target(i.target)}
+        ps = {_ret_pops(prog, t, depth + 1) for t in ts}
+        if len(ps) == 1:
+            return ps.pop()
+    return None
+
+
+# (integ10, D181; rev5) Game callees the stub runs as their documented behaviour, keyed by address and guarded by the
+# SHA-1 of the XBE's bytes there (a different function at the address is never modelled). FUN_000964a0 (47 B, matched in
+# CUnlockablesManager.cpp): `r = _vsnprintf(buf, n, fmt, va); if (n > 0 && r == -1) buf[n - 1] = 0; return r`.
+SNPRINTF_MODELS = {0x000964a0: "887ade6770b14024e9e63640a2d342a2193ee19a"}
+
+
+def _fmt_msvc(fmt, word, cstr):
+    """(integ10, D181) The bytes MSVC's printf family writes for FMT (bytes, without its NUL), reading the variable
+    arguments in order through WORD() (the next 32-bit word) and CSTR(address, limit or None) (a string's bytes): %d %i
+    %u %x %X %c %s %% with the flags - + space # 0, a width and a precision (digits or *), and the size prefixes h / l.
+    None for anything else (a float, %p, %n, %o, I64, a wide string): the caller then keeps the generic stub."""
+    out = bytearray()
+    i, n = 0, len(fmt)
+    while i < n:
+        c = fmt[i]
+        if c != 0x25:
+            out.append(c)
+            i += 1
+            continue
+        i += 1
+        if i >= n:
+            return None
+        flags = set()
+        while i < n and chr(fmt[i]) in "-+ #0":
+            flags.add(chr(fmt[i]))
+            i += 1
+        width = None
+        if i < n and fmt[i] == 0x2a:
+            w_ = word()
+            w_ = w_ - (1 << 32) if w_ & 0x80000000 else w_
+            if w_ < 0:
+                flags.add("-")
+                w_ = -w_
+            width = w_
+            i += 1
+        else:
+            d_ = b""
+            while i < n and 0x30 <= fmt[i] <= 0x39:
+                d_ += fmt[i:i + 1]
+                i += 1
+            width = int(d_) if d_ else None
+        prec = None
+        if i < n and fmt[i] == 0x2e:
+            i += 1
+            if i < n and fmt[i] == 0x2a:
+                p_ = word()
+                p_ = p_ - (1 << 32) if p_ & 0x80000000 else p_
+                prec = p_ if p_ >= 0 else None
+                i += 1
+            else:
+                d_ = b""
+                while i < n and 0x30 <= fmt[i] <= 0x39:
+                    d_ += fmt[i:i + 1]
+                    i += 1
+                prec = int(d_) if d_ else 0
+        if width is not None and width > 1 << 16 or prec is not None and prec > 1 << 16:
+            return None
+        size = None
+        if i < n and chr(fmt[i]) in "hl":
+            size = chr(fmt[i])
+            i += 1
+        if i >= n:
+            return None
+        conv = chr(fmt[i])
+        i += 1
+        if conv == "%":
+            out.append(0x25)
+            continue
+        if conv in "di":
+            v = word()
+            if size == "h":
+                v = (v & 0xFFFF) - (0x10000 if v & 0x8000 else 0)
+            else:
+                v = v - (1 << 32) if v & 0x80000000 else v
+            body = b"" if prec == 0 and v == 0 else str(abs(v)).encode()
+            if prec is not None:
+                body = body.rjust(prec, b"0")
+            sign = b"-" if v < 0 else (b"+" if "+" in flags else (b" " if " " in flags else b""))
+            pre = sign
+        elif conv in "uxX":
+            v = word()
+            if size == "h":
+                v &= 0xFFFF
+            body = b"" if prec == 0 and v == 0 else (str(v) if conv == "u" else "%x" % v if conv == "x" else "%X" % v).encode()
+            if prec is not None:
+                body = body.rjust(prec, b"0")
+            pre = (b"0x" if conv == "x" else b"0X") if "#" in flags and conv != "u" and v else b""
+        elif conv in "cs" and size == "l":
+            return None         # (MSVC: a wide character or string)
+        elif conv == "c":
+            body, pre = bytes([word() & 0xFF]), b""
+        elif conv == "s":
+            a = word()
+            body = cstr(a, prec) if a else b"(null)"[:prec if prec is not None else 6]
+            if body is None:
+                return None
+            pre = b""
+        else:
+            return None
+        pad = max(0, (width or 0) - len(pre) - len(body))
+        if "-" in flags:
+            out += pre + body + b" " * pad
+        elif "0" in flags and prec is None and conv in "diuxX":
+            out += pre + b"0" * pad + body
+        else:
+            out += b" " * pad + pre + body
+        if len(out) > 1 << 16:
+            return None
+    return bytes(out)
+
+
+def _snprintf_effect(text, n):
+    """(integ10, D181) What FUN_000964a0 leaves for an output TEXT and a size N (signed): (bytes written at buf, its
+    return). MSVC's _vsnprintf: len < n: the text and its NUL, len; len == n: n bytes and no NUL, n; len > n: n bytes, -1,
+    and the wrapper writes a NUL at n - 1. n <= 0 writes nothing (the wrapper's `jle`): 0 for an empty text, else -1."""
+    if n <= 0:
+        return b"", 0 if not text and n == 0 else M32
+    if len(text) < n:
+        return text + b"\0", len(text)
+    if len(text) == n:
+        return text, n
+    return text[:n - 1] + b"\0", M32
+
+
+def _icall_slot(insn, view=None):
+    """(integ10, D177; rev5) The slot of an indirect call through an object: the displacement of `call [reg+disp]`, or
+    of the load that set the register of `call reg` (clang's -O0 code: `mov eax, [ecx+0x3c]; call eax`, found going
+    back through the straight-line code before the call, the first instruction that writes the register deciding).
+    None for a direct call, a call through an absolute pointer, an indexed operand, or a register set otherwise."""
+    if insn.target is not None:
+        return None
+    m = insn.mem
+    if m is not None:
+        if m[1] in (None, "esp", "ebp") or m[2] is not None:
+            return None
+        return m[4]
+    reg = insn.op_str.strip()
+    if view is None or reg not in ("eax", "ebx", "ecx", "edx", "esi", "edi"):
+        return None
+    a = insn.addr
+    for _ in range(24):
+        j = None
+        for back in range(1, 16):
+            c_ = view.insns.get(a - back) or view.decode(a - back)
+            if c_ is not None and c_.addr + c_.size == a and (a - back) in view.insns:
+                j = c_
+                break
+        if j is None or j.kind in ("call", "ret", "jmp", "jcc") or j.mnemonic.startswith("j"):
+            return None
+        ops = j.op_str.split(",")
+        if ops and ops[0].strip() == reg and j.mnemonic not in ("push", "cmp", "test"):
+            jm = j.mem
+            if j.mnemonic == "mov" and jm is not None and jm[1] not in (None, "esp", "ebp") and jm[2] is None and \
+                    len(ops) == 2 and "ptr" in ops[1]:
+                return jm[4]
+            return None
+        if (j.mnemonic == "xchg" and reg in j.op_str) or (reg in ("eax", "edx") and (j.mnemonic in (
+                "cdq", "mul", "div", "idiv") or (j.mnemonic == "imul" and len(ops) == 1) or j.mnemonic.startswith(
+                ("lods", "rep")) or j.mnemonic == "in")):
+            return None     # (writes the register implicitly)
+        a = j.addr
+    return None
+
+
+def _pair_icall(o_calls, r_calls, k):
+    """(integ10, D177; rev5) Our call that stands for the original's k-th call, an indirect one: the n-th indirect call
+    through the same slot (displacement) on each side, n counted from the start of each run. Calls of other kinds (a
+    direct strcmp clang emits where MSVC inlined it, 0x000b0a50) shift raw call indices, never this pairing. None when
+    the original's call is no slot call or our run has no n-th call through that slot (then no split is taken)."""
+    if k >= len(o_calls):
+        return None
+    s_ = o_calls[k].get("islot")
+    if s_ is None:
+        return None
+    n_ = sum(1 for c_ in o_calls[:k] if c_.get("islot") == s_)
+    for j_, c_ in enumerate(r_calls):
+        if c_.get("islot") == s_:
+            if n_ == 0:
+                return j_
+            n_ -= 1
+    return None
+
+
 def _split_pinned(prog, calls, k, taken, pending):
     """(integ3 chk3, splitpin; rev5) After a vsplit/msplit re-run in which the k-th call took TAKEN bytes of the PENDING
     words pushed for it: the first later call whose stack arguments include a word it left is a direct call of a
     function of the image (its arity fixed by its own code), not another indirect call."""
     if k >= len(calls) or calls[k].get("esp") is None:
         return False
+    if calls[k].get("at") in VCLASS_PINS and "vclass" not in EQUIV_OFF:
+        # (integ9, D177) class evidence fixes this call's pop: the split is the original's when it takes exactly that
+        return VCLASS_PINS[calls[k]["at"]] == taken
     e0 = calls[k]["esp"]
     left = set(range(e0 + taken, e0 + 4 * pending, 4))
     for c in calls[k + 1:]:
@@ -11065,6 +11449,10 @@ def checker_view(native, fsym, sig, ret_kind, void_eax, convs, rep, psizes, decl
         # checked: callers rely on it through this view (an equivalent callee's equiv line, a matches callee's post
         # line), so a post added or edited after a proof is another view (re-proved, never carried: it is in `rest`)
         v["post"] = list(rep["post"])
+    if rep.get("vclass"):
+        # (integ9, D177) the class evidence that pins argument splits (the lines and what they resolved to: the call,
+        # its pop, the vftables read): an edit, or another resolution, is another check
+        v["vclass"] = rep["vclass"]
     if rep.get("callee_posts"):
         # (integ8, D165) the callees' return postconditions this run's stubs draw inside (direct calls only), each with
         # the callee's domain and the ledger line that accepts it: a callee re-proved, its post edited or revoked is
@@ -11147,6 +11535,7 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
     dead_lines = []             # `// equiv-dead: +0x52 taken, +0x61 not taken: why` (hand-reviewed)
     pre_lines = []              # (integ1, D54) `// pre: notnan(*arg1+0x0..0x40)`: the function's input contract
     post_lines = []             # (integ4) `// post: lt(*arg3, *this+0xc68) when ret`: what it returns through out-params
+    vclass_lines = []           # (integ9, D177) `// vclass: +0x6f .?AUIControllerInputPoint@core@@ EVIDENCE`
     if src_lines is not None or src and os.path.exists(src):
         for line in (src_lines if src_lines is not None else open(src, errors="replace")):
             m = re.match(r"\s*//\s*equiv-map:\s*(\S+)\s*=\s*(0x[0-9a-fA-F]+)", line)
@@ -11164,6 +11553,9 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
             m = re.match(r"\s*//\s*post:\s*(.+?)\s*$", line)
             if m and "post" not in EQUIV_OFF:
                 post_lines.append(m.group(1))
+            m = re.match(r"\s*//\s*vclass:\s*(.+?)\s*$", line)
+            if m and "vclass" not in EQUIV_OFF:
+                vclass_lines.append(m.group(1))
     # ---- level 1
     tmp = None
     if obj_path is None:
@@ -11267,6 +11659,19 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
                if a_ in cps_ and m_ == ("wine" if native else "msvc")}
         if lk_:
             rep["callee_post_lines"] = lk_
+    VCLASS_PINS.clear()
+    vclass_bad_ = []
+    if vclass_lines:
+        # (integ9, D177) class evidence for an indirect call's pop: it pins the argument split there (splitpin)
+        vres_ = []
+        for l_ in vclass_lines:
+            r_, why_ = vclass_pop(prog, addr, l_)
+            if r_ is None:
+                vclass_bad_.append({"kind": "vclass_bad", "why": "`// vclass: %s`: %s" % (l_, why_)})
+            else:
+                VCLASS_PINS[r_[0]] = r_[1]
+                vres_.append([l_, "0x%08x" % r_[0], r_[1], r_[2]])
+        rep["vclass"] = vres_
     # first link with locals only, so that alignment can read our code
     ours.link({})
     resolved, how, conflicts, exact = resolve_symbols(prog, ours, oview, orefs, explicit, use_names,
@@ -11672,6 +12077,12 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
         rep["level2"]["ok"] = False
         if rep["level"] == 2:
             rep["level"] = 1
+    if vclass_bad_:
+        issues = issues + vclass_bad_
+        rep["level2"]["issues"] = rep["level2"]["issues"] + vclass_bad_
+        rep["level2"]["ok"] = False
+        if rep["level"] == 2:
+            rep["level"] = 1
     if post_specs:
         rep["post"] = list(post_lines)
     sig_l2_ = sig
@@ -11871,6 +12282,7 @@ def level3_verdict(rep, l3, issues, post_specs, time_budget, t0):
     """The verdict of a run from its level-3 result L3 and its level-2 ISSUES: status, class and promotable. (integ5,
     D155c) One function for a whole run and for a merge of a sharded proof's shards (tools/tree_tu.py merge_shards):
     the same rules read the merged counts."""
+    post_specs = post_specs or []      # (integ10, D181) a report without `post` states none
     if post_specs and any(isinstance(x, str) for x in post_specs):
         # (integ8, D165) a merge passes the report's `post` lines: parsed here (return items and out-parameter items
         # have their own evidence rules below)
@@ -13327,22 +13739,40 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             return None
         diffs = compare_runs(o, r, ret_kind, mach, Namer(inp, sig, prog), prog, esp_adjust=esp_adjust,
                              skip_saved=set(target_conv or ()), void_eax=void_eax)
-        if diffs and (NATIVE_MODE or "msplit" not in EQUIV_OFF) and orun.ambig_calls and not _ar and "vsplit" not in EQUIV_OFF:
+        ro_first_ = NATIVE_MODE and orun.ro_write is not None and "rowrite" not in EQUIV_OFF and \
+            "vsplitub" not in EQUIV_OFF and bool(diffs) and _after(diffs, orun.ub_at.get("ro_write"))
+        if diffs and (NATIVE_MODE or "msplit" not in EQUIV_OFF) and orun.ambig_calls and not _ar and "vsplit" not in EQUIV_OFF \
+                and not ro_first_:
+            # (integ9, vsplitub) not when the original stored into its .rdata before the difference: the input is
+            # rowrite's (inconclusive, below), whatever split a re-run takes: 0x000b0a50's seed 278 writes a flag through
+            # outB into the literal pool, and the re-run's split, never the original's, made it split_unpinned)
             # (round 22, vsplit) an indirect call whose stack words the original's code leaves open (see _stub): clang's
             # `sub esp, N` after our call says how many our declaration gives it. Re-run with the original's callee popping
             # that many (fewer than were pushed: the rest stay pending for the next call); its own stack balance and every
             # later call are still compared, so a split the original's code can't have fails as before
             ov_ = {}
+            moved_ = []
             for k_, n_ in orun.ambig_calls.items():
                 cp_ = None
-                if k_ < len(r["calls"]) and k_ < len(o["calls"]) and NATIVE_MODE:
-                    cp_ = r["calls"][k_].get("cpop")
-                elif k_ < len(r["calls"]) and k_ < len(o["calls"]) and r["calls"][k_].get("own_words") is not None and \
-                        not r["calls"][k_].get("known"):
+                # (integ10, D177; rev5) ours' call paired with the original's k-th by slot, never by raw index (job
+                # 110319: clang's out-of-line strcmp in 0x000b0a50 shifted every later index by one); unpaired: no split
+                raw_ = k_ if k_ < len(r["calls"]) and k_ < len(o["calls"]) else None
+                j_ = _pair_icall(o["calls"], r["calls"], k_) if "vpair" not in EQUIV_OFF else raw_
+                if j_ != raw_:
+                    # (report only) an input on which the raw index named another call than the slot pairing: the D177
+                    # audit of proofs made before the pairing reads it (0 on every input: the old split was the same)
+                    if not moved_:
+                        res["vpair_moved"] = res.get("vpair_moved", 0) + 1
+                        res.setdefault("vpair_moved_first", "%s call %d: raw %s paired %s" % (label or seed, k_, raw_, j_))
+                    moved_.append(k_)
+                if j_ is not None and NATIVE_MODE:
+                    cp_ = r["calls"][j_].get("cpop")
+                elif j_ is not None and r["calls"][j_].get("own_words") is not None and \
+                        not r["calls"][j_].get("known"):
                     # (integ3, msplit) MSVC mode: our object's own pending pushes at its k-th call (an indirect one) are
                     # the split our declaration makes, as clang's `sub esp` is natively (0x00264050: `push 1; call
                     # [ebx+0x40]` in the original, where the 1 is Read's; our MSVC code pushes nothing before the call)
-                    cp_ = 4 * r["calls"][k_]["own_words"]
+                    cp_ = 4 * r["calls"][j_]["own_words"]
                 if cp_ is not None:
                     if cp_ % 4 == 0 and cp_ // 4 < n_:
                         ov_[k_] = (cp_, cp_ // 4)
@@ -13379,6 +13809,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                         return run_input(seed, overlay, sp_, label, _vk=_vk, _ar=True, _bf=_bf)
                     res["inputs_inconclusive"] += 1
                     res["statuses"]["msplit_unpinned" if not NATIVE_MODE else "vsplit_unpinned"] += 1
+                    res.setdefault("split_unpinned_first", "%s" % (label or seed))
                     return None
                 if to_["status"] == "ret" and to_["esp"] == o["esp"] and \
                         all(to_["saved"][reg_] == o["saved"][reg_] for reg_ in CALLEE_SAVED):
@@ -13561,6 +13992,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             # (rev5, D153) an unpinned split that agreed: not evidence (the verdict becomes unsupported/split_unpinned)
             res["inputs_inconclusive"] += 1
             res["statuses"]["msplit_unpinned" if not NATIVE_MODE else "vsplit_unpinned"] += 1
+            res.setdefault("split_unpinned_first", "%s" % (label or seed))     # (integ9: a regress case's seed)
             return None
         if o["status"] == "ret":
             # (integ5, D155c; rev5) the compared input's identity: what build() makes it from (its own seed, the overlay
@@ -13585,6 +14017,9 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 # (integ1, measure only) a passing input on which _feq took two different NaNs as equal (rev3's question:
                 # how many proofs rest on NaN == NaN). Reported, never a verdict
                 res["inputs_nan_eq"] = res.get("inputs_nan_eq", 0) + 1
+            if orun.modelled:
+                # (integ10, D181) calls of the original run by their documented behaviour (SNPRINTF_MODELS)
+                res["modelled_calls"] = res.get("modelled_calls", 0) + orun.modelled
             if rrun.memfwd:
                 # (integ1, rev4) an input compared only because ours's overlapping memcpy ran as the original's forward
                 # copy: the host's memcpy is undefined there (a port hazard), so a proof shows how many it rests on

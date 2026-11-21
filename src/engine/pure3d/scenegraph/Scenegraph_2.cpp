@@ -1409,7 +1409,11 @@ char pure3d::scenegraph::Scenegraph::vfunc_7() {
 
 
 // 0x00296160 pure3d::scenegraph::Scenegraph::vfunc_8 (81 B): equivalent/0x00296160.cpp
-// sym: ?vfunc_8@Scenegraph@scenegraph@pure3d@@UAEXHH@Z @46b4e25d587c @w736b80e97ef4 @v3191a63aad93
+// sym: ?vfunc_8@Scenegraph@scenegraph@pure3d@@UAEXHH@Z @46b4e25d587c @w736b80e97ef4 @va2310b8d98a0
+// vclass: +0x16 .?AVd3dContext@pure3d@@ (vfunc_15) *DAT_0052c2ac is the pddi render context; pure3d::d3dContext is the only concrete class of the XBE deriving from pure3d::pddiRenderContext (vftable 0x00433164; pddiBaseContext and pddiRenderContext are abstract: _purecall slots)
+// vclass: +0x33 .?AVd3dContext@pure3d@@ (vfunc_18) *DAT_0052c2ac is the pddi render context; pure3d::d3dContext is the only concrete class of the XBE deriving from pure3d::pddiRenderContext (vftable 0x00433164; pddiBaseContext and pddiRenderContext are abstract: _purecall slots)
+// vclass: +0x3a .?AVNode@scenegraph@pure3d@@ (slot 8, 3 words) this->f_40 is the scenegraph's root: only ScenegraphLoader::vfunc_5 (0x00297f20) stores it, the node FUN_00297680 / FUN_00297ba0 build (pure3d::scenegraph::Node trees); vfunc_2 clears it
+// vclass: +0x49 .?AVd3dContext@pure3d@@ (vfunc_16) *DAT_0052c2ac is the pddi render context; pure3d::d3dContext is the only concrete class of the XBE deriving from pure3d::pddiRenderContext (vftable 0x00433164; pddiBaseContext and pddiRenderContext are abstract: _purecall slots)
 // STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 2/2)
 // pure3d::scenegraph::Scenegraph::vfunc_8 @ 0x00296160
 void pure3d::scenegraph::Scenegraph::vfunc_8(hulk_intptr a, int b) {

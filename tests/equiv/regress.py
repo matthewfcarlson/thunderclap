@@ -59,6 +59,24 @@ CASES = {
     "0x000b0a50_native_rooverlay": ("unsupported", None, 0, {"native": True, "seeds": [1550]}),
     "0x000b0a50_native_rooverlay_off": ("fail", "call #57 went to", 0, {"src": "0x000b0a50_native_rooverlay", "native": True,
                                                                        "seeds": [1550], "equiv_off": "rooverlay"}),
+    # (integ9, D177) `// vclass:` class evidence pins an indirect call's pop (splitpin): checked against the XBE's RTTI
+    # (every vftable of the class family, the slot's `ret N`, _purecall slots skipped) and the original's stack model
+    # (integ9, vsplitub) a difference after the original stored into its .rdata is rowrite's, before any vsplit re-run
+    # (integ10, D181) FUN_000964a0 run as MSVC's _vsnprintf (SNPRINTF_MODELS): the name's strlen agrees on both sides
+    "0x00094fb0_native_snmodel": ("equivalent", None, 0, {"native": True, "n_inputs": 30}),
+    "0x00094fb0_native_snmodel_off": ("fail", "0x0008d6d0", 0, {"src": "0x00094fb0_native_snmodel", "native": True,
+                                                                "n_inputs": 30, "equiv_off": "snmodel"}),
+    "0x000b0a50_native_vsplitub": ("equivalent", None, 0, {"native": True, "seeds": [278]}),
+    # (integ10, D177 slot pairing) with the re-run's call paired by slot, seed 278 reaches the split without the rule
+    # (11 vsplit_unpinned inputs; unsupported)
+    "0x000b0a50_native_vsplitub_off": ("unsupported", None, 0, {"src": "0x000b0a50_native_vsplitub", "native": True,
+                                                                "seeds": [278], "equiv_off": "vsplitub"}),
+    "0x00296160_native_vclass": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
+    "0x00296160_native_vclass_off": ("unsupported", "split_unpinned", 0, {"src": "0x00296160_native_vclass", "native": True,
+                                                                         "n_inputs": 60, "equiv_off": "vclass"}),
+    "0x00296160_native_vclass_mispin": ("unsupported", "split_unpinned", 0, {"native": True, "n_inputs": 60}),
+    "0x00296160_native_vclass_noslot": ("fail", "vclass", 0, {"native": True, "n_inputs": 5}),
+    "0x00296160_native_vclass_wrong": ("fail", None, 0, {"native": True, "n_inputs": 60}),
     "0x001c04e0_calleepost_off": ("fail", "write to this+0x0", 0, {"src": "0x001c04e0_calleepost", "n_inputs": 300,
                                                                      "equiv_off": "postproof,calleepost"}),
     # (integ4, D152b; rev5) a caller of a contracted callee (0x0009faa0's ge(a, 0) ge(b, 0), stated in the case's TU copy

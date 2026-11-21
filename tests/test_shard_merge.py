@@ -9,9 +9,11 @@ import unittest
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 sys.path.insert(0, os.path.join(ROOT, "tools"))
+import equiv  # noqa: E402
 import tree_tu  # noqa: E402
 
-TC = {"msvc": "aaa", "wine": None, "view": "vvv", "checker": "ccc", "n_inputs": 3000}
+# (integ10, D181) shards merge only under the checker they ran
+TC = {"msvc": "aaa", "wine": None, "view": "vvv", "checker": equiv._checker_digest(), "n_inputs": 3000}
 
 
 def shard(k, n=2, run=1600, missing=("+0x10 taken",), pairs=tuple("p%d" % i for i in range(12)), **l3x):
@@ -116,6 +118,29 @@ class T(unittest.TestCase):
         self.assertFalse(tree_tu.proves(m, "msvc", "aaa", "vvv")[0])
         m, _ = tree_tu.merge_shards([shard(0, pairs=("p1",)), shard(1, pairs=("p1",))])
         self.assertEqual(m["class"], "post_unverified")                                   # one distinct pair
+
+    def test_another_checker_refused(self):
+        # (integ10, D181) 0x00094fb0's shards from before 3d027e12e (no `post` field) crashed level3_verdict: shards of
+        # another checker are refused before any verdict is read
+        a, b = shard(0), shard(1)
+        for r in (a, b):
+            r["tree_code"]["checker"] = "0123456789ab"
+            r.pop("post")
+        m, why = tree_tu.merge_shards([a, b])
+        self.assertIsNone(m)
+        self.assertIn("merge them with the tools they ran", why)
+        a, b = shard(0), shard(1)
+        a["tree_code"]["checker"] = "0123456789ab"                         # (one shard of another checker)
+        self.assertIsNone(tree_tu.merge_shards([a, b])[0])
+
+    def test_no_post_field(self):
+        a, b = shard(0, pairs=()), shard(1, pairs=())
+        for r in (a, b):
+            r.pop("post")
+            r["level3"].pop("post_pairs")
+            r["level3"].pop("post_pair_list")
+        m, why = tree_tu.merge_shards([a, b])
+        self.assertIsNotNone(m, why)                                                       # (no post: none stated)
 
 
 if __name__ == "__main__":

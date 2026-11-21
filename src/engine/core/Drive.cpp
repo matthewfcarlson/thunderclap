@@ -581,7 +581,11 @@ Drive_272d90* Drive_272d90::Dtor(unsigned char flag) {
 } // namespace fn_f59a9783
 
 // 0x00272df0 core::Drive::vfunc_3 (259 B): equivalent/0x00272df0.cpp
-// sym: ?vfunc_3@Drive_272df0@core@@QAEXXZ @2ce2da8fc6b1 @w8f35b1edd1be @v85c6d60349a8
+// sym: ?vfunc_3@Drive_272df0@core@@QAEXXZ @2ce2da8fc6b1 @w8f35b1edd1be @v209a9e7205fc
+// vclass: +0xb8 .?AVDriveRequest@core@@ (kind) request (+0x58) is the item FUN_00272aa0 stores, called only from the drive's request processing (FUN_002730c0, FUN_002731d0) with the current drive request
+// vclass: +0xc0 .?AVDriveRequest@core@@ (name) request (+0x58) is the item FUN_00272aa0 stores, called only from the drive's request processing (FUN_002730c0, FUN_002731d0) with the current drive request
+// vclass: +0xc8 .?AVDrive@core@@ (vfunc_4) this: the function is slot 3 of core::Drive's vftables 0x0042b52c / 0x0042c064 (core::XboxDrive, core::XboxSaveDrive inherit it)
+// vclass: +0xd6 .?AUIDriveErrorCallback@core@@ (slot 0, 5 words) callback (+0x4c) is set only by FUN_00272920, called only from core::InstanceDrive::vfunc_24 (0x00276d60, SetErrorCallback) with a core::IDriveErrorCallback
 // STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 12/12)
 // core::Drive::vfunc_3 @ 0x00272df0
 // core::Drive::vfunc_3 (records.h CoreDrive): runs the pending requests that belong to the calling thread, then the

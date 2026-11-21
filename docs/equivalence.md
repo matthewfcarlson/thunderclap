@@ -510,6 +510,19 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     proofs whose runs used an unpinned split are unproven again (D153) until class evidence (`// vclass:`) pins them.
     `EQUIV_OFF=splitpin` is a development switch only: a run made with it proves nothing (equiv_off is recorded and both
     gates refuse it). Cases `0x00296160_native_vsplit` (unsupported/split_unpinned), `_wrong`, `_off`.
+  - `vclass` (integ9, D177): class evidence pins a split. `// vclass: +0xOFF .?AVClass@ns@@ EVIDENCE` states that the
+    object of the original's `call [reg+disp]` at entry+OFF is a Class or derives from it, EVIDENCE saying why (the
+    writers of the word the object comes from: reviewed, as `// pre-callers:`; rev5's floor: it cites at least one
+    address, `0xADDR` or `FUN_ADDR`, and each is a function start or a vftable of the XBE). The checker resolves it against the XBE:
+    every class whose RTTI lists Class as a non-virtual base (and Class) has one vftable at Class's subobject offset, and
+    the function in slot disp/4 pops the same N bytes on every `ret` (a `_purecall` slot, an abstract class's, is skipped;
+    a tail jump through the object's own vftable, `mov eax, [ecx]; jmp [eax+D]` with ecx untouched, takes slot D/4's
+    pop; any other tail jump is unknown); N must be one of the pops the original's own stack model allows there. A line
+    that doesn't resolve fails level 2 (`vclass_bad`). A split at that call is the original's exactly when it takes N
+    bytes (else it stays unpinned). The lines and what they resolved to are in the checker view. Pinned so: 0x000b0a50
+    (+0x6f, +0x76: core::IControllerInputPoint), 0x00272df0 (core::DriveRequest, core::Drive, core::IDriveErrorCallback),
+    0x00296160 (pure3d::d3dContext, scenegraph::Node). Cases `0x00296160_native_vclass[_off,_mispin,_noslot,_wrong]`;
+    tests/test_vclass.py.
 - (round 17, cl5) Three gaps native14 found, each switchable (`EQUIV_OFF=name`; `RELOC_OFF=thisdecl` / `COMPARE_OFF=thisdecl`
   for compare.py and verify_relocs). Old behaviour = `EQUIV_OFF=ftolexact,ptrext,thisdecl`.
   - `ptrext`: the bytes a callee reads through a pointer into the caller's frame. The extent of a scalar or unknown
@@ -1108,7 +1121,25 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     they dominate (2n >= all run outcomes) is `unsupported`, class `rooverlay_dominated` (rev5: a block can't pass on
     the inputs left when most needed such patches). Case `0x000b0a50_native_rooverlay[_off]`. 0x000b0a50's --wine run
     at 3,000 (job 109769) no longer differs (507 such inputs of 3,000); it is `split_unpinned` (3 inputs), so it stays
-    unproven until `// vclass:` evidence pins its splits.
+    unproven until `// vclass:` evidence pins its splits (D177: pinned, see `vclass`).
+    (integ9, `vsplitub`) A vsplit/msplit re-run is not tried when the original stored into its `.rdata` before the
+    difference: the input is rowrite's (inconclusive) whatever split a re-run takes (0x000b0a50's seed 278: a flag
+    stored through outB into the literal pool; the re-run's split, never the original's, left it split_unpinned).
+    Cases `0x000b0a50_native_vsplitub[_off]` (`_off` since the slot pairing below: seed 278 then reaches the split).
+  - `vpair` (integ10, D177; rev5): a vsplit/msplit re-run reads the split our declaration makes from OUR call that stands
+    for the original's k-th: the n-th indirect call through the same slot (`call [reg+disp]`, the same displacement) on
+    each side, never our k-th call (clang's out-of-line strcmp in 0x000b0a50 shifted every later index by one). An
+    original call without a partner in ours takes no split. Reported: `vpair_moved` (inputs on which the raw index
+    named another call; the D177 audit of earlier proofs reads it). tests/test_vclass.py `Pair`.
+  - `snmodel` (integ10, D181; rev5): a stub call of a callee in SNPRINTF_MODELS, keyed by address and guarded by the
+    SHA-1 of the XBE's bytes there, runs as its documented behaviour instead of the generic out-parameter fill:
+    FUN_000964a0 (`_vsnprintf` plus the game's terminator on -1) formats a format string from its side's read-only image
+    data with the call's stack words (%d %i %u %x %X %c %s %%, flags, width, precision, h / l) and writes what MSVC's
+    rules give: len < n the text and its NUL (returns len), len == n n bytes and no NUL (n), len > n n - 1 bytes and a
+    NUL (-1); n <= 0 nothing. Identical on both sides; anything else (another conversion, a format outside the image's
+    constants, a fault reading an argument, a buffer outside the frame) keeps the generic stub. Reported:
+    `modelled_calls`. A random fill left the buffer unterminated and strlen read past it into frame neighbours that
+    differ (0x00094fb0 --wine). tests/test_snprintf_model.py.
   - `fescape`: the original's run accessed memory through a frame address plus an index register at an address
     outside the whole stack region (`mov ecx, [esp+eax*4+0x2c]` with eax from a stubbed luaO_log2, numuse 0x00219a60).
     No frame object reaches that far: the index is out of bounds, and where it lands depends on the frame layout.

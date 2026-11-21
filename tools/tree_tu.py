@@ -2663,12 +2663,12 @@ SHARD_SUM = {"inputs_run", "inputs_inconclusive", "inputs_faulted", "inputs_fail
              "inputs_strcase", "inputs_stubexit", "inputs_tie", "inputs_words", "post_checked", "post_phase", "post_ret0",
              "post_unread", "sentinel_runs", "stubexit_runs", "vsplit_reruns", "work", "edges_withdrawn",
              "pre_defnan_all", "pre_defnan_words", "pre_range_bounds", "stubexit_sealed", "cpu", "sentinel_time",
-             "inputs_repeated", "post_ret_checked", "inputs_rooverlay"}
+             "inputs_repeated", "post_ret_checked", "inputs_rooverlay", "vpair_moved", "modelled_calls"}
 SHARD_SUM_DICT = {"statuses", "workn", "stubexit_n", "unexplained"}
 SHARD_MAX = {"long_steps", "rep_allow_max", "static_counts", "early_returns"}
 SHARD_ANY = {"huge_rep", "probe_skipped", "covcap", "inconclusive_cap_hit", "time_budget_hit"}
 SHARD_LIST = {"proofcap", "proofdraw", "long_skipped", "input_digest", "coverage_with_inconclusive"}
-SHARD_FIRST = {"post_refuted_first", "pre_violation_first"}
+SHARD_FIRST = {"post_refuted_first", "pre_violation_first", "split_unpinned_first", "vpair_moved_first"}
 SHARD_EQUAL = {"pre_trap", "pre_trap_words"}
 SHARD_REFUSE = {"time_cut_wall", "unsupported"}
 SHARD_SPECIAL = {"ok", "mismatches", "coverage", "post_pairs", "post_pair_list", "post_ret_values", "post_ret_value_list", "shard", "compared_keys", "touched"}
@@ -2698,6 +2698,14 @@ def merge_shards(reps):
         return None, "the shards are not runs of one block, mode, code, view and checker"
     if any(r.get("equiv_off") or r.get("equiv_on") for r in reps):
         return None, "a shard ran with checker switches"
+    cur_ = equiv._checker_digest()
+    ck_ = (reps[0].get("tree_code") or {}).get("checker")
+    if ck_ is not None and ck_ != cur_:
+        # (integ10, D181) the merge reads the shards' counts by this checker's rules (level3_verdict, the merge rules
+        # above): shards of another checker (0x00094fb0's, from before 3d027e12e, had no `post` and crashed the verdict)
+        # merge only with the tools they ran. (A run of a case file has no tree_code: it merges, and proves nothing)
+        return None, "the shards ran checker %s, this merge is checker %s: merge them with the tools they ran, or re-run" % (
+            (reps[0].get("tree_code") or {}).get("checker"), cur_)
     if len({json.dumps([r.get("post"), r.get("pre")], default=str) for r in reps}) != 1:
         return None, "the shards disagree on the block's contracts"
     if len({json.dumps(r.get("view_parts"), sort_keys=True) for r in reps}) != 1:

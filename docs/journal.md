@@ -2430,3 +2430,31 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   In CTimeManager, FUN_0008db80 is `extern "C" unsigned char` everywhere except 0x00086a40's (gfx5's), and the
   allocator is declared as defined. 0x00086790 and 0x00086ad0 are re-proven in both modes. CStatsManager's allocator
   is declared as defined.
+
+## 2026-11-21 integ10: D177 slot pairing, D181 shard merges and the FUN_000964a0 model
+
+- **vsplit/msplit paired the wrong call (rev5's required fix).** A re-run took the split from OUR k-th call, k being the
+  original's call index: clang calls strcmp out of line where MSVC inlines it (0x000b0a50), so every later index named
+  another call. Calls now pair by slot: the n-th indirect call through the same displacement on each side; no partner, no
+  split (`vpair`). clang's -O0 code calls a slot through a register (`mov eax, [ecx+0x3c]; call eax`): the slot is the
+  displacement of the load that set it, found going back through the straight-line code; without that the first draft
+  took no split at all in --wine mode. `vpair_moved` counts inputs on which the raw index named another call.
+- D177 audit (rev5's scope): the 149 --wine proofs of the D153 audit and their MSVC runs plus 0x00264050 at 3,000, and
+  a 300-input screen of the other equivalent blocks whose original has an ambiguous slot call (368 blocks, both modes).
+  Result: no committed proof rested on a misaligned split. Every MSVC run (150) had the same split either way
+  (vpair_moved 0). In --wine, 9 proven blocks met a moved pairing (0x0007ced0 0x000bd1b0 0x000e9370 0x000edb60 0x000ee340
+  0x001c1460 0x002f6960 0x002b8090 0x000dd350): all are equivalent at 3,000 under the final checker with no split re-run
+  at all (jobs 111136-111144), so nothing is revoked. 0x000dd350's 300/3,000-input failure on a new stubexit input was the
+  snprintf fill below, not a split (raw index, model off: fail too, job 110856).
+- `// vclass:` (D177) lands with the pairing: 0x000b0a50, 0x00272df0, 0x00296160 proven MSVC and --wine at 3,000
+  (jobs 111123-111128) and leave the unproven baseline. Side finding for the lead: 0x000b9bf0, 0x000c9bd0 and
+  0x00232870 have --wine proofs from before rooverlay (3d027e12e) and come out `rooverlay_dominated` (unsupported) in 300-input runs.
+- **D181 (a)**: `hash --proven` crashed merging shards from before 3d027e12e (no `post` in the report). Shards merge
+  only under the checker digest they ran (merge_shards refuses another; the merge applies this checker's verdict rules
+  to their counts); a report without `post` states none.
+- **D181 (b)**: FUN_000964a0 (`_vsnprintf` plus the game's NUL on -1) is run as MSVC's rules by the stub
+  (SNPRINTF_MODELS, keyed by address and the XBE bytes' SHA-1; `modelled_calls`): the random fill had left the name
+  buffer of 0x00094fb0 / 0x000dd350 unterminated and strlen read frame neighbours that differ. Not "always terminate":
+  len == n leaves no NUL, as MSVC does. The native shim agrees: src/platform/sdl/host/crt_posix.cpp vsnprintf_ms (and
+  host_crt_posix.cpp's _snprintf) write n bytes without a NUL and return n when the output is exactly n long, -1 and no
+  NUL when longer (the wrapper then terminates at n - 1).

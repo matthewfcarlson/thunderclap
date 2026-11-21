@@ -479,7 +479,12 @@ float* __cdecl FUN_000b0a00(int x, int y, int z) {
 
 
 // 0x000b0a50 FUN_000b0a50 (671 B): equivalent/0x000b0a50.cpp
-// sym: ?FUN_000b0a50@fn_f3cf613f@@YAXPAVFactory_b0a50@1@HHPAURec_b0a50@1@11PAPAPAVControl_b0a50@1@PAURow_b0a50@1@PAPAV41@@Z @540864a12ca7 @waa4bab2cf77d @vdfcdbe11829e
+// sym: ?FUN_000b0a50@fn_f3cf613f@@YAXPAVFactory_b0a50@1@HHPAURec_b0a50@1@11PAPAPAVControl_b0a50@1@PAURow_b0a50@1@PAPAV41@@Z @540864a12ca7 @waa4bab2cf77d @v9f04ca133d9d
+// vclass: +0x6f .?AUIControllerInputPoint@core@@ (SetRange, 2 words) ctl is factory->vfunc_10(p)'s result; FUN_000b1aa0 passes as factory the controller the controller system's slot 5 (core::ControllerSystemXBox, FUN_002684b0) returns, and core::ControllerXBox::vfunc_10 (0x00268a10) returns &f_18[i], the points FUN_00268fa0 builds with core::ControllerInputPointXBox's vftable 0x0042b24c
+// vclass: +0x76 .?AUIControllerInputPoint@core@@ (AddRef on the same ctl) ctl is factory->vfunc_10(p)'s result; FUN_000b1aa0 passes as factory the controller the controller system's slot 5 (core::ControllerSystemXBox, FUN_002684b0) returns, and core::ControllerXBox::vfunc_10 (0x00268a10) returns &f_18[i], the points FUN_00268fa0 builds with core::ControllerInputPointXBox's vftable 0x0042b24c
+// vclass: +0x10a .?AVControllerXBox@core@@ (vfunc_10, 1 word) factory is the controller FUN_000b1aa0 gets from the controller system's slot 5 (FUN_002684b0's core::ControllerSystemXBox, vftable 0x0042b2a4): a core::ControllerXBox (vftable 0x0042b14c)
+// vclass: +0x265 .?AVControllerXBox@core@@ (vfunc_10, 1 word) factory is the controller FUN_000b1aa0 gets from the controller system's slot 5 (FUN_002684b0's core::ControllerSystemXBox, vftable 0x0042b2a4): a core::ControllerXBox (vftable 0x0042b14c)
+// vclass: +0x279 .?AUIControllerInputPoint@core@@ (SetRange, 2 words) ctl is factory->vfunc_10(p)'s result: core::ControllerXBox::vfunc_10 (0x00268a10) returns &f_18[i], the points FUN_00268fa0 builds with core::ControllerInputPointXBox's vftable 0x0042b24c
 // STATUS: equivalent (tools/equiv.py level 3: 36 inputs, branch coverage 49/50, incomplete)
 // FUN_000b0a50 @ 0x000b0a50
 void FUN_000b0a50(Factory_b0a50 *factory, int na, int nb, Rec_b0a50 *a, Rec_b0a50 *b, Rec_b0a50 *c, Control_b0a50 ***outA, Row_b0a50 *outB, Control_b0a50 **outC)
