@@ -2169,6 +2169,12 @@ public:
     float f_38;
     int f_3c;
     void* f_40;
+    // (sweep3) PrimGroup's own words: its constructor 0x002df4d0 zeroes f_40/f_44, sets f_48/f_4c from its arguments
+    // and f_50 to -1 (they were declared in each derived class)
+    int f_44;
+    int f_48;
+    int f_4c;
+    int f_50;
 };
 
 // .?AVPrimGroupLoader@pure3d@@  vftable 0x42fb84 (3)
@@ -2194,10 +2200,6 @@ public:
     virtual ~PrimGroupOptimized(); // overrides core::IRefCount slot 2
     virtual void vfunc_6(); // overrides pure3d::DrawablePrimitive slot 6
     virtual void vfunc_10(); // overrides pure3d::DrawablePrimitive slot 10
-    int f_44;
-    int f_48;
-    int f_4c;
-    int f_50;
     char _pad_54[0x4];
     void* f_58;
     void* f_5c; // (sweep2) the matrix palette (a refcounted object the skinned loader 0x002e2a70 sets); new allocates 0x60
@@ -2237,10 +2239,6 @@ public:
     virtual void vfunc_10(); // overrides pure3d::DrawablePrimitive slot 10
     virtual void vfunc_11(int); // slot 11
     virtual void vfunc_12(int); // slot 12
-    int f_44;
-    int f_48;
-    int f_4c;
-    int f_50;
     int f_54;
     char _pad_58[0x4];
     void* f_5c;
@@ -2863,12 +2861,23 @@ public:
 class SpriteParticleEmitter::EmitterBlendState : public ::pure3d::NonCopyable {
 public:
     virtual ~EmitterBlendState(); // overrides core::IRefCount slot 2
+    void* f_08[17]; // (sweep3) the blend channels 0x002d4040 looks up (0x00288960); new allocates 0x4c bytes (0x002ac610)
 };
 
 // .?AVOverLifeAttributes@SpriteParticleEmitter@pure3d@@  vftable 0x42f27c (3)
 class SpriteParticleEmitter::OverLifeAttributes : public ::pure3d::NonCopyable {
 public:
     virtual ~OverLifeAttributes(); // overrides core::IRefCount slot 2
+    int f_08; // (sweep3, the constructor 0x002d5640) the key count
+    int f_0c;
+    float* f_10; // the key times and the per-key tables it allocates
+    float* f_14;
+    float* f_18;
+    float* f_1c;
+    float* f_20;
+    float* f_24;
+    unsigned char* f_28;
+    unsigned char* f_2c; // new allocates 0x30 bytes (0x002ac610)
 };
 
 // .?AVSpriteParticleRenderer@pure3d@@  vftable 0x42f34c (5)
@@ -3213,10 +3222,6 @@ public:
     virtual int vfunc_5(); // overrides pure3d::DrawablePrimitive slot 5
     virtual void vfunc_6(); // overrides pure3d::DrawablePrimitive slot 6
     virtual void vfunc_10(); // overrides pure3d::DrawablePrimitive slot 10
-    int f_44;
-    int f_48;
-    int f_4c;
-    int f_50;
     char _pad_54[0x4];
     void* f_58;
     void* f_5c; // (sweep3) 0x002e0760 sets it with 0x58: new allocates 0x60 bytes (0x002e22c0)
@@ -3270,16 +3275,14 @@ public:
 class VertexOffsetList : public ::pure3d::NonCopyable {
 public:
     virtual ~VertexOffsetList(); // overrides core::IRefCount slot 2
-    int f_08;
-    int f_0c;
-    char _pad_10[0x14];
-    int f_24;
-    char _pad_28[0x4];
-    int f_2c;
-    void* f_30;
-    char _pad_34[0x1c];
-    void* f_50;
-    void* f_54;
+    // (sweep3) 0x30 bytes: the constructor 0x002c8460 writes 0x04..0x2c and the copy 0x002c84a0 allocates the arrays;
+    // every allocation asks for 0x30 (the RTTI merge had words up to 0x54)
+    int f_08; // which of the arrays below are present (a bit each)
+    int f_0c; // the vertex count
+    void* f_10; // count*12 bytes (0x002c7120)
+    void* f_14; // count*12 bytes (0x002c71b0)
+    void* f_18[4]; // count*8 bytes each
+    void* f_28[2];
 };
 
 // .?AVView@pure3d@@  vftable 0x42d0bc (3)

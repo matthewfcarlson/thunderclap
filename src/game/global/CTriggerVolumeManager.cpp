@@ -3250,8 +3250,8 @@ namespace fn_001ff580 {
 
 extern void* __cdecl FUN_00263ec0(unsigned);
 extern "C" void* __cdecl FUN_0008d6d0(unsigned);
-struct CLocator_1ff580 { char data[64]; void FUN_001fbf40(); };   // (sweep-allocsize) unidentified: a 64-byte element whose
-                                                                  // constructor is CLocator's (0x24 B); its native size is unknown
+struct CLocator_1ff580 { char data[sizeof(::CLocator)]; void FUN_001fbf40(); };   // (sweep3) a CLocator: gen's record is
+                                                                  // 0x40 bytes, the array's stride (its constructor 0x001fbf40)
 struct CEncounterGenerator_1ff580 : HulkEncounterGenerator { void FUN_001fa630(); };   // (recs1) decls/encounter.h's record (0xc70 B)
 typedef char CEncounterGenerator_1ff580_size32[(sizeof(void*) != 4 || sizeof(CEncounterGenerator_1ff580) == 0xc70) ? 1 : -1];
 struct Entry_1ff580 { unsigned count; CLocator_1ff580* volumes; };

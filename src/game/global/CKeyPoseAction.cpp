@@ -2,6 +2,7 @@
 // object 0x00022ff0..0x00023160 (kind game, layer game, confidence medium), dominant class CKeyPoseAction
 #include "tree_prelude.h"
 #include "decls/address.h"
+#include "gen/choreo2.h"
 #define TREE_TU_BEGIN namespace fn_f372509d {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -125,7 +126,7 @@ bool CKeyPoseAction::vfunc_6(int arg)
     if (anim == 0)
         return false;
 
-    AnimationDriver_22ff0 *nd = (AnimationDriver_22ff0 *)thunk_FUN_0008d690((int)sizeof(AnimationDriver_22ff0));
+    AnimationDriver_22ff0 *nd = (AnimationDriver_22ff0 *)thunk_FUN_0008d690((int)sizeof(::choreo2::AnimationDriver));
     if (nd != 0)
         nd = nd->FUN_00225950(layers->FUN_002226b0(), anim);
     driver = nd;

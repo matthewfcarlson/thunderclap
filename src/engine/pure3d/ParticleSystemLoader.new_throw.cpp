@@ -312,7 +312,7 @@ void Loader::FUN_002ac610(int a1, Stream *stream, Ctx_2ac610 *ctx, Extra *a4)
                     int i = 0;
                     if ((int)f.s14.u > 0) {
                         do {
-                            void *m = FUN_0008d690(0x4c);
+                            void *m = FUN_0008d690((unsigned int)sizeof(::pure3d::SpriteParticleEmitter::EmitterBlendState));
                             f.s20 = (hulk_uintptr)m;
                             Sub4c *sub = 0;
                             if (m != 0)
@@ -332,7 +332,7 @@ void Loader::FUN_002ac610(int a1, Stream *stream, Ctx_2ac610 *ctx, Extra *a4)
                     if (obj->f1c4 != 0)
                         obj->f1c4->Release();
                     obj->f1c4 = r;
-                    void *m = FUN_0008d690(0x30);
+                    void *m = FUN_0008d690((unsigned int)sizeof(::pure3d::SpriteParticleEmitter::OverLifeAttributes));
                     Sub30 *s30 = 0;
                     if (m != 0)
                         s30 = ((Sub30 *)m)->FUN_002d5640(f.s18.res, f.s2c, (float)f.s30);

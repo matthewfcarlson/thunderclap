@@ -423,7 +423,7 @@ public:
 extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 
 struct PhysicsInstance_2fc990 {
-    char data[0x18];
+    char data[sizeof(::physics::PhysicsInstance)];   // (sweep3) gen's record: 0x18 on 32-bit, its pointers natively
     PhysicsInstance_2fc990 *FUN_002fc740(void *collision, void *physics, unsigned int a, unsigned int b);
 };
 

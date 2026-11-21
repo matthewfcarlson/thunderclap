@@ -4894,7 +4894,7 @@ extern "C" void FUN_00131dd0()
 // 0x00131e70 hulkfight::DialogueTrack::vfunc_10 (40 B): matches/0x00131e70.cpp
 // sym: ?vfunc_10@DialogueTrack@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::DialogueTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    H* p = FUN_0008d690(0x24);
+    H* p = FUN_0008d690((int)sizeof(::hulkfight::DialogueAction));
     if (p)
         return p->call_0012ff10(this, c);
     return 0;
@@ -4929,7 +4929,7 @@ FaceTargetAction* FaceTargetAction::vfunc_2(int flag) {
 // sym: ?vfunc_10@NISSoundTrack@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x00131e70 (propagated; names are from that function)
 hulk_intptr hulkfight::NISSoundTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    H* p = FUN_0008d690(0x24);
+    H* p = FUN_0008d690((int)sizeof(::hulkfight::NISSoundAction));
     if (p)
         return p->call_0012ffa0(this, c);
     return 0;
@@ -4964,7 +4964,7 @@ NISSoundAction_131f20* NISSoundAction_131f20::vfunc_2(int flag) {
 // sym: ?vfunc_10@StatTrack@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x00131e70 (propagated; names are from that function)
 hulk_intptr hulkfight::StatTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    H* p = FUN_0008d690(0x24);
+    H* p = FUN_0008d690((int)sizeof(::hulkfight::StatAction));
     if (p)
         return p->call_00130030(this, c);
     return 0;
@@ -4999,7 +4999,7 @@ StatAction_131fa0* StatAction_131fa0::vfunc_2(int flag) {
 // sym: ?vfunc_10@StatBeginTrialTrack@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x00131e70 (propagated; names are from that function)
 hulk_intptr hulkfight::StatBeginTrialTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    H* p = FUN_0008d690(0x24);
+    H* p = FUN_0008d690((int)sizeof(::hulkfight::StatBeginTrialAction));
     if (p)
         return p->call_001300c0(this, c);
     return 0;
@@ -5034,7 +5034,7 @@ StatBeginTrialAction_132020* StatBeginTrialAction_132020::vfunc_2(int flag) {
 // sym: ?vfunc_10@StatEndTrialTrack@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x00131e70 (propagated; names are from that function)
 hulk_intptr hulkfight::StatEndTrialTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    H* p = FUN_0008d690(0x24);
+    H* p = FUN_0008d690((int)sizeof(::hulkfight::StatEndTrialAction));
     if (p)
         return p->call_00130150(this, c);
     return 0;
@@ -5069,7 +5069,7 @@ StatEndTrialAction_1320a0* StatEndTrialAction_1320a0::vfunc_2(int flag) {
 // sym: ?vfunc_10@XPTrack@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x00131e70 (propagated; names are from that function)
 hulk_intptr hulkfight::XPTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    H* p = FUN_0008d690(0x24);
+    H* p = FUN_0008d690((int)sizeof(::hulkfight::XPAction));
     if (p)
         return p->call_001301e0(this, c);
     return 0;

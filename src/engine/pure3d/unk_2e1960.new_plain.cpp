@@ -301,7 +301,7 @@ void Loader_2e22c0::FUN_002e22c0(void *a0, Reader *rd, int a2, VecObj *a3, int a
             fr.B = 0;
         }
     } else {
-        void *mem = thunk_FUN_0008d690(0x60);
+        void *mem = thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::PrimGroupStreamed));   // (sweep3) 0x002e01d0 builds a PrimGroupStreamed (vftable 0x42fc04)
         if (mem != 0)
             fr.B = new (mem) pure3d::PrimGroup(f1c, f20, f24);
         else
@@ -315,7 +315,7 @@ void Loader_2e22c0::FUN_002e22c0(void *a0, Reader *rd, int a2, VecObj *a3, int a
         void *mem = thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::VertexAnimPrimGroup));
         if (mem != 0)
             N = ((VertexAnimPrimGroup_2e22c0 *)mem)->FUN_002e0760(fr.B);
-        void *m30 = FUN_0008d690(0x30);
+        void *m30 = FUN_0008d690((unsigned int)sizeof(::pure3d::VertexOffsetList));
         VertexOffsetList_2e22c0 *d30;
         if (m30 != 0)
             d30 = ((VertexOffsetList_2e22c0 *)m30)->FUN_002c8460(f20);

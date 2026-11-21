@@ -195,7 +195,7 @@ Base_2870d0 *OldFrameControllerLoader::v7(const char *name, unsigned int tag, St
 
     switch (tag) {
     case 0x505845: {
-        ExpressionAnimationController_2870d0 *p = (ExpressionAnimationController_2870d0 *)thunk_FUN_0008d690(0x50);
+        ExpressionAnimationController_2870d0 *p = (ExpressionAnimationController_2870d0 *)thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::ExpressionAnimationController));
         ExpressionAnimationController_2870d0 *o;
         if (p != 0)
             o = p->FUN_002a9cb0();
@@ -298,7 +298,7 @@ Base_2870d0 *OldFrameControllerLoader::v7(const char *name, unsigned int tag, St
         return o;
     }
     case 0x4554494c: {
-        LightAnimationController_2870d0 *p = (LightAnimationController_2870d0 *)thunk_FUN_0008d690(0x118);
+        LightAnimationController_2870d0 *p = (LightAnimationController_2870d0 *)thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::LightAnimationController));
         LightAnimationController_2870d0 *o;
         if (p != 0)
             o = p->FUN_002a87c0();

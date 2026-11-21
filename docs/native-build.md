@@ -6577,3 +6577,19 @@ name that carries an address any more. Unbound counts: see the commit message (c
   zeroed by the constructor at native 0x130, the world pointer at +0x00 is stored by 0x000243f0 as an `int`
   (truncated natively), and raw offsets (`this + 0x228 + i * 8`, `+ 0x590`, `+ 0xc10`) index its tables. A record
   needs all of them converted at once (ckpt1's follow-up (A)); a record only some views use would make native worse.
+
+### sweep3, allocsize batch 4 (2026-11-20)
+- gen records from the original's code. VertexOffsetList is 0x30: the constructor 0x002c8460 and the copy 0x002c84a0
+  hold a flag word, a count and eight array pointers, and gen had 0x58 from misattributed words.
+  SpriteParticleEmitter::EmitterBlendState is 0x4c (17 channel pointers, 0x002d4040) and OverLifeAttributes 0x30 (a
+  count, a word and eight table pointers, 0x002d5640). PrimGroup's words 0x44..0x50 (its constructor 0x002df4d0)
+  move from PrimGroupOptimized, PrimGroupStreamed and VertexAnimPrimGroup into gen PrimGroup; the 32-bit and native
+  sizes are unchanged.
+- Allocation sites by these records: ParticleSystemLoader.new_throw, unk_2e1960.new_plain (its 0x60 allocation is a
+  PrimGroupStreamed: 0x002e01d0 sets vftable 0x42fc04), DefaultFrameControllerHandler.new_plain's Expression/Light
+  controllers, and CKeyPoseAction (gen choreo2::AnimationDriver). The PhysicsInstance view 0x002fc990 now takes gen's
+  size. The two TUs held for nat2: GameStateCondition's six action allocations by gen size, and
+  CTriggerVolumeManager's CLocator element view (sizeof(::CLocator), 0x40).
+- Parked: CFightParamsCollision rebuilt to 0xb0. 0x000437a0 and 0x0001e870 allocate a literal 0xb0, which is 0xc0
+  natively, so the x64 gate fails with a new `layout`; they need sizeof fixes and re-proofs first
+  (build/sweep3/RESUME.md).
