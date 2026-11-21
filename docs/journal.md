@@ -2489,3 +2489,19 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   manager, mission state), so trying ~1,100 candidates per frame recovers the reference's values without an xemu
   dump (build/recs2/scripts/flow_solve.py). For play3 the boot step goes 6 -> 0 at frame 1; mission state is 4 at
   13,200, 5 at 31,200 and 0 at 33,600.
+
+## 2026-11-21 wasm2: the standalone wasm port, its scheduler, setjmp/longjmp and optimised code
+- clang devirtualizes a call on a member object whose type it knows (`drive->b.v0()`); cl 7.1 goes through the
+  vftable. The callee is then a virtual method no map binds; a probe per method (`p->m(args)`) compiled with the TU
+  makes the call virtual again (31 methods in 24 TUs; fusion-frenzy-decomp's wasm port did the same).
+- Binaryen's Asyncify can be driven entirely from inside the module: the `asyncify.start_unwind` etc. imports are
+  replaced by the pass's own functions, so a C driver loop (on the removelist) switches fibers with no JS. setjmp
+  falls out of the same machinery: unwind, keep a copy of the Asyncify data and the stack pointer, rewind; longjmp
+  puts the copy back and rewinds into the setjmp. Lua does ~50 setjmps a second of play at ~700 bytes each.
+- State hashes catch host bytes on game stacks: a frame-rate report printed on the game's stack changed the state
+  hash, and the C library's heap layout (the environment's bytes) puts host pointers into dead stack bytes. Host
+  work now runs on its own stack, and the runners pass identical environments.
+- The indirect-call dispatcher's binary search over 28,000 entries was 35% of the compiled run; a hash table
+  removed it (compiled 2,200 -> 3,500 frames/s after START). Compiling the game's code without -O0's `optnone`
+  gave 3,500 -> 6,300 compiled and 1,500 -> 4,900 under node, but the -O1 build's game state differs from -O0's
+  from frame 1, through several TUs (LoadStream.cpp first by a prefix search): checkpoints have to decide.
