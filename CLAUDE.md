@@ -362,6 +362,19 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   only for diagnosis). The unbound names (~22k per target) are fixed in source by root cause, never by a link-time redirect
   of local vftables to the game's: `docs/native-unbound-plan.md`. `docs/native-build.md` is the shared log of native
   batches (append under your own heading).
+- **Native replay** (render1, docs/native-mac.md §13): `tools/native_replay.py run --exe ... --frames N` and `check
+  RUN.ckref --frames N` gate any build's records (native, Wine, wasm) against build/ckpt/play3.ckref; `layout` checks the
+  probe's native offsets. Replay hooks (native_hooks.h) are placed at link time, never by editing a replay-pin function's
+  source: an `entry` row renames references in other objects, retargets them inside the defining object and takes the
+  function's rtti.s slots; a `site` row binds only that caller's names (tools/macho_retarget.py moves just its
+  relocations). An entry hook binds every name carrying the address whatever its declared signature, so it can bind
+  callers that were missing stubs and change behaviour (no-fmv bound QueueMovie: start-up now plays the intro); compare
+  the link report's "references hooked" before and after. The shared host SDL is headless: a window run needs
+  `HULK_MAC_SDL=<SDL3 built with SDL_VIDEO=ON>`; `HULK_GFX_RENDERER=noop` needs none.
+- **wasm32 port** (wasm1, D188/D190, docs/wasm-port.md): tools/wasm_port.py builds every tree TU to one wasm module linked
+  by address (data at XBE addresses, x86-convention packers, an address dispatcher); host code in src/platform/wasm/. It
+  races the 64-bit native build on the same play3 test plus rollback needs (thousands of update frames/s, cheap snapshots,
+  determinism; D191).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
