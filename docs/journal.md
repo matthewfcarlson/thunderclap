@@ -2245,3 +2245,23 @@ blocks fight::Action's whole family: the records come first there.
   generator-stream position only adds a classification to a frame that already differs ("same stream, original ahead
   by K draws, K under one frame's spawns"). It never turns a difference into a match, and a frame whose streams don't
   align stays a plain failure (tools/ckpt_mwc.py; rev5: on demand, v4 waits until a regression needs it twice).
+
+## 2026-11-21 gfx3: the World's and CGame's pointer words; the native game loop quit through an unbound `return true`
+
+- **Pad views of all-pointer objects.** Every word of the World (32-bit 0x00..0x5c: vftable, 21 managers, f58) and of
+  CGame (0x00..0x50) is a pointer. A view's `char pad[N]` in that range is therefore exactly `void* pad[N/4]`: the
+  32-bit layout is unchanged, and natively the words land where the records put them. verify found no code, code-hash
+  or checker-view change across 131 TUs, so the rewrite needed no re-proofs (C11, 98b351ec3).
+- **The 0x00090790 stop.** The stop was not in the measure at all. CGame's frame update 0x00086980 read the stats
+  manager at HulkGame+0x48 through 32-bit pads, which natively is +0x24's manager. The stats loop then ran garbage
+  Measure entries, which read a null player.
+- **A loop that quits on frame 1.** After the platform queue moved to its real word, 0x00087630 asks 0x0008db20
+  whether to go on. That function returns 0x0008ed50, a `bool X::f()` member that is ICF'd to `return true`. Its
+  callers declared it `int(int)` and `bool member(T*)`, so it bound to nothing natively, the missing stub returned 0,
+  the loop set mode 8, and the game shut down cleanly (a free of an unallocated block in teardown then aborts). This
+  is an instance of CLAUDE.md's "declare it as defined" rule. Declaring both as defined (C12a) fixes it.
+- **CActorManager.** The manager has no vftable and six pointer words (+0x00 world, +0x04 / +0x08 its two
+  sub-objects, +0x124 the main actor, +0x344 / +0x348 reference-counted objects). Its ~70 views disagree natively. The
+  most serious: 0x000243f0 stores the world pointer as an `int`, so natively every `world->+0x44` read through the
+  manager faults on a truncated address (the next stop, 0x00024800 from 0x00086cb0). The full layout is in
+  include/decls/actor_manager.h (gfx3's draft, not landed) and in build/gfx3/actor-census.md.

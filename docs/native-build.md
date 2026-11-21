@@ -6593,3 +6593,19 @@ name that carries an address any more. Unbound counts: see the commit message (c
 - Parked: CFightParamsCollision rebuilt to 0xb0. 0x000437a0 and 0x0001e870 allocate a literal 0xb0, which is 0xc0
   natively, so the x64 gate fails with a new `layout`; they need sizeof fixes and re-proofs first
   (build/sweep3/RESUME.md).
+- Native env (gfx3): a fresh snapshot from Wine control 108326's lineage (clang probe + binding map of HEAD), compiled
+  natively in 12 queue shards (build/gfx1/scripts/nmshard.sh) and linked locally (build/gfx3/nat/step.sh). The shard
+  merge must merge report.json's `inits` too: only the first shard's list left three dynamic initializers out, and
+  the audio om types they construct had null vftables (0x002407a0).
+- C12a: 0x00087630's "is the game still running" call 0x0008db20 and its callee 0x0008ed50 (an ICF'd `bool X::f()`
+  `return true`) are declared as defined (`extern "C" bool __stdcall FUN_0008db20(hulk_intptr)`, `extern "C" bool
+  FUN_0008ed50(void*)`), as is 0x0008db80 (`unsigned char`). Their `int(int)` / member / `bool` spellings bound
+  nothing natively, the missing stub returned 0, and the loop quit with mode 8 on its first frame. 0x00087630 was
+  re-proven (108611 / 108612, hash 108614; --x64 108613 view_trusted). include/decls/actor_manager.h is the
+  CActorManager record (no TU includes it yet).
+- Native stop now: 0x00024800 (from 0x00086cb0) reads the actor manager's world through a pointer that 0x000243f0
+  stored as an `int` (truncated). Converting the manager's ~70 views onto the record is the next batch
+  (build/gfx3/actor-census.md). Other unbound callees of 0x00087630: 0x00086a40 (declared `(float)`, defined
+  `A_86a40::Run(int)`: the frame time travels as int bits through its callees), 0x001d1160 / 0x001d15d0 (script
+  handler; member spellings of a fastcall / an owners stub), 0x001eb2a0 (sound update), 0x000879c0 (the copyright
+  wait, a member spelling of a free function).

@@ -5,7 +5,7 @@
 
 
 // 0x00087630 FUN_00087630 (770 B): equivalent/0x00087630.cpp [isolated: code differs from its standalone build]
-// sym: ?run@Target_87630@fn_f2137440@@QAEXXZ @5f7f5f1d335c @weef78e77c093 @v96366b57e5fd
+// sym: ?run@Target_87630@fn_f2137440@@QAEXXZ @3a76108f2538 @wec9d503a55b9 @v23e6d1008269
 #include "gen/owners.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -45,8 +45,11 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 struct Target_87630;
-struct Queue_87630 { void FUN_0008db00(); bool FUN_0008db20(Target_87630*); };
-bool __cdecl FUN_0008db80(); extern "C" void __cdecl FUN_0008db90();
+struct Queue_87630 { void FUN_0008db00(); };
+// (gfx3) 0x0008db20 / 0x0008db80 as defined (unk_08ceb0.cpp): a member / bool spelling bound nothing natively, so the
+// loop read "not running" and quit (mode 8) on its first frame
+extern "C" bool __stdcall FUN_0008db20(hulk_intptr game);
+extern "C" unsigned char __cdecl FUN_0008db80(); extern "C" void __cdecl FUN_0008db90();
 struct State_87630 { int mode; int unused; int saved; };
 struct Clock_87630 { char pad[32]; unsigned __int64 ticks; void FUN_00086450(); hulk_freg FUN_000860c0(); };
 struct Sim_87630 { void* words[11]; /* (gfx3) the World's words (HulkWorld: vftable, parts[0..9]) */ void* item; void FUN_00088c30(State_87630*,float);  };
@@ -66,7 +69,7 @@ extern "C" unsigned int __cdecl FUN_00267f80(); unsigned int __cdecl FUN_00267f0
 struct Target_87630 { void* vftable; State_87630* state; Clock_87630* clock; Sim_87630* sim; void* controllers; void* gameControllers; void* haptic; Queue_87630* queue; void* frontEnd; void* render; void* worldStream; void* overlay; Update_87630* update; Stop_87630* stop; Check_87630* check; void FUN_00086ad0(); void FUN_00086790(); void FUN_000873a0(); void FUN_00086a40(float); void run(); };
 void Target_87630::run() {
  queue->FUN_0008db00();
- if (!queue->FUN_0008db20(this)) { if(state->mode==7) stop->FUN_001b7970(); else if(state->mode==6) { state->mode=state->saved; state->saved=0; DAT_004dd700->sub->notify->FUN_000afe80(); } state->mode=8; DAT_004dd700->sub->notify->FUN_000afe80(); }
+ if (!FUN_0008db20((hulk_intptr)this)) { if(state->mode==7) stop->FUN_001b7970(); else if(state->mode==6) { state->mode=state->saved; state->saved=0; DAT_004dd700->sub->notify->FUN_000afe80(); } state->mode=8; DAT_004dd700->sub->notify->FUN_000afe80(); }
  if(queue && FUN_0008db80()) { do { FUN_0008db90(); queue->FUN_0008db00(); } while(FUN_0008db80()); }
  FUN_00086ad0(); if(state->mode==3) { FUN_00086790(); return; }
  clock->FUN_00086450(); FUN_000873a0();
