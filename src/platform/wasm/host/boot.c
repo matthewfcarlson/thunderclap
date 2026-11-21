@@ -62,10 +62,7 @@ static void call3(uint32_t addr, uint32_t a0, uint32_t a1, uint32_t a2) {
     ff_dispatch(addr, 0, 0, st, rb);
 }
 
-int ff_boot(const char* xbe) {
-    if (load_xbe(xbe)) return 1;
-    SIM->magic = 0x4d49534bu;   /* "KSIM" */
-    SIM->size = sizeof(hulk_sim);
+static void game_main(void) {
     int run = 0, skipped = 0;
     for (uint32_t p = HULK_XC_A + 4; p < HULK_XC_Z; p += 4) {
         uint32_t fn = rd32(mem(p));
@@ -80,13 +77,18 @@ int ff_boot(const char* xbe) {
     }
     fprintf(stderr, "hulk: %d static initializers run (%d skipped); main\n", run, skipped);
     call3(HULK_MAIN, 0, 0, 0);
+    fprintf(stderr, "hulk: main returned\n");
+}
+
+int ff_boot(const char* xbe) {
+    if (load_xbe(xbe)) return 1;
+    SIM->magic = 0x4d49534bu;   /* "KSIM" */
+    SIM->size = sizeof(hulk_sim);
+    SIM->pads_in = 1;           /* a gamepad in port 0 */
+    ff_run_main(game_main);     /* (sched.c: the game's main thread on its fiber) */
     return 0;
 }
 
-void ff_kernel(uint32_t ord, uint32_t ecx, uint32_t edx, void* st, void* rb) {
-    UNUSED;
-    ff_fatal("kernel import %u not implemented", ord);
-}
 
 /* host methods: objects the host hands the game need addresses it can call through ff_dispatch */
 static ffg_t methods[256];
@@ -102,7 +104,14 @@ uint32_t ff_host_method(ffg_t f) {
 void ff_dispatch_miss(uint32_t addr, uint32_t ecx, uint32_t edx, void* st, void* rb) {
     if ((addr & 0xFFFFFF00u) == HOST_FN && (addr & 0xFF) < nmethods) methods[addr & 0xFF](ecx, edx, st, rb);
     else if ((addr & 0xFFFFF000u) == KERNEL_FN) ff_kernel(addr & 0xFFF, ecx, edx, st, rb);
-    else ff_fatal("indirect call to 0x%08x, which is no function", addr);
+    else {
+        uint32_t vft = ecx && ecx < 0x40000000u ? *(uint32_t*)PTR(ecx) : 0;
+        fprintf(stderr, "hulk: this=0x%08x vftable=0x%08x stack %08x %08x %08x\n", ecx, vft, ARG(0), ARG(1), ARG(2));
+        if (vft && vft < 0x40000000u)
+            for (int i = 0; i < 8; i++) fprintf(stderr, "  slot %d: 0x%08x\n", i, ((uint32_t*)PTR(vft))[i]);
+        (void)rb;
+        ff_fatal("indirect call to 0x%08x, which is no function", addr);
+    }
 }
 
 uint32_t ff_call(uint32_t addr, int n, ...) {

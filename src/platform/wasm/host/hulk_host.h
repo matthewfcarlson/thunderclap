@@ -23,7 +23,10 @@
 #define RET(v) (*(uint64_t*)rb = (uint32_t)(v))
 #define RET64(v) (*(uint64_t*)rb = (uint64_t)(v))
 #define RETF(v) (((double*)rb)[1] = (double)(v))
-#define UNUSED (void)ecx, (void)edx, (void)st, (void)rb
+#define UNUSED (void)ecx, (void)edx, (void)st, (void)rb, ff_trace_host(__func__, st)
+extern int ff_trace_on;
+void ff_trace_host_(const char* fn, void* st);
+#define ff_trace_host(fn, st) (ff_trace_on ? ff_trace_host_(fn, st) : (void)0)
 
 /* the XBE (public format) */
 #define XBE_BASE 0x10000u
@@ -61,5 +64,11 @@ uint32_t ff_call_this(uint32_t addr, uint32_t self, int n, ...);
 uint32_t ff_host_method(ffg_t f);
 
 int ff_boot(const char* xbe);
+void ff_run_atexit(void);
+void ff_run_main(void (*entry)(void));
+uint32_t ff_wait(uint32_t h, uint32_t ms);
+void ff_sleep(uint32_t ms);
+void ff_poll(void);
+int ff_host_path(const char* game, char* out, size_t cap);
 void ff_kernel(uint32_t ord, uint32_t ecx, uint32_t edx, void* st, void* rb);
 #endif

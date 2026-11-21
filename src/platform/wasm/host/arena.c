@@ -51,6 +51,8 @@ void* ff_arena_alloc(uint32_t n, uint32_t align) {
     uint32_t need = ((n + 15) & ~15u) + 16 + (align > 16 ? align : 0);
     for (uint32_t a = BASE; a < END; a += at(a)->size) {
         hdr* h = at(a);
+        if (h->size < 16 || (h->flags != FREE && h->flags != USED))
+            ff_fatal("game arena corrupt at 0x%08x (size %u, flags %08x)", a, h->size, h->flags);
         if (h->flags != FREE || h->size < need) continue;
         if (h->size >= need + 64) {                 /* split: the rest stays free */
             hdr* r = at(a + need);

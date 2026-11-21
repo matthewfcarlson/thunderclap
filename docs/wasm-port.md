@@ -67,9 +67,52 @@ those bytes, and the same inputs hash the same run to run.
 - `arena.c`: the game arena (first fit in address order, so addresses don't depend on host allocations).
 - `main.c`: the entry and the failure paths (`ff_unbound`: the next host function to write).
 
+- `crt.c` (C library by address; the printf family reads x86 stack slots), `xapi.c` (files on host paths with
+  case-insensitive lookup, D: = `HULK_DATA_DIR`, T:/U:/Z: under `HULK_SAVE_DIR`; heaps on the arena; the virtual
+  clock), `sched.c` (threads and fibers), `kernel.c` (kernel imports by ordinal), `rtti.c` (`__RTDynamicCast`,
+  typeid, type_info), `input.c` (XInput from the sim block), `d3d_null.c` (Direct3D and XGraphics, drawing nothing),
+  `dsound_null.c` (DirectSound, silent, buffers playing on the clock), `bink_null.c` (BinkOpen fails), `frame.c`
+  (the end of a frame), `missing.c` (game functions the tree has no block for yet).
+
 A host function is `FFG(addr) { ... }` (`hulk_host.h`: `ARG(i)` is the i-th stack slot, `RET`/`RETF` the result).
+`HULK_TRACE=1` prints every host function the game calls, `=2` also every call through `ff_dispatch`;
+`HULK_FRAMES=N` ends the run after N frames, `HULK_REPORT=N` prints the frame rate every N, `HULK_THREADS=1` lists the
+threads at the end, `HULK_STACK_AT=N` stops with a stack at frame N, `HULK_FILE_TRACE=1` lists file opens.
+
+## Threads and fibers
+
+Every thread runs on an Emscripten fiber (`-sASYNCIFY`); one runs at a time and switches only where the game waits
+for an object that isn't signaled, sleeps, exits, switches fibers itself, or polls the clock (a time slice every 32
+`QueryPerformanceCounter` calls, as preemption would: the content loader's fiber is run by the main loop while the
+drive thread serves its reads). The next thread is the first runnable one after the current in handle order; when
+none is runnable the virtual clock jumps to the earliest deadline. A suspended fiber's state is its C stack and its
+Asyncify buffer, both in the arena (the main thread's stack is at 0xE00000), so it is game state like the rest.
+Asyncify costs code size (the module grows from 10.7 to 29.9 MB) and speed; measured below.
+
+## Variadic functions
+
+The game's variadic functions walk their arguments x86-style, from the address of the last named parameter
+(`(char*)&fmt + 4`; the native builds take the `HULK_PTR64` branch instead). On wasm that address is the function's
+local copy, so `fix_va_frames()` rebases such addresses onto the variadic area (`llvm.va_start`), and every variadic
+call in game code passes its variadic arguments as x86 words (a double as two, a struct by value as its words), so
+the area has the x86 layout. The host's printf family reads a `va_list` as x86 slots too.
+
+## Bindings beyond the name table
+
+- `ambiguous_by_function` (one name meaning another callee in some callers: two sources merged into one TU): in
+  those callers the name becomes `name$addr`, bound to that address.
+- `local_data` (data a TU defines that is the original's: a static object other game code reads at its address) is
+  bound to its XBE address.
+- RTTI names: a clang type descriptor of a class the tree wraps in `namespace fn_<hex>` keeps the wrapper in its
+  name; `rtti.c` compares names without it (as the native host does).
 
 ## Status
+
+- 2026-11-21 (milestone 2, in progress): under node the game runs its 457 static initializers, main, the platform
+  and content start-up (threads, the loader fiber, the RCF mounts) and presents frames; it stops in the World's
+  set-up (0x00088670 -> ... 0x00272fc0, a memory fault). Found on the way: XGetDiskSectorSizeA("D:\\") must be 2048
+  or the game shows TBS_STOP_PIRATING forever; the Xbox gamma ramp is 768 bytes; the vblank callback 0x31acc0 has no
+  tree block (a stand-in in missing.c).
 
 - 2026-11-21 (milestone 1): all 2,520 tree TUs compile to wasm32 objects and link (`hulk.wasm` 11.5 MB, 37,167
   generic entries, 63 thunks). Calls: 15,193 packed (declaration differs from the definition), 12,424 indirect, 3,064

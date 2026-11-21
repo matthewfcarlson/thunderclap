@@ -60,7 +60,7 @@ FRONT = (["--target=i686-pc-windows-msvc", "-fms-extensions", "-fms-compatibilit
             "-w", "-DHULK_WASM=1"])
 BACK = ["--target=wasm32-unknown-emscripten", "-O1", "-c", "-Wno-override-module"]
 HOST_CFLAGS = ["-O1", "-Wall", "-Wextra", "-Werror"]
-VERSION = "wasm1-2"          # bump when bind_tu() changes (object cache key)
+VERSION = "wasm1-5"          # bump when bind_tu() changes (object cache key)
 SYNTH = 0xF0000000
 
 # library code inside .text (tools/platform_map.py) and the library sections after it
@@ -104,6 +104,10 @@ def tu_bindings(tu):
             if v.get("addr"):
                 for s in coff_names(n):
                     _BASE[s] = int(v["addr"], 16)
+        # data a TU defines that is the original's (a static object the game's other code reads at its address)
+        for n, a in m.get("local_data", {}).items():
+            for s in coff_names(n):
+                _BASE[s] = int(a, 16)
     out = dict(_BASE)
     for n, by in m.get("ambiguous_by_tu", {}).items():
         a = by.get(tu)
@@ -194,9 +198,67 @@ def strip_inalloca(ir):
     return strip_attr(ir.replace("alloca inalloca ", "alloca "), "inalloca")
 
 
+def fix_va_frames(ir, notes=None):
+    """A variadic function that walks its arguments x86-style, from the address of its last named parameter
+    (`(char*)&fmt + 4`), reads its own local copy of the parameter on wasm. Its address there becomes the variadic
+    area's (llvm.va_start) less the parameter's slot. Callers pass the variadic arguments as x86 words
+    (wasm_ir.x86_words), so the area has the x86 layout the function expects."""
+    if "...) " not in ir:
+        return ir
+    lines = ir.split("\n")
+    out = []
+    k = 0
+    changed = False
+    while k < len(lines):
+        l = lines[k]
+        if not (l.startswith("define ") and ", ...)" in l):
+            out.append(l)
+            k += 1
+            continue
+        end = k
+        while lines[end] != "}":
+            end += 1
+        body = lines[k + 1:end]
+        p = parse_func_line(l)
+        if not p or not p[3].params or not p[3].params[-1].name:
+            out += lines[k:end + 1]
+            k = end + 1
+            continue
+        last = p[3].params[-1]
+        slot = None
+        for b in body:
+            m = re.match(r"\s*store %s %s, ptr (%%[-\w.]+)," % (re.escape(last.type), re.escape(last.name)), b)
+            if m:
+                slot = m.group(1)
+                break
+        uses = [i for i, b in enumerate(body) if slot and re.search(r"(getelementptr[^\n]*|ptrtoint) ptr %s\b(?![-\w.])"
+                                                                   % re.escape(slot), b)]
+        if not uses:
+            out += lines[k:end + 1]
+            k = end + 1
+            continue
+        size = 8 if last.type in ("double", "i64") else 4
+        new = [l, "  %ffva.l = alloca ptr, align 4", "  call void @llvm.va_start.p0(ptr %ffva.l)",
+               "  %ffva.p = load ptr, ptr %ffva.l, align 4",
+               "  %%ffva.base = getelementptr i8, ptr %%ffva.p, i32 -%d" % size]
+        for i, b in enumerate(body):
+            if i in uses:
+                b = re.sub(r"((?:getelementptr[^\n]*|ptrtoint) ptr )%s(?![-\w.])" % re.escape(slot), r"\1%ffva.base", b)
+            new.append(b)
+        out += new + ["}"]
+        changed = True
+        if notes is not None:
+            notes["x86 variadic frame"] += 1
+        k = end + 1
+    ir = "\n".join(out)
+    if changed and "declare void @llvm.va_start.p0(" not in ir:
+        ir += "\ndeclare void @llvm.va_start.p0(ptr)\n"
+    return ir
+
+
 def prepare(ir):
     """Function aliases replaced by what they alias (vftable aliases are not function aliases and stay)."""
-    ir = strip_inalloca(ir)
+    ir = fix_va_frames(strip_inalloca(ir))
     for m in list(ALIAS.finditer(ir)):
         a, t = m.group(1), m.group(2)
         ir = ir.replace(m.group(0) + "\n", "", 1)
@@ -331,14 +393,85 @@ def defsig_of(job):
 
 
 # ---------------------------------------------------------------------------------------------- binding
+_PERFN = None
+
+
+def per_function():
+    """{caller IR name: {name IR spelling: address}}: the map's names that mean another address in some callers (two
+    sources merged into one TU, each naming its own `Obj::Init`)."""
+    global _PERFN
+    if _PERFN is None:
+        _PERFN = collections.defaultdict(dict)
+        for n, per in binding_map().get("ambiguous_by_function", {}).items():
+            for fn, a in per.items():
+                for f in coff_names(fn):
+                    for s_ in coff_names(n):
+                        _PERFN[f][s_] = int(a, 16)
+    return _PERFN
+
+
+def rebind_per_function(ir, bound, notes):
+    """In a function the map rebinds a name for, the name becomes `name$addr` (declared as the name is), bound to
+    that address."""
+    per = per_function()
+    lines = ir.split("\n")
+    decl_line = {}
+    for l in lines:
+        if l.startswith("declare "):
+            p = parse_func_line(l)
+            if p:
+                decl_line[p[2]] = l
+        elif l.startswith("@") and " external " in l:
+            m = re.match("(" + NAME + r") = ", l)
+            if m:
+                decl_line[irname(m.group(1))] = l
+    cur, extra = None, {}
+    for k, l in enumerate(lines):
+        if l.startswith("define "):
+            p = parse_func_line(l)
+            cur = per.get(p[2]) if p else None
+            continue
+        if l == "}":
+            cur = None
+            continue
+        if not cur:
+            continue
+        for n, a in cur.items():
+            tok = at(n)
+            if tok in l and n in decl_line:
+                new = "%s$%08x" % (n, a)
+                l = re.sub(re.escape(tok) + r'(?![-\w.$"])', lambda _: at(new), l)
+                bound[new] = a
+                extra[new] = decl_line[n].replace(tok, at(new), 1)
+                notes["rebound per calling function"] += 1
+        lines[k] = l
+    return "\n".join(lines + list(extra.values())) if extra else ir
+
+
+# the host's variadic C library functions (ret, fixed parameters, variadic), as callers' variadic calls need them
+HOST_VARIADIC = {0x00344f75: ("i32", ["ptr", "ptr"], True), 0x00356734: ("i32", ["ptr", "ptr"], True),
+                 0x00345804: ("i32", ["ptr", "ptr"], True), 0x00347792: ("i32", ["ptr", "ptr"], True)}
+
+
+class _Every:
+    """Every variadic callee walks its list x86-style: the game's own (fix_va_frames) and the host's (crt.c reads
+    the area as x86 stack slots)."""
+    def __contains__(self, _):
+        return True
+
+
+X86VA = _Every()
+
+
 def bind_tu(ir, tu, tu_index, mains, same, bound, game, defsig, deftys):
     """x86 IR of TU -> (wasm32 IR, notes). MAINS: {IR name: addr} of its blocks; BOUND: {IR name: addr}; GAME: every
     address with a definition; DEFSIG/DEFTYS: their signatures."""
     notes = collections.Counter()
     mism = []
+    bound = dict(bound)
+    ir = rebind_per_function(ir, bound, notes)
     types = typedefs(ir)
     lines = ir.split("\n")
-    bound = dict(bound)
     defs, decls, gdefs = {}, {}, {}
     for k, l in enumerate(lines):
         if l.startswith("define ") or l.startswith("declare "):
@@ -424,7 +557,7 @@ def bind_tu(ir, tu, tu_index, mains, same, bound, game, defsig, deftys):
         if name.startswith("llvm."):
             return None
         if name in defs and name not in mains and not canonical(name):
-            return None
+            return '@"ffl$%s"(' % name         # a local function: the call stays (restored below)
         sig = sigs.get(name)
         if sig is None:
             return None
@@ -461,7 +594,7 @@ def bind_tu(ir, tu, tu_index, mains, same, bound, game, defsig, deftys):
                 l = strip_attr(strip_attr(l, "sret"), "byval")
             # a packer is called with its own (plain) return type: drop a function type before it
             if "@ff_" in l:
-                l = vararg_call(l, deftys, notes, (), types)
+                l = vararg_call(l, {**HOST_VARIADIC, **deftys}, notes, X86VA, types)
         out.append(l)
     lines = out
     # every remaining use of a symbol: functions as values, data
@@ -580,6 +713,7 @@ def bind_tu(ir, tu, tu_index, mains, same, bound, game, defsig, deftys):
                  "declare void @llvm.memcpy.p0.p0.i32(ptr, ptr, i32, i1)"):
         if intr.split("(")[0].split()[-1] + "(" not in text:
             text += "\n" + intr
+    text = re.sub(r'@"ffl\$([^"]+)"', lambda m: at(m.group(1)), text)
     text = retarget(text)
     # x86-only function attributes clang put on the i686 definitions
     text = re.sub(r'"(stackrealign|probe-stack|stack-probe-size|min-legal-vector-width)"(="[^"]*")?', '', text)
@@ -745,11 +879,19 @@ def cmd_link(a):
             if x not in defined:
                 undefined[x] += 1
     host = host_sources()
+    gen = os.path.join(OUT, "glue")
+    os.makedirs(gen, exist_ok=True)
+    host_objs = []
+    for src in host:
+        o = os.path.join(gen, os.path.basename(src)[:-2] + ".o")
+        r = subprocess.run([EMCC] + HOST_CFLAGS + ["-I", os.path.join(HOST_DIR, "host"), "-c", src, "-o", o],
+                           capture_output=True, text=True)
+        if r.returncode:
+            raise SystemExit("host: %s\n%s" % (src, r.stderr[-3000:]))
+        host_objs.append(o)
     host_defs = set()
-    for h in host:
-        text = open(h).read()
-        host_defs |= set(re.findall(r"^\w[\w\s\*]*?\b(ffg?_[0-9a-f]{8})\(", text, re.M))
-        host_defs |= {"ffg_" + x for x in re.findall(r"^FFG\(([0-9a-f]{8})\)", text, re.M)}
+    for d, _ in nm(host_objs).values():
+        host_defs |= {x for x in d if re.fullmatch(r"ffg?_[0-9a-f]{8}", x)}
     gen = os.path.join(OUT, "glue")
     os.makedirs(gen, exist_ok=True)
     decl_types = {}
@@ -816,8 +958,11 @@ def cmd_link(a):
   }
   return lo < sizeof table / sizeof table[0] && table[lo].a == a ? table[lo].f : 0;
 }
+extern int ff_trace_on;
+void ff_trace_dispatch(uint32_t a, uint32_t ecx, void* st);
 void ff_dispatch(uint32_t a, uint32_t ecx, uint32_t edx, void* st, void* rb) {
   ffg_t f = ff_lookup(a);
+  if (ff_trace_on > 1) ff_trace_dispatch(a, ecx, st);
   if (f) f(ecx, edx, st, rb); else ff_dispatch_miss(a, ecx, edx, st, rb);
 }""")
     glue = os.path.join(gen, "glue.c")
@@ -829,20 +974,18 @@ void ff_dispatch(uint32_t a, uint32_t ecx, uint32_t edx, void* st, void* rb) {
     stub_o = stub_ll[:-3] + ".o"
     if os.path.exists(stub_o):
         os.remove(stub_o)
-    host_objs = []
-    for src in [glue] + host:
-        o = os.path.join(gen, os.path.basename(src)[:-2] + ".o")
-        r = subprocess.run([EMCC] + HOST_CFLAGS + ["-I", os.path.join(HOST_DIR, "host"), "-c", src, "-o", o],
-                           capture_output=True, text=True)
-        if r.returncode:
-            raise SystemExit("host: %s\n%s" % (src, r.stderr[-3000:]))
-        host_objs.append(o)
+    r = subprocess.run([EMCC] + HOST_CFLAGS + ["-I", os.path.join(HOST_DIR, "host"), "-c", glue, "-o",
+                                               glue[:-2] + ".o"], capture_output=True, text=True)
+    if r.returncode:
+        raise SystemExit("glue: %s" % r.stderr[-3000:])
+    host_objs.append(glue[:-2] + ".o")
 
     def run(extra, final):
         cmd = [EMCC, "-O1", "@" + rsp] + host_objs + extra + [
             "-o", out, "-sGLOBAL_BASE=%d" % (128 << 20), "-sINITIAL_MEMORY=%d" % (512 << 20),
             "-sALLOW_MEMORY_GROWTH=0", "-sSTACK_SIZE=%d" % (4 << 20), "-sNODERAWFS=1", "-sEXIT_RUNTIME=1",
-            "-Wl,--no-demangle", "-Wl,--error-limit=0", "--profiling-funcs"]
+            "-Wl,--no-demangle", "-Wl,--error-limit=0", "--profiling-funcs", "-sASYNCIFY=1",
+            "-sASYNCIFY_STACK_SIZE=65536"]
         cmd += (["-sERROR_ON_UNDEFINED_SYMBOLS=1"] if final else
                 ["-sERROR_ON_UNDEFINED_SYMBOLS=0", "-Wl,--warn-unresolved-symbols"])
         return subprocess.run(cmd, capture_output=True, text=True, errors="replace")
