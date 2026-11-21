@@ -1350,6 +1350,21 @@ class Heap:
         ("vt", vtable obj)."""
         r = Rng(self.seed, "leaf", o.rid, e, l.o32)
         k = l.kind
+        orng_ = getattr(self.chk, "pre_oranges", None)
+        if orng_ and e == 0 and o.ident == ("arg", "this") and l.o32 in orng_ and (lay is None or lay is o.lay):
+            # (integ7, item 8; rev5 (e)) a word of `this` a `*this+0xOFF.f32|i32` range item names (its 32-bit offset):
+            # drawn inside the range, the same value on both sides (the leaf must be the item's type and width)
+            import equiv
+            cond_ = orng_[l.o32]
+            want_ = "f" if cond_[5] == "f" else "i"
+            if l.kind != want_ or l.s32 != 4 or l.s64 != 4:
+                raise Unsupported("pre: *this+0x%x.%s32 is a %s leaf of %d/%d bytes" % (
+                    l.o32, cond_[5], l.kind, l.s32, l.s64))
+            v0_ = struct.pack("<f", gen_float(r)) if want_ == "f" else \
+                (gen_int(r, 4, True) & M32).to_bytes(4, "little")
+            nb_ = equiv._pre_range_fix(self.seed, l.o32, v0_, 4, cond_, True)
+            b_ = nb_ if nb_ is not None else v0_
+            return ("f", struct.unpack("<I", b_)[0]) if want_ == "f" else ("i", struct.unpack("<I", b_)[0])
         if k == "i" and l.s32 == 4 and l.s64 == 8:
             # a pointer-sized integer (hulk_intptr / hulk_uintptr: a pointer the code keeps in an integer): a small
             # integer or an object's address, never a large 32-bit number (that compares with addresses one way
@@ -1678,6 +1693,7 @@ class Checker:
         self.param_into = {}    # (pick() sets it; its deleting-destructor / early paths return before that)
         self.param_range = {}   # (integ2, D102)
         self.pre_ranges = {}    # (integ3, D152)
+        self.pre_oranges = {}   # (integ7, item 8)
         if symbol is None:
             symbol = self._pick_by_original()
         if symbol and symbol.startswith("??_G") and symbol not in self.img[32].funcs:
@@ -1917,6 +1933,7 @@ class Checker:
         # (integ3, D152; rev5) the block's range contract (`// pre: range|gt|ge|lt|le(argN, ...)`): drawn arguments are
         # repaired into the domain as equiv.py does (both sides alike), so the comparison stays inside it
         self.pre_ranges = pre_ranges(c32.get_definition() or c32) if "prerange" not in OFF else {}
+        self.pre_oranges = pre_oranges(c32.get_definition() or c32) if "prerange" not in OFF else {}
         import equiv
         if any(equiv._pre_relational(c_) for c_ in self.pre_ranges.values()):
             pre_relational_check(c32.get_definition() or c32, self.addr)
@@ -2875,6 +2892,13 @@ def pre_ranges(fn):
         else:
             out[n - 1] = cond
     return out
+
+
+def pre_oranges(fn):
+    """(integ7, item 8) {32-bit offset: range cond with its type} of FN's `*this+0xOFF.f32|i32` range items."""
+    import equiv
+    specs, _bad = equiv._parse_pre(pre_lines_of(fn))
+    return {off: cond for (_w, kind, _n, off, _end, cond) in specs if kind == "othis"}
 
 
 def _pre_and(a, b):

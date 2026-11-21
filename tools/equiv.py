@@ -3933,9 +3933,12 @@ class Machine:
     """Initial memory state for one input: a deterministic function of (seed, epoch, address)."""
 
     def __init__(self, prog, seed, globals_, pristine=False, dictionary=(), pointers=(), overlay=None, sentinels=(),
-                 granges=None):
+                 granges=None, oranges=None):
         self.overlay = overlay or {}       # {(epoch, addr): bytes} forced by directed inputs
         self.granges = granges or {}       # (integ4, D152b) {global word: range cond}: drawn inside it, per epoch
+        # (integ7, item 8; rev5 (b)) {object word: range cond}: the words of the object in ecx a range item names, drawn
+        # inside it in every epoch (each stubbed call's havoc redraws memory: the word stays in range on both sides)
+        self.oranges = oranges or {}
         # (round 7) values a runaway walk compared its links against (`&tree.nil`): half the words of every
         # data page hold one of them, in every epoch, so list and tree walks end within a few links
         self.sentinels = tuple(sentinels)
@@ -4016,6 +4019,17 @@ class Machine:
             for i, v in pat:
                 arr[(i + rot) & 1023] = v
             b = arr.tobytes()
+        if self.oranges:
+            hits_ = [a for a in self.oranges if page <= a and a + 4 <= page + PAGE]
+            if hits_:
+                # (integ7, item 8) after every other fill (sentinels too), before the overlay (a trap check's plant wins)
+                buf = bytearray(b)
+                for a in hits_:
+                    nb_ = _pre_range_fix(mix(self.seed, epoch, a, 0x0A7), a, bytes(buf[a - page:a - page + 4]), 4,
+                                         self.oranges[a], False)
+                    if nb_ is not None:
+                        buf[a - page:a - page + 4] = nb_
+                b = bytes(buf)
         if self.overlay:
             hits = [(a, v) for (e, a), v in self.overlay.items()
                     if (e == epoch or e == "*" or (isinstance(e, tuple) and epoch > e[1] and
@@ -4038,6 +4052,37 @@ class Machine:
 
 def _reserved(a):
     return any(lo <= a < hi for lo, hi in RESERVED)
+
+
+def _plant_words():
+    """(integ7, rev5) [(kind, index or offset, word)] of EQUIV_ON's `plant:sK=0xV` (stack word K of the input) and
+    `plant:this+0xOFF=0xV` (the word of the object in ecx, every epoch) entries: regress cases only."""
+    out = []
+    for x in EQUIV_ON:
+        m = re.match(r"^plant:(?:s(\d+)|this\+0x([0-9a-fA-F]+))=(0x[0-9a-fA-F]+|\d+)$", x)
+        if m:
+            out.append(("s", int(m.group(1)), int(m.group(3), 0) & M32) if m.group(1) is not None else
+                       ("this", int(m.group(2), 16), int(m.group(3), 0) & M32))
+    return out
+
+
+def _obj_word_ok(a):
+    """(integ7, item 8) Is the word at A one the Machine draws per epoch (so a range item on it can be kept)?"""
+    return a >= NULL_HI and a + 4 <= (1 << 32) and not STACK_LO <= a < STACK_HI and \
+        not STACK_LO <= a + 3 < STACK_HI and not OURS <= a < OURS + OURS_SIZE and \
+        not OURS <= a + 3 < OURS + OURS_SIZE and not _reserved(a) and not _reserved(a + 3)
+
+
+def _oranges(pre, ecx):
+    """(integ7, item 8) {address: range cond (with its type)} of the object-word range items for an input whose ecx is
+    ECX (the words outside the drawn memory left out: their inputs are set aside)."""
+    out = {}
+    for it_ in pre or ():
+        if it_[1] == "othis":
+            a_ = (ecx + it_[3]) & M32
+            if _obj_word_ok(a_):
+                out[a_] = it_[5]
+    return out
 
 
 def _x87_value(mant_exp):
@@ -8489,9 +8534,24 @@ def _pre_range_macros(code):
                 continue
             out.add((("g", int(mg_.group(2), 16)), c_[:5]))
             continue
+        sub_ = a_[0].replace(" ", "")
+        if _PRE_FIELD_EXPR.match(sub_) and re.match(r"^(?:this->)?([A-Za-z_]\w*)", sub_).group(1) not in names:
+            # (integ7, item 8; rev5 (c)) a field of the object in ecx (`shake[0].time`): no side effect, read twice
+            # alike; its 32-bit offset and type pair it with a `*this+0xOFF.f32|i32` item (_pre_field_probe)
+            try:
+                c_ = _pre_range_cond(fn_.lower(), a_[1:])
+            except (ValueError, KeyError, IndexError):
+                bad.append("HULK_PRE_%s(%s): constants" % (fn_, args_))
+                continue
+            if _pre_relational(c_):
+                bad.append("HULK_PRE_%s(%s): a field subject takes constant bounds" % (fn_, args_))
+                continue
+            out.add((("field", re.sub(r"^this->", "", sub_)), c_))
+            continue
         if not re.match(r"^[A-Za-z_]\w*$", a_[0]):
             # (rev5) the subject is evaluated twice (condition and value) and mapped by name: a bare parameter only
-            bad.append("pre_macro_subject: HULK_PRE_%s(%s): the subject must be a parameter's name" % (fn_, args_))
+            bad.append("pre_macro_subject: HULK_PRE_%s(%s): the subject must be a parameter's name or a field of "
+                       "the object (`shake[0].time`)" % (fn_, args_))
             continue
         if a_[0] not in names:
             bad.append("HULK_PRE_%s(%s): %r is not a parameter of the definition" % (fn_, args_, a_[0]))
@@ -8560,6 +8620,12 @@ def _defnan_ok(u):
 _PRE_LOC = re.compile(r"^(?:(arg)(\d+)|\*(arg)(\d+)|\*(this))(?:\+0x([0-9a-fA-F]+))?(?:\.\.0x([0-9a-fA-F]+))?$")
 # (integ4, D152b) a range item on a global word: *0xADDR.f32 / *0xADDR.i32 (the word's own type)
 _PRE_GLOB = re.compile(r"^\*0x([0-9a-fA-F]+)\.(f32|i32)$")
+# (integ7, item 8; rev5) a range item on a word of the object in ecx: *this+0xOFF.f32 / *this+0xOFF.i32 (the suffix is
+# required: the word's own type, never a default). Its macro names the field (HULK_PRE_GE(shake[0].time, 0.0f)); a
+# 32-bit offsetof probe ties the two (_pre_field_probe), and its writers are a census (_pre_field_census)
+_PRE_OBJ = re.compile(r"^\*this(?:\+0x([0-9a-fA-F]+))?\.(f32|i32)$")
+# a macro subject that is a field of the object: `shake[0].time`, `this->count` (constant indices only)
+_PRE_FIELD_EXPR = re.compile(r"^(?:this->)?[A-Za-z_]\w*(?:\[\d+\])?(?:\.[A-Za-z_]\w*(?:\[\d+\])?)*$")
 
 
 def _pre_arg_word(sig, n):
@@ -8612,6 +8678,16 @@ def _parse_pre(lines):
                 if mg_:
                     # (integ4, D152b) a global's word: the item keeps its type; its census is the global's references
                     out.append((4, "glob", 0, int(mg_.group(1), 16), None, rng_ + ("f" if mg_.group(2) == "f32" else "i",)))
+                    continue
+                mo_ = _PRE_OBJ.match(loc.replace(" ", ""))
+                if mo_:
+                    # (integ7, item 8; rev5 (a)) a word of the object in ecx: one word, its type stated (.f32 / .i32)
+                    out.append((4, "othis", 0, int(mo_.group(1) or "0", 16), None,
+                                rng_ + ("f" if mo_.group(2) == "f32" else "i",)))
+                    continue
+                if loc.replace(" ", "").startswith("*"):
+                    bad.append("%s on memory (%r): `*this+0xOFF.f32` / `*this+0xOFF.i32` (one word of the object in "
+                               "ecx, its type stated), or a global `*0xADDR.f32` / `.i32`" % (fn, loc))
                     continue
             m = _PRE_LOC.match(loc.replace(" ", ""))
             if not m:
@@ -10641,6 +10717,11 @@ def _checker_digest():
     with open(os.path.abspath(__file__), "rb") as f:
         h = hashlib.sha1(f.read())
     h.update(b"\0xbsyms " + xbsyms_digest().encode())      # (integ2, D101) the XDK list it binds with
+    pf_ = os.path.join(os.path.dirname(os.path.abspath(__file__)), "pre_field.py")
+    if os.path.exists(pf_):
+        # (integ7, item 8) the object-word contracts' probe and census decide level 2 too: a change there is a new checker
+        with open(pf_, "rb") as f:
+            h.update(b"\0pre_field " + hashlib.sha1(f.read()).hexdigest().encode())
     return h.hexdigest()[:12]
 
 
@@ -11260,10 +11341,61 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
         conds_ = {it_[5] for it_ in pre_specs if not isinstance(it_[5], tuple)}
         # (integ3, D152; rev5) each range item and its HULK_PRE_RANGE/GT/GE/LT/LE macro state one claim: the macro's
         # parameter (by name, in the definition's parameter list) and constants must equal the item's, both ways
-        rng_items_ = {((("g", it_[3]) if it_[1] == "glob" else it_[2]), it_[5][:5] if it_[1] == "glob" else it_[5])
+        rng_items_ = {((("g", it_[3]) if it_[1] == "glob" else ("o", it_[3], it_[5][5]) if it_[1] == "othis" else it_[2]),
+                       it_[5][:5] if it_[1] in ("glob", "othis") else it_[5])
                       for it_ in pre_specs if isinstance(it_[5], tuple)}
         rng_macros_, mbad_ = _pre_range_macros(code_)
         bad_ += [{"kind": "pre_unparsed", "why": w_} for w_ in mbad_]
+        fexp_ = sorted({k_[1] for k_, _c in rng_macros_ if isinstance(k_, tuple) and k_[0] == "field"})
+        oitems_ = sorted({it_[3] for it_ in pre_specs if it_[1] == "othis"})
+        if fexp_ or oitems_:
+            # (integ7, item 8; rev5 (c)) a field subject's 32-bit offset and type (tools/pre_field.py's probe of the
+            # TU's i386 parse) pair its macro with a `*this+0xOFF.f32|i32` item: the macro names that very word
+            pr_ = {}
+            if fexp_:
+                try:
+                    import pre_field
+                    pr_ = pre_field.probe(src, addr, fexp_) if src and os.path.exists(src) else \
+                        {x_: "error: no source file to probe" for x_ in fexp_}
+                except Exception as e_:     # noqa: BLE001
+                    pr_ = {x_: "error: probe failed: %r" % (e_,) for x_ in fexp_}
+            mapped_ = set()
+            for k_, c_ in rng_macros_:
+                if not (isinstance(k_, tuple) and k_[0] == "field"):
+                    mapped_.add((k_, c_))
+                    continue
+                r_ = pr_.get(k_[1])
+                if not isinstance(r_, tuple):
+                    bad_.append({"kind": "pre_field_probe", "why": "HULK_PRE_* on %s: %s" % (k_[1], r_)})
+                    continue
+                off_, kind_, size_ = r_
+                if size_ != 4 or kind_ not in ("f", "i"):
+                    bad_.append({"kind": "pre_field_probe", "why": "HULK_PRE_* on %s: a %d-byte %s field (a contract "
+                                 "word is a float or a signed 32-bit integer)" % (k_[1], size_, kind_)})
+                    continue
+                mapped_.add((("o", off_, kind_), c_[:5]))
+            rng_macros_ = mapped_
+            if oitems_ and "precensus" not in EQUIV_OFF:
+                # (integ7, item 8; rev5 (d)) the writers of the words: typed stores over the tree and raw stores in the
+                # class's methods, each cited (`// pre-writers:`) or, a raw one, dismissed with a reason; a cited writer
+                # the block calls directly refuses the items (its stub would keep the word in range for it)
+                try:
+                    import pre_field
+                    cen_ = pre_field.census(src, addr, oitems_, text_)
+                    rep["pre_field_census"] = {"typed": len(cen_["typed"]), "raw": len(cen_["raw"]),
+                                               "family": len(cen_["family"]), "errors": cen_["errors"][:5]}
+                    if cen_["missing"] or cen_["errors"]:
+                        bad_.append({"kind": "pre_census", "why": "object-word range items: writers not cited (%s)%s" % (
+                            "; ".join(cen_["missing"][:10]), (" and TUs the census could not parse: %s" %
+                                                               "; ".join(cen_["errors"][:5])) if cen_["errors"] else "")})
+                    wr_ = {b_ for _t, _l, b_, _w in cen_["typed"] if b_ is not None} | {f_ for f_, _i, _w in cen_["raw"]} | \
+                        pre_field.cited(pre_field.block_text(text_, addr))[0]
+                    cw_ = pre_field.callee_writers(addr, wr_)
+                    if cw_:
+                        bad_.append({"kind": "pre_writer_callee", "why": "object-word range items: the block calls their "
+                                     "writer(s) %s directly" % ", ".join("0x%08x" % x_ for x_ in cw_)})
+                except Exception as e_:     # noqa: BLE001
+                    bad_.append({"kind": "pre_census", "why": "object-word range items: census failed: %r" % (e_,)})
         if rng_items_ and "precensus" not in EQUIV_OFF:
             # (integ3, D152; rev5) a range contract cites every reference to the function (`// pre-callers: 0x...`, the
             # call sites and data words pre_callers finds), each judged by the reviewers against play3's evidence
@@ -11443,6 +11575,10 @@ def level3_verdict(rep, l3, issues, post_specs, time_budget, t0):
         # inputs set aside because control flow went wild: a few are fuzzing accidents, many mean the
         # model of some call is off (a stack that drifts until the final ret), which hides that code
         short.append("%d inputs went wild (control left the function) or crashed on both sides" % wild)
+    pbu_ = st.get("pre_base_unmapped", 0)
+    if pbu_ > 0.1 * max(l3.get("inputs_run", 0), 1):
+        # (integ7, item 8) inputs set aside because `this` was outside the drawn memory hide that much code too
+        short.append("%d inputs set aside as pre_base_unmapped (over 10%% of %d)" % (pbu_, l3.get("inputs_run", 0)))
     cov_ = st.get("copy_overlap", 0)
     if cov_ > 0.1 * max(l3.get("inputs_run", 0), 1):
         # (integ1, rev4) inputs set aside for an overlapping copy (intrub, memub) hide that much code too
@@ -11955,6 +12091,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             inp["arity_override"] = stack_patch[("arity",)]     # (round 22, vsplit)
         mach = Machine(prog, seed, globals_, pristine=(seed == 0), dictionary=dictionary, pointers=pointers,
                        granges={it_[3]: it_[5] for it_ in (pre or ()) if it_[1] == "glob"} if "grange" not in EQUIV_OFF else None,
+                       oranges=_oranges(pre, inp["regs"].get("ecx", 0)) if "orange" not in EQUIV_OFF else None,
                        overlay=overlay, sentinels=(stack_patch or {}).get(("sentinel",), ()))
         # Callee write extents the original's run learns must reach our run too: create the dict
         # before _conv_input's shallow copy so both inputs share it.
@@ -12011,6 +12148,14 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                         out.append((("stack", wi), w_, cond))
                     else:
                         out.append((("stack", wi), w, cond))
+                continue
+            if kind == "othis":
+                # (integ7, item 8) a word of the object in ecx; outside the fuzzed memory the Machine draws (the null
+                # page, the stack, our object, reserved ranges) it can't be kept in range: the input is set aside
+                # (pre_base_unmapped, _pre_unmapped)
+                a_ = (inp["regs"].get("ecx", 0) + off) & M32
+                if _obj_word_ok(a_):
+                    out.append((("mem", a_), 4, cond))
                 continue
             if kind == "pthis":
                 base = inp["regs"].get("ecx")
@@ -12369,7 +12514,25 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         return True
 
     def _run_input(seed, overlay, stack_patch, label, _vk, _ar, _bf):
+        plant_ = _plant_words()
+        if plant_ and not pre_off[0]:
+            # (integ7, rev5) a regress case's planted words (EQUIV_ON=plant:...: a switch, so the run proves nothing):
+            # every input gets them, before the contract's repair (a contracted word is repaired out of them)
+            inp0_, _i, _m = build(seed, overlay, stack_patch)
+            overlay = dict(overlay or {})
+            stack_patch = dict(stack_patch or {})
+            for kind_, k_, v_ in plant_:
+                if kind_ == "s":
+                    stack_patch[("sbyte", k_, 0, 4)] = v_
+                else:
+                    overlay[("*", (inp0_["regs"].get("ecx", 0) + k_) & M32)] = struct.pack("<I", v_)
         inp, inp_o, mach = build(seed, overlay, stack_patch)
+        if pre and not pre_off[0] and "orange" not in EQUIV_OFF and \
+                any(it_[1] == "othis" and not _obj_word_ok((inp["regs"].get("ecx", 0) + it_[3]) & M32) for it_ in pre):
+            # (integ7, item 8; rev5) an object-word range item whose word is outside the memory the Machine draws (ecx
+            # null, on the stack, ...): the word can't be kept in range, so the input is no input of the contract
+            res["statuses"]["pre_base_unmapped"] += 1
+            return None
         if pre and not pre_off[0] and (NATIVE_MODE or "premsvc" not in EQUIV_OFF):
             # (integ4, D152b; rev5) range items are repaired in MSVC mode too (an input outside the contracted domain
             # is no input of the function, trap or not); notnan/defnan stay --wine only (below, only_range)

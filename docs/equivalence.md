@@ -1810,6 +1810,36 @@ passes its own parameter or a global on (0x0009faa0's `ge(a, 0)` broke 0x000a1b3
   listed as `unprobed_slots`. TREE_TU_OFF=contractcallers off. Cases `0x000a1b30_pre_{domain,nocensus,nowriters,
   wrongglobal}`.
 
+(integ7, item 8; rev5) **Range contracts on object words.** A range item can name a word of the object the member
+function runs on: `// pre: ge(*this+0xf4.f32, 0)` (one 4-byte word; the type suffix `.f32` / `.i32` is required).
+- The macro names the field: `HULK_PRE_GE(shake[0].time, 0.0f)` (a field path of `this`, constant indices only; a trap
+  natively as for parameters). tools/pre_field.py's probe resolves the path in a libclang i386 parse of the TU (the
+  definition's class, its bases at their offsets) to (32-bit offset, type, size): items and macros must state the same
+  words with the same type and bounds (`pre_field_probe`, `pre_macro_mismatch`).
+- Inputs: the word at ecx + OFF is drawn inside the range by the Machine in every memory epoch (after the sentinel fill,
+  before overlays, so the trap check's plants win): each stubbed call's havoc redraws it in range on both sides, as a
+  contracted global. Stub out-parameter fills write only frame words, never the object. An input whose word lies outside
+  the drawn memory (ecx null, on the stack, our object) is set aside (`pre_base_unmapped`; over 10% of the inputs keeps
+  the run from promotion). `EQUIV_OFF=orange` proves nothing. tools/equiv64.py draws the `this` record's leaf at that
+  32-bit offset inside the range (the leaf must be the item's type, 4 bytes on both targets).
+- Census (`pre_census`): the writers of the words, cited in the block's own `// pre-writers:` lines. Typed: every tree
+  TU that names the class or an RTTI class derived from it is parsed; an assignment, compound assignment, `++`/`--` or
+  address-of on a member lvalue of one of those classes (any namespace: gen's classes and TU-local views) whose 32-bit
+  offsets (every element for a variable index) overlap a word: its block must be cited. Raw: every store to
+  [reg + disp] (not esp/ebp) overlapping a word in the classes' methods (their RTTI vftables' slots and the functions
+  referencing those vftables: constructors, destructors): cited by instruction or function, or dismissed with a reason
+  (`// pre-writers-dismissed: 0xINSN (why)`). A writer (found or cited) the block calls directly refuses the items
+  (`pre_writer_callee`). Residual, a reviewed claim: pointer-strided stores outside these methods, other-named views
+  outside them, whole-object copies, memset, reference bindings.
+- 0x000a97e0 (the six shakes' times, >= 0; writers 0x000a9390 time = 0 and the block's own time += dt): MSVC 105757 and
+  --wine 105758 equivalent at 3,000 (46/46 edges; no x87_range inputs; EQUIV_OFF=orange 105760 too: the epoch-0 repair
+  already covers this block). Only the MSVC proof is recorded (rev5): dt is still free, and dt below about -709 with
+  time 0 overflows clang's exp(-t) where the x87 stays finite (`0x000a97e0_native_orange_negdt`, a planted input:
+  `EQUIV_ON=plant:sK=0xV,plant:this+0xOFF=0xV`, regress only; 12,000 random --wine inputs never drew it). --wine and
+  --x64 wait for its dt contract (D152b on the five derived vfunc_35s). Cases
+  `0x000a97e0_native_orange{,_nosuffix,_wrongfield,_i32,_nowriters,_calleewriter,_negdt}`, `0x000a97e0_orange{_msvc,
+  _negdt_msvc}`. The checker digest covers tools/pre_field.py.
+
 (integ1, D39, `nanpayload`) **Dropped (user decision D50, 2026-11-15).** A rule to set aside quiet-NaN words that differ
 only in payload (x87 hands on the larger significand when two NaNs meet, SSE the first operand) was written (a07ba065a),
 rejected by rev3 (integer -1/-2 words are qNaN-shaped: an int mutant passed), restricted to words both sides last stored

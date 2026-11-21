@@ -106,6 +106,8 @@ template <class T> static inline unsigned long long hulk_pre_bits(T x) {
 #else
 #define HULK_PRE_IF_(ok, x, what) ((void)0)
 #endif
+// (integ7, item 8) x is a parameter's name or a field path of `this` (`shake[0].time`, constant indices): the latter
+// pairs with a `// pre: ge(*this+0xOFF.f32, ...)` item (docs/equivalence.md "Range contracts on object words")
 #define HULK_PRE_RANGE(x, lo, hi) HULK_PRE_IF_((x) >= (lo) && (x) <= (hi), x, "range(" #x ", " #lo ", " #hi ")")
 #define HULK_PRE_GT(x, c) HULK_PRE_IF_((x) > (c), x, "gt(" #x ", " #c ")")
 #define HULK_PRE_GE(x, c) HULK_PRE_IF_((x) >= (c), x, "ge(" #x ", " #c ")")

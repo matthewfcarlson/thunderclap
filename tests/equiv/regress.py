@@ -52,6 +52,26 @@ CASES = {
     # (the base case's `equivalent` needs pre_trap == "fired": equiv.py fails a --wine contract run without it)
     "0x000a1ca0_native_pre_trap_nomacro": ("fail", "pre_trap_missing", 0, {"native": True, "n_inputs": 100}),
     "0x000a1b30_pre_wrongglobal": ("fail", "L2 pre_macro_mismatch", 0, {"n_inputs": 300}),
+    # (integ7, item 8; rev5) range items on words of the object in ecx (`ge(*this+0xf4.f32, 0)`, the six shakes' times;
+    # the TU copy of CGameCamera_2.GS.cpp): the macros name the fields (HULK_PRE_GE(shake[0].time, 0.0f)), a 32-bit
+    # offsetof probe pairs them with the items, the words are kept in range in every epoch, and the writers census (typed
+    # over the tree, raw in the class's methods) must be cited. Mutants: no type suffix, a macro on another field or with
+    # another type, a writer left uncited, a callee cited as a writer
+    "0x000a97e0_native_orange": ("equivalent", None, 0.9, {"native": True, "n_inputs": 300}),
+    "0x000a97e0_orange_msvc": ("equivalent", None, 0.9, {"src": "0x000a97e0_native_orange", "n_inputs": 300}),
+    "0x000a97e0_native_orange_nosuffix": ("fail", "L2 pre_unparsed", 0, {"native": True, "n_inputs": 20}),
+    "0x000a97e0_native_orange_wrongfield": ("fail", "L2 pre_macro_mismatch", 0, {"native": True, "n_inputs": 20}),
+    "0x000a97e0_native_orange_i32": ("fail", "L2 pre_macro_mismatch", 0, {"native": True, "n_inputs": 20}),
+    "0x000a97e0_native_orange_nowriters": ("fail", "L2 pre_census", 0, {"native": True, "n_inputs": 20}),
+    "0x000a97e0_native_orange_calleewriter": ("fail", "L2 pre_writer_callee", 0, {"native": True, "n_inputs": 20}),
+    # (rev5) the field items alone leave dt free: a planted dt = -1000 with time 0 (EQUIV_ON=plant:..., a regress switch)
+    # still overflows clang's exp(-t) where the original's x87 stays finite (0 * inf: a NaN rotation); MSVC computes as
+    # the original. Once 0xa97e0 has its dt contract, the repair moves the planted dt into range: then a must-not
+    "0x000a97e0_native_orange_negdt": ("fail", "0xffc00000", 0, {"src": "0x000a97e0_native_orange", "native": True,
+                                                                 "n_inputs": 300,
+                                                                 "equiv_on": "plant:s1=0xc47a0000,plant:this+0xf4=0"}),
+    "0x000a97e0_orange_negdt_msvc": ("equivalent", None, 0.9, {"src": "0x000a97e0_native_orange", "n_inputs": 300,
+                                                              "equiv_on": "plant:s1=0xc47a0000,plant:this+0xf4=0"}),
     # (integ4, stubexit) a loop whose condition is a stub's result ends after n rounds the original's run draws, the
     # same results by call index on ours; the body is compared every round
     "0x00086240_stubexit": ("equivalent", None, 0.9, {"n_inputs": 300}),
