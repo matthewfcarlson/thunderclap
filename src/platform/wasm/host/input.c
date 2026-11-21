@@ -31,6 +31,8 @@ FFG(003eb91f) {         /* XInputGetState(handle, XINPUT_STATE*) */
     uint32_t port = (ARG(0) - 0x7000u) / 16;
     if (port > 3) { RET(1167); return; }                    /* ERROR_DEVICE_NOT_CONNECTED */
     uint8_t* s = PTR(ARG(1));
+    int r = ff_replay_get_state(port, s);           /* a recording's pad (replay.cpp) */
+    if (r >= 0) { RET(r); return; }
     *(uint32_t*)s = SIM->frame;                             /* dwPacketNumber */
     memcpy(s + 4, SIM->pads[port], 18);                     /* XINPUT_GAMEPAD */
     RET(0);

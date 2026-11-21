@@ -6,6 +6,8 @@
 
 /* RTL_CRITICAL_SECTION (the game's memory): +16 lock count, +20 recursion count, +24 owning thread. Threads are
  * cooperative (sched.c), so a section another thread holds is waited out by sleeping. */
+void ff_io_cs_enter(void);      /* io_lockstep.c: the main thread's depth (a post's drive turn waits for it) */
+void ff_io_cs_leave(void);
 static void cs_init(uint32_t* cs) {
     memset(cs, 0, 28);
     cs[4] = (uint32_t)-1;
@@ -25,8 +27,8 @@ void ff_kernel(uint32_t ord, uint32_t ecx, uint32_t edx, void* st, void* rb) {
     (void)ecx; (void)edx;
     switch (ord) {
     case 291: cs_init(PTR(ARG(0))); return;            /* RtlInitializeCriticalSection */
-    case 277: cs_enter(PTR(ARG(0))); return;           /* RtlEnterCriticalSection */
-    case 294: cs_leave(PTR(ARG(0))); return;           /* RtlLeaveCriticalSection */
+    case 277: cs_enter(PTR(ARG(0))); ff_io_cs_enter(); return;     /* RtlEnterCriticalSection */
+    case 294: cs_leave(PTR(ARG(0))); ff_io_cs_leave(); return;     /* RtlLeaveCriticalSection */
     default:
         (void)rb;
         ff_fatal("kernel import %u not implemented", ord);

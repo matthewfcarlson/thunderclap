@@ -32,8 +32,32 @@ void ff_trace_host_(const char* fn, void* st) {
     fprintf(stderr, "host %s (%08x %08x %08x %08x)\n", fn, a[0], a[1], a[2], a[3]);
 }
 
+/* HULK_WATCH=ADDR[:FROM-TO]: with HULK_TRACE=2, only the calls through ff_dispatch around a change of the word at ADDR
+ * (in update frames FROM..TO): finding the code that writes it */
+uint32_t ff_replay_frame(void);
 void ff_trace_dispatch(uint32_t a, uint32_t ecx, void* st) {
     const uint32_t* s = st;
+    static int watch = -1;
+    static uint32_t waddr, wfrom, wto, last, prev_a, prev_ecx;
+    if (watch < 0) {
+        const char* w = getenv("HULK_WATCH");
+        watch = w && *w;
+        if (watch) {
+            char* e;
+            waddr = (uint32_t)strtoul(w, &e, 16);
+            wfrom = 0, wto = ~0u;
+            if (*e == ':') { wfrom = (uint32_t)strtoul(e + 1, &e, 10); wto = *e == '-' ? (uint32_t)strtoul(e + 1, 0, 10) : wfrom; }
+            last = *(uint32_t*)PTR(waddr);
+        }
+    }
+    if (watch) {
+        uint32_t v = *(uint32_t*)PTR(waddr), f = ff_replay_frame();
+        if (v != last && f >= wfrom && f <= wto)
+            fprintf(stderr, "watch f=%u %08x -> %08x between call 0x%08x (ecx %08x) and call 0x%08x ecx=%08x (%08x %08x %08x)\n",
+                    f, last, v, prev_a, prev_ecx, a, ecx, s[0], s[1], s[2]);
+        last = v, prev_a = a, prev_ecx = ecx;
+        return;
+    }
     fprintf(stderr, "call 0x%08x ecx=%08x (%08x %08x %08x)\n", a, ecx, s[0], s[1], s[2]);
 }
 

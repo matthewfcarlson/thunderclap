@@ -242,7 +242,18 @@ static void wake_waiters(uint32_t h) {
     }
 }
 
+void ff_wake(uint32_t h) { wake_waiters(h); }
+
+/* io_lockstep.c (a replay's lockstep I/O) */
+int ff_io_drive_wait(uint32_t h, uint32_t ms, uint32_t* result);
+int ff_io_main_wait(uint32_t h, uint32_t* result);
+void ff_io_main_sleep(void);
+void ff_io_thread_created(uint32_t start, uint32_t param, uint32_t thread);
+void ff_io_main_thread(uint32_t t);
+
 uint32_t ff_wait(uint32_t h, uint32_t ms) {
+    uint32_t r0;
+    if (ff_io_drive_wait(h, ms, &r0) || (ms && ff_io_main_wait(h, &r0))) return r0;
     hulk_obj* o = ff_obj(h);
     if (!o) return 0xffffffffu;     /* WAIT_FAILED */
     hulk_obj* t = cur();
@@ -261,6 +272,7 @@ uint32_t ff_wait(uint32_t h, uint32_t ms) {
 }
 
 void ff_sleep(uint32_t ms) {
+    ff_io_main_sleep();
     hulk_obj* t = cur();
     t->state = T_SLEEPING;
     set_deadline(t, SIM->clock + (uint64_t)ms * (HULK_TSC_HZ / 1000));
@@ -334,6 +346,7 @@ void ff_run_main(void (*entry)(void)) {
     ff_obj(t)->fiber = f;
     ff_obj(t)->state = T_RUNNABLE;
     SIM->cur_thread = t;
+    ff_io_main_thread(t);
     ff_sched_loop(c);
 }
 
@@ -347,6 +360,7 @@ FFG(0020c0dd) {         /* CreateThread(sa, stack, start, param, flags, id*) */
     o->state = (ARG(4) & 4) ? T_SLEEPING : T_RUNNABLE;      /* CREATE_SUSPENDED: held until ResumeThread */
     set_deadline(o, ~0ull);
     if (ARG(5)) *(uint32_t*)PTR(ARG(5)) = t;
+    ff_io_thread_created(ARG(2), ARG(3), t);
     RET(t);
 }
 FFG(0020bd91) {         /* ResumeThread */
@@ -401,6 +415,7 @@ FFG(0035551d) {         /* SwitchToFiber(fiber) */
     hulk_obj* t = cur();
     uint32_t from = t->fiber, to = ARG(0);
     if (to == from) return;
+    ff_io_main_sleep();     /* (a loader polling a request switches fibers without sleeping: a drive turn) */
     if (!ff_obj(to) || ff_obj(to)->kind != OBJ_FIBER) ff_fatal("SwitchToFiber(0x%x): no fiber", to);
     t->fiber = to;
     ff_obj(to)->thread = SIM->cur_thread;

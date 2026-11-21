@@ -285,13 +285,15 @@ FFG(00354ce2) {                                                                 
 FFG(00354cd1) {                                                                 /* QueryPerformanceCounter */
     UNUSED;
     SIM->clock += HULK_TSC_HZ / 1000000;            /* each read moves the clock on a microsecond */
-    memcpy(PTR(ARG(0)), &SIM->clock, 8);
+    uint64_t v;                                     /* (a recording's virtual clock: replay.cpp) */
+    memcpy(PTR(ARG(0)), ff_replay_qpc(&v) ? &v : &SIM->clock, 8);
     ff_poll();
     RET(1);
 }
 FFG(00355364) {                                                                 /* GetLocalTime(SYSTEMTIME*) */
     UNUSED;
     uint16_t* t = PTR(ARG(0));
+    if (ff_replay_local_time(t)) { RET(0); return; }
     uint64_t s = SIM->clock / HULK_TSC_HZ;
     t[0] = 2005; t[1] = 6; t[2] = 3; t[3] = 15;     /* a fixed date: the run doesn't depend on the host's clock */
     t[4] = (uint16_t)(12 + s / 3600 % 12); t[5] = (uint16_t)(s / 60 % 60); t[6] = (uint16_t)(s % 60);

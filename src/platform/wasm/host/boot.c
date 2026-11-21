@@ -75,6 +75,7 @@ static void game_main(void) {
         run++;
     }
     fprintf(stderr, "hulk: %d static initializers run (%d skipped); main\n", run, skipped);
+    ff_replay_startup();        /* (replay.cpp: a recording's tweaks, after the initializers as the Wine build) */
     call3(HULK_MAIN, 0, 0, 0);
     fprintf(stderr, "hulk: main returned\n");
 }
@@ -112,6 +113,9 @@ void ff_dispatch_miss(uint32_t addr, uint32_t ecx, uint32_t edx, void* st, void*
         ff_fatal("indirect call to 0x%08x, which is no function", addr);
     }
 }
+
+/* x86's eax after the last packed call (tools/wasm_ir.py EAX_PASS): what a void function hands its callers */
+uint32_t ff_eax;
 
 uint32_t ff_call(uint32_t addr, int n, ...) {
     uint32_t st[16] = {0};

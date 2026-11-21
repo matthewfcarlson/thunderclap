@@ -98,6 +98,46 @@ state hash covers. The same build gives the same state hash under node and compi
 presses). Host work whose bytes depend on the host (the frame-rate report, the end-of-run lines) runs on a host stack
 outside the state (`ff_on_host_stack`), so reporting doesn't change the hash.
 
+## Replays (play3 against the reference checkpoints)
+
+```sh
+build/venv/bin/python tools/native_replay.py run --exe build/wasm/hulk-aot --out build/ME/run --frames 60000 \
+    -- $PWD/isos/extracted/default.xbe          # then tools/native_replay.py check RUN.ckref --frames N
+```
+
+`src/platform/wasm/host/replay.cpp` is the wasm host's replay driver: it compiles the SDL layer's recording reader
+(`src/platform/sdl/replay/hulk_replay.cpp`, behind a few-line SDL shim, `host/shim/SDL3/SDL.h`) and the semantic probe
+(`src/platform/sdl/ckpt/ckpt_probe.cpp`, at the original's 32-bit offsets: wasm32 needs no native layout) and writes
+the trace lines and the `.ckref` records through the host file imports. The hooks are the native link's table,
+`src/platform/sdl/host/native_hooks.h`, placed by `wasm_port.py` (`wasm_hooks()`) by renaming at bind time, never by
+editing a replay-pin function's source: an `entry` row renames the definition to `ffo_<addr>` (generic entry
+`ffgo_<addr>`) and makes `ff_<addr>` a packer that calls the host's `ffh_<hook>` (a generic entry's shape, so a
+caller's declaration needn't match); the defining TU's own direct calls stay on the definition, as natively. A `site`
+row sends that block's calls of the callee to the hook through a packer; a `data` row makes the item the host's
+variable. `HULK_WASM_DEBUG_HOOKS="entry:0xADDR:0:name,site:0xCALLER:0xCALLEE:name"` with `HULK_WASM_HOST_EXTRA=FILE.c`
+adds debugging hooks (`ffh_name`) to a local build. `HULK_TRACE=2 HULK_WATCH=ADDR[:FROM-TO]` prints the indirect
+calls around each change of a word (in update frames FROM..TO).
+
+What the replay needs from the host, as the Wine build has it: the recording's virtual clock (vclock/vdate: QPC,
+GetLocalTime, GameClock::Update's time); the pad from the recording, with the pad-init reads not counted as polls;
+lockstep I/O (`host/io_lockstep.c`, the Wine build's `HULK_SYNCIO=5`: the drive thread steps only on the main
+thread's turns); DirectSound buffers advancing exactly as the Wine mixer's voices do under `HULK_AUDIO_CLOCK=frame`
+(800 frames of 48 kHz a `DirectSoundDoWork`); and a Bink that opens (header from the game's own I/O callbacks, time on
+the virtual clock, no picture): with BinkOpen failing, the new game's movie was never opened and the clock reset a
+frame early (play3 frame 440).
+
+Link-time fixes on the way: clang's implicit `??1X` of a stand-in class goes to the original's deleting destructor
+with flags 0 (found from RTTI: the vftable whose locator names X, the slot that tests `flags & 1`); clang's sized
+frees (`??3@YAXPAXI@Z`) go to the game's unsized ones; clang's RTTI type descriptors are bound to the game's by the
+Wine link's rules (wrapper namespaces dropped, an `_<hex>` suffix dropped, a unique leaf name), so a cast to a
+stand-in name (`FrameControllerLoader_297680`) finds the game's class.
+
+**EAX_PASS (a stopgap, to go)**: a packer stores the callee's eax in `ff_eax` and the generic entry of a void function
+hands it back, as x86 leaves eax from a void function's last call. The tree's `ParamBranch<T>::vfunc_6`
+(`void vfunc_6(void* p) { fn(p); }`, 147 blocks in 43 fight/hulkfight TUs) is read by its callers as fn's result
+(0x235290); without it the new game's fight data stops parsing at frame ~420. The source fix (HULK_PORT_ABI) replaces
+it.
+
 ## Threads and fibers
 
 Every thread runs on a fiber; one runs at a time and switches only where the game waits
@@ -139,6 +179,12 @@ the area has the x86 layout. The host's printf family reads a `va_list` as x86 s
   name; `rtti.c` compares names without it (as the native host does).
 
 ## Status
+
+- 2026-11-21 (wasm3, play3): `-O0` is the default build again (`HULK_WASM_OPT=O1` for the optimised one: its game hash
+  differs from frame 1). play3 on the compiled build runs all 60,000 frames (about 2,000 update frames/s, 31 s) and
+  matches the reference on every tag but sound* (an observable) to frame 445; the first divergence is the gameplay
+  RNG at frame 446 (the reference draws 6 numbers in frame 445, the wasm build 4: CAmbientsManager's spawn search
+  0x7a420 finds no active cell). flow matches to 8,586, clock to 3,870, mission to 3,780.
 
 - 2026-11-21 (wasm2, optimised game code): the game's TUs were compiled as clang -O0 emits them (`optnone` on every
   function). The front end now runs as the Wine build's opt1 (`-O1 -Xclang -disable-llvm-passes -fno-strict-return

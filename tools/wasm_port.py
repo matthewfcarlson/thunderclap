@@ -34,6 +34,7 @@ import json
 import os
 import re
 import shutil
+import struct
 import subprocess
 import sys
 
@@ -52,13 +53,14 @@ CLANG = os.path.join(LLVM, "clang++")
 EMCC = os.environ.get("HULK_EMCC", "emcc")
 HOST_DIR = os.path.join(ROOT, "src/platform/wasm")
 
-# The game's code is optimised (HULK_WASM_OPT=O0 for clang -O0's, every function optnone): the front end runs as -O1
+# The game's code is clang -O0's by default (every function optnone); HULK_WASM_OPT=O1 optimises it (wasm3, D202: -O0
+# stays the default until -O1's game hash matches -O0's). With O1 the front end runs as -O1
 # without LLVM's passes (no optnone; the IR keeps -O0's shape for bind_tu), the back end optimises. As the Wine
 # build's opt1 (tools/clang_probe.py): decompiled code's undefined behaviour stays as -O0 has it where a switch exists
 # (falling off a value-returning function, loops without side effects, library calls). The TUs the Wine build keeps
 # at -O0 (tools/wine_opt_exclude.txt: at -O1 they leave play3's checkpoints) stay -O0 here too.
 O0_FRONT = ["-O0"]
-OPT_FRONT = (O0_FRONT if os.environ.get("HULK_WASM_OPT", "O1") == "O0" else
+OPT_FRONT = (O0_FRONT if os.environ.get("HULK_WASM_OPT", "O0") == "O0" else
              ["-O1", "-Xclang", "-disable-llvm-passes", "-fno-strict-return", "-fno-finite-loops", "-fno-builtin"])
 OPT_EXCLUDE = os.environ.get("HULK_WASM_OPT_EXCLUDE") or os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                                                      "wine_opt_exclude.txt")
@@ -84,7 +86,10 @@ def front_flags(rel):
     return FRONT_[:i] + opt + FRONT_[i + 1:]
 BACK = ["--target=wasm32-unknown-emscripten", "-O1", "-c", "-Wno-override-module"]
 HOST_CFLAGS = ["-O1", "-Wall", "-Wextra", "-Werror"]
-VERSION = "wasm2-2"          # bump when bind_tu() changes (object cache key)
+# host C++ (replay.cpp: the SDL layer's replay reader and checkpoint probe, compiled for the wasm host)
+HOST_CXXFLAGS = ["-O1", "-std=c++17", "-fno-exceptions", "-fno-rtti", "-Wall", "-Wextra", "-Werror", "-Wno-unused-function",
+                 "-Wno-missing-field-initializers"]
+VERSION = "wasm3-3"          # bump when bind_tu() changes (object cache key)
 SYNTH = 0xF0000000
 
 # library code inside .text (tools/platform_map.py) and the library sections after it
@@ -139,6 +144,50 @@ def tu_bindings(tu):
             for s in coff_names(n):
                 out[s] = int(a, 16)
     return out
+
+
+_TDS = None
+
+
+def game_type_descriptors():
+    """{decorated name (`?AVX@ns@@`): address} of the original's RTTI type descriptors: type_info's vftable word, a
+    null spare, the name."""
+    global _TDS
+    if _TDS is None:
+        _TDS = {}
+        x = Image().x
+        # type_info's vftable: the word most of the `.?A` names follow (after a null spare)
+        words = collections.Counter(x.data[i - 4:i] for i in (m.start() for m in re.finditer(rb"\0\0\0\0\.\?A[UV]", x.data))
+                                    if i >= 4)
+        vft = words.most_common(1)[0][0] if words else None
+        if vft:
+            key = vft + b"\0\0\0\0.?A"
+            for m in re.finditer(re.escape(key) + rb"([\w@?$]+)\0", x.data):
+                for sec in x.sections:
+                    if sec.raw <= m.start() < sec.raw + sec.rsize:
+                        _TDS["?A" + m.group(1).decode("latin1")] = sec.va + m.start() - sec.raw
+    return _TDS
+
+
+def game_td_for(name):
+    """The game's type descriptor for clang's `??_R0?AV...@8` (wine_link's native9/native12 rules: the tree's
+    `fn_<hex>` wrapper namespaces left out, then an `_<hex>` address suffix, then a unique class leaf name), or None:
+    __RTDynamicCast and typeid compare descriptors, and the objects' vftables are the game's."""
+    if not (name.startswith("??_R0?A") and name.endswith("@8")):
+        return None
+    tds = game_type_descriptors()
+    d = name[5:-2]
+    g = re.sub(r"fn_[0-9a-f]{8}@", "", d)
+    if g in tds:
+        return tds[g]
+    g2 = re.sub(r"_[0-9a-f]{5,6}@", "@", g)
+    if g2 in tds:
+        return tds[g2]
+    m = re.match(r"\?A[UV](\w+?)(?:_[0-9a-f]{5,6})?@", d)
+    if not m:
+        return None
+    cands = [a for t, a in tds.items() if re.match(r"\?A[UV]" + re.escape(m.group(1)) + "@", t)]
+    return cands[0] if len(cands) == 1 else None
 
 
 def unwrap(n):
@@ -605,6 +654,48 @@ def rebind_per_function(ir, bound, notes):
     return "\n".join(lines + list(extra.values())) if extra else ir
 
 
+# The replay hooks (src/platform/sdl/host/native_hooks.h, the native link's table; D192): placed here by renaming, never
+# by editing a replay-pin function's source. Each hook is a host function with a generic entry's shape,
+# `void ffh_<hook>(ecx, edx, stack, ret)` (src/platform/wasm/host/replay.cpp), so a caller's declaration need not match
+# its C type:
+#   entry  the definition at ADDR becomes `ffo_<addr>` (its generic entry `ffgo_<addr>`, which the hook calls) and
+#          `ff_<addr>` a packer calling the hook: every call, direct, packed or through ff_dispatch, reaches the hook;
+#   site   in the block at ADDR, calls of the function at OTHER call the hook instead (through a packer);
+#   data   in the block at ADDR, the data item at OTHER is the host's variable named HOOK.
+# `layout` and `gfx` rows are the native builds' own; WASM_HOOK_SKIP leaves out rows the wasm host has no hook for yet.
+NATIVE_HOOKS_H = os.path.join(ROOT, "src/platform/sdl/host/native_hooks.h")
+WASM_HOOK_SKIP = {"hulk_nhook_save_selftest", "hulk_cast_self"}
+_HOOKS = None
+
+
+def wasm_hooks():
+    """(entry {addr: hook}, site {(caller, callee): hook}, data {(caller, item): variable})"""
+    global _HOOKS
+    if _HOOKS is None:
+        ent, site, data = {}, {}, {}
+        for m in re.finditer(r"H\((entry|site|data), (0x[0-9a-fA-F]+), (0x[0-9a-fA-F]+|0), (\w+), (\w+),",
+                             open(NATIVE_HOOKS_H).read()):
+            kind, a, o, hook, status = m.group(1), int(m.group(2), 16), int(m.group(3), 16), m.group(4), m.group(5)
+            if hook in WASM_HOOK_SKIP or status == "gfx":
+                continue
+            if kind == "entry":
+                ent[a] = "ffh_" + hook
+            elif kind == "site":
+                site[(a, o)] = "ffh_" + hook
+            else:
+                data[(a, o)] = hook
+        # debugging: HULK_WASM_DEBUG_HOOKS="site:0xCALLER:0xCALLEE:name,entry:0xADDR:0:name" (hooks the host sources
+        # of HULK_WASM_HOST_EXTRA define as ffh_<name>; never in a committed build)
+        for row in filter(None, os.environ.get("HULK_WASM_DEBUG_HOOKS", "").split(",")):
+            kind, a, o, hook = row.split(":")
+            if kind == "entry":
+                ent[int(a, 16)] = "ffh_" + hook
+            else:
+                site[(int(a, 16), int(o, 16))] = "ffh_" + hook
+        _HOOKS = (ent, site, data)
+    return _HOOKS
+
+
 # the host's variadic C library functions (ret, fixed parameters, variadic), as callers' variadic calls need them
 HOST_VARIADIC = {0x00344f75: ("i32", ["ptr", "ptr"], True), 0x00356734: ("i32", ["ptr", "ptr"], True),
                  0x00345804: ("i32", ["ptr", "ptr"], True), 0x00347792: ("i32", ["ptr", "ptr"], True)}
@@ -653,6 +744,12 @@ def bind_tu(ir, tu, tu_index, mains, same, bound, game, defsig, deftys):
         if a is not None and (n in decls) == is_code(a):
             bound[n] = a
             notes["bound by equiv-map / unwrapped name"] += 1
+    for g in gdefs:                     # clang's RTTI type descriptors: the game's
+        if g.startswith("??_R0?A") and g not in bound:
+            a = game_td_for(g)
+            if a is not None:
+                bound[g] = a
+                notes["RTTI type descriptor bound to the game's"] += 1
     for n in list(decls) + [g for g in gdefs if re.search(r" = (?:\w+ )*external ", lines[gdefs[g]])]:
         if n not in bound and not n.startswith("llvm."):
             a = name_address(n)
@@ -672,6 +769,8 @@ def bind_tu(ir, tu, tu_index, mains, same, bound, game, defsig, deftys):
 
     sigs = {n: p[3] for n, (_, p) in list(defs.items()) + list(decls.items())}
     redirect = {}
+    hk_ent, hk_site, hk_data = wasm_hooks()
+    cur = [None]                        # the block whose body is being rewritten (its address)
 
     def canonical(name):
         """A local (inline) definition the game has at an address with a tree definition: call that one."""
@@ -680,7 +779,8 @@ def bind_tu(ir, tu, tu_index, mains, same, bound, game, defsig, deftys):
 
     def callee_for(name, sig):
         if name in mains:
-            return "ff_%08x" % mains[name]
+            # (a replay entry hook leaves the defining TU's own direct calls alone, as the native link's)
+            return ("ffo_%08x" if mains[name] in hk_ent else "ff_%08x") % mains[name]
         if name in defs and not canonical(name):
             return None                     # a local function: the call stays
         a = bound.get(name)
@@ -697,6 +797,8 @@ def bind_tu(ir, tu, tu_index, mains, same, bound, game, defsig, deftys):
             if defsig.get(a) == sig.key(types) or sig.varargs:
                 if sig.varargs and defsig.get(a) != sig.key(types):
                     mism.append(("0x%08x" % a, name, "varargs", sig.key(types), defsig.get(a)))
+                if a in hk_ent and a in mains.values():
+                    return "ffo_%08x" % a       # (the defining TU's own calls: not hooked)
                 return "ff_%08x" % a
             mism.append(("0x%08x" % a, name, "packed", sig.key(types), defsig.get(a)))
             notes["packed call"] += 1
@@ -726,6 +828,10 @@ def bind_tu(ir, tu, tu_index, mains, same, bound, game, defsig, deftys):
         name = irname(tok)
         if name.startswith("llvm."):
             return None
+        hk = hk_site.get((cur[0], bound.get(name, mains.get(name))))
+        if hk and sigs.get(name) is not None:
+            notes["replay hook site"] += 1
+            return at(need_packer(sigs[name], hk)) + "("
         if name in defs and name not in mains and not canonical(name):
             return '@"ffl$%s"(' % name         # a local function: the call stays (restored below)
         sig = sigs.get(name)
@@ -746,7 +852,22 @@ def bind_tu(ir, tu, tu_index, mains, same, bound, game, defsig, deftys):
         return at(to) + "("
 
     out = []
+    hook_vars = set()
     for l in lines:
+        if l.startswith("define "):
+            p_ = parse_func_line(l)
+            cur[0] = mains.get(p_[2]) if p_ else None
+        elif l == "}":
+            cur[0] = None
+        elif cur[0] is not None and any(ca == cur[0] for ca, _ in hk_data):
+            def data_hook(m):
+                var = hk_data.get((cur[0], bound.get(irname(m.group(0)))))
+                if var is None:
+                    return m.group(0)
+                hook_vars.add(var)
+                notes["replay hook data"] += 1
+                return at(var)
+            l = TOKEN.sub(data_hook, l)
         if " call " in l and not l.startswith(("define", "declare")):
             pos, buf = 0, []
             for m in CALL.finditer(l):
@@ -817,7 +938,8 @@ def bind_tu(ir, tu, tu_index, mains, same, bound, game, defsig, deftys):
             if name in mains:
                 l = re.sub(r'^define (?:(?:linkonce_odr|weak_odr|weak|linkonce|external|available_externally|'
                            r'dso_local|hidden|protected|internal|private|dllexport) )*', "define ", l, count=1)
-                l = l.replace(at(name) + "(", at("ff_%08x" % mains[name]) + "(", 1)
+                l = l.replace(at(name) + "(", at(("ffo_%08x" if mains[name] in hk_ent else "ff_%08x")
+                                                 % mains[name]) + "(", 1)
             elif re.match(r'^define (?:dso_local )?(?:(?:linkonce_odr|linkonce|weak_odr|weak|internal|private) )', l):
                 l = re.sub(r'^define (?:(?:linkonce_odr|weak_odr|weak|linkonce|external|available_externally|'
                            r'dso_local|hidden|protected|internal|private) )*', "define internal ", l, count=1)
@@ -860,6 +982,14 @@ def bind_tu(ir, tu, tu_index, mains, same, bound, game, defsig, deftys):
             for p in s.params), ", ..." if s.varargs else ""))
     for name, a in sorted(mains.items(), key=lambda x: x[1]):
         lines += entry("ffg_%08x" % a, sigs[name], "ff_%08x" % a, types)
+        if a in hk_ent:                 # a replay entry hook: ff_<addr> calls the hook, ffgo_<addr> the definition
+            notes["replay hook entry"] += 1
+            wrap = packer("ff_%08x" % a, sigs[name], hk_ent[a], types)
+            lines += [wrap[0].replace("define internal ", "define ", 1)] + wrap[1:]
+            lines += entry("ffgo_%08x" % a, sigs[name], "ffo_%08x" % a, types)
+            lines.append("declare void %s(i32, i32, ptr, ptr)" % at(hk_ent[a]))
+    for var in sorted(hook_vars):
+        lines.append("%s = external global i32" % at(var))
     for a, name in sorted(same.items()):        # identical code under one symbol (ICF): the other block's
         lines += entry("ffg_%08x" % a, sigs[name], "ff_%08x" % mains[name], types)
         lines.append("define %s @ff_%08x(%s) {" % (sigs[name].ret, a, ", ".join(
@@ -879,6 +1009,8 @@ def bind_tu(ir, tu, tu_index, mains, same, bound, game, defsig, deftys):
     if any(k[2] for k in packers):
         lines.append("declare void @ff_dispatch(i32, i32, i32, ptr, ptr)")
     text = "\n".join(lines)
+    if "@ff_eax" in text and "@ff_eax = " not in text:
+        text += "\n@ff_eax = external global i32"
     for intr in ("declare void @llvm.memset.p0.i32(ptr, i8, i32, i1)",
                  "declare void @llvm.memcpy.p0.p0.i32(ptr, ptr, i32, i1)"):
         if intr.split("(")[0].split()[-1] + "(" not in text:
@@ -1008,6 +1140,62 @@ class Image:
         return s.name if s else None
 
 
+def _va_of(x, off):
+    for sec in x.sections:
+        if sec.raw <= off < sec.raw + sec.rsize:
+            return sec.va + off - sec.raw
+    return None
+
+
+SIZED_FREE = {"??3@YAXPAXI@Z": "??3@YAXPAX@Z", "??_V@YAXPAXI@Z": "??_V@YAXPAX@Z"}
+DTOR = re.compile(r"\?\?1((?:[A-Za-z_]\w*@)+)@[UQ]AE@XZ$")
+
+
+def destructor_entries(img, names):
+    """{`??1X` name: the address of X's deleting destructor} for destructors nothing defines (implicit destructors of
+    the tree's stand-in classes, which clang calls by name): the class is the RTTI class of that name (the tree's
+    `fn_<hex>` wrapper namespaces left out), its vftable the one whose locator names it at offset 0, and the deleting
+    destructor the slot whose code tests `flags & 1` (`test byte ptr [esp+8], 1`). Called with flags 0 it is exactly
+    `X::~X()`: the original's own destructor, no free."""
+    x = img.x
+    want = {}
+    for n in names:
+        m = DTOR.match(n)
+        if m:
+            parts = [q for q in m.group(1).split("@") if q and not re.fullmatch(r"fn_[0-9a-f]{8}", q)]
+            want[n] = ".?AV" + "@".join(parts) + "@@"
+    out = {}
+    for n, td_name in want.items():
+        hits = [i for i in re.finditer(re.escape(td_name.encode()) + b"\0", x.data)]
+        if len(hits) != 1:
+            continue
+        td = _va_of(x, hits[0].start() - 8)
+        if td is None:
+            continue
+        vft = None
+        for c in re.finditer(re.escape(struct.pack("<I", td)), x.data):
+            col = _va_of(x, c.start() - 12)       # the locator: {signature, offset, cd offset, type, hierarchy}
+            if col is None or x.u32(col) != 0 or x.u32(col + 4) != 0:
+                continue
+            refs = [r for r in re.finditer(re.escape(struct.pack("<I", col)), x.data)]
+            vfts = [_va_of(x, r.start() + 4) for r in refs if r.start() % 4 == 0]
+            vfts = [v for v in vfts if v is not None]
+            if len(vfts) == 1:
+                vft = vfts[0]
+                break
+        if vft is None:
+            continue
+        for k in range(64):
+            f = x.u32(vft + 4 * k)
+            if f is None or not is_code(f):
+                break
+            code = img.read(f, 64)
+            if b"\xf6\x44\x24\x08\x01" in code and code.find(b"\xc2\x04\x00") > 0:
+                out[n] = f
+                break
+    return out
+
+
 def thunk_target(img, a, depth=0):
     b = img.read(a, 5)
     if b[0] != 0xE9 or depth > 4:
@@ -1033,8 +1221,8 @@ def classify(a, img):
 
 
 def host_sources():
-    return sorted(os.path.join(dp, f) for dp, _, fs in os.walk(os.path.join(HOST_DIR, "host")) for f in fs
-                  if f.endswith(".c"))
+    return [x for x in os.environ.get("HULK_WASM_HOST_EXTRA", "").split(",") if x] + sorted(os.path.join(dp, f) for dp, _, fs in os.walk(os.path.join(HOST_DIR, "host")) for f in fs
+                  if f.endswith((".c", ".cpp")))
 
 
 def _wasm_opt():
@@ -1135,15 +1323,23 @@ def cmd_link(a):
     os.makedirs(gen, exist_ok=True)
     host_objs = []
     for src in host:
-        o = os.path.join(gen, os.path.basename(src)[:-2] + ".o")
-        r = subprocess.run([EMCC] + HOST_CFLAGS + ["-I", os.path.join(HOST_DIR, "host"), "-c", src, "-o", o],
+        o = os.path.join(gen, os.path.splitext(os.path.basename(src))[0] + ".o")
+        flags = HOST_CXXFLAGS if src.endswith(".cpp") else HOST_CFLAGS
+        r = subprocess.run([EMCC] + flags + ["-I", os.path.join(HOST_DIR, "host"), "-I",
+                                             os.path.join(HOST_DIR, "host", "shim"), "-c", src, "-o", o],
                            capture_output=True, text=True)
         if r.returncode:
             raise SystemExit("host: %s\n%s" % (src, r.stderr[-3000:]))
         host_objs.append(o)
     host_defs = set()
+    host_all = set()
     for d, _ in nm(host_objs).values():
         host_defs |= {x for x in d if re.fullmatch(r"ffg?_[0-9a-f]{8}", x)}
+        host_all |= d
+    lacking = sorted(x for x in undefined if (x.startswith("ffh_") or x in {v for v in wasm_hooks()[2].values()})
+                     and x not in host_all)
+    if lacking:
+        raise SystemExit("link: the host defines no replay hook %s (src/platform/wasm/host/replay.cpp)" % ", ".join(lacking))
     gen = os.path.join(OUT, "glue")
     os.makedirs(gen, exist_ok=True)
     decl_types = {}
@@ -1282,9 +1478,30 @@ void ff_dispatch(uint32_t a, uint32_t ecx, uint32_t edx, void* st, void* rb) {
                     if cand in want and cand not in decl:
                         decl[cand] = (n, line.strip())
         body = ['target datalayout = "%s"' % DATALAYOUT, 'target triple = "%s"' % TRIPLE,
-                "declare void @ff_unbound_name(ptr)"]
+                "declare void @ff_unbound_name(ptr)", "declare void @ff_dispatch(i32, i32, i32, ptr, ptr)"]
+        dtors = destructor_entries(img, missing)
+        # clang's sized frees (C++14 sized deallocation; MSVC 7.1 has none): the game's unsized ones by address, as
+        # the Wine build's crt_glue.cpp forwards them
+        for n, unsized in SIZED_FREE.items():
+            a_ = binding_map()["bindings"].get(unsized, {}).get("addr")
+            if n in missing and a_:
+                dtors[n] = int(a_, 16)
         for i, n in enumerate(missing):
             irn, d = decl.get(n, (n, None))
+            if n in dtors and d and d.startswith("declare "):
+                sig = parse_func_line(d)[3]
+                if sig.params and sig.params[0].type == "ptr":
+                    body.append("define %s %s(%s) {" % (sig.ret, at(irn), ", ".join(
+                        "%s %%a%d" % (p.type, k) for k, p in enumerate(sig.params))))
+                    free = n in SIZED_FREE         # (cdecl: the pointer on the stack; a destructor: this, flags 0)
+                    body += ["  %st = alloca [4 x i32], align 4", "  %rb = alloca [16 x i8], align 8",
+                             "  %t = ptrtoint ptr %a0 to i32",
+                             "  store i32 %s, ptr %%st, align 4" % ("%t" if free else "0"),
+                             "  call void @ff_dispatch(i32 %d, i32 %s, i32 0, ptr %%st, ptr %%rb)" % (
+                                 dtors[n], "0" if free else "%t"),
+                             "  ret void" if sig.ret == "void" else "  ret ptr %a0" if sig.ret == "ptr" else
+                             "  ret %s 0" % sig.ret, "}"]
+                    continue
             body.append('@.s%d = private constant [%d x i8] c"%s\\00"' % (
                 i, len(n.encode()) + 1,
                 "".join(ch if ch.isalnum() or ch in "?@_$." else "\\%02X" % ord(ch) for ch in n)))
@@ -1309,7 +1526,7 @@ void ff_dispatch(uint32_t a, uint32_t ecx, uint32_t edx, void* st, void* rb) {
             warn[(m.group(1), m.group(2))] += 1
     link = {"rc": r.returncode, "objects": len(objs), "entries": len(entries),
             "stubs": {k: list(v) for k, v in stubs.items()}, "thunks": {k: "0x%08x" % v for k, v in thunks.items()},
-            "named_undefined": missing, "warnings": [list(k) + [n] for k, n in warn.items()],
+            "named_undefined": missing, "destructors": {k: "0x%08x" % v for k, v in dtors.items()} if missing else {}, "warnings": [list(k) + [n] for k, n in warn.items()],
             "stderr": r.stderr[-6000:] if r.returncode else ""}
     json.dump(link, open(os.path.join(OUT, "link.json"), "w"), indent=1)
     print("link rc %d: %d objects, %d generic entries, %d thunks, %d unbound entries, %d named stubs, %d warnings" % (

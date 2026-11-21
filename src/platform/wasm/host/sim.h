@@ -51,6 +51,7 @@ typedef struct {
     uint8_t d3d_lights[8][104];
     /* dsound_null.c */
     uint32_t ds_object;
+    uint32_t ds_voices;               /* the live buffers (a list in the arena) */
 } hulk_sim;
 
 #define SIM ((hulk_sim*)(uintptr_t)SIM_ADDR)

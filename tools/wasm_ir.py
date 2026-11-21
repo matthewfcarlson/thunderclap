@@ -357,6 +357,9 @@ def packer(name, sig, target, types, indirect=False, locs=None):
         e("call void @ff_dispatch(i32 %s, i32 %s, i32 %s, ptr %%st, ptr %%rb)" % (f, regs["ecx"], regs["edx"]))
     else:
         e("call void %s(i32 %s, i32 %s, ptr %%st, ptr %%rb)" % (at(target), regs["ecx"], regs["edx"]))
+    v = e.v()                           # x86's eax after the call (EAX_PASS: what a void function hands back)
+    e("%s = load i32, ptr %%rb, align 8" % v)
+    e("store i32 %s, ptr @ff_eax, align 4" % v)
     load_ret(e, sig.ret, "%rb")
     return [head] + e.lines + ["}"]
 
@@ -417,6 +420,12 @@ def entry(name, sig, target, types, locs=None):
         sret = next((a for p, a in zip(sig.params, args) if p.sret), None)
         if sret:
             e("store ptr %s, ptr %%rb, align 8" % sret)        # x86 returns the sret pointer in eax
+        else:
+            # EAX_PASS: a void function leaves eax as its last call left it, and some callers read it (a
+            # `void vfunc_6(void* p) { fn(p); }` whose callers use fn's result): the last packed call's eax
+            v = e.v()
+            e("%s = load i32, ptr @ff_eax, align 4" % v)
+            e("store i32 %s, ptr %%rb, align 8" % v)
     else:
         r = e.v()
         e("%s = %s" % (r, call))

@@ -2505,3 +2505,23 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   removed it (compiled 2,200 -> 3,500 frames/s after START). Compiling the game's code without -O0's `optnone`
   gave 3,500 -> 6,300 compiled and 1,500 -> 4,900 under node, but the -O1 build's game state differs from -O0's
   from frame 1, through several TUs (LoadStream.cpp first by a prefix search): checkpoints have to decide.
+
+## 2026-11-21 wasm3: play3 on the wasm port
+
+- The wasm port replays play3 against the original's reference checkpoints (tools/native_replay.py, the compiled
+  build): all 60,000 frames in 31 s (about 2,000 update frames/s), every gameplay tag equal to frame 445, flow to
+  8,586. The replay hooks are native_hooks.h's rows, placed by renaming in tools/wasm_port.py; the probe runs at the
+  original's 32-bit offsets.
+- What it took, besides the hooks: a void function whose callers read eax. `ParamBranch<T>::vfunc_6` (`fn(p);`, 147
+  blocks in 43 fight TUs) passes fn's result through in the original, and 0x235290 parses a nested condition group
+  only when it is non-null: with 0 the fight data's stream lost 4 bytes and the reader skipped a ~4 GB "length".
+  Natively the same wall waits. Stopgap on wasm: the last call's eax is handed back by void entries (EAX_PASS);
+  the fix is the source's (HULK_PORT_ABI, lead D204).
+- A dynamic_cast to a stand-in class name (`FrameControllerLoader_297680`) needs the Wine link's descriptor rules
+  (wrapper namespace, address suffix, unique leaf name), or the scenegraph loader calls through null.
+- BinkOpen must succeed even with no picture: the replay's no-fmv stops the new game's movie on its first render,
+  which needs it opened; failing the open, the clock reset one frame early (frame 440).
+- DirectSound positions have to advance as the Wine mixer's voices do (800 output frames a DoWork); lockstep I/O
+  (the drive thread steps on the main thread's turns) ports as two semaphores in the cooperative scheduler.
+- First divergence now: frame 446, the gameplay RNG (6 draws in the reference's frame 445, 4 here): CAmbientsManager's
+  spawn search (0x7a420) finds no active cell in the wasm build.

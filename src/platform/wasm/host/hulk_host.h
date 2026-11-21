@@ -74,4 +74,9 @@ void ff_poll(void);
 void ff_on_host_stack(void (*fn)(void*), void* arg);    /* host work off the game's stacks */
 int ff_host_path(const char* game, char* out, size_t cap);
 void ff_kernel(uint32_t ord, uint32_t ecx, uint32_t edx, void* st, void* rb);
+/* replay.cpp: a recording (HULK_INPUT_SOURCE=replay:FILE) */
+void ff_replay_startup(void);
+int ff_replay_qpc(uint64_t* ticks);
+int ff_replay_local_time(uint16_t* t);
+int ff_replay_get_state(uint32_t port, uint8_t* out);
 #endif
