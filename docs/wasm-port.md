@@ -121,10 +121,14 @@ the area has the x86 layout. The host's printf family reads a `va_list` as x86 s
   anti-piracy sector size, this-adjustor thunks (17 blocks), `inalloca` blocks as `byval` (laid out where x86 has
   them, so a caller that declares the arguments one by one meets them), the TU's `// equiv-map:` hints for names the
   map lacks, a time slice for threads that poll the clock, a 1 GB arena and resources freed at their last Release.
-- Next stops: with START/A presses (`HULK_INPUT`) the game leaves the screen it idles on (input is read) and opens
-  `D:\\sound\\scripts\\(null).obj` (a name that comes out null), then calls `?v0@Obj2_274520@fn_fcf3df4f@@UAEXXZ`, a
-  virtual method clang called directly (it devirtualizes a call on an object whose type it knows; cl 7.1 calls
-  through the vftable): such calls need to go back through the vftable (fusion-frenzy's devirt probes).
+- 2026-11-21 (wasm2, devirtualized calls): clang calls a virtual method directly when it knows the object's type (a
+  member object, `drive->b.v0()`); cl 7.1 calls through the vftable, and the object's real class is one the source's
+  stand-in doesn't show. `devirt()` finds such callees (a virtual method's MS mangling, not defined in the TU, not
+  bound by the map, an `// equiv-map:` hint or its name), appends a probe per method to the TU (`p->m(args)`,
+  compiled as the virtual call it is, cached in `build/wasm/devirt/`) and sends the calls there: 31 methods in 24
+  TUs. With START pressed (`HULK_INPUT`) the game now leaves the idle screen and runs on (20,000 frames, no stop;
+  about 1,400 frames/s under node after the press, 6,900 before it). Still open there: it opens
+  `D:\\sound\\scripts\\(null).obj` (a name that comes out null).
 - 2026-11-21 (milestone 2, first part): under node the game runs its 457 static initializers, main, the platform
   and content start-up (threads, the loader fiber, the RCF mounts) and presents frames; it stops in the World's
   set-up (0x00088670 -> ... 0x00272fc0, a memory fault). Found on the way: XGetDiskSectorSizeA("D:\\") must be 2048

@@ -60,7 +60,7 @@ FRONT = (["--target=i686-pc-windows-msvc", "-fms-extensions", "-fms-compatibilit
             "-w", "-DHULK_WASM=1"])
 BACK = ["--target=wasm32-unknown-emscripten", "-O1", "-c", "-Wno-override-module"]
 HOST_CFLAGS = ["-O1", "-Wall", "-Wextra", "-Werror"]
-VERSION = "wasm1-8"          # bump when bind_tu() changes (object cache key)
+VERSION = "wasm2-1"          # bump when bind_tu() changes (object cache key)
 SYNTH = 0xF0000000
 
 # library code inside .text (tools/platform_map.py) and the library sections after it
@@ -372,10 +372,119 @@ def adjustors(img):
     return out
 
 
-def load_tu(tu, addrs):
+# ---------------------------------------------------------------------------------------------- devirtualized calls
+# A direct call clang made to a virtual method cl 7.1 calls through the vftable: clang devirtualizes a call on an
+# object whose type it knows (a member object, `drive->b.v0()`), cl doesn't, and the object's real class is one the
+# source doesn't show (a stand-in record). Such a callee is a virtual method (MS mangling: E/F private, M/N protected,
+# U/V public) the TU doesn't define and nothing binds (a direct call cl made is a relocation the map binds). Clang
+# itself says how the virtual call goes: a probe compiled with the TU, `p->m(args)`, and the call goes there
+# (fusion-frenzy-decomp's wasm port).
+VIRTUAL = re.compile(r'^\?([A-Za-z_]\w*)@((?:[A-Za-z_]\w*@)+)@[EFMNUV]')
+VPROBE = re.compile(r'(?:public|protected|private): virtual (.*?)__thiscall ((?:\w+::)*\w+)::(\w+)\((.*)\)( const)?$')
+
+
+def split_top_args(s):
+    """'float, struct Vec *, int (__cdecl *)(int, int)' -> its top-level comma-separated parts."""
+    out, depth, cur = [], 0, ""
+    for ch in s:
+        if ch in "(<[":
+            depth += 1
+        elif ch in ")>]":
+            depth -= 1
+        if ch == "," and depth == 0:
+            out.append(cur.strip())
+            cur = ""
+        else:
+            cur += ch
+    return out + [cur.strip()] if cur.strip() else out
+
+
+def _probe_front(tu, probes, key):
+    """IR path of TU compiled with PROBES appended (cached), or None when it doesn't compile."""
+    d = os.path.join(OUT, "devirt")
+    os.makedirs(d, exist_ok=True)
+    ll = os.path.join(d, "%s.%s.ll" % (flat(tu)[-80:], key))
+    if os.path.exists(ll):
+        return ll
+    if os.path.exists(ll + ".fail"):
+        return None
+    cpp = ll[:-3] + ".cpp"
+    # (the TU by #include keeps its own directory's includes)
+    open(cpp, "w").write('#include "%s"\n// wasm_port: devirtualized calls made virtual again\n%s\n'
+                         % (os.path.join(SNAP, tu), "\n".join(probes)))
+    cmd = [CLANG] + FRONT + ["-I" + os.path.join(SNAP, "include"), "-I" + os.path.join(SNAP, "repo-include"),
+                             cpp, "-o", ll + ".tmp"]
+    r = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
+    if r.returncode:
+        open(ll + ".fail", "w").write(r.stderr[-4000:])
+        return None
+    os.replace(ll + ".tmp", ll)
+    return ll
+
+
+def devirt(ir, tu, notes=None):
+    """IR of TU with clang's devirtualized calls (see VIRTUAL) made virtual again, through probes."""
+    defined = set(irname(t) for t in re.findall(r'^define [^@\n]*(' + NAME + r')\(', ir, re.M))
+    called = set(irname(t) for t in re.findall(r'\bcall [^@%\n]*(' + NAME + r')\(', ir))
+    bound = tu_bindings(tu)
+    hints = set(re.findall(r"^// equiv-map: (\S+) = 0x", open(os.path.join(SNAP, tu), errors="replace").read(), re.M))
+    cand = sorted(n for n in called if VIRTUAL.match(n) and n not in defined and n not in bound and n not in hints
+                  and unwrap(n) not in hints and name_address(n) is None)
+    if not cand:
+        return ir
+    tag = hashlib.sha1(tu.encode()).hexdigest()[:8]
+    probes = {}
+    for k, (n, d) in enumerate(sorted(undname(set(cand)).items())):
+        m = VPROBE.search(d)
+        if not m or "`" in d:
+            if notes is not None:
+                notes["devirt: not probed (name)"] += 1
+            continue
+        ret, cls, meth, args, const = m.group(1).strip(), m.group(2), m.group(3), m.group(4), m.group(5)
+        params = [] if args in ("", "void") else split_top_args(args)
+        if "..." in params:
+            continue
+        sig = ", ".join(["%s%s* p" % (cls, " const" if const else "")] +
+                        ["%s a%d" % (t, i) for i, t in enumerate(params)])
+        call = "p->%s(%s)" % (meth, ", ".join("a%d" % i for i in range(len(params))))
+        pr = "__ff_vprobe_%s_%d" % (tag, k)
+        probes[n] = (pr, 'extern "C" %s %s(%s) { %s%s; }' % (ret, pr, sig, "" if ret == "void" else "return ", call))
+    if not probes:
+        return ir
+    base = tu_key(tu)
+
+    def key(ps):
+        return hashlib.sha1((base + "\n".join(ps)).encode()).hexdigest()[:16]
+    texts = ["// probes"] + [p for _, p in probes.values()]
+    ll = _probe_front(tu, texts, key(texts))
+    if ll is None:                      # find the probes that compile on their own
+        ok = {n: v for n, v in probes.items()
+              if _probe_front(tu, texts[:1] + [v[1]], key(texts[:1] + [v[1]])) is not None}
+        if notes is not None:
+            notes["devirt: probe failed"] += len(probes) - len(ok)
+        probes = ok
+        texts = texts[:1] + [p for _, p in probes.values()]
+        ll = _probe_front(tu, texts, key(texts)) if probes else None
+        if ll is None:
+            return ir
+    out = open(ll, errors="surrogateescape").read()
+    for n, (pr, _) in probes.items():
+        # an sret return puts the hidden pointer first for a free function and after `this` for a method
+        if re.search(r'^define [^\n]*@%s\([^)\n]*sret' % re.escape(pr), out, re.M):
+            if notes is not None:
+                notes["devirt: sret not probed"] += 1
+            continue
+        out = re.sub(r'(\bcall )(?:x86_thiscallcc )?([^@%%\n]*)%s\(' % re.escape(at(n)),
+                     lambda m, pr=pr: m.group(1) + m.group(2) + "@" + pr + "(", out)
+        if notes is not None:
+            notes["devirt: calls made virtual"] += 1
+    return out
+
+
+def load_tu(tu, addrs, notes=None):
     """(prepared IR, mains, same) of a TU; a block that is a scalar deleting destructor clang didn't emit (it emits
     one only with its vftable) gets one in IR (wasm_ir.deleting_dtor)."""
-    ir = prepare(open(front(tu), errors="surrogateescape").read())
+    ir = prepare(devirt(open(front(tu), errors="surrogateescape").read(), tu, notes))
     m = binding_map()["definitions"]
     pins = block_syms()
     # (an adjustor thunk's block is a stand-in that makes cl emit the thunk; the link writes its entry: adjustors())
@@ -769,7 +878,8 @@ def compile_tu(job):
     tu, tu_index, addrs = job
     game, defsig, deftys = _G["game"], _G["defsig"], _G["deftys"]
     try:
-        ir, mains, same = load_tu(tu, addrs)
+        dv = collections.Counter()
+        ir, mains, same = load_tu(tu, addrs, dv)
         text, info = bind_tu(ir, tu, tu_index, mains, same, tu_bindings(tu), game, defsig, deftys)
         d = os.path.join(OUT, "obj")
         os.makedirs(d, exist_ok=True)
@@ -779,6 +889,7 @@ def compile_tu(job):
                            errors="replace")
         if r.returncode:
             return tu, None, "back: " + "\n".join(x for x in r.stderr.splitlines() if "error" in x)[:800]
+        info["notes"].update(dv)
         info["missing_blocks"] = sorted("0x%08x" % a for a in set(addrs) - set(mains.values()) - set(same))
         return tu, info, None
     except Exception as e:      # noqa: BLE001
