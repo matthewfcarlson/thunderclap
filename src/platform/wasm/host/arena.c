@@ -78,6 +78,19 @@ void* ff_arena_alloc(uint32_t n, uint32_t align) {
         return (void*)(uintptr_t)p;
     }
     fprintf(stderr, "hulk: game arena out of memory (wanted %u bytes)\n", n);
+    static int shown;
+    if (!shown++) {
+        uint32_t used = 0, nused = 0, big[8] = {0};
+        for (uint32_t a = BASE; a < END; a += at(a)->size)
+            if (at(a)->flags == USED) {
+                used += at(a)->size;
+                nused++;
+                for (int k = 0; k < 8; k++)
+                    if (at(a)->size > big[k]) { memmove(big + k + 1, big + k, (7 - k) * 4); big[k] = at(a)->size; break; }
+            }
+        fprintf(stderr, "hulk: arena: %u blocks, %u bytes used; largest %u %u %u %u %u %u %u %u\n", nused, used, big[0],
+                big[1], big[2], big[3], big[4], big[5], big[6], big[7]);
+    }
     return NULL;
 }
 

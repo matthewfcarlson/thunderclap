@@ -17,7 +17,7 @@ static int trace = -1;
 
 /* a resource is { Common, Data, Lock }; pixel containers add { Format, Size }; ours add the parent (a surface of a
  * texture level) and the byte size */
-typedef struct { uint32_t common, data, lock, format, size, parent, bytes; } res;
+typedef struct { uint32_t common, data, lock, format, size, parent, bytes, owned; } res;
 #define COMMON(type) (1u | ((uint32_t)(type) << 16))
 enum { T_VB = 0, T_IB = 1, T_PALETTE = 3, T_TEXTURE = 4, T_SURFACE = 5 };
 
@@ -88,6 +88,7 @@ static uint32_t new_texture(uint32_t w, uint32_t h, uint32_t levels, uint32_t fm
     }
     r->bytes = level_offset(fmt, w, h, levels) + 64;
     r->data = arena(r->bytes);
+    r->owned = 1;
     return (uint32_t)(uintptr_t)r;
 }
 static uint32_t fmt_of(const res* r) { return (r->format >> 8) & 0xff; }
@@ -104,6 +105,7 @@ static uint32_t surface_of(uint32_t tex, uint32_t level) {
     h = h >> level ? h >> level : 1;
     s->size = (w - 1) | (h - 1) << 12;
     s->parent = tex;
+    s->owned = 2;               /* (the header is ours; the texels are the texture's) */
     return (uint32_t)(uintptr_t)s;
 }
 
@@ -276,13 +278,20 @@ FFG(003828f0) {                                                                 
     res* r = R(ARG(0));
     if (!r) { RET(0); return; }
     if (r->common & 0xffff) r->common--;
-    RET(r->common & 0xffff);
+    uint32_t left = r->common & 0xffff;
+    if (!left && r->owned && ARG(0) != SIM->d3d_back && ARG(0) != SIM->d3d_depth) {
+        if (r->owned == 1) ff_arena_free(PTR(r->data));
+        r->owned = 0;
+        ff_arena_free(r);
+    }
+    RET(left);
 }
 static uint32_t new_buffer(uint32_t n, int type) {
     res* r = PTR(arena(sizeof(res)));
     r->common = COMMON(type);
     r->bytes = n;
     r->data = arena(n);
+    r->owned = 1;
     return (uint32_t)(uintptr_t)r;
 }
 FFG(00382ce0) { UNUSED; RET(new_buffer(ARG(0), T_IB)); }                      /* CreateIndexBuffer2(bytes) */

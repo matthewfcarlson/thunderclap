@@ -53,8 +53,10 @@ committed).
      caller's argument block: both sides are compiled here.
 4. **Link** (`emcc`): `glue.c` holds the dispatch table, the `jmp` thunks resolved from the XBE's bytes, and a trapping
    stub per generic entry nothing defines; names nothing defines get trapping stubs of their declared type.
-   Emscripten's static data starts at 128 MB (`GLOBAL_BASE`), so the image (0x10000..0x589860), the game stack
-   (0xE00000..0xF00000), the sim block (0xF00000) and the game arena (16..128 MB) are free for the game.
+   Emscripten's static data starts at 1 GB (`GLOBAL_BASE`), so the image (0x10000..0x589860), the game stack
+   (0xE00000..0xF00000), the sim block (0xF00000) and the game arena (16 MB..1 GB) are free for the game. A block that
+   is a this-adjustor thunk (`sub ecx, n; jmp target`, a pin `@@W4AE...`: its source is a stand-in that makes cl emit
+   the thunk) gets its entry from the XBE's bytes instead: `this` moves by n and the call goes on to the target.
 
 ## The host (`src/platform/wasm/host/`)
 
@@ -108,7 +110,16 @@ the area has the x86 layout. The host's printf family reads a `va_list` as x86 s
 
 ## Status
 
-- 2026-11-21 (milestone 2, in progress): under node the game runs its 457 static initializers, main, the platform
+- 2026-11-21 (milestones 2 and 3): the game boots under node to its main loop (CGame's tick 0x87940 -> 0x86cb0 ->
+  the render manager 0x1b93a0 -> Swap) and presents frames on the null renderer: 20,000 frames run without a stop.
+  Two runs give the same state hash at frame 10,000 (the image's data, the game stack, the sim block and the arena:
+  26.9 MB). Under node (V8's JIT, Asyncify build): about 5,000-6,000 frames/s in the steady state (3,100 frames/s
+  over the first 10,000 frames, start-up included); a full snapshot of the state (memcpy) 1.2 ms, a restore 1.0 ms.
+  Which screen the game shows is not checked yet (no renderer). What it took after the first frames: the
+  anti-piracy sector size, this-adjustor thunks (17 blocks), `inalloca` blocks as `byval` (laid out where x86 has
+  them, so a caller that declares the arguments one by one meets them), the TU's `// equiv-map:` hints for names the
+  map lacks, a time slice for threads that poll the clock, a 1 GB arena and resources freed at their last Release.
+- 2026-11-21 (milestone 2, first part): under node the game runs its 457 static initializers, main, the platform
   and content start-up (threads, the loader fiber, the RCF mounts) and presents frames; it stops in the World's
   set-up (0x00088670 -> ... 0x00272fc0, a memory fault). Found on the way: XGetDiskSectorSizeA("D:\\") must be 2048
   or the game shows TBS_STOP_PIRATING forever; the Xbox gamma ramp is 768 bytes; the vblank callback 0x31acc0 has no

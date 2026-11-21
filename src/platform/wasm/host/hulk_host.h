@@ -35,9 +35,10 @@ void ff_trace_host_(const char* fn, void* st);
 #define HULK_XC_A 0x0048ca90u
 #define HULK_XC_Z 0x0048d4f4u
 #define HULK_MAIN 0x0008ee30u
-/* the game arena: memory the game is handed and keeps pointers to (16..128 MB, below Emscripten's static data) */
+/* the game arena: memory the game is handed and keeps pointers to (16 MB..1 GB, below Emscripten's static data;
+ * a snapshot covers it up to its top) */
 #define ARENA_LO (16u << 20)
-#define ARENA_HI (128u << 20)
+#define ARENA_HI (1024u << 20)
 /* addresses that are no game code: kernel imports and host methods (ff_dispatch_miss) */
 #define KERNEL_FN 0xE0000000u
 #define HOST_FN 0xE1000000u

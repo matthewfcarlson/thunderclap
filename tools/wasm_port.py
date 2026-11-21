@@ -60,7 +60,7 @@ FRONT = (["--target=i686-pc-windows-msvc", "-fms-extensions", "-fms-compatibilit
             "-w", "-DHULK_WASM=1"])
 BACK = ["--target=wasm32-unknown-emscripten", "-O1", "-c", "-Wno-override-module"]
 HOST_CFLAGS = ["-O1", "-Wall", "-Wextra", "-Werror"]
-VERSION = "wasm1-5"          # bump when bind_tu() changes (object cache key)
+VERSION = "wasm1-8"          # bump when bind_tu() changes (object cache key)
 SYNTH = 0xF0000000
 
 # library code inside .text (tools/platform_map.py) and the library sections after it
@@ -115,6 +115,11 @@ def tu_bindings(tu):
             for s in coff_names(n):
                 out[s] = int(a, 16)
     return out
+
+
+def unwrap(n):
+    """A mangled name without the tree's wrapping namespaces: `?f@X@fn_0001d1e0@@...` -> `?f@X@@...`."""
+    return re.sub(r"@fn_[0-9a-f]{8}(?=@)", "", n)
 
 
 HEX_NAME = re.compile(r'(?<![0-9A-Za-z])(?:FUN|DAT|LAB|PTR_DAT|PTR_FUN|PTR_LAB|thunk_FUN)_([0-9a-fA-F]{8})(?![0-9A-Za-z])')
@@ -190,12 +195,14 @@ def strip_attr(text, attr):
 
 
 def strip_inalloca(ir):
-    """MS i686 passes a by-value object with a copy constructor or destructor `inalloca` (built in the caller's outgoing
-    argument area); WebAssembly has no such thing. Both sides of a call are compiled here, so the argument block
-    becomes an ordinary pointer to the caller's alloca: the same bytes, the same lifetime (to the stackrestore)."""
+    """MS i686 passes a by-value object with a copy constructor or destructor `inalloca`: the caller builds the
+    whole stack-argument block (a packed struct in x86 stack layout) and passes it; WebAssembly has no such thing.
+    The block becomes a `byval` argument: a direct call copies it, and a packer / generic entry lays it at the
+    stack area's start, so a caller that declares the arguments one by one (or the reverse) still meets them where
+    x86 had them. (The copy is bitwise; the callee destroys it, as it destroys the block.)"""
     if "inalloca" not in ir:
         return ir
-    return strip_attr(ir.replace("alloca inalloca ", "alloca "), "inalloca")
+    return ir.replace("alloca inalloca ", "alloca ").replace("inalloca(", "byval(")
 
 
 def fix_va_frames(ir, notes=None):
@@ -350,13 +357,30 @@ def tu_mains(tu, ir, defmap, alt=None):
     return out, same
 
 
+ADJUSTOR = re.compile(r"@@[WO]\d")
+
+
+def adjustors(img):
+    """{addr: (target, ecx adjustment)} of the blocks that are this-adjustor thunks (`sub ecx, n; jmp target`), from
+    the XBE's bytes."""
+    out = {}
+    for a, sym in block_syms().items():
+        if ADJUSTOR.search(sym):
+            b = img.read(a, 8)
+            if b[0:2] == b"\x83\xe9" and b[3] == 0xE9:
+                out[a] = ((a + 8 + int.from_bytes(b[4:8], "little", signed=True)) & 0xFFFFFFFF, b[2])
+    return out
+
+
 def load_tu(tu, addrs):
     """(prepared IR, mains, same) of a TU; a block that is a scalar deleting destructor clang didn't emit (it emits
     one only with its vftable) gets one in IR (wasm_ir.deleting_dtor)."""
     ir = prepare(open(front(tu), errors="surrogateescape").read())
     m = binding_map()["definitions"]
     pins = block_syms()
-    defmap = {a: pins.get(a) or m.get("0x%08x" % a) for a in addrs if pins.get(a) or "0x%08x" % a in m}
+    # (an adjustor thunk's block is a stand-in that makes cl emit the thunk; the link writes its entry: adjustors())
+    defmap = {a: pins.get(a) or m.get("0x%08x" % a) for a in addrs
+              if (pins.get(a) or "0x%08x" % a in m) and not ADJUSTOR.search(pins.get(a) or "")}
     alt = {a: m["0x%08x" % a] for a in addrs if "0x%08x" % a in m and m["0x%08x" % a] != defmap.get(a)}
     mains, same = tu_mains(tu, ir, defmap, alt)
     found = set(mains.values()) | set(same)
@@ -482,7 +506,20 @@ def bind_tu(ir, tu, tu_index, mains, same, bound, game, defsig, deftys):
             m = re.match("(" + NAME + r") = ", l)
             if m:
                 gdefs[irname(m.group(1))] = k
-    # names the map doesn't bind that spell an address
+    # names the map doesn't bind: the TU's `// equiv-map: NAME = 0xADDR` hints (also for the name without the tree's
+    # wrapping namespaces, `@fn_<hex>`), then a name that spells an address
+    hints = {}
+    for m in re.finditer(r"^// equiv-map: (\S+) = (0x[0-9a-fA-F]+)", open(os.path.join(SNAP, tu), errors="replace").read(),
+                         re.M):
+        hints[m.group(1)] = int(m.group(2), 16)
+    for n in list(decls) + [g for g in gdefs if re.search(r" = (?:\w+ )*external ", lines[gdefs[g]])]:
+        if n in bound or n.startswith("llvm."):
+            continue
+        u = unwrap(n)
+        a = hints.get(n, hints.get(u))
+        if a is not None and (n in decls) == is_code(a):
+            bound[n] = a
+            notes["bound by equiv-map / unwrapped name"] += 1
     for n in list(decls) + [g for g in gdefs if re.search(r" = (?:\w+ )*external ", lines[gdefs[g]])]:
         if n not in bound and not n.startswith("llvm."):
             a = name_address(n)
@@ -899,14 +936,16 @@ def cmd_link(a):
         for m in re.finditer(r"^declare (.*?)@(ff_[0-9a-f]{8})\((.*)\)\s*$",
                              open(os.path.join(OUT, "obj", flat(t) + ".ll"), errors="surrogateescape").read(), re.M):
             decl_types.setdefault(m.group(2), (ret_type(m.group(1)), split_top(m.group(3))))
+    adj = adjustors(img)
     c = ["#include <stdint.h>", "void ff_unbound(uint32_t, const char*);",
+         "void ff_dispatch(uint32_t, uint32_t, uint32_t, void*, void*);",
          "void ff_dispatch_miss(uint32_t, uint32_t, uint32_t, void*, void*);",
          "typedef void (*ffg_t)(uint32_t, uint32_t, void*, void*);"]
     stubs, thunks = {}, {}
     entries = set(x for x in defined | host_defs if re.fullmatch(r"ffg_[0-9a-f]{8}", x))
     for x in sorted(undefined):
         m = re.fullmatch(r"(ffg?)_([0-9a-f]{8})", x)
-        if not m or x in host_defs:
+        if not m or x in host_defs or (m.group(1) == "ffg" and int(m.group(2), 16) in adj):
             continue
         ad = int(m.group(2), 16)
         t = thunk_target(img, ad)
@@ -932,6 +971,16 @@ def cmd_link(a):
                                                   (", ..." if "..." in params else "")) or "void",
                 "".join("(void)a%d; " % i for i in range(len(ps))), ad, label,
                 "" if ret == "void" else "return 0; "))
+    # this-adjustor thunks: the entry moves `this` and goes on to the target
+    for ad, (t, n) in sorted(adj.items()):
+        x = "ffg_%08x" % ad
+        if x in defined | host_defs:
+            continue
+        stubs.pop(x, None)
+        c.append("void %s(uint32_t ecx, uint32_t edx, void* st, void* rb) { ff_dispatch(0x%08x, ecx - %d, edx, st, rb); }"
+                 % (x, t, n))
+        thunks[x] = t
+        entries.add(x)
     # jmp thunks reached only as addresses (vftable slots) get dispatch entries too
     for ad, (nm_, thunk) in sorted(names.items()):
         x = "ffg_%08x" % ad
@@ -982,7 +1031,7 @@ void ff_dispatch(uint32_t a, uint32_t ecx, uint32_t edx, void* st, void* rb) {
 
     def run(extra, final):
         cmd = [EMCC, "-O1", "@" + rsp] + host_objs + extra + [
-            "-o", out, "-sGLOBAL_BASE=%d" % (128 << 20), "-sINITIAL_MEMORY=%d" % (512 << 20),
+            "-o", out, "-sGLOBAL_BASE=%d" % (1024 << 20), "-sINITIAL_MEMORY=%d" % (1536 << 20),
             "-sALLOW_MEMORY_GROWTH=0", "-sSTACK_SIZE=%d" % (4 << 20), "-sNODERAWFS=1", "-sEXIT_RUNTIME=1",
             "-Wl,--no-demangle", "-Wl,--error-limit=0", "--profiling-funcs", "-sASYNCIFY=1",
             "-sASYNCIFY_STACK_SIZE=65536"]

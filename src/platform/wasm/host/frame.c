@@ -7,6 +7,47 @@
 #include "sim.h"
 
 static double t0, t_last;
+
+/* the game state: the image's data (.data and the sections after it, .bss included), the game stack, the sim block
+ * and the arena up to its top (docs/wasm-port.md "State") */
+#define STATE_DATA_LO 0x0048ca80u
+static uint64_t fnv(const uint8_t* p, uint32_t n, uint64_t h) {
+    for (uint32_t i = 0; i < n; i++) h = (h ^ p[i]) * 0x100000001b3ull;
+    return h;
+}
+uint64_t ff_state_hash(void) {
+    uint64_t h = 0xcbf29ce484222325ull;
+    h = fnv(PTR(STATE_DATA_LO), XBE_END - STATE_DATA_LO, h);
+    h = fnv(PTR(0x00E00000u), 0x00100000u + sizeof(hulk_sim), h);
+    h = fnv(PTR(ARENA_LO), ff_arena_top() - ARENA_LO, h);
+    return h;
+}
+uint32_t ff_state_bytes(void) { return (XBE_END - STATE_DATA_LO) + 0x00100000u + sizeof(hulk_sim) + (ff_arena_top() - ARENA_LO); }
+/* a snapshot and a restore of the whole state (timing only: HULK_SNAPTEST) */
+static void snap_test(void) {
+    uint32_t n = ff_state_bytes();
+    uint8_t* buf = malloc(n);
+    if (!buf) return;
+    double a = emscripten_get_now();
+    int reps = 20;
+    for (int r = 0; r < reps; r++) {
+        uint8_t* q = buf;
+        memcpy(q, PTR(STATE_DATA_LO), XBE_END - STATE_DATA_LO); q += XBE_END - STATE_DATA_LO;
+        memcpy(q, PTR(0x00E00000u), 0x00100000u + sizeof(hulk_sim)); q += 0x00100000u + sizeof(hulk_sim);
+        memcpy(q, PTR(ARENA_LO), ff_arena_top() - ARENA_LO);
+    }
+    double b = emscripten_get_now();
+    for (int r = 0; r < reps; r++) {
+        uint8_t* q = buf;
+        memcpy(PTR(STATE_DATA_LO), q, XBE_END - STATE_DATA_LO); q += XBE_END - STATE_DATA_LO;
+        memcpy(PTR(0x00E00000u), q, 0x00100000u + sizeof(hulk_sim)); q += 0x00100000u + sizeof(hulk_sim);
+        memcpy(PTR(ARENA_LO), q, ff_arena_top() - ARENA_LO);
+    }
+    double c = emscripten_get_now();
+    fprintf(stderr, "hulk: state %.1f MB: snapshot %.2f ms, restore %.2f ms, hash 0x%016llx\n", n / 1048576.0,
+            (b - a) / reps, (c - b) / reps, (unsigned long long)ff_state_hash());
+    free(buf);
+}
 void ff_frame_end(void) {
     static long limit = -1, every = 0;
     if (limit < 0) {
@@ -27,6 +68,8 @@ void ff_frame_end(void) {
     if (limit && SIM->frame >= (uint32_t)limit) {
         void ff_dump_threads(void);
         if (getenv("HULK_THREADS")) ff_dump_threads();
+        if (getenv("HULK_SNAPTEST")) snap_test();
+        else fprintf(stderr, "hulk: state hash 0x%016llx (%u bytes)\n", (unsigned long long)ff_state_hash(), ff_state_bytes());
         double now = emscripten_get_now();
         fprintf(stderr, "hulk: %u frames in %.2f s (%.0f frames/s)\n", SIM->frame, (now - t0) / 1000.0,
                 SIM->frame * 1000.0 / (now - t0));
