@@ -7,6 +7,8 @@
 #define TREE_TU_END }
 namespace fn_f001f594 {} using namespace fn_f001f594;
 #include "game/global.h"
+// (gfx2) __RTDynamicCast's own name (CRT, C linkage): the stand-ins below bound nothing natively
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f001f594 {
@@ -326,7 +328,6 @@ struct FELayout_e2130 {
     virtual void v21();
     virtual void v22();
 };
-extern "C" u32_e2130 __cdecl helper(hulk_uintptr, int, const void*, const void*, int);
 extern const char hulk_at_0049dba4[];
 extern const char hulk_at_0049f4f0[];
 class FELayout_e2160 {
@@ -615,7 +616,7 @@ bool SingleLayout::vfunc_13(int ) {
 void SingleLayout::vfunc_18(void* __p0) { hulk_uintptr x = (hulk_uintptr)__p0;
 
     (*(hulk_uintptr *)&this->f_40) = x;
-    (*(u32_e2130 *)&this->f_44) = helper(x, 0, hulk_at_0049dba4, hulk_at_0049f4f0, 0);
+    this->f_44 = (__RTDynamicCast((void*)(hulk_uintptr)(x), 0, (void*)(hulk_uintptr)(hulk_at_0049dba4), (void*)(hulk_uintptr)(hulk_at_0049f4f0), 0));
 }
 
 

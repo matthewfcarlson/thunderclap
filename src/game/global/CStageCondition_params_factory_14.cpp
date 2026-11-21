@@ -478,7 +478,7 @@ template <> inline ConditionFactoryCasterTemplate<CSmartPropWeaponTypeCondition>
 template <> inline ConditionFactoryCasterTemplate<CSmartPropWeaponizableTypeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8484; }
 template <> inline ConditionFactoryCasterTemplate<CStageCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f849c; }
 }
-struct Registry_553d0 { void FUN_00236760(void*); void FUN_002363f0(); };
+struct Registry_553d0 { bool FUN_00236760(void*); void FUN_002363f0(); };
 void* __cdecl FUN_002343e0(const char*, void*);
 void __cdecl FUN_00236940(Registry_553d0*);
 extern "C" void __cdecl FUN_00132620(void*);   // (decl1) as defined (GameStateCondition.cpp)
@@ -486,9 +486,9 @@ extern "C" void __cdecl FUN_001138d0(void *, void *);
 extern "C" void __cdecl FUN_00113a20(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
 extern "C" void __cdecl FUN_00113b10(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
 extern "C" void __cdecl FUN_00113b40(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
-extern "C" int __cdecl FUN_00113ab0(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" bool __cdecl FUN_00113ab0(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
 extern "C" void __cdecl FUN_001139f0(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
-extern "C" void* __cdecl FUN_00129fe0(void*);   // (decl1) as defined (TargetDirectionYCondition_16.cpp)
+extern "C" bool __cdecl FUN_00129fe0(void*);   // (decl1) as defined (TargetDirectionYCondition_16.cpp)
 extern "C" void __cdecl FUN_0012d450(void*);   // (decl1) as defined (ThreatDistanceCondition.cpp)
 extern "C" void __cdecl FUN_00113900(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
 extern "C" void __cdecl FUN_00113a80(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
@@ -497,7 +497,7 @@ extern "C" void __cdecl FUN_00113ae0(void*, const char*);   // (decl1) as define
 extern "C" void __cdecl FUN_00113990(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
 extern "C" void __cdecl FUN_0016cea0(void*);   // (decl1) as defined (ChargeCondition_2_13.cpp)
 extern "C" void __cdecl FUN_00142910(void*);   // (decl1) as defined (WallJumpAction.cpp)
-extern "C" void* __cdecl FUN_0018b310(void*);   // (decl1) as defined (PropMissionCriticalCondition_28.cpp)
+extern "C" bool __cdecl FUN_0018b310(void*);   // (decl1) as defined (PropMissionCriticalCondition_28.cpp)
 extern "C" void __cdecl FUN_0018e860(void*);   // (decl1) as defined (TimerCondition.cpp)
 extern "C" void __cdecl FUN_0013d3c0(void*);   // (decl1) as defined (AnimationVelocityScaledAction.cpp)
 extern "C" void __cdecl FUN_00163a20(void*);   // (decl1) as defined (HeliLocomotionAction_2.cpp)
@@ -943,7 +943,7 @@ template <> inline ConditionFactoryCasterTemplate<CStageCondition>::ConditionFac
 
 }
 struct Registry_55d80 {
-    void FUN_00236760(void*);
+    bool FUN_00236760(void*);
     void FUN_002363f0();
 };
 extern void* __cdecl FUN_002343e0(const char*, fight::ConditionFactoryCasterTemplate<CAlertStatusCondition>*);
@@ -997,7 +997,7 @@ extern "C" void __cdecl FUN_001139f0(void*, const char*);   // (decl1) as define
 extern "C" void __cdecl FUN_00113a20(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
 extern "C" void __cdecl FUN_00113a50(Registry_55d80*, const char*);
 extern "C" void __cdecl FUN_00113a80(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
-extern "C" int __cdecl FUN_00113ab0(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" bool __cdecl FUN_00113ab0(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
 extern "C" void __cdecl FUN_00113ae0(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
 extern "C" void __cdecl FUN_00113b10(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
 extern "C" void __cdecl FUN_00113b40(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
@@ -1007,7 +1007,7 @@ extern "C" void __cdecl FUN_0011a9b0(void*, const char*);   // (decl1) as define
 extern "C" void __cdecl FUN_0011a9e0(void*, const char*);   // (decl1) as defined (MotionClosestWaypointAction_2.cpp)
 extern "C" void __cdecl FUN_0011aa10(void*, const char*);   // (decl1) as defined (MotionClosestWaypointAction_2.cpp)
 extern "C" void __cdecl FUN_00122b70(Registry_55d80*, const char*);
-extern "C" void* __cdecl FUN_00129fe0(void*);   // (decl1) as defined (TargetDirectionYCondition_16.cpp)
+extern "C" bool __cdecl FUN_00129fe0(void*);   // (decl1) as defined (TargetDirectionYCondition_16.cpp)
 extern "C" void __cdecl FUN_0012d450(void*);   // (decl1) as defined (ThreatDistanceCondition.cpp)
 extern "C" void __cdecl FUN_00132620(void*);   // (decl1) as defined (GameStateCondition.cpp)
 extern "C" void __cdecl FUN_0013d3c0(void*);   // (decl1) as defined (AnimationVelocityScaledAction.cpp)
@@ -1016,7 +1016,7 @@ extern "C" void __cdecl FUN_0014bb60(void*);   // (decl1) as defined (GrappleThr
 extern "C" void __cdecl FUN_00158c20(void*);   // (decl1) as defined (InterruptAccumulatorCondition_19.cpp)
 extern "C" void __cdecl FUN_00163a20(void*);   // (decl1) as defined (HeliLocomotionAction_2.cpp)
 extern "C" void __cdecl FUN_0016cea0(void*);   // (decl1) as defined (ChargeCondition_2_13.cpp)
-extern "C" void* __cdecl FUN_0018b310(void*);   // (decl1) as defined (PropMissionCriticalCondition_28.cpp)
+extern "C" bool __cdecl FUN_0018b310(void*);   // (decl1) as defined (PropMissionCriticalCondition_28.cpp)
 extern "C" void __cdecl FUN_0018e860(void*);   // (decl1) as defined (TimerCondition.cpp)
 extern "C" void __cdecl FUN_0019e3e0(void*);   // (decl1) as defined (FireProjectileAction_2.cpp)
 extern "C" void __cdecl FUN_001a1cf0(void*, const char*);   // (decl1) as defined (LuaCondition.cpp)
@@ -1245,7 +1245,7 @@ template <> inline ConditionFactoryCasterTemplate<CLuaNumberCondition>::Conditio
 
 } // namespace fight
 struct Registry_56460 {
-    void FUN_00236760(void*);
+    bool FUN_00236760(void*);
     void FUN_002363f0();
 };
 extern void __cdecl FUN_00236940(Registry_56460*);

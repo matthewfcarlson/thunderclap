@@ -92,7 +92,6 @@ class KeywordWaitTrack_111880 {};
 } }
 namespace fn_fee140f0 {
 extern char DAT_004a4750;
-extern "C" int __cdecl Find(void*, int, void*, void*, int);
 extern char DAT_004a47f0;
 } // namespace fn_fee140f0
 namespace fight {
@@ -798,7 +797,7 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::KeywordWaitTra
  // namespace hulkfight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::ButtonTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return Find(p, 0, &DAT_0049850c, &DAT_004a47f0, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&DAT_0049850c), (void*)(hulk_uintptr)(&DAT_004a47f0), 0)) != 0;
 }
 
 

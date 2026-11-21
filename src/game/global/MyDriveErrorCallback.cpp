@@ -135,23 +135,27 @@ namespace fn_f294a1a9 {
 
 // 0x0008e090 FUN_0008e090 (66 B): matches/0x0008e090.cpp
 // sym: ?FUN_0008e090@fn_f294a1a9@@YAHXZ
+struct Callback_8e090 {   // (gfx2) the vftable, then six flags (+8 natively: a 4-byte pad put them in the vftable)
+    void* vftable;
+    char b4, b5, b6, b7, b8, b9;
+};
 hulk_intptr FUN_0008e090() {
     if (DAT_004dd7e0 == 0) {
-        char* p = (char*)FUN_0008d690(0xc);
+        Callback_8e090* p = (Callback_8e090*)FUN_0008d690(sizeof(Callback_8e090));
         if (p != 0) {
-            p[5] = 0;
-            p[6] = 0;
-            p[7] = 0;
-            p[4] = 0;
-            p[8] = 0;
-            p[9] = 0;
-            *(hulk_uintptr*)p = ((hulk_intptr)DAT_00400870);
+            p->b5 = 0;
+            p->b6 = 0;
+            p->b7 = 0;
+            p->b4 = 0;
+            p->b8 = 0;
+            p->b9 = 0;
+            p->vftable = (void*)DAT_00400870;
         } else {
             p = 0;
         }
         DAT_004dd7e0 = p;
     }
-    return (int)(hulk_intptr)DAT_004dd7e0;
+    return (hulk_intptr)DAT_004dd7e0;
 }
 
 } // namespace fn_f294a1a9

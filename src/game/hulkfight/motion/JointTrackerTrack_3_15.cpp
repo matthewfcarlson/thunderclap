@@ -30,7 +30,6 @@ class SuckInPropsTrack_179860;
 } }
 namespace fn_f9830261 {
 extern char DAT_004baad0;
-extern "C" int __cdecl check(void*, int, const void*, const void*, int);
 } // namespace fn_f9830261
 namespace fight {
 class TrackFactoryCaster_179860 {
@@ -83,6 +82,6 @@ template bool fight::TrackFactoryCasterTemplate<hulkfight::motion::CriticalMassD
  // namespace fight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::SuckInPropsTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return check(p, 0, &DAT_0049850c, &DAT_004baad0, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&DAT_0049850c), (void*)(hulk_uintptr)(&DAT_004baad0), 0)) != 0;
 }
 

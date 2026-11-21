@@ -1295,7 +1295,6 @@ class ConditionFactoryCaster_149d50 {
 };
 }
 namespace fn_f1739f6f {
-extern "C" int __cdecl Find(void*, int, void*, void*, int);
 extern int a, hulk_at_004af2d8;
 extern char DAT_0049850c;
 extern char DAT_004af448;
@@ -1498,7 +1497,7 @@ class ConditionFactoryCasterTemplate_14b3f0 {   // (fix2) was polymorphic (virtu
 };
 class Target {
   public:
-    void Apply_00236760(void*);
+    bool FUN_00236760(void*);
 };
 void* FUN_002343e0(void*, ConditionFactoryCasterTemplate_14b3f0*);
 extern "C" char DAT_00413b88[];   // (fix2) the game's caster vftable
@@ -1509,9 +1508,7 @@ class TrackFactoryCasterTemplate_14b4b0 {   // (fix2) was polymorphic (virtual b
 };
 class Owner {
   public:
-    void Set_002367c0(void*);
-    void Add_002367c0(void*);
-    void set_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C" void* __cdecl FUN_00236ac0(const char*, TrackFactoryCasterTemplate_14b4b0*);
 extern "C" char DAT_00413b94[];   // (fix2) the game's caster vftable
@@ -1530,8 +1527,7 @@ class TrackFactoryCasterTemplate_14b510 {   // (fix2) was polymorphic (virtual b
 extern "C++" __declspec(nothrow) void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_14b510*);
 class Factory {
   public:
-    void* Create_002367c0(void*);
-    void Add_002367c0(Track*);
+    bool FUN_002367c0(void*);
 };
 extern "C" char DAT_00413bac[];   // (fix2) the game's caster vftable
 class TrackFactoryCasterTemplate_14b540 {   // (fix2) was polymorphic (virtual bool Fnf_00149f10(void*);): clang's vftable natively
@@ -1548,9 +1544,7 @@ class TrackFactoryCasterTemplate_14b570 {   // (fix2) was polymorphic (virtual i
 };
 class Obj {
   public:
-    void apply_002367c0(void*);
-    int Get_002367c0(void*);
-    void Set_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 void* __cdecl find_00236ac0(void*, TrackFactoryCasterTemplate_14b570*);
 extern "C" char DAT_00413bc4[];   // (fix2) the game's caster vftable
@@ -4815,7 +4809,7 @@ template <> bool fight::ConditionFactoryCasterTemplate<CivilianTargetCondition>:
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VGrappleOrientationCondition@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::GrappleOrientationCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return Find(p, 0, &a, &hulk_at_004af2d8, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&a), (void*)(hulk_uintptr)(&hulk_at_004af2d8), 0)) != 0;
 }
 
 
@@ -5569,7 +5563,7 @@ namespace fn_f1739f6f {
 void FUN_0014b3f0(Target* target, void* arg) {
     ConditionFactoryCasterTemplate_14b3f0 caster;
     void* result = FUN_002343e0(arg, &caster);
-    target->Apply_00236760(result);
+    target->FUN_00236760(result);
 }
 
 
@@ -5578,7 +5572,7 @@ void FUN_0014b3f0(Target* target, void* arg) {
 extern "C" void FUN_0014b4b0(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_14b4b0 caster;
     void* p = FUN_00236ac0(name, &caster);
-    owner->Set_002367c0(p);
+    owner->FUN_002367c0(p);
 }
 
 
@@ -5587,15 +5581,15 @@ extern "C" void FUN_0014b4b0(Owner* owner, const char* name) {
 extern "C" void FUN_0014b4e0(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_14b4e0 caster;
     void* p = FUN_00236ac0(name, &caster);
-    owner->Add_002367c0(p);
+    owner->FUN_002367c0(p);
 }
 
 
 // 0x0014b510 FUN_0014b510 (38 B): matches/0x0014b510.cpp
 // sym: _FUN_0014b510
-extern "C" void* FUN_0014b510(Factory* factory, const char* name) {
+extern "C" bool FUN_0014b510(Factory* factory, const char* name) {
     TrackFactoryCasterTemplate_14b510 caster;
-    return factory->Create_002367c0(FUN_00236ac0(name, &caster));
+    return factory->FUN_002367c0(FUN_00236ac0(name, &caster));
 }
 
 
@@ -5603,7 +5597,7 @@ extern "C" void* FUN_0014b510(Factory* factory, const char* name) {
 // sym: _FUN_0014b540
 extern "C" void __cdecl FUN_0014b540(Owner* o, const char* name) {
     TrackFactoryCasterTemplate_14b540 c;
-    o->set_002367c0(findTrack_00236ac0(name, &c));
+    o->FUN_002367c0(findTrack_00236ac0(name, &c));
 }
 
 
@@ -5611,15 +5605,15 @@ extern "C" void __cdecl FUN_0014b540(Owner* o, const char* name) {
 // sym: _FUN_0014b570
 extern "C" void FUN_0014b570(Obj* o, void* p) {
     TrackFactoryCasterTemplate_14b570 c;
-    o->apply_002367c0(find_00236ac0(p, &c));
+    o->FUN_002367c0(find_00236ac0(p, &c));
 }
 
 
 // 0x0014b5a0 FUN_0014b5a0 (38 B): matches/0x0014b5a0.cpp
 // sym: _FUN_0014b5a0
-extern "C" int __cdecl FUN_0014b5a0(Obj* obj, void* name) {
+extern "C" bool __cdecl FUN_0014b5a0(Obj* obj, void* name) {
     TrackFactoryCasterTemplate_14b5a0 caster;
-    return obj->Get_002367c0(FUN_00236ac0(name, &caster));
+    return obj->FUN_002367c0(FUN_00236ac0(name, &caster));
 }
 
 
@@ -5662,7 +5656,7 @@ namespace fn_f1739f6f {
 extern "C" void FUN_0014b960(Factory* factory, void* name) {
     TrackFactoryCasterTemplate_14b960 caster;
     Track* track = FUN_00236ac0(name, &caster);
-    factory->Add_002367c0(track);
+    factory->FUN_002367c0(track);
 }
 
 
@@ -5670,7 +5664,7 @@ extern "C" void FUN_0014b960(Factory* factory, void* name) {
 // sym: _FUN_0014b990
 extern "C" void FUN_0014b990(Obj* obj, void* name) {
     TrackFactoryCasterTemplate_14b990 c;
-    obj->Set_002367c0(FUN_00236ac0(name, &c));
+    obj->FUN_002367c0(FUN_00236ac0(name, &c));
 }
 
 } // namespace fn_f1739f6f
@@ -5698,7 +5692,7 @@ void FUN_0014b9c0()
 
 
 // 0x0014bb60 FUN_0014bb60 (179 B): equivalent/0x0014bb60.cpp [wrapped: conflict: fight::ConditionFactoryCasterTemplate]
-// sym: _FUN_0014bb60 @9235adbe083e @wa6365f1671c2 @v8c4822f9b6df
+// sym: _FUN_0014bb60 @9235adbe083e @wa6365f1671c2 @v33a43c9f1c3e
 namespace fn_0014bb60 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0014bb60 @ 0x0014bb60
@@ -5717,7 +5711,7 @@ template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::CivilianAtt
 template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::CivilianTargetCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00413b70; }
 }
 extern void* __cdecl FUN_002343e0(const char*, void*);
-struct Registry_14bb60 { void FUN_00236760(void*); };
+struct Registry_14bb60 { bool FUN_00236760(void*); };
 extern "C" void __cdecl FUN_0014bb60(Registry_14bb60* registry) {
  fight::ConditionFactoryCasterTemplate<hulkfight::motion::GrappleOrientationCondition> orientation;
  registry->FUN_00236760(FUN_002343e0("grappleOrientation", &orientation));

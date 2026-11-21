@@ -189,8 +189,7 @@ class Obj {
     int value;
     bool Set(int x);
     Result* get_001d03c0();
-    void apply_00236760(void*);
-    void set_00236760(void*);
+    bool FUN_00236760(void*);
 };
 extern char hulk_at_0041d3cc;
 struct Event_PathNameCondition_nv_1ab640 {
@@ -474,8 +473,7 @@ class ConditionFactoryCasterTemplate_1ac220 {   // (fix2) was polymorphic (virtu
 };
 class Owner {
   public:
-    void Apply_00236760(void*);
-    void Apply_00236760(int);
+    bool FUN_00236760(void*);
 };
 void* __cdecl FUN_002343e0(const char*, ConditionFactoryCasterTemplate_1ac220*);
 extern "C" char DAT_0041d600[];   // (fix2) the game's caster vftable
@@ -486,7 +484,7 @@ class ConditionFactoryCasterTemplate_1ac2b0 {   // (fix2) was polymorphic (virtu
 };
 class Arg {
   public:
-    void Do_00236760(void*);
+    bool FUN_00236760(void*);
 };
 extern void* Search_002343e0(void*, ConditionFactoryCasterTemplate_1ac2b0*);
 extern "C" char DAT_0041d60c[];   // (fix2) the game's caster vftable
@@ -518,7 +516,7 @@ class ConditionFactoryCasterTemplate_1ac580 {   // (fix2) was polymorphic (virtu
 };
 class Target {
   public:
-    void Apply_00236760(void*);
+    bool FUN_00236760(void*);
 };
 void* __cdecl Resolve_002343e0(const char*, ConditionFactoryCasterTemplate_1ac580*);
 extern "C" char DAT_0041d3ec[];
@@ -1939,7 +1937,7 @@ namespace fn_fc09f66d {
 // sym: _FUN_001ac220
 extern "C" void FUN_001ac220(Owner* owner, const char* name) {
     ConditionFactoryCasterTemplate_1ac220 c;
-    owner->Apply_00236760(FUN_002343e0(name, &c));
+    owner->FUN_00236760(FUN_002343e0(name, &c));
 }
 
 
@@ -1967,7 +1965,7 @@ namespace fn_fc09f66d {
 extern "C" void FUN_001ac2b0(Arg* obj, void* key) {
     ConditionFactoryCasterTemplate_1ac2b0 caster;
     void* result = Search_002343e0(key, &caster);
-    obj->Do_00236760(result);
+    obj->FUN_00236760(result);
 }
 
 
@@ -1975,7 +1973,7 @@ extern "C" void FUN_001ac2b0(Arg* obj, void* key) {
 // sym: _FUN_001ac2e0
 extern "C" void FUN_001ac2e0(Owner* owner, hulk_intptr id) {
     ConditionFactoryCasterTemplate_1ac2e0 c;
-    owner->Apply_00236760(FUN_002343e0(id, &c));
+    owner->FUN_00236760((void*)FUN_002343e0(id, &c));
 }
 
 
@@ -1983,7 +1981,7 @@ extern "C" void FUN_001ac2e0(Owner* owner, hulk_intptr id) {
 // sym: _FUN_001ac310
 extern "C" void FUN_001ac310(Obj* obj, void* arg) {
     ConditionFactoryCasterTemplate_1ac310 c;
-    obj->apply_00236760(FUN_002343e0(arg, &c));
+    obj->FUN_00236760(FUN_002343e0(arg, &c));
 }
 
 } // namespace fn_fc09f66d
@@ -1999,12 +1997,12 @@ class ConditionFactoryCasterTemplate_1ac340 {   // (fix2) was polymorphic (virtu
 };
 class Factory {
   public:
-    void apply_00236760(void*);
+    bool FUN_00236760(void*);
 };
 void* __cdecl find_002343e0(void*, ConditionFactoryCasterTemplate_1ac340*);
 extern "C" void __cdecl FUN_001ac340(Factory* f, void* name) {
     ConditionFactoryCasterTemplate_1ac340 caster;
-    f->apply_00236760(find_002343e0(name, &caster));
+    f->FUN_00236760(find_002343e0(name, &caster));
 }
 } // namespace fn_001ac340
 
@@ -2035,7 +2033,7 @@ namespace fn_fc09f66d {
 // sym: _FUN_001ac460
 extern "C" void __cdecl FUN_001ac460(Obj* obj, const char* name) {
     ConditionFactoryCasterTemplate_1ac460 caster;
-    obj->set_00236760(lookup_002343e0(name, &caster));
+    obj->FUN_00236760(lookup_002343e0(name, &caster));
 }
 
 
@@ -2064,7 +2062,7 @@ namespace fn_fc09f66d {
 // sym: _FUN_001ac580
 extern "C" void __cdecl FUN_001ac580(Target* obj, const char* name) {
     ConditionFactoryCasterTemplate_1ac580 caster;
-    obj->Apply_00236760(Resolve_002343e0(name, &caster));
+    obj->FUN_00236760(Resolve_002343e0(name, &caster));
 }
 
 } // namespace fn_fc09f66d

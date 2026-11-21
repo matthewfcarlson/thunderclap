@@ -751,9 +751,9 @@ template <class T> struct ParamName_12cd80 : Base_12cd80 {
 namespace fn_f9c2e0ac {
 extern "C" char DAT_00410ec0[];
 typedef unsigned int u32_12d0e0;
-extern u32_12d0e0 __cdecl FUN_002343e0(hulk_intptr, void*);   // (gfx1) the name as hulk_intptr (a pointer natively, as the definition takes it)
+extern hulk_uintptr __cdecl FUN_002343e0(hulk_intptr, void*);   // (gfx1) the name as hulk_intptr (a pointer natively, as the definition takes it)
 struct Obj_12d0e0 {
-    void Fn_00236760(u32_12d0e0);
+    bool FUN_00236760(void*);
 };
 struct Factory_12d0e0 {
     hulk_uintptr vft;
@@ -767,8 +767,7 @@ class TrackFactoryCasterTemplate_12d110 {   // (fix2) was polymorphic (virtual i
 extern "C" void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_12d110*);
 class Obj {
   public:
-    void* finish_002367c0(void*);
-    void apply_002367c0(int);
+    bool FUN_002367c0(void*);
 };
 extern "C" char DAT_00410ed8[];   // (fix2) the game's caster vftable
 class TrackFactoryCasterTemplate_12d2e0 {   // (fix2) was polymorphic (virtual bool Fnf_0012c850(void*);): clang's vftable natively
@@ -776,7 +775,7 @@ class TrackFactoryCasterTemplate_12d2e0 {   // (fix2) was polymorphic (virtual b
     void *vftable;
     TrackFactoryCasterTemplate_12d2e0() { vftable = DAT_00410ed8; }
 };
-extern "C++" hulk_intptr __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_12d2e0*);   // (gfx1) its own name: `find` stood for several functions natively (ambiguous binding)
+extern "C++" void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_12d2e0*);   // (gfx1) its own name: `find` stood for several functions natively (ambiguous binding)
 extern "C" char DAT_00410c34[];
 extern "C" void* __cdecl alloc(hulk_uintptr);
 struct ThreatDistanceCondition_12d530 {
@@ -2020,7 +2019,7 @@ template <> bool fight::ParamBool<hulkfight::ai::ThreatDodgeTrack>::vfunc_2() {
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VThreatCondition@ai@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::ThreatCondition>::vfunc_0(void* __p0) { Object_12c5b0 * p = (Object_12c5b0 *)__p0;
 
-    return DynamicCast(p, 0, &hulk_at_00491ca8, &hulk_at_004a9438, 0) != 0;
+    return __RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&hulk_at_00491ca8), (void*)(hulk_uintptr)(&hulk_at_004a9438), 0) != 0;
 }
 
 
@@ -2125,7 +2124,6 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::ShotFailCo
 // 0x0012c7b0 fight::TrackFactoryCasterTemplate<hulkfight::ai::ThreatBallTrack>::vfunc_0 (36 B): matches/0x0012c7b0.cpp [wrapped: conflict: fight::TrackFactoryCaster; fight::TrackFactoryCasterTemplate]
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VThreatBallTrack@ai@hulkfight@fn_0012c7b0@@@fight@fn_0012c7b0@@UAEHPAX@Z
 namespace fn_0012c7b0 {
-extern "C++" __declspec(nothrow) int __cdecl helper(void*, int, void*, void*, int);
 extern void* hulk_at_0049850c;
 extern void* hulk_at_004a9708;
 namespace fight {
@@ -2146,7 +2144,7 @@ class ThreatBallTrack;
 }
 } // namespace hulkfight
 template <> int fight::TrackFactoryCasterTemplate<hulkfight::ai::ThreatBallTrack>::vfunc_0(void* x) {
-    return helper(x, 0, &hulk_at_0049850c, &hulk_at_004a9708, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(x), 0, (void*)(hulk_uintptr)(&hulk_at_0049850c), (void*)(hulk_uintptr)(&hulk_at_004a9708), 0)) != 0;
 }
 } // namespace fn_0012c7b0
 
@@ -2530,20 +2528,20 @@ namespace fn_f9c2e0ac {
 
 // 0x0012d0e0 FUN_0012d0e0 (38 B): matches/0x0012d0e0.cpp
 // sym: ?target@fn_f9c2e0ac@@YAXPAUObj_12d0e0@1@I@Z
-void __cdecl target(Obj_12d0e0* a, u32_12d0e0 b) {
+void __cdecl target(Obj_12d0e0* a, hulk_uintptr b) {
     Factory_12d0e0 local;
     local.vft = ((hulk_intptr)DAT_00410ec0);
-    u32_12d0e0 x = FUN_002343e0(b, &local);
-    a->Fn_00236760(x);
+    hulk_uintptr x = FUN_002343e0(b, &local);
+    a->FUN_00236760((void*)x);
 }
 
 
 // 0x0012d110 FUN_0012d110 (38 B): matches/0x0012d110.cpp
 // sym: _FUN_0012d110
-extern "C" void* __cdecl FUN_0012d110(Obj* obj, void* name) {
+extern "C" bool __cdecl FUN_0012d110(Obj* obj, void* name) {
     TrackFactoryCasterTemplate_12d110 caster;
     void* found = FUN_00236ac0(name, &caster);
-    return obj->finish_002367c0(found);
+    return obj->FUN_002367c0(found);
 }
 
 
@@ -2576,7 +2574,7 @@ namespace fn_f9c2e0ac {
 // sym: _FUN_0012d2e0
 extern "C" void FUN_0012d2e0(Obj* o, void* p) {
     TrackFactoryCasterTemplate_12d2e0 c;
-    o->apply_002367c0(FUN_00236ac0(p, &c));
+    o->FUN_002367c0(FUN_00236ac0(p, &c));
 }
 
 } // namespace fn_f9c2e0ac
@@ -2616,7 +2614,7 @@ template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::ThreatCondition
 template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::ThreatAngleCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00410eb4; }
 template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::ThreatDistanceCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00410ea8; }
 template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::ShotFailCountCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00410ec0; } }
-struct Registry_12d450 { void FUN_00236760(void*); };
+struct Registry_12d450 { bool FUN_00236760(void*); };
 void* __cdecl FUN_002343e0(const char*, void*);
 extern "C" void __cdecl FUN_0012d450(Registry_12d450* r)
 {

@@ -7,12 +7,13 @@
 #define TREE_TU_END }
 namespace fn_f1775de3 {} using namespace fn_f1775de3;
 #include "game/hulkfight/motion.h"
+// (gfx2) __RTDynamicCast's own name (CRT, C linkage): the stand-ins below bound nothing natively
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f1775de3 {
 extern char DAT_0049850c;
 extern char DAT_004bab80;
-extern "C" int __cdecl check(void*, int, const void*, const void*, int);
 } // namespace fn_f1775de3
 namespace fight {
 class TrackFactoryCaster_1798e0 {
@@ -31,6 +32,6 @@ class TeleportRelativeTrack_1798e0;
  // namespace hulkfight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::TeleportRelativeTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return check(p, 0, &DAT_0049850c, &DAT_004bab80, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&DAT_0049850c), (void*)(hulk_uintptr)(&DAT_004bab80), 0)) != 0;
 }
 

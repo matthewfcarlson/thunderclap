@@ -48,7 +48,7 @@ class Obj {
     char _m_pad_0[0x19];
     char flag;
     bool SetFlag(char v);
-    void Use_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern int* hulk_at_004e0e44;
 class CCondition_12d9a0 {
@@ -495,7 +495,7 @@ template <> bool fight::ParamBool<hulkfight::PostEvent_StringTrack>::vfunc_2() {
 // 0x0012dc80 fight::TrackFactoryCasterTemplate<hulkfight::PostEvent_StringTrack>::vfunc_0 (36 B): matches/0x0012dc80.cpp
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VPostEvent_StringTrack@hulkfight@@@fight@@UAE_NPAX@Z
  // namespace fight
-template <> bool fight::TrackFactoryCasterTemplate<hulkfight::PostEvent_StringTrack>::vfunc_0(void* __p0) { int a = (int)__p0;
+template <> bool fight::TrackFactoryCasterTemplate<hulkfight::PostEvent_StringTrack>::vfunc_0(void* __p0) { hulk_intptr a = (hulk_intptr)__p0;   // (gfx2) the object, pointer-sized
 
     int result = FUN_00344e74(a, 0, (hulk_intptr)&DAT_0049850c, (hulk_intptr)&DAT_004a9b10, 0);
     return result != 0;
@@ -577,7 +577,7 @@ namespace fn_facdac2a {
 extern "C" void __cdecl FUN_0012de00(Obj* obj, void* key) {
     TrackFactoryCasterTemplate_12de00 caster;
     caster.vftable = (void*)DAT_0041116c;
-    obj->Use_002367c0(FUN_00236ac0(key, &caster));
+    obj->FUN_002367c0(FUN_00236ac0(key, &caster));
 }
 
 } // namespace fn_facdac2a

@@ -7,6 +7,8 @@
 #define TREE_TU_END }
 namespace fn_f356d859 {} using namespace fn_f356d859;
 #include "game/hulkfight/motion.h"
+// (gfx2) __RTDynamicCast's own name (CRT, C linkage): the stand-ins below bound nothing natively
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f356d859 {
@@ -14,7 +16,6 @@ struct Base {
     virtual bool Check(void*);
     virtual void other();
 };
-extern "C" int __cdecl Lookup(void*, int, void*, void*, int);
 extern void* hulk_at_0049850c;
 extern void* hulk_at_004bdd60;
 
@@ -24,6 +25,6 @@ extern void* hulk_at_004bdd60;
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VPropSetStateByNameTrack@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::PropSetStateByNameTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return Lookup(p, 0, &hulk_at_0049850c, &hulk_at_004bdd60, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&hulk_at_0049850c), (void*)(hulk_uintptr)(&hulk_at_004bdd60), 0)) != 0;
 }
 

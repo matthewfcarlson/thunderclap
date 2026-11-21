@@ -117,7 +117,7 @@ struct Track {
 };
 extern "C" Track* __cdecl FUN_00236ac0(hulk_intptr, Track*);   // (gfx1) the name as hulk_intptr (a pointer natively, as the definition takes it)
 struct Receiver_2380a0 {
-    void Finish_002367c0(Track*);
+    bool FUN_002367c0(void*);
 };
 } // namespace fn_f55fdae2
 inline void* __cdecl operator new(size_t, void* where) {
@@ -521,7 +521,7 @@ extern "C" void FUN_002380a0(Receiver_2380a0* c, hulk_intptr b) {
     Track t;
     *(void**)&t = hulk_at_004281ac;
     Track* p = FUN_00236ac0(b, &t);
-    c->Finish_002367c0(p);
+    c->FUN_002367c0(p);
 }
 
 } // namespace fn_f55fdae2

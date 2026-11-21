@@ -496,7 +496,7 @@ typedef unsigned int u32_1421d0;
 struct Helper_1421d0 {
     int run_0013f9c0(hulkfight::motion::WallRunTrack*, u32_1421d0);
 };
-extern int __cdecl FUN_00344e74(u32_1421d0, int, const void*, const void*, int);
+extern int __cdecl FUN_00344e74(hulk_intptr, int, const void*, const void*, int);
 extern void* __cdecl FUN_0008d690(unsigned int);
 extern const char hulk_at_00494b44[];
 extern const char hulk_at_00494b60[];
@@ -576,8 +576,7 @@ class TrackFactoryCasterTemplate_1424e0 {   // (fix2) was polymorphic (virtual b
 Track* __cdecl FUN_00236ac0(const char*, TrackFactoryCasterTemplate_1424e0*);
 class Owner {
   public:
-    void Set_002367c0(Track*);
-    void Add_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C" char DAT_00412d18[];   // (fix2) the game's caster vftable
 class TrackFactoryCasterTemplate_1428b0 {   // (fix2) was polymorphic (virtual bool Cast_001419d0(void*);): clang's vftable natively
@@ -587,7 +586,7 @@ class TrackFactoryCasterTemplate_1428b0 {   // (fix2) was polymorphic (virtual b
 };
 class Obj {
   public:
-    void Apply_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_1428b0*);
 extern "C" char DAT_00412d24[];   // (fix2) the game's caster vftable
@@ -607,7 +606,7 @@ struct Result;
 extern "C" Result* FUN_002343e0(const char*, ConditionFactoryCasterTemplate_142910*);
 class Manager {
   public:
-    void Add_00236760(Result*);
+    bool FUN_00236760(void*);
 };
 } // namespace fn_f8068520
 inline void* __cdecl operator new(size_t, void* where) {
@@ -3523,7 +3522,7 @@ WallRunAction_142220* WallRunAction_142220::f2(unsigned char flags) {
 // 0x00142280 hulkfight::motion::WallExitTrack::vfunc_10 (70 B): matches/0x00142280.cpp
 // sym: ?vfunc_10@WallExitTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::WallExitTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    if (IsType((void*)c, 0, &g1_142280, &g2, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)((void*)c), 0, (void*)(hulk_uintptr)(&g1_142280), (void*)(hulk_uintptr)(&g2), 0))) {
         Obj_142280* p = (Obj_142280*)Alloc_0008d690(0x4c);
         if (p)
             return p->Init_00140100(this, c);
@@ -3565,7 +3564,7 @@ void* WallExitAction_1422d0::vfunc_2(unsigned char flag) {
 // sym: ?vfunc_10@WallJumpTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::WallJumpTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { unsigned int a = (unsigned int)__p0; unsigned int b = (unsigned int)__p1; hulk_uintptr c = (unsigned int)__p2;
 
-    if (IsType((void*)c, 0, &(*(const int*)&DAT_00494b44), &(*(const int*)&DAT_00494b60), 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)((void*)c), 0, (void*)(hulk_uintptr)(&(*(const int*)&DAT_00494b44)), (void*)(hulk_uintptr)(&(*(const int*)&DAT_00494b60)), 0))) {
         Result_142330* r = (Result_142330*)MakeResult_0008d690((void*)0x50);
         if (r)
             return (int)(r->init_00140590(this, c));
@@ -3624,7 +3623,7 @@ namespace fn_f8068520 {
 extern "C" void __cdecl FUN_001424e0(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_1424e0 c;
     Track* t = FUN_00236ac0(name, &c);
-    owner->Set_002367c0(t);
+    owner->FUN_002367c0(t);
 }
 
 
@@ -3667,7 +3666,7 @@ namespace fn_f8068520 {
 // sym: _FUN_001428b0
 extern "C" void __cdecl FUN_001428b0(Obj* obj, void* source) {
     TrackFactoryCasterTemplate_1428b0 c;
-    obj->Apply_002367c0(FUN_00236ac0(source, &c));
+    obj->FUN_002367c0(FUN_00236ac0(source, &c));
 }
 
 
@@ -3675,7 +3674,7 @@ extern "C" void __cdecl FUN_001428b0(Obj* obj, void* source) {
 // sym: _FUN_001428e0
 extern "C" void FUN_001428e0(Owner* owner, void* name) {
     TrackFactoryCasterTemplate_1428e0 caster;
-    owner->Add_002367c0(FUN_00236ac0(name, &caster));
+    owner->FUN_002367c0(FUN_00236ac0(name, &caster));
 }
 
 
@@ -3683,7 +3682,7 @@ extern "C" void FUN_001428e0(Owner* owner, void* name) {
 // sym: _FUN_00142910
 extern "C" void FUN_00142910(Manager* mgr) {
     ConditionFactoryCasterTemplate_142910 c;
-    mgr->Add_00236760(FUN_002343e0("wallVelocity", &c));
+    mgr->FUN_00236760(FUN_002343e0("wallVelocity", &c));
 }
 
 } // namespace fn_f8068520

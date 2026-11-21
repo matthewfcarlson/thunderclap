@@ -70,8 +70,7 @@ struct TrackFactoryCasterTemplate_19c050 {   // (sweep-caster-fix1) the word its
 };
 class Owner {
   public:
-    void Apply_002367c0(void*);
-    void Set_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C" void* FUN_00236ac0(void*, TrackFactoryCasterTemplate_19c050*);   // (gfx1) its own name: `Lookup` stood for several functions natively (ambiguous binding)
 } // namespace fn_fdcf800c
@@ -235,8 +234,7 @@ struct TrackFactoryCasterTemplate_19c690 {   // (sweep-caster-fix1) the word its
 };
 class Obj {
   public:
-    void Do_002367c0(void*);
-    void Set_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 void* FUN_00236ac0(void*, TrackFactoryCasterTemplate_19c690*);
 extern "C" char DAT_0041b9a8[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::MissilePunchTrack>::vftable
@@ -522,7 +520,7 @@ struct Caster_19e3e0 {
 extern "C" void* __cdecl FUN_002343e0(const char*, void*);
 class Registry {
   public:
-    void Add_00236760(void*);
+    bool FUN_00236760(void*);
 };
 
 
@@ -763,7 +761,7 @@ namespace fn_fdcf800c {
 extern "C" void FUN_0019c050(Owner* owner, void* value) {
     TrackFactoryCasterTemplate_19c050 caster;
     caster.vftable = (void*)DAT_0041b990;   // (sweep-caster-fix1) the game's vftable by address
-    owner->Apply_002367c0(FUN_00236ac0(value, &caster));
+    owner->FUN_002367c0(FUN_00236ac0(value, &caster));
 }
 
 
@@ -819,7 +817,7 @@ namespace fn_fdcf800c {
 extern "C" void FUN_0019c690(Obj* obj, void* p) {
     TrackFactoryCasterTemplate_19c690 c;
     c.vftable = (void*)DAT_0041b99c;   // (sweep-caster-fix1) the game's vftable by address
-    obj->Do_002367c0(FUN_00236ac0(p, &c));
+    obj->FUN_002367c0(FUN_00236ac0(p, &c));
 }
 
 
@@ -829,7 +827,7 @@ extern "C" void FUN_0019c6c0(Obj* a, void* b) {
     TrackFactoryCasterTemplate_19c6c0 c;
     c.vftable = (void*)DAT_0041b9a8;   // (sweep-caster-fix1) the game's vftable by address
     void* p = FUN_00236ac0(b, &c);
-    a->Do_002367c0(p);
+    a->FUN_002367c0(p);
 }
 
 
@@ -839,7 +837,7 @@ extern "C" void FUN_0019c6f0(Obj* o, void* name) {
     TrackFactoryCasterTemplate_19c6f0 c;
     c.vftable = (void*)DAT_0041b9b4;   // (sweep-caster-fix1) the game's vftable by address
     void* p = FUN_00236ac0(name, &c);
-    o->Set_002367c0(p);
+    o->FUN_002367c0(p);
 }
 
 
@@ -849,7 +847,7 @@ extern "C" void __cdecl FUN_0019c720(Obj* obj, void* arg) {
     TrackFactoryCasterTemplate_19c720 caster;
     caster.vftable = (void*)DAT_0041b9c0;   // (sweep-caster-fix1) the game's vftable by address
     void* p = FUN_00236ac0(arg, &caster);
-    obj->Set_002367c0(p);
+    obj->FUN_002367c0(p);
 }
 
 
@@ -922,7 +920,7 @@ namespace fn_fdcf800c {
 extern "C" void FUN_0019d130(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_19d130 caster;
     caster.vftable = (void*)DAT_0041b9cc;   // (sweep-caster-fix1) the game's vftable by address
-    owner->Set_002367c0(FUN_00236ac0(name, &caster));
+    owner->FUN_002367c0(FUN_00236ac0(name, &caster));
 }
 
 
@@ -1013,14 +1011,14 @@ struct TrackFactoryCasterTemplate {   // (sweep-caster-fix1) the word its inline
 } // namespace fight
 class Obj {
   public:
-    void Use_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 void* FUN_00236ac0(void*, fight::TrackFactoryCasterTemplate*);
 extern "C" void FUN_0019de20(Obj* obj, void* value) {
     fight::TrackFactoryCasterTemplate caster;
     caster.vftable = (void*)DAT_0041b9d8;   // (sweep-caster-fix1) the game's vftable by address
     void* found = FUN_00236ac0(value, &caster);
-    obj->Use_002367c0(found);
+    obj->FUN_002367c0(found);
 }
 } // namespace fn_0019de20
 
@@ -1075,9 +1073,9 @@ namespace fn_fdcf800c {
 extern "C" void __cdecl FUN_0019e3e0(Registry* reg) {
     Caster_19e3e0 slot;
     slot.vftable = (void*)DAT_0041b978;
-    reg->Add_00236760(FUN_002343e0(DAT_0041c1b0, &slot));
+    reg->FUN_00236760(FUN_002343e0(DAT_0041c1b0, &slot));
     slot.vftable = (void*)DAT_0041b984;
-    reg->Add_00236760(FUN_002343e0(DAT_0041c1a0, &slot));
+    reg->FUN_00236760(FUN_002343e0(DAT_0041c1a0, &slot));
 }
 
 } // namespace fn_fdcf800c

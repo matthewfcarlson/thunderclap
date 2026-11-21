@@ -500,7 +500,7 @@ class TrackFactoryCasterTemplate_122ab0 {   // (fix2) was polymorphic (virtual b
     void *vftable;
     TrackFactoryCasterTemplate_122ab0() { vftable = DAT_0040f964; }
 };
-void FUN_00236ac0(void*, TrackFactoryCasterTemplate_122ab0*);
+void* FUN_00236ac0(void*, TrackFactoryCasterTemplate_122ab0*);
 extern "C" char DAT_0040f94c[];   // (fix2) the game's caster vftable
 class ConditionFactoryCasterTemplate_122b70 {   // (fix2) was polymorphic (virtual bool Cast_00120620(void*);): clang's vftable natively
   public:
@@ -509,7 +509,7 @@ class ConditionFactoryCasterTemplate_122b70 {   // (fix2) was polymorphic (virtu
 };
 class Factory {
   public:
-    void Add_00236760(void*);
+    bool FUN_00236760(void*);
 };
 extern void* FUN_002343e0(const char*, ConditionFactoryCasterTemplate_122b70*);
 extern "C" char DAT_0040f958[];   // (fix2) the game's caster vftable
@@ -523,7 +523,7 @@ class TrackFactoryCasterTemplate_122ba0 : public TrackFactoryCaster_122ba0 {
 };
 class Receiver {
   public:
-    void attach_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 void* FUN_00236ac0(void*, TrackFactoryCaster_122ba0*);
 extern "C" char DAT_0040f97c[];   // (fix2) the game's caster vftable
@@ -534,8 +534,7 @@ class TrackFactoryCasterTemplate_122c30 {   // (fix2) was polymorphic (virtual b
 };
 class Obj {
   public:
-    void apply_002367c0(Track*);
-    void Apply_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 Track* FUN_00236ac0(void*, TrackFactoryCasterTemplate_122c30*);
 extern "C" char DAT_0040f988[];   // (fix2) the game's caster vftable
@@ -553,7 +552,7 @@ class TrackFactoryCasterTemplate_122cc0 {   // (fix2) was polymorphic (virtual b
 };
 class Owner {
   public:
-    void Apply_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_122cc0*);
 } // namespace fn_fff5b4af
@@ -1548,10 +1547,9 @@ namespace ai {
 class RoutTrack {};
 } // namespace ai
 } // namespace hulkfight
-extern "C++" __declspec(nothrow) int __cdecl check(void*, int, void*, void*, int);
 extern int hulk_at_0049850c, hulk_at_004a6638;
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::RoutTrack>::vfunc_0(void* p) {
-    return check(p, 0, &hulk_at_0049850c, &hulk_at_004a6638, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&hulk_at_0049850c), (void*)(hulk_uintptr)(&hulk_at_004a6638), 0)) != 0;
 }
 } // namespace fn_00120700
 
@@ -1669,7 +1667,6 @@ struct Info {
     int value;
 };
 extern Info a, hulk_at_004a68c8;
-extern "C++" __declspec(nothrow) int __cdecl check(void*, int, Info*, Info*, int);
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -1682,7 +1679,7 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
 };
 } // namespace fight
 bool fight::TrackFactoryCasterTemplate::vfunc_0(void* p) {
-    return check(p, 0, &a, &hulk_at_004a68c8, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&a), (void*)(hulk_uintptr)(&hulk_at_004a68c8), 0)) != 0;
 }
 } // namespace fn_00120900
 
@@ -1702,7 +1699,6 @@ template class fight::ParamFloatConstRange<hulkfight::ai::StrafeCircleHBTrack>; 
 namespace fn_00120960 {
 struct Info {};
 extern Info a, hulk_at_004a6970;
-extern "C++" __declspec(nothrow) int __cdecl check(void*, int, Info*, Info*, int);
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -1721,7 +1717,7 @@ class StrafeCircleTrack {};
 } // namespace ai
 } // namespace hulkfight
 template <> int fight::TrackFactoryCasterTemplate<hulkfight::ai::StrafeCircleTrack>::cast(void* p) {
-    return check(p, 0, &a, &hulk_at_004a6970, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&a), (void*)(hulk_uintptr)(&hulk_at_004a6970), 0)) != 0;
 }
 } // namespace fn_00120960
 
@@ -2328,7 +2324,7 @@ bool PathAction::run(int a, int b)
 // sym: ?vfunc_10@RoutTrack@ai@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::ai::RoutTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { U_1224b0 a = (U_1224b0)__p0; U_1224b0 b = (U_1224b0)__p1; hulk_uintptr c = (U_1224b0)__p2;
 
-    if (IsType((void*)c, 0, &(*(int*)&DAT_00494b44), &(*(int*)&DAT_00494b60), 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)((void*)c), 0, (void*)(hulk_uintptr)(&(*(int*)&DAT_00494b44)), (void*)(hulk_uintptr)(&(*(int*)&DAT_00494b60)), 0))) {
         NewObj_1224b0* p = Allocate_0008d690(0xb8);
         if (p)
             return (int)(p->Init_0011fef0(this, c));
@@ -2676,7 +2672,7 @@ void target(void* p) {
 // sym: _FUN_00122b70
 extern "C" void FUN_00122b70(Factory* f, const char* name) {
     ConditionFactoryCasterTemplate_122b70 caster;
-    f->Add_00236760(FUN_002343e0(name, &caster));
+    f->FUN_00236760(FUN_002343e0(name, &caster));
 }
 
 
@@ -2684,7 +2680,7 @@ extern "C" void FUN_00122b70(Factory* f, const char* name) {
 // sym: _FUN_00122ba0
 extern "C" void FUN_00122ba0(Receiver* r, void* obj) {
     TrackFactoryCasterTemplate_122ba0 caster;
-    r->attach_002367c0(FUN_00236ac0(obj, &caster));
+    r->FUN_002367c0(FUN_00236ac0(obj, &caster));
 }
 
 } // namespace fn_fff5b4af
@@ -2700,12 +2696,12 @@ class TrackFactoryCasterTemplate_122bd0 {   // (fix2) was polymorphic (virtual b
 };
 class Obj {
   public:
-    void Apply_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C++" __declspec(nothrow) void* FUN_00236ac0(void*, TrackFactoryCasterTemplate_122bd0*);
 extern "C" void FUN_00122bd0(Obj* obj, void* name) {
     TrackFactoryCasterTemplate_122bd0 c;
-    obj->Apply_002367c0(FUN_00236ac0(name, &c));
+    obj->FUN_002367c0(FUN_00236ac0(name, &c));
 }
 } // namespace fn_00122bd0
 
@@ -2721,12 +2717,12 @@ class TrackFactoryCasterTemplate_122c00 {   // (fix2) was polymorphic (virtual b
 };
 class Owner {
   public:
-    void Set_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C++" __declspec(nothrow) void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_122c00*);
 extern "C" void FUN_00122c00(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_122c00 caster;
-    owner->Set_002367c0(FUN_00236ac0(name, &caster));
+    owner->FUN_002367c0(FUN_00236ac0(name, &caster));
 }
 } // namespace fn_00122c00
 
@@ -2737,7 +2733,7 @@ namespace fn_fff5b4af {
 extern "C" void FUN_00122c30(Obj* o, void* name) {
     TrackFactoryCasterTemplate_122c30 c;
     Track* p = FUN_00236ac0(name, &c);
-    o->apply_002367c0(p);
+    o->FUN_002367c0(p);
 }
 
 
@@ -2746,7 +2742,7 @@ extern "C" void FUN_00122c30(Obj* o, void* name) {
 extern "C" void FUN_00122c60(Obj* obj, void* key) {
     TrackFactoryCasterTemplate_122c60 caster;
     void* found = FUN_00236ac0(key, &caster);
-    obj->Apply_002367c0(found);
+    obj->FUN_002367c0(found);
 }
 
 } // namespace fn_fff5b4af
@@ -2763,11 +2759,11 @@ class TrackFactoryCasterTemplate_122c90 {   // (fix2) was polymorphic (virtual i
 extern "C++" __declspec(nothrow) void* FUN_00236ac0(void*, TrackFactoryCasterTemplate_122c90*);
 class Target {
   public:
-    void Set_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C" void FUN_00122c90(Target* t, void* key) {
     TrackFactoryCasterTemplate_122c90 caster;
-    t->Set_002367c0(FUN_00236ac0(key, &caster));
+    t->FUN_002367c0(FUN_00236ac0(key, &caster));
 }
 } // namespace fn_00122c90
 
@@ -2777,7 +2773,7 @@ namespace fn_fff5b4af {
 // sym: _FUN_00122cc0
 extern "C" void FUN_00122cc0(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_122cc0 caster;
-    owner->Apply_002367c0(FUN_00236ac0(name, &caster));
+    owner->FUN_002367c0(FUN_00236ac0(name, &caster));
 }
 
 } // namespace fn_fff5b4af
@@ -3428,7 +3424,7 @@ hulkfight::ai::PathFormationAction::~PathFormationAction() {}
 // sym: ?vfunc_10@PathTrack@ai@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::ai::PathTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr __p2) { void * p = (void *)__p2;
 
-    if (TypeCheck(p, 0, &(*(TypeDesc_123450*)&DAT_00494b44), &(*(TypeDesc_123450*)&DAT_00494b60), 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&(*(TypeDesc_123450*)&DAT_00494b44)), (void*)(hulk_uintptr)(&(*(TypeDesc_123450*)&DAT_00494b60)), 0))) {
         NewTrack* q = (NewTrack*)Alloc_0008d690(0xf0);
         if (q)
             return q->run_00123260(this, p);

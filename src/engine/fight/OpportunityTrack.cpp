@@ -277,7 +277,7 @@ struct TrackFactoryCasterTemplate_237ab0 {   // (sweep-caster-fix1) the word its
 };
 class Target {
   public:
-    void Method_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C" void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_237ab0*);
 } // namespace fn_f6c81acf
@@ -852,7 +852,7 @@ namespace fn_f6c81acf {
 extern "C" void FUN_00237ab0(Target* target, const char* name) {
     TrackFactoryCasterTemplate_237ab0 caster;
     caster.vftable = (void*)DAT_004280bc;   // (sweep-caster-fix1) the game's vftable by address
-    target->Method_002367c0(FUN_00236ac0(name, &caster));
+    target->FUN_002367c0(FUN_00236ac0(name, &caster));
 }
 
 } // namespace fn_f6c81acf

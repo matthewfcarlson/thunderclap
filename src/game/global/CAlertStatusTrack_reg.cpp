@@ -8,6 +8,8 @@
 #define TREE_TU_END }
 namespace fn_fbdb5a92 {} using namespace fn_fbdb5a92;
 #include "game/global.h"
+// (gfx2) __RTDynamicCast's own name (CRT, C linkage): the stand-ins below bound nothing natively
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fbdb5a92 {
@@ -129,7 +131,6 @@ class ParamValueInt_6d370 : public ParamValue_6d370 {
   public:
     int pad;
 };
-extern "C" int __cdecl check(void*, int, void*, void*, int);
 extern char DAT_004985b8;
 } // namespace fn_fbdb5a92
 namespace fight {
@@ -194,7 +195,6 @@ class TrackFactoryCaster_6d510 {
 namespace fn_fbdb5a92 {
 class CClearHitRecordsTrack_6d510 {};
 struct CClearCollisionStun_6d550;
-extern "C" int __cdecl Check(void*, int, void*, void*, int);
 extern char DAT_00498908;
 } // namespace fn_fbdb5a92
 namespace fight {
@@ -416,7 +416,7 @@ template <> bool fight::TrackFactoryCasterTemplate<fight::CAIHintTrack>::Cast(vo
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VCAlertStatusTrack@@@fight@@UAE_NPAX@Z
 template <> bool fight::TrackFactoryCasterTemplate<CAlertStatusTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return check(p, 0, &DAT_0049850c, &DAT_004985b8, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&DAT_0049850c), (void*)(hulk_uintptr)(&DAT_004985b8), 0)) != 0;
 }
 
 namespace fn_fbdb5a92 {
@@ -479,7 +479,7 @@ int fight::TrackFactoryCasterTemplate::vfunc_0(int x) {
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VCClearHitRecordsTrack@@@fight@@UAE_NPAX@Z
 template <> bool fight::TrackFactoryCasterTemplate<CClearHitRecordsTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return check(p, 0, &DAT_0049850c, &DAT_00498878, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&DAT_0049850c), (void*)(hulk_uintptr)(&DAT_00498878), 0)) != 0;
 }
 
 
@@ -488,6 +488,6 @@ template <> bool fight::TrackFactoryCasterTemplate<CClearHitRecordsTrack>::vfunc
  // namespace fight
 template <> bool fight::TrackFactoryCasterTemplate<CClearCollisionStun>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return Check(p, 0, &DAT_0049850c, &DAT_00498908, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&DAT_0049850c), (void*)(hulk_uintptr)(&DAT_00498908), 0)) != 0;
 }
 

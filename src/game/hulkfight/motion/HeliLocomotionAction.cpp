@@ -3794,7 +3794,6 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::Locomotion
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VLocomotionSprintTrack@motion@hulkfight@fn_00161190@@@fight@fn_00161190@@UAEHPAX@Z
 namespace fn_00161190 {
 extern int gA, hulk_at_004b4a00;
-extern "C++" __declspec(nothrow) int __cdecl check(void*, int, const void*, const void*, int);
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -3814,7 +3813,7 @@ class LocomotionSprintTrack;
 } // namespace hulkfight
 template <>
 int fight::TrackFactoryCasterTemplate<hulkfight::motion::LocomotionSprintTrack>::vfunc_0(void* p) {
-    return check(p, 0, &gA, &hulk_at_004b4a00, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&gA), (void*)(hulk_uintptr)(&hulk_at_004b4a00), 0)) != 0;
 }
 } // namespace fn_00161190
 

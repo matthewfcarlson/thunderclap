@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "gen/owners.h"
+#include "decls/tree_map.h"
 #define TREE_TU_BEGIN namespace fn_f39652ec {
 #define TREE_TU_END }
 #define TREE_LOCAL_CEffectStopTrack
@@ -279,13 +280,16 @@ void RbTree_230900::FUN_00230900(RbNode_230900* x)
 // 0x00230b60 FUN_00230b60 (22 B): matches/0x00230b60.cpp
 // sym: ?FUN_00230b60@X_230b60@owners@@QAEXXZ
 void owners::X_230b60::FUN_00230b60() {
-    int* p = &b;
-    a = (hulk_intptr)p;
-    b = (hulk_intptr)p;
-    c = (hulk_intptr)p;
-    d = (hulk_intptr)p;
-    e = 0;
-    f = 0;
+    // (gfx2) a tree map's words (decls/tree_map.h): the root and the nil node's links point at the nil node, its colour
+    // and the count are 0 (X_230b60's int words truncated the links natively)
+    HulkTreeMap* m = (HulkTreeMap*)this;
+    void* p = &m->nil;
+    m->root = p;
+    m->nil.left = p;
+    m->nil.right = p;
+    m->nil.parent = p;
+    *(unsigned char*)&m->nil.color = 0;
+    m->count = 0;
 }
 
 namespace fn_f39652ec {

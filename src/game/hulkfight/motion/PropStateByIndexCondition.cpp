@@ -8,6 +8,8 @@
 #define TREE_LOCAL_pure3d
 namespace fn_fc016f38 {} using namespace fn_fc016f38;
 #include "game/hulkfight/motion.h"
+// (gfx2) __RTDynamicCast's own name (CRT, C linkage): the stand-ins below bound nothing natively
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fc016f38 {
@@ -56,7 +58,6 @@ struct S_181800 {
     char ready_001d7300();
     void* part_001d72e0();
 };
-extern "C" int __cdecl Check(void*, void*, void*, void*, void*);
 extern char hulk_at_00494b44[];
 extern char hulk_at_00494b60[];
 extern char DAT_00494b44[];
@@ -113,7 +114,7 @@ extern "C" u32_1817d0 __cdecl FUN_001817d0(void* p, int n) {
 // 0x00181800 hulkfight::motion::PropAtRestCondition::vfunc_6 (124 B): matches/0x00181800.cpp
 // sym: ?vfunc_6@PropAtRestCondition@motion@hulkfight@fn_fc016f38@@UAEDPAX00@Z
 char hulkfight::motion::PropAtRestCondition::vfunc_6(void* a, void* c, void* d) {
-    if (!Check(c, 0, hulk_at_00494b44, hulk_at_00494b60, 0))
+    if (!((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(c), 0, (void*)(hulk_uintptr)(hulk_at_00494b44), (void*)(hulk_uintptr)(hulk_at_00494b60), 0)))
         return 0;
     char result = 0;
     A_181800* obj = (A_181800*)c;

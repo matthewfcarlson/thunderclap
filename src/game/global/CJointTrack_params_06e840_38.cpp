@@ -52,7 +52,7 @@ class TrackFactoryCasterTemplate_72c40 {   // (fix2) was polymorphic (virtual in
 } // namespace fn_f4b6f30b
 struct CDamageTrack;
 namespace fn_f4b6f30b {
-extern void __cdecl Find_00236ac0(CDamageTrack*, TrackFactoryCasterTemplate_72c40*);
+extern void* __cdecl Find_00236ac0(CDamageTrack*, TrackFactoryCasterTemplate_72c40*);
 extern "C" char DAT_003fcd5c[];
 typedef unsigned int u32_73000;
 } // namespace fn_f4b6f30b
@@ -61,7 +61,7 @@ namespace fn_f4b6f30b {
 struct TrackFactoryCasterTemplate {
     void* vftable;
 };
-extern void FUN_00236ac0(hulk_intptr, void**);   // (gfx1) the name as hulk_intptr (a pointer natively, as the definition takes it)
+extern void* FUN_00236ac0(hulk_intptr, void**);   // (gfx1) the name as hulk_intptr (a pointer natively, as the definition takes it)
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
@@ -411,7 +411,7 @@ void __cdecl Target(CDamageTrack* track) {
 
 // 0x00073000 FUN_00073000 (27 B): matches/0x00073000.cpp
 // sym: ?FUN_00073000@fn_f4b6f30b@@YAXI@Z
-void FUN_00073000(u32_73000 key) {
+void FUN_00073000(hulk_uintptr key) {   // (gfx2) the name, pointer-sized
     void* caster;
     caster = (void*)((hulk_intptr)DAT_003fcd5c);
     FUN_00236ac0(key, &caster);
@@ -694,7 +694,7 @@ template <> inline TrackFactoryCasterTemplate<CTargetTrack>::TrackFactoryCasterT
 template <> inline TrackFactoryCasterTemplate<CUninterruptibleTrack>::TrackFactoryCasterTemplate() { vftable = DAT_003fcf24; }
 template <> inline TrackFactoryCasterTemplate<CWallSlideTrack>::TrackFactoryCasterTemplate() { vftable = DAT_003fcf30; }
 template <> inline TrackFactoryCasterTemplate<CWeaponCollisionTrack>::TrackFactoryCasterTemplate() { vftable = DAT_003fcf3c; } }
-struct Registry_73700 { void FUN_002367c0(void*); void FUN_00236400(); };
+struct Registry_73700 { bool FUN_002367c0(void*); void FUN_00236400(); };
 void* __cdecl FUN_00236ac0(const char*, void*);
 extern "C" void __cdecl FUN_002369c0(void *);
 extern "C" void __cdecl FUN_0012de00(void*, const char*);   // (decl1) as defined (PostEvent_StringTrack.cpp)
@@ -770,7 +770,7 @@ extern "C" void __cdecl FUN_0018b080(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0018ab70(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_00189f60(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0018b110(Registry_73700*, const char*);
-extern "C" void* __cdecl FUN_0018a0a0(Registry_73700*, const char*);   // (decl1) as defined (PropMissionCriticalCondition_28.cpp)
+extern "C" bool __cdecl FUN_0018a0a0(Registry_73700*, const char*);   // (decl1) as defined (PropMissionCriticalCondition_28.cpp)
 extern "C" void __cdecl FUN_0018b0e0(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0018a2e0(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0018b2e0(Registry_73700*, const char*);
@@ -819,7 +819,7 @@ extern "C" void __cdecl FUN_0012d110(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_00113ba0(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_00113c30(Registry_73700*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
 extern "C" void __cdecl FUN_00129f50(Registry_73700*, const char*);
-extern "C" void* __cdecl FUN_001a1d20(void*, const char*);   // (decl1) as defined (LuaCondition.cpp)
+extern "C" bool __cdecl FUN_001a1d20(void*, const char*);   // (decl1) as defined (LuaCondition.cpp)
 extern "C" bool __cdecl FUN_00073700(Registry_73700* r) {
     FUN_002369c0((Registry_73700 *)r);
     FUN_0012de00(r, "postEvent_string");
@@ -1287,7 +1287,7 @@ extern "C" bool __cdecl FUN_00073700(Registry_73700* r) {
 // sym: _FUN_00074790
 namespace fn_00074790 {
 struct Registry {
-    void FUN_002367c0(void*);
+    bool FUN_002367c0(void*);
     void FUN_00236400();
 };
 class CAlertStatusTrack;
@@ -1399,7 +1399,7 @@ template <class T> struct TrackFactoryCasterTemplate {   // (fix2) was polymorph
 class CHapticTrack;
 template <> inline fight::TrackFactoryCasterTemplate<CHapticTrack>::TrackFactoryCasterTemplate() { vftable = DAT_003fce4c; }
 struct Registry_749e0 {
-    void FUN_002367c0(void*);
+    bool FUN_002367c0(void*);
     void FUN_00236400();
 };
 extern "C" void __cdecl FUN_002369c0(void *);
@@ -1410,7 +1410,7 @@ extern "C" void __cdecl FUN_001325c0(void*, const char*);   // (decl1) as define
 extern "C" void __cdecl FUN_001324d0(void*, const char*);   // (decl1) as defined (GameStateCondition.cpp)
 extern "C" void __cdecl FUN_00132590(void*, const char*);   // (decl1) as defined (GameStateCondition.cpp)
 extern "C" void __cdecl FUN_001325f0(void*, const char*);   // (decl1) as defined (GameStateCondition.cpp)
-extern "C" void* __cdecl FUN_001a1d20(void*, const char*);   // (decl1) as defined (LuaCondition.cpp)
+extern "C" bool __cdecl FUN_001a1d20(void*, const char*);   // (decl1) as defined (LuaCondition.cpp)
 extern "C" void __cdecl FUN_001a9a90(Registry_749e0*, const char*);
 extern "C" void __cdecl FUN_001a97d0(Registry_749e0*, const char*);
 extern "C" void __cdecl FUN_00146130(Registry_749e0*, const char*);

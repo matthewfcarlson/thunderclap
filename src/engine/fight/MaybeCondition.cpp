@@ -92,7 +92,7 @@ class ConditionFactoryCasterTemplate_2386b0 {   // (fix2) was polymorphic (virtu
 };
 class Owner {
   public:
-    void apply_00236760(void*);
+    bool FUN_00236760(void*);
 };
 void* FUN_002343e0(const char*, ConditionFactoryCasterTemplate_2386b0*);
 class RandomCondition {
@@ -102,7 +102,7 @@ class RandomCondition {
 class Obj_2386e0 {
   public:
     virtual void A();
-    void Use_00236760(void*);
+    bool FUN_00236760(void*);
 };
 extern void* FUN_002343e0(void* arg, void* storage);
 extern "C" char DAT_0042827c[];
@@ -436,7 +436,7 @@ namespace fn_fc1ade79 {
 extern "C" void FUN_002386b0(Owner* owner, const char* name) {
     ConditionFactoryCasterTemplate_2386b0 c;
     void* p = FUN_002343e0(name, &c);
-    owner->apply_00236760(p);
+    owner->FUN_00236760(p);
 }
 
 
@@ -446,7 +446,7 @@ extern "C" void FUN_002386e0(void* a, void* b) {
     RandomCondition local;
     *(hulk_intptr*)&local = (hulk_intptr)DAT_0042827c;
     void* r = FUN_002343e0(b, &local);
-    ((Obj_2386e0*)a)->Use_00236760(r);
+    ((Obj_2386e0*)a)->FUN_00236760(r);
 }
 
 } // namespace fn_fc1ade79

@@ -67,7 +67,7 @@ class Obj {
     char _m_pad_0[0xc];
     char* str;
     char Set(const char* s);
-    void use_00236760(void*);
+    bool FUN_00236760(void*);
 };
 inline void copy(char* d, const char* s) {
     char c;
@@ -446,7 +446,7 @@ namespace fn_f40d2254 {
 extern "C" void FUN_0023dd90(Obj* a, void* b) {
     ConditionFactoryCasterTemplate_23dd90 caster;
     caster.vftable = (void*)DAT_00428c88;   // (sweep-caster-fix1) the game's vftable by address
-    a->use_00236760(FUN_002343e0(b, &caster));
+    a->FUN_00236760(FUN_002343e0(b, &caster));
 }
 
 } // namespace fn_f40d2254
@@ -460,13 +460,13 @@ struct Track {
 };
 extern "C" Track* __cdecl FUN_00236ac0(hulk_intptr, Track*);   // (gfx1) the name as hulk_intptr (a pointer natively, as the definition takes it)
 struct Receiver_23ddc0 {
-    void Finish_002367c0(Track*);
+    bool FUN_002367c0(void*);
 };
 extern "C" void FUN_0023ddc0(Receiver_23ddc0* c, hulk_intptr b) {
     Track t;
     *(void**)&t = hulk_at_00428c94;
     Track* p = FUN_00236ac0(b, &t);
-    c->Finish_002367c0(p);
+    c->FUN_002367c0(p);
 }
 } // namespace fn_0023ddc0
 

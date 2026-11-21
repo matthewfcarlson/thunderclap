@@ -325,7 +325,7 @@ class TrackFactoryCasterTemplate_10bf20 : public TrackFactoryCaster_10bf20 {
 extern "C" hulk_intptr __cdecl FUN_00236ac0(const char*, TrackFactoryCaster_10bf20*);   // (gfx1) the factory as hulk_intptr (a pointer natively, as the definition returns it)
 class Factory {
   public:
-    void add_002367c0(int);
+    bool FUN_002367c0(void*);
 };
 } // namespace fn_f8ed28bc
 inline void* __cdecl operator new(size_t, void* where) {
@@ -1019,11 +1019,11 @@ FaceMotionAction_10be30* FaceMotionAction_10be30::vfunc_2(int flag) {
 extern "C" void FUN_0010bf20(Factory* p) {
     {
         TargetCaster a;
-        p->add_002367c0(FUN_00236ac0("faceTarget", &a));
+        p->FUN_002367c0((void*)FUN_00236ac0("faceTarget", &a));
     }
     {
         TrackFactoryCasterTemplate_10bf20 b;
-        p->add_002367c0(FUN_00236ac0("faceMotion", &b));
+        p->FUN_002367c0((void*)FUN_00236ac0("faceMotion", &b));
     }
 }
 

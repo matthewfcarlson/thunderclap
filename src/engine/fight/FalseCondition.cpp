@@ -21,7 +21,7 @@ struct ConditionFactoryCasterTemplate_23d220 {
 };
 class Obj {
   public:
-    void Apply_00236760(void*);
+    bool FUN_00236760(void*);
 };
 extern "C++" void* FUN_002343e0(void*, ConditionFactoryCasterTemplate_23d220*);   // (gfx1) by its address: `Get` bound by relocation position only (not natively)
 struct ConditionFactoryCasterTemplate_23d250 {
@@ -29,7 +29,7 @@ struct ConditionFactoryCasterTemplate_23d250 {
 };
 class Handler {
   public:
-    void Set_00236760(void*);
+    bool FUN_00236760(void*);
 };
 extern "C" void* __cdecl FUN_002343e0(void*, ConditionFactoryCasterTemplate_23d250*);
 } // namespace fn_f1fd5fb3
@@ -103,7 +103,7 @@ extern "C" void FUN_0023d220(Obj* obj, void* x) {
     ConditionFactoryCasterTemplate_23d220 caster;
     caster.vftable = (void*)DAT_00428a64;
     void* p = FUN_002343e0(x, &caster);
-    obj->Apply_00236760(p);
+    obj->FUN_00236760(p);
 }
 
 
@@ -113,7 +113,7 @@ extern "C" void __cdecl FUN_0023d250(Handler* h, void* p) {
     ConditionFactoryCasterTemplate_23d250 caster;
     caster.vftable = (void*)DAT_00428a70;
     void* v = FUN_002343e0(p, &caster);
-    h->Set_00236760(v);
+    h->FUN_00236760(v);
 }
 
 } // namespace fn_f1fd5fb3

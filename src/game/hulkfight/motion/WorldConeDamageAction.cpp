@@ -82,7 +82,7 @@ class Obj {
     int z;
     bool Set(Vec* p);
     char Set(int v);
-    void Set_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 struct Vec3_1434b0 {
     float x, y, z;
@@ -915,7 +915,7 @@ struct TrackFactoryCasterTemplate_146130 {   // (sweep-caster-fix1) the word its
 extern void* __cdecl FUN_00236ac0(const char*, TrackFactoryCasterTemplate_146130*);
 class Factory {
   public:
-    void Add_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C" char DAT_004132d0[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::WorldConeDamageTrack>::vftable
 struct TrackFactoryCasterTemplate_146370 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
@@ -3270,7 +3270,7 @@ namespace fn_f3c8e3e3 {
 extern "C" void __cdecl FUN_00146130(Factory* factory, const char* name) {
     TrackFactoryCasterTemplate_146130 caster;
     caster.vftable = (void*)DAT_004132b8;   // (sweep-caster-fix1) the game's vftable by address
-    factory->Add_002367c0(FUN_00236ac0(name, &caster));
+    factory->FUN_002367c0(FUN_00236ac0(name, &caster));
 }
 
 
@@ -3305,7 +3305,7 @@ namespace fn_f3c8e3e3 {
 void FUN_00146370(Obj* obj, const char* name) {
     TrackFactoryCasterTemplate_146370 caster;
     caster.vftable = (void*)DAT_004132d0;   // (sweep-caster-fix1) the game's vftable by address
-    obj->Set_002367c0(FUN_00236ac0(name, &caster));
+    obj->FUN_002367c0(FUN_00236ac0(name, &caster));
 }
 
 } // namespace fn_f3c8e3e3
@@ -3318,20 +3318,20 @@ struct TrackFactoryCasterTemplate_1463a0 {   // (sweep-caster-fix1) the word its
     void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 struct Target {
-    int Get_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C" void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_1463a0*);
-extern "C" int FUN_001463a0(Target* t, void* x) {
+extern "C" bool FUN_001463a0(Target* t, void* x) {
     TrackFactoryCasterTemplate_1463a0 c;
     c.vftable = (void*)DAT_004132dc;   // (sweep-caster-fix1) the game's vftable by address
     void* p = FUN_00236ac0(x, &c);
-    return t->Get_002367c0(p);
+    return t->FUN_002367c0(p);
 }
 } // namespace fn_001463a0
 
 
 // 0x00146400 FUN_00146400 (215 B): equivalent/0x00146400.cpp [wrapped: conflict: fight::TrackFactoryCasterTemplate]
-// sym: _FUN_00146400 @ebb21bcdc9e5 @w503804bdaea7 @v08d28c1ee76d
+// sym: _FUN_00146400 @ebb21bcdc9e5 @w503804bdaea7 @vcd8d671c4dc6
 namespace fn_00146400 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00146400 @ 0x00146400
@@ -3358,7 +3358,7 @@ template <> inline TrackFactoryCasterTemplate<hulkfight::motion::WorldDamageTrac
 
 }
 extern void* __cdecl FUN_00236ac0(const char*, void*);
-struct Registry_146400 { void FUN_002367c0(void*); };
+struct Registry_146400 { bool FUN_002367c0(void*); };
 extern "C" bool __cdecl FUN_00146400(Registry_146400* registry) {
  fight::TrackFactoryCasterTemplate<hulkfight::motion::WorldDamageTrack> a;
  registry->FUN_002367c0(FUN_00236ac0("worldDamage", &a));

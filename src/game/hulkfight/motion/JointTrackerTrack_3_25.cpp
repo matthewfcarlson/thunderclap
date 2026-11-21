@@ -100,7 +100,7 @@ typedef unsigned int u32_17b5c0;
 struct Helper_17b5c0 {
     int run_00174fb0(hulkfight::motion::DriftToPositionTrack*, u32_17b5c0);
 };
-extern int __cdecl FUN_00344e74(u32_17b5c0, int, const void*, const void*, int);
+extern int __cdecl FUN_00344e74(hulk_intptr, int, const void*, const void*, int);
 extern void* __cdecl FUN_0008d690(unsigned int);
 extern const char RTTI1_17b5c0[];
 extern const char RTTI2_17b5c0[];
@@ -203,7 +203,7 @@ typedef unsigned int u32_17b8e0;
 struct Helper_17b8e0 {
     int run_00175d50(hulkfight::motion::SyncToLocatorTrack*, u32_17b8e0);
 };
-extern int __cdecl FUN_00344e74(u32_17b8e0, int, const void*, const void*, int);
+extern int __cdecl FUN_00344e74(hulk_intptr, int, const void*, const void*, int);
 extern const char RTTI1_17b8e0[];
 extern const char RTTI2_17b8e0[];
 struct RefCounted_17b9a0 {
@@ -242,7 +242,7 @@ typedef unsigned int u32_17ba90;
 struct Helper_17ba90 {
     int run_00176300(hulkfight::motion::MoveJointTrack*, u32_17ba90);
 };
-extern int __cdecl FUN_00344e74(u32_17ba90, int, const void*, const void*, int);
+extern int __cdecl FUN_00344e74(hulk_intptr, int, const void*, const void*, int);
 extern const char RTTI1_17ba90[];
 extern const char RTTI2_17ba90[];
 extern "C" char DAT_00417fb8[];
@@ -697,7 +697,7 @@ TargetBreakAction_17bb80* TargetBreakAction_17bb80::f2(unsigned char flags) {
 // Same code shape as 0x001571a0 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::SurfTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17bbc0 a = (u32_17bbc0)__p0; u32_17bbc0 b = (u32_17bbc0)__p1; hulk_uintptr c = (u32_17bbc0)__p2;
 
-    if (check((void*)c, 0, &RTTI1_17bbc0, &RTTI2, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)((void*)c), 0, (void*)(hulk_uintptr)(&RTTI1_17bbc0), (void*)(hulk_uintptr)(&RTTI2), 0))) {
         Result_17bbc0* p = alloc_0008d690(0x44);
         if (p)
             return (int)(p->setup_00176540(this, c));

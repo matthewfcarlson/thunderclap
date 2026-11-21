@@ -574,7 +574,6 @@ class VarCompareCondition_18dd50 {};
 } }
 namespace fn_f1f11990 {
 extern char DAT_004bf3a8;
-extern "C" int __cdecl Check(void*, int, void*, void*, int);
 extern char DAT_0049850c;
 extern char DAT_004bf458;
 } // namespace fn_f1f11990
@@ -659,7 +658,7 @@ class TrackFactoryCasterTemplate_18e8d0 {   // (fix2) was polymorphic (virtual b
 extern "C" void* FUN_00236ac0(const char*, void*);
 class Factory {
   public:
-    void add_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern int hulk_at_0041ae28;
 struct ConditionFactoryTemplate_18e9a0 {
@@ -1904,7 +1903,7 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::VarCom
  // namespace hulkfight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::TimerSetTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return Check(p, 0, &DAT_0049850c, &DAT_004bf458, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&DAT_0049850c), (void*)(hulk_uintptr)(&DAT_004bf458), 0)) != 0;
 }
 
 
@@ -2199,7 +2198,7 @@ template <class T> struct ConditionFactoryCasterTemplate {   // (fix2) was polym
 template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::VarCompareCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_0041ad38; }
 template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::GrappleVarCompareCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_0041ad2c; }
 template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::TimerCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_0041ad20; } }
-struct Registry_18e860 { void FUN_00236760(void *factory); };
+struct Registry_18e860 { bool FUN_00236760(void*); };
 extern "C" void *__cdecl FUN_002343e0(const char *name, void *caster);
 
 extern "C" void __cdecl FUN_0018e860(Registry_18e860 *r)
@@ -2226,11 +2225,11 @@ namespace fn_f1f11990 {
 extern "C" void FUN_0018e8d0(Factory* p) {
     {
         VarCaster a;
-        p->add_002367c0(FUN_00236ac0("varAssign", &a));
+        p->FUN_002367c0(FUN_00236ac0("varAssign", &a));
     }
     {
         TrackFactoryCasterTemplate_18e8d0 b;
-        p->add_002367c0(FUN_00236ac0("timerSet", &b));
+        p->FUN_002367c0(FUN_00236ac0("timerSet", &b));
     }
 }
 

@@ -656,7 +656,7 @@ class HitWaitAction_156de0 {
     int m_1c;
     RefCounted_156de0* m_20;
 };
-extern int FUN_00344e74(int, int, const void*, const void*, int);
+extern int FUN_00344e74(hulk_intptr, int, const void*, const void*, int);
 extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class AllocObj_156e30 {
   public:

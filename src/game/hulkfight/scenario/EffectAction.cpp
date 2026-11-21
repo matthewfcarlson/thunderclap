@@ -1551,7 +1551,6 @@ extern char DAT_004c2650;
 extern "C" char DAT_0048d5bc[];
 extern "C" char DAT_004a15cc[];
 extern "C" char DAT_004c26a4[];
-extern "C" int Compare(void*, int, const char*, const char*, int);
 extern const char hulk_at_0048d5bc[];
 extern const char hulk_at_0049e11c[];
 typedef unsigned int u32_1a6ee0;
@@ -1713,9 +1712,8 @@ struct ConditionFactoryCasterTemplate_1a9560 {   // (sweep-caster-fix1) the word
 };
 class Owner {
   public:
-    void Apply_00236760(void*);
-    void Use_00236760(void*);
-    void accept_002367c0(void*);
+    bool FUN_00236760(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C" void* __cdecl FUN_002343e0(void*, ConditionFactoryCasterTemplate_1a9560*);
 extern "C" char DAT_0041c870[];   // fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Event_LocomotionStateNamePreviousCondition>::vftable
@@ -1739,7 +1737,7 @@ struct ConditionFactoryCasterTemplate_1a96b0 {   // (sweep-caster-fix1) the word
 };
 class Receiver {
   public:
-    void Apply_00236760(void*);
+    bool FUN_00236760(void*);
 };
 extern "C++" __declspec(nothrow) void* FUN_002343e0(void*, ConditionFactoryCasterTemplate_1a96b0*);
 extern "C" char DAT_0041c8ac[];   // fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Event_PropNameCondition>::vftable
@@ -1759,11 +1757,8 @@ class Obj {
     unsigned int FUN_001a2060(const Angles *angles);
     char FUN_001a21d0(float);
     bool FUN_001a24c0(int x);
-    void set_00236760(void*);
-    void Apply_00236760(void*);
-    void Do_00236760(void*);
-    void* Get_00236760(ConditionFactoryCasterTemplate_1a9740*);
-    void Find_002367c0(void*);
+    bool FUN_00236760(void*);
+    bool FUN_002367c0(void*);
 };
 extern ConditionFactoryCasterTemplate_1a9740* __cdecl FUN_002343e0(void*, ConditionFactoryCasterTemplate_1a9740*);
 extern "C" char DAT_0041c8b8[];   // fight::TrackFactoryCasterTemplate<hulkfight::scenario::EffectTrack>::vftable
@@ -6314,7 +6309,7 @@ owners::Obj_1a6e50* owners::Obj_1a6e50::FUN_001a6e50() {
 void* owners::Obj_1a6e90::FUN_001a6e90() {
     void* p = Get();
     while (p) {
-        if (Compare(p, 0, hulk_at_0048d5bc, hulk_at_0049e11c, 0))
+        if (((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(hulk_at_0048d5bc), (void*)(hulk_uintptr)(hulk_at_0049e11c), 0)))
             break;
         p = Get();
     }
@@ -7138,7 +7133,7 @@ extern "C" void FUN_001a94a0(Obj* obj, void* value) {
     ConditionFactoryCasterTemplate_1a94a0 caster;
     caster.vftable = (void*)DAT_0041c84c;   // (sweep-caster-fix1) the game's vftable by address
     void* p = FUN_002343e0(value, &caster);
-    obj->set_00236760(p);
+    obj->FUN_00236760(p);
 }
 
 } // namespace fn_fc5dbd2a
@@ -7153,12 +7148,12 @@ struct ConditionFactoryCasterTemplate_1a94d0 {   // (sweep-caster-fix1) the word
 extern "C++" __declspec(nothrow) void* __cdecl FUN_002343e0(void*, ConditionFactoryCasterTemplate_1a94d0*);
 class Factory {
   public:
-    void Use_00236760(void*);
+    bool FUN_00236760(void*);
 };
 extern "C" void __cdecl FUN_001a94d0(Factory* factory, void* item) {
     ConditionFactoryCasterTemplate_1a94d0 caster;
     caster.vftable = (void*)DAT_0041c858;   // (sweep-caster-fix1) the game's vftable by address
-    factory->Use_00236760(FUN_002343e0(item, &caster));
+    factory->FUN_00236760(FUN_002343e0(item, &caster));
 }
 } // namespace fn_001a94d0
 
@@ -7170,7 +7165,7 @@ extern "C" void FUN_001a9560(Owner* owner, void* value) {
     ConditionFactoryCasterTemplate_1a9560 caster;
     caster.vftable = (void*)DAT_0041c864;   // (sweep-caster-fix1) the game's vftable by address
     void* result = FUN_002343e0(value, &caster);
-    owner->Apply_00236760(result);
+    owner->FUN_00236760(result);
 }
 
 
@@ -7180,7 +7175,7 @@ extern "C" void __cdecl FUN_001a9590(Obj* obj, void* value) {
     ConditionFactoryCasterTemplate_1a9590 caster;
     caster.vftable = (void*)DAT_0041c870;   // (sweep-caster-fix1) the game's vftable by address
     void* p = FUN_002343e0(value, &caster);
-    obj->Apply_00236760(p);
+    obj->FUN_00236760(p);
 }
 
 
@@ -7189,7 +7184,7 @@ extern "C" void __cdecl FUN_001a9590(Obj* obj, void* value) {
 extern "C" void __cdecl FUN_001a95c0(Obj* obj, void* p) {
     ConditionFactoryCasterTemplate_1a95c0 caster;
     caster.vftable = (void*)DAT_0041c87c;   // (sweep-caster-fix1) the game's vftable by address
-    obj->Do_00236760(FUN_002343e0(p, &caster));
+    obj->FUN_00236760(FUN_002343e0(p, &caster));
 }
 
 } // namespace fn_fc5dbd2a
@@ -7205,13 +7200,13 @@ class Desc;
 extern Desc* __cdecl FUN_002343e0(const char*, ConditionFactoryCasterTemplate_1a95f0*);
 class Owner {
   public:
-    void use_00236760(Desc*);
+    bool FUN_00236760(void*);
 };
 extern "C" void FUN_001a95f0(Owner* p, const char* s) {
     ConditionFactoryCasterTemplate_1a95f0 c;
     c.vftable = (void*)DAT_0041c888;   // (sweep-caster-fix1) the game's vftable by address
     Desc* d = FUN_002343e0(s, &c);
-    p->use_00236760(d);
+    p->FUN_00236760(d);
 }
 } // namespace fn_001a95f0
 
@@ -7223,7 +7218,7 @@ extern "C" void __cdecl FUN_001a9620(Owner* owner, char* name) {
     ConditionFactoryCasterTemplate_1a9620 c;
     c.vftable = (void*)DAT_0041c894;   // (sweep-caster-fix1) the game's vftable by address
     void* p = FUN_002343e0(name, &c);
-    owner->Use_00236760(p);
+    owner->FUN_00236760(p);
 }
 
 
@@ -7232,16 +7227,16 @@ extern "C" void __cdecl FUN_001a9620(Owner* owner, char* name) {
 extern "C" void FUN_001a96b0(Receiver* r, void* p) {
     ConditionFactoryCasterTemplate_1a96b0 c;
     c.vftable = (void*)DAT_0041c8a0;   // (sweep-caster-fix1) the game's vftable by address
-    r->Apply_00236760(FUN_002343e0(p, &c));
+    r->FUN_00236760(FUN_002343e0(p, &c));
 }
 
 
 // 0x001a9740 FUN_001a9740 (38 B): matches/0x001a9740.cpp
 // sym: _FUN_001a9740
-extern "C" void* FUN_001a9740(Obj* o, void* p) {
+extern "C" bool FUN_001a9740(Obj* o, void* p) {
     ConditionFactoryCasterTemplate_1a9740 c;
     c.vftable = (void*)DAT_0041c8ac;   // (sweep-caster-fix1) the game's vftable by address
-    return o->Get_00236760(FUN_002343e0(p, &c));
+    return o->FUN_00236760(FUN_002343e0(p, &c));
 }
 
 
@@ -7250,7 +7245,7 @@ extern "C" void* FUN_001a9740(Obj* o, void* p) {
 extern "C" void FUN_001a97d0(Obj* obj, void* name) {
     TrackFactoryCasterTemplate_1a97d0 caster;
     caster.vftable = (void*)DAT_0041c8b8;   // (sweep-caster-fix1) the game's vftable by address
-    obj->Find_002367c0(FUN_00236ac0(name, &caster));
+    obj->FUN_002367c0(FUN_00236ac0(name, &caster));
 }
 
 
@@ -7259,7 +7254,7 @@ extern "C" void FUN_001a97d0(Obj* obj, void* name) {
 extern "C" void __cdecl FUN_001a9a90(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_1a9a90 caster;
     caster.vftable = (void*)DAT_0041c8c4;   // (sweep-caster-fix1) the game's vftable by address
-    owner->accept_002367c0(FUN_00236ac0(name, &caster));
+    owner->FUN_002367c0(FUN_00236ac0(name, &caster));
 }
 
 } // namespace fn_fc5dbd2a

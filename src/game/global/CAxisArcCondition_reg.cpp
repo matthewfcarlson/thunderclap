@@ -453,7 +453,6 @@ template <> bool fight::ConditionFactoryCasterTemplate<CAxisArcCondition>::vfunc
 // 0x00050540 fight::ConditionFactoryCasterTemplate<CAxisDirectionCondition>::vfunc_0 (36 B): matches/0x00050540.cpp [wrapped: conflict: fight::ConditionFactoryCaster]
 // sym: ?vfunc_0@ConditionFactoryCasterTemplateCAxisDirectionCondition@fight@fn_00050540@@UAE_NPAX@Z
 namespace fn_00050540 {
-extern "C++" int __cdecl CastQuery(void*, int, void*, void*, int);
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -469,7 +468,7 @@ class ConditionFactoryCasterTemplateCAxisDirectionCondition : public ConditionFa
 extern void* a;
 extern void* hulk_at_00491e00;
 bool fight::ConditionFactoryCasterTemplateCAxisDirectionCondition::vfunc_0(void* p) {
-    return CastQuery(p, 0, &a, &hulk_at_00491e00, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&a), (void*)(hulk_uintptr)(&hulk_at_00491e00), 0)) != 0;
 }
 } // namespace fn_00050540
 
@@ -526,7 +525,7 @@ template <> bool fight::ConditionFactoryCasterTemplate<CAxisReleaseCondition>::v
 
 // 0x00050680 fight::ConditionFactoryCasterTemplate<CAxisSpeedCondition>::vfunc_0 (36 B): matches/0x00050680.cpp
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VCAxisSpeedCondition@@@fight@@UAE_NPAX@Z
-template <> bool fight::ConditionFactoryCasterTemplate<CAxisSpeedCondition>::vfunc_0(void* __p0) { int a = (int)__p0;
+template <> bool fight::ConditionFactoryCasterTemplate<CAxisSpeedCondition>::vfunc_0(void* __p0) { hulk_intptr a = (hulk_intptr)__p0;   // (gfx2) the object, pointer-sized
 
     return FUN_00344e74(a, 0, (hulk_intptr)&DAT_00491ca8, (hulk_intptr)&DAT_00492108, 0) != 0;
 }
@@ -763,7 +762,7 @@ bool ConditionFactoryCasterTemplate::vfunc_0(void* p) {
 
 // 0x00050bc0 fight::ConditionFactoryCasterTemplate<CFightNodeCondition>::vfunc_0 (36 B): matches/0x00050bc0.cpp
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VCFightNodeCondition@@@fight@@UAE_NPAX@Z
-template <> bool fight::ConditionFactoryCasterTemplate<CFightNodeCondition>::vfunc_0(void* __p0) { int arg = (int)__p0;
+template <> bool fight::ConditionFactoryCasterTemplate<CFightNodeCondition>::vfunc_0(void* __p0) { hulk_intptr arg = (hulk_intptr)__p0;   // (gfx2) the object, pointer-sized
 
     hulk_intptr r = FUN_00344e74(arg, 0, (hulk_intptr)&DAT_00491ca8, (hulk_intptr)&DAT_00492e90, 0);
     return r != 0;
@@ -1059,11 +1058,10 @@ class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
     virtual void vfunc_1();
 };
 } // namespace fight
-extern "C++" int __cdecl helper(void*, int, void*, void*, int);
 extern void* a;
 extern void* hulk_at_00493ca0;
 bool fight::ConditionFactoryCasterTemplate::vfunc_0(void* p) {
-    return helper(p, 0, &a, &hulk_at_00493ca0, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&a), (void*)(hulk_uintptr)(&hulk_at_00493ca0), 0)) != 0;
 }
 } // namespace fn_00051140
 

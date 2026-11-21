@@ -84,7 +84,6 @@ class ConditionFactoryCasterTemplate_16aa10 {
 };
 extern void* hulk_at_00491ca8;
 extern void* hulk_at_004b7580;
-extern "C" int __cdecl check(void*, int, void*, void*, int);
 } // namespace fn_f45cd32f
 namespace fight {
 class ConditionFactoryCaster_16aa70 {
@@ -848,7 +847,7 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::InLoad
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VVelocityXZCondition@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::VelocityXZCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return check(p, 0, &DAT_00491ca8, &DAT_004b7640, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&DAT_00491ca8), (void*)(hulk_uintptr)(&DAT_004b7640), 0)) != 0;
 }
 
 

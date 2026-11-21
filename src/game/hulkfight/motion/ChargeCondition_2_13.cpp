@@ -348,7 +348,7 @@ template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::VelocityXZA
 template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::VelocityXZCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004171d0; }
 template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::VelocityYCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004170f8; }
 }
-struct Registry_16cea0 { void FUN_00236760(void*); };
+struct Registry_16cea0 { bool FUN_00236760(void*); };
 extern "C" void* __cdecl FUN_002343e0(const char*, void*);
 extern "C" void __cdecl FUN_0016cea0(Registry_16cea0* r)
 {

@@ -31,8 +31,7 @@ class ConditionFactoryCasterTemplate_23d420 {   // (fix2) was polymorphic (virtu
 extern "C++" void* FUN_002343e0(const char*, ConditionFactoryCasterTemplate_23d420*);   // (gfx1) its own name: `Find` stood for several functions natively (ambiguous binding)
 class Owner {
   public:
-    void Apply_00236760(void*);
-    void Set_00236760(void*);
+    bool FUN_00236760(void*);
 };
 class Obj_23d450 {
   public:
@@ -124,7 +123,7 @@ struct ConditionFactoryTemplate_23d7c0 {
 extern "C" void FUN_0023d420(Owner* owner, const char* name) {
     ConditionFactoryCasterTemplate_23d420 caster;
     void* p = FUN_002343e0(name, &caster);
-    owner->Apply_00236760(p);
+    owner->FUN_00236760(p);
 }
 
 
@@ -271,7 +270,7 @@ namespace fn_fd383094 {
 // sym: _FUN_0023d710
 extern "C" void FUN_0023d710(Owner* owner, void* ptr) {
     ConditionFactoryCasterTemplate_23d710 caster;
-    owner->Set_00236760(FUN_002343e0(ptr, &caster));
+    owner->FUN_00236760(FUN_002343e0(ptr, &caster));
 }
 
 

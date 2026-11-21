@@ -307,12 +307,7 @@ class Caster_17cbd0 {
 };
 class Obj {
   public:
-    void use_002367c0(void*);
-    void Apply_002367c0(void*);
-    void set_002367c0(void*);
-    void second_002367c0(hulk_intptr);   // (decl1) passes as defined
-    void Process_002367c0(void*);
-    void Apply_002367c0(int);
+    bool FUN_002367c0(void*);
 };
 void* __cdecl Find_00236ac0(const char*, Caster_17cbd0*);
 extern "C" char DAT_0041897c[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::JointRelativeTrack>'s vftable
@@ -324,7 +319,7 @@ class Caster_17cc00 {
 extern void* Find_00236ac0(const char*, Caster_17cc00*);
 class Track {
   public:
-    void Set_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 class JointRelativeTrack {
 public:
@@ -496,8 +491,7 @@ class Caster {
 };
 class Owner {
   public:
-    void Attach_002367c0(Track*);
-    void Apply_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 Track* Find_00236ac0(const char*, Caster*);
 extern "C" char DAT_004189ac[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::MoveJointTrack>'s vftable
@@ -506,7 +500,7 @@ class Caster_17d1e0 {
     void* vftable;   // (sweep-caster-land) the word its inline constructor writes (was a local polymorphic stand-in:
                      // clang's own vftable natively, whose slot had no definition)
 };
-int first_00236ac0(int, Caster_17d1e0*);
+void* first_00236ac0(const char*, Caster_17d1e0*);
 } // namespace fn_f05a6271
 namespace hulkfight { namespace motion {
 class MoveJointTrack_17d210 {
@@ -595,7 +589,7 @@ class Caster_17d610 {
     void* vftable;   // (sweep-caster-land) the word its inline constructor writes (was a local polymorphic stand-in:
                      // clang's own vftable natively, whose slot had no definition)
 };
-extern int __cdecl Find_00236ac0(int, Caster_17d610*);
+extern void* __cdecl Find_00236ac0(const char*, Caster_17d610*);
 extern "C" char DAT_004189e8[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::TargetBreakTrack>'s vftable
 class Caster_17d640 {
   public:
@@ -737,7 +731,7 @@ class Caster_17dc10 {
 };
 class Target {
   public:
-    void Set_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 void* Find_00236ac0(void*, Caster_17dc10*);
 extern "C" char DAT_00418a24[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::TargetIconDistanceTrack>'s vftable
@@ -1145,7 +1139,7 @@ CriticalMassDrainAction_17be10* CriticalMassDrainAction_17be10::vfunc_2(int flag
 // Same code shape as 0x00119fb0 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::MomentumXZAddTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17be60 a = (u32_17be60)__p0; u32_17be60 b = (u32_17be60)__p1; void * p = (void *)__p2;
 
-    if (IsKindOf(p, 0, &TypeA_17be60, &TypeB, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&TypeA_17be60), (void*)(hulk_uintptr)(&TypeB), 0))) {
         Params_17be60* q = (Params_17be60*)Alloc_0008d690(0x34);
         if (q)
             return q->Init_001774c0(this, p);
@@ -1479,13 +1473,13 @@ struct TrackFactoryCasterTemplate {   // (sweep-caster-fix1) the word its inline
 } // namespace fight
 class Thing {
   public:
-    void Set_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C++" __declspec(nothrow) void* Find_00236ac0(const char*, fight::TrackFactoryCasterTemplate*);
 extern "C" void FUN_0017c620(Thing* thing, const char* name) {
     fight::TrackFactoryCasterTemplate caster;
     caster.vftable = (void*)DAT_0041894c;   // (sweep-caster-fix1) the game's vftable by address
-    thing->Set_002367c0(Find_00236ac0(name, &caster));
+    thing->FUN_002367c0(Find_00236ac0(name, &caster));
 }
 } // namespace fn_0017c620
 
@@ -1536,14 +1530,14 @@ class Caster_17ca00 {
 };
 class Obj {
   public:
-    void Apply_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl Find_00236ac0(void*, Caster_17ca00*);
 extern "C" void __cdecl FUN_0017ca00(Obj* obj, void* value) {
     Caster_17ca00 caster;
     caster.vftable = (void*)DAT_00418958;   // (sweep-caster-land) the game's vftable by address
     void* p = Find_00236ac0(value, &caster);
-    obj->Apply_002367c0(p);
+    obj->FUN_002367c0(p);
 }
 } // namespace fn_0017ca00
 
@@ -1559,13 +1553,13 @@ class Caster_17ca30 {
 };
 class Obj {
   public:
-    void Set_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl Find_00236ac0(void*, Caster_17ca30*);
 extern "C" void __cdecl FUN_0017ca30(Obj* obj, void* name) {
     Caster_17ca30 caster;
     caster.vftable = (void*)DAT_00418964;   // (sweep-caster-land) the game's vftable by address
-    obj->Set_002367c0(Find_00236ac0(name, &caster));
+    obj->FUN_002367c0(Find_00236ac0(name, &caster));
 }
 } // namespace fn_0017ca30
 
@@ -1600,7 +1594,7 @@ namespace fn_f05a6271 {
 extern "C" void __cdecl FUN_0017cbd0(Obj* obj, const char* name) {
     Caster_17cbd0 caster;
     caster.vftable = (void*)DAT_00418970;   // (sweep-caster-land) the game's vftable by address
-    obj->Apply_002367c0(Find_00236ac0(name, &caster));
+    obj->FUN_002367c0(Find_00236ac0(name, &caster));
 }
 
 
@@ -1610,7 +1604,7 @@ extern "C" void FUN_0017cc00(Track* track, const char* name) {
     Caster_17cc00 caster;
     caster.vftable = (void*)DAT_0041897c;   // (sweep-caster-land) the game's vftable by address
     void* found = Find_00236ac0(name, &caster);
-    track->Set_002367c0(found);
+    track->FUN_002367c0(found);
 }
 
 
@@ -1653,14 +1647,14 @@ class Caster {
 };
 class Obj {
   public:
-    void Use_002367c0(hulk_intptr);   // (decl1) passes as defined
+    bool FUN_002367c0(void*);   // (decl1) passes as defined
 };
-extern int Find_00236ac0(void*, Caster*);
+extern void* Find_00236ac0(void*, Caster*);
 extern "C" void FUN_0017cea0(Obj* obj, void* name) {
     Caster c;
     c.vftable = (void*)DAT_00418988;   // (sweep-caster-land) the game's vftable by address
-    int x = Find_00236ac0(name, &c);
-    obj->Use_002367c0(x);
+    void* x = Find_00236ac0(name, &c);
+    obj->FUN_002367c0(x);
 }
 } // namespace fn_0017cea0
 
@@ -1701,7 +1695,7 @@ namespace fn_f05a6271 {
 extern "C" void __cdecl FUN_0017d180(Obj* obj, const char* name) {
     Caster_17d180 caster;
     caster.vftable = (void*)DAT_00418994;   // (sweep-caster-land) the game's vftable by address
-    obj->set_002367c0(find_00236ac0(name, &caster));
+    obj->FUN_002367c0(find_00236ac0(name, &caster));
 }
 
 
@@ -1711,17 +1705,17 @@ extern "C" void FUN_0017d1b0(Owner* owner, const char* name) {
     Caster caster;
     caster.vftable = (void*)DAT_004189a0;   // (sweep-caster-land) the game's vftable by address
     Track* t = Find_00236ac0(name, &caster);
-    owner->Attach_002367c0(t);
+    owner->FUN_002367c0(t);
 }
 
 
 // 0x0017d1e0 FUN_0017d1e0 (38 B): matches/0x0017d1e0.cpp
 // sym: _FUN_0017d1e0
-extern "C" void FUN_0017d1e0(Obj* obj, int n) {
+extern "C" void FUN_0017d1e0(Obj* obj, const char* n) {
     Caster_17d1e0 caster;
     caster.vftable = (void*)DAT_004189ac;   // (sweep-caster-land) the game's vftable by address
-    int x = first_00236ac0(n, &caster);
-    obj->second_002367c0(x);
+    void* x = first_00236ac0(n, &caster);
+    obj->FUN_002367c0(x);
 }
 
 
@@ -1770,12 +1764,12 @@ class Caster_17d580 {
 extern "C++" __declspec(nothrow) void* __cdecl Find_00236ac0(void*, Caster_17d580*);
 class Obj {
   public:
-    void Take_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C" void __cdecl FUN_0017d580(Obj* obj, void* value) {
     Caster_17d580 caster;
     caster.vftable = (void*)DAT_004189b8;   // (sweep-caster-land) the game's vftable by address
-    obj->Take_002367c0(Find_00236ac0(value, &caster));
+    obj->FUN_002367c0(Find_00236ac0(value, &caster));
 }
 } // namespace fn_0017d580
 
@@ -1787,7 +1781,7 @@ extern "C" void FUN_0017d5b0(Obj* obj, const char* name) {
     Caster_17d5b0 caster;
     caster.vftable = (void*)DAT_004189c4;   // (sweep-caster-land) the game's vftable by address
     void* p = Find_00236ac0(name, &caster);
-    obj->Process_002367c0(p);
+    obj->FUN_002367c0(p);
 }
 
 } // namespace fn_f05a6271
@@ -1803,14 +1797,14 @@ class Caster {
 };
 class Holder {
   public:
-    void Set_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 void* Find_00236ac0(void*, Caster*);
 void Target(Holder* h, void* x) {
     Caster c;
     c.vftable = (void*)DAT_004189d0;   // (sweep-caster-land) the game's vftable by address
     void* p = Find_00236ac0(x, &c);
-    h->Set_002367c0(p);
+    h->FUN_002367c0(p);
 }
 } // namespace fn_0017d5e0
 
@@ -1818,10 +1812,10 @@ namespace fn_f05a6271 {
 
 // 0x0017d610 FUN_0017d610 (38 B): matches/0x0017d610.cpp
 // sym: _FUN_0017d610
-extern "C" void FUN_0017d610(Obj* obj, int id) {
+extern "C" void FUN_0017d610(Obj* obj, const char* id) {
     Caster_17d610 caster;
     caster.vftable = (void*)DAT_004189dc;   // (sweep-caster-land) the game's vftable by address
-    obj->Apply_002367c0(Find_00236ac0(id, &caster));
+    obj->FUN_002367c0(Find_00236ac0(id, &caster));
 }
 
 
@@ -1830,7 +1824,7 @@ extern "C" void FUN_0017d610(Obj* obj, int id) {
 extern "C" void FUN_0017d640(Obj* obj, const char* name) {
     Caster_17d640 c;
     c.vftable = (void*)DAT_004189e8;   // (sweep-caster-land) the game's vftable by address
-    obj->use_002367c0(find_00236ac0(name, &c));
+    obj->FUN_002367c0(find_00236ac0(name, &c));
 }
 
 
@@ -1840,7 +1834,7 @@ extern "C" void FUN_0017d670(Owner* owner, void* key) {
     Caster_17d670 c;
     c.vftable = (void*)DAT_004189f4;   // (sweep-caster-land) the game's vftable by address
     void* result = Find_00236ac0(key, &c);
-    owner->Apply_002367c0(result);
+    owner->FUN_002367c0(result);
 }
 
 
@@ -1880,13 +1874,13 @@ class Caster_17d870 {
 };
 class Track {
   public:
-    void get_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl find_00236ac0(void*, Caster_17d870*);
 extern "C" void FUN_0017d870(Track* t, void* name) {
     Caster_17d870 c;
     c.vftable = (void*)DAT_00418a00;   // (sweep-caster-land) the game's vftable by address
-    t->get_002367c0(find_00236ac0(name, &c));
+    t->FUN_002367c0(find_00236ac0(name, &c));
 }
 } // namespace fn_0017d870
 
@@ -1898,7 +1892,7 @@ extern "C" void FUN_0017d8a0(Obj* obj, void* id) {
     Caster_17d8a0 caster;
     caster.vftable = (void*)DAT_00418a0c;   // (sweep-caster-land) the game's vftable by address
     void* p = resolve_00236ac0(id, &caster);
-    obj->use_002367c0(p);
+    obj->FUN_002367c0(p);
 }
 
 
@@ -1940,7 +1934,7 @@ namespace fn_f05a6271 {
 extern "C" void FUN_0017dc10(Target* obj, void* name) {
     Caster_17dc10 caster;
     caster.vftable = (void*)DAT_00418a18;   // (sweep-caster-land) the game's vftable by address
-    obj->Set_002367c0(Find_00236ac0(name, &caster));
+    obj->FUN_002367c0(Find_00236ac0(name, &caster));
 }
 
 
@@ -1949,7 +1943,7 @@ extern "C" void FUN_0017dc10(Target* obj, void* name) {
 extern "C" void FUN_0017dc40(Target* target, void* name) {
     Caster_17dc40 caster;
     caster.vftable = (void*)DAT_00418a24;   // (sweep-caster-land) the game's vftable by address
-    target->Set_002367c0(Find_00236ac0(name, &caster));
+    target->FUN_002367c0(Find_00236ac0(name, &caster));
 }
 
 } // namespace fn_f05a6271
@@ -1965,13 +1959,13 @@ class Caster_17dc70 {
 };
 class Track {
   public:
-    void apply_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl find_00236ac0(void*, Caster_17dc70*);
 extern "C" void __cdecl FUN_0017dc70(Track* track, void* name) {
     Caster_17dc70 caster;
     caster.vftable = (void*)DAT_00418a30;   // (sweep-caster-land) the game's vftable by address
-    track->apply_002367c0(find_00236ac0(name, &caster));
+    track->FUN_002367c0(find_00236ac0(name, &caster));
 }
 } // namespace fn_0017dc70
 
@@ -1987,13 +1981,13 @@ class Caster {
 };
 class Obj {
   public:
-    void Set_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 void* __cdecl Find_00236ac0(const char*, Caster*);
 extern "C" void FUN_0017dca0(Obj* obj, const char* name) {
     Caster caster;
     caster.vftable = (void*)DAT_00418a3c;   // (sweep-caster-land) the game's vftable by address
-    obj->Set_002367c0(Find_00236ac0(name, &caster));
+    obj->FUN_002367c0(Find_00236ac0(name, &caster));
 }
 } // namespace fn_0017dca0
 
@@ -2008,13 +2002,13 @@ class Caster {
                      // clang's own vftable natively, whose slot had no definition)
 };
 struct Owner {
-    void add_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
-extern "C++" __declspec(nothrow) void* __cdecl find_00236ac0(int, Caster*);
+extern "C++" __declspec(nothrow) void* __cdecl find_00236ac0(hulk_intptr, Caster*);
 extern "C" void __cdecl FUN_0017dcd0(Owner* owner, hulk_intptr id) {
     Caster caster;
     caster.vftable = (void*)DAT_00418a48;   // (sweep-caster-land) the game's vftable by address
-    owner->add_002367c0(find_00236ac0(id, &caster));
+    owner->FUN_002367c0(find_00236ac0(id, &caster));
 }
 } // namespace fn_0017dcd0
 
@@ -2030,13 +2024,13 @@ class Caster {
 };
 class Obj {
   public:
-    void Act_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 void* __cdecl Find_00236ac0(void*, Caster*);
 void __cdecl Target(Obj* obj, void* p) {
     Caster caster;
     caster.vftable = (void*)DAT_00418a54;   // (sweep-caster-land) the game's vftable by address
-    obj->Act_002367c0(Find_00236ac0(p, &caster));
+    obj->FUN_002367c0(Find_00236ac0(p, &caster));
 }
 } // namespace fn_0017dd00
 
@@ -2053,12 +2047,12 @@ class Caster {
 extern "C++" __declspec(nothrow) void* Find_00236ac0(void*, Caster*);
 class Obj {
   public:
-    void Use_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C" void FUN_0017dd30(Obj* obj, void* name) {
     Caster caster;
     caster.vftable = (void*)DAT_00418a60;   // (sweep-caster-land) the game's vftable by address
-    obj->Use_002367c0(Find_00236ac0(name, &caster));
+    obj->FUN_002367c0(Find_00236ac0(name, &caster));
 }
 } // namespace fn_0017dd30
 
@@ -2074,13 +2068,13 @@ class Caster {
 };
 class Obj {
   public:
-    void Do_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 void* Find_00236ac0(void*, Caster*);
 void Target(Obj* obj, void* key) {
     Caster caster;
     caster.vftable = (void*)DAT_00418a6c;   // (sweep-caster-land) the game's vftable by address
-    obj->Do_002367c0(Find_00236ac0(key, &caster));
+    obj->FUN_002367c0(Find_00236ac0(key, &caster));
 }
 } // namespace fn_0017dd60
 
@@ -2096,14 +2090,14 @@ class Caster {
 };
 class Obj {
   public:
-    void Set_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
-extern "C++" __declspec(nothrow) void* __cdecl Find(void*, Caster*);
+extern "C++" __declspec(nothrow) void* __cdecl Find_00236ac0(void*, Caster*);
 extern "C" void FUN_0017dd90(Obj* obj, void* name) {
     Caster caster;
     caster.vftable = (void*)DAT_00418a78;   // (sweep-caster-land) the game's vftable by address
-    void* p = Find(name, &caster);
-    obj->Set_002367c0(p);
+    void* p = Find_00236ac0(name, &caster);
+    obj->FUN_002367c0(p);
 }
 } // namespace fn_0017dd90
 
@@ -2120,13 +2114,13 @@ class Caster {
 extern "C++" __declspec(nothrow) void* __cdecl lookup_00236ac0(void*, Caster*);
 class Obj {
   public:
-    void* use_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
-extern "C" void* FUN_0017ddc0(Obj* obj, void* key) {
+extern "C" bool FUN_0017ddc0(Obj* obj, void* key) {
     Caster caster;
     caster.vftable = (void*)DAT_00418a84;   // (sweep-caster-land) the game's vftable by address
     void* result = lookup_00236ac0(key, &caster);
-    return obj->use_002367c0(result);
+    return obj->FUN_002367c0(result);
 }
 } // namespace fn_0017ddc0
 

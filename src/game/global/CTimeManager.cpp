@@ -962,7 +962,7 @@ struct Item_86790 { void FUN_000af0f0(void*); };
 struct Source_86790 { void FUN_000ae840(); };
 struct Input_86790 { void FUN_000af3c0(int); Item_86790* FUN_000af3a0(int); };
 struct Pump_86790 { void FUN_000bd1b0(int); };
-struct State_86790 { char pad[5]; unsigned char active; };
+struct State_86790 { void* vftable; char b4; unsigned char active; };   // (gfx2) the drive-error callback (0x0008e090)
 extern "C" void FUN_002684c0();
 State_86790* FUN_0008e090();
 bool FUN_0008db80();
@@ -1109,7 +1109,7 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 struct Flags_86ad0 {
-    char pad0[4];
+    void* vftable;   // (gfx2) the drive-error callback (0x0008e090): its vftable, then the flags
     char started;       // +4
     char quit;          // +5
     char pad1;
@@ -1143,10 +1143,7 @@ struct Fader_86ad0 {
     void FUN_001b8110(int ms);
 };
 
-struct Context {
-    char pad[0x30];
-    Audio_86ad0 *audio;
-    Fader_86ad0 *fader;
+struct Context : HulkGame {   // (gfx2) CGame (decls/managers.h): the sound (+0x30) and FMV (+0x34) managers
 };
 
 struct World {
@@ -1154,12 +1151,8 @@ struct World {
     Context *ctx;
 };
 
-struct Game_86ad0 {
+struct Game_86ad0 : HulkGame {   // (gfx2) CGame: the controller (+0x10) and render (+0x24) managers
     void FUN_00086ad0();
-    char pad0[0x10];
-    PadList_86ad0 *pads;
-    char pad1[0x24 - 0x14];
-    struct Renderer_86ad0 *renderer;
 };
 
 struct Renderer_86ad0 {
@@ -1183,17 +1176,17 @@ void Game_86ad0::FUN_00086ad0()
         return;
 
     if (!FUN_0008e090()->paused && !FUN_0008e090()->quit) {
-        DAT_004dd700->ctx->audio->FUN_001eb870();
+        ((Audio_86ad0*)DAT_004dd700->ctx->sound)->FUN_001eb870();
         FUN_0008e090()->paused = 1;
         for (int n = 10; n != 0; n--)
-            DAT_004dd700->ctx->audio->FUN_001eb2a0(0.01f, 0);
+            ((Audio_86ad0*)DAT_004dd700->ctx->sound)->FUN_001eb2a0(0.01f, 0);
     }
 
     if (FUN_0008e090()->quit)
         return;
 
     do {
-        renderer->FUN_001bc040();
+        ((Renderer_86ad0*)render)->FUN_001bc040();
         FUN_0008e090()->busy = 1;
         FUN_002684c0();
         (*(int*)&DAT_004dda40)++;
@@ -1205,7 +1198,7 @@ void Game_86ad0::FUN_00086ad0()
     while (!(rising && settled) && FUN_0008e090()->quit) {
         int i = 0;
         do {
-            pads->FUN_000ae640(i)->FUN_000ada70(&state);
+            ((PadList_86ad0*)controllers)->FUN_000ae640(i)->FUN_000ada70(&state);
             float v = state.value;
             if (rising) {
                 if (v < 0.2f) {
@@ -1218,17 +1211,17 @@ void Game_86ad0::FUN_00086ad0()
             }
             i++;
         } while (i < 1);
-        pads->FUN_000ae840();
+        ((PadList_86ad0*)controllers)->FUN_000ae840();
     }
 
     if (FUN_0008e090()->busy && FUN_0008e090()->quit) {
         FUN_0008e090()->busy = 0;
         if (!FUN_0008db80()) {
-            DAT_004dd700->ctx->audio->FUN_001eb890();
+            ((Audio_86ad0*)DAT_004dd700->ctx->sound)->FUN_001eb890();
             FUN_0008e090()->paused = 0;
             for (int n = 10; n != 0; n--)
-                DAT_004dd700->ctx->audio->FUN_001eb2a0(0.01f, 0);
-            DAT_004dd700->ctx->fader->FUN_001b8110(500);
+                ((Audio_86ad0*)DAT_004dd700->ctx->sound)->FUN_001eb2a0(0.01f, 0);
+            ((Fader_86ad0*)DAT_004dd700->ctx->fmv)->FUN_001b8110(500);
         }
     }
     DAT_004e222c = 1;

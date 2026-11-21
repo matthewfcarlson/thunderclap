@@ -89,7 +89,7 @@ class Aux38 {
 public:
 };
 struct Flag4 {
-    char pad0[4];
+    void* vftable;   // (gfx2) the drive-error callback (0x0008e090): its vftable, then the flags
     char on;
 };
 extern "C" void FUN_000fc150();

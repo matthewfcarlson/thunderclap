@@ -1049,7 +1049,7 @@ class TrackFactoryCasterTemplate_13c1f0 {   // (fix2) was polymorphic (virtual b
     void *vftable;
     TrackFactoryCasterTemplate_13c1f0() { vftable = DAT_00412838; }
 };
-void __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_13c1f0*);
+void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_13c1f0*);
 class ParamValueName_13c260 {
   public:
     ParamValueName_13c260(int);
@@ -1085,10 +1085,7 @@ class TrackFactoryCasterTemplate_13cdd0 {   // (fix2) was polymorphic (virtual i
 class Track {};
 class Owner {
   public:
-    void set_002367c0(void*);
-    void Set_002367c0(void*);
-    Track* Add_002367c0(Track*);
-    void apply_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 Track* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_13cdd0*);
 extern "C" char DAT_0041285c[];   // (fix2) the game's caster vftable
@@ -1115,7 +1112,7 @@ class Condition;
 extern "C" Condition* __cdecl FUN_002343e0(const char*, ConditionFactoryCaster_13d3c0*);
 class Factory {
   public:
-    void add_00236760(Condition*);
+    bool FUN_00236760(void*);
 };
 } // namespace fn_f30d2d27
 inline void* __cdecl operator new(size_t, void* where) {
@@ -3399,7 +3396,6 @@ template <> bool fight::ParamIntConstRange<hulkfight::motion::AnimationVelocityS
 // 0x0013b9a0 fight::ConditionFactoryCasterTemplate<hulkfight::motion::FrameReachedCondition>::vfunc_0 (36 B): matches/0x0013b9a0.cpp [wrapped: conflict: fight::ConditionFactoryCaster; fight::ConditionFactoryCasterTemplate; hulkfight::motion::FrameReachedCondition]
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VFrameReachedCondition@motion@hulkfight@fn_0013b9a0@@@fight@fn_0013b9a0@@UAE_NPAX@Z
 namespace fn_0013b9a0 {
-extern "C++" __declspec(nothrow) int __cdecl check(void*, int, void*, void*, int);
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -3421,7 +3417,7 @@ extern void* hulk_at_00491ca8;
 extern void* hulk_at_004ac870;
 template <>
 bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::FrameReachedCondition>::vfunc_0(void* p) {
-    return check(p, 0, &hulk_at_00491ca8, &hulk_at_004ac870, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&hulk_at_00491ca8), (void*)(hulk_uintptr)(&hulk_at_004ac870), 0)) != 0;
 }
 } // namespace fn_0013b9a0
 
@@ -3566,7 +3562,6 @@ template class fight::ParamIntConstRange<hulkfight::motion::AnimationTrack>; // 
 // 0x0013bb40 fight::TrackFactoryCasterTemplate<hulkfight::motion::AnimationChargeTrack>::vfunc_0 (36 B): matches/0x0013bb40.cpp [wrapped: conflict: Check; a; b; fight::TrackFactoryCaster (+1)]
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VAnimationChargeTrack@motion@hulkfight@fn_0013bb40@@@fight@fn_0013bb40@@UAE_NPAX@Z
 namespace fn_0013bb40 {
-extern "C++" __declspec(nothrow) int __cdecl Check(void*, int, const void*, const void*, int);
 extern int a;
 extern int hulk_at_004aca88;
 namespace fight {
@@ -3588,7 +3583,7 @@ class AnimationChargeTrack;
 } // namespace hulkfight
 template <>
 bool fight::TrackFactoryCasterTemplate<hulkfight::motion::AnimationChargeTrack>::vfunc_0(void* p) {
-    return Check(p, 0, &a, &hulk_at_004aca88, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&a), (void*)(hulk_uintptr)(&hulk_at_004aca88), 0)) != 0;
 }
 } // namespace fn_0013bb40
 
@@ -3633,11 +3628,10 @@ namespace motion {
 class AnimationLinkedTrack {};
 } // namespace motion
 } // namespace hulkfight
-extern "C++" __declspec(nothrow) int __cdecl check(void*, int, void*, void*, int);
 extern void* a;
 extern void* hulk_at_004acb40;
 template <> int fight::TrackFactoryCasterTemplate<hulkfight::motion::AnimationLinkedTrack>::vfunc_0(void* p) {
-    return check(p, 0, &a, &hulk_at_004acb40, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&a), (void*)(hulk_uintptr)(&hulk_at_004acb40), 0)) != 0;
 }
 } // namespace fn_0013bbc0
 
@@ -4214,7 +4208,7 @@ class TrackFactoryCasterTemplate_13c290 {   // (fix2) was polymorphic (virtual i
     void *vftable;
     TrackFactoryCasterTemplate_13c290() { vftable = DAT_00412850; }
 };
-extern void FUN_00236ac0(void*, TrackFactoryCasterTemplate_13c290*);
+extern void* FUN_00236ac0(void*, TrackFactoryCasterTemplate_13c290*);
 void target(void* p) {
     TrackFactoryCasterTemplate_13c290 c;
     FUN_00236ac0(p, &c);
@@ -4385,7 +4379,7 @@ namespace fn_f30d2d27 {
 // sym: _FUN_0013c620
 extern "C" void FUN_0013c620(Owner* owner, void* name) {
     TrackFactoryCasterTemplate_13c620 caster;
-    owner->set_002367c0(FUN_00236ac0(name, &caster));
+    owner->FUN_002367c0(FUN_00236ac0(name, &caster));
 }
 
 } // namespace fn_f30d2d27
@@ -4401,12 +4395,12 @@ class TrackFactoryCasterTemplate_13c930 {   // (fix2) was polymorphic (virtual b
 };
 class Obj {
   public:
-    void use_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C++" __declspec(nothrow) void* FUN_00236ac0(void*, TrackFactoryCasterTemplate_13c930*);
 extern "C" void FUN_0013c930(Obj* o, void* p) {
     TrackFactoryCasterTemplate_13c930 c;
-    o->use_002367c0(FUN_00236ac0(p, &c));
+    o->FUN_002367c0(FUN_00236ac0(p, &c));
 }
 } // namespace fn_0013c930
 
@@ -4416,16 +4410,16 @@ namespace fn_f30d2d27 {
 // sym: _FUN_0013cb60
 extern "C" void FUN_0013cb60(Owner* o, const char* name) {
     TrackFactoryCasterTemplate_13cb60 caster;
-    o->Set_002367c0(FUN_00236ac0(name, &caster));
+    o->FUN_002367c0(FUN_00236ac0(name, &caster));
 }
 
 
 // 0x0013cdd0 FUN_0013cdd0 (38 B): matches/0x0013cdd0.cpp
 // sym: _FUN_0013cdd0
-extern "C" Track* FUN_0013cdd0(Owner* owner, const char* name) {
+extern "C" bool FUN_0013cdd0(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_13cdd0 caster;
     Track* p = FUN_00236ac0(name, &caster);
-    return owner->Add_002367c0(p);
+    return owner->FUN_002367c0(p);
 }
 
 
@@ -4433,7 +4427,7 @@ extern "C" Track* FUN_0013cdd0(Owner* owner, const char* name) {
 // sym: _FUN_0013d040
 extern "C" void FUN_0013d040(Owner* owner, void* name) {
     TrackFactoryCasterTemplate_13d040 c;
-    owner->apply_002367c0(FUN_00236ac0(name, &c));
+    owner->FUN_002367c0(FUN_00236ac0(name, &c));
 }
 
 
@@ -4442,11 +4436,11 @@ extern "C" void FUN_0013d040(Owner* owner, void* name) {
 extern "C" void __cdecl FUN_0013d3c0(Factory* factory) {
     {
         ConditionFactoryCasterTemplate_13d3c0 frame;
-        factory->add_00236760(FUN_002343e0("frame", &frame));
+        factory->FUN_00236760(FUN_002343e0("frame", &frame));
     }
     {
         Reached reached;
-        factory->add_00236760(FUN_002343e0("frameReached", &reached));
+        factory->FUN_00236760(FUN_002343e0("frameReached", &reached));
     }
 }
 
@@ -4753,13 +4747,13 @@ class TrackFactoryCasterTemplate_13d780 {   // (fix2) was polymorphic (virtual b
 };
 class Target {
   public:
-    void Set_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl FUN_00236ac0(const char*, TrackFactoryCasterTemplate_13d780*);
 extern "C" void __cdecl FUN_0013d780(Target* t, const char* name) {
     TrackFactoryCasterTemplate_13d780 caster;
     void* p = FUN_00236ac0(name, &caster);
-    t->Set_002367c0(p);
+    t->FUN_002367c0(p);
 }
 } // namespace fn_0013d780
 

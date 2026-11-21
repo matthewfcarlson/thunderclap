@@ -323,7 +323,7 @@ public:
     void FUN_00294980(int arg);
 };
 struct Flag_bc100 {
-    char pad0[4];
+    void* vftable;   // (gfx2) the drive-error callback (0x0008e090): its vftable, then the flags
     char ready;
 };
 extern "C" Scene_bc100 *__cdecl FUN_000fc1b0();

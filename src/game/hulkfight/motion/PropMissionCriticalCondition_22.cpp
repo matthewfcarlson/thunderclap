@@ -16,6 +16,8 @@
 #define TREE_TU_END }
 namespace fn_f5c5d2a1 {} using namespace fn_f5c5d2a1;
 #include "game/hulkfight/motion.h"
+// (gfx2) __RTDynamicCast's own name (CRT, C linkage): the stand-ins below bound nothing natively
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
 extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
 namespace fn_f4259b06 { struct A_1803b0 { char SetAttachmentIndex_001803b0(int); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
@@ -81,7 +83,6 @@ namespace hulkfight { namespace motion {
 class PropAddToCollisionTrack_1873a0;
 } }
 namespace fn_f5c5d2a1 {
-extern "C" int __cdecl Check(void*, int, void*, void*, int);
 } // namespace fn_f5c5d2a1
 namespace fight {
 class TrackFactoryCaster_187440 {
@@ -474,7 +475,7 @@ class PropActorThinkingAction_1888c0 {
     int m_1c;
     RefCounted_1888c0* m_20;
 };
-extern int FUN_00344e74(int, int, const void*, const void*, int);
+extern int FUN_00344e74(hulk_intptr, int, const void*, const void*, int);
 extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class AllocObj_188910 {
   public:
@@ -787,7 +788,7 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::PropAddToC
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VPropAddToMissileCountTrack@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::PropAddToMissileCountTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return Check(p, 0, &DAT_0049850c, &DAT_004be5c8, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&DAT_0049850c), (void*)(hulk_uintptr)(&DAT_004be5c8), 0)) != 0;
 }
 
 

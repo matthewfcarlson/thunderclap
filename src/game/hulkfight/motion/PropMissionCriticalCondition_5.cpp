@@ -7,12 +7,13 @@
 #define TREE_TU_END }
 namespace fn_f14fdbae {} using namespace fn_f14fdbae;
 #include "game/hulkfight/motion.h"
+// (gfx2) __RTDynamicCast's own name (CRT, C linkage): the stand-ins below bound nothing natively
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f14fdbae {
 extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 extern char DAT_004bd4f0;
-extern "C" int __cdecl Check(void*, int, void*, void*, int);
 extern char DAT_004bd5b8;
 } // namespace fn_f14fdbae
 namespace fight {
@@ -40,6 +41,6 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::PropGr
  // namespace hulkfight
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::PropMassCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return Check(p, 0, &DAT_00491ca8, &DAT_004bd5b8, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&DAT_00491ca8), (void*)(hulk_uintptr)(&DAT_004bd5b8), 0)) != 0;
 }
 

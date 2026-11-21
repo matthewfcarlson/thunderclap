@@ -8,12 +8,13 @@
 #define TREE_TU_END }
 namespace fn_f74dcadf {} using namespace fn_f74dcadf;
 #include "game/hulkfight/ai.h"
+// (gfx2) __RTDynamicCast's own name (CRT, C linkage): the stand-ins below bound nothing natively
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f74dcadf {
 extern int hulk_at_00491ca8;
 extern int hulk_at_004a3e50;
-extern "C" int __cdecl Check(void*, int, void*, void*, int);
 } // namespace fn_f74dcadf
 namespace fight {
 class ConditionFactoryCaster_1111e0 {
@@ -34,7 +35,7 @@ extern hulk_intptr FUN_00344e74(hulk_intptr, int, hulk_intptr, hulk_intptr, int)
  // namespace fight
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::LeashedCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return Check(p, 0, &hulk_at_00491ca8, &hulk_at_004a3e50, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&hulk_at_00491ca8), (void*)(hulk_uintptr)(&hulk_at_004a3e50), 0)) != 0;
 }
 
 

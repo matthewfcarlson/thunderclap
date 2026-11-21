@@ -7,6 +7,8 @@
 #define TREE_TU_END }
 namespace fn_f9bb6ced {} using namespace fn_f9bb6ced;
 #include "game/hulkfight/motion.h"
+// (gfx2) __RTDynamicCast's own name (CRT, C linkage): the stand-ins below bound nothing natively
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f9bb6ced {
@@ -16,7 +18,6 @@ class TrackFactoryCaster_186f60 {
     virtual void vfunc_1();
 };
 extern const char hulk_at_0049850c[], hulk_at_004be028[];
-extern "C" int __cdecl check(const char*, int, const char*, const char*, int);
 
 } // namespace fn_f9bb6ced
 
@@ -24,6 +25,6 @@ extern "C" int __cdecl check(const char*, int, const char*, const char*, int);
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VGrapplePropDamageTrack@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::GrapplePropDamageTrack>::vfunc_0(void* __p0) { const char * s = (const char *)__p0;
 
-    return check(s, 0, hulk_at_0049850c, hulk_at_004be028, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(s), 0, (void*)(hulk_uintptr)(hulk_at_0049850c), (void*)(hulk_uintptr)(hulk_at_004be028), 0)) != 0;
 }
 

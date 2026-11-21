@@ -78,8 +78,8 @@ class Obj {
     char _m_pad_0[0x10];
     char* text;
     bool SetChannel_00238a80(const char* value);
-    void Set_00236760(void*);
-    void set_002367c0(void*);
+    bool FUN_00236760(void*);
+    bool FUN_002367c0(void*);
 };
 typedef unsigned int u32_238c40;
 extern void PrintSomething_00238bb0(hulk_uintptr, u32_238c40, const char*, ...);
@@ -717,7 +717,7 @@ PrintAction_239150* PrintAction_239150::f2(unsigned char flags) {
 extern "C" void FUN_002391d0(Obj* obj, const char* name) {
     ConditionFactoryCasterTemplate_2391d0 caster;
     caster.vftable = (void*)DAT_004283ac;   // (sweep-caster-fix1) the game's vftable by address
-    obj->Set_00236760(FUN_002343e0(name, &caster));
+    obj->FUN_00236760(FUN_002343e0(name, &caster));
 }
 
 
@@ -727,7 +727,7 @@ extern "C" void FUN_00239200(Obj* obj, const char* name) {
     TrackFactoryCasterTemplate_239200 caster;
     caster.vftable = (void*)DAT_004283b8;   // (sweep-caster-fix1) the game's vftable by address
     void* p = FUN_00236ac0(name, &caster);
-    obj->set_002367c0(p);
+    obj->FUN_002367c0(p);
 }
 
 

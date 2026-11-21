@@ -141,7 +141,7 @@ class HealthAction_157550 {
 // sym: ?vfunc_10@HitPushbackTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::HitPushbackTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_1571a0 a = (u32_1571a0)__p0; u32_1571a0 b = (u32_1571a0)__p1; hulk_uintptr c = (u32_1571a0)__p2;
 
-    if (check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)((void*)c), 0, (void*)(hulk_uintptr)(&hulk_at_00494b44), (void*)(hulk_uintptr)(&hulk_at_00494b60), 0))) {
         Result_1571a0* p = alloc_0008d690(0x44);
         if (p)
             return (int)(p->setup_00151bc0(this, c));

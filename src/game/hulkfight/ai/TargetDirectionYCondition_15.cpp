@@ -14,6 +14,8 @@
 #define TREE_TU_END }
 namespace fn_f253994b {} using namespace fn_f253994b;
 #include "game/hulkfight/ai.h"
+// (gfx2) __RTDynamicCast's own name (CRT, C linkage): the stand-ins below bound nothing natively
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
 extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
 namespace fn_f239bcb5 { struct Vec; } 
@@ -43,7 +45,6 @@ namespace fn_f239bcb5 { struct X_1238b0 { char F(int); }; }   // (gx3, D18) sett
 namespace fn_f253994b {
 extern char DAT_00491ca8;
 extern char DAT_004a8a50;
-extern "C" int Check(void*, int, hulk_intptr, hulk_intptr, int);
 extern "C" int FUN_00344e74(hulk_intptr, int, hulk_intptr, hulk_intptr, int);
 extern int hulk_at_004a8b08;
 extern "C++" __declspec(nothrow) int __cdecl FUN_00344e74(void*, int, void*, void*, int);
@@ -672,7 +673,7 @@ public:
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VTargetFirstShotCondition@ai@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::TargetFirstShotCondition>::vfunc_0(void* __p0) { void * a = (void *)__p0;
 
-    return Check(a, 0, (hulk_intptr)&DAT_00491ca8, (hulk_intptr)&DAT_004a8a50, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(a), 0, (void*)(hulk_uintptr)((hulk_intptr)&DAT_00491ca8), (void*)(hulk_uintptr)((hulk_intptr)&DAT_004a8a50), 0)) != 0;
 }
 
 
@@ -739,7 +740,7 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::TargetClearTra
 
 // 0x001283e0 fight::TrackFactoryCasterTemplate<hulkfight::ai::AcquireTargetTrack>::vfunc_0 (36 B): matches/0x001283e0.cpp
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VAcquireTargetTrack@ai@hulkfight@@@fight@@UAE_NPAX@Z
-template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::AcquireTargetTrack>::vfunc_0(void* __p0) { int a = (int)__p0;
+template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::AcquireTargetTrack>::vfunc_0(void* __p0) { hulk_intptr a = (hulk_intptr)__p0;   // (gfx2) the object, pointer-sized
 
     return (FUN_00344e74((void*)a, 0, &DAT_0049850c, (hulk_intptr)&DAT_004a8d20, 0) != 0);
 }

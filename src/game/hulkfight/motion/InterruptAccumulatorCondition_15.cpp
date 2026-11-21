@@ -60,7 +60,7 @@ typedef unsigned int u32_156f80;
 struct Helper_156f80 {
     hulk_intptr run_001517b0(hulkfight::motion::HitReactionTrack*, hulk_uintptr);   // (decl1) passes as defined
 };
-extern int __cdecl FUN_00344e74(u32_156f80, int, const void*, const void*, int);
+extern int __cdecl FUN_00344e74(hulk_intptr, int, const void*, const void*, int);
 extern void* __cdecl FUN_0008d690(unsigned int);
 extern const char RTTI1_156f80[];
 extern const char RTTI2_156f80[];
@@ -68,7 +68,7 @@ typedef unsigned int u32_156ff0;
 struct Helper_156ff0 {
     hulk_intptr run_001518f0(hulkfight::motion::HitReactionFloatTrack*, hulk_uintptr);   // (decl1) passes as defined
 };
-extern int __cdecl FUN_00344e74(u32_156ff0, int, const void*, const void*, int);
+extern int __cdecl FUN_00344e74(hulk_intptr, int, const void*, const void*, int);
 extern const char RTTI1_156ff0[];
 extern const char RTTI2_156ff0[];
 struct RefCounted_1570b0 {

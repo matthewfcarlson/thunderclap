@@ -269,7 +269,7 @@ class ConditionFactoryCasterTemplate_1a1cf0 {   // (fix2) was polymorphic (virtu
 };
 class Obj {
   public:
-    void apply_00236760(void*);
+    bool FUN_00236760(void*);
 };
 extern "C" void* __cdecl FUN_002343e0(const char*, ConditionFactoryCasterTemplate_1a1cf0*);   // (gfx1) its own name: `lookup` stood for 7 functions natively (ambiguous binding)
 extern "C" char DAT_0041c418[];   // (fix2) the game's caster vftable
@@ -280,7 +280,7 @@ class TrackFactoryCasterTemplate_1a1d20 {   // (fix2) was polymorphic (virtual b
 };
 class Track {
   public:
-    void* get_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C" void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_1a1d20*);
 } // namespace fn_fd836fc7
@@ -868,15 +868,15 @@ LuaAction_1a1c70* LuaAction_1a1c70::f2(unsigned char flags) {
 // sym: _FUN_001a1cf0
 extern "C" void __cdecl FUN_001a1cf0(Obj* obj, const char* name) {
     ConditionFactoryCasterTemplate_1a1cf0 caster;
-    obj->apply_00236760(FUN_002343e0(name, &caster));
+    obj->FUN_00236760(FUN_002343e0(name, &caster));
 }
 
 
 // 0x001a1d20 FUN_001a1d20 (38 B): matches/0x001a1d20.cpp
 // sym: _FUN_001a1d20
-extern "C" void* FUN_001a1d20(Track* t, const char* name) {
+extern "C" bool FUN_001a1d20(Track* t, const char* name) {
     TrackFactoryCasterTemplate_1a1d20 c;
-    return t->get_002367c0(FUN_00236ac0(name, &c));
+    return t->FUN_002367c0(FUN_00236ac0(name, &c));
 }
 
 } // namespace fn_fd836fc7

@@ -18,6 +18,8 @@ void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to f
 }
 namespace fn_f712cb17 { extern "C" char DAT_0040fd34[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/hulkfight/ai.h"
+// (gfx2) __RTDynamicCast's own name (CRT, C linkage): the stand-ins below bound nothing natively
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f712cb17 {
@@ -623,7 +625,7 @@ void owners::X_124500::FUN_00124500(int* out) {
 // sym: ?vfunc_6@HasTargetCondition@ai@hulkfight@@UAE_NPAX00@Z
 bool hulkfight::ai::HasTargetCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; Params_124540 * p = (Params_124540 *)__p1; int b = (int)__p2;
 
-    if (!DynCast(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0))
+    if (!__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&hulk_at_00494b44), (void*)(hulk_uintptr)(&hulk_at_00494b60), 0))
         return false;
     int t = G2_00059a30(G1_000592a0(p))->target;
     if (this->f_0c)
@@ -713,7 +715,7 @@ bool hulkfight::ai::TargetTypeCondition::vfunc_6(void* __p0, void* __p1, void* _
 
 
 // 0x001247d0 hulkfight::ai::CanSeeTargetCondition::vfunc_6 (476 B): equivalent/0x001247d0.cpp [wrapped: conflict: World]
-// sym: ?vfunc_6@CanSeeTargetCondition@fn_001247d0@@UAEDHPAVParams_1247d0@fight@2@H@Z @c536cbe2fff6 @w9ed594d1db61 @v9b0c3367c55e
+// sym: ?vfunc_6@CanSeeTargetCondition@fn_001247d0@@UAEDHPAVParams_1247d0@fight@2@H@Z @c536cbe2fff6 @w9ed594d1db61 @va057144ee8c2
 namespace fn_001247d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3294 inputs, branch coverage 27/28, incomplete; Wine build 689 inputs, 27/28)
 // hulkfight::ai::CanSeeTargetCondition::vfunc_6 @ 0x001247d0

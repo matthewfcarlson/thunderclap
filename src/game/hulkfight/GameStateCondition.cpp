@@ -42,7 +42,7 @@ class Obj {
     bool SetUnlockable_0012dff0(int x);
     char SetMission_0012e470(const char* s);
     bool Set(const char* s);
-    void apply_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 class X_12e000 {
   public:
@@ -1109,7 +1109,6 @@ namespace hulkfight {
 class MissionProgressCondition_130c60 {};
 }
 namespace fn_f587a2cf {
-extern "C" int __cdecl helper(const char*, int, const void*, const void*, int);
 extern char DAT_00491ca8;
 extern char DAT_004aa710;
 extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
@@ -1164,7 +1163,6 @@ class LocationCondition_130e40 {};
 }
 namespace fn_f587a2cf {
 extern char DAT_004aa9b8;
-extern "C" int __cdecl check(void*, int, void*, void*, int);
 struct Token {
     int x;
 };
@@ -1470,7 +1468,7 @@ class TrackFactoryCasterTemplate_1324d0 {   // (fix2) was polymorphic (virtual b
 extern void* __cdecl FUN_00236ac0(const char*, TrackFactoryCasterTemplate_1324d0*);
 class Owner {
   public:
-    void Set_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C" char DAT_004118f8[];   // (fix2) the game's caster vftable 0x4118f8
 class TrackFactoryCasterTemplate_132530 {   // (fix2) was polymorphic (virtual bool Cast_00131040(void*);): clang's own vftable natively, the game's by address now
@@ -4390,7 +4388,7 @@ template <> bool fight::ParamFloatConstRange<hulkfight::XPTrack>::vfunc_2() {
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VMissionProgressCondition@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::MissionProgressCondition>::vfunc_0(void* __p0) { const char * s = (const char *)__p0;
 
-    return helper(s, 0, &DAT_00491ca8, &DAT_004aa710, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(s), 0, (void*)(hulk_uintptr)(&DAT_00491ca8), (void*)(hulk_uintptr)(&DAT_004aa710), 0)) != 0;
 }
 
 
@@ -4473,7 +4471,7 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::DebugPrintCond
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VLocationCondition@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::LocationCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return check(p, 0, &DAT_00491ca8, &DAT_004aa9b8, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&DAT_00491ca8), (void*)(hulk_uintptr)(&DAT_004aa9b8), 0)) != 0;
 }
 
 
@@ -5222,7 +5220,7 @@ DebugPrintAction_1321d0* DebugPrintAction_1321d0::f2(unsigned char flags) {
 extern "C" void FUN_001324d0(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_1324d0 caster;
     void* p = FUN_00236ac0(name, &caster);
-    owner->Set_002367c0(p);
+    owner->FUN_002367c0(p);
 }
 
 } // namespace fn_f587a2cf
@@ -5244,12 +5242,12 @@ template <> inline TrackFactoryCasterTemplate<hulkfight::NISSoundTrack>::TrackFa
 } // namespace fight
 class TrackManager {
   public:
-    void Add_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C++" __declspec(nothrow) void* FUN_00236ac0(const char*, fight::TrackFactoryCasterTemplate<hulkfight::NISSoundTrack>*);
 extern "C" void FUN_00132500(TrackManager* manager, const char* name) {
     fight::TrackFactoryCasterTemplate<hulkfight::NISSoundTrack> caster;
-    manager->Add_002367c0(FUN_00236ac0(name, &caster));
+    manager->FUN_002367c0(FUN_00236ac0(name, &caster));
 }
 } // namespace fn_00132500
 
@@ -5260,7 +5258,7 @@ namespace fn_f587a2cf {
 extern "C" void __cdecl FUN_00132530(Owner* owner, void* name) {
     TrackFactoryCasterTemplate_132530 caster;
     void* p = FUN_00236ac0(name, &caster);
-    owner->Set_002367c0(p);
+    owner->FUN_002367c0(p);
 }
 
 
@@ -5268,7 +5266,7 @@ extern "C" void __cdecl FUN_00132530(Owner* owner, void* name) {
 // sym: _FUN_00132560
 extern "C" void __cdecl FUN_00132560(Obj* obj, const char* name) {
     TrackFactoryCasterTemplate_132560 caster;
-    obj->apply_002367c0(FUN_00236ac0(name, &caster));
+    obj->FUN_002367c0(FUN_00236ac0(name, &caster));
 }
 
 } // namespace fn_f587a2cf
@@ -5285,11 +5283,11 @@ class TrackFactoryCasterTemplate_132590 {   // (fix2) was polymorphic (virtual b
 extern "C++" __declspec(nothrow) void* __cdecl FUN_00236ac0(char*, TrackFactoryCasterTemplate_132590*);
 class Owner {
   public:
-    void Add_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C" void __cdecl FUN_00132590(Owner* owner, char* name) {
     TrackFactoryCasterTemplate_132590 caster;
-    owner->Add_002367c0(FUN_00236ac0(name, &caster));
+    owner->FUN_002367c0(FUN_00236ac0(name, &caster));
 }
 } // namespace fn_00132590
 
@@ -5300,7 +5298,7 @@ namespace fn_f587a2cf {
 extern "C" void FUN_001325c0(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_1325c0 caster;
     void* p = FUN_00236ac0(name, &caster);
-    owner->Set_002367c0(p);
+    owner->FUN_002367c0(p);
 }
 
 
@@ -5308,7 +5306,7 @@ extern "C" void FUN_001325c0(Owner* owner, const char* name) {
 // sym: _FUN_001325f0
 extern "C" void FUN_001325f0(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_1325f0 c;
-    owner->Set_002367c0(FUN_00236ac0(name, &c));
+    owner->FUN_002367c0(FUN_00236ac0(name, &c));
 }
 
 } // namespace fn_f587a2cf
@@ -5340,7 +5338,7 @@ template <> inline ConditionFactoryCasterTemplate<hulkfight::MissionProgressCond
 } // namespace fight
 extern "C" void* __cdecl FUN_002343e0(const char*, const void*);
 struct Registry_132620 {
-    void FUN_00236760(void*);
+    bool FUN_00236760(void*);
 };
 extern "C" void __cdecl FUN_00132620(Registry_132620* registry) {
     {

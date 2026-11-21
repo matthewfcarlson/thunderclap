@@ -47,7 +47,7 @@ class Obj {
     float y;
     float z;
     char Set(const Vec3* v);
-    void Set_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 struct S3_18ed70 {
     int a;
@@ -570,7 +570,6 @@ namespace fn_fc171dfe {
 extern const char a[], hulk_at_004bfab8[];
 extern char DAT_0049850c;
 extern char DAT_004bfb68;
-extern "C" void* __cdecl Lookup(void*, int, void*, void*, int);
 } // namespace fn_fc171dfe
 namespace fight {
 class TrackFactoryCaster_191040 {
@@ -663,7 +662,7 @@ struct TrackFactoryCasterTemplate_191b10 {   // (sweep-caster-fix1) the word its
 };
 class Owner {
   public:
-    void Set_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_191b10*);
 } // namespace fn_fc171dfe
@@ -2285,7 +2284,7 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::Simulation
  // namespace hulkfight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::TankLocomotionTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return Lookup(p, 0, &DAT_0049850c, &DAT_004bfb68, 0) != 0;
+    return __RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&DAT_0049850c), (void*)(hulk_uintptr)(&DAT_004bfb68), 0) != 0;
 }
 
 
@@ -2488,7 +2487,7 @@ namespace fn_fc171dfe {
 extern "C" void __cdecl FUN_00191910(Obj* obj, const char* name) {
     TrackFactoryCasterTemplate_191910 caster;
     caster.vftable = (void*)DAT_0041b09c;   // (sweep-caster-fix1) the game's vftable by address
-    obj->Set_002367c0(FUN_00236ac0(name, &caster));
+    obj->FUN_002367c0(FUN_00236ac0(name, &caster));
 }
 
 } // namespace fn_fc171dfe
@@ -2524,14 +2523,14 @@ struct TrackFactoryCasterTemplate_191ae0 {   // (sweep-caster-fix1) the word its
 };
 class Obj {
   public:
-    void Set_002367c0(void*);
+    bool FUN_002367c0(void*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl FUN_00236ac0(const char*, TrackFactoryCasterTemplate_191ae0*);
 extern "C" void FUN_00191ae0(Obj* obj, const char* name) {
     TrackFactoryCasterTemplate_191ae0 caster;
     caster.vftable = (void*)DAT_0041b0a8;   // (sweep-caster-fix1) the game's vftable by address
     void* p = FUN_00236ac0(name, &caster);
-    obj->Set_002367c0(p);
+    obj->FUN_002367c0(p);
 }
 } // namespace fn_00191ae0
 
@@ -2543,7 +2542,7 @@ extern "C" void FUN_00191b10(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_191b10 caster;
     caster.vftable = (void*)DAT_0041b0b4;   // (sweep-caster-fix1) the game's vftable by address
     void* p = FUN_00236ac0(name, &caster);
-    owner->Set_002367c0(p);
+    owner->FUN_002367c0(p);
 }
 
 } // namespace fn_fc171dfe

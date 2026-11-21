@@ -7,10 +7,11 @@
 #define TREE_TU_END }
 namespace fn_f83e72bb {} using namespace fn_f83e72bb;
 #include "game/hulkfight/motion.h"
+// (gfx2) __RTDynamicCast's own name (CRT, C linkage): the stand-ins below bound nothing natively
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f83e72bb {
-extern "C" int __cdecl Check(void*, int, void*, void*, int);
 } // namespace fn_f83e72bb
 namespace fight {
 class ConditionFactoryCaster_16a050 {
@@ -31,6 +32,6 @@ extern char DAT_004b6550;
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VChargeCondition@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::ChargeCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return Check(p, 0, &DAT_00491ca8, &DAT_004b6550, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&DAT_00491ca8), (void*)(hulk_uintptr)(&DAT_004b6550), 0)) != 0;
 }
 

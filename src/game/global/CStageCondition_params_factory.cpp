@@ -10,7 +10,7 @@ namespace fn_fc5f15cd {} using namespace fn_fc5f15cd;
 
 // ---- declarations shared by the functions below
 namespace fn_fc5f15cd {
-extern "C" int __cdecl FUN_00344e74(int, int, const void*, const void*, int);
+extern "C" int __cdecl FUN_00344e74(hulk_intptr, int, const void*, const void*, int);
 extern char DAT_00494510;
 } // namespace fn_fc5f15cd
 namespace fight {
@@ -28,7 +28,7 @@ class CStageCondition_51480;
 // 0x00051480 fight::ConditionFactoryCasterTemplate<CStageCondition>::vfunc_0 (36 B): matches/0x00051480.cpp
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VCStageCondition@@@fight@@UAE_NPAX@Z
  // namespace fight
-template <> bool fight::ConditionFactoryCasterTemplate<CStageCondition>::vfunc_0(void* __p0) { int x = (int)__p0;
+template <> bool fight::ConditionFactoryCasterTemplate<CStageCondition>::vfunc_0(void* __p0) { hulk_intptr x = (hulk_intptr)__p0;   // (gfx2) the object, pointer-sized
 
     return FUN_00344e74(x, 0, &DAT_00491ca8, &DAT_00494510, 0) != 0;
 }

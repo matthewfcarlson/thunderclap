@@ -15,6 +15,8 @@
 #define TREE_TU_END }
 namespace fn_f740ace1 {} using namespace fn_f740ace1;
 #include "game/hulkfight/motion.h"
+// (gfx2) __RTDynamicCast's own name (CRT, C linkage): the stand-ins below bound nothing natively
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f740ace1 {
@@ -474,7 +476,6 @@ namespace hulkfight { namespace motion {
 class MissileThrowTrack_19a360;
 } }
 namespace fn_f740ace1 {
-extern "C" int __cdecl check(void*, int, void*, void*, int);
 extern char DAT_004c0e20;
 } // namespace fn_f740ace1
 namespace fight {
@@ -1857,7 +1858,7 @@ template class fight::ParamVector<hulkfight::motion::MissileThrowTrack>; // (ren
  // namespace hulkfight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::MissilePunchTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return check(p, 0, &DAT_0049850c, &DAT_004c0e20, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&DAT_0049850c), (void*)(hulk_uintptr)(&DAT_004c0e20), 0)) != 0;
 }
 
 
@@ -2042,7 +2043,7 @@ void FUN_0019a8d0()
 // Same code shape as 0x00119fb0 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::FireProjectileTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_19ada0 a = (u32_19ada0)__p0; u32_19ada0 b = (u32_19ada0)__p1; void * p = (void *)__p2;
 
-    if (IsKindOf(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&hulk_at_00494b44), (void*)(hulk_uintptr)(&hulk_at_00494b60), 0))) {
         Params_19ada0* q = (Params_19ada0*)Alloc_0008d690((int)sizeof(::hulkfight::motion::FireProjectileAction));   // (allocsize1) the size by gen's record
         if (q)
             return q->Init_00195100(this, p);
@@ -2569,7 +2570,7 @@ BeamEffect_19b830* BeamEffect_19b830::f2(unsigned char flags) {
 // Same code shape as 0x00119fb0 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::AccuracyLatencyTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_19b870 a = (u32_19b870)__p0; u32_19b870 b = (u32_19b870)__p1; void * p = (void *)__p2;
 
-    if (IsKindOf(p, 0, &TypeA_19b870, &hulk_at_00494b60, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&TypeA_19b870), (void*)(hulk_uintptr)(&hulk_at_00494b60), 0))) {
         Params_19b870* q = (Params_19b870*)Alloc_0008d690((int)sizeof(::hulkfight::motion::AccuracyLatencyAction));   // (allocsize1) the size by gen's record
         if (q)
             return q->Init_001984c0(this, p);

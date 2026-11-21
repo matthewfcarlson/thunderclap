@@ -1569,7 +1569,6 @@ void FEContainer::vfunc_38(int n) {
 // sym: ?vfunc_39@FEContainer@fn_000e47e0@@UAEXH@Z
 namespace fn_000e47e0 {
 extern int a, b;
-extern "C++" void __cdecl sink(int, int, int*, int*, int);
 class FEContainer {
   public:
     virtual void f0();
@@ -1614,7 +1613,7 @@ class FEContainer {
     virtual void vfunc_39(int);
 };
 void FEContainer::vfunc_39(int x) {
-    sink(f37(x), 0, &a, &b, 0);
+    __RTDynamicCast((void*)(hulk_uintptr)(f37(x)), 0, (void*)(hulk_uintptr)(&a), (void*)(hulk_uintptr)(&b), 0);
 }
 } // namespace fn_000e47e0
 
@@ -1667,9 +1666,8 @@ class FEContainer {
     virtual void vfunc_40(int);
 };
 extern int a, b;
-extern "C++" void __cdecl fun(void*, int, const void*, const void*, int);
 void FEContainer::vfunc_40(int x) {
-    fun(vfunc_39(x), 0, &a, &b, 0);
+    __RTDynamicCast((void*)(hulk_uintptr)(vfunc_39(x)), 0, (void*)(hulk_uintptr)(&a), (void*)(hulk_uintptr)(&b), 0);
 }
 } // namespace fn_000e4810
 
@@ -1932,7 +1930,6 @@ void FEContainer::vfunc_41(void* p) {
 // sym: ?v46@FEContainer@fn_000e4930@@UAEXH@Z
 namespace fn_000e4930 {
 extern int hulk_at_0049f4c0, g2;
-extern "C++" void f(int, int, int*, int*, int);
 class FEContainer {
   public:
     virtual void v0();
@@ -1984,7 +1981,7 @@ class FEContainer {
     virtual void v46(int);
 };
 void FEContainer::v46(int x) {
-    f(v39(x), 0, &g2, &hulk_at_0049f4c0, 0);
+    __RTDynamicCast((void*)(hulk_uintptr)(v39(x)), 0, (void*)(hulk_uintptr)(&g2), (void*)(hulk_uintptr)(&hulk_at_0049f4c0), 0);
 }
 } // namespace fn_000e4930
 

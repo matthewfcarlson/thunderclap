@@ -167,7 +167,6 @@ class Widget {
     virtual void f24();
     virtual void set(int);
 };
-extern "C" Widget* __cdecl convert(void*, int, void*, void*, int);
 extern int hulk_at_0049dba4, hulk_at_0049dbbc;
 extern "C" int __cdecl makeName_000fc260(const char*);
 extern int gA, gB;
@@ -257,7 +256,6 @@ struct Button_b7760 {
     char pad[0x141];
     char flag;
 };
-extern "C" Button_b7760* __cdecl Convert(void*, int, void*, void*, int);
 extern int type1_b7760, hulk_at_0049f4a4;
 } // namespace fn_fedc4c02
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -978,7 +976,7 @@ void Panel_b5920::FUN_000b5920(int enable)
 // sym: ?FUN_000b5a30@Owner_b5a30@owners@@QAEXXZ
 // data: name = DAT_00407b14
 void owners::Owner_b5a30::FUN_000b5a30() {
-    Widget* w = convert(FUN_000fc260(((char*)&DAT_00407b14)), 0, &hulk_at_0049dba4, &hulk_at_0049dbbc, 0);
+    Widget* w = ((Widget*)__RTDynamicCast((void*)(hulk_uintptr)(FUN_000fc260(((char*)&DAT_00407b14))), 0, (void*)(hulk_uintptr)(&hulk_at_0049dba4), (void*)(hulk_uintptr)(&hulk_at_0049dbbc), 0));
     if (w && state)
         w->set(state[5] == 0);
 }
@@ -1018,7 +1016,6 @@ struct Desc {
 };
 extern Desc objA, objB;
 extern "C++" void* __cdecl find_000fc260(const char*);
-extern "C++" void* __cdecl castObj(void*, int, Desc*, Desc*, int);
 extern "C" char __cdecl FUN_00035da0();
 class Selector {
   public:
@@ -1053,7 +1050,7 @@ inline void use(Selector* s, int b) {
     s->set(b);
 }
 void target() {
-    Selector* s = (Selector*)castObj(find_000fc260("targeting_selector"), 0, &objA, &objB, 0);
+    Selector* s = (Selector*)__RTDynamicCast((void*)(hulk_uintptr)(find_000fc260("targeting_selector")), 0, (void*)(hulk_uintptr)(&objA), (void*)(hulk_uintptr)(&objB), 0);
     if (s)
         use(s, FUN_00035da0() == 0);
 }
@@ -1483,7 +1480,7 @@ struct Menu_b7590 {
 extern int DAT_0049dba4;
 extern int DAT_0049f4a4;
 extern int FUN_000fc260(const char* s);
-extern Obj2_b7590* __cdecl FUN_00344e74(int a, int b, int* c, int* d, int e);
+extern Obj2_b7590* __cdecl FUN_00344e74(hulk_intptr a, int b, int* c, int* d, int e);
 
 void Menu_b7590::Func() {
     Obj2_b7590* o = FUN_00344e74(FUN_000fc260("restart_mission_button"), 0, &DAT_0049dba4, &DAT_0049f4a4, 0);
@@ -1513,7 +1510,7 @@ struct Desc {
 };
 extern Desc DAT_0049dba4, DAT_0049f4a4;
 extern "C++" int __cdecl FUN_000fc260(const char*);
-extern "C++" char* __cdecl FUN_00344e74(int, int, Desc*, Desc*, int);
+extern "C++" char* __cdecl FUN_00344e74(hulk_intptr, int, Desc*, Desc*, int);
 void __stdcall FUN_000b7620(char v) {
     char* p = FUN_00344e74(FUN_000fc260("mission_success_continue_button"), 0, &DAT_0049dba4, &DAT_0049f4a4, 0);
     if (p)
@@ -1571,7 +1568,7 @@ class Owner_b7660 {
 };
 extern int DAT_0049dba4, DAT_0049dbbc;
 extern int __cdecl FUN_000fc260(const char*);
-extern Selector_b7660* __cdecl FUN_00344e74(int, int, void*, void*, int);
+extern Selector_b7660* __cdecl FUN_00344e74(hulk_intptr, int, void*, void*, int);
 void Owner_b7660::update() {
     if (state) {
         Selector_b7660* p = FUN_00344e74(FUN_000fc260("subtitle_selector"), 0, &DAT_0049dba4, &DAT_0049dbbc, 0);
@@ -1657,7 +1654,7 @@ namespace fn_fedc4c02 {
 // sym: ?Run@Obj_b7760@fn_fedc4c02@@QAEXXZ
 // data: key = DAT_004080a8
 void Obj_b7760::Run() {
-    Button_b7760* b = Convert(Find(DAT_004080a8), 0, &type1_b7760, &hulk_at_0049f4a4, 0);
+    Button_b7760* b = ((Button_b7760*)__RTDynamicCast((void*)(hulk_uintptr)(Find(DAT_004080a8)), 0, (void*)(hulk_uintptr)(&type1_b7760), (void*)(hulk_uintptr)(&hulk_at_0049f4a4), 0));
     if (b) {
         int count = 0;
         for (int i = 0x266; i <= 0x2c9; ++i)

@@ -360,7 +360,7 @@ class HasGroundPointCondition {
 };
 class CF {
   public:
-    virtual int vfunc_0(int a);
+    virtual int vfunc_0(hulk_intptr a);   // (gfx2) the object, pointer-sized (the visitors pass a pointer)
     virtual int vfunc_1();
 };
 extern char DAT_00491ca8;
@@ -465,7 +465,6 @@ namespace hulkfight { namespace ai {
 class MotionTargetTrack_118cf0 {};
 } }
 namespace fn_ffc509e9 {
-extern "C" int FindTrack(void*, int, void*, void*, int);
 extern char DAT_004a5b90;
 } // namespace fn_ffc509e9
 namespace fight {
@@ -626,8 +625,7 @@ struct ConditionFactoryCasterTemplate_11a980 : ConditionFactoryCaster_11a980 {
 extern "C++" void* FUN_002343e0(hulk_intptr, ConditionFactoryCaster_11a980*);   // (gfx1) by its address: a suffixed name bound by relocation position only (not natively)
 class Owner {
   public:
-    void Set_00236760(void*);
-    void Use_00236760(void*);
+    bool FUN_00236760(void*);
 };
 extern "C" char DAT_0040f024[];   // fight::ConditionFactoryCasterTemplate<hulkfight::ai::LocatorDistanceCondition>'s vftable
 // (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
@@ -639,8 +637,7 @@ struct ConditionFactoryCasterTemplate_11a9b0 : ConditionFactoryCaster_11a9b0 {
 };
 class Obj {
   public:
-    void set_00236760(void*);
-    void use_00236760(void*);
+    bool FUN_00236760(void*);
 };
 extern "C++" void* FUN_002343e0(const char*, ConditionFactoryCaster_11a9b0*);   // (gfx1) by its address: a suffixed name bound by relocation position only (not natively)
 extern "C" char DAT_0040f030[];   // fight::ConditionFactoryCasterTemplate<hulkfight::ai::ComputeDropZoneCondition>::vftable
@@ -1742,7 +1739,7 @@ namespace fn_ffc509e9 {
 
 // 0x001188d0 fight::ConditionFactoryCasterTemplate<hulkfight::ai::HasGroundPointCondition>::vfunc_0 (36 B): matches/0x001188d0.cpp
 // sym: ?vfunc_0@CF@fn_ffc509e9@@UAEHH@Z
-int CF::vfunc_0(int a) {
+int CF::vfunc_0(hulk_intptr a) {
     int r = ((int)(hulk_uintptr)__RTDynamicCast((void*)a, 0, &hulk_at_00491ca8, &hulk_at_004a54b8, 0));
     if (r)
         return 1;
@@ -1903,7 +1900,7 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionBoostTra
 
 // 0x00118c70 fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionLocatorTrack>::vfunc_0 (36 B): matches/0x00118c70.cpp
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VMotionLocatorTrack@ai@hulkfight@@@fight@@UAE_NPAX@Z
-template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionLocatorTrack>::vfunc_0(void* __p0) { int a = (int)__p0;
+template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionLocatorTrack>::vfunc_0(void* __p0) { hulk_intptr a = (hulk_intptr)__p0;   // (gfx2) the object, pointer-sized
 
     return FUN_00344e74(a, 0, (hulk_intptr)&DAT_0049850c, (hulk_intptr)&DAT_004a5a40, 0) != 0;
 }
@@ -1951,7 +1948,7 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionTargetTr
  // namespace hulkfight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionChaseTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FindTrack(p, 0, &DAT_0049850c, &DAT_004a5b90, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&DAT_0049850c), (void*)(hulk_uintptr)(&DAT_004a5b90), 0)) != 0;
 }
 
 
@@ -2347,7 +2344,7 @@ void* MotionChaseAction_119f50::vfunc_2(unsigned char flag) {
 // sym: ?vfunc_10@MotionBoostTrack@ai@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::ai::MotionBoostTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_119fb0 a = (u32_119fb0)__p0; u32_119fb0 b = (u32_119fb0)__p1; void * p = (void *)__p2;
 
-    if (IsKindOf(p, 0, &TypeA_119fb0, &TypeB, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&TypeA_119fb0), (void*)(hulk_uintptr)(&TypeB), 0))) {
         Params_119fb0* q = (Params_119fb0*)Alloc_0008d690(0x34);
         if (q)
             return q->Init_001170b0(this, p);
@@ -2746,7 +2743,7 @@ extern "C" void FUN_0011a980(Owner* owner, hulk_intptr id) {
     ConditionFactoryCasterTemplate_11a980 caster;
     caster.vftable = (void*)DAT_0040f018;
     void* result = FUN_002343e0(id, &caster);
-    owner->Set_00236760(result);
+    owner->FUN_00236760(result);
 }
 
 
@@ -2756,7 +2753,7 @@ extern "C" void FUN_0011a9b0(Obj* o, const char* s) {
     ConditionFactoryCasterTemplate_11a9b0 c;
     c.vftable = (void*)DAT_0040f024;
     void* p = FUN_002343e0(s, &c);
-    o->set_00236760(p);
+    o->FUN_00236760(p);
 }
 
 
@@ -2765,7 +2762,7 @@ extern "C" void FUN_0011a9b0(Obj* o, const char* s) {
 extern "C" void FUN_0011a9e0(Obj* o, void* name) {
     ConditionFactoryCasterTemplate_11a9e0 caster;
     caster.vftable = (void*)DAT_0040f030;   // (sweep-caster-fix1) the game's vftable by address
-    o->use_00236760(FUN_002343e0(name, &caster));
+    o->FUN_00236760(FUN_002343e0(name, &caster));
 }
 
 
@@ -2774,7 +2771,7 @@ extern "C" void FUN_0011a9e0(Obj* o, void* name) {
 extern "C" void FUN_0011aa10(Owner* owner, void* name) {
     ConditionFactoryCasterTemplate_11aa10 c;
     c.vftable = (void*)DAT_0040f03c;   // (sweep-caster-fix1) the game's vftable by address
-    owner->Use_00236760(FUN_002343e0(name, &c));
+    owner->FUN_00236760(FUN_002343e0(name, &c));
 }
 
 } // namespace fn_ffc509e9
@@ -2807,7 +2804,7 @@ void FUN_0011ab30()
 
 
 // 0x0011ae60 FUN_0011ae60 (281 B): equivalent/0x0011ae60.cpp [wrapped: conflict: fight::TrackFactoryCasterTemplate]
-// sym: _FUN_0011ae60 @98321a9de776 @w5281db60ca1d @v5c39c3d0cc8f
+// sym: _FUN_0011ae60 @98321a9de776 @w5281db60ca1d @v6b907c3b1fdd
 namespace fn_0011ae60 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0011ae60 @ 0x0011ae60
@@ -2837,7 +2834,7 @@ template <> inline TrackFactoryCasterTemplate<hulkfight::ai::MotionStopTrack>::T
 template <> inline TrackFactoryCasterTemplate<hulkfight::ai::MotionTargetTrack>::TrackFactoryCasterTemplate() { vftable = (void*)DAT_0040f084; }
 }
 extern "C" void* __cdecl FUN_00236ac0(const char*, void*);
-struct Registry_11ae60 { void FUN_002367c0(void*); };
+struct Registry_11ae60 { bool FUN_002367c0(void*); };
 extern "C" void __cdecl FUN_0011ae60(Registry_11ae60* registry) {
  fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionStopTrack> stop;
  registry->FUN_002367c0(FUN_00236ac0("motionStop", &stop));

@@ -6538,3 +6538,14 @@ the literal before writing `sizeof(::Gen)`.
   caster's vfunc_1, the 0x002343e0 / 0x00236ac0 lookups' `Find` / `find` / `Lookup` / ...); ConditionFactory 0x002343b0
   on pure3d::Entity's words; the lookups' names and results pointer-sized. Headless start-up then runs through every
   engine and fight registration into hulkfight's tracks (next stop: JointTrackerTrack_3_26's 0x0017d610).
+- C10: fight's registration adds 0x002367c0 / 0x00236760 are declared as defined, `bool FUN_<addr>(void*)`; their
+  `void`/`int` prototypes bound nothing natively, so no track or condition reached fight's tables (generator
+  build/gfx2/scripts/gen10.py). 0x00236ac0's prototypes return a pointer and take the name as one. The
+  __RTDynamicCast stand-ins call the CRT by name, as in ren2's batches (gen11b.py; natively only the CRT names reach
+  the runtime's cast). The casters' accept slots, and the casts declared with an int object, keep the pointer
+  pointer-sized. Then three layout fixes: the encounter map's set-up 0x00230b60 on decls/tree_map.h, 0x00086ad0 on
+  HulkGame, and the drive-error callback 0x0008e090 (vftable, then six flags). Headless start-up then runs through
+  every fight registration, CEncounterGenerator and CTriggerVolumeManager into the game loop (0x00087630 /
+  0x00086450). Next stop: 0x00090790 (CStatsManager's measure) reads DAT_004dd700's +0x20 manager and its +0x124 /
+  +0x10 words through 32-bit pads. They need a CActorManager record, which is ckpt1's follow-up (A) too.
+  0x00086630 (a replay pin) still has 32-bit pad views.

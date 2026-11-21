@@ -211,7 +211,7 @@ public:
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 #endif
 namespace fn_f9a5903c {
-void* __cdecl FUN_00344e74(int id, int a, const char* b, const char* c, int d);
+void* __cdecl FUN_00344e74(hulk_intptr id, int a, const char* b, const char* c, int d);
 struct Name_92ef0 {
     char data[8];
 };
@@ -255,7 +255,6 @@ struct Result {
     char pad[16];
     Inner inner;
 };
-extern "C" Result* __cdecl Make(void*, int, void*, void*, int);
 struct Owner {
     void* items[734];
     void Run(int, void*, void*);
@@ -780,7 +779,7 @@ void C_92f70::F(int c, int b, u8_92f70 d) {
 // sym: ?Run@Owner@fn_f9a5903c@@QAEXHPAX0@Z
 void Owner::Run(int index, void* x, void* y) {
     if (index >= 0x2ca && index <= 0x2dd) {
-        Result* r = Make(items[index], 0, &gA, &hulk_at_0049db3c, 0);
+        Result* r = ((Result*)__RTDynamicCast((void*)(hulk_uintptr)(items[index]), 0, (void*)(hulk_uintptr)(&gA), (void*)(hulk_uintptr)(&hulk_at_0049db3c), 0));
         if (r) {
             ((owners::Target_27b040 *)&(r->inner))->FUN_0027b040((hulk_uintptr)x);
             ((owners::TextOwner_92120 *)r)->FUN_00092120((const char *)y);
@@ -876,7 +875,6 @@ void UnlockableList_93150::FUN_00093150(const char *id, int idx, const char *tit
 // 0x000931f0 FUN_000931f0 (106 B): matches/0x000931f0.cpp [wrapped: conflict: Cast]
 // sym: ?F@C_931f0@fn_000931f0@@QAEXPADH0H@Z
 namespace fn_000931f0 {
-extern "C++" void* __cdecl Cast(void*, int, void*, void*, int);
 void __cdecl Setup_00267760(void* p, int n, int v, ...);
 extern char TdA[], hulk_at_0049db60[];
 inline void Copy(char* d, const char* s) {
@@ -900,7 +898,7 @@ struct M_931f0 {
     char name[1];
 };
 void C_931f0::F(char* a, int idx, char* name, int v) {
-    M_931f0* o = (M_931f0*)Cast(arr[idx], 0, TdA, hulk_at_0049db60, 0);
+    M_931f0* o = (M_931f0*)__RTDynamicCast((void*)(hulk_uintptr)(arr[idx]), 0, (void*)(hulk_uintptr)(TdA), (void*)(hulk_uintptr)(hulk_at_0049db60), 0);
     if (o) {
         if (name)
             Copy(o->name, name);

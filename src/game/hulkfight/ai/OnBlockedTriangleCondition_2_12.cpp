@@ -49,7 +49,7 @@ extern char DAT_004a44b0;
 
 // 0x001115c0 fight::ConditionFactoryCasterTemplate<hulkfight::ai::TokenCondition>::vfunc_0 (36 B): matches/0x001115c0.cpp
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VTokenCondition@ai@hulkfight@@@fight@@UAE_NPAX@Z
-template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::TokenCondition>::vfunc_0(void* __p0) { int a = (int)__p0;
+template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::TokenCondition>::vfunc_0(void* __p0) { hulk_intptr a = (hulk_intptr)__p0;   // (gfx2) the object, pointer-sized
 
     return (FUN_00344e74(a, 0, (hulk_intptr)&DAT_00491ca8, (hulk_intptr)&DAT_004a4348, 0) != 0);
 }

@@ -220,7 +220,7 @@ void CameraAnimationController_293100::Set(Base_293100* p) {
     mType = -1;
     if (!p)
         return;
-    if (DynCast(p, 0, &hulk_at_0049e11c, &hulk_at_004a0a40, 0)) {
+    if (__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&hulk_at_0049e11c), (void*)(hulk_uintptr)(&hulk_at_004a0a40), 0)) {
         p->AddRef();
         if (mObj)
             mObj->Release();
@@ -229,7 +229,7 @@ void CameraAnimationController_293100::Set(Base_293100* p) {
         *q = 0;
         return;
     }
-    if (DynCast(p, 0, &hulk_at_0049e11c, &hulk_at_004cf0f0, 0)) {
+    if (__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&hulk_at_0049e11c), (void*)(hulk_uintptr)(&hulk_at_004cf0f0), 0)) {
         p->AddRef();
         if (mObj)
             mObj->Release();

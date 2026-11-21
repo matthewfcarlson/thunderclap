@@ -651,7 +651,7 @@ class CWeaponCollisionTrack_6e810;
 
 // 0x0006d590 fight::TrackFactoryCasterTemplate<CClimbingTrack>::vfunc_0 (36 B): matches/0x0006d590.cpp
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VCClimbingTrack@@@fight@@UAE_NPAX@Z
-template <> bool fight::TrackFactoryCasterTemplate<CClimbingTrack>::vfunc_0(void* __p0) { int a = (int)__p0;
+template <> bool fight::TrackFactoryCasterTemplate<CClimbingTrack>::vfunc_0(void* __p0) { hulk_intptr a = (hulk_intptr)__p0;   // (gfx2) the object, pointer-sized
 
     return (bool)((int)(FUN_00344e74((void*)a, 0, (hulk_intptr)&DAT_0049850c, (hulk_intptr)&DAT_00498994, 0) != 0));
 }
@@ -1117,7 +1117,6 @@ template <> bool fight::TrackFactoryCasterTemplate<CKeyPoseTrack>::vfunc_0(void*
 // 0x0006e050 fight::TrackFactoryCasterTemplate<CMotionHitGroundHeightTrack>::vfunc_0 (36 B): matches/0x0006e050.cpp [wrapped: conflict: fight::TrackFactoryCaster; fight::TrackFactoryCasterTemplate]
 // sym: ?Cast@TrackFactoryCasterTemplate@fight@fn_0006e050@@UAEHPAX@Z
 namespace fn_0006e050 {
-extern "C++" int __cdecl testCast(void*, int, void*, void*, int);
 extern int gA, hulk_at_0049a160;
 namespace fight {
 class TrackFactoryCaster {
@@ -1133,7 +1132,7 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
 };
 } // namespace fight
 int fight::TrackFactoryCasterTemplate::Cast(void* p) {
-    return testCast(p, 0, &gA, &hulk_at_0049a160, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&gA), (void*)(hulk_uintptr)(&hulk_at_0049a160), 0)) != 0;
 }
 } // namespace fn_0006e050
 
@@ -1334,7 +1333,6 @@ int fight::TrackFactoryCasterTemplate::vfunc_0(void* p) {
 // 0x0006e450 fight::TrackFactoryCasterTemplate<CSmartPropEventTrack>::vfunc_0 (36 B): matches/0x0006e450.cpp [wrapped: conflict: fight::TrackFactoryCaster]
 // sym: ?vfunc_0@TrackFactoryCasterTemplateCSmartPropEventTrack@fight@fn_0006e450@@UAE_NPAX@Z
 namespace fn_0006e450 {
-extern "C++" int match(void*, int, void*, void*, int);
 extern int gA, hulk_at_0049aa38;
 namespace fight {
 class TrackFactoryCaster {
@@ -1349,7 +1347,7 @@ class TrackFactoryCasterTemplateCSmartPropEventTrack : public TrackFactoryCaster
 };
 } // namespace fight
 bool fight::TrackFactoryCasterTemplateCSmartPropEventTrack::vfunc_0(void* p) {
-    return match(p, 0, &gA, &hulk_at_0049aa38, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(p), 0, (void*)(hulk_uintptr)(&gA), (void*)(hulk_uintptr)(&hulk_at_0049aa38), 0)) != 0;
 }
 } // namespace fn_0006e450
 
@@ -1442,7 +1440,7 @@ template <> bool fight::TrackFactoryCasterTemplate<CStunAnimationTrack>::vfunc_0
 // 0x0006e710 fight::TrackFactoryCasterTemplate<CSweepTrack>::vfunc_0 (36 B): matches/0x0006e710.cpp
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VCSweepTrack@@@fight@@UAE_NPAX@Z
  // namespace fight
-template <> bool fight::TrackFactoryCasterTemplate<CSweepTrack>::vfunc_0(void* __p0) { int a = (int)__p0;
+template <> bool fight::TrackFactoryCasterTemplate<CSweepTrack>::vfunc_0(void* __p0) { hulk_intptr a = (hulk_intptr)__p0;   // (gfx2) the object, pointer-sized
 
     return (int)FUN_00344e74((void*)a, 0, (void*)&DAT_0049850c, (void*)&DAT_0049b088, 0) != 0;
 }

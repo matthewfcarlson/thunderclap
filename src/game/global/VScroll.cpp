@@ -186,7 +186,7 @@ struct Obj_e2500 {
 };
 extern "C" char DAT_0049dba4[];
 extern "C" char DAT_0049f4f0[];
-extern int __cdecl FUN_00344e74(int, int, const char*, const char*, int);
+extern int __cdecl FUN_00344e74(hulk_intptr, int, const char*, const char*, int);
 class FELayout_e2740 {
   public:
     virtual void f0();
