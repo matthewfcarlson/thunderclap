@@ -408,6 +408,9 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   `hulk_eaxptr` is `void*` there and `void` on 32-bit (ParamBranch<T>::vfunc_6, D204).
   The wasm inputs come from `tools/wasm_inputs.py submit|fetch` (snapshot + binding map at one commit); a HULK_PORT_ABI
   return that is void on 32-bit binds in the wasm build by the void-name variants (`wasm_port.port_abi_names`) (wasm4).
+  The Wine build is the probe oracle past the reference's tags: a wine_build_job with HULK_TRACE_FUNCS/SPAN/EXIT takes a
+  few minutes once cached, and needs `--workspace` on a clean `git archive HEAD` of tools, src, include and config (the
+  default workspace ships other lanes' dirty TUs, whose unproven blocks materialize refuses) (wasm5).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
