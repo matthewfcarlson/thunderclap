@@ -1259,18 +1259,83 @@ def mark_views(recs, rec, vs, ledger):
         # gate uses (unproven_code), never the address alone; edited code has another hash and stays `unproven`
         base = _UNPROVEN_BASE[0] if _UNPROVEN_BASE else load_unproven_baseline()
         for m in [m for m, st in pr.items() if st == "unproven"]:
-            if baseline_exempt(base, r["addr"], m, r.get("code_hash" if m == "msvc" else "wine_code_hash")):
-                pr[m] = "unproven-baseline"
+            if baseline_exempt(base, r["addr"], m, r.get("code_hash" if m == "msvc" else "wine_code_hash"),
+                               view=vm if m == "msvc" else vw):
+                # (gfx10, D187) a view-only accept is reported apart, so the proof backlog can count it
+                pr[m] = "unproven-baseline view-only" if view_only_accepted(base, r["addr"], m) else "unproven-baseline"
         r["proof"] = pr
         un = [m for m, st in pr.items() if st == "unproven"]
         if un:
             r["unproven"] = un
-        ub = [m for m, st in pr.items() if st == "unproven-baseline"]
+        ub = [m for m, st in pr.items() if st.startswith("unproven-baseline")]
         if ub:
             r["unproven_baseline"] = ub
 
 
 _UNPROVEN_BASE = []     # (integ5, D157; verify: the unproven baseline, read once before the pool forks)
+
+
+VIEW_ONLY_WHY = "D187 macOS-first: view-only"
+
+
+def carry_would_succeed(tu, addr):
+    """(gfx10; rev5) The D159 carry's verdict on ADDR without writing anything (hash --carry, dry run): the reason when
+    every mode is in the ledger or carries under its current view, else None."""
+    for o in hash_proven(tu, {}, addrs=[addr], dry_run=True, carry=True):
+        if o.get("addr") == addr:
+            res = str(o.get("result", ""))
+            return None if res.startswith(("unproven", "no symbol", "skipped")) else res
+    return None
+
+
+def unproven_accept_view_only(a, r, recs, led, b, today, vs=None, vled=None, carry_probe=None):
+    """(gfx10, D187 macOS-first) `unproven-accept --view-only`: R (the block's check record, with_wine) keeps code that
+    a passing ledger line proves in every mode it has (msvc, and wine when it has a clang code hash; LED is
+    code_ledger_index) and only the checker view moved. Each such mode whose current view no ledger line proves (VLED,
+    ledger_index) is listed with its code AND view hash (`view_only`), so verify reports it as `unproven-baseline
+    view-only` until a proof under the new view (hash --proven) removes it. Refused: --workspace, a --why not starting
+    with VIEW_ONLY_WHY, a mode whose code no line proves (that is a code change: prove it or use plain unproven-accept),
+    a view that is missing, a block whose views are all proven (nothing to accept) and (rev5) a block the D159 carry re-pins with full proof
+    status (CARRY_PROBE(tu, addr), default carry_would_succeed: "carry instead"), so the backlog holds only blocks that
+    need a re-proof."""
+    why = a.why.strip()
+    if a.workspace:
+        sys.exit("unproven-accept --view-only: not with --workspace")
+    if not why.startswith(VIEW_ONLY_WHY):
+        sys.exit("unproven-accept --view-only: --why must start with %r" % VIEW_ONLY_WHY)
+    modes = [("msvc", r.get("code_hash"))] + ([("wine", r.get("wine_code_hash"))] if r.get("wine_code_hash") else [])
+    for mode, h in modes:
+        if not h:
+            sys.exit("unproven-accept --view-only: %s has no %s code hash" % (a.addr, mode))
+        if (a.addr, mode, h) not in led:
+            sys.exit("unproven-accept --view-only: %s %s code %s has no passing ledger line: the code changed, not "
+                     "only the view" % (a.addr, mode, h))
+    if vs is None:
+        vs = views(a.tu, recs, scan(a.tu), wine=True)
+    v = vs.get(a.addr) or {}
+    if vled is None:
+        vled = ledger_index() or set()
+    todo = []
+    for mode, h in modes:
+        vh = v.get(mode)
+        if not vh or vh == "unchecked" or v.get("error"):
+            sys.exit("unproven-accept --view-only: %s has no %s view (%s)" % (a.addr, mode, v.get("error") or vh))
+        if (a.addr, mode, h, vh) not in vled:
+            todo.append((mode, h, vh))
+    if not todo:
+        sys.exit("unproven-accept --view-only: %s is proven under its current views (nothing to accept)" % a.addr)
+    cr = (carry_probe or carry_would_succeed)(a.tu, a.addr)
+    if cr:
+        sys.exit("unproven-accept --view-only: %s carries (%s): carry instead: tree_tu.py hash %s --carry --addr %s" % (
+            a.addr, cr, a.tu, a.addr))
+    ent = b["blocks"].setdefault(a.addr, {"modes": {}, "why": why})
+    for mode, h, vh in todo:
+        ent["modes"][mode] = {"code": h, "view": vh, "view_only": True, "accepted": today, "why": why,
+                              "by": "unproven-accept"}
+    ent["why"] = why
+    write_unproven_baseline(b)
+    print(a.addr, ent)
+    return 0
 
 
 def workspace_accepts(base=None):
@@ -1281,13 +1346,34 @@ def workspace_accepts(base=None):
                   for mode, m in (ent.get("modes") or {}).items() if (m or {}).get("by") == "unproven-accept-workspace")
 
 
-def baseline_exempt(base, addr, mode, h):
+def baseline_exempt(base, addr, mode, h, view=None):
     """(integ5, D157) True when the unproven baseline BASE lists ADDR's MODE for exactly code hash H with the stamp
     unproven-accept / unproven-seed writes (`by` and `accepted`): an entry added by hand carries neither and exempts
-    nothing (and `verify --changed-since` fails on it as growth without accept)."""
+    nothing (and `verify --changed-since` fails on it as growth without accept). (gfx10, D187) A view-only accept
+    (`view_only`, `view`) exempts only that code under exactly that checker view VIEW (the mode's view hash): a later
+    view change needs its own accept or proof."""
     m = (base.get("blocks", {}).get(addr, {}).get("modes", {}).get(mode) or {})
-    return bool(h) and m.get("code") == h and m.get("by") in ("unproven-accept", "unproven-seed") and \
-        bool(m.get("accepted"))
+    if not (bool(h) and m.get("code") == h and m.get("by") in ("unproven-accept", "unproven-seed") and
+            bool(m.get("accepted"))):
+        return False
+    if m.get("view_only") or "view" in m:
+        return bool(view) and m.get("view") == view and m.get("by") == "unproven-accept"
+    return True
+
+
+def view_only_backlog(base=None):
+    """(gfx10, D187) ["addr mode accepted"] of the unproven baseline's view-only accepts, oldest first: the proof backlog
+    D187 leaves (proven code, a moved checker view, no run under the new view yet), a worked list (rev5): each entry
+    needs msvc + wine runs at 3,000 under its new view (hash --proven removes it)."""
+    b = base if base is not None else load_unproven_baseline()
+    rows = [(m.get("accepted") or "", addr, mode) for addr, ent in b.get("blocks", {}).items()
+            for mode, m in (ent.get("modes") or {}).items() if (m or {}).get("view_only")]
+    return ["%s %s %s" % (addr, mode, acc) for acc, addr, mode in sorted(rows)]
+
+
+def view_only_accepted(base, addr, mode):
+    """(gfx10, D187) True when BASE's entry for ADDR's MODE is a view-only accept (the proof backlog counts these)."""
+    return bool(((base.get("blocks", {}).get(addr, {}).get("modes", {}).get(mode)) or {}).get("view_only"))
 
 
 # ------------------------------------------------------------------------------------------------------- verify cache
@@ -1606,8 +1692,8 @@ def unproven_baseline_growth(ref, root=None):
         old = before.get(addr, {}).get("modes", {})
         for mode, m in ent.get("modes", {}).items():
             om = old.get(mode) or {}
-            if om.get("code") == m.get("code"):
-                continue
+            if om.get("code") == m.get("code") and om.get("view") == m.get("view"):
+                continue    # (gfx10, D187: a view-only accept's view counts as its code does)
             # (rev5) an accept stamp vouches for a changed code only when the stamp itself is new: REF had no such
             # mode, or REF's stamp differs (a hash swapped by hand under last week's accept is reported)
             if m.get("by") == "unproven-accept" and m.get("accepted") and \
@@ -2340,6 +2426,8 @@ def verify(paths, jobs=4, relocs=False, out=None, vs_standalone=False, wine=True
             "unproven_baseline": load_unproven_baseline().get("total", 0),    # (D126) the list's size, for status
             # (integ5, D157) the equivalent blocks' modes this verify reported instead of failing: listed for their code
             "unproven_baseline_exempt": {"count": len(exempt), "blocks": sorted(exempt)},
+            # (gfx10, D187) the proof backlog of view-only accepts: proven code whose checker view moved, not re-run
+            "unproven_baseline_view_only": view_only_backlog(),
             "free_name_baseline": load_free_baseline().get("total", 0),       # (D149)
             **({"free_names": free_rows} if free_rows else {})}
 
@@ -2906,7 +2994,8 @@ def hash_proven(path, results, addrs=None, dry_run=False, ledger=None, unproven_
             o["result"] = "no symbol (%s)" % r["status"]
             out.append(o)
             continue
-        if not carry and not results.get(r["addr"]) and r.get("code") == "ok" and \
+        # (gfx10, D187) --unproven-accepted re-pins a view-only accept's block, whose code is unchanged
+        if not carry and not unproven_accepted and not results.get(r["addr"]) and r.get("code") == "ok" and \
                 r.get("wine_code") in ("ok", "no_object"):
             o["result"] = "skipped: no result for this block (code unchanged)"
             out.append(o)
@@ -2962,6 +3051,11 @@ def hash_proven(path, results, addrs=None, dry_run=False, ledger=None, unproven_
                 # unproven-accept after a layout-only edit): the pin follows the code; no proof is claimed or recorded,
                 # and the materialize gate keeps refusing anything the list doesn't name
                 bm_ = (ub.get(r["addr"], {}).get("modes") or {}).get(kind) or {}
+                if bm_.get("code") == h and h and ("view" in bm_ or bm_.get("view_only")) and bm_.get("view") != view:
+                    # (gfx10, D187) a view-only accept names the view it was granted for
+                    o[kind] = "unproven: the view-only accept is for view %s, the block's view is %s" % (
+                        bm_.get("view"), view)
+                    continue
                 if bm_.get("code") == h and h:
                     o[kind] = "unproven-accepted (%s)" % (bm_.get("by") or "?")
                     continue
@@ -3303,6 +3397,11 @@ def main(argv=None):
     p.add_argument("--workspace", action="store_true",
                    help="(ckpt2; rev5) a ckpt proof workspace's accept, stamped `unproven-accept-workspace`: materialize "
                         "takes it, verify fails on it, so it never lands")
+    p.add_argument("--view-only", action="store_true",
+                   help="(gfx10, D187 macOS-first) the block's code is proven in every mode (a passing ledger line holds "
+                        "each current code hash) and only its checker view moved: list each mode whose current view no "
+                        "line proves, pinned to that code AND view (`view_only`); --why must start with "
+                        "\"D187 macOS-first: view-only\"")
     p = sub.add_parser("revoke", help="(integ4, D154) revoke every ledger line that proves ADDR in MODE now (a run a later "
                        "checker rule shows unsound): config/proof-revoked.jsonl, append-only")
     p.add_argument("addr")
@@ -3574,8 +3673,10 @@ def main(argv=None):
             sys.exit("unproven-accept: %s is no equivalent block of %s" % (a.addr, a.tu))
         led = code_ledger_index()
         b = load_unproven_baseline()
-        ent = b["blocks"].setdefault(a.addr, {"modes": {}, "why": a.why.strip()})
         today = __import__("datetime").datetime.now().isoformat(timespec="seconds")   # (a full timestamp)
+        if a.view_only:
+            return unproven_accept_view_only(a, r, recs, led, b, today)
+        ent = b["blocks"].setdefault(a.addr, {"modes": {}, "why": a.why.strip()})
         for mode in [m for m in a.modes.split(",") if m]:
             h = r.get({"msvc": "code_hash", "wine": "wine_code_hash"}[mode])
             if not h:

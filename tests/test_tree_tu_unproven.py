@@ -167,6 +167,93 @@ class Unproven(unittest.TestCase):
         self.assertEqual(t.unproven_baseline_growth("HEAD", repo), ["(deleted)"])
         self.assertEqual(t.failing({"unproven baseline grew without accept": 1}, unproven=False), 1)
 
+    def test_view_only_accept(self):
+        """(gfx10, D187 macOS-first) `unproven-accept --view-only`: proven code (a passing ledger line holds each mode's
+        current code hash) whose checker view moved is listed with its code AND view; verify reports it as
+        `unproven-baseline view-only` (counted apart, not a failure) for exactly that view; a code change, a wrong --why,
+        --workspace and a block proven under its current views are refused; a later view needs its own accept."""
+        import argparse
+        import collections
+        bp = os.path.join(self.d.name, "vo.json")
+        t.write_unproven_baseline({"blocks": {}}, bp)
+        led = {("0x00030000", "msvc", "m1"), ("0x00030000", "wine", "w1")}
+        vled = {("0x00030000", "msvc", "m1", "vm_old"), ("0x00030000", "wine", "w1", "vw_old")}
+        r = rec("0x00030000", "m1", "w1")
+        why = "D187 macOS-first: view-only (records moved)"
+        args = lambda **k: argparse.Namespace(**dict({"addr": "0x00030000", "tu": "x.cpp", "why": why,
+                                                      "workspace": False}, **k))
+        vs = {"0x00030000": {"msvc": "vm_new", "wine": "vw_new"}}
+        with mock.patch.object(t, "UNPROVEN_BASELINE", bp):
+            for a_, r_, why_ in ((args(why="view moved"), r, "must start"),
+                                 (args(workspace=True), r, "workspace"),
+                                 (args(), rec("0x00030000", "m2", "w1"), "code changed")):
+                with self.assertRaises(SystemExit) as cm:
+                    t.unproven_accept_view_only(a_, r_, [r_], led, t.load_unproven_baseline(), "T", vs=vs, vled=vled,
+                                                carry_probe=lambda tu, a: None)
+                self.assertIn(why_, str(cm.exception))
+            with self.assertRaises(SystemExit) as cm:      # proven under its current views: nothing to accept
+                t.unproven_accept_view_only(args(), r, [r], led, t.load_unproven_baseline(), "T",
+                                            vs={"0x00030000": {"msvc": "vm_old", "wine": "vw_old"}}, vled=vled,
+                                            carry_probe=lambda tu, a: None)
+            self.assertIn("nothing to accept", str(cm.exception))
+            with self.assertRaises(SystemExit) as cm:      # (rev5) the D159 carry re-pins it: carry instead
+                t.unproven_accept_view_only(args(), r, [r], led, t.load_unproven_baseline(), "T", vs=vs, vled=vled,
+                                            carry_probe=lambda tu, a: "carried")
+            self.assertIn("carry instead", str(cm.exception))
+            self.assertEqual(t.load_unproven_baseline()["total"], 0)
+            t.unproven_accept_view_only(args(), r, [r], led, t.load_unproven_baseline(), "2026-11-21T12:00:00",
+                                        vs=vs, vled=vled, carry_probe=lambda tu, a: None)
+            b = t.load_unproven_baseline()
+        m = b["blocks"]["0x00030000"]["modes"]
+        self.assertEqual(m["msvc"], {"code": "m1", "view": "vm_new", "view_only": True, "by": "unproven-accept",
+                                     "accepted": "2026-11-21T12:00:00", "why": why})
+        self.assertEqual(m["wine"]["view"], "vw_new")
+        self.assertEqual(t.view_only_backlog(b), ["0x00030000 msvc 2026-11-21T12:00:00",
+                                                  "0x00030000 wine 2026-11-21T12:00:00"])
+        self.assertTrue(t.baseline_exempt(b, "0x00030000", "msvc", "m1", view="vm_new"))
+        self.assertFalse(t.baseline_exempt(b, "0x00030000", "msvc", "m1", view="vm_other"))
+        self.assertFalse(t.baseline_exempt(b, "0x00030000", "msvc", "m1"))
+        # verify: the accepted view is reported apart and does not fail; another view fails as unproven
+        for (vm, vw), want in ((("vm_new", "vw_new"), {"msvc": "unproven-baseline view-only",
+                                                       "wine": "unproven-baseline view-only"}),
+                               (("vm_x", "vw_new"), {"msvc": "unproven", "wine": "unproven-baseline view-only"})):
+            rr = dict(rec("0x00030000", "m1", "w1"), wine_code="ok")
+            blocks = {"blocks": [{"addr": "0x00030000", "vhash": t.view_digest(vm, vw)}]}
+            with mock.patch.object(t, "_UNPROVEN_BASE", [b]):
+                t.mark_views([rr], blocks, {"0x00030000": {"msvc": vm, "wine": vw}}, vled)
+            self.assertEqual(rr["proof"], want)
+            c = collections.Counter()
+            t.count_codes(c, rr)
+            self.assertEqual(t.failing(c) == 0, want["msvc"] != "unproven")
+            if want["msvc"] != "unproven":
+                self.assertEqual(c["proof: unproven-baseline view-only (msvc)"], 1)
+                self.assertEqual(rr["unproven_baseline"], ["msvc", "wine"])
+        # materialize's gate: the code is proven, so it never refuses
+        self.assertEqual(t.unproven_code([r], base=b, ledger=led), [])
+
+    def test_view_only_growth(self):
+        """(gfx10, D187) a view-only accept's view is held to the growth check as its code is: a view swapped by hand
+        under an old stamp is reported."""
+        import subprocess
+        repo = os.path.join(self.d.name, "repo3")
+        os.makedirs(os.path.join(repo, "config"))
+        bp = os.path.join(repo, "config", "unproven-baseline.json")
+        g = lambda *a: subprocess.run(["git", "-C", repo] + list(a), capture_output=True, text=True, check=True)
+        g("init", "-q")
+        g("config", "user.email", "t@example.invalid")
+        g("config", "user.name", "t")
+        acc = {"code": "c", "view": "v1", "view_only": True, "accepted": "2026-11-21T10:00:00", "by": "unproven-accept"}
+        t.write_unproven_baseline({"blocks": {"0x5": {"modes": {"msvc": dict(acc)}, "why": "D187"}}}, bp)
+        g("add", "-A")
+        g("commit", "-qm", "accepted")
+        self.assertEqual(t.unproven_baseline_growth("HEAD", repo), [])
+        t.write_unproven_baseline({"blocks": {"0x5": {"modes": {"msvc": dict(acc, view="v2")}, "why": "D187"}}}, bp)
+        self.assertEqual(t.unproven_baseline_growth("HEAD", repo), ["0x5 msvc"])
+        t.write_unproven_baseline({"blocks": {"0x5": {"modes": {"msvc": dict(acc, view="v2",
+                                                                          accepted="2026-11-21T11:00:00")},
+                                              "why": "D187"}}}, bp)
+        self.assertEqual(t.unproven_baseline_growth("HEAD", repo), [])
+
     def test_ref_unreadable_fails_closed(self):
         """(integ3, D126 follow-up) a REF git can't resolve is an error the growth check reports, not "REF had no
         list" (under which every seed stamp would vouch); a REF without the file is still the one seed."""
