@@ -30,7 +30,7 @@ typedef struct {
 typedef struct {
     uint32_t magic, size;
     uint32_t arena_ready, arena_top;  /* arena.c */
-    uint32_t arena_hint;              /* arena.c: no free block below it (0: the base) */
+    uint32_t arena_lb[32];            /* arena.c: no free block of 2^k bytes or more below arena_lb[k] (0: the base) */
     uint64_t clock;                   /* the virtual clock: ticks of the 733 MHz timestamp counter */
     uint32_t frame;                   /* Presents so far */
     uint32_t kernel_data[16];         /* kernel data exports the import table points at */

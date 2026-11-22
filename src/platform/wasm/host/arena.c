@@ -34,7 +34,22 @@ static void init(void) {
     h->back = 0;
     SIM->arena_ready = 1;
     SIM->arena_top = BASE + 16;
-    SIM->arena_hint = BASE;
+    for (int k = 0; k < 32; k++) SIM->arena_lb[k] = BASE;
+}
+
+/* the size class of a block size: its bit length less one (2^k <= size) */
+static int size_class(uint32_t size) { return 31 - __builtin_clz(size); }
+
+/* a free block of SIZE bytes at A: it lowers the bound of every class it belongs to */
+static void lower_bounds(uint32_t a, uint32_t size) {
+    for (int k = size_class(size); k >= 0; k--)
+        if (SIM->arena_lb[k] > a) SIM->arena_lb[k] = a;
+}
+
+/* the block at FROM merges into the one at INTO: a bound on FROM moves there (a bound is a block's start) */
+static void move_bounds(uint32_t from, uint32_t into) {
+    for (int k = 0; k < 32; k++)
+        if (SIM->arena_lb[k] == from) SIM->arena_lb[k] = into;
 }
 
 uint32_t ff_arena_base(void) { return BASE; }
@@ -50,15 +65,18 @@ void* ff_arena_alloc(uint32_t n, uint32_t align) {
     if (!SIM->arena_ready) init();
     if (align < 16) align = 16;
     uint32_t need = ((n + 15) & ~15u) + 16 + (align > 16 ? align : 0);
-    /* first fit in address order, from the hint: every block below it is in use (wasm14: the scan from the base was
-     * 30% of a play3 run). The first free block met becomes the hint. */
-    uint32_t first_free = 0;
-    for (uint32_t a = SIM->arena_hint ? SIM->arena_hint : BASE; a < END; a += at(a)->size) {
+    /* first fit in address order (wasm14: the scan from the base was 30% of a play3 run). It starts at the bound of
+     * NEED's size class: below it no free block is as large as 2^class, so none fits. The first free block of the
+     * class met becomes the class's bound. */
+    int c = size_class(need);
+    uint32_t first = 0;
+    for (uint32_t a = SIM->arena_lb[c] ? SIM->arena_lb[c] : BASE; a < END; a += at(a)->size) {
         hdr* h = at(a);
         if (h->size < 16 || (h->flags != FREE && h->flags != USED))
             ff_fatal("game arena corrupt at 0x%08x (size %u, flags %08x)", a, h->size, h->flags);
-        if (h->flags == FREE && !first_free) first_free = a;
+        if (h->flags == FREE && !first && size_class(h->size) >= c) first = a;
         if (h->flags != FREE || h->size < need) continue;
+        SIM->arena_lb[c] = first;
         if (h->size >= need + 64) {                 /* split: the rest stays free */
             hdr* r = at(a + need);
             r->size = h->size - need;
@@ -71,7 +89,6 @@ void* ff_arena_alloc(uint32_t n, uint32_t align) {
         }
         if (a + h->size > SIM->arena_top) SIM->arena_top = a + h->size < END ? a + h->size : END;
         h->flags = USED;
-        SIM->arena_hint = first_free == a ? a + h->size : first_free;    /* (the split's rest, or the next block) */
         uint32_t p = a + 16;
         if (align > 16) {
             uint32_t q = (p + 16 + align - 1) & ~(align - 1);     /* room for the alias header before it */
@@ -109,18 +126,21 @@ void ff_arena_free(void* p) {
         abort();
     }
     h->flags = FREE;
-    if (a < SIM->arena_hint) SIM->arena_hint = a;
     uint32_t next = a + h->size;
     if (next < END && at(next)->flags == FREE) {    /* merge the next block */
+        move_bounds(next, a);
         h->size += at(next)->size;
         if (a + h->size < END) at(a + h->size)->prev = h->size;
     }
     if (h->prev && at(a - h->prev)->flags == FREE) {     /* merge into the previous one */
         hdr* q = at(a - h->prev);
-        if (a - h->prev < SIM->arena_hint) SIM->arena_hint = a - h->prev;
+        move_bounds(a, a - h->prev);
         q->size += h->size;
         if (a - h->prev + q->size < END) at(a - h->prev + q->size)->prev = q->size;
+        lower_bounds(a - h->prev, q->size);
+        return;
     }
+    lower_bounds(a, h->size);
 }
 
 uint32_t ff_arena_usable(void* p) {

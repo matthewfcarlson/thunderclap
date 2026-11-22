@@ -193,12 +193,14 @@ the area has the x86 layout. The host's printf family reads a `va_list` as x86 s
 - 2026-11-22 (wasm14, speed; D218): **-O1 is the default** (`HULK_WASM_OPT=O0` for the old build). The profile of the
   compiled -O1 build on play3 (macOS `sample`) had the arena allocator's first-fit scan from the arena base at about
   30%, and softx87's transcendentals (trigImpl, atan2F and the fmul/fadd/fdiv under them) at about a third. Two host
-  changes, each giving byte-identical play3 checkpoint records: (1) `arena.c` keeps a hint, the lowest block that can
-  be free (`SIM->arena_hint`, game state like the rest of the allocator's). It is still first fit in address order,
-  so the addresses are the same. (2) `x87.cpp` puts a 4,096-entry direct-mapped table in front of each double-argument
+  changes, each giving byte-identical play3 checkpoint records: (1) `arena.c` keeps a bound per size class (2^k):
+  no free block of that size or more lies below it (`SIM->arena_lb`, game state like the rest of the allocator's). A
+  search starts at its size class's bound and is still first fit in address order, so the addresses are the same. (2) `x87.cpp` puts a 4,096-entry direct-mapped table in front of each double-argument
   transcendental (sin, cos, tan, atan, atan2, exp, log, log10, pow, asin, acos): the same argument bits give the
-  same result, and the tables are the host's, not game state. play3 to 60,000 frames, compiled: 70 s -> 43 s (arena)
-  -> 27 s (tables); about 5,700 update frames/s from frame 24,000 on, about 1,100 over the first 12,000. Snapshot /
+  same result, and the tables are the host's, not game state. play3 to 60,000 frames, compiled: 70 s -> 43 s (a
+  single lowest-free hint) -> 27 s (tables) -> 26 s (bounds per size class); about 5,700 update frames/s from frame
+  24,000 on, about 1,100 over the first 12,000, where softx87's sin/cos/atan2 series (table misses) and the
+  indirect-call dispatch lead the profile. Snapshot /
   restore of the 26.5 MB state: 0.68 / 0.62 ms. The four TUs of `tools/wine_opt_exclude.txt` are optimised on wasm too
   (`HULK_WASM_OPT_EXCLUDE=FILE` keeps a list at -O0): with them at -O1, play3's records stay byte-identical.
 
