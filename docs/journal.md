@@ -2964,3 +2964,26 @@ draws gives in-between frames with no tree change and no path back into the game
 - Input latency is unchanged to the first present (~2 ms after the pad's sample); the update's full pose arrives
   period - display period later (16.7 ms at 60, 25 at 120).
 
+
+## 2026-11-22 wopt1: Video / Gameplay Options, the remastered switch, render resolution; invisible menu text
+
+- Invisible front-end text on the port builds (titles and unselected items; the highlighted item readable): not the
+  bgfx backend. 0x000dedd0 CDisplayEffect::DrawableText::vfunc_1 is a tail-jump forwarder (`mov ecx,[ecx+8]; mov
+  eax,[ecx]; jmp [eax+0x3c]`): Font slot 15 SetColour with the caller's stack argument. Its source called `p->f15()`
+  without it, so the drop-shadow effect (0x000dee60: getColor / setColor(shadow) / draw / setColor(saved)) left the font
+  colour 0 (alpha 0). Found by logging the text draws' vertex colours (0x00000000 while the TextButton's colour words
+  held 0xffffffff). Fixed in dd2d265b0 (MSVC 7.1 emits the same jmp for `p->f15(colour)`).
+- The same class: blocks whose original code is a tail jump through a vftable with no stack access of their own pass
+  the caller's arguments on; a source that declares no parameters drops them on every port build (wasm, 64-bit) while
+  MSVC still matches. A scan of the 52 such blocks (`mov ecx,[ecx+N]; mov eax,[ecx]; jmp [eax+M]` and kin), with each
+  slot's arity from the other implementations' `ret N`, found 0x0025e710 om::MetaEntity::vfunc_4 (fixed); open:
+  0x00099330 (same slot as 0x00099320, which forwards four), 0x002beaa0 / 0x002beab0, 0x0022a930, 0x00333ca0.
+- The settings layer is one table (port_settings.c); the front end's own menu machinery does the rest: a text
+  selector over a named int per setting, built by the misc.rcf overlay, three entry hooks shared by every item. The
+  game's top-level tabs (Options / Story Mode / Extras) are the "main" screen's horizontal buttons: a free run reaches
+  them by B from story_mode, then left, then A (HULK_INPUT presses of 2-3 frames; the first ~60 frames after a screen
+  opens ignore input; a selector at its last choice does not wrap).
+- Render resolution can live entirely in the runner: the module asks for a 640x480 frame and reads back only that
+  size, so the scene target, the frame copies and the copy targets of the frame's size are made larger there and the
+  passes into them get scaled viewports. 1x and 3x runs of the same HULK_INPUT give byte-identical checkpoint records;
+  the game hash with Metal differs between two runs at the same setting (front-end pointers into the malloc heap).

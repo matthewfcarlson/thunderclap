@@ -312,20 +312,11 @@ moves the item into Video Options).
   0xfee10 a per-golem phase step in a constructor, in 0x2b1df0 animation frames to seconds at the clip rate (30 per
   second of data); 1/60 in 0x38660 is degrees / 60 (sectors), and the controller / drive error callbacks step 1/60
   inside the disconnect pause loop. No tree source changes.
-- **The item.** "Frame Rate: 30 FPS / 60 FPS", the fourth item of camera_options in the front end's options and in the
-  pause menu (Options > Camera Options). The menus are game data (misc.rcf: frontend\fe_real.txt, fe_run.txt, the
-  strings in frontend\lang\str_*.txt); src/platform/wasm/gfx/fe_options.c serves misc.rcf through an overlay that
-  appends patched copies of those three files from the player's own disc (located by anchors at run time, the
-  directory entries pointing at the copies) and holds only the inserted item and its three English strings. Three
-  entry hooks (`wasm_port.GFX_APP_HOOKS`, app builds only) connect it: 0x000df9e0 (the int-callback lookup:
-  "PortFrameRateChanged" is a host handler, a vftable slot made by `ff_host_method`), 0x000f8e70 (NamedValueInt's
-  Create: "PortFrameRate" starts at the saved value; one object per front-end slot, kept in step) and 0x000b5ad0 (the
-  camera selectors' sync on front-end set-up and pause: ours shows the setting; a selector shows its first choice
-  until code sets it). `HULK_FE_OPTIONS=0` serves the disc's archive unpatched; `HULK_FE_OPTIONS_LOG=1` logs the item.
-- **The setting** is saved in `HULK_SAVE_DIR/port_settings.txt` (`frame_rate=60`), not in the game's save. At 60,
-  gfx.c's frame end moves the virtual clock one field a present in gameplay too, and sdl_platform.cpp's pacing
-  (`hulk_wasm_fps60`, `HULK_PDDI_WASM` only) presents at 60. `HULK_FPS_CAP=60` still forces 60 without the menu.
-  Replays ignore the file and never write it (the recording's clock decides).
+- **The item** (since wopt1: Options > Video Options > Frame Rate; "Settings and the remastered edition" below).
+  fps1 put it in camera_options and named it "PortFrameRate"; it is now the `frame_rate` row of the settings table
+  (30 / 60 / 120 / Display; fps2 owns what the values do, `hulk_wasm_frame_rate_apply`).
+- **The setting** is `frame_rate` in `HULK_SAVE_DIR/port_settings.txt`, not in the game's save; port_settings.c calls
+  `hulk_wasm_frame_rate_apply` (gfx.c) with it at load and at every change. Replays ignore the file and never write it.
 - **Checks.** play3 to 60,000 on the app (`HULK_GFX_RENDERER=null`, the overlay and hooks active): the same checkpoint
   records as the app before the change (byte prefix). A scripted run (`HULK_INPUT` now takes the left stick: `FROM-TO:
   BUTTONS/ANALOG/LX/LY`; the deterministic audio model; the lane's local script build/fps1/scripts/timing.py) played
@@ -338,6 +329,73 @@ moves the item into Video Options).
   depends on it), so a co-op session takes the host's at session start and the item must not change it mid-session
   (lock or hide it then). The value lives in the host (`fe_options.c`) and in the NamedValueInt objects in game memory;
   a snapshot restores the objects, not the host's copy, which is why it is per-session.
+
+### Settings and the remastered edition (wopt1, D232 / D233)
+
+The user's decisions: the port's additions are the "remastered edition", the wasm app is always that edition for now,
+every remastered addition is a setting whose off state is the original's behaviour, and the settings live in two new
+screens of the game's own Options, "Video Options" and "Gameplay Options" (D232). The remastered edition defaults to
+most enhancements on; turning the edition off restores every faithful value (D233).
+
+- **The table** (src/platform/wasm/gfx/port_settings.c, port_settings.h): one row per setting: its key in the settings
+  file, its label, its screen, its kind (choice, on/off, or a slider shown as an ordered choice), its choices (values
+  and their labels), its faithful value, its remastered default, whether it is remastered-only, and the function that
+  applies it (called with the effective value at load and at every change). Values are ints, never choice indices.
+  `hulk_setting(key)` is the effective value; `hulk_remastered()` the edition switch; `hulk_remastered_build()` says the
+  build is the remastered edition (the app: 1). Adding a setting is one row plus its apply function: the menu item,
+  its strings, its named int, its callback and the file entry follow from the row.
+- **The edition switch** is the row `remastered` (Gameplay Options > Remastered Edition: On / Off). Off: every
+  remastered-only setting takes its faithful value, its item shows that value and turns back to it when changed; the
+  player's own values stay in the file and come back when the switch is turned on.
+- **Defaults** (D233, when the file has no value): the edition on; Frame Rate 60 FPS (every display has it; 120 and
+  Display are one selection away); Render Resolution Window (the window's own pixels). Faithful: Frame Rate
+  30, Render Resolution Original (640x480).
+- **The file** is `HULK_SAVE_DIR/port_settings.txt` (`key=value` lines; fps1's `frame_rate=60` file reads as it is),
+  next to the game's saves, written at every change. Runs that test or replay never read or write it and start from
+  the faithful values: a recording, a `HULK_INPUT` run and `HULK_ROLLTEST` (`HULK_SETTINGS_FILE=1` makes a `HULK_INPUT`
+  run use the file, to test it). `HULK_SETTINGS="key=value,..."` pins values in any run (never saved): a test that
+  needs a setting states it.
+- **The menus** (src/platform/wasm/gfx/fe_options.c). The misc.rcf overlay (fps1: patched copies of the player's own
+  frontend\fe_real.txt, fe_run.txt and str_*.txt appended to the archive, located by anchors at run time; the
+  repository holds only what is inserted and our own English strings) now adds, in both the front end (fe_real) and
+  the pause menu (fe_run): one `AddNamedValueInt "Port_<key>" 0 "Port_<key>_Changed"` per setting (after
+  CameraInvertY's), two `AddTextButton` entries at the end of the "options" screen (front end: FEmain_left_item5/6
+  with menu_item_5/6; pause menu: FEpause_text4/5 with the bars and slide_down4/5) going to the screens
+  "port_video_options" and "port_gameplay_options", and those screens (inserted before "camera_options", built like
+  camera_options: a title and one `AddTextSelector` per setting of the screen, FEsubMenu_text<k> / FEpause_text<k>,
+  `TextSelection` of the choices' string ids TBS_PORT_<KEY>_<n>, `NamedValue "Port_<key>"`, name
+  "port_<key>_selector"). fps1's three entry hooks serve every setting: 0x000df9e0 (the int-callback lookup) returns a
+  host handler per setting (a two-word object: a vftable whose call slot is `ff_host_method(on_change)`, and the
+  setting's index), 0x000f8e70 (NamedValueInt's Create) starts each "Port_<key>" at its choice index and remembers the
+  objects, 0x000b5ad0 (the selectors' sync at front-end set-up and pause) sets each selector to its choice. The named
+  ints and handlers are in `hulk_game_state`; the settings are host state. `HULK_FE_OPTIONS_LOG=1` logs the items and
+  changes, `HULK_FE_OPTIONS_DUMP=DIR` writes the patched text files to a local directory (game text: never commit).
+  Only one screen kind of item exists (a text selector over a named int); a real slider (AddHSlider) binds a
+  NamedValueFloat, whose create and callback lookup would need two more hooks.
+
+### Render resolution (wopt1, D232)
+
+Video Options > Render Resolution: Original (640x480), 2x, 3x, 4x, Window, 720p, 1080p, 1440p, 4K (values 1..4: a
+multiple of the frame; 0: the largest rectangle of the frame's aspect in the window, in pixels, followed on resize;
+720 / 1080 / 1440 / 2160: that height at the frame's 4:3, 960x720 ...; at most 8192 a side).
+
+- **Output only, in the runner.** The game and the pddi front end keep the frame they asked for (640x480): every
+  size they read is that one, so nothing of the game's state can follow the setting. app.cpp (`rrSize`, `rrRemake`)
+  makes the scene target, the sink's frame-buffer copy and front buffer, and every copy target of the frame's size at
+  the render size; a pass into one of them has its viewport scaled (clip space and the game's 2D projections need
+  nothing else); an occlusion query's pixel count is scaled back to the frame's; the present samples 1:1 when the
+  render size is the frame's rectangle in the window. The effects' smaller render targets keep their sizes (their
+  passes are in their own pixels). A change is applied between frames (after the sink's frame): the targets are made
+  again and the module's ids for the sink's own targets (vids 1..3) re-pointed. No bgfx_sink.cpp or pddi change (D194:
+  the Wine image's objects are untouched). The module sends the value through the import `gfx_render_res`.
+- **Checks.** The same 9,000-frame `HULK_INPUT` run (start-up, menus, the first mission's start) at Original and at
+  3x (1920x1440 window): byte-identical checkpoint records (`HULK_CKREF=1`). The game hash cannot show it with Metal
+  (two runs at the same setting differ: the front end's pointers into the module's malloc heap, waud1). Screenshots
+  at 1920x1440 show the frame, HUD and text at full resolution.
+- **Not done.** Aspect: the frame stays 4:3. The game's own widescreen (16:9 modes in 0x4d3508, Hor+ cameras, an
+  aspect-wide HUD layout; docs/subsystems.md §1-2) follows `bgfxDisplay::vfunc_16`; a 16:9 option would change what
+  the game computes (FOV, HUD layout, possibly on-screen tests), so it needs its own game-state check before it can be
+  a setting.
 
 ### Movies (wmov1; hold to skip: D231)
 
@@ -443,14 +501,22 @@ display's refresh by drawing the last simulated frame again with its transforms 
 - **Pacing** moves from the front end's platformFramePace (sdl_platform.cpp, `HULK_PDDI_WASM` only) to the runner
   (`plat_pace(fields)`): the frame period is the original's (the flag 0x005554a0), the presents of a frame at
   deadline + k x period / m. Pacing stays off in replays, with `noop`, and with `HULK_FPS_CAP=0`.
-- **The option.** "Frame Rate: 30 FPS / 60 FPS / 120 FPS / Display" (fps1's item; `frame_rate=30|60|120|display` in
-  port_settings.txt; 30 = no recording, today's path). "Display" presents at the display's refresh (vsync).
+- **The option.** "Frame Rate: 30 FPS / 60 FPS / 120 FPS / Display" (Video Options, wopt1; `frame_rate=30|60|120|0` in
+  port_settings.txt, 0 the display; 30 = no recording, today's path). "Display" presents at the display's refresh (vsync).
   `HULK_DISPLAY_FPS=30|60|120|display` overrides it in the runner without touching the menus. The setting is host
   state (not in a snapshot); the menu's own objects (the item's NamedValueInt and selector) show it, the only game
   words that depend on it.
 - **Audio**: waud1's model advances by the virtual clock, which follows the fixed simulation step: unchanged.
 
 ## Status
+
+- 2026-11-22 (wopt1, D232/D233): **Video Options and Gameplay Options; the remastered edition; render resolution.**
+  Options (front end and pause menu) has two new screens built from one settings table (port_settings.c): Frame Rate
+  and Render Resolution in Video Options, Remastered Edition in Gameplay Options ("Settings and the remastered
+  edition", "Render resolution" above). Render resolution is output only (1x vs 3x: byte-identical checkpoint
+  records); rolltests identical at 3x (4300:6300) and across a menu change of the resolution (3250:3400); play3 with
+  `null` unchanged by the menus (with and without the overlay: identical records). The front end's text is visible
+  again on the port builds (dd2d265b0).
 
 - 2026-11-22 (fps2, D228a): **the game state is the same at any display rate.** The simulation always steps at the
   original's rate; 60, 120 and the display's refresh draw interpolated frames between updates in the runner ("Display

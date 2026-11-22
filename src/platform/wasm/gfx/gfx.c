@@ -64,6 +64,7 @@ GI(gfx_present) void gi_present(const void* p);
 GI(gfx_frame) void gi_frame(void);
 GI(gfx_request_screenshot) void gi_request_screenshot(const char* path);
 GI(gfx_context_destroyed) void gi_context_destroyed(void);
+GI(gfx_render_res) void gi_render_res(int32_t value);
 GI(plat_video_init) int32_t gi_video_init(void);
 GI(plat_error) uint32_t gi_error(char* buf, uint32_t cap);
 GI(plat_create_window) int32_t gi_create_window(const char* title, int32_t w, int32_t h, int32_t hidden, int32_t resizable);
@@ -444,6 +445,9 @@ uint32_t hulk_gfx_sink_query_result(uint32_t q, int32_t* pixels) {
 void hulk_gfx_sink_present(const void* p) { gi_present(p); }
 void hulk_gfx_sink_frame(void) { gi_frame(); }
 void hulk_gfx_sink_request_screenshot(const char* path) { gi_request_screenshot(path); }
+/* the render-resolution setting (port_settings.c): the runner draws the frame at that size (output only: the front
+ * end and the game keep the 640x480 frame; app.cpp "Render resolution") */
+void hulk_wasm_render_res_apply(int value) { gi_render_res(value); }
 void hulk_gfx_sink_context_destroyed(void) { gi_context_destroyed(); }
 
 /* ------------------------------------------------------------------------------------------- the window */
@@ -557,17 +561,12 @@ void hulk_wasm_gfx_frame_end(void) {
  * D228a: the simulation steps at the original's rate whatever the display does. The display rate (30: the
  * original's presents, 60, 120, 0: the display's refresh) is host state, not game state: the runner records each
  * update's drawing and draws it again with interpolated transforms (run/app/interp.cpp). The settings layer applies
- * it with hulk_wasm_frame_rate_apply (at load and on a change; it takes effect at the next frame end); until it has,
- * the options menu's 30/60 item (hulk_wasm_fps60, fe_options.c) decides. HULK_DISPLAY_FPS (the runner's) overrides
- * both without touching the menus. */
-static int g_rate = -1, g_applied;
-int hulk_wasm_fps60(void);     /* fe_options.c */
-static int rate_now(void) {
-    return g_applied ? g_rate : hulk_wasm_fps60() ? 60 : 30;
-}
+ * it with hulk_wasm_frame_rate_apply (port_settings.c: at load and on a change; it takes effect at the next frame
+ * end); 30 until then. HULK_DISPLAY_FPS (the runner's) overrides it without touching the menus. */
+static int g_rate = 30;
+static int rate_now(void) { return g_rate; }
 int hulk_wasm_frame_rate(void) { return rate_now(); }
 void hulk_wasm_frame_rate_apply(int value) {
-    g_applied = 1;
     g_rate = value == 60 || value == 120 || value == 0 ? value : 30;
 }
 /* the SwapBuffers wait (sdl_platform.cpp platformFramePace under HULK_PDDI_WASM): the runner draws the update and

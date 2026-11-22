@@ -1,30 +1,34 @@
-/* The app's own options in the game's menus (D224; docs/wasm-port.md "The frame-rate option"; HULK_WASM_GFX=1
- * builds only).
+/* The port's options in the game's menus (D224, D232; docs/wasm-port.md "Settings and the remastered edition";
+ * HULK_WASM_GFX=1 builds only).
  *
- * "Frame Rate: 30 FPS / 60 FPS" is a fourth item of the camera options screen, in the front end's options and in the
- * pause menu. The menus are game data (misc.rcf's frontend\fe_real.txt and fe_run.txt, the English strings in
- * frontend\lang\str_*.txt): nothing of them is in the repository. When the game opens misc.rcf the host serves it
- * with those three files patched (an overlay: the archive's directory names the patched copies, appended after its
- * end; every other byte is the disc's), so the parser builds the item like any other:
+ * Options gets two more entries, "Video Options" and "Gameplay Options", in the front end and in the pause menu; each
+ * opens a screen with one item per setting of port_settings.c's table on that screen (a text selector bound to a named
+ * int). The menus are game data (misc.rcf's frontend\fe_real.txt and fe_run.txt, the English strings in
+ * frontend\lang\str_*.txt): nothing of them is in the repository. When the game opens misc.rcf the host serves it with
+ * those files patched (an overlay: the archive's directory names the patched copies, appended after its end; every
+ * other byte is the disc's), so the parser builds our screens like its own. The text below holds only what we insert
+ * and our own strings; the game's text is located by anchors at run time:
  *
- *   AddNamedValueInt "PortFrameRate" 0 "PortFrameRateChanged"     (after CameraInvertY's)
- *   AddTextSelector "FEsubMenu_text4" / "FEpause_text4" { ... NamedValue "PortFrameRate" ... }
+ *   AddNamedValueInt "Port_<key>" 0 "Port_<key>_Changed"               (after CameraInvertY's)
+ *   AddTextButton "FEmain_left_item5" / "FEpause_text4" ... gotoscreen "port_video_options"   (in "options")
+ *   AddScreen "port_video_options" { ... AddTextSelector "FEsubMenu_text<k>" / "FEpause_text<k>" { ... NamedValue
+ *       "Port_<key>" ... } }                                            (before "camera_options")
  *
- * Two entry hooks (tools/wasm_port.py GFX_APP_HOOKS) connect it to the host:
- * - 0x000df9e0, the front end's lookup of an int callback by name: "PortFrameRateChanged" is a handler object of the
- *   host's (a vftable whose call slot is a host method, ff_host_method), which NamedValueInt::vfunc_1 0x000f8dd0 calls
- *   with the value when the selector changes it;
- * - 0x000f8e70, NamedValueInt's Create(name, default, callback): "PortFrameRate" starts at the saved setting, and the
- *   host remembers the objects (one per front-end slot) to keep them showing the same value;
- * - 0x000b5ad0, which sets the camera-invert selectors from the stored flags (the front end's set-up 0x000c3ea0 and
- *   the pause menu's 0x000bcf40): a selector shows its first choice until the game's code sets it, so the hook sets
- *   ours to the setting the same way (vfunc_25, the choice's index = the value).
+ * Three entry hooks (tools/wasm_port.py GFX_APP_HOOKS) connect the items to the settings:
+ * - 0x000df9e0, the front end's lookup of an int callback by name: "Port_<key>_Changed" is a handler object of the
+ *   host's (a vftable whose call slot is a host method, ff_host_method; the object's second word is the setting's
+ *   index), which NamedValueInt::vfunc_1 0x000f8dd0 calls with the value when the selector changes it;
+ * - 0x000f8e70, NamedValueInt's Create(name, default, callback): "Port_<key>" starts at the setting's choice index,
+ *   and the host remembers the objects (one per front-end slot) to keep them showing the same value;
+ * - 0x000b5ad0, which sets the camera selectors from the stored flags (the front end's set-up 0x000c3ea0 and the pause
+ *   menu's 0x000bcf40): a selector shows its first choice until the game's code sets it, so the hook sets ours to the
+ *   settings the same way (vfunc_25, the choice's index = the named int's value).
  *
- * The setting: 0 = 30 fps in gameplay (the original's SwapBuffers pacing, the default), 1 = 60. It is saved in
- * HULK_SAVE_DIR/port_settings.txt ("frame_rate=60"), not in the game's save. Replays ignore the file (the recording's
- * clock decides) and never write it. hulk_wasm_fps60() is what the frame end (gfx.c: one 60 Hz field a present
- * instead of two) and the present pacing (sdl_platform.cpp platformFramePace) follow. HULK_FE_OPTIONS=0 serves the
- * disc's misc.rcf unpatched. */
+ * The named ints hold choice indices; the settings hold values (port_settings.h). With the remastered-edition switch
+ * off a remastered-only item shows its faithful choice and turns back to it when changed. HULK_FE_OPTIONS=0 serves the
+ * disc's misc.rcf unpatched; HULK_FE_OPTIONS_LOG=1 logs the items. */
+#include <ctype.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -32,63 +36,29 @@
 #include "../host/hulk_host.h"
 #include "../host/hulk_io.h"
 #include "../host/sim.h"
+#include "port_settings.h"
 
-int ff_replay_active(void);     /* replay.cpp */
 
-#define NV_NAME "PortFrameRate"
-#define CB_NAME "PortFrameRateChanged"
-
-/* Game-facing state of this host file (the setting the game clock follows, the game objects and the handler the game
- * holds) is game state: it lives in the tree's snapshotted section (tools/wasm_port.py GAME_STATE_SECTION), so a
- * restore puts back the setting with the menus' objects that show it (wroll1). The settings file is host state: after
- * a restore past a change it keeps the newer value, which the next start reads (g_loaded stays: no reread). */
+/* Game-facing state of this host file (the game objects and the handlers the game holds) lives in the tree's
+ * snapshotted section (tools/wasm_port.py GAME_STATE_SECTION), so a restore puts back the menus' objects with the
+ * game (wroll1). The settings are host state (port_settings.c). */
 #define GAME_STATE __attribute__((section("hulk_game_state")))
-static int g_loaded;
-GAME_STATE static int g_fps60;
+enum { MAXS = 16, SLOTS = 4 };
 
-static const char* settings_path(char* out, size_t cap) {
-    const char* d = getenv("HULK_SAVE_DIR");
-    snprintf(out, cap, "%s/port_settings.txt", d ? d : "build/wasm/save");
-    return out;
+static int log_on(void) {
+    static int on = -1;
+    if (on < 0) on = getenv("HULK_FE_OPTIONS_LOG") != 0;
+    return on;
 }
 
-static void settings_load(void) {
-    if (g_loaded) return;
-    g_loaded = 1;
-    if (ff_replay_active()) return;
-    char path[600], buf[256];
-    int32_t f = hio_open(settings_path(path, sizeof path), HIO_READ);
-    if (f < 0) return;
-    int32_t n = hio_read(f, buf, sizeof buf - 1, 0);
-    hio_close(f);
-    if (n <= 0) return;
-    buf[n] = 0;
-    const char* p = strstr(buf, "frame_rate=");
-    if (p) g_fps60 = atoi(p + 11) == 60;
-    if (g_fps60) fprintf(stderr, "hulk: frame rate 60 (%s)\n", path);
-}
-
-static void settings_save(void) {
-    if (ff_replay_active()) return;
-    char path[600], line[64];
-    const char* d = getenv("HULK_SAVE_DIR");
-    hio_mkdir(d ? d : "build/wasm/save");
-    int32_t f = hio_open(settings_path(path, sizeof path), HIO_CREATE);
-    if (f < 0) return;
-    int n = snprintf(line, sizeof line, "frame_rate=%d\n", g_fps60 ? 60 : 30);
-    hio_write(f, line, (uint32_t)n, 0);
-    hio_close(f);
-}
-
-/* 1: gameplay at 60 fps (the menu's setting, or HULK_FPS_CAP=60) */
-int hulk_wasm_fps60(void) {
-    static int cap60 = -1;
-    if (cap60 < 0) {
-        const char* c = getenv("HULK_FPS_CAP");
-        cap60 = c && atoi(c) == 60;
-    }
-    settings_load();
-    return g_fps60 || cap60;
+/* ------------------------------------------------------------------------------------------- names */
+static void nv_name(int i, char* out, size_t cap) { snprintf(out, cap, "Port_%s", hulk_settings_at(i)->key); }
+static void cb_name(int i, char* out, size_t cap) { snprintf(out, cap, "Port_%s_Changed", hulk_settings_at(i)->key); }
+static void sel_name(int i, char* out, size_t cap) { snprintf(out, cap, "port_%s_selector", hulk_settings_at(i)->key); }
+static void str_id(int i, int choice, char* out, size_t cap) {      /* TBS_PORT_<KEY> / TBS_PORT_<KEY>_<choice> */
+    int n = snprintf(out, cap, "TBS_PORT_%s", hulk_settings_at(i)->key);
+    if (choice >= 0) snprintf(out + n, cap - (size_t)n, "_%d", choice);
+    for (char* p = out; *p; p++) *p = (char)toupper((unsigned char)*p);
 }
 
 /* ------------------------------------------------------------------------------------------- the hooks */
@@ -97,68 +67,112 @@ int hulk_wasm_fps60(void) {
 #define NV_NAME_OFF 0x18
 #define NV_VALUE 0x40
 #define NV_PENDING 0x44
-GAME_STATE static uint32_t g_nv[4], g_nv_vft;     /* the "PortFrameRate" objects (one per front-end slot) and their vftable */
+GAME_STATE static uint32_t g_nv[MAXS][SLOTS], g_nv_vft;     /* each setting's named ints (one per front-end slot) */
+GAME_STATE static uint32_t g_handler[MAXS][2], g_handler_vft[4];
 
-static int nv_ours(uint32_t p) {
-    return p && *(uint32_t*)PTR(p) == g_nv_vft && !strncmp((const char*)PTR(p + NV_NAME_OFF), NV_NAME, 0x28);
+static int nv_is(uint32_t p, int i) {
+    char name[64];
+    nv_name(i, name, sizeof name);
+    return p && *(uint32_t*)PTR(p) == g_nv_vft && !strncmp((const char*)PTR(p + NV_NAME_OFF), name, 0x28);
 }
 
-/* the handler's call slot: (this, value) */
-static void on_frame_rate(uint32_t ecx, uint32_t edx, void* st, void* rb) {
-    (void)ecx, (void)edx, (void)rb;
-    int v = ARG(0) != 0;
-    if (getenv("HULK_FE_OPTIONS_LOG")) fprintf(stderr, "hulk: frame %u: %s -> %u\n", SIM->frame, CB_NAME, ARG(0));
-    if (v != g_fps60) {
-        g_fps60 = v;
-        fprintf(stderr, "hulk: frame rate %d (the options menu)\n", v ? 60 : 30);
-        settings_save();
-    }
-    for (int i = 0; i < 4; i++)         /* the other slot's selector shows the same */
-        if (nv_ours(g_nv[i])) {
-            *(uint32_t*)PTR(g_nv[i] + NV_VALUE) = (uint32_t)v;
-            *(uint32_t*)PTR(g_nv[i] + NV_PENDING) = (uint32_t)v;
+/* the choice an item shows: the faithful one while the setting is locked */
+static int shown_index(int i) {
+    const port_setting* s = hulk_settings_at(i);
+    return hulk_setting_index(s, hulk_setting_locked(i) ? s->faithful : hulk_setting_user(i));
+}
+
+static int g_busy;
+/* the item's selector on the screen now (0x000b5ad0's way: the control by name 0x000fc260, dynamic_cast 0x00344e74
+ * to the selector, its vfunc_25 sets the choice) */
+static void selector_show(int i) {
+    char sel[64];
+    sel_name(i, sel, sizeof sel);
+    uint32_t c = ff_call(0x000fc260u, 1, (uint32_t)(uintptr_t)sel);
+    uint32_t s = c ? ff_call(0x00344e74u, 5, c, 0, 0x0049dba4u, 0x0049dbbcu, 0) : 0;
+    if (s) ff_call_this(((uint32_t*)PTR(*(uint32_t*)PTR(s)))[25], s, 1, (uint32_t)shown_index(i));
+}
+/* every named int of setting i shows its choice; `screen`: the selector too */
+static void refresh(int i, int screen) {
+    uint32_t k = (uint32_t)shown_index(i);
+    for (int j = 0; j < SLOTS; j++)
+        if (nv_is(g_nv[i][j], i)) {
+            *(uint32_t*)PTR(g_nv[i][j] + NV_VALUE) = k;
+            *(uint32_t*)PTR(g_nv[i][j] + NV_PENDING) = k;
         }
+    if (screen && !g_busy) {
+        g_busy = 1;
+        selector_show(i);
+        g_busy = 0;
+    }
 }
 
-GAME_STATE static uint32_t g_handler[2], g_handler_vft[4];
+/* the handlers' call slot: (this, choice index) */
+static void on_change(uint32_t ecx, uint32_t edx, void* st, void* rb) {
+    (void)edx, (void)rb;
+    if (g_busy) return;
+    int i = (int)*(uint32_t*)PTR(ecx + 4);
+    const port_setting* s = hulk_settings_at(i);
+    if (!s) return;
+    uint32_t k = ARG(0);
+    if (log_on()) fprintf(stderr, "hulk: frame %u: Port_%s_Changed -> %u\n", SIM->frame, s->key, k);
+    int locked = hulk_setting_locked(i);
+    if (!locked && k < (uint32_t)s->n) hulk_setting_choose(i, s->values[k]);
+    if (i == 0) {                       /* the edition switch: every item shows what it now stands for */
+        for (int j = 1; j < hulk_settings_count(); j++) refresh(j, 1);
+        refresh(0, 0);
+    } else {
+        refresh(i, locked);             /* a locked item turns back to its faithful choice */
+    }
+}
 
 void ffgo_000df9e0(uint32_t, uint32_t, void*, void*);   /* the game's int-callback lookup (the hook's original) */
 void ffh_hulk_app_fe_callback(uint32_t ecx, uint32_t edx, void* st, void* rb) {
-    if (ARG(0) && !strcmp((const char*)PTR(ARG(0)), CB_NAME)) {
-        if (!g_handler[0]) {
-            for (int i = 0; i < 4; i++) g_handler_vft[i] = ff_host_method(on_frame_rate);
-            g_handler[0] = (uint32_t)(uintptr_t)g_handler_vft;
+    const char* name = ARG(0) ? (const char*)PTR(ARG(0)) : 0;
+    if (name && !strncmp(name, "Port_", 5)) {
+        for (int i = 0; i < hulk_settings_count() && i < MAXS; i++) {
+            char cb[64];
+            cb_name(i, cb, sizeof cb);
+            if (strcmp(name, cb)) continue;
+            if (!g_handler_vft[0])
+                for (int k = 0; k < 4; k++) g_handler_vft[k] = ff_host_method(on_change);
+            g_handler[i][0] = (uint32_t)(uintptr_t)g_handler_vft;
+            g_handler[i][1] = (uint32_t)i;
+            RET((uint32_t)(uintptr_t)g_handler[i]);
+            return;
         }
-        RET((uint32_t)(uintptr_t)g_handler);
-        return;
     }
     ffgo_000df9e0(ecx, edx, st, rb);
 }
 
 void ffgo_000f8e70(uint32_t, uint32_t, void*, void*);   /* NamedValueInt's Create (the hook's original) */
 void ffh_hulk_app_named_int(uint32_t ecx, uint32_t edx, void* st, void* rb) {
-    int ours = ARG(0) && !strcmp((const char*)PTR(ARG(0)), NV_NAME);
-    if (ours) ARG(1) = (uint32_t)hulk_wasm_fps60();
+    const char* name = ARG(0) ? (const char*)PTR(ARG(0)) : 0;
+    int ours = -1;
+    if (name && !strncmp(name, "Port_", 5))
+        for (int i = 0; i < hulk_settings_count() && i < MAXS; i++) {
+            char nv[64];
+            nv_name(i, nv, sizeof nv);
+            if (!strcmp(name, nv)) ours = i;
+        }
+    if (ours >= 0) ARG(1) = (uint32_t)shown_index(ours);
     ffgo_000f8e70(ecx, edx, st, rb);
     uint32_t p = (uint32_t)*(uint64_t*)rb;
-    if (ours && p) {
+    if (ours >= 0 && p) {
         g_nv_vft = *(uint32_t*)PTR(p);
         int k = 0;
-        while (k < 3 && nv_ours(g_nv[k]) && g_nv[k] != p) k++;
-        g_nv[k] = p;
-        if (getenv("HULK_FE_OPTIONS_LOG"))
-            fprintf(stderr, "hulk: frame %u: %s at 0x%08x = %u\n", SIM->frame, NV_NAME, p, ARG(1));
+        while (k < SLOTS - 1 && nv_is(g_nv[ours][k], ours) && g_nv[ours][k] != p) k++;
+        g_nv[ours][k] = p;
+        if (log_on()) fprintf(stderr, "hulk: frame %u: %s at 0x%08x = %u\n", SIM->frame, name, p, ARG(1));
     }
 }
 
 void ffgo_000b5ad0(uint32_t, uint32_t, void*, void*);   /* the camera selectors' sync (the hook's original) */
 void ffh_hulk_app_fe_sync(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     ffgo_000b5ad0(ecx, edx, st, rb);
-    static const char sel[] = "port_frame_rate_selector";
-    /* as 0x000b5ad0 finds its selectors: the control by name (0x000fc260), dynamic_cast (0x00344e74) to the selector */
-    uint32_t c = ff_call(0x000fc260u, 1, (uint32_t)(uintptr_t)sel);
-    uint32_t s = c ? ff_call(0x00344e74u, 5, c, 0, 0x0049dba4u, 0x0049dbbcu, 0) : 0;
-    if (s) ff_call_this(((uint32_t*)PTR(*(uint32_t*)PTR(s)))[25], s, 1, (uint32_t)hulk_wasm_fps60());
+    g_busy = 1;
+    for (int i = 0; i < hulk_settings_count() && i < MAXS; i++) selector_show(i);
+    g_busy = 0;
 }
 
 /* ------------------------------------------------------------------------------------------- the menus' text */
@@ -172,6 +186,15 @@ static void put(buf_t* b, const void* s, uint32_t n) {
     b->n += n;
 }
 static void puts_(buf_t* b, const char* s) { put(b, s, (uint32_t)strlen(s)); }
+static void printf_(buf_t* b, const char* fmt, ...) __attribute__((format(printf, 2, 3)));
+static void printf_(buf_t* b, const char* fmt, ...) {
+    char line[1024];
+    va_list ap;
+    va_start(ap, fmt);
+    int n = vsnprintf(line, sizeof line, fmt, ap);
+    va_end(ap);
+    if (n > 0) put(b, line, (uint32_t)(n < (int)sizeof line ? n : (int)sizeof line - 1));
+}
 
 static const char* find(const char* s, uint32_t n, const char* from, const char* what) {
     size_t w = strlen(what);
@@ -183,69 +206,127 @@ static const char* line_end(const char* s, uint32_t n, const char* p) {
     while (p < s + n && *p != '\n') p++;
     return p < s + n ? p + 1 : p;
 }
+static const char* line_start(const char* s, const char* p) {
+    while (p > s && p[-1] != '\n') p--;
+    return p;
+}
 
-static const char k_value[] = "AddNamedValueInt \"" NV_NAME "\" 0 \"" CB_NAME "\"\r\n";
-static const char k_item_fe[] =
-    "    AddTextSelector \"FEsubMenu_text4\"\r\n"
-    "    {\r\n"
-    "        text \"TBS_PORT_FRAME_RATE\" 1\r\n"
-    "\r\n"
-    "        name \"port_frame_rate_selector\"\r\n"
-    "        TextSelection \"\" TBS_PORT_FPS_30 TBS_PORT_FPS_60\r\n"
-    "        NamedValue \"" NV_NAME "\"\r\n"
-    "\r\n"
-    "        OnHighlight function \"UpdateControlButtonString\" \"DynamicControlButtonLabel\"  \"2\"\r\n"
-    "        $MACRO_INSERT menu_item_4\r\n"
-    "    }\r\n"
-    "\r\n";
-static const char k_item_pause[] =
-    "    AddTextSelector \"FEpause_text4\"\r\n"
-    "    {\r\n"
-    "        text \"TBS_PORT_FRAME_RATE\" 1\r\n"
-    "\r\n"
-    "        name \"port_frame_rate_selector\"\r\n"
-    "        TextSelection \"\" TBS_PORT_FPS_30 TBS_PORT_FPS_60\r\n"
-    "        NamedValue \"" NV_NAME "\"\r\n"
-    "\r\n"
-    "        OnHighlight function \"UpdateControlButtonString\" \"DynamicControlButtonLabel\"  \"2\"\r\n"
-    "\r\n"
-    "        SelectedDrawable \"FE_selectBar\"\r\n"
-    "        NotSelectedDrawable \"FE_backgroundBar\"\r\n"
-    "\r\n"
-    "        TransitionAnimEnter \"slide_down4\"\r\n"
-    "        TransitionAnimExit  \"slide_down4\"\r\n"
-    "    }\r\n"
-    "\r\n";
-static const char* const k_strings[][2] = {
-    {"TBS_PORT_FRAME_RATE", "Frame Rate"}, {"TBS_PORT_FPS_30", "30 FPS"}, {"TBS_PORT_FPS_60", "60 FPS"},
+/* the screens and their entries in Options */
+static const struct { const char* screen; const char* id; const char* label; } k_screens[PS_SCREENS] = {
+    {"port_video_options", "TBS_PORT_VIDEO_OPTIONS", "Video Options"},
+    {"port_gameplay_options", "TBS_PORT_GAMEPLAY_OPTIONS", "Gameplay Options"},
 };
 
-/* fe_real.txt / fe_run.txt: the named value after CameraInvertY's, the item at the end of "camera_options" (before
- * its control-button label). 0 when an anchor is missing (another disc's text): the file stays as it is. */
-static int patch_fe(const char* s, uint32_t n, const char* item, buf_t* out) {
+/* The inserted text: `pause` 0 for fe_real.txt (the front end: FEmain_left_item<n> entries, FEsubMenu_text<k> items),
+ * 1 for fe_run.txt (the pause menu: FEpause_text<n>, its bars and slide animations) */
+#define CRLF "\r\n"
+static void gen_values(buf_t* b) {
+    for (int i = 0; i < hulk_settings_count() && i < MAXS; i++) {
+        char nv[64], cb[64];
+        nv_name(i, nv, sizeof nv);
+        cb_name(i, cb, sizeof cb);
+        printf_(b, "AddNamedValueInt \"%s\" 0 \"%s\"" CRLF, nv, cb);
+    }
+}
+static void gen_entries(buf_t* b, int pause) {
+    for (int sc = 0; sc < PS_SCREENS; sc++) {
+        int slot = (pause ? 4 : 5) + sc;
+        printf_(b, "    AddTextButton \"%s%d\"" CRLF "    {" CRLF "        text \"%s\" 1" CRLF
+                   "        OnSelect gotoscreen \"%s\"" CRLF
+                   "        OnHighlight function \"UpdateControlButtonString\" \"DynamicControlButtonLabel\"  \"1\"" CRLF,
+                pause ? "FEpause_text" : "FEmain_left_item", slot, k_screens[sc].id, k_screens[sc].screen);
+        if (pause)
+            printf_(b, "        $MACRO_INSERT FormatText" CRLF "        SelectedDrawable \"FE_selectBar\"" CRLF
+                       "        NotSelectedDrawable \"FE_backgroundBar\"" CRLF
+                       "        TransitionAnimEnter \"slide_down%d\"" CRLF "        TransitionAnimExit  \"slide_down%d\"" CRLF,
+                    slot, slot);
+        else
+            printf_(b, "        $MACRO_INSERT menu_item_%d" CRLF "        halign left" CRLF, slot);
+        puts_(b, "    }" CRLF CRLF);
+    }
+}
+static void gen_screens(buf_t* b, int pause) {
+    for (int sc = 0; sc < PS_SCREENS; sc++) {
+        printf_(b, "AddScreen \"%s\"" CRLF "{" CRLF "    $MACRO_INSERT typicalScreenSetup" CRLF CRLF
+                   "    AddLabel \"%s\"" CRLF "    {" CRLF "        text \"%s\" 1" CRLF
+                   "        $MACRO_INSERT FormatTitleText" CRLF CRLF "        TransitionAnimEnter \"fadein\"" CRLF
+                   "        TransitionAnimExit  \"fadeout\"" CRLF "    }" CRLF CRLF,
+                k_screens[sc].screen, pause ? "FEpause_title" : "FEsubMenu_title", k_screens[sc].id);
+        int k = 0;
+        for (int i = 0; i < hulk_settings_count() && i < MAXS; i++) {
+            const port_setting* s = hulk_settings_at(i);
+            if (s->screen != sc || k >= (pause ? 9 : 9)) continue;
+            k++;
+            char nv[64], sel[64], id[64];
+            nv_name(i, nv, sizeof nv);
+            sel_name(i, sel, sizeof sel);
+            str_id(i, -1, id, sizeof id);
+            printf_(b, "    AddTextSelector \"%s%d\"" CRLF "    {" CRLF "        text \"%s\" 1" CRLF CRLF
+                       "        name \"%s\"" CRLF "        TextSelection \"\"",
+                    pause ? "FEpause_text" : "FEsubMenu_text", k, id, sel);
+            for (int c = 0; c < s->n; c++) {
+                str_id(i, c, id, sizeof id);
+                printf_(b, " %s", id);
+            }
+            printf_(b, CRLF "        NamedValue \"%s\"" CRLF CRLF
+                       "        OnHighlight function \"UpdateControlButtonString\" \"DynamicControlButtonLabel\"  \"2\"" CRLF,
+                    nv);
+            if (pause)
+                printf_(b, CRLF "        SelectedDrawable \"FE_selectBar\"" CRLF
+                           "        NotSelectedDrawable \"FE_backgroundBar\"" CRLF CRLF
+                           "        TransitionAnimEnter \"slide_down%d\"" CRLF "        TransitionAnimExit  \"slide_down%d\"" CRLF,
+                        k, k);
+            else
+                printf_(b, "        $MACRO_INSERT menu_item_%d" CRLF, k);
+            puts_(b, "    }" CRLF CRLF);
+        }
+        puts_(b, "    $MACRO_INSERT SetupControlButtonLabel" CRLF "}" CRLF CRLF);
+    }
+}
+
+/* fe_real.txt / fe_run.txt: the named values after CameraInvertY's, the entries at the end of "options" (before its
+ * control-button label), the screens before "camera_options". 0 when an anchor is missing (another disc's text): the
+ * file stays as it is. */
+static int patch_fe(const char* s, uint32_t n, int pause, buf_t* out) {
     const char* a = find(s, n, s, "AddNamedValueInt \"CameraInvertY\"");
-    const char* scr = find(s, n, s, "AddScreen \"camera_options\"");
-    const char* b = scr ? find(s, n, scr, "$MACRO_INSERT SetupControlButtonLabel") : 0;
-    if (!a || !b || b < a || find(s, n, s, NV_NAME)) return 0;
+    const char* opt = find(s, n, s, "AddScreen \"options\"");
+    const char* b = opt ? find(s, n, opt, "$MACRO_INSERT SetupControlButtonLabel") : 0;
+    const char* next = opt ? find(s, n, opt + 1, "AddScreen \"") : 0;
+    const char* c = find(s, n, s, "AddScreen \"camera_options\"");
+    if (!a || !b || !c || (next && b > next) || !(a < b && b < c) || find(s, n, s, "\"Port_")) return 0;
     a = line_end(s, n, a);
-    while (b > scr && b[-1] != '\n') b--;      /* the start of its line */
+    b = line_start(s, b);
+    c = line_start(s, c);
     put(out, s, (uint32_t)(a - s));
-    puts_(out, k_value);
+    gen_values(out);
     put(out, a, (uint32_t)(b - a));
-    puts_(out, item);
-    put(out, b, (uint32_t)(s + n - b));
+    gen_entries(out, pause);
+    put(out, b, (uint32_t)(c - b));
+    gen_screens(out, pause);
+    put(out, c, (uint32_t)(s + n - c));
     return 1;
 }
 
-/* str_<lang>.txt (UTF-16LE, "KEY\tTEXT\r\n" lines): the item's strings, in English, appended */
+/* str_<lang>.txt (UTF-16LE, "KEY\tTEXT\r\n" lines): our strings, in English, appended */
+static void put_string(buf_t* out, const char* id, const char* text) {
+    char line[256];
+    int l = snprintf(line, sizeof line, "%s\t%s\r\n", id, text);
+    for (int k = 0; k < l && k < (int)sizeof line - 1; k++) put(out, (char[2]){line[k], 0}, 2);
+}
 static int patch_strings(const char* s, uint32_t n, buf_t* out) {
     if (n < 2 || (uint8_t)s[0] != 0xff || (uint8_t)s[1] != 0xfe || (n & 1)) return 0;
     put(out, s, n);
     if (n >= 4 && !(s[n - 4] == '\r' && s[n - 2] == '\n')) put(out, "\r\0\n\0", 4);
-    for (unsigned i = 0; i < sizeof k_strings / sizeof k_strings[0]; i++) {
-        char line[128];
-        int l = snprintf(line, sizeof line, "%s\t%s\r\n", k_strings[i][0], k_strings[i][1]);
-        for (int k = 0; k < l; k++) put(out, (char[2]){line[k], 0}, 2);
+    for (int sc = 0; sc < PS_SCREENS; sc++) put_string(out, k_screens[sc].id, k_screens[sc].label);
+    for (int i = 0; i < hulk_settings_count() && i < MAXS; i++) {
+        const port_setting* st = hulk_settings_at(i);
+        char id[64];
+        str_id(i, -1, id, sizeof id);
+        put_string(out, id, st->label);
+        for (int c = 0; c < st->n; c++) {
+            str_id(i, c, id, sizeof id);
+            put_string(out, id, st->names[c]);
+        }
     }
     return 1;
 }
@@ -313,11 +394,18 @@ static void overlay_build(overlay_t* o, int32_t fd) {
         char* s = malloc(size ? size : 1);
         if (hio_read(fd, s, size, off) != (int32_t)size) { free(s); continue; }
         buf_t out = {0};
-        int ok = i == 0 ? patch_fe(s, size, k_item_fe, &out)
-               : i == 1 ? patch_fe(s, size, k_item_pause, &out)
+        int ok = i == 0 ? patch_fe(s, size, 0, &out)
+               : i == 1 ? patch_fe(s, size, 1, &out)
                : patch_strings(s, size, &out);
         free(s);
         if (!ok) { free(out.p); continue; }
+        const char* dump = getenv("HULK_FE_OPTIONS_DUMP");     /* (a local directory: the patched files, to read) */
+        if (dump && *dump) {
+            char dp[600];
+            snprintf(dp, sizeof dp, "%s/%s", dump, strrchr(names[i], '\\') + 1);
+            int32_t df = hio_open(dp, HIO_CREATE);
+            if (df >= 0) { hio_write(df, out.p, out.n, 0); hio_close(df); }
+        }
         while (o->tail.n & 0x7ff) put(&o->tail, "", 1);
         uint32_t at = o->tail_off + o->tail.n;
         put(&o->tail, out.p, out.n);
@@ -329,7 +417,7 @@ static void overlay_build(overlay_t* o, int32_t fd) {
     if (!patched) return;
     o->size = o->tail_off + o->tail.n;
     o->state = 1;
-    fprintf(stderr, "hulk: %s: the options menus' frame-rate item (%d files patched)\n", o->path, patched);
+    fprintf(stderr, "hulk: %s: the Video and Gameplay Options screens (%d files patched)\n", o->path, patched);
 }
 
 static overlay_t* overlay_of(const char* path, int32_t fd) {

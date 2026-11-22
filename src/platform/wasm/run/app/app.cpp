@@ -130,6 +130,7 @@ enum ResKind : uint8_t {
 };
 struct Res {
     ResKind kind;
+    uint8_t scaled;       // a copy target of the frame's size, made at the render resolution (rrRemake)
     uint32_t id, id2;     // the sink's ids (a target: its texture and frame buffer)
     uint32_t pair;        // a target's frame buffer vid, a frame buffer's target vid
 };
@@ -192,6 +193,77 @@ static uint32_t hostFrameBuffer(uint32_t vid)
     return hostId(vid);
 }
 
+// ------------------------------------------------------------------------------------------- render resolution
+// (wopt1, D232; docs/wasm-port.md "Render resolution") The setting (port_settings.c render_res, sent by gfx_render_res):
+// 1..4 a multiple of the frame, 0 the window's pixels (the frame's aspect, fitted), else that height at the frame's
+// aspect. Output only: the front end and the game keep the frame they asked for (frame_targets: 640x480), and every
+// size they read (target_width/height) is that one. Here the scene target, the sink's frame copy and front buffer and
+// the copy targets of the frame's size are made at the render size; a pass into one of them has its viewport scaled;
+// an occlusion query's pixel count is scaled back. Render targets (the effects' smaller targets) keep their sizes.
+static int s_rrMode = 1, s_rrPending;
+static uint32_t s_logW, s_logH, s_physW, s_physH, s_winW, s_winH;
+static void rrSize(uint32_t* pw, uint32_t* ph)
+{
+    uint32_t lw = s_logW, lh = s_logH, w = lw, h = lh;
+    if (s_rrMode >= 1 && s_rrMode <= 4) {
+        w = lw * (uint32_t)s_rrMode;
+        h = lh * (uint32_t)s_rrMode;
+    } else if (s_rrMode == 0) {
+        if (s_winW && s_winH) {         // the largest rectangle of the frame's aspect in the window (its present rect)
+            if ((uint64_t)s_winW * lh <= (uint64_t)s_winH * lw) {
+                w = s_winW;
+                h = (uint32_t)(((uint64_t)s_winW * lh + lw / 2) / lw);
+            } else {
+                h = s_winH;
+                w = (uint32_t)(((uint64_t)s_winH * lw + lh / 2) / lh);
+            }
+        }
+    } else if (s_rrMode > 4) {
+        h = (uint32_t)s_rrMode;
+        w = (uint32_t)(((uint64_t)h * lw + lh / 2) / lh);
+    }
+    const uint32_t kMax = 8192;
+    if (w > kMax || h > kMax) {
+        uint32_t k = w > h ? w : h;
+        w = (uint32_t)((uint64_t)w * kMax / k);
+        h = (uint32_t)((uint64_t)h * kMax / k);
+    }
+    *pw = w ? w : 1;
+    *ph = h ? h : 1;
+}
+static bool rrScaled() { return s_logW && (s_physW != s_logW || s_physH != s_logH); }
+static uint16_t rrX(uint32_t x) { return (uint16_t)(s_logW ? (uint64_t)x * s_physW / s_logW : x); }
+static uint16_t rrY(uint32_t y) { return (uint16_t)(s_logH ? (uint64_t)y * s_physH / s_logH : y); }
+static void refreshSinkOwned();
+// the scene target and the scaled copy targets at the render size (between frames: frame())
+static void rrRemake()
+{
+    s_rrPending = 0;
+    if (!s_logW || !hulk_gfx_sink_offscreen())
+        return;
+    uint32_t w, h;
+    rrSize(&w, &h);
+    if (w == s_physW && h == s_physH)
+        return;
+    if (!hulk_gfx_sink_frame_targets(w, h)) {
+        fprintf(stderr, "hulk-app: render resolution %ux%u refused: %ux%u\n", w, h, s_logW, s_logH);
+        hulk_gfx_sink_frame_targets(s_logW, s_logH);
+        w = s_logW, h = s_logH;
+    }
+    s_physW = w, s_physH = h;
+    for (uint32_t v = 0; v < kVids; v++) {
+        Res* r = &s_res[v];
+        if (r->kind != kResCopyTarget || !r->scaled)
+            continue;
+        SinkTarget t = {r->id, r->id2};
+        hulk_gfx_sink_destroy_copy_target(&t);
+        hulk_gfx_sink_create_copy_target(w, h, &t);
+        r->id = t.texture, r->id2 = t.frameBuffer;
+    }
+    refreshSinkOwned();
+    fprintf(stderr, "hulk-app: render resolution %ux%u (the game's frame %ux%u)\n", w, h, s_logW, s_logH);
+}
+
 extern "C" {
 
 // ------------------------------------------------------------------------------------------- the sink
@@ -237,11 +309,20 @@ u32 w2c_hulk_gfx_name(struct w2c_hulk*, u32 buf, u32 cap)
 }
 void w2c_hulk_gfx_caps(struct w2c_hulk*, u32 out) { hulk_gfx_sink_caps(MT<SinkCaps>(out)); }
 void w2c_hulk_gfx_resize_back_buffer(struct w2c_hulk*, u32 w, u32 h) { flush(); hulk_gfx_sink_resize_back_buffer(w, h); }
-u32 w2c_hulk_gfx_frame_targets(struct w2c_hulk*, u32 w, u32 h) { flush(); return hulk_gfx_sink_frame_targets(w, h); }
+u32 w2c_hulk_gfx_frame_targets(struct w2c_hulk*, u32 w, u32 h)
+{
+    flush();
+    s_logW = w, s_logH = h;
+    rrSize(&s_physW, &s_physH);
+    if (hulk_gfx_sink_frame_targets(s_physW, s_physH))
+        return 1;
+    s_physW = w, s_physH = h;
+    return hulk_gfx_sink_frame_targets(w, h);
+}
 u32 w2c_hulk_gfx_offscreen(struct w2c_hulk*) { return hulk_gfx_sink_offscreen(); }
 u32 w2c_hulk_gfx_scene_target(struct w2c_hulk*) { return hulk_gfx_sink_scene_target(); }
-u32 w2c_hulk_gfx_target_width(struct w2c_hulk*) { return hulk_gfx_sink_target_width(); }
-u32 w2c_hulk_gfx_target_height(struct w2c_hulk*) { return hulk_gfx_sink_target_height(); }
+u32 w2c_hulk_gfx_target_width(struct w2c_hulk*) { return s_logW && hulk_gfx_sink_target_width() ? s_logW : hulk_gfx_sink_target_width(); }
+u32 w2c_hulk_gfx_target_height(struct w2c_hulk*) { return s_logH && hulk_gfx_sink_target_height() ? s_logH : hulk_gfx_sink_target_height(); }
 void w2c_hulk_gfx_destroy_frame_targets(struct w2c_hulk*) { flush(); hulk_gfx_sink_destroy_frame_targets(); }
 u32 w2c_hulk_gfx_create_texture(struct w2c_hulk*, u32 vid, u32 desc)
 {
@@ -304,11 +385,13 @@ u32 w2c_hulk_gfx_create_target(struct w2c_hulk*, u32 vid, u32 fb, u32 w, u32 h, 
     drop(vid);
     drop(fb);
     SinkTarget t;
+    bool scaled = !render && w == s_logW && h == s_logH;      // a copy of the frame: at the render size
     if (render)
         hulk_gfx_sink_create_render_target(w, h, &t);
     else
-        hulk_gfx_sink_create_copy_target(w, h, &t);
+        hulk_gfx_sink_create_copy_target(scaled ? s_physW : w, scaled ? s_physH : h, &t);
     r->kind = render ? kResRenderTarget : kResCopyTarget;
+    r->scaled = scaled;
     r->id = t.texture;
     r->id2 = t.frameBuffer;
     r->pair = fb;
@@ -383,10 +466,35 @@ u32 w2c_hulk_gfx_front_buffer(struct w2c_hulk*, u32 vid)
         r->kind = kResSinkOwned, r->id = t;
     return t != kSinkNone;
 }
+// the sink's own targets (vids 1..3) after the render size changed: what the sink holds now
+static void refreshSinkOwned()
+{
+    if (s_res[1].kind == kResSinkOwned || s_res[2].kind == kResSinkOwned) {
+        SinkTarget t;
+        hulk_gfx_sink_frame_copy(&t);
+        if (s_res[1].kind == kResSinkOwned)
+            s_res[1].id = t.texture;
+        if (s_res[2].kind == kResSinkOwned)
+            s_res[2].id = t.frameBuffer;
+    }
+    if (s_res[3].kind == kResSinkOwned)
+        s_res[3].id = hulk_gfx_sink_front_buffer();
+}
 void w2c_hulk_gfx_set_pass(struct w2c_hulk*, u32 p)
 {
     flush();
     SinkPass pass = *MT<const SinkPass>(p);
+    bool scale = pass.target == kSinkTargetScene;
+    if (Res* f = res(pass.target); !scale && f) {
+        Res* t = f->kind == kResFrameBuffer ? res(f->pair) : nullptr;
+        scale = f->kind == kResSinkOwned || (t && t->kind == kResCopyTarget && t->scaled);
+    }
+    if (scale && rrScaled()) {
+        uint16_t x0 = rrX(pass.x), y0 = rrY(pass.y);
+        pass.w = (uint16_t)(rrX((uint32_t)pass.x + pass.w) - x0);
+        pass.h = (uint16_t)(rrY((uint32_t)pass.y + pass.h) - y0);
+        pass.x = x0, pass.y = y0;
+    }
     if (pass.target != kSinkTargetScene)
         pass.target = hostFrameBuffer(pass.target);
     if (interp_recording())
@@ -490,22 +598,43 @@ u32 w2c_hulk_gfx_query_result(struct w2c_hulk*, u32 q, u32 pixels)
     uint32_t id = hostId(q);
     if (id == kSinkNone)
         return kQueryPending;
-    return hulk_gfx_sink_query_result(id, MT<int32_t>(pixels));
+    u32 st = hulk_gfx_sink_query_result(id, MT<int32_t>(pixels));
+    if (rrScaled() && pixels) {             // the count at the frame's size, as the game's Xbox would give it
+        int32_t* n = MT<int32_t>(pixels);
+        uint64_t den = (uint64_t)s_physW * s_physH;
+        *n = (int32_t)(((uint64_t)(uint32_t)*n * s_logW * s_logH + den / 2) / den);
+    }
+    return st;
 }
 void w2c_hulk_gfx_present(struct w2c_hulk*, u32 p)
 {
     flush();
-    const SinkPresent* sp = MT<const SinkPresent>(p);
+    SinkPresent pr = *MT<const SinkPresent>(p);
+    if ((pr.windowWidth != s_winW || pr.windowHeight != s_winH) && s_rrMode == 0)
+        s_rrPending = 1;
+    s_winW = pr.windowWidth, s_winH = pr.windowHeight;
+    if (rrScaled())                         // 1:1 when the render size is the frame's rectangle in the window
+        pr.point = (uint32_t)pr.w == s_physW && (uint32_t)pr.h == s_physH;
     if (interp_recording())
-        return interp_present(*sp);          // (drawn by interp_pace, with the ring after each present's stream)
-    hulk_app_movie_overlay(sp->windowWidth, sp->windowHeight);     // (run/app/movie.c: the hold-to-skip ring)
-    hulk_gfx_sink_present(sp);
+        return interp_present(pr);          // (drawn by interp_pace, with the ring after each present's stream)
+    hulk_app_movie_overlay(pr.windowWidth, pr.windowHeight);     // (run/app/movie.c: the hold-to-skip ring)
+    hulk_gfx_sink_present(&pr);
 }
 void w2c_hulk_gfx_frame(struct w2c_hulk*)
 {
     flush();
-    if (!interp_frame())
+    if (!interp_frame()) {
         hulk_gfx_sink_frame();
+        if (s_rrPending)                    // (a recorded update: after interp_pace has drawn it)
+            rrRemake();
+    }
+}
+void w2c_hulk_gfx_render_res(struct w2c_hulk*, u32 value)
+{
+    if ((int)value == s_rrMode)
+        return;
+    s_rrMode = (int)value;
+    s_rrPending = 1;
 }
 void w2c_hulk_gfx_request_screenshot(struct w2c_hulk*, u32 path)
 {
@@ -518,7 +647,14 @@ void w2c_hulk_gfx_context_destroyed(struct w2c_hulk*)
     hulk_gfx_sink_context_destroyed();
 }
 // display rates (fps2, D228a: run/app/interp.cpp): the module's SwapBuffers wait, the rate, a restore
-void w2c_hulk_plat_pace(struct w2c_hulk*, u32 fields) { interp_pace(fields); }
+void w2c_hulk_plat_pace(struct w2c_hulk*, u32 fields)
+{
+    interp_pace(fields);
+    if (s_rrPending) {                      // (render resolution: the stream that named the old targets is drawn)
+        rrRemake();
+        interp_discontinuity();
+    }
+}
 void w2c_hulk_plat_display_rate(struct w2c_hulk*, u32 rate) { interp_set_rate((int)rate); }
 void w2c_hulk_gfx_discontinuity(struct w2c_hulk*) { interp_discontinuity(); }
 
