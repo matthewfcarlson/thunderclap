@@ -76,7 +76,7 @@ static uint32_t dynamic_cast(uint32_t p, int32_t vf_delta, uint32_t src, uint32_
         if (i > 0 && (b->attributes & (BCD_NOTVISIBLE | BCD_AMBIGUOUS))) continue;
         return complete + base_offset(complete, &b->where);
     }
-    if (ff_trace_on) {
+    if (ff_trace_on && !ff_trace_watch) {
         fprintf(stderr, "rtti: cast of %s to %s failed; bases:", ((TD*)PTR(col->td))->name, ((TD*)PTR(dst))->name);
         for (uint32_t i = 0; i < chd->count; i++) fprintf(stderr, " %s", ((TD*)PTR(((const BCD*)PTR(bca[i]))->td))->name);
         fprintf(stderr, "\n");

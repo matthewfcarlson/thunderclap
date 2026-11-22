@@ -24,7 +24,7 @@
 #define RET64(v) (*(uint64_t*)rb = (uint64_t)(v))
 #define RETF(v) (((double*)rb)[1] = (double)(v))
 #define UNUSED (void)ecx, (void)edx, (void)st, (void)rb, ff_trace_host(__func__, st)
-extern int ff_trace_on;
+extern int ff_trace_on, ff_trace_watch;
 void ff_trace_host_(const char* fn, void* st);
 #define ff_trace_host(fn, st) (ff_trace_on ? ff_trace_host_(fn, st) : (void)0)
 
