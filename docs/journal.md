@@ -2935,3 +2935,13 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   20,000 frames; most are calls whose result nobody reads. With it returning `hulk_eaxptr`, play3 on wasm has no
   persistent divergence to 60000: only transient runs (camera 5875-5925, 34240-34282, 38673-38684, 38961-38964, 46930;
   particle 14584-14601, 14659-14670; hulk 34240-34281; actors 34260, 47160-47340, 48360, 49200-49290).
+- 2026-11-22 (wmov1, D231): **Bink movies in the wasm app, and why they were black.** (1) PlayerBink (0x333de0) treats
+  BinkCopyToBufferRect's 0 as "copied": only then does it hand the frame to CRadMovieRenderLoop::vfunc_3, which clears,
+  draws the tiles and presents. The null model's 1 (a failed tile) meant no present at all during the start-up movies
+  (mode 7's frame loop never draws: 0x86cb0 calls only the FMV manager), so each movie ran inside one frame. (2) The
+  render loop clears before it begins the frame; bgfxContext opened a view for that clear after the last frame's draws,
+  and bgfx ran it after the new frame's view 0, wiping the tiles. Fixed for the wasm front end only (HULK_PDDI_WASM);
+  the Wine and native builds have the same bug (follow-up with a Wine pair). (3) BinkWait's virtual-clock jump played
+  movies at the host's draw rate; the runner now sleeps to a per-movie wall-clock anchor, which only decides when
+  BinkWait returns. Free runs with the same HULK_INPUT (holding B through a skip) under different CPU load end in the
+  same game hash; rolltests across a movie (100:160) and across a skip (110:200) are identical.

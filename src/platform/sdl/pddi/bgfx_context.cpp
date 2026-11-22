@@ -182,12 +182,25 @@ void bgfxContext::vfunc_4()
 #endif
     m_drawIndex = 0;
     m_copiesThisFrame = 0;
+#if HULK_PDDI_WASM
+    // wmov1: a clear made before the frame begins (the movies' render loop, CRadMovieRenderLoop::vfunc_3: clear, then
+    // begin, then the frame's tiles) opened a view after the last frame's draws, which bgfx would run after this
+    // frame's view 0 and wipe it: the clear moves to view 0 and that view clears nothing. (The Wine and native
+    // builds keep the old order until a Wine pair lands the same change there: D194.)
+    int pending = !m_viewUsed ? (int)m_clearFlags : 0;
+    if (pending && m_viewId > 0) {
+        m_clearFlags = 0;
+        setupView();
+    }
+#else
+    int pending = 0;
+#endif
     m_viewId = 0;
     m_viewUsed = false;
     m_viewport[0] = m_viewport[1] = 0;
     m_viewport[2] = m_display ? m_display->m_width : 640;
     m_viewport[3] = m_display ? m_display->m_height : 480;
-    viewChanged(0);
+    viewChanged(pending);
 }
 // slot 5 (0x321280): end the frame (the game unbinds the 4 texture stages and palettes, then pddiBaseContext's
 // slot 5)

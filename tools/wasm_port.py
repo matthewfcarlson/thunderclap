@@ -1797,6 +1797,17 @@ BGFX_DEFS = ["-DBX_CONFIG_DEBUG=0", "-DBIMG_CONFIG_DECODE_ASTC=0", "-DBGFX_CONFI
              "-D__STDC_CONSTANT_MACROS", "-DBGFX_CONFIG_RENDERER_METAL=1"]
 
 
+def ffmpeg_flags():
+    """FFmpeg's headers for run/app/movie.c (HULK_FFMPEG_PREFIX, else Homebrew's): the app loads the libraries of the
+    same major versions at run time (never linked or shipped); without the headers it builds with black movies."""
+    for p in (os.environ.get("HULK_FFMPEG_PREFIX"), "/opt/homebrew/opt/ffmpeg", "/usr/local/opt/ffmpeg"):
+        if p and os.path.exists(os.path.join(p, "include/libavformat/avformat.h")):
+            return ["-DHULK_HAVE_FFMPEG=1", "-I" + os.path.join(p, "include"),
+                    '-DHULK_FFMPEG_LIBDIR="%s"' % os.path.join(p, "lib")]
+    print("aot --app: no FFmpeg headers (brew install ffmpeg, or HULK_FFMPEG_PREFIX): the app's movies play black")
+    return []
+
+
 def app_objects(d, wflags):
     """(objects, link flags) of the app runner's own sources (compiled here, cached by content and flags)."""
     import wine_gfx
@@ -1817,9 +1828,13 @@ def app_objects(d, wflags):
     for f in sorted(os.listdir(os.path.join(run, "app"))):
         if f.endswith(".cpp"):
             jobs.append((os.path.join(run, "app", f), cxx))
+        elif f.endswith(".c"):          # (movie.c: FFmpeg's headers, its libraries loaded at run time)
+            jobs.append((os.path.join(run, "app", f), ["xcrun", "clang", "-arch", "arm64", "-mmacosx-version-min=11.0",
+                                                        "-std=c11", "-O2", "-g", "-Wall", "-Wno-unused-parameter",
+                                                        "-I" + sdl] + ffmpeg_flags()))
     for f in ("bgfx_sink.cpp", "bgfx_bridge.cpp"):
         jobs.append((os.path.join(sdl, "pddi", f), cxx + ["-DHULK_PDDI_HOST=1", "-DHULK_PDDI_EMBED_SHADERS=1",
-                                                         "-DHULK_PDDI_BRIDGE_HOST=1"]))
+                                                         "-DHULK_PDDI_BRIDGE_HOST=1", "-DHULK_SINK_OVERLAY=1"]))
     jobs.append((os.path.join(sdl, "platform_events.cpp"), cxx + ["-DHULK_SDL_LINKED=1"]))
     os.makedirs(os.path.join(d, "app"), exist_ok=True)
     objs = []
@@ -1827,8 +1842,9 @@ def app_objects(d, wflags):
         # (run/app/input.cpp includes the SDL layer's input/hulk_input.cpp: that directory's sources count too)
         key = hashlib.sha1(open(src, "rb").read() + " ".join(cmd).encode() + b"".join(
             open(os.path.join(dp, f), "rb").read() for dp in (os.path.join(run, "app"), os.path.join(sdl, "pddi"), gen,
-                                                              os.path.join(sdl, "input"))
+                                                              os.path.join(sdl, "input"), os.path.join(sdl, "movies"))
             for f in sorted(os.listdir(dp)) if f.endswith(".h") or dp.endswith("input") and f.endswith(".cpp")
+            or dp.endswith("movies") and f == "movie.c"
         )).hexdigest()[:16]
         obj = os.path.join(d, "app", "%s.%s.o" % (os.path.basename(src).rsplit(".", 1)[0], key))
         if not os.path.exists(obj):

@@ -28,6 +28,7 @@ using namespace hulk::pddi;
 #include "gfx_abi_table.h"
 
 extern "C" uint8_t* hulk_run_memory(void);    // run/native.c
+extern "C" void hulk_app_movie_overlay(unsigned ww, unsigned wh);   // run/app/movie.c
 
 static uint8_t* M(u32 a) { return a ? hulk_run_memory() + a : nullptr; }
 template <class T> static T* MT(u32 a) { return reinterpret_cast<T*>(M(a)); }
@@ -472,7 +473,13 @@ u32 w2c_hulk_gfx_query_result(struct w2c_hulk*, u32 q, u32 pixels)
         return kQueryPending;
     return hulk_gfx_sink_query_result(id, MT<int32_t>(pixels));
 }
-void w2c_hulk_gfx_present(struct w2c_hulk*, u32 p) { flush(); hulk_gfx_sink_present(MT<const SinkPresent>(p)); }
+void w2c_hulk_gfx_present(struct w2c_hulk*, u32 p)
+{
+    flush();
+    const SinkPresent* sp = MT<const SinkPresent>(p);
+    hulk_app_movie_overlay(sp->windowWidth, sp->windowHeight);     // (run/app/movie.c: the hold-to-skip ring)
+    hulk_gfx_sink_present(sp);
+}
 void w2c_hulk_gfx_frame(struct w2c_hulk*) { flush(); hulk_gfx_sink_frame(); }
 void w2c_hulk_gfx_request_screenshot(struct w2c_hulk*, u32 path)
 {

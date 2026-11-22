@@ -21,6 +21,7 @@
 typedef uint32_t u32;
 struct w2c_hulk;
 extern "C" uint8_t* hulk_run_memory(void);    // run/native.c
+extern "C" void hulk_app_movie_tick(unsigned frames);     // run/app/movie.c: the movies' voices hold the slice
 
 static std::unordered_map<u32, HulkVoice*> s_voices;
 static bool s_up;
@@ -223,6 +224,7 @@ void w2c_hulk_aud_tick(struct w2c_hulk*, u32 frames)
     static float buf[2 * 1024];
     while (frames) {
         unsigned n = frames > 1024 ? 1024 : frames;
+        hulk_app_movie_tick(n);
         hulk_audio_render(buf, n);
         queue_out(buf, n);
         frames -= n;

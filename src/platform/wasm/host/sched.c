@@ -144,6 +144,7 @@ static void roll_dump(int k) {
 uint32_t ff_state_bytes(void);
 void ff_files_flush(void);
 void ff_audio_restored(void) __attribute__((weak));     /* gfx/audio.c: the app's mixer makes its mirror again */
+void ff_movie_restored(void) __attribute__((weak));     /* gfx/movie.c: the runner's movie decoders re-seek */
 /* gfx/gfx.c (wroll1): the pddi front end's statics and resource table (a data section of the module, above 1 GB) are
  * game state too when it draws; after a restore the runner's GPU objects are made to match them */
 uint32_t ff_gfx_state(uint32_t* lo) __attribute__((weak));
@@ -212,6 +213,7 @@ static void rolltest(void) {
         double t1 = ff_now_ms();
         ff_files_flush();
         if (ff_audio_restored) ff_audio_restored();
+        if (ff_movie_restored) ff_movie_restored();
         double t2 = ff_now_ms();
         if (ff_gfx_restored) ff_gfx_restored();
         double t3 = ff_now_ms();

@@ -336,7 +336,67 @@ The user's decision D224: 60 fps is a menu toggle in the game's own options, 30 
   (lock or hide it then). The value lives in the host (`fe_options.c`) and in the NamedValueInt objects in game memory;
   a snapshot restores the objects, not the host's copy, which is why it is per-session.
 
+### Movies (wmov1; hold to skip: D231)
+
+The game's Bink movies (the start-up logos, the attract loop, the cut-scenes) play with picture and sound in the app.
+
+- **One model of what the game reads.** host/bink_null.c stays the only Bink the game sees: the handle's words
+  (width, height, frames, frame number), BinkWait on the virtual clock (a frame not yet due moves the clock to it),
+  BinkNextFrame, BinkClose. Weak hooks (gfx/movie.c, app builds only) observe the calls and hand them to the runner
+  (`hulk` imports `mov_*`); nothing the runner does flows back. A movie's identity (the archive name's hash, the
+  virtual clock at the open, the sound tracks) is in the handle's reserved words and the live handles in
+  `hulk_game_state`, so a snapshot carries them.
+- **The copy answer.** With a picture the app answers BinkCopyToBufferRect 0 ("copied"): PlayerBink (0x333de0) then
+  hands the frame to its render loop (CRadMovieRenderLoop::vfunc_3), which clears, draws the tiles and presents.
+  Answering 1 (the null model, kept for replays, headless runs and the app with `null` / `noop`) is a failed tile to
+  the game: no present, and a whole movie ran inside one frame (black). **The answer changes the game's path**
+  (presents, frame count): app free play (0) and replays / headless (1) are different game runs through a movie, so
+  every peer of a netplay or rollback session must run the free-play mode. The answer never depends on the decoder:
+  without FFmpeg the app still answers 0 and shows black frames with the same timing.
+- **The decoder** is the SDL layer's (src/platform/sdl/movies/movie.c: FFmpeg's bink demuxer and decoders, no RAD
+  code), compiled into the runner (run/app/movie.c) with FFmpeg's headers (Homebrew's, or `HULK_FFMPEG_PREFIX`, at
+  build time) and FFmpeg's own libraries loaded at run time (`dlopen` of libavutil / libavcodec / libavformat of the
+  headers' major versions from `HULK_FFMPEG_DIR`, the build's prefix, /opt/homebrew/lib, /usr/local/lib). Nothing of
+  FFmpeg is linked into, bundled with or committed for the app. Without the libraries (or with other major versions)
+  every movie plays black with one log line. The movie's bytes come straight from the disc's archive (the name the
+  game opened, hashed as the game's file system does: docs/formats/rcf.md), never through the game's I/O callbacks,
+  so decoding moves no game state. The picture of the frame the handle's frame number names is converted into the
+  game's own lock (B, G, R, A, bottom-up) at BinkCopyToBufferRect; a frame behind the decoder (a restore) reopens the
+  movie and decodes up to it.
+- **Real time.** BinkWait's clock jump would play a movie as fast as the host draws it; the runner sleeps until the
+  frame is due on the movie's own wall clock (anchored at its start, a pause or a restore; `mov_wait`). That decides
+  only when BinkWait returns, never what it returns: the game's values follow the virtual clock and the input alone.
+- **Sound.** Each selected track is a streaming voice on the app's mixer (hulk_audio_stream_*, the game's mix bins
+  and volume), started and stopped with the movie's pause state and topped up just before every slice the mixer
+  renders (`hulk_app_movie_tick` from aud_tick), so it advances with the same 48 kHz of game time as the DirectSound
+  model (D222) and stays in step with the picture. After a restore its decoder seeks to the movie's time.
+- **Hold to skip (D231).** Holding B (the keyboard's F) for a second skips any movie, also the ones the console
+  doesn't let you skip; a short press does what the game does with it. The hold is timed on the virtual clock from
+  pad 0 of the frame's input (the sim block's pads: recorded, replayed and re-simulated with the frame), kept in
+  `hulk_game_state`; B held since before the movie opened counts only after a release. The skip goes through the
+  game's own end of a movie: the handle's frame number becomes the last one and the movie's clock that frame's due
+  time, so PlayerBink's end test (frame number == frames - 1) closes the movie as if it had played out. The runner
+  draws a ring in the window's bottom-right corner (a tenth of the window's smaller side; our own drawing) that fills
+  while B is held, over the presented frame (the bgfx sink's overlay, `HULK_SINK_OVERLAY`: the app's runner only),
+  so it doesn't depend on the render resolution. Replays never skip (the movie hooks are off there; no-fmv stops
+  their movies).
+- **The clear order** (bgfx_context.cpp slot 4, under `HULK_PDDI_WASM`): the render loop clears before it begins the
+  frame; the front end opened a view for that clear after the last frame's draws, and bgfx ran it after the new
+  frame's view 0, wiping the tiles. The clear now moves to view 0. The Wine and native builds keep the old order (the
+  same bug there: a follow-up that needs a Wine pair, D194).
+- **Snapshots.** After a restore (`ff_movie_restored`) the runner closes the movies the restored state doesn't hold
+  and reopens or re-seeks the rest (the picture lazily at the next copy, the sound to the movie's time).
+  `HULK_MOVIES=0` turns the movie hooks off (the null model); `HULK_MOVIE_LOG=1` logs opens, pauses, closes and
+  restores. The runner's `hulk_app_movie_playing()` says a movie plays (its frames are not to be interpolated: fps2).
+
 ## Status
+
+- 2026-11-22 (wmov1, D231): **movies with picture and sound, hold B to skip.** The start-up movies, the attract loop
+  and the cut-scenes play in the app in real time ("Movies" above): FFmpeg's Bink decoder loaded at run time,
+  the sound on the app's mixer, B held for a second skips any movie with a ring in the corner. Free runs with the same
+  `HULK_INPUT` through a skip end in the same game hash with and without a CPU hog; rolltests across a movie
+  (100:160) and across a skip (110:200) are identical; play3's records to 60,000 are unchanged (app with `null` and
+  with Metal, against the build without the change).
 
 - 2026-11-22 (fps1, D224): **the frame-rate option.** "Frame Rate: 30 FPS / 60 FPS" in the options and pause menus
   (camera options), saved in port_settings.txt, 30 by default ("The frame-rate option" above). play3's records

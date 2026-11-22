@@ -296,6 +296,9 @@ class BgfxSink final : public DrawSink {
     void destroyCopyTarget(unsigned* tex, unsigned* fb);
     void fullQuad(uint16_t view, unsigned srcTex, uint32_t sampler, float x0, float y0, float x1, float y1);
     void copyQuad(uint16_t view, unsigned srcTex, unsigned dstFb, unsigned w, unsigned h);
+#if HULK_SINK_OVERLAY
+    void drawOverlay(uint16_t view, unsigned ww, unsigned wh);
+#endif
     enum { kPresentView = 255 };
 
     bool m_up;
@@ -604,7 +607,73 @@ void BgfxSink::present(const SinkPresent& p)
     float x0 = 2.0f * (float)p.x / (float)ww - 1.0f, x1 = 2.0f * (float)(p.x + p.w) / (float)ww - 1.0f;
     float y0 = 1.0f - 2.0f * (float)p.y / (float)wh, y1 = 1.0f - 2.0f * (float)(p.y + p.h) / (float)wh;
     fullQuad(view, m_sceneColour, p.point ? BGFX_SAMPLER_POINT : 0, x0, y0, x1, y1);
+#if HULK_SINK_OVERLAY
+    drawOverlay(view, ww, wh);
+#endif
 }
+
+#if HULK_SINK_OVERLAY
+// The app's overlay (wasm port, wmov1 / D231: the hold-to-skip ring): a small B, G, R, A image the runner makes,
+// alpha-blended over the presented frame at a place in window pixels. Output only; only the app's runner builds this
+// (HULK_SINK_OVERLAY), so the Wine and native images are unchanged.
+static struct {
+    const void* bgra;
+    unsigned w, h, version, made, madeW, madeH;
+    int x, y;
+    unsigned tex;
+} s_overlay = {0, 0, 0, 0, 0, 0, 0, 0, 0, kNone};
+
+extern "C" void hulk_gfx_sink_overlay(const void* bgra, unsigned w, unsigned h, int x, int y, unsigned version)
+{
+    s_overlay.bgra = bgra;
+    s_overlay.w = w, s_overlay.h = h, s_overlay.x = x, s_overlay.y = y, s_overlay.version = version;
+}
+
+void BgfxSink::drawOverlay(uint16_t view, unsigned ww, unsigned wh)
+{
+    if (!s_overlay.bgra || !s_overlay.w || !s_overlay.h || m_presentProgram == kNone)
+        return;
+    if (s_overlay.tex == kNone || s_overlay.madeW != s_overlay.w || s_overlay.madeH != s_overlay.h) {
+        if (s_overlay.tex != kNone)
+            bgfx::destroy(bgfx::TextureHandle{(uint16_t)s_overlay.tex});
+        s_overlay.tex = bgfx::createTexture2D((uint16_t)s_overlay.w, (uint16_t)s_overlay.h, false, 1,
+                                              bgfx::TextureFormat::BGRA8, BGFX_TEXTURE_NONE).idx;
+        s_overlay.madeW = s_overlay.w, s_overlay.madeH = s_overlay.h;
+        s_overlay.made = s_overlay.version - 1;
+    }
+    if (s_overlay.made != s_overlay.version) {
+        bgfx::updateTexture2D(bgfx::TextureHandle{(uint16_t)s_overlay.tex}, 0, 0, 0, 0, (uint16_t)s_overlay.w,
+                              (uint16_t)s_overlay.h, bgfx::copy(s_overlay.bgra, s_overlay.w * s_overlay.h * 4));
+        s_overlay.made = s_overlay.version;
+    }
+    struct V { float x, y, z, u, v; };
+    static bgfx::VertexLayout s_layout;
+    static bool s_made;
+    if (!s_made) {
+        s_layout.begin()
+            .add(bgfx::Attrib::Position, 3, bgfx::AttribType::Float)
+            .add(bgfx::Attrib::TexCoord0, 2, bgfx::AttribType::Float)
+            .end();
+        s_made = true;
+    }
+    if (bgfx::getAvailTransientVertexBuffer(4, s_layout) < 4)
+        return;
+    float x0 = 2.0f * (float)s_overlay.x / (float)ww - 1.0f, x1 = 2.0f * (float)(s_overlay.x + (int)s_overlay.w) / (float)ww - 1.0f;
+    float y0 = 1.0f - 2.0f * (float)s_overlay.y / (float)wh, y1 = 1.0f - 2.0f * (float)(s_overlay.y + (int)s_overlay.h) / (float)wh;
+    const bgfx::Caps* caps = bgfx::getCaps();
+    bool flip = caps && caps->originBottomLeft;
+    float vt = flip ? 1.0f : 0.0f, vb = flip ? 0.0f : 1.0f;
+    bgfx::TransientVertexBuffer tvb;
+    bgfx::allocTransientVertexBuffer(&tvb, 4, s_layout);
+    V q[4] = {{x0, y0, 0, 0, vt}, {x1, y0, 0, 1, vt}, {x0, y1, 0, 0, vb}, {x1, y1, 0, 1, vb}};
+    memcpy(tvb.data, q, sizeof(q));
+    bgfx::setVertexBuffer(0, &tvb);
+    bgfx::setTexture(0, bgfx::UniformHandle{(uint16_t)m_uPresentTex}, bgfx::TextureHandle{(uint16_t)s_overlay.tex},
+                     BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
+    bgfx::setState(BGFX_STATE_WRITE_RGB | BGFX_STATE_PT_TRISTRIP | BGFX_STATE_BLEND_ALPHA);
+    bgfx::submit(view, bgfx::ProgramHandle{(uint16_t)m_presentProgram});
+}
+#endif
 
 // ---- textures: exactly the levels the game supplies (m_mips extra ones): hasMips alone makes the full chain down
 // to 1x1, and the levels nothing uploads sample as black, so far surfaces went dark (sky1). Direct3D clamps to the

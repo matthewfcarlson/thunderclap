@@ -24,6 +24,7 @@ struct w2c_wasi__snapshot__preview1 { int argc; char** argv; };
 static w2c_game g;
 static uint8_t* mem(u32 a) { return g.w2c_memory.data + a; }
 uint8_t* hulk_run_memory(void) { return g.w2c_memory.data; }     /* (the app's imports: run/app/app.cpp) */
+uint64_t hulk_run_memory_size(void) { return g.w2c_memory.size; }
 #ifdef HULK_APP
 void hulk_app_start(int argc, char** argv);     /* run/app/app.cpp: the app's defaults, before the module's env */
 #endif
