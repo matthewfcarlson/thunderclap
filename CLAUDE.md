@@ -507,7 +507,8 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   Render resolution is runner-only (app.cpp): the game always sees 640x480 (wopt1, D232/D233).
   The wasm link fails on a new data (non-function) named stub (config/wasm-data-stubs.json only shrinks;
   tests/test_wasm_data_stubs.py): a block-scope `extern float one;` linked as a stub collapsed every root TransformNode
-  (0x295e20; write the original's DAT_ name) (gcmp1).
+  (0x295e20; write the original's DAT_ name) (gcmp1). To compare the app with the Wine build on a replay: the app's
+  HULK_GFX_SHOT_GAME counts presents, not game frames (play3's intro: app N = Wine GameClock N-192), at most 64 frames.
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
