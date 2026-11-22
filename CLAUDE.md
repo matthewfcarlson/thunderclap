@@ -444,6 +444,11 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   naming another unit's method otherwise holds a wasm table index). For D194 i686 COFF comparisons, zero header bytes 4..7
   (clang's time stamp) first. In free play the app's audio positions come from the real-time mixer, so game state takes
   real time: rollback/netplay needs a deterministic audio model (wapp1).
+  A function the pddi front end hands the module's C host code as a value (a callback such as the resize handler) is its
+  synthetic dispatch address, not a wasm table index: call it with `ff_call`, never through a C function pointer ("Invalid
+  call_indirect"). `wasm_app.py build` recompiles every TU when its app-inputs.json record changed or is missing (objects
+  copied from another build dir are rebuilt); build the app from fresh `wasm_inputs.py` inputs (~8 min on 2 jobs);
+  `wasm_port.py link` exits nonzero on a failed link (wapp2).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
