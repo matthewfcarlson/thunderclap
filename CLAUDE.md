@@ -411,6 +411,9 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   The Wine build is the probe oracle past the reference's tags: a wine_build_job with HULK_TRACE_FUNCS/SPAN/EXIT takes a
   few minutes once cached, and needs `--workspace` on a clean `git archive HEAD` of tools, src, include and config (the
   default workspace ships other lanes' dirty TUs, whose unproven blocks materialize refuses) (wasm5).
+  Wine-build data probes use the map's `_DAT_xxx` address (HULK_TRACE_WATCH=<that>+off), not the XBE address. A block
+  whose code is `mov eax,ecx; mov ecx,[eax+4]; jmp [eax+8]` (CallbackHolder/Int/Float::vfunc_0) forwards the caller's
+  arguments: wasm_port.py writes its entry from the XBE (`forwarders()`); the 64-bit builds need the same (wasm6).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
