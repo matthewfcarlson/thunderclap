@@ -419,6 +419,9 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   calls reach in a run (the HULK_PORT_ABI candidates; tools/eaxscan.py for direct calls). wasm_port applies the native
   float passes plus retfix64 (`HULK_WASM_FPFIX=0` turns them off): without retfix64, impulse ULPs desync play3 at 751.
   Wine-build probes need `--gfx` (else rc 4); `HULK_TRACE_SPAN` slot 0 is ecx (wasm7).
+  An include/gen edit changes ~900 TUs' wasm IR key: build with `ALL=1` (an `--only` build links stale objects).
+  HULK_WASM_DEBUG_HOOKS takes the spec string, and a hooked TU stays hooked until recompiled. Frame numbers: a Wine fcall
+  f=N is wasm's ff_replay_frame() N and ckdump f=N-1 (the checkpoint is taken before the update) (wasm8).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
