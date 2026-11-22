@@ -302,6 +302,198 @@ FFG(00355364) {                                                                 
 }
 
 /* ------------------------------------------------------------------------------------------- saves, soundtracks */
+/* A save game is a directory U:\<12 hex digits> named by an FNV-1a hash of its UTF-16 name (probing on), holding
+ * SaveMeta.xbx ("Name=<name>", UTF-16 with a BOM), as the SDL layer lays them out (src/platform/sdl/fs/hulk_saves.cpp,
+ * docs/native-files-saves.md): the game writes its files into the path it gets back. */
+#define SAVE_NAME_CHARS 64
+static uint64_t save_hash(const uint16_t* n) {
+    uint64_t h = 0xcbf29ce484222325ull;
+    for (; *n; n++) {
+        h ^= *n & 0xff; h *= 0x100000001b3ull;
+        h ^= *n >> 8; h *= 0x100000001b3ull;
+    }
+    return h;
+}
+static uint32_t wlen16(const uint16_t* n) { uint32_t k = 0; while (n[k]) k++; return k; }
+static void save_dir_path(char letter, uint64_t hash, int probe, char* out, size_t cap) {
+    uint64_t v = (hash + (uint64_t)probe * 0x9e3779b97f4a7c15ull) & 0xffffffffffffull;
+    snprintf(out, cap, "%c:\\%012llX", letter, (unsigned long long)v);
+}
+/* the save's name in DIR's SaveMeta.xbx equals NAME */
+static int save_named(const char* host_dir, const uint16_t* name) {
+    char meta[sizeof SIM->objs[0].path + 16];
+    snprintf(meta, sizeof meta, "%s/SaveMeta.xbx", host_dir);
+    int32_t f = hio_open(meta, HIO_READ);
+    if (f < 0) return 0;
+    uint16_t buf[512];
+    int32_t got = hio_read(f, buf, sizeof buf - 2, 0);
+    hio_close(f);
+    if (got < 2) return 0;
+    uint32_t n = (uint32_t)got / 2, k = buf[0] == 0xfeff ? 1 : 0;
+    static const char key[] = "Name=";
+    for (int i = 0; key[i]; i++, k++)
+        if (k >= n || buf[k] != (uint16_t)key[i]) return 0;
+    uint32_t i = 0;
+    for (; k < n && buf[k] != '\r' && buf[k] != '\n'; k++, i++)
+        if (buf[k] != name[i]) return 0;
+    return name[i] == 0;
+}
+static int save_root(uint32_t root, char* letter) {
+    const char* r = root ? PTR(root) : 0;
+    if (!r || !isalpha((unsigned char)r[0]) || r[1] != ':') return 0;
+    *letter = (char)toupper((unsigned char)r[0]);
+    return *letter == 'U' || *letter == 'T';
+}
+/* -> the probe holding NAME (*found = 1) or the first free one; -1 when none is free */
+static int save_find(char letter, const uint16_t* name, int* found) {
+    uint64_t h = save_hash(name);
+    int free_probe = -1;
+    *found = 0;
+    for (int p = 0; p < 16; p++) {
+        char game[32], host[sizeof SIM->objs[0].path];
+        save_dir_path(letter, h, p, game, sizeof game);
+        if (!ff_host_path(game, host, sizeof host)) return -1;
+        if (hio_kind(host) != HIO_DIR) { if (free_probe < 0) free_probe = p; continue; }
+        if (save_named(host, name)) { *found = 1; return p; }
+    }
+    return free_probe;
+}
+static void save_clear(const char* host_dir) {
+    char names[4096], f[sizeof SIM->objs[0].path + 64];
+    uint32_t need = hio_list(host_dir, names, sizeof names);
+    for (uint32_t k = 0; k < need && k < sizeof names;) {
+        snprintf(f, sizeof f, "%s/%s", host_dir, names + k);
+        int32_t h = hio_open(f, HIO_CREATE);       /* no unlink import: an emptied file */
+        if (h >= 0) hio_close(h);
+        k += (uint32_t)strlen(names + k) + 1;
+    }
+}
+FFG(0035618d) {         /* XCreateSaveGame(root, name UTF-16, disposition, 0, path out, size) -> error code */
+    UNUSED;
+    char letter;
+    const uint16_t* name = ARG(1) ? PTR(ARG(1)) : 0;
+    uint32_t disp = ARG(2);
+    if (!save_root(ARG(0), &letter) || !name || !name[0] || wlen16(name) >= SAVE_NAME_CHARS || disp < CREATE_NEW ||
+        disp > TRUNCATE_EXISTING || disp == TRUNCATE_EXISTING) { set_error(87); RET(87); return; }
+    int found, p = save_find(letter, name, &found);
+    if (p < 0) { set_error(112); RET(112); return; }
+    if (disp == CREATE_NEW && found) { set_error(183); RET(183); return; }
+    if (disp == OPEN_EXISTING && !found) { set_error(3); RET(3); return; }
+    char game[32], host[sizeof SIM->objs[0].path];
+    save_dir_path(letter, save_hash(name), p, game, sizeof game);
+    ff_host_path(game, host, sizeof host);
+    if (found && disp == CREATE_ALWAYS) save_clear(host);
+    if (!found || disp == CREATE_ALWAYS) {
+        if (!found) hio_mkdir(host);
+        char meta[sizeof host + 16];
+        snprintf(meta, sizeof meta, "%s/SaveMeta.xbx", host);
+        uint16_t buf[8 + SAVE_NAME_CHARS];
+        uint32_t n = 0;
+        buf[n++] = 0xfeff;
+        for (const char* k = "Name="; *k; k++) buf[n++] = (uint16_t)*k;
+        for (uint32_t i = 0; name[i]; i++) buf[n++] = name[i];
+        buf[n++] = '\r'; buf[n++] = '\n';
+        int32_t f = hio_open(meta, HIO_CREATE);
+        if (f < 0) { set_error(3); RET(3); return; }
+        hio_write(f, buf, n * 2, 0);
+        hio_close(f);
+    }
+    if (ARG(4)) {
+        if (strlen(game) + 2 > ARG(5)) { set_error(87); RET(87); return; }
+        snprintf(PTR(ARG(4)), ARG(5), "%s\\", game);
+    }
+    RET(0);
+}
+FFG(003563f0) {         /* XDeleteSaveGame(root, name UTF-16) -> error code: the save's files emptied, its name freed */
+    UNUSED;
+    char letter;
+    const uint16_t* name = ARG(1) ? PTR(ARG(1)) : 0;
+    if (!save_root(ARG(0), &letter) || !name || !name[0]) { set_error(87); RET(87); return; }
+    int found, p = save_find(letter, name, &found);
+    if (!found) { set_error(3); RET(3); return; }
+    char game[32], host[sizeof SIM->objs[0].path];
+    save_dir_path(letter, save_hash(name), p, game, sizeof game);
+    ff_host_path(game, host, sizeof host);
+    save_clear(host);       /* SaveMeta.xbx emptied: the probe no longer matches the name */
+    RET(0);
+}
+/* XCalculateSignatureBegin/Update/End: HMAC-SHA1 under a key derived from the title, as the SDL layer signs
+ * (src/platform/sdl/fs/hulk_saves.cpp sig_key), so a save signs the same on every build. The context lives in the
+ * arena (game state); the handle is its address. */
+typedef struct { uint32_t h[5]; uint64_t len; uint8_t buf[64]; uint32_t used; } sha1_t;
+typedef struct { sha1_t inner; uint8_t opad[64]; } sig_t;
+#define ROL(x, n) (((x) << (n)) | ((x) >> (32 - (n))))
+static void sha1_block(sha1_t* c, const uint8_t* b) {
+    uint32_t w[80], a = c->h[0], bb = c->h[1], cc = c->h[2], d = c->h[3], e = c->h[4];
+    for (int i = 0; i < 16; i++) w[i] = (uint32_t)b[4 * i] << 24 | (uint32_t)b[4 * i + 1] << 16 | (uint32_t)b[4 * i + 2] << 8 | b[4 * i + 3];
+    for (int i = 16; i < 80; i++) w[i] = ROL(w[i - 3] ^ w[i - 8] ^ w[i - 14] ^ w[i - 16], 1);
+    for (int i = 0; i < 80; i++) {
+        uint32_t f, k;
+        if (i < 20) { f = (bb & cc) | (~bb & d); k = 0x5a827999u; }
+        else if (i < 40) { f = bb ^ cc ^ d; k = 0x6ed9eba1u; }
+        else if (i < 60) { f = (bb & cc) | (bb & d) | (cc & d); k = 0x8f1bbcdcu; }
+        else { f = bb ^ cc ^ d; k = 0xca62c1d6u; }
+        uint32_t t = ROL(a, 5) + f + e + k + w[i];
+        e = d; d = cc; cc = ROL(bb, 30); bb = a; a = t;
+    }
+    c->h[0] += a; c->h[1] += bb; c->h[2] += cc; c->h[3] += d; c->h[4] += e;
+}
+static void sha1_init(sha1_t* c) {
+    static const uint32_t iv[5] = {0x67452301u, 0xefcdab89u, 0x98badcfeu, 0x10325476u, 0xc3d2e1f0u};
+    memcpy(c->h, iv, sizeof iv); c->len = 0; c->used = 0;
+}
+static void sha1_update(sha1_t* c, const void* data, uint32_t n) {
+    const uint8_t* p = data;
+    c->len += n;
+    while (n) {
+        uint32_t k = 64 - c->used < n ? 64 - c->used : n;
+        memcpy(c->buf + c->used, p, k); c->used += k; p += k; n -= k;
+        if (c->used == 64) { sha1_block(c, c->buf); c->used = 0; }
+    }
+}
+static void sha1_final(sha1_t* c, uint8_t out[20]) {
+    uint64_t bits = c->len * 8;
+    uint8_t pad = 0x80, z = 0, l[8];
+    sha1_update(c, &pad, 1);
+    while (c->used != 56) sha1_update(c, &z, 1);
+    for (int i = 0; i < 8; i++) l[i] = (uint8_t)(bits >> (56 - 8 * i));
+    sha1_update(c, l, 8);
+    for (int i = 0; i < 20; i++) out[i] = (uint8_t)(c->h[i / 4] >> (24 - 8 * (i % 4)));
+}
+FFG(002120e1) {         /* XCalculateSignatureBegin(flags) -> handle */
+    UNUSED;
+    static const char label[] = "Thunderclap/HulkUD save signature v1";
+    uint32_t id = 0x56550039u, flags = ARG(0);      /* the title id (hulk_fs.cpp g_title_id) */
+    uint8_t w[8], key[20], ipad[64];
+    for (int i = 0; i < 4; i++) { w[i] = (uint8_t)(id >> (8 * i)); w[4 + i] = (uint8_t)(flags >> (8 * i)); }
+    sha1_t s;
+    sha1_init(&s); sha1_update(&s, label, sizeof label - 1); sha1_update(&s, w, 8); sha1_final(&s, key);
+    sig_t* g = ff_arena_alloc(sizeof(sig_t), 16);
+    if (!g) { set_error(8); RET(INVALID_HANDLE); return; }
+    memset(ipad, 0x36, 64); memset(g->opad, 0x5c, 64);
+    for (int i = 0; i < 20; i++) { ipad[i] ^= key[i]; g->opad[i] ^= key[i]; }
+    sha1_init(&g->inner); sha1_update(&g->inner, ipad, 64);
+    RET((uintptr_t)g);
+}
+FFG(002120f5) {         /* XCalculateSignatureUpdate(handle, data, size) -> error code */
+    UNUSED;
+    sig_t* g = ARG(0) && ARG(0) != INVALID_HANDLE ? PTR(ARG(0)) : 0;
+    if (!g) { RET(6); return; }
+    sha1_update(&g->inner, PTR(ARG(1)), ARG(2));
+    RET(0);
+}
+FFG(00212143) {         /* XCalculateSignatureEnd(handle, 20 bytes out) -> error code */
+    UNUSED;
+    sig_t* g = ARG(0) && ARG(0) != INVALID_HANDLE ? PTR(ARG(0)) : 0;
+    if (!g) { RET(6); return; }
+    uint8_t in[20], out[20];
+    sha1_final(&g->inner, in);
+    sha1_t o;
+    sha1_init(&o); sha1_update(&o, g->opad, 64); sha1_update(&o, in, 20); sha1_final(&o, out);
+    if (ARG(1)) memcpy(PTR(ARG(1)), out, 20);
+    ff_arena_free(g);
+    RET(0);
+}
 FFG(003564c0) { UNUSED; set_error(18); RET(INVALID_HANDLE); }  /* XFindFirstSaveGame: none (ERROR_NO_MORE_FILES) */
 FFG(003565ca) { UNUSED; set_error(18); RET(0); }                               /* XFindNextSaveGame */
 FFG(00356611) { UNUSED; RET(1); }                                               /* XFindClose */
