@@ -86,8 +86,18 @@ A host function is `FFG(addr) { ... }` (`hulk_host.h`: `ARG(i)` is the i-th stac
 `HULK_TRACE=1` prints every host function the game calls, `=2` also every call through `ff_dispatch`;
 `HULK_FRAMES=N` ends the run after N frames, `HULK_REPORT=N` prints the frame rate every N, `HULK_THREADS=1` lists the
 threads at the end, `HULK_STACK_AT=N` stops with a stack at frame N, `HULK_FILE_TRACE=1` lists file opens,
-`HULK_INPUT="3000-3010:10,..."` holds pad 0's buttons (wButtons, hex) over frame ranges, `HULK_SNAPTEST=1` times a
-snapshot and restore of the state at the end.
+`HULK_INPUT="3000-3010:10,400-405:0/1,..."` holds pad 0's buttons over frame ranges (wButtons, hex; after a `/` the
+analog buttons held down, a hex mask: 1 A, 2 B, 4 X, 8 Y, 10 black, 20 white, 40/80 the triggers), `HULK_GS=1`
+prints the game-flow state's changes (GS_FRONTEND, GS_GAME, ...), `HULK_SNAPTEST=1` times a snapshot and restore of
+the state at the end.
+
+Without a replay (a free run: no `HULK_INPUT_SOURCE`) the game keeps running: it sits in the front end
+(GS_FRONTEND) without input, and `HULK_INPUT="300-305:10,400-405:0/1,1000-1005:0/1"` (START, then A) takes it through
+GS_PREGAME and GS_PRESSSTART into GS_GAME (frame ~650-1,600) and on past 60,000 frames. Two host rules make that
+work, both off in a replay (whose lockstep I/O and virtual clock do the same jobs): the main thread's drive pump
+(0x00272df0) is a time slice (`ff_poll`), so a loader spinning on a request lets the drive thread run; and BinkWait,
+when a movie frame isn't due yet, moves the clock on to it (the game spins on BinkWait, and the clock moves only a
+microsecond a QueryPerformanceCounter read: the intro movie took ~30,000 polls a frame).
 
 ## The standalone module
 

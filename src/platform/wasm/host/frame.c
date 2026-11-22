@@ -115,16 +115,32 @@ static void frame_end(void* unused) {
         t0 = t_last = ff_now_ms();
     }
     SIM->frame++;
-    /* HULK_INPUT="FROM-TO:BUTTONS,...": pad 0's digital buttons (XINPUT_GAMEPAD wButtons, hex) over those frames */
+    /* HULK_INPUT="FROM-TO:BUTTONS[/ANALOG],...": pad 0's digital buttons (XINPUT_GAMEPAD wButtons, hex) over those
+     * frames, and the analog buttons held fully down (a mask, hex: 1 A, 2 B, 4 X, 8 Y, 10 black, 20 white, 40 left
+     * trigger, 80 right trigger) */
     const char* in = getenv("HULK_INPUT");
     uint16_t buttons = 0;
+    unsigned analog = 0;
     for (const char* p = in; p && *p;) {
-        unsigned a = 0, b = 0, v = 0;
-        if (sscanf(p, "%u-%u:%x", &a, &b, &v) == 3 && SIM->frame >= a && SIM->frame <= b) buttons = (uint16_t)v;
+        unsigned a = 0, b = 0, v = 0, m = 0;
+        int n = sscanf(p, "%u-%u:%x/%x", &a, &b, &v, &m);
+        if (n >= 3 && SIM->frame >= a && SIM->frame <= b) buttons = (uint16_t)v, analog = n == 4 ? m : 0;
         p = strchr(p, ',');
         if (p) p++;
     }
     memcpy(SIM->pads[0], &buttons, 2);
+    for (int i = 0; i < 8; i++) SIM->pads[0][2 + i] = (analog >> i & 1) ? 0xff : 0;
+    /* HULK_GS=1: the game-flow state's changes (CGame 0x004dd6ec +4: {current, previous}; 0x000873a0's GS_ names) */
+    static int gs_on = -1;
+    static uint32_t gs_last = ~0u;
+    if (gs_on < 0) gs_on = getenv("HULK_GS") && getenv("HULK_GS")[0] == '1';
+    if (gs_on) {
+        static const char* names[] = {"NONE", "FRONTEND", "PREGAME", "PRESSSTART", "GAME", "POSTGAME", "PAUSE", "FMV", "QUIT"};
+        uint32_t game = *(uint32_t*)PTR(0x004dd6ecu), st = game ? *(uint32_t*)PTR(game + 4) : 0;
+        uint32_t gs = st ? *(uint32_t*)PTR(st) : ~1u;
+        if (gs != gs_last)
+            fprintf(stderr, "hulk: frame %u: GS_%s\n", SIM->frame, gs < 9 ? names[gs] : "?"), gs_last = gs;
+    }
     if (getenv("HULK_STACK_AT") && SIM->frame == (uint32_t)atol(getenv("HULK_STACK_AT")))
         ff_fatal("stack at frame %u (HULK_STACK_AT)", SIM->frame);
     SIM->clock += HULK_TSC_HZ / 60;

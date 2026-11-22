@@ -203,6 +203,8 @@ void ffh_hulk_nhook_drive_post(uint32_t ecx, uint32_t edx, void* st, void* rb) {
 /* entry 0x00272df0 core::Drive::vfunc_3, the main thread's drive pump */
 void ffgo_00272df0(uint32_t, uint32_t, void*, void*);
 void ffh_hulk_nhook_drive_pump(uint32_t ecx, uint32_t edx, void* st, void* rb) {
+    void ff_poll(void);
+    if (!on()) ff_poll();   /* (no lockstep: a loader spinning on the pump lets the drive thread run, as preemption would) */
     ff_io_main_sleep();
     ffgo_00272df0(ecx, edx, st, rb);
 }

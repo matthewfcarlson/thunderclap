@@ -2729,3 +2729,20 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   (RectInts.i14, the original's spill of the column width at [esp+0x24]), so some sprite u values were 2.0 or 8.0.
   With six words, -O0 and -O1 give the same game hash at frame 1 (D187 unproven-accept). Every build that compiles
   0x2be440 read past the rect, the native builds included. On play3, -O1 still diverges at frame 672 (rng).
+
+## 2026-11-22 wasm15: the wasm build runs without a replay
+
+- A free run (no recording) stopped after frame ~100-150 (and once past it, after ~4,100): the main thread spun
+  without ever yielding or presenting. First stall: a sound bank load (0x001e9bf0, inside 0x001eab10) polls the drive
+  pump 0x00272df0 until the drive thread finishes the request, but the threads are cooperative and nothing in that
+  loop waits or sleeps, so the drive thread never ran (a replay's lockstep I/O steps it at the pump). Second: the
+  front end's movies spin on BinkWait, which keeps time on the virtual clock, and in a free run that clock moves only
+  1 us per QueryPerformanceCounter read: ~30,000 game updates without a Swap per movie frame (the CKPT probe counted
+  640k updates for 4,000 frames). Fixes, both only without a replay: the pump is a time slice (ff_poll), and a
+  BinkWait whose frame isn't due moves the clock to it. play3's records stay byte-identical (60,039 frames vs the HEAD
+  build).
+- Now: no input -> GS_FRONTEND forever (30,000 frames in 3.5 s, ~10,000 frames/s). With START then A presses
+  (HULK_INPUT gained an analog-button mask, `/1` = A): GS_PREGAME, GS_PRESSSTART, GS_GAME from frame 644-1,604, and
+  60,000 frames in 82 s (~900-1,000 frames/s in the game). HULK_GS=1 logs the GS_ state's changes.
+- Seen on the way: the 04:04 build of wasm14 (before its last commits) and HEAD's build differ on play3 from frame
+  11,483 (sound first, 11,481); HEAD against HEAD + these fixes is identical.

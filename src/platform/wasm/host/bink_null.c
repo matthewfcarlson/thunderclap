@@ -15,6 +15,7 @@ typedef struct {
 } hbink;
 
 static uint32_t open_cb;                        /* (BinkSetIO: a game function, set once at start-up) */
+int ff_replay_active(void);     /* replay.cpp */
 static uint64_t now_ms(void) { return SIM->clock / (HULK_TSC_HZ / 1000); }
 
 FFG(00364da0) { UNUSED; open_cb = ARG(0); RET(1); }           /* BinkSetIO(open callback) */
@@ -65,7 +66,15 @@ FFG(00366940) {                                               /* BinkWait(handle
     hbink* b = PTR(ARG(0));
     if (!b || b->paused) { RET(1); return; }
     uint64_t t = b->acc_ms + now_ms() - b->resume_ms;
-    RET((uint64_t)b->frame_num * 1000ull * b->fps_den > t * b->fps_num);
+    uint64_t due = ((uint64_t)b->frame_num * 1000ull * b->fps_den + b->fps_num - 1) / b->fps_num;   /* (ms) */
+    if (due > t && !ff_replay_active()) {
+        /* no replay: the game spins on BinkWait until the frame is due, and the clock moves only a microsecond a
+         * QueryPerformanceCounter: the wait takes the time it would on the console (the clock jumps to the due
+         * frame), or a movie shows a frame per ~30,000 polls */
+        SIM->clock += (due - t) * (HULK_TSC_HZ / 1000);
+        t = due;
+    }
+    RET(due > t);
 }
 FFG(00367bc0) { UNUSED; RET(ARG(0) ? 0 : 1); }               /* BinkDoFrame -> 0: decoded */
 FFG(00365f30) { UNUSED; RET(ARG(0) ? 1 : 0); }               /* BinkCopyToBufferRect: no picture */
