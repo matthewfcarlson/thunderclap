@@ -819,6 +819,11 @@ WASM_HOOK_SKIP = {"hulk_nhook_save_selftest", "hulk_cast_self"}
 # and the native hooks' `gfx` rows apply (taking the same switch there)
 GFX = os.environ.get("HULK_WASM_GFX") == "1"
 GFX_DEVICE_ADDR = 0x0031ba60        # d3dCreateDevice (pure3d::InitPlatform 0x00292560, its only caller)
+# the options menus' frame-rate item (src/platform/wasm/gfx/fe_options.c, D224): the front end's lookup of an int
+# callback by name and NamedValueInt's Create, so the injected "PortFrameRate" value reaches the host; the camera
+# selectors' sync (front-end set-up and the pause menu), which shows the setting on the item too
+GFX_APP_HOOKS = {0x000df9e0: "ffh_hulk_app_fe_callback", 0x000f8e70: "ffh_hulk_app_named_int",
+                 0x000b5ad0: "ffh_hulk_app_fe_sync"}
 _HOOKS = None
 
 
@@ -840,6 +845,7 @@ def wasm_hooks():
                 data[(a, o)] = hook
         if GFX:
             ent[GFX_DEVICE_ADDR] = "ffh_hulk_gfx_create_device"
+            ent.update(GFX_APP_HOOKS)
         # debugging: HULK_WASM_DEBUG_HOOKS="site:0xCALLER:0xCALLEE:name,entry:0xADDR:0:name" (hooks the host sources
         # of HULK_WASM_HOST_EXTRA define as ffh_<name>; never in a committed build)
         for row in filter(None, os.environ.get("HULK_WASM_DEBUG_HOOKS", "").split(",")):

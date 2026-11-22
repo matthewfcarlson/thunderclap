@@ -176,11 +176,12 @@ restores the saved value after a movie. So menus and FMVs run at 60 and gameplay
 measured dt, the clamp is at 15 fps, and the physics update (`0x1e6f10`) has no fixed sub-step
 (it passes dt, and dt × 1000, per object). Animation is time-based: frame controllers carry the
 clip's own frame rate (`pure3d::SimpleFrameController::vfunc_10` returns it, 30.0 by default).
-Risks for 60 fps: a few gameplay functions use per-frame constants, 1/30 in
-`CHeliDeathSpiralAction::vfunc_7` (`0x18170`), `0xfee10` (`CHand2HandAgent` area) and
-`pure3d::MultiController::vfunc_23` (`0x2b1df0`), 1/60 in `0x38660` and the controller/drive error
-callbacks. `CSoundVoiceManager` pre-rolls voices with 100 fixed 1/60 s steps (`0x1f6580`,
-`0x1f6650`), which is audio, not physics.
+The constants once listed as per-frame risks are not per-frame (fps1, D224): 1/30 in
+`CHeliDeathSpiralAction::vfunc_7` (`0x18170`) is a height ratio, in `0xfee10` a per-golem phase step in a
+constructor, in `pure3d::MultiController::vfunc_23` (`0x2b1df0`) animation frames to seconds; 1/60 in `0x38660` is
+degrees / 60, and the controller/drive error callbacks step 1/60 inside the disconnect pause loop. `CSoundVoiceManager`
+pre-rolls voices with 100 fixed 1/60 s steps (`0x1f6580`, `0x1f6650`), which is audio, not physics. A scripted run at
+30 and 60 keeps walking, attack and jump timings (docs/wasm-port.md "The frame-rate option").
 
 **60 fps experiment for the hybrid build**: make `SetFrontEndVSync60` always store 1 (or NOP the
 two-vblank branch in `0x31b190`), then compare replays. Unlocked frame rate in the port: replace

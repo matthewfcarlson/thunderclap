@@ -2876,3 +2876,22 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   gain once fdivu is fast; softx87 built natively for arm64 (even with __int128 products) is only ~20% faster than
   through wasm2c, so native imports for it would not pay. softx87 is near its limit without changing its results;
   the rest of the early frames' trig cost is the series' term count.
+
+## 2026-11-22 fps1: a 60 fps option in the game's own menus (D224)
+
+- The five "per-frame constants" docs/subsystems.md listed as 60 fps risks are not per-frame (read block by block):
+  0x18170's 1/30 is a height ratio, 0xfee10's a per-golem phase step in a constructor, 0x2b1df0's animation frames to
+  seconds, 0x38660's 1/60 degrees / 60, and the controller/drive callbacks' 1/60 steps run inside the disconnect pause
+  loop. An XBE scan for 1/30 and 1/60 (float and double, .rdata/.data references and immediates) finds no others in
+  gameplay code (0x4a0e14's 1/60 is the front end's, which runs at 60 anyway). 60 fps is a pacing change only.
+- The options screens are text (misc.rcf frontend\fe_real.txt / fe_run.txt; `AddNamedValueInt NAME DEFAULT CALLBACK`,
+  `AddTextSelector`). NamedValueInt's Create (0x000f8e70) refuses a value whose callback name isn't registered
+  (0x000df9e0's lookup), and a selector shows its first choice until code sets it (vfunc_25, the choice index): the
+  camera selectors are set by 0x000b5ad0 from the front end's set-up 0x000c3ea0 and the pause menu's 0x000bcf40. The
+  app injects its item through an archive overlay and three entry hooks (docs/wasm-port.md "The frame-rate option").
+- Before waud1's deterministic audio model landed, free runs of the app took real time from the mixer: the same
+  scripted input gave the Hulk two different paths (left trigger) run to run. With the model the runs repeat exactly
+  (the comparison below was made on both, with the same result).
+- At 60 the Hulk's walk, attacks and jump timings match 30 at equal game time (0.2 units over 47 s); a jump peaks 0.5
+  units higher (smaller integration steps). Left-trigger moves end up to 9 units apart, less than the same plan at 30
+  started one frame later (37): sensitivity to input timing, not the rate.

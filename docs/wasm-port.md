@@ -267,7 +267,49 @@ side holds (GPU objects, the window, the audio device) is derived from linear me
   call it with `ff_call`, never through a C function pointer (wapp2: the first window resize trapped with "Invalid
   call_indirect").
 
+### The frame-rate option (fps1, D224)
+
+The user's decision D224: 60 fps is a menu toggle in the game's own options, 30 (the original) by default.
+
+- **Why only pacing changes.** The game is variable-step: every update takes the measured dt (GameClock, clamped at
+  66,666 us), the physics update passes dt without a fixed sub-step, animation is time-based. 30 fps in gameplay comes
+  only from d3dDisplay::SwapBuffers 0x31b190 waiting two vblanks while the flag 0x005554a0 is clear. The constants
+  docs/subsystems.md §3 listed as per-frame are not: 1/30 in 0x18170 is a height ratio (the helicopter's tilt), in
+  0xfee10 a per-golem phase step in a constructor, in 0x2b1df0 animation frames to seconds at the clip rate (30 per
+  second of data); 1/60 in 0x38660 is degrees / 60 (sectors), and the controller / drive error callbacks step 1/60
+  inside the disconnect pause loop. No tree source changes.
+- **The item.** "Frame Rate: 30 FPS / 60 FPS", the fourth item of camera_options in the front end's options and in the
+  pause menu (Options > Camera Options). The menus are game data (misc.rcf: frontend\fe_real.txt, fe_run.txt, the
+  strings in frontend\lang\str_*.txt); src/platform/wasm/gfx/fe_options.c serves misc.rcf through an overlay that
+  appends patched copies of those three files from the player's own disc (located by anchors at run time, the
+  directory entries pointing at the copies) and holds only the inserted item and its three English strings. Three
+  entry hooks (`wasm_port.GFX_APP_HOOKS`, app builds only) connect it: 0x000df9e0 (the int-callback lookup:
+  "PortFrameRateChanged" is a host handler, a vftable slot made by `ff_host_method`), 0x000f8e70 (NamedValueInt's
+  Create: "PortFrameRate" starts at the saved value; one object per front-end slot, kept in step) and 0x000b5ad0 (the
+  camera selectors' sync on front-end set-up and pause: ours shows the setting; a selector shows its first choice
+  until code sets it). `HULK_FE_OPTIONS=0` serves the disc's archive unpatched; `HULK_FE_OPTIONS_LOG=1` logs the item.
+- **The setting** is saved in `HULK_SAVE_DIR/port_settings.txt` (`frame_rate=60`), not in the game's save. At 60,
+  gfx.c's frame end moves the virtual clock one field a present in gameplay too, and sdl_platform.cpp's pacing
+  (`hulk_wasm_fps60`, `HULK_PDDI_WASM` only) presents at 60. `HULK_FPS_CAP=60` still forces 60 without the menu.
+  Replays ignore the file and never write it (the recording's clock decides).
+- **Checks.** play3 to 60,000 on the app (`HULK_GFX_RENDERER=null`, the overlay and hooks active): the same checkpoint
+  records as the app before the change (byte prefix). A scripted run (`HULK_INPUT` now takes the left stick: `FROM-TO:
+  BUTTONS/ANALOG/LX/LY`; the deterministic audio model; the lane's local script build/fps1/scripts/timing.py) played
+  at 30 and at 60 by the saved setting, the Hulk compared at equal game time: walking 10 s, walking sideways, attacks and jumps stay within 0.2 units over 47 s
+  of game time (the camera within 0.6); jump apex and landing times are the same frame; the apex is 0.5 units higher at 60
+  (smaller integration steps: +9% on a tap jump, +3% on a held one). Left-trigger moves differ by up to 9 units, less
+  than the same plan at 30 shifted by one frame (37): input-timing sensitivity, not the rate. Presents hold 60.0 fps in
+  gameplay with the setting (HULK_FPS_LOG). The virtual clocks drift 0.36 ms per second apart (more polls at 60).
+- **Rollback and co-op.** The rate is part of a session's definition: peers must run the same one (each frame's dt
+  depends on it), so a co-op session takes the host's at session start and the item must not change it mid-session
+  (lock or hide it then). The value lives in the host (`fe_options.c`) and in the NamedValueInt objects in game memory;
+  a snapshot restores the objects, not the host's copy, which is why it is per-session.
+
 ## Status
+
+- 2026-11-22 (fps1, D224): **the frame-rate option.** "Frame Rate: 30 FPS / 60 FPS" in the options and pause menus
+  (camera options), saved in port_settings.txt, 30 by default ("The frame-rate option" above). play3's records
+  unchanged; gameplay at 60 keeps the speeds and timings of 30.
 
 - 2026-11-22 (waud1, D222): **one deterministic audio model.** Free play's voices run on the virtual clock (48 kHz of
   game time) in dsound_null.c, and the app's mixer renders what the model played instead of answering the game's

@@ -346,6 +346,10 @@ void platformBeforeFrame(unsigned frame)
 
 #if HULK_PDDI_WASM
 extern "C" void hulk_wasm_gfx_frame_end(void);   // src/platform/wasm/gfx/gfx.c: D3D Swap's end of frame (the clock)
+extern "C" int hulk_wasm_fps60(void);            // src/platform/wasm/gfx/fe_options.c: the options menus' frame rate
+#define PACE60() hulk_wasm_fps60()
+#else
+#define PACE60() 0
 #endif
 
 // after frame `frame` was presented
@@ -408,7 +412,7 @@ void platformFramePace()
     }
     long long now = qpcNow();
     if (mode) {
-        long long period = freq / ((mode == 60 || DAT_005554a0[0]) ? 60 : 30);
+        long long period = freq / ((mode == 60 || DAT_005554a0[0] || PACE60()) ? 60 : 30);
         if (!deadline || now > deadline + period * 2)
             deadline = now;                         // first frame, or we fell behind (a load): don't catch up
         deadline += period;

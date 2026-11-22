@@ -154,8 +154,15 @@ FFG(002109f1) {         /* CreateFileA(path, access, share, sa, disposition, fla
     RET(h);
 }
 
+/* the app's patched archives (src/platform/wasm/gfx/fe_options.c: the options menus' frame-rate item); weak
+ * references, null in the other builds. -2: the file is served as it is. */
+int64_t ff_overlay_size(const char* path, int32_t fd) __attribute__((weak));
+int32_t ff_overlay_read(const char* path, int32_t fd, void* buf, uint32_t n, uint32_t off) __attribute__((weak));
+
 static uint32_t file_size(uint32_t h, hulk_obj* o) {
     int32_t f = stream(h, o);
+    int64_t ov = f >= 0 && ff_overlay_size ? ff_overlay_size(o->path, f) : -2;
+    if (ov >= 0) return (uint32_t)ov;
     return f < 0 ? 0 : hio_size(f);
 }
 
@@ -164,7 +171,8 @@ FFG(0020ff8d) {         /* ReadFile(h, buf, n, done, overlapped) */
     hulk_obj* o = ff_obj(ARG(0));
     if (!o || o->kind != OBJ_FILE) { set_error(6); RET(0); return; }
     int32_t f = stream(ARG(0), o);
-    int32_t got = f < 0 ? -1 : hio_read(f, PTR(ARG(1)), ARG(2), o->pos);
+    int32_t got = f >= 0 && ff_overlay_read ? ff_overlay_read(o->path, f, PTR(ARG(1)), ARG(2), o->pos) : -2;
+    if (got == -2) got = f < 0 ? -1 : hio_read(f, PTR(ARG(1)), ARG(2), o->pos);
     if (got > 0) o->pos += (uint32_t)got;
     if (ARG(3)) *(uint32_t*)PTR(ARG(3)) = got > 0 ? (uint32_t)got : 0;
     RET(got >= 0);

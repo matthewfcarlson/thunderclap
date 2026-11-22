@@ -259,20 +259,18 @@ void hulk_gfx_op_delete_array(void* p) { if (p) ff_arena_free(p); }
 /* ------------------------------------------------------------------------------------------- the frame */
 void ff_frame_end(void);
 int ff_replay_active(void);
+int hulk_wasm_fps60(void);     /* fe_options.c */
 void hulk_wasm_gfx_frame_end(void) {
     if (SIM->d3d_vblank_cb) ff_call(SIM->d3d_vblank_cb, 0);
     ff_frame_end();
     hulk_native_frame_no = SIM->frame;
     /* a free run's frame lasts what the original's SwapBuffers waits for (0x31b190): one field with the flag
      * 0x005554a0 set (menus, movies: 60 Hz), two with it clear (gameplay: 30 Hz), as the presents are paced
-     * (sdl_platform.cpp HULK_FPS_CAP); ff_frame_end moved the clock one field. A replay keeps its own clock. */
-    static int free_run = -1, cap60 = -1;
-    if (free_run < 0) {
-        free_run = !ff_replay_active();
-        const char* c = getenv("HULK_FPS_CAP");
-        cap60 = c && atoi(c) == 60;
-    }
-    if (free_run && !cap60 && !*(volatile uint8_t*)PTR(0x005554a0u)) SIM->clock += HULK_TSC_HZ / 60;
+     * (sdl_platform.cpp HULK_FPS_CAP); ff_frame_end moved the clock one field. With the options menus' frame rate at
+     * 60 (fe_options.c, D224) or HULK_FPS_CAP=60, gameplay takes one field too. A replay keeps its own clock. */
+    static int free_run = -1;
+    if (free_run < 0) free_run = !ff_replay_active();
+    if (free_run && !hulk_wasm_fps60() && !*(volatile uint8_t*)PTR(0x005554a0u)) SIM->clock += HULK_TSC_HZ / 60;
     static int live = -1;
     if (live < 0) live = !getenv("HULK_INPUT") && !ff_replay_active();
     uint8_t pad[18];
