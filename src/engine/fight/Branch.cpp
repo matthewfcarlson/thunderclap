@@ -88,7 +88,7 @@ struct Node {
     union { Node* next; Node* parent; };
     char _m_pad_18[0x8];
     int value;
-    void target();
+    void* target();
 };
 extern int hulk_at_0048e090, hulk_at_004ca2b0;
 extern void* FUN_00344e74(owners::Node_232f60*, int, const void*, const void*, int);
@@ -311,16 +311,15 @@ bool owners::Node_232ed0::FUN_00232ed0(owners::Node_232ed0* other) {
 namespace fn_f3f1aadd {
 
 // 0x00232f00 FUN_00232f00 (84 B): matches/0x00232f00.cpp
-// sym: ?target@Node@fn_f3f1aadd@@QAEXXZ
-void Node::target() {
-    if (kind == 3) {
-        __RTDynamicCast((void*)(this), 0, &hulk_at_0048e090, &hulk_at_004ca2b0, 0);
-        return;
-    }
+// sym: ?target@Node@fn_f3f1aadd@@QAEPAXXZ
+// (wasm12) returns the cast (eax): a `void` definition returned nothing on the port builds
+void* Node::target() {
+    if (kind == 3)
+        return __RTDynamicCast((void*)(this), 0, &hulk_at_0048e090, &hulk_at_004ca2b0, 0);
     Node* q = next;
     while (q && q->kind != 3)
         q = q->next;
-    __RTDynamicCast((void*)(q), 0, &hulk_at_0048e090, &hulk_at_004ca2b0, 0);
+    return __RTDynamicCast((void*)(q), 0, &hulk_at_0048e090, &hulk_at_004ca2b0, 0);
 }
 
 } // namespace fn_f3f1aadd

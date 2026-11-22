@@ -1518,7 +1518,7 @@ void* FEContainer::f37(u32_e4750 key) {
 
 
 // 0x000e47b0 FEContainer::vfunc_38 (39 B): matches/0x000e47b0.cpp [wrapped: conflict: FEContainer]
-// sym: ?vfunc_38@FEContainer@fn_000e47b0@@UAEXH@Z
+// sym: ?vfunc_38@FEContainer@fn_000e47b0@@UAEPAXH@Z
 namespace fn_000e47b0 {
 class FEContainer {
   public:
@@ -1560,17 +1560,17 @@ class FEContainer {
     virtual void v35();
     virtual void v36();
     virtual void* v37(int);
-    virtual void vfunc_38(int);
+    virtual void* vfunc_38(int);
 };
 extern int typeA, hulk_at_0049f48c;
-void FEContainer::vfunc_38(int n) {
-    __RTDynamicCast(v37(n), 0, &typeA, &hulk_at_0049f48c, 0);
+void* FEContainer::vfunc_38(int n) {
+    return __RTDynamicCast(v37(n), 0, &typeA, &hulk_at_0049f48c, 0);
 }
 } // namespace fn_000e47b0
 
 
 // 0x000e47e0 FEContainer::vfunc_39 (39 B): matches/0x000e47e0.cpp [wrapped: conflict: FEContainer]
-// sym: ?vfunc_39@FEContainer@fn_000e47e0@@UAEXH@Z
+// sym: ?vfunc_39@FEContainer@fn_000e47e0@@UAEPAXH@Z
 namespace fn_000e47e0 {
 extern int a, b;
 class FEContainer {
@@ -1614,16 +1614,16 @@ class FEContainer {
     virtual void f36();
     virtual int f37(int);
     virtual void f38();
-    virtual void vfunc_39(int);
+    virtual void* vfunc_39(int);
 };
-void FEContainer::vfunc_39(int x) {
-    __RTDynamicCast((void*)(hulk_uintptr)(f37(x)), 0, (void*)(hulk_uintptr)(&a), (void*)(hulk_uintptr)(&b), 0);
+void* FEContainer::vfunc_39(int x) {
+    return __RTDynamicCast((void*)(hulk_uintptr)(f37(x)), 0, (void*)(hulk_uintptr)(&a), (void*)(hulk_uintptr)(&b), 0);
 }
 } // namespace fn_000e47e0
 
 
 // 0x000e4810 FEContainer::vfunc_40 (39 B): matches/0x000e4810.cpp [wrapped: conflict: FEContainer]
-// sym: ?vfunc_40@FEContainer@fn_000e4810@@UAEXH@Z
+// sym: ?vfunc_40@FEContainer@fn_000e4810@@UAEPAXH@Z
 namespace fn_000e4810 {
 class FEContainer {
   public:
@@ -1667,17 +1667,17 @@ class FEContainer {
     virtual void vfunc_37();
     virtual void vfunc_38();
     virtual void* vfunc_39(int);
-    virtual void vfunc_40(int);
+    virtual void* vfunc_40(int);
 };
 extern int a, b;
-void FEContainer::vfunc_40(int x) {
-    __RTDynamicCast((void*)(hulk_uintptr)(vfunc_39(x)), 0, (void*)(hulk_uintptr)(&a), (void*)(hulk_uintptr)(&b), 0);
+void* FEContainer::vfunc_40(int x) {
+    return __RTDynamicCast((void*)(hulk_uintptr)(vfunc_39(x)), 0, (void*)(hulk_uintptr)(&a), (void*)(hulk_uintptr)(&b), 0);
 }
 } // namespace fn_000e4810
 
 
 // 0x000e4840 FEContainer::vfunc_42 (39 B): matches/0x000e4840.cpp [wrapped: conflict: FEContainer]
-// sym: ?f42@FEContainer@fn_000e4840@@UAEXH@Z
+// sym: ?f42@FEContainer@fn_000e4840@@UAEPAXH@Z
 namespace fn_000e4840 {
 class FEContainer {
   public:
@@ -1723,18 +1723,18 @@ class FEContainer {
     virtual void* f39(int);
     virtual void f40();
     virtual void f41();
-    virtual void f42(int);
+    virtual void* f42(int);
 };
 extern char DAT_0049f4a4[], DAT_0049f4f0[];
-extern "C++" void FUN_00344e74(void*, int, char*, char*, int);
-void FEContainer::f42(int x) {
-    FUN_00344e74(f39(x), 0, DAT_0049f4f0, DAT_0049f4a4, 0);
+extern "C++" void* FUN_00344e74(void*, int, char*, char*, int);
+void* FEContainer::f42(int x) {
+    return FUN_00344e74(f39(x), 0, DAT_0049f4f0, DAT_0049f4a4, 0);
 }
 } // namespace fn_000e4840
 
 
 // 0x000e4870 FEContainer::vfunc_43 (39 B): matches/0x000e4870.cpp [wrapped: conflict: FEContainer; FUN_00344e74]
-// sym: ?vfunc_43@FEContainer@fn_000e4870@@UAEXH@Z
+// sym: ?vfunc_43@FEContainer@fn_000e4870@@UAEPAXH@Z
 namespace fn_000e4870 {
 struct FEContainer {
     virtual void vfunc_0();
@@ -1780,18 +1780,18 @@ struct FEContainer {
     virtual void vfunc_40();
     virtual void vfunc_41();
     virtual void vfunc_42();
-    virtual void vfunc_43(int);
+    virtual void* vfunc_43(int);
 };
 extern int DAT_0049f4f0, DAT_0049f470;
-extern "C++" void FUN_00344e74(hulk_intptr, int, int*, int*, int);
-void FEContainer::vfunc_43(int x) {
-    FUN_00344e74(vfunc_39(x), 0, &DAT_0049f4f0, &DAT_0049f470, 0);
+extern "C++" void* FUN_00344e74(hulk_intptr, int, int*, int*, int);
+void* FEContainer::vfunc_43(int x) {
+    return FUN_00344e74(vfunc_39(x), 0, &DAT_0049f4f0, &DAT_0049f470, 0);
 }
 } // namespace fn_000e4870
 
 
 // 0x000e48a0 FEContainer::vfunc_44 (39 B): matches/0x000e48a0.cpp [wrapped: conflict: FEContainer]
-// sym: ?vfunc_44@FEContainer@fn_000e48a0@@UAEXPAX@Z
+// sym: ?vfunc_44@FEContainer@fn_000e48a0@@UAEPAXPAX@Z
 namespace fn_000e48a0 {
 class FEContainer {
   public:
@@ -1839,17 +1839,17 @@ class FEContainer {
     virtual void f41();
     virtual void f42();
     virtual void f43();
-    virtual void vfunc_44(void*);
+    virtual void* vfunc_44(void*);
 };
 extern int a, hulk_at_004a1274;
-void FEContainer::vfunc_44(void* x) {
-    __RTDynamicCast((void*)(hulk_uintptr)(f39(x)), 0, (void*)(&a), (void*)(&hulk_at_004a1274), 0);
+void* FEContainer::vfunc_44(void* x) {
+    return __RTDynamicCast((void*)(hulk_uintptr)(f39(x)), 0, (void*)(&a), (void*)(&hulk_at_004a1274), 0);
 }
 } // namespace fn_000e48a0
 
 
 // 0x000e48d0 FEContainer::vfunc_45 (39 B): matches/0x000e48d0.cpp [wrapped: conflict: DAT_0049f4f0; FEContainer]
-// sym: ?vfunc_45@FEContainer@fn_000e48d0@@UAEXPAX@Z
+// sym: ?vfunc_45@FEContainer@fn_000e48d0@@UAEPAXPAX@Z
 namespace fn_000e48d0 {
 class FEContainer {
   public:
@@ -1898,19 +1898,19 @@ class FEContainer {
     virtual void v42();
     virtual void v43();
     virtual void v44();
-    virtual void vfunc_45(void*);
+    virtual void* vfunc_45(void*);
 };
 extern int DAT_0049f454;
 extern int DAT_0049f4f0;
-extern "C++" void FUN_00344e74(void*, int, int*, int*, int);
-void FEContainer::vfunc_45(void* p) {
-    FUN_00344e74(v39(p), 0, &DAT_0049f4f0, &DAT_0049f454, 0);
+extern "C++" void* FUN_00344e74(void*, int, int*, int*, int);
+void* FEContainer::vfunc_45(void* p) {
+    return FUN_00344e74(v39(p), 0, &DAT_0049f4f0, &DAT_0049f454, 0);
 }
 } // namespace fn_000e48d0
 
 
 // 0x000e4900 FEContainer::vfunc_41 (39 B): matches/0x000e4900.cpp [wrapped: macros]
-// sym: ?vfunc_41@FEContainer@fn_000e4900@@UAEXPAX@Z
+// sym: ?vfunc_41@FEContainer@fn_000e4900@@UAEPAXPAX@Z
 namespace fn_000e4900 {
 extern int gOne, hulk_at_0049dbbc;
 class FEContainer {
@@ -1921,17 +1921,17 @@ class FEContainer {
         V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31) V(32) V(33) V(34) V(35) V(36)
             V(37) V(38) virtual int vfunc_39(void*);
     virtual void vfunc_40();
-    virtual void vfunc_41(void*);
+    virtual void* vfunc_41(void*);
 };
-void FEContainer::vfunc_41(void* p) {
-    __RTDynamicCast((void*)(hulk_uintptr)(vfunc_39(p)), 0, (void*)(&gOne), (void*)(&hulk_at_0049dbbc), 0);
+void* FEContainer::vfunc_41(void* p) {
+    return __RTDynamicCast((void*)(hulk_uintptr)(vfunc_39(p)), 0, (void*)(&gOne), (void*)(&hulk_at_0049dbbc), 0);
 }
 } // namespace fn_000e4900
 #undef V
 
 
 // 0x000e4930 FEContainer::vfunc_46 (39 B): matches/0x000e4930.cpp [wrapped: conflict: FEContainer]
-// sym: ?v46@FEContainer@fn_000e4930@@UAEXH@Z
+// sym: ?v46@FEContainer@fn_000e4930@@UAEPAXH@Z
 namespace fn_000e4930 {
 extern int hulk_at_0049f4c0, g2;
 class FEContainer {
@@ -1982,10 +1982,10 @@ class FEContainer {
     virtual void v43();
     virtual void v44();
     virtual void v45();
-    virtual void v46(int);
+    virtual void* v46(int);
 };
-void FEContainer::v46(int x) {
-    __RTDynamicCast((void*)(hulk_uintptr)(v39(x)), 0, (void*)(hulk_uintptr)(&g2), (void*)(hulk_uintptr)(&hulk_at_0049f4c0), 0);
+void* FEContainer::v46(int x) {
+    return __RTDynamicCast((void*)(hulk_uintptr)(v39(x)), 0, (void*)(hulk_uintptr)(&g2), (void*)(hulk_uintptr)(&hulk_at_0049f4c0), 0);
 }
 } // namespace fn_000e4930
 

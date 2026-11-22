@@ -2694,3 +2694,16 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   actors (camera 5875 is the Wine build's known 5880 transient window); the run still stops at 8640 on an unbound
   0x0035618d (XCreateSaveGame: the wasm host has no row for it). A wasm snapshot built before a `??_G` rename needs
   its report.json symbol for the address updated, or the vftable keeps clang's own `??_G`.
+- (wasm12, 11-22) **wasm play3's stop at ~8690 was the save dialog's OK button: ten `void` getters that return a
+  dynamic_cast in eax.** FEContainer's slots 38..46 (0x000e47b0, 0x000e47e0, 0x000e4810, 0x000e4840, 0x000e4870,
+  0x000e48a0, 0x000e48d0, 0x000e4900, 0x000e4930) end `call __RTDynamicCast; add esp, 0x14; ret 4`, and fight's
+  0x00232f00 `ret`: the cast is their return value, but the blocks were `void`, which MSVC 7.1 compiles to the same
+  bytes and the port builds to a function that returns nothing. The layout parser 0x000f4e90 stores the dialog's
+  buttons (+0x998/0x99c/0x9a0) from slot 42 (0x000e4840 -> slot 39 -> slot 37), so on wasm the FEGenericDialog built
+  at frame 439 kept three null buttons, and the "game saved" dialog (0x000d9080 -> 0x000be230 -> 0x000e5f00, mode 2)
+  called slot 8 of a null button. All ten now return the cast (`void*`, new `??` symbols pinned; MATCH, relocs ok).
+  wasm play3 now runs to 60000 (80 s); first divergence still 3810 actors. wasm11's init-time stack at the "miss" was
+  the first ff_dispatch_miss hit, which is a legitimate kernel-slot call (0xe0000123, RtlInitializeCriticalSection
+  during the static initializers): kernel and host-method calls all go through ff_dispatch_miss, so a breakpoint
+  there stops at init; break on ff_fatal instead. Scan used: every discarded `__RTDynamicCast` / `FUN_00344e74`
+  statement in src/ against the original's next instructions (the other eight sites really discard it).
