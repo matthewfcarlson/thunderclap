@@ -53,6 +53,8 @@ typedef struct {
     /* dsound_null.c */
     uint32_t ds_object;
     uint32_t ds_voices;               /* the live buffers (a list in the arena) */
+    /* arena.c (wasm15): no free block of 16k bytes or more below arena_lbn[k] (k = 1..64; 0: the base) */
+    uint32_t arena_lbn[65];
 } hulk_sim;
 
 #define SIM ((hulk_sim*)(uintptr_t)SIM_ADDR)

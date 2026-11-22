@@ -14,6 +14,8 @@
 #include "hulk_host.h"
 #include "sim.h"
 
+#define NK 64                           /* sizes 16..1024 have exact bounds (arena_lbn) */
+
 #define BASE ARENA_LO
 #define END ARENA_HI
 #define USED 0x55534544u                /* "USED" */
@@ -35,6 +37,7 @@ static void init(void) {
     SIM->arena_ready = 1;
     SIM->arena_top = BASE + 16;
     for (int k = 0; k < 32; k++) SIM->arena_lb[k] = BASE;
+    for (int k = 0; k <= NK; k++) SIM->arena_lbn[k] = BASE;
 }
 
 /* the size class of a block size: its bit length less one (2^k <= size) */
@@ -44,12 +47,16 @@ static int size_class(uint32_t size) { return 31 - __builtin_clz(size); }
 static void lower_bounds(uint32_t a, uint32_t size) {
     for (int k = size_class(size); k >= 0; k--)
         if (SIM->arena_lb[k] > a) SIM->arena_lb[k] = a;
+    for (int k = size >> 4 < NK ? size >> 4 : NK; k >= 1; k--)
+        if (SIM->arena_lbn[k] > a) SIM->arena_lbn[k] = a;
 }
 
 /* the block at FROM merges into the one at INTO: a bound on FROM moves there (a bound is a block's start) */
 static void move_bounds(uint32_t from, uint32_t into) {
     for (int k = 0; k < 32; k++)
         if (SIM->arena_lb[k] == from) SIM->arena_lb[k] = into;
+    for (int k = 1; k <= NK; k++)
+        if (SIM->arena_lbn[k] == from) SIM->arena_lbn[k] = into;
 }
 
 uint32_t ff_arena_base(void) { return BASE; }
@@ -69,14 +76,23 @@ void* ff_arena_alloc(uint32_t n, uint32_t align) {
      * NEED's size class: below it no free block is as large as 2^class, so none fits. The first free block of the
      * class met becomes the class's bound. */
     int c = size_class(need);
+    /* (wasm15) a size up to 1 KB starts at its own bound (arena_lbn: exact sizes, not classes), which an allocation
+     * moves to the block it takes: still first fit in address order, with fewer used blocks walked over */
+    uint32_t kn = need >> 4;
+    uint32_t start = kn <= NK ? SIM->arena_lbn[kn] : SIM->arena_lb[c];
     uint32_t first = 0;
-    for (uint32_t a = SIM->arena_lb[c] ? SIM->arena_lb[c] : BASE; a < END; a += at(a)->size) {
+    for (uint32_t a = start ? start : BASE; a < END; a += at(a)->size) {
         hdr* h = at(a);
         if (h->size < 16 || (h->flags != FREE && h->flags != USED))
             ff_fatal("game arena corrupt at 0x%08x (size %u, flags %08x)", a, h->size, h->flags);
         if (h->flags == FREE && !first && size_class(h->size) >= c) first = a;
         if (h->flags != FREE || h->size < need) continue;
-        SIM->arena_lb[c] = first;
+        if (kn <= NK) {
+            for (uint32_t k = kn; k <= NK; k++)     /* below a, no free block of NEED bytes or more */
+                if (SIM->arena_lbn[k] < a) SIM->arena_lbn[k] = a;
+        } else {
+            SIM->arena_lb[c] = first;
+        }
         if (h->size >= need + 64) {                 /* split: the rest stays free */
             hdr* r = at(a + need);
             r->size = h->size - need;

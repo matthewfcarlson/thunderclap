@@ -306,6 +306,8 @@ side holds (GPU objects, the window, the audio device) is derived from linear me
 - 2026-11-22 (wasm15, speed): softx87's `fdiv`/`fdivu` divide in 32-bit digits (Knuth's algorithm D) instead of
   bit by bit, with the same quotients: play3's first 12,000 frames 21.1 -> 18.1 s on studio, records byte-identical
   (Wine pair 111481/111483, GATE ok).
+  The arena's first fit starts at a bound per exact size up to 1 KB (`SIM->arena_lbn`, beside the per-class
+  bounds): the same addresses, 17.8 -> 17.3 s.
 
 - 2026-11-22 (wasm14, -O1 vs -O0): **locals start as zeros** (`-ftrivial-auto-var-init=zero` in the front end;
   `HULK_WASM_ZEROINIT=0` turns it off). This is a deliberate difference from the Xbox, where an uninitialised local

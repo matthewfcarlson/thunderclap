@@ -2826,3 +2826,15 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   (the runner names the window; no pddi-layer edit).
 - play3 to 60,000 at a34b4362c (inputs a34b4362c988): the headless build's records are a prefix of the app's with
   `HULK_GFX_RENDERER=null` (as wapp1 checked). Keyboard-scripted free run: gameplay at ~frame 1,000, 30 fps, no trap.
+
+## 2026-11-22 wasm15: the wasm arena's first fit starts at a bound per exact size
+
+- A counting build of arena.c showed the first-fit walk visiting ~100M blocks over play3's first 12,000 frames
+  (about 250k allocations, nearly all freed again: d3d_null's 48-byte surface headers from GetSurfaceLevel and
+  similar churn). The per-class bounds (wasm14) start a 48-byte search at the first free block of 32..63 bytes, which
+  may be too small, and the walk then crosses every used block up to the next hole that fits.
+- `arena_lbn[k]` (appended to the sim block) bounds sizes 16k bytes for k = 1..64 exactly: no free block of 16k bytes
+  or more lies below it. An allocation of 16k bytes starts there and moves the bounds of k and above to the block it
+  takes; a free lowers the bounds its merged block can serve; a merge moves bounds off a vanished block start. Still
+  first fit in address order, so every address is the same: play3's records byte-identical through 60,000 frames
+  (with the next change too). First 12,000 frames on studio 17.8 -> 17.3 s (timing job 111485).
