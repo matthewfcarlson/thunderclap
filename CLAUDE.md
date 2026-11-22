@@ -434,6 +434,10 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   38..46 left a dialog's buttons null). ff_dispatch_miss serves every kernel and host-method call: to find a bad indirect
   call, break on ff_fatal. `tools/native_replay.py run` empties the run's save/tdata/udata first (a stale save changes the
   game's path). HULK_TRACE=2 over a whole replay writes gigabytes: bound it to a frame window (wasm11/wasm12).
+  -O1 is the wasm default (`HULK_WASM_OPT=O0` for the old build); locals start as zeros (-ftrivial-auto-var-init=zero,
+  `HULK_WASM_ZEROINIT=0` off), so stack garbage doesn't differ between -O0 and -O1; a function that reads its parameters
+  through one's address (`memcpy(dst, &a0, n)`, x86's argument block) gets them as one x86-laid-out block
+  (`fix_param_block`). Speed changes must keep play3's checkpoint records byte-identical (wasm14).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
