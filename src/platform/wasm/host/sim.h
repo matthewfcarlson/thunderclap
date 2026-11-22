@@ -11,7 +11,7 @@
 /* kernel objects, addressed by handle HANDLE_BASE + 4 * index */
 #define HANDLE_BASE 0x00001000u
 #define MAX_OBJS 256
-enum { OBJ_NONE, OBJ_FILE, OBJ_THREAD, OBJ_FIBER, OBJ_SEMAPHORE, OBJ_EVENT, OBJ_HEAP };
+enum { OBJ_NONE, OBJ_FILE, OBJ_THREAD, OBJ_FIBER, OBJ_SEMAPHORE, OBJ_EVENT, OBJ_HEAP, OBJ_SAVE_FIND };
 enum { T_RUNNABLE, T_WAITING, T_SLEEPING, T_DONE };
 typedef struct {
     int32_t kind, refs;

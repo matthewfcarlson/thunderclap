@@ -319,8 +319,8 @@ static void save_dir_path(char letter, uint64_t hash, int probe, char* out, size
     uint64_t v = (hash + (uint64_t)probe * 0x9e3779b97f4a7c15ull) & 0xffffffffffffull;
     snprintf(out, cap, "%c:\\%012llX", letter, (unsigned long long)v);
 }
-/* the save's name in DIR's SaveMeta.xbx equals NAME */
-static int save_named(const char* host_dir, const uint16_t* name) {
+/* the save's name from DIR's SaveMeta.xbx ("Name=..."): 1 when it has one */
+static int save_name_of(const char* host_dir, uint16_t* out, uint32_t cap) {
     char meta[sizeof SIM->objs[0].path + 16];
     snprintf(meta, sizeof meta, "%s/SaveMeta.xbx", host_dir);
     int32_t f = hio_open(meta, HIO_READ);
@@ -329,14 +329,20 @@ static int save_named(const char* host_dir, const uint16_t* name) {
     int32_t got = hio_read(f, buf, sizeof buf - 2, 0);
     hio_close(f);
     if (got < 2) return 0;
-    uint32_t n = (uint32_t)got / 2, k = buf[0] == 0xfeff ? 1 : 0;
+    uint32_t n = (uint32_t)got / 2, k = buf[0] == 0xfeff ? 1 : 0, i = 0;
     static const char key[] = "Name=";
-    for (int i = 0; key[i]; i++, k++)
-        if (k >= n || buf[k] != (uint16_t)key[i]) return 0;
+    for (int j = 0; key[j]; j++, k++)
+        if (k >= n || buf[k] != (uint16_t)key[j]) return 0;
+    for (; k < n && buf[k] != '\r' && buf[k] != '\n' && i + 1 < cap; k++) out[i++] = buf[k];
+    out[i] = 0;
+    return i > 0;
+}
+static int save_named(const char* host_dir, const uint16_t* name) {
+    uint16_t got[SAVE_NAME_CHARS];
+    if (!save_name_of(host_dir, got, SAVE_NAME_CHARS)) return 0;
     uint32_t i = 0;
-    for (; k < n && buf[k] != '\r' && buf[k] != '\n'; k++, i++)
-        if (buf[k] != name[i]) return 0;
-    return name[i] == 0;
+    for (; got[i] && got[i] == name[i]; i++) {}
+    return got[i] == name[i];
 }
 static int save_root(uint32_t root, char* letter) {
     const char* r = root ? PTR(root) : 0;
@@ -494,8 +500,63 @@ FFG(00212143) {         /* XCalculateSignatureEnd(handle, 20 bytes out) -> error
     ff_arena_free(g);
     RET(0);
 }
-FFG(003564c0) { UNUSED; set_error(18); RET(INVALID_HANDLE); }  /* XFindFirstSaveGame: none (ERROR_NO_MORE_FILES) */
-FFG(003565ca) { UNUSED; set_error(18); RET(0); }                               /* XFindNextSaveGame */
-FFG(00356611) { UNUSED; RET(1); }                                               /* XFindClose */
+/* XFindFirstSaveGame / XFindNextSaveGame: the save folders of the root in name order (the host's listing order is
+ * not the game's to depend on); a search is a kernel record holding the root's host path and the next index. The
+ * find data (0x344 bytes): WIN32_FIND_DATA (attributes, zero times, the folder's name at +44), the folder's path
+ * "U:\<folder>\" at +0x140, the save's name (UTF-16) at +0x244. */
+static int name_cmp(const void* a, const void* b) { return strcmp(*(const char* const*)a, *(const char* const*)b); }
+static int save_next(hulk_obj* o, uint32_t data) {
+    char names[8192];
+    const char* sorted[256];
+    uint32_t need = hio_list(o->path, names, sizeof names), n = 0;
+    for (uint32_t k = 0; k < need && k < sizeof names && n < 256;) {
+        sorted[n++] = names + k;
+        k += (uint32_t)strlen(names + k) + 1;
+    }
+    qsort(sorted, n, sizeof sorted[0], name_cmp);
+    for (; o->pos < n; o->pos++) {
+        char host[sizeof o->path + 64];
+        snprintf(host, sizeof host, "%s/%s", o->path, sorted[o->pos]);
+        uint16_t name[SAVE_NAME_CHARS];
+        if (hio_kind(host) != HIO_DIR || !save_name_of(host, name, SAVE_NAME_CHARS)) continue;
+        if (data) {
+            uint8_t* d = PTR(data);
+            memset(d, 0, 0x344);
+            *(uint32_t*)d = 0x10;                   /* FILE_ATTRIBUTE_DIRECTORY */
+            snprintf((char*)d + 44, 260, "%s", sorted[o->pos]);
+            snprintf((char*)d + 0x140, 260, "%c:\\%s\\", (char)o->count, sorted[o->pos]);
+            memcpy(d + 0x244, name, (wlen16(name) + 1) * 2);
+        }
+        o->pos++;
+        return 1;
+    }
+    return 0;
+}
+FFG(003564c0) {         /* XFindFirstSaveGame(root, find data) -> handle; -1 and error 18 when there is none */
+    UNUSED;
+    char letter, game[4] = {0, ':', '\\', 0};
+    if (!save_root(ARG(0), &letter)) { set_error(87); RET(INVALID_HANDLE); return; }
+    game[0] = letter;
+    uint32_t h = ff_new_obj(OBJ_SAVE_FIND);
+    hulk_obj* o = ff_obj(h);
+    ff_host_path(game, o->path, sizeof o->path);
+    o->count = letter;                          /* the root's drive letter (the record's count word) */
+    o->pos = 0;
+    if (!save_next(o, ARG(1))) { o->kind = 0; set_error(18); RET(INVALID_HANDLE); return; }
+    RET(h);
+}
+FFG(003565ca) {         /* XFindNextSaveGame(handle, find data) -> BOOL */
+    UNUSED;
+    hulk_obj* o = ff_obj(ARG(0));
+    if (!o || o->kind != OBJ_SAVE_FIND) { set_error(6); RET(0); return; }
+    if (!save_next(o, ARG(1))) { set_error(18); RET(0); return; }
+    RET(1);
+}
+FFG(00356611) {         /* XFindClose(handle) */
+    UNUSED;
+    hulk_obj* o = ff_obj(ARG(0));
+    if (o && o->kind == OBJ_SAVE_FIND) o->kind = 0;
+    RET(1);
+}
 FFG(00355ab5) { UNUSED; RET(INVALID_HANDLE); }                                  /* XFindFirstSoundtrack: none */
 FFG(00355791) { UNUSED; RET(0); }                                               /* XFindNextSoundtrack */
