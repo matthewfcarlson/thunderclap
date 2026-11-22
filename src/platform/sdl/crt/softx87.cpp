@@ -113,51 +113,69 @@ F fmul(const F& a, const F& b) {
     return r;
 }
 
-// a / b
+// a / b: the 128-bit truncated quotient floor(A * 2^128 / B) (A, B the mantissas, A < B after the halving), by long
+// division in 32-bit digits (Knuth's algorithm D; B's top bit is set, so it needs no normalising shift)
 F fdiv(const F& a, const F& b) {
     int s = a.s ^ b.s;
     if (fzero(a)) return fzeroval(s);
     int e = a.e - b.e;
     u64 rh = a.hi, rl = a.lo;
-    // A >= B: halve A so that A < B
     if (rh > b.hi || (rh == b.hi && rl >= b.lo)) {
         shr128(rh, rl, 1);
         e += 1;
     }
-    u64 qh = 0, ql = 0;
-    for (int i = 0; i < 128; i++) {
-        u64 carry = rh >> 63;
-        rh = (rh << 1) | (rl >> 63);
-        rl <<= 1;
-        qh = (qh << 1) | (ql >> 63);
-        ql <<= 1;
-        if (carry || rh > b.hi || (rh == b.hi && rl >= b.lo)) {
-            u64 nl = rl - b.lo;
-            u64 borrow = rl < b.lo;
-            rh = rh - b.hi - borrow;
-            rl = nl;
-            ql |= 1;
+    u32 u[9] = {0, 0, 0, 0, (u32)rl, (u32)(rl >> 32), (u32)rh, (u32)(rh >> 32), 0};
+    const u32 v[4] = {(u32)b.lo, (u32)(b.lo >> 32), (u32)b.hi, (u32)(b.hi >> 32)};
+    u32 q[4];
+    for (int j = 3; j >= 0; j--) {
+        u64 num = ((u64)u[j + 4] << 32) | u[j + 3];
+        u64 qhat = num / v[3], rhat = num - qhat * v[3];
+        while (qhat >> 32 || qhat * v[2] > ((rhat << 32) | u[j + 2])) {
+            qhat--;
+            rhat += v[3];
+            if (rhat >> 32) break;
         }
+        long long borrow = 0;
+        u64 carry = 0;
+        for (int i = 0; i < 4; i++) {
+            u64 p = qhat * v[i] + carry;
+            carry = p >> 32;
+            long long t = (long long)u[i + j] - (long long)(u32)p + borrow;
+            u[i + j] = (u32)t;
+            borrow = t >> 32;
+        }
+        long long t = (long long)u[j + 4] - (long long)carry + borrow;
+        u[j + 4] = (u32)t;
+        if (t < 0) {            // qhat was one too large: add B back
+            qhat--;
+            u64 c = 0;
+            for (int i = 0; i < 4; i++) {
+                u64 sum = (u64)u[i + j] + v[i] + c;
+                u[i + j] = (u32)sum;
+                c = sum >> 32;
+            }
+            u[j + 4] += (u32)c;
+        }
+        q[j] = (u32)qhat;
     }
-    F r = fmake(s, e, qh, ql);
+    F r = fmake(s, e, ((u64)q[3] << 32) | q[2], ((u64)q[1] << 32) | q[0]);
     fnorm(r);
     return r;
 }
 
-// a / d for a small positive integer d (< 65536)
+// a / d for a small positive integer d (< 65536), in 32-bit digits
 F fdivu(const F& a, u32 d) {
     if (fzero(a)) return a;
-    u32 rem = 0;
+    u64 rem = 0;
     u64 w[2] = {a.hi, a.lo};
     for (int k = 0; k < 2; k++) {
-        u64 q = 0;
-        for (int sh = 48; sh >= 0; sh -= 16) {
-            u32 cur = (rem << 16) | (u32)((w[k] >> sh) & 0xffff);
-            u32 qd = cur / d;
-            rem = cur - qd * d;
-            q = (q << 16) | qd;
-        }
-        w[k] = q;
+        u64 cur = (rem << 32) | (w[k] >> 32);
+        u64 q1 = cur / d;
+        rem = cur - q1 * d;
+        cur = (rem << 32) | (u32)w[k];
+        u64 q0 = cur / d;
+        rem = cur - q0 * d;
+        w[k] = (q1 << 32) | q0;
     }
     F r = fmake(a.s, a.e, w[0], w[1]);
     fnorm(r);

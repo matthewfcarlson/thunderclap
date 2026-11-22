@@ -2788,3 +2788,18 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   (one 60 Hz field of virtual clock). Free play adds the second field when 0x005554a0 is clear (gameplay), so game time
   matches the 30 fps pacing.
 - play3 records stay byte-identical with Metal drawing: the graphics path changes nothing the game reads.
+
+## 2026-11-22 wasm15: softx87's divisions by long division in 32-bit digits (same quotients, faster)
+
+- softx87's `fdiv` (128-bit mantissa quotient, truncated) did a bit-at-a-time restoring division (128 steps); it now
+  divides in 32-bit digits (Knuth's algorithm D: the divisor's top bit is already set, so no normalising shift). The
+  quotient is floor(A * 2^128 / B) either way, so every result is the same: 30M random operand pairs gave identical
+  results against the old code. `fdivu` (division by a small integer in the series) takes 32-bit digits instead of
+  16-bit ones (2 divisions per word instead of 4).
+- The Wine image carries softx87 (fyl2x's log10 and the 64-bit builds' x87ext): pair 111481 (control, HEAD
+  a34b4362c) / 111483 (proof) on studio, play3 to 60,000, ckpt_gate GATE ok (ref: ok), the image differing only in
+  hulk-strict.exe. (The first control, 111480, never started: pinned to the laptop with needs `wine`, which the
+  laptop doesn't offer; it has only `wine-gfx`.)
+- wasm (compiled, wasm2c): play3's records byte-identical through 12,000 frames; first 12,000 frames on studio 21.1 ->
+  18.1 s. A wasm2c microbenchmark of softx87 (emcc -O1, clang -O2): sin 0.60 -> 0.42 us, acos 2.0 -> 0.63 us, atan2
+  1.1 -> 0.47 us, fsqrt 1.2 -> 0.24 us.

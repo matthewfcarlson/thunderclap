@@ -291,6 +291,9 @@ side holds (GPU objects, the window, the audio device) is derived from linear me
   indirect-call dispatch lead the profile. Snapshot /
   restore of the 26.5 MB state: 0.68 / 0.62 ms. The four TUs of `tools/wine_opt_exclude.txt` are optimised on wasm too
   (`HULK_WASM_OPT_EXCLUDE=FILE` keeps a list at -O0): with them at -O1, play3's records stay byte-identical.
+- 2026-11-22 (wasm15, speed): softx87's `fdiv`/`fdivu` divide in 32-bit digits (Knuth's algorithm D) instead of
+  bit by bit, with the same quotients: play3's first 12,000 frames 21.1 -> 18.1 s on studio, records byte-identical
+  (Wine pair 111481/111483, GATE ok).
 
 - 2026-11-22 (wasm14, -O1 vs -O0): **locals start as zeros** (`-ftrivial-auto-var-init=zero` in the front end;
   `HULK_WASM_ZEROINIT=0` turns it off). This is a deliberate difference from the Xbox, where an uninitialised local
