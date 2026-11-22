@@ -414,6 +414,11 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   Wine-build data probes use the map's `_DAT_xxx` address (HULK_TRACE_WATCH=<that>+off), not the XBE address. A block
   whose code is `mov eax,ecx; mov ecx,[eax+4]; jmp [eax+8]` (CallbackHolder/Int/Float::vfunc_0) forwards the caller's
   arguments: wasm_port.py writes its entry from the XBE (`forwarders()`); the 64-bit builds need the same (wasm6).
+  wasm_port.py compiles the snapshot's sources (`HULK_WASM_SNAP`), not the checkout: test a source fix in a private
+  snapshot copy or with fresh wasm_inputs. `HULK_WASM_DEBUG_VOIDRET=1` lists the void blocks that integer-result indirect
+  calls reach in a run (the HULK_PORT_ABI candidates; tools/eaxscan.py for direct calls). wasm_port applies the native
+  float passes plus retfix64 (`HULK_WASM_FPFIX=0` turns them off): without retfix64, impulse ULPs desync play3 at 751.
+  Wine-build probes need `--gfx` (else rc 4); `HULK_TRACE_SPAN` slot 0 is ecx (wasm7).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
