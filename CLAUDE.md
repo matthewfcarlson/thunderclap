@@ -479,6 +479,13 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   play3; each listed block whose caller uses the value takes a `hulk_eaxptr` return. `wasm_port.py compile --only` keeps
   compile.json's old `sigs`: check a HULK_PORT_ABI change in the IR or by a replay. A Wine dump/probe job after an
   include/gen edit rebuilds the binding map (~30 min instead of ~2) (wasmq3).
+  Movies (wmov1, D231): PlayerBink 0x333de0 presents a movie frame only when BinkCopyToBufferRect returns 0; app free
+  play answers 0, replays/headless/null answer 1, so netplay peers must all run free-play mode. Picture and sound come
+  from the runner (run/app/movie.c: the SDL movie.c with FFmpeg dlopened from the user's install, bytes read straight
+  from the RCF archives); bink_null.c stays the only model the game reads. Holding B/F 1 s skips any movie (virtual
+  clock, pad 0, `hulk_game_state`); `hulk_app_movie_playing()` marks movie frames (never interpolated). The pddi front
+  end's clear before begin-frame went to bgfx view 1 (after view 0's draws): fixed under HULK_PDDI_WASM only; the Wine
+  and native builds keep it (and black movies) until a Wine pair.
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
