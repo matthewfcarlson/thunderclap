@@ -348,6 +348,8 @@ static void ckref_frame(u32 fno, const HulkCkptState* st, const unsigned char* p
     unsigned mask = HULK_PROBE_CHEAP_MASK | (fno % HULK_PROBE_FULL_EVERY == 0 ? HULK_PROBE_FULL_MASK : 0);
     HulkProbeRecord rec;
     int dumping = dump_on && fno >= dump_from && fno <= dump_to;
+    if (dumping)   /* a dump window probes every tag at every frame (the Wine host's replay_hooks does the same for its dumps) */
+        mask |= HULK_PROBE_FULL_MASK;
     hulk_probe_frame(fno, &in, mask, &rec, dumping ? ckref_dump : 0, 0);
     rec.mask |= 1u << HULK_PT_LEGACY;
     rec.exact[HULK_PT_LEGACY] = rec.quant[HULK_PT_LEGACY] = hulk_ckpt_hash(fno, st);

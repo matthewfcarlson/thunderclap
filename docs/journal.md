@@ -2672,3 +2672,17 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   not a cause. The port builds zero those words under HULK_PORT_ABI. wasm play3: 870 -> 2010 (actors), 60,000
   frames in 98 s. The wasm and Wine heaps lay out the same spawn differently (agent - actor 0x27f0 vs 0x3f80):
   further uninitialized reads can surface the same way.
+- (wasm10, 11-22) **wasm play3 2010 actors: a leaked CPathAgent's CMoveAgent, not an uninitialised word.** The
+  soldier spawned in 2005 moves in 2006 on the reference and in Wine because its CPathGraphAgent (0x00105f50) gets back
+  the very 0xf4 block of the soldier killed in 1997, whose stale +0x5d (path ready = 1) and waypoint the constructor
+  leaves in place (Wine 111442, span of the constructor's block). On wasm the game heap (heap 0xc) differed from frame
+  513: a CPathAgent's `??_G` 0x00105e30 was still the pre-D114 `CPathAgent::~CPathAgent() {}` (iso TU), and the port
+  builds bound its destructor call to that empty definition instead of the body 0x00105060, so the agent never released
+  its CMoveAgent (+0x60), which kept the CCharacterGolem (refcount 1 of 9): both leaked (Wine 111444/111446/111448:
+  heap sequences, golem and move agent AddRef/Release). Fix: the explicit `??_G` (D114 form); wasm9's zeroing of the
+  constructor's words under HULK_PORT_ABI (edaa58140) is reverted: it masked this leak at 858 and is wrong at 2005.
+  wasm play3: first divergence 2010 actors -> 2313 particle (actors ok to 3780; camera 5875, rng 8195), then an unbound
+  0x0035618d trap at 8640. Fifteen more `??_G` blocks are still in the empty `X::~X() {}` form while the original
+  calls a body by address (same leak class on the port builds; listed in build/wasm10/RESUME.md). On the Xbox the
+  pddi d3d objects and texture staging buffers came from the game heap too (operator new 0x0008d690 in XBE code,
+  e.g. 0x00326900 +0xcc); only XDK resource memory did not, and the wasm shim already takes that from the host.
