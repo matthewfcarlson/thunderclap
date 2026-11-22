@@ -16,9 +16,10 @@ the checkout the tools run in.
 
 `bundle` wraps hulk-app as an .app (Contents/MacOS/hulk-app, Info.plist). Not signed or notarised, and never
 published: it is built from the player's own game (D190; public binaries need the maintainer's check first). At start
-the app takes the game from HULK_XBE / HULK_DATA_DIR, else from ~/Library/Application Support/HulkUD/disc (the
-extracted disc: default.xbe and its files), and keeps saves in ~/Library/Application Support/HulkUD/save
-(src/platform/wasm/run/app/app.cpp)."""
+the app takes the game from the command line (HULK_XBE / HULK_DATA_DIR), else the disc remembered in
+~/Library/Application Support/HulkUD/game.txt, else .../HulkUD/disc, else it asks the player to choose the extracted
+disc (default.xbe and its files) and remembers it; saves go to .../HulkUD/save (src/platform/wasm/run/app/start.cpp;
+docs/wasm-port.md "First launch")."""
 import argparse
 import hashlib
 import json
@@ -52,22 +53,24 @@ def run(cmd, e):
 
 
 def cmd_sdl(a):
-    """SDL3 with video (Cocoa, Metal views) for the app: tools/wine_sdl.py build_host's configuration otherwise."""
-    bd = os.path.join(SDL_VIDEO, "cmake")
+    """SDL3 with video (Cocoa, Metal views) for the app: tools/wine_sdl.py build_host's configuration otherwise. The
+    dialog subsystem is on: the first-launch game chooser (NSOpenPanel; run/app/start.cpp)."""
+    out = os.path.abspath(a.out)
+    bd = os.path.join(out, "cmake")
     os.makedirs(bd, exist_ok=True)
     cfg = ["cmake", "-S", os.path.join(TP, "src/SDL"), "-B", bd, "-G", "Ninja", "-DCMAKE_BUILD_TYPE=Release",
            "-DCMAKE_OSX_ARCHITECTURES=arm64", "-DCMAKE_OSX_DEPLOYMENT_TARGET=11.0", "-DCMAKE_C_COMPILER=/usr/bin/clang",
-           "-DCMAKE_INSTALL_PREFIX=" + SDL_VIDEO, "-DSDL_SHARED=OFF", "-DSDL_STATIC=ON", "-DSDL_TEST_LIBRARY=OFF",
+           "-DCMAKE_INSTALL_PREFIX=" + out, "-DSDL_SHARED=OFF", "-DSDL_STATIC=ON", "-DSDL_TEST_LIBRARY=OFF",
            "-DSDL_TESTS=OFF", "-DSDL_EXAMPLES=OFF", "-DSDL_VIDEO=ON", "-DSDL_OPENGL=OFF", "-DSDL_OPENGLES=OFF",
-           "-DSDL_VULKAN=OFF", "-DSDL_GPU=OFF", "-DSDL_RENDER=OFF", "-DSDL_CAMERA=OFF", "-DSDL_DIALOG=OFF",
+           "-DSDL_VULKAN=OFF", "-DSDL_GPU=OFF", "-DSDL_RENDER=OFF", "-DSDL_CAMERA=OFF", "-DSDL_DIALOG=ON",
            "-DSDL_TRAY=OFF", "-DSDL_POWER=OFF", "-DSDL_SENSOR=ON", "-DSDL_AUDIO=ON", "-DSDL_JOYSTICK=ON",
            "-DSDL_HAPTIC=ON", "-DSDL_HIDAPI=ON"]
-    with open(os.path.join(SDL_VIDEO, "build.log"), "w") as f:
+    with open(os.path.join(out, "build.log"), "w") as f:
         for cmd in (cfg, ["cmake", "--build", bd, "-j", str(a.jobs)], ["cmake", "--install", bd]):
             if subprocess.run(cmd, stdout=f, stderr=subprocess.STDOUT).returncode:
-                raise SystemExit("SDL3 (video) failed at %s (log %s/build.log)" % (cmd[1], SDL_VIDEO))
+                raise SystemExit("SDL3 (video) failed at %s (log %s/build.log)" % (cmd[1], out))
     shutil.rmtree(bd, ignore_errors=True)       # (the install is what the app links)
-    print("sdl: %s" % os.path.join(SDL_VIDEO, "lib/libSDL3.a"))
+    print("sdl: %s" % os.path.join(out, "lib/libSDL3.a"))
 
 
 # what the tree objects of a build directory depend on besides the hooked TUs (wasm_port.py's inputs and knobs)
@@ -156,7 +159,8 @@ def cmd_bundle(a):
             "LSApplicationCategoryType": "public.app-category.action-games"}
     with open(os.path.join(app, "Contents/Info.plist"), "wb") as f:
         plistlib.dump(info, f)
-    print("bundle: %s (unsigned; data: ~/Library/Application Support/HulkUD/disc)" % os.path.relpath(app, ROOT))
+    print("bundle: %s (unsigned; the game: chosen at first launch, or ~/Library/Application Support/HulkUD/disc)"
+          % os.path.relpath(app, ROOT))
 
 
 def main(argv=None):
@@ -164,6 +168,7 @@ def main(argv=None):
     sp = ap.add_subparsers(dest="cmd", required=True)
     c = sp.add_parser("sdl")
     c.add_argument("--jobs", type=int, default=2)
+    c.add_argument("--out", default=SDL_VIDEO, help="install prefix (the app links HULK_APP_SDL, default %(default)s)")
     c = sp.add_parser("build")
     c.add_argument("--jobs", type=int, default=2)
     c.add_argument("--all", action="store_true", help="compile every TU (after an inputs change)")

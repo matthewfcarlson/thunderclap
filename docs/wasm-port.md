@@ -281,10 +281,23 @@ side holds (GPU objects, the window, the audio device) is derived from linear me
 - **Build.** `tools/wasm_app.py sdl` (SDL3 with video, build/third_party/out/sdl-video), `wasm_app.py build`
   (`HULK_WASM_GFX=1` in its own `HULK_WASM_DIR`, default build/wasm-app: `wasm_port.py compile`, `wasm_gfx.py
   compile`, `wasm_port.py link`, `aot --app`), `wasm_app.py bundle` (build/app/Hulk.app: not signed or notarised;
-  nothing built from the game is published or committed). Started from Finder the app reads the extracted disc from
-  ~/Library/Application Support/HulkUD/disc and keeps saves in .../HulkUD/save; `hulk-app default.xbe` (with
-  `HULK_DATA_DIR`) as the other runners. Input: SDL3 gamepads and the keyboard as pad 0, merged when a gamepad is
+  nothing built from the game is published or committed). Saves go to ~/Library/Application Support/HulkUD/save;
+  where the game is: "First launch" below. Input: SDL3 gamepads and the keyboard as pad 0, merged when a gamepad is
   there (docs/native-play.md's map; `HULK_KEY_SCRIPT` holds keys for unattended runs).
+- **First launch** (wui1; run/app/start.cpp). The game is the player's own extracted disc (default.xbe and the .rcf
+  archives). In order: the command line (`hulk-app <disc>/default.xbe` or `HULK_XBE`, with `HULK_DATA_DIR`, default
+  the XBE's folder; `HULK_DATA_DIR` alone means its default.xbe); the remembered choice (`<app dir>/game.txt`, one
+  line: the disc folder); `<app dir>/disc` (a disc copied there by hand); else a chooser: an alert ("Hulk needs your
+  own copy of the game: choose the extracted disc folder or its default.xbe"; Choose Folder... / Choose
+  default.xbe... / Quit) and the system's open panel (SDL3's file dialog, NSOpenPanel; `wasm_app.py sdl` builds SDL
+  with `SDL_DIALOG=ON`). The choice is checked against the player's own files at run time: an XBE header whose
+  certificate carries the game's title ID (0x56550039), and every archive the disc's rcfs.txt lists; a bad choice
+  says why (no default.xbe, another game, missing archives) and asks again. A good one is remembered, so later
+  launches start directly. To choose again: hold Option while the app starts, or `open Hulk.app --args
+  --choose-game` (`hulk-app --choose-game`). A disc image (.iso) is not read: the alert says to extract it first.
+  `<app dir>` is `HULK_APP_DIR`, default ~/Library/Application Support/HulkUD (tests use their own). Runs that must not
+  prompt never show the chooser: anything given on the command line, and with no game found `HULK_NO_UI=1` or a scripted
+  run (`HULK_INPUT`, `HULK_KEY_SCRIPT`, `HULK_INPUT_SOURCE`, `HULK_CKPT`) exits 2 with the reason.
 - **Building from a clean state** (wapp2): inputs at the commit being built (`tools/wasm_inputs.py submit`, then
   `fetch ID`), then `HULK_WASM_SNAP=.../snap HULK_WASM_BINDINGS=.../bindings.json tools/wasm_app.py build --jobs 2`
   (every TU on a first build: about 8 minutes on 2 local jobs) and `wasm_app.py bundle`. The build directory records

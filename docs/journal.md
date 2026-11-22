@@ -3041,3 +3041,20 @@ draws gives in-between frames with no tree change and no path back into the game
 - **Game hashes don't compare across app builds any more**: the settings' menu handlers are module data whose address
   the game's NamedValueInt objects hold, so two builds differ from frame ~10; compare settings within one build
   (`HULK_DRAWDIST_FORCE` compares the hook alone with identical menus).
+
+## 2026-11-22 wui1: the app finds the game on first launch
+
+- The app no longer needs a terminal or a hand-copied disc: started with nothing on the command line and nothing
+  remembered, it shows an alert ("Hulk needs your own copy of the game: choose the extracted disc folder or its
+  default.xbe"; Choose Folder... / Choose default.xbe... / Quit) and the system's open panel (SDL3's file dialog over
+  NSOpenPanel; `wasm_app.py sdl` now builds SDL with `SDL_DIALOG=ON`). run/app/start.cpp, docs/wasm-port.md
+  "First launch".
+- The check reads the player's file at run time: "XBEH", the certificate's title ID (0x56550039), and every archive
+  the disc's own rcfs.txt lists. A wrong pick says why (no default.xbe, another game's title ID, the missing archives)
+  and asks again. The choice is kept in ~/Library/Application Support/HulkUD/game.txt; Option held at launch or
+  `--choose-game` asks again. The command line keeps priority and scripted runs (HULK_NO_UI, HULK_INPUT,
+  HULK_KEY_SCRIPT, HULK_INPUT_SOURCE, HULK_CKPT) never prompt.
+- Testing note: with no window SDL runs NSAlert / NSOpenPanel `runModal`, so the dialog's callback has run when the
+  call returns. A locked screen leaves the alert up with no way to click it from a shell (System Events sees no
+  windows; screencapture fails): the flow was driven through start.cpp with SDL's entry points mocked (9 cases), and
+  the real alert seen in `sample` (NSAlert runModal).

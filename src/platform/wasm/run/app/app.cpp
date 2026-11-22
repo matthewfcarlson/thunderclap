@@ -34,36 +34,7 @@ extern "C" void hulk_app_movie_overlay(unsigned ww, unsigned wh);   // run/app/m
 static uint8_t* M(u32 a) { return a ? hulk_run_memory() + a : nullptr; }
 template <class T> static T* MT(u32 a) { return reinterpret_cast<T*>(M(a)); }
 
-// ------------------------------------------------------------------------------------------- start-up options
-// HULK_GFX_RENDERER: metal (the app's default) | noop | null (the game's own d3d layer on the null device: the
-// headless build's run, for the replay check). The game: argv[1] or HULK_XBE, its disc HULK_DATA_DIR; started from
-// Finder with neither, the extracted disc in ~/Library/Application Support/HulkUD/disc and saves next to it (save/).
-extern "C" void hulk_app_start(int argc, char** argv)
-{
-    (void)argv;
-    setenv("HULK_GFX_RENDERER", "metal", 0);
-    const char* home = getenv("HOME");
-    if (argc > 1 || getenv("HULK_XBE") || !home)
-        return;
-    char dir[1024], path[1100];
-    snprintf(dir, sizeof dir, "%s/Library/Application Support/HulkUD", home);
-    snprintf(path, sizeof path, "%s/disc/default.xbe", dir);
-    setenv("HULK_XBE", path, 0);
-    snprintf(path, sizeof path, "%s/disc", dir);
-    setenv("HULK_DATA_DIR", path, 0);
-    snprintf(path, sizeof path, "%s/save", dir);
-    mkdir(dir, 0755);
-    mkdir(path, 0755);
-    setenv("HULK_SAVE_DIR", path, 0);
-    if (access(getenv("HULK_XBE"), R_OK)) {
-        fprintf(stderr, "hulk-app: no game: put the extracted disc (default.xbe and its files) in %s/disc\n", dir);
-        if (!isatty(2))        // (started from Finder: say it in a window)
-            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Hulk UD",
-                                     "No game found: put your extracted disc (default.xbe and its files) in "
-                                     "~/Library/Application Support/HulkUD/disc", nullptr);
-        exit(2);
-    }
-}
+// (start-up options and the game's location: start.cpp)
 
 // ------------------------------------------------------------------------------------------- bgfx's callbacks
 static void cbLog(const char* text) { fputs(text, stderr); }

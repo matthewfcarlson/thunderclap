@@ -26,7 +26,7 @@ static uint8_t* mem(u32 a) { return g.w2c_memory.data + a; }
 uint8_t* hulk_run_memory(void) { return g.w2c_memory.data; }     /* (the app's imports: run/app/app.cpp) */
 uint64_t hulk_run_memory_size(void) { return g.w2c_memory.size; }
 #ifdef HULK_APP
-void hulk_app_start(int argc, char** argv);     /* run/app/app.cpp: the app's defaults, before the module's env */
+void hulk_app_start(int* argc, char** argv);    /* run/app/start.cpp: the app's defaults and the game, before the module's env */
 #endif
 static const char* cstr(u32 a) { return (const char*)mem(a); }
 static void put32(u32 a, u32 v) { memcpy(mem(a), &v, 4); }
@@ -169,10 +169,10 @@ void W(proc_exit)(wasi* w, u32 code) {
 
 int main(int argc, char** argv) {
     struct w2c_hulk host = {0};
-    wasi wa = {argc, argv};
 #ifdef HULK_APP
-    hulk_app_start(argc, argv);
+    hulk_app_start(&argc, argv);    /* (may take `--choose-game` off argv) */
 #endif
+    wasi wa = {argc, argv};
     argv[0] = "hulk";
     pick_env();
     wasm_rt_init();
