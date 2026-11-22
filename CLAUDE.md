@@ -2,7 +2,8 @@
 
 Decompilation of The Incredible Hulk: Ultimate Destruction (Xbox, 2005) aimed at a native port (supported targets: x86-64 SteamOS,
 arm64 macOS and arm64 Android handhelds; Windows is not a target). Every game function has verified source in the merged tree:
-byte-matched or proven equivalent. Current work is the 64-bit native builds. Read `README.md` for status and `docs/roadmap.md`
+byte-matched or proven equivalent. Current work is the wasm32 port and its macOS app (wasm2c); the 64-bit native builds are
+shelved (user, D221, 2026-11-22; build/lead/native-parked.md). Read `README.md` for status and `docs/roadmap.md`
 for the plan. Run everything from the repo root with `build/venv/bin/python`.
 
 ## Layout
@@ -377,7 +378,11 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   The shared generated inputs (build/data, build/third_party/out, the sdl/movies libs) are rebuilt only from HEAD, and
   input_guard hashes the working copy's sources: long-running uncommitted edits to sources of a shared input (the SDL
   layer, pddi) make it stale for every lane. Keep such work in build/<agent>/ with private inputs until it lands (gfx1).
-- **Native builds**: `tools/native_mac.py` / `tools/native_elf.py` (`docs/native-build.md`, `docs/native-mac.md`,
+- **Native builds** (shelved, D221: nat3's last pass 0bd1ee785 stopped in frame 0's front-end loads; no native lanes
+  unless the user restarts them. A C++ name the Wine map binds by position can stand for different addresses at
+  different call sites (LoadStream::Init 0x2640f0 / 0x263f50): natively it stays unbound, so write each call's address
+  name. Script invokes whose source copied another instantiation's argument types match on 32-bit but pass the wrong
+  registers natively: give them a `HULK_PTR64` branch (build/nat3/scripts/invgen.py) (nat3)): `tools/native_mac.py` / `tools/native_elf.py` (`docs/native-build.md`, `docs/native-mac.md`,
   `docs/native-android.md`). The link refuses a compile report with a failed tree or data TU (`--allow-compile-failures`
   only for diagnosis). The unbound names (~22k per target) are fixed in source by root cause, never by a link-time redirect
   of local vftables to the game's: `docs/native-unbound-plan.md`. `docs/native-build.md` is the shared log of native
