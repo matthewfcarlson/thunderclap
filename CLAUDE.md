@@ -297,7 +297,8 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   with D161 (a9daeead1), and treat `not checked` as a failure (ckpt1). Commit messages name the control, the proof and the gate result. No pair is needed when the Wine image cannot
   change: every block of every touched TU keeps its MSVC and clang code hashes (`tree_tu.py check`/verify), and the change
   touches no data inventory, data TU, SDL/pddi layer, Wine link tool or contract macro; the commit message names the verify
-  and x64 gate jobs that show it (user, D183, 2026-11-21; gfx7 C16/C17, confirmed by pair 110761/110858). Pin control and
+  and x64 gate jobs that show it (user, D183, 2026-11-21; gfx7 C16/C17, confirmed by pair 110761/110858). A wine_build_job pinned `--host local` with `--replay`
+  needs `wine`, which the laptop lacks (only `wine-gfx`): it sits queued forever, so pin pairs to a remote host (wasm15b). Pin control and
   proof to one host, and don't run your own 1-slot jobs while your 8-slot proof is queued (they count against your share).
 - **64-bit gate**: a change may not make a block newly differ in layout, ptrtrunc or crash64 under `equiv.py --x64`
   (`tools/x64_gate.py`, `docs/equivalence.md` "64-bit gate"); `config/x64-baseline.json` lists the known ones. Run
@@ -456,6 +457,9 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   `HULK_KEY_SCRIPT` (wall clock), with the same save directory paths; `HULK_ROLLTEST=A:B` checks a snapshot/restore round
   trip. With Metal, the game hash includes pddi front-end pointers into the module's malloc heap, which host history
   moves (waud1).
+  Time wasm builds by the image's own frame clock (`hulk: frame N (... X s in all)` in stdout.txt), not native_replay's
+  wall time (it stops ~1 s after the target), on an idle queue host (build/wasm15/tj/submit.sh). Game back end -O2 and
+  host x87.cpp -O3 give the same records but no speed; softx87 natively is only ~20% faster than through wasm2c (wasm15b).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
