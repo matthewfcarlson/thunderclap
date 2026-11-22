@@ -89,7 +89,7 @@ HOST_CFLAGS = ["-O1", "-Wall", "-Wextra", "-Werror"]
 # host C++ (replay.cpp: the SDL layer's replay reader and checkpoint probe, compiled for the wasm host)
 HOST_CXXFLAGS = ["-O1", "-std=c++17", "-fno-exceptions", "-fno-rtti", "-Wall", "-Wextra", "-Werror", "-Wno-unused-function",
                  "-Wno-missing-field-initializers"]
-VERSION = "wasm3-3"          # bump when bind_tu() changes (object cache key)
+VERSION = "wasm3-4"          # bump when bind_tu() changes (object cache key)
 SYNTH = 0xF0000000
 
 # library code inside .text (tools/platform_map.py) and the library sections after it
@@ -483,6 +483,25 @@ def adjustors(img):
     return out
 
 
+# A member-function-pointer forwarder (CallbackHolder<T>, CallbackHolderInt<T>, CallbackHolderFloat<T>::vfunc_0, 8 bytes:
+# `mov eax, ecx; mov ecx, [eax+4]; jmp [eax+8]`) passes the caller's stack arguments on to (object->*fn) untouched; its
+# source (`(mObject->*fn)()`) is one stand-in for the three, so the int and float holders lose their argument (the
+# front end's camera-invert selectors set both flags: play3's camera at frame 541). The link writes their entries
+# from the XBE's bytes instead: `this` becomes [this+4] and the call goes on to [this+8] with the caller's arguments
+# (wasm6).
+FORWARDER = bytes.fromhex("8bc18b4804ff6008")
+_FORWARDERS = None
+
+
+def forwarders():
+    """{addr} of the blocks whose code is a member-function-pointer forwarder (FORWARDER), from the XBE's bytes."""
+    global _FORWARDERS
+    if _FORWARDERS is None:
+        img = Image()
+        _FORWARDERS = {a for a in block_syms() if img.read(a, 8) == FORWARDER}
+    return _FORWARDERS
+
+
 # ---------------------------------------------------------------------------------------------- devirtualized calls
 # A direct call clang made to a virtual method cl 7.1 calls through the vftable: clang devirtualizes a call on an
 # object whose type it knows (a member object, `drive->b.v0()`), cl doesn't, and the object's real class is one the
@@ -599,8 +618,9 @@ def load_tu(tu, addrs, notes=None):
     m = binding_map()["definitions"]
     pins = block_syms()
     # (an adjustor thunk's block is a stand-in that makes cl emit the thunk; the link writes its entry: adjustors())
+    fw = forwarders()
     defmap = {a: pins.get(a) or m.get("0x%08x" % a) for a in addrs
-              if (pins.get(a) or "0x%08x" % a in m) and not ADJUSTOR.search(pins.get(a) or "")}
+              if (pins.get(a) or "0x%08x" % a in m) and not ADJUSTOR.search(pins.get(a) or "") and a not in fw}
     alt = {a: m["0x%08x" % a] for a in addrs if "0x%08x" % a in m and m["0x%08x" % a] != defmap.get(a)}
     mains, same = tu_mains(tu, ir, defmap, alt)
     found = set(mains.values()) | set(same)
@@ -1392,7 +1412,8 @@ def cmd_link(a):
     entries = set(x for x in defined | host_defs if re.fullmatch(r"ffg_[0-9a-f]{8}", x))
     for x in sorted(undefined):
         m = re.fullmatch(r"(ffg?)_([0-9a-f]{8})", x)
-        if not m or x in host_defs or (m.group(1) == "ffg" and int(m.group(2), 16) in adj):
+        if not m or x in host_defs or (m.group(1) == "ffg" and int(m.group(2), 16) in adj) or \
+                (m.group(1) == "ffg" and int(m.group(2), 16) in forwarders()):
             continue
         ad = int(m.group(2), 16)
         t = thunk_target(img, ad)
@@ -1427,6 +1448,16 @@ def cmd_link(a):
         c.append("void %s(uint32_t ecx, uint32_t edx, void* st, void* rb) { ff_dispatch(0x%08x, ecx - %d, edx, st, rb); }"
                  % (x, t, n))
         thunks[x] = t
+        entries.add(x)
+    # member-function-pointer forwarders: `this` becomes [this+4], the call goes on to [this+8] (FORWARDER)
+    for ad in sorted(forwarders()):
+        x = "ffg_%08x" % ad
+        if x in defined | host_defs:
+            continue
+        stubs.pop(x, None)
+        c.append("void %s(uint32_t ecx, uint32_t edx, void* st, void* rb) { ff_dispatch(*(uint32_t*)(uintptr_t)(ecx + 8), "
+                 "*(uint32_t*)(uintptr_t)(ecx + 4), edx, st, rb); }" % x)
+        thunks[x] = 0
         entries.add(x)
     # jmp thunks reached only as addresses (vftable slots) get dispatch entries too
     for ad, (nm_, thunk) in sorted(names.items()):

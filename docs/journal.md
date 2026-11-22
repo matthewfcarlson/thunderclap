@@ -2587,3 +2587,19 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   (float drift; rng 542). All 60,000 frames in 37.9 s.
 - Native note: 0x003068a0 passes its third argument (the caller's int `field`) as `void*` to 0x00306790, which reads
   it as a float: fine on x86 and wasm stack slots, a register-class mismatch on arm64 / x86-64.
+
+## 2026-11-21 wasm6: member-function-pointer forwarders keep their argument on wasm (camera 541 -> rng 542)
+
+- play3's camera diverged at 541 (pitch): CChaseCamera's input (0x000a2100) negated the stick's y because
+  DAT_004dd83b (camera invert y) was 1 on wasm and 0 in the Wine build. The front end's camera-invert selectors
+  (0x000b5ad0 -> TextSelector slot 25 -> 0x000f8b90 Set(1) -> CallbackHolderInt::vfunc_0 0x000be220) reached the
+  option callbacks 0x000bbd80 / 0x000bbda0 with 0 instead of 1.
+- 0x000be1c0 / 0x000be1f0 / 0x000be220 (CallbackHolder, ...Float, ...Int <CFrontEndCallback>::vfunc_0) are one 8-byte
+  forwarder, `mov eax, ecx; mov ecx, [eax+4]; jmp [eax+8]`: the caller's stack argument goes on to (object->*fn)
+  untouched. The tree's source is one no-argument stand-in for the three (`(mObject->*fn)()`), so the int and
+  float holders drop their argument on every port. tools/wasm_port.py now writes the entries of blocks with those
+  bytes from the XBE (forwarders(): `this` becomes [this+4], dispatch to [this+8] with the caller's arguments).
+  The 64-bit builds have the same bug (the source passes nothing); they need their own fix.
+- Also tried, no effect at 541/542: the 64-bit float passes (castfix / fpcvt / x87ext with softx87 math) on the wasm
+  IR. Not landed (25% slower); parked in build/wasm6/parked.
+- wasm play3: first divergence 541 camera -> 542 rng (hulk x/z, camera x/z also at 542).
