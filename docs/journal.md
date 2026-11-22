@@ -2707,3 +2707,17 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   during the static initializers): kernel and host-method calls all go through ff_dispatch_miss, so a breakpoint
   there stops at init; break on ff_fatal instead. Scan used: every discarded `__RTDynamicCast` / `FUN_00344e74`
   statement in src/ against the original's next instructions (the other eight sites really discard it).
+
+- **wasm13 (2026-11-22): the wasm play3 actors divergence at 3810 is the CRT qsort's order of equal elements.**
+  The first field difference (f=3786, an NPC's x step) traces back through the LocomotionSteerDriver accumulator
+  (0x00228da0), the steer angle (LocomotionSteerAction 0x0015e7d0), the agent's desired direction (+0x2064, written
+  by CAvoidBehaviour::vfunc_4 0x00109c00 = normalize(w + 0.9 d + 0.1 c)) to d = RoutAction+0x1c (RoutAction::vfunc_5
+  0x00122520), which RoutAction's constructor 0x0011fef0 never writes: the original reads the heap block's stale bytes
+  (0xd, 0, -1.0), wasm read zeros because the block was another one. Heap 0xd's live sets (whole-run 0x266e00/0x267090
+  trace, Wine vs wasm) first differ at f=2733: the scenario event queue ItemQueue::FUN_001cbfe0 qsorts its items with
+  comparator 0x001cb3a0, which never returns 0 (`prio[a] > prio[b] ? -1 : 1`), so the order of equal-priority items
+  is whatever the CRT's qsort makes of it; the wasm host's qsort (wasi-libc) visits two type-0x1b items in the
+  reverse order of the Xbox's (Wine's msvcrt agrees with the Xbox), and the CScenarioParams / LuaAction blocks are
+  created and freed in another order from there. The native builds have the same difference (docs/native-mac.md
+  "Known differences left: qsort"). A fix needs a qsort with the Xbox CRT's order of equal elements (a clean-room
+  question for the lead). Aid landed: HULK_WATCH silences the wasm host's per-call lines (1b50f0dca).
