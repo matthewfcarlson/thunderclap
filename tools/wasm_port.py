@@ -53,14 +53,15 @@ CLANG = os.path.join(LLVM, "clang++")
 EMCC = os.environ.get("HULK_EMCC", "emcc")
 HOST_DIR = os.path.join(ROOT, "src/platform/wasm")
 
-# The game's code is clang -O0's by default (every function optnone); HULK_WASM_OPT=O1 optimises it (wasm3, D202: -O0
-# stays the default until -O1's game hash matches -O0's). With O1 the front end runs as -O1
+# The game's code is optimised by default (wasm14, D218: -O1 gives play3 checkpoint records byte-identical to -O0's
+# over all 60,000 frames); HULK_WASM_OPT=O0 builds it as clang -O0 emits it (every function optnone). With O1 the
+# front end runs as -O1
 # without LLVM's passes (no optnone; the IR keeps -O0's shape for bind_tu), the back end optimises. As the Wine
 # build's opt1 (tools/clang_probe.py): decompiled code's undefined behaviour stays as -O0 has it where a switch exists
 # (falling off a value-returning function, loops without side effects, library calls). The TUs the Wine build keeps
 # at -O0 (tools/wine_opt_exclude.txt: at -O1 they leave play3's checkpoints) stay -O0 here too.
 O0_FRONT = ["-O0"]
-OPT_FRONT = (O0_FRONT if os.environ.get("HULK_WASM_OPT", "O0") == "O0" else
+OPT_FRONT = (O0_FRONT if os.environ.get("HULK_WASM_OPT", "O1") == "O0" else
              ["-O1", "-Xclang", "-disable-llvm-passes", "-fno-strict-return", "-fno-finite-loops", "-fno-builtin"])
 OPT_EXCLUDE = os.environ.get("HULK_WASM_OPT_EXCLUDE") or os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                                                      "wine_opt_exclude.txt")

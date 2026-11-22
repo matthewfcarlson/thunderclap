@@ -190,6 +190,17 @@ the area has the x86 layout. The host's printf family reads a `va_list` as x86 s
 
 ## Status
 
+- 2026-11-22 (wasm14, speed; D218): **-O1 is the default** (`HULK_WASM_OPT=O0` for the old build). The profile of the
+  compiled -O1 build on play3 (macOS `sample`) had the arena allocator's first-fit scan from the arena base at about
+  30%, and softx87's transcendentals (trigImpl, atan2F and the fmul/fadd/fdiv under them) at about a third. Two host
+  changes, each giving byte-identical play3 checkpoint records: (1) `arena.c` keeps a hint, the lowest block that can
+  be free (`SIM->arena_hint`, game state like the rest of the allocator's). It is still first fit in address order,
+  so the addresses are the same. (2) `x87.cpp` puts a 4,096-entry direct-mapped table in front of each double-argument
+  transcendental (sin, cos, tan, atan, atan2, exp, log, log10, pow, asin, acos): the same argument bits give the
+  same result, and the tables are the host's, not game state. play3 to 60,000 frames, compiled: 70 s -> 43 s (arena)
+  -> 27 s (tables); about 5,700 update frames/s from frame 24,000 on, about 1,100 over the first 12,000. Snapshot /
+  restore of the 26.5 MB state: 0.68 / 0.62 ms.
+
 - 2026-11-22 (wasm14, -O1 vs -O0): **locals start as zeros** (`-ftrivial-auto-var-init=zero` in the front end;
   `HULK_WASM_ZEROINIT=0` turns it off). This is a deliberate difference from the Xbox, where an uninitialised local
   holds whatever the stack held. Game code copies uninitialised locals into heap records (4,096 0x40-byte records at
