@@ -462,8 +462,8 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   host x87.cpp -O3 give the same records but no speed; softx87 natively is only ~20% faster than through wasm2c (wasm15b).
   The app's 60 fps option (D224) is a game-menu item injected at run time: fe_options.c overlays misc.rcf with patched
   copies of the player's own frontend text (commit only the inserted item and its strings, never game text); entry hooks
-  0xdf9e0 / 0xf8e70 / 0xb5ad0 (`wasm_port.GFX_APP_HOOKS`) connect it. The game is variable-step: 60 fps changes only the
-  pacing (one virtual-clock field per present); no per-frame constants need scaling. The rate is per session
+  0xdf9e0 / 0xf8e70 / 0xb5ad0 (`wasm_port.GFX_APP_HOOKS`) connect it. The game is variable-step, but the display rate never
+  changes the step (D228a); no per-frame constants need scaling. The rate is per session
   (port_settings.txt; replays ignore it; netplay peers must share it). `HULK_INPUT` takes the left stick
   (`FROM-TO:BUTTONS/ANALOG/LX/LY`) (fps1).
   Game-facing state outside the image and arena goes in a snapshotted section: the tree's own globals (by wasm_port.py,
@@ -486,6 +486,11 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   clock, pad 0, `hulk_game_state`); `hulk_app_movie_playing()` marks movie frames (never interpolated). The pddi front
   end's clear before begin-frame went to bgfx view 1 (after view 0's draws): fixed under HULK_PDDI_WASM only; the Wine
   and native builds keep it (and black movies) until a Wine pair.
+  Display rates (D228a, fps2): the simulation always takes the original's fields; 60/120/Display re-draw each update's
+  recorded sink stream with lerped vertex constants in the runner (run/app/interp.cpp), so game state is identical at
+  any rate. Compare rates with `HULK_DISPLAY_FPS` (runner-only) and `HULK_HASH_EVERY=10`. A draw's identity never uses
+  the shader serial (a change serial). Pacing is the runner's (`plat_pace`); settings apply the rate with
+  `hulk_wasm_frame_rate_apply(30|60|120|0)`; nothing that draws may write module memory.
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
