@@ -2721,3 +2721,11 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   created and freed in another order from there. The native builds have the same difference (docs/native-mac.md
   "Known differences left: qsort"). A fix needs a qsort with the Xbox CRT's order of equal elements (a clean-room
   question for the lead). Aid landed: HULK_WATCH silences the wasm host's per-call lines (1b50f0dca).
+- (wasm14, 11-22) **Most of the wasm -O1 vs -O0 game-hash difference was stack garbage.** Game code copies uninitialised
+  locals into heap records (4,096 0x40-byte records at frame 1). At -O0 the garbage comes from the shadow stack and
+  shifts with frame sizes: making only 0x265210 -O1 (16 bytes less frame) shifted it by 16 bytes. The wasm front end
+  now zero-initialises locals (-ftrivial-auto-var-init=zero; play3 on -O0 keeps every tag's first divergence). The
+  rest was a source bug: the sprite constructor 0x2be440 passed 0x2bdaf0 a five-word rect, and 0x2bdaf0 reads six
+  (RectInts.i14, the original's spill of the column width at [esp+0x24]), so some sprite u values were 2.0 or 8.0.
+  With six words, -O0 and -O1 give the same game hash at frame 1 (D187 unproven-accept). Every build that compiles
+  0x2be440 read past the rect, the native builds included. On play3, -O1 still diverges at frame 672 (rng).

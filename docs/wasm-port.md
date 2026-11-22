@@ -190,6 +190,19 @@ the area has the x86 layout. The host's printf family reads a `va_list` as x86 s
 
 ## Status
 
+- 2026-11-22 (wasm14, -O1 vs -O0): **locals start as zeros** (`-ftrivial-auto-var-init=zero` in the front end;
+  `HULK_WASM_ZEROINIT=0` turns it off). This is a deliberate difference from the Xbox, where an uninitialised local
+  holds whatever the stack held. Game code copies uninitialised locals into heap records (4,096 0x40-byte records at
+  frame 1). At -O0 that garbage comes from the shadow stack and moves with every frame's size: making only LoadStream's
+  0x265210 -O1 (16 bytes less frame) shifted it by 16 bytes. At -O1 the locals are wasm locals and read 0. With zeros,
+  the -O0 and -O1 game hashes at frame 1 differ in 96 bytes instead of 262 KB, and the -O1 hash is unchanged. play3 on
+  -O0 keeps every tag's first divergence (actors 3810, camera 5875, rng 9484, ...). The 96 bytes were a source bug:
+  the sprite constructor 0x2be440 passed 0x2bdaf0 a five-word rect, and 0x2bdaf0 reads six words (u from +0x14, the
+  original's spill of the column width). With six words, -O0 and -O1 give the same game hash at frame 1, and some
+  sprite u values that were 2.0 or 8.0 are now below 1. Bisect tools: build/wasm14/scripts (a TU prefix search over
+  mixed links, and a per-function search that marks a TU's -O1 functions `optnone`). On play3, -O1 still diverges at
+  frame 672 (rng); its bisect is in progress. -O1 runs 1,715 update frames/s at the end of play3 against -O0's 1,212.
+
 - 2026-11-21 (wasm3, play3): `-O0` is the default build again (`HULK_WASM_OPT=O1` for the optimised one: its game hash
   differs from frame 1). play3 on the compiled build runs all 60,000 frames (about 2,000 update frames/s, 31 s) and
   matches the reference on every tag but sound* (an observable) to frame 445; the first divergence is the gameplay

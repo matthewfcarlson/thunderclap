@@ -71,7 +71,12 @@ FRONT_ = (["--target=i686-pc-windows-msvc", "-fms-extensions", "-fms-compatibili
           "-std=c++14", "@OPT@", "-S", "-emit-llvm", "-include", "compat/native.h", "-fno-strict-aliasing", "-fwrapv",
           "-fno-delete-null-pointer-checks"] + DIALECT
          + ["-msse2", "-mfpmath=sse", "-ffp-eval-method=double", "-ffp-contract=off", "-fcheck-new", "-fno-exceptions",
-            "-w", "-DHULK_WASM=1"])
+            "-w", "-DHULK_WASM=1"]
+         # (wasm14) every local starts as zeros: decompiled code that reads or copies an uninitialised local (stack
+         # garbage on the Xbox) gets the same bytes at -O0 (locals in the shadow stack, whose garbage moves with
+         # every frame's size) and -O1 (wasm locals). A deliberate difference from the console; HULK_WASM_ZEROINIT=0
+         # leaves locals uninitialised (docs/wasm-port.md "Status", 2026-11-22)
+         + (["-ftrivial-auto-var-init=zero"] if os.environ.get("HULK_WASM_ZEROINIT", "1") != "0" else []))
 _EXCL = None
 
 

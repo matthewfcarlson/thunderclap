@@ -1174,6 +1174,23 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
+  "0x002be440": {
+   "modes": {
+    "msvc": {
+     "code": "d6e47e2ff509",
+     "accepted": "2026-11-22T05:07:31",
+     "why": "D187 macOS-first: wasm14, Rect_2be440 gets its sixth word (p at +0x14, as the original's [esp+0x24] and 0x2bdaf0's RectInts.i14); a five-word rect left 0x2bdaf0 reading the frame past it",
+     "by": "unproven-accept"
+    },
+    "wine": {
+     "code": "a1de37664d4b",
+     "accepted": "2026-11-22T05:07:31",
+     "why": "D187 macOS-first: wasm14, Rect_2be440 gets its sixth word (p at +0x14, as the original's [esp+0x24] and 0x2bdaf0's RectInts.i14); a five-word rect left 0x2bdaf0 reading the frame past it",
+     "by": "unproven-accept"
+    }
+   },
+   "why": "D187 macOS-first: wasm14, Rect_2be440 gets its sixth word (p at +0x14, as the original's [esp+0x24] and 0x2bdaf0's RectInts.i14); a five-word rect left 0x2bdaf0 reading the frame past it"
+  },
   "0x002bf4f0": {
    "modes": {
     "wine": {
@@ -1477,5 +1494,5 @@
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   }
  },
- "total": 162
+ "total": 164
 }

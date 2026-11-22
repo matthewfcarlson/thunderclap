@@ -1144,7 +1144,10 @@ extern void *__cdecl FUN_0008d6d0(unsigned int size);
 namespace pure3d {
 
 struct Rect_2be440 {
-    int x0, y0, x1, y1, extra;
+    // (wasm14) six words, as 0x002bdaf0 reads them (RectInts): the original keeps p (the column width) at +0x14
+    // ([esp+0x24]); a five-word rect left 0x2bdaf0's u (r->i14) reading the frame past it (stack garbage that -O0
+    // happened to fill with p)
+    int x0, y0, x1, y1, extra, extra2;
 };
 
 // (x64t19, D94) the sprite record (decls/sprite.h), not polymorphic: DrawablePrimitive's constructor 0x002a5060 by its
@@ -1248,6 +1251,7 @@ pure3d::Sprite::Sprite(Item_2be440 **items_, int w_, int h_, int count_, Shader_
                     rc.x1 = q + a;
                     rc.y1 = p + b;
                     rc.extra = q;
+                    rc.extra2 = p;
                     FUN_002bdaf0(idx, &rc, ww, hh);
                     pos += ww - border * 2;
                     idx++;
