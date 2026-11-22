@@ -491,6 +491,13 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   any rate. Compare rates with `HULK_DISPLAY_FPS` (runner-only) and `HULK_HASH_EVERY=10`. A draw's identity never uses
   the shader serial (a change serial). Pacing is the runner's (`plat_pace`); settings apply the rate with
   `hulk_wasm_frame_rate_apply(30|60|120|0)`; nothing that draws may write module memory.
+  A tail-jump forwarder block (`mov ecx,[ecx+N]; mov eax,[ecx]; jmp [eax+M]`, no stack access of its own) passes the
+  caller's stack arguments on: its source must declare and forward them, or the port builds drop them while MSVC still
+  matches (dd2d265b0: invisible menu text). Candidates: build/wopt1/scripts/fwdscan.py; a slot's arity from the other
+  implementations' `ret N`. The app's settings are one table (src/platform/wasm/gfx/port_settings.c: faithful value,
+  remastered default, remastered-only, apply): add a row, never a hand-written menu item. Replays, `HULK_INPUT` and
+  `HULK_ROLLTEST` start from faithful values and never touch port_settings.txt; pin values with `HULK_SETTINGS=k=v,...`.
+  Render resolution is runner-only (app.cpp): the game always sees 640x480 (wopt1, D232/D233).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
