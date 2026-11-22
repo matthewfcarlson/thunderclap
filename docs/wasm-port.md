@@ -198,6 +198,46 @@ the area has the x86 layout. The host's printf family reads a `va_list` as x86 s
 - RTTI names: a clang type descriptor of a class the tree wraps in `namespace fn_<hex>` keeps the wrapper in its
   name; `rtti.c` compares names without it (as the native host does).
 
+## The macOS app (wapp1, D190: design)
+
+The app is the wasm2c build with real hosts for graphics, input and audio on the native side of the module, and the
+headless build kept as it is. Everything the game owns stays in linear memory at its 32-bit layout; what the native
+side holds (GPU objects, the window, the audio device) is derived from linear memory and can be made again.
+
+- **Graphics: the pddi front end inside the module, the sink outside.** The Wine and native `--gfx` links replace
+  pure3d's d3d layer with the pddi front end (src/platform/sdl/pddi/, 23 classes the game calls through MS vftable
+  slots) at the one entry point d3dCreateDevice 0x0031ba60. The module does the same: `tools/wasm_gfx.py` compiles
+  the front-end units through wasm_port's i686 -> wasm32 path (MS ABI, the game's 32-bit offsets: `PDDI_SPE`'s 32-bit
+  side under `HULK_PDDI_WASM`; their `GameBase::FUN_<addr>` calls bound by address; their vftable slots get dispatch
+  entries like any local function used as a value) with the native builds' bridge sink (`HULK_PDDI_NATIVE`'s
+  BridgeSink): every draw-sink call (bgfx_bridge.h) is a `hulk` import `gfx_*`. The runner implements them with the
+  bridge's host half and bgfx_sink.cpp (Metal) unchanged, converting each packet's wasm32 pointers to host pointers
+  (draw_sink.h's structs are fixed-width; the module sends its own `offsetof` table at start-up and the runner refuses
+  a layout that differs). bgfx's transient vertices are staged in the module and copied over at the draw.
+  The window, the event pump and the swap chain are the runner's (SDL3 with video, platform_events.cpp).
+- **One module, two device paths.** An `entry` hook on 0x0031ba60 (wasm_port, `HULK_WASM_GFX=1` builds only) asks the
+  runner: with a renderer (`HULK_GFX_RENDERER`, Metal by default in the app) the pddi front end makes the device; with
+  `null` the game's own d3d layer runs on d3d_null.c exactly as in the headless build, so the app run headless gives
+  the headless build's play3 records. The gfx-only site hook 0x001c1a40 (`hulk_cast_self`, native_hooks.h) takes the
+  same switch. The headless module (`HULK_WASM_GFX` unset) is unchanged and needs no new imports.
+- **Game state.** The front end's objects are allocated in the arena (operator new -> `ff_arena_alloc`), so a snapshot
+  carries them with the game objects that point at them; sink ids inside them name GPU objects the runner owns. Not
+  covered yet: the front-end units' own statics (module data above 1 GB) and re-making GPU objects after a restore
+  (rollback with graphics is later work; the replay check and snapshots stay headless).
+- **Input.** The runner polls SDL once a presented frame (the SDL layer's gamepad source, src/platform/sdl/input/, and
+  a keyboard map) and the module copies the pads into the sim block (`pads`, `pads_in`), where XInput reads them: a
+  frame's input is game state, so it snapshots and could be recorded. A replay keeps the recording's pads.
+- **Audio.** dsound_null.c stays the clock-exact model of the voices (the game sees the same positions and status in
+  every mode). The runner is an observer: at each DirectSoundDoWork the module hands it the playing voices (buffer,
+  format, frequency, volume, cursor) and it mixes 800 frames of 48 kHz from linear memory (the SDL layer's Xbox ADPCM
+  decoder) into an SDL audio stream.
+- **Pacing.** The runner paces presents at the game's rate (the SwapBuffers vblank flag 0x005554a0: 60 Hz in the front
+  end, 30 in gameplay; sdl_platform.cpp's `HULK_FPS_CAP`), off in replays and headless runs.
+- **Build.** `HULK_WASM_GFX=1` with its own `HULK_WASM_DIR`: `wasm_gfx.py compile` (front end units), `wasm_port.py
+  link` (adds them, the hooks and src/platform/wasm/gfx/), `wasm_port.py aot --app` (the runner plus
+  src/platform/wasm/run/app/, bgfx, SDL3 with video). `tools/wasm_app.py bundle` makes `Hulk.app` in build/ (not
+  signed or notarised; nothing built from the game is published or committed).
+
 ## Status
 
 - 2026-11-22 (wasm14, speed; D218): **-O1 is the default** (`HULK_WASM_OPT=O0` for the old build). The profile of the
