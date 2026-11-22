@@ -54,7 +54,7 @@
     N(0x00345d81, glue, hulk_ncrt_strtoul, "strtoul") \
     N(0x00345db0, libc, strchr, "_strchr strchr") \
     N(0x00345e70, libc, strstr, "_strstr strstr") \
-    N(0x00345f90, libc, qsort, "_qsort qsort") \
+    N(0x00345f90, glue, hulk_ncrt_qsort, "_qsort qsort") \
     N(0x0034625f, glue, hulk_ncrt_fclose, "_fclose fclose") \
     N(0x003463c7, glue, hulk_ncrt_fwrite, "fwrite") \
     N(0x0034650b, glue, hulk_ncrt_fread, "fread") \

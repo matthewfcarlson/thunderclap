@@ -240,6 +240,13 @@ side holds (GPU objects, the window, the audio device) is derived from linear me
 
 ## Status
 
+- 2026-11-22 (wasmq, D217): **qsort orders equal elements as the Xbox CRT does.** crt.c's 0x00345f90 is
+  src/platform/sdl/crt/hulk_qsort.h, written clean-room from the XBE qsort run as a black box (docs/qsort.md;
+  tests/test_qsort_xbe.py compares comparator call sequences and permutations). wasi-libc's qsort had left
+  ItemQueue's (0x001cbfe0) equal-priority events in another order from frame 2733, and actors diverged at 3810. play3 to 60,000
+  frames (41 s): camera 5875-5925 (the reference's known transient window), then the first lasting divergence at
+  camera 10196 / rng 10198 (hulk 10396, actors 10410).
+
 - 2026-11-22 (wasm14, speed; D218): **-O1 is the default** (`HULK_WASM_OPT=O0` for the old build). The profile of the
   compiled -O1 build on play3 (macOS `sample`) had the arena allocator's first-fit scan from the arena base at about
   30%, and softx87's transcendentals (trigImpl, atan2F and the fmul/fadd/fdiv under them) at about a third. Two host

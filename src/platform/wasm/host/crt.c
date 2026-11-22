@@ -6,6 +6,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "crt/hulk_qsort.h"
 #include "hulk_host.h"
 #include "sim.h"
 
@@ -320,7 +321,8 @@ CT(00345ad0, iscntrl)
 FFG(00345475) { UNUSED; RET(lower((int)ARG(0))); }                              /* tolower */
 FFG(00345b90) { UNUSED; RET(upper((int)ARG(0))); }                              /* toupper */
 
-/* qsort / bsearch: the comparison is a game function (cdecl, two pointers) */
+/* qsort / bsearch: the comparison is a game function (cdecl, two pointers). qsort is crt/hulk_qsort.h, which orders
+ * equal elements as the Xbox CRT does (the game's comparators may never return 0: ItemQueue's 0x001cb3a0) */
 static uint32_t cmp_fn;
 static int gcmp(const void* a, const void* b) {
     return (int)ff_call(cmp_fn, 2, (uint32_t)(uintptr_t)a, (uint32_t)(uintptr_t)b);
@@ -329,7 +331,7 @@ FFG(00345f90) {
     UNUSED;
     uint32_t saved = cmp_fn;
     cmp_fn = ARG(3);
-    qsort(PTR(ARG(0)), ARG(1), ARG(2), gcmp);
+    hulk_qsort(PTR(ARG(0)), ARG(1), ARG(2), gcmp);
     cmp_fn = saved;
 }
 FFG(00347a14) {

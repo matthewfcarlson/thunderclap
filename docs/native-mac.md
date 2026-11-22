@@ -153,8 +153,8 @@ and the `D:\` / `T:\` / `U:\` / `Z:\` path mapping, atexit, the /GS cookie, `_pu
 (the callee-saved state lives in a per-thread table keyed by the buffer address). `tools/native_mac.py crt` checks
 the table against the Wine one (every address row and tree name covered) and resolves every target on the host (libc
 by linking a reference to each, glue and math in the glue's object); `tests/native_host/crt_test.cpp` tests the glue
-(arm64 at -O1/-O2 and ASan+UBSan, x86-64 under Rosetta, with and without softx87). Known differences left: `qsort` is
-the host's (the order of equal elements can differ from the Xbox CRT's), and on x86-64 System V the game's `char*`
+(arm64 at -O1/-O2 and ASan+UBSan, x86-64 under Rosetta, with and without softx87). `qsort` is src/platform/sdl/crt/hulk_qsort.h (wasmq): it orders
+equal elements as the Xbox CRT does (docs/qsort.md). Known difference left: on x86-64 System V the game's `char*`
 va_list (Windows-style IR) does not match the host's `va_list` for the v*printf glue (arm64 macOS: both are `char*`).
 
 ## 6. What the native Itanium ABI would cost (x64-3, 2026-10-24)

@@ -2746,3 +2746,23 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   60,000 frames in 82 s (~900-1,000 frames/s in the game). HULK_GS=1 logs the GS_ state's changes.
 - Seen on the way: the 04:04 build of wasm14 (before its last commits) and HEAD's build differ on play3 from frame
   11,483 (sound first, 11,481); HEAD against HEAD + these fixes is identical.
+
+## 2026-11-22 wasmq: the port builds' qsort orders equal elements as the Xbox CRT does (actors 3810 -> camera 10196)
+
+- Cause (wasm13): ItemQueue::FUN_001cbfe0 sorts its events with 0x001cb3a0, which never returns 0. The wasm host's
+  wasi-libc qsort put two equal-priority type-0x1b events at frame 2733 in the opposite order to the original. Heap
+  0xd's blocks were then reused in another order, an uninitialised RoutAction word read zeros, and actors diverged
+  at 3810.
+- Clean-room (user D217 (a)): the XBE's qsort ran as a black box under Unicorn (the comparator is a hooked `ret`),
+  recording the output permutation and the comparator's call pairs; no instruction of it was read.
+  - Equal arrays up to 8 elements give n(n-1)/2 calls (1,0),(2,1),...: a repeated scan for the greatest element.
+  - From 9 elements on: a median of three at (0, n/2, n-1), scans toward the middle element that follow it through
+    swaps, and the smaller part first.
+  - A model written from that matched 4,500 random cases on its first try (widths 1..0x101, lengths up to 3000,
+    three-way, never-zero and random comparators).
+- src/platform/sdl/crt/hulk_qsort.h (header only) serves the wasm host (crt.c) and the native glue (`hulk_ncrt_qsort`,
+  now a glue row of native_crt_table.h). The Wine image is unchanged: msvcrt's qsort, and crt_posix.cpp is `!_WIN32`.
+  tests/test_qsort_xbe.py is the differential test (it generates the expected behaviour at run time; nothing derived
+  from the XBE is stored). Method: docs/qsort.md.
+- play3 on wasm to 60,000 frames (41 s): actors now match to 10,380. Camera 5875-5925 is the known transient window;
+  the first lasting divergence is camera 10196 / rng 10198.

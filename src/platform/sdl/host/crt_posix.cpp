@@ -25,6 +25,8 @@
 #endif
 #endif
 
+#include "../crt/hulk_qsort.h"
+
 typedef unsigned int hulk_u32;
 
 extern "C" {
@@ -395,6 +397,12 @@ int hulk_ncrt_strtol(const char* s, char** end, int base) {
         return INT_MIN;
     }
     return (int)v;
+}
+
+// qsort: the Xbox CRT's order of equal elements (src/platform/sdl/crt/hulk_qsort.h; the game's comparators may never
+// return 0, so the host's qsort can leave equal keys in another order)
+void hulk_ncrt_qsort(void* base, size_t count, size_t width, int (*cmp)(const void*, const void*)) {
+    hulk_qsort(base, count, width, cmp);
 }
 
 unsigned hulk_ncrt_strtoul(const char* s, char** end, int base) {
