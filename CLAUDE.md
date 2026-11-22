@@ -516,6 +516,11 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   session too (D235); the game loads rooms only to ~390 units. Fog is runner-only. Compare settings by checkpoint
   records, or by game hash within one build: the settings' menu handlers are module data whose addresses the game holds,
   so game hashes differ between app builds (wvid1).
+  The app finds the game in this order: the command line (argv / `HULK_XBE`, or `HULK_DATA_DIR` alone),
+  `<app dir>/game.txt` (remembered), `<app dir>/disc`, else a chooser (SDL message box + SDL3 file dialog,
+  run/app/start.cpp); `<app dir>` is `HULK_APP_DIR` (default ~/Library/Application Support/HulkUD). Option held at
+  launch or `--choose-game` asks again; `HULK_NO_UI` and scripted runs never prompt. Test with your own
+  `HULK_APP_DIR`, never the player's folder; drive start.cpp with SDL mocked (build/wui1/scripts/harness.cpp) (wui1).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
