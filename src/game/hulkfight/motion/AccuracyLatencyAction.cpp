@@ -1644,16 +1644,21 @@ unsigned __int64 FUN_0027b020(const char* s);                 // string hash
 unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
-struct MissileManager { void FUN_001dc0d0(void *missile); };
+struct MissileManager { hulk_intptr FUN_001dc0d0(hulk_intptr missile); };
 struct World { void* pad[3]; MissileManager *manager; };
 namespace hulkfight { namespace motion {
 struct ProjectileMissile {
     char pad[0x40];
     void *missile;
-    void vfunc_5();
+    hulk_eaxptr vfunc_5();
 };
-void ProjectileMissile::vfunc_5() {
-    DAT_004dd700->manager->FUN_001dc0d0(missile);
+hulk_eaxptr ProjectileMissile::vfunc_5() {
+    // the original leaves 0x001dc0d0's result (the missile's owner) in eax; 0x0019e910 reads it
+#ifdef HULK_PORT_ABI
+    return (void*)DAT_004dd700->manager->FUN_001dc0d0((hulk_intptr)missile);
+#else
+    DAT_004dd700->manager->FUN_001dc0d0((hulk_intptr)missile);
+#endif
 }
 }}
 } // namespace fn_00194ba0

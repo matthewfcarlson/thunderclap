@@ -2928,3 +2928,10 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   class. They now return `hulk_eaxptr` (gen CGameCamera's slot 27 and its four overrides too); MSVC and the Wine build
   keep void (blocks MATCH, code hashes unchanged). play3's first persistent divergence moves from 10196 to rng 10847
   (actors 10860 float drift, particle 10869, camera 10928).
+- Next (same day): rng 10847 came from ProjectileMissile::vfunc_5 (0x00194ba0), void in the source though the original
+  ends in a call to 0x001dc0d0 whose result (the missile's owner node) stays in eax and 0x0019e910 reads (`fr.owner =
+  vfunc_5()`); on wasm the owner was always null. A HULK_WASM_DEBUG_VOIDRET build (host hook printing each distinct
+  void block an integer-result indirect call reaches, with the frame) listed it among 49 such blocks in play3's first
+  20,000 frames; most are calls whose result nobody reads. With it returning `hulk_eaxptr`, play3 on wasm has no
+  persistent divergence to 60000: only transient runs (camera 5875-5925, 34240-34282, 38673-38684, 38961-38964, 46930;
+  particle 14584-14601, 14659-14670; hulk 34240-34281; actors 34260, 47160-47340, 48360, 49200-49290).
