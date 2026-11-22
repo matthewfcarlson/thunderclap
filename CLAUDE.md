@@ -466,6 +466,13 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   pacing (one virtual-clock field per present); no per-frame constants need scaling. The rate is per session
   (port_settings.txt; replays ignore it; netplay peers must share it). `HULK_INPUT` takes the left stick
   (`FROM-TO:BUTTONS/ANALOG/LX/LY`) (fps1).
+  Game-facing state outside the image and arena goes in a snapshotted section: the tree's own globals (by wasm_port.py,
+  `hulk_game_state`, hashed apart from the game hash), host code's game-facing statics
+  (`__attribute__((section("hulk_game_state")))`), the pddi front end's statics (`hulk_pddi_state`); host-only state
+  (caches, host times, file handles) stays out. The front end names sink objects by gfx.c's vids, never the runner's ids,
+  and allocates in the arena (`wasm_gfx.py` C_RENAME); after a restore `ff_gfx_restored` re-makes only stale objects.
+  `HULK_ROLLTEST=A:B` snapshots at frame ends (`ff_frame_checkpoint`); test rollbacks across the PRESSSTART->GAME load
+  and compare module/gfx hashes too (wroll1, D227).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
