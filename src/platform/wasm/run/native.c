@@ -23,6 +23,10 @@ struct w2c_wasi__snapshot__preview1 { int argc; char** argv; };
 
 static w2c_game g;
 static uint8_t* mem(u32 a) { return g.w2c_memory.data + a; }
+uint8_t* hulk_run_memory(void) { return g.w2c_memory.data; }     /* (the app's imports: run/app/app.cpp) */
+#ifdef HULK_APP
+void hulk_app_start(int argc, char** argv);     /* run/app/app.cpp: the app's defaults, before the module's env */
+#endif
 static const char* cstr(u32 a) { return (const char*)mem(a); }
 static void put32(u32 a, u32 v) { memcpy(mem(a), &v, 4); }
 static void put64(u32 a, u64 v) { memcpy(mem(a), &v, 8); }
@@ -165,6 +169,9 @@ void W(proc_exit)(wasi* w, u32 code) {
 int main(int argc, char** argv) {
     struct w2c_hulk host = {0};
     wasi wa = {argc, argv};
+#ifdef HULK_APP
+    hulk_app_start(argc, argv);
+#endif
     argv[0] = "hulk";
     pick_env();
     wasm_rt_init();

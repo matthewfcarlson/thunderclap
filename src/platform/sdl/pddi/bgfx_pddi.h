@@ -38,7 +38,7 @@ class bgfxTexture;
 // Natively (HULK_PDDI_NATIVE) the object is packed to 4 bytes: pddiObject is {vftable, f_04, f_08} there (16 bytes),
 // and every class below keeps pddiObject's f_08 as its own first word (+8 on 32-bit), which must land at +0xc. The MS
 // ABI never reuses a base's tail padding, so without the packing our first word would sit at +0x10.
-#if HULK_PDDI_NATIVE
+#if HULK_PDDI_LAYOUT64
 #pragma pack(push, 4)
 #endif
 class bgfxObject {
@@ -50,7 +50,7 @@ class bgfxObject {
     virtual ~bgfxObject();                    // slot 3: scalar deleting destructor
     int m_refCount;                           // +4, as pddiObject's
 };
-#if HULK_PDDI_NATIVE
+#if HULK_PDDI_LAYOUT64
 #pragma pack(pop)
 static_assert(sizeof(bgfxObject) == 12, "bgfxObject: the vftable and the reference count (pddiObject's f_08 follows)");
 #endif

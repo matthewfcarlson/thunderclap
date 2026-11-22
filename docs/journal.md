@@ -2766,3 +2766,14 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   from the XBE is stored). Method: docs/qsort.md.
 - play3 on wasm to 60,000 frames (41 s): actors now match to 10,380. Camera 5875-5925 is the known transient window;
   the first lasting divergence is camera 10196 / rng 10198.
+
+## 2026-11-22 wapp1: the wasm2c app renders (D190, milestone 1)
+
+- The pddi front end (src/platform/sdl/pddi) runs inside the wasm module, compiled through wasm_port's i686 -> wasm32
+  path; the draw sink crosses the module boundary as `hulk` gfx_* imports implemented by the runner with the bgfx sink
+  (Metal). Front-end units must be llvm-linked into one module before bind_tu: a vftable emitted in one unit names
+  methods another unit defines, and bind_tu gives only a TU's own functions synthetic dispatch addresses (otherwise
+  the slot holds a wasm table index: "indirect call to 0x000003ab").
+- play3 to 60,000: records are byte-identical between the headless build, the app with the game's d3d layer on the
+  null device, and the app with the pddi front end on bgfx noop: the graphics path changes nothing the game reads.
+- Comparing i686 COFF objects for D194: clang writes a time stamp at header offset 4 (zero it before comparing).

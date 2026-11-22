@@ -240,6 +240,21 @@ side holds (GPU objects, the window, the audio device) is derived from linear me
 
 ## Status
 
+- 2026-11-22 (wapp1, D190, milestone 1): **the app draws.** `HULK_WASM_GFX=1` with its own `HULK_WASM_DIR`:
+  `wasm_port.py compile --only src/platform/xbox/pure3d/d3dDevice.cpp src/game/Render/Canvas/HulkShaderCallback.cpp`
+  (the two TUs the gfx hooks change), `wasm_gfx.py compile` (the 14 front-end units, llvm-linked into one IR module
+  and bound once, so a vftable naming another unit's method gets a dispatch entry), `wasm_port.py link`, `aot --app`
+  (`HULK_APP_SDL`: an SDL3 install with video; the cmake line is build_host's with `-DSDL_VIDEO=ON -DSDL_OPENGL=OFF
+  -DSDL_OPENGLES=OFF -DSDL_VULKAN=OFF`). The front end needs bx's scalar SIMD and mingw-w64's math without x87 asm
+  (`-U__SSE2__ -U__SSE__ -D__CRT__NO_INLINE`). `hulk-app` opens a Metal window and renders the legal screen, the front
+  end's menus and Press START at 640x480 (scene target + frame-buffer copy); the present of each frame ends the frame as
+  d3d_null's Swap does (`hulk_wasm_gfx_frame_end`, sdl_platform.cpp under `HULK_PDDI_WASM`). **play3 to 60,000: the
+  app with `HULK_GFX_RENDERER=null` and with the front end on bgfx's noop renderer both write records byte-identical to
+  the headless build of the same tree** (the front end changes nothing the game reads). The SDL-layer switch
+  (`HULK_PDDI_LAYOUT64` = native and not wasm) leaves the Wine image's pddi objects byte-identical (D194: all 16 i686
+  objects compared, COFF time stamps aside). Open: input, audio, the vblank flag's frame rate (presents are paced at
+  30 in the front end), the .app bundle.
+
 - 2026-11-22 (wasmq, D217): **qsort orders equal elements as the Xbox CRT does.** crt.c's 0x00345f90 is
   src/platform/sdl/crt/hulk_qsort.h, written clean-room from the XBE qsort run as a black box (docs/qsort.md;
   tests/test_qsort_xbe.py compares comparator call sequences and permutations). wasi-libc's qsort had left

@@ -814,6 +814,11 @@ def rebind_per_function(ir, bound, notes):
 # `layout` and `gfx` rows are the native builds' own; WASM_HOOK_SKIP leaves out rows the wasm host has no hook for yet.
 NATIVE_HOOKS_H = os.path.join(ROOT, "src/platform/sdl/host/native_hooks.h")
 WASM_HOOK_SKIP = {"hulk_nhook_save_selftest", "hulk_cast_self"}
+# HULK_WASM_GFX=1: the app's module (docs/wasm-port.md "The macOS app"): the pddi front end (tools/wasm_gfx.py) and
+# src/platform/wasm/gfx/ are linked, d3dCreateDevice asks the host which device to make (src/platform/wasm/gfx/gfx.c),
+# and the native hooks' `gfx` rows apply (taking the same switch there)
+GFX = os.environ.get("HULK_WASM_GFX") == "1"
+GFX_DEVICE_ADDR = 0x0031ba60        # d3dCreateDevice (pure3d::InitPlatform 0x00292560, its only caller)
 _HOOKS = None
 
 
@@ -825,7 +830,7 @@ def wasm_hooks():
         for m in re.finditer(r"H\((entry|site|data), (0x[0-9a-fA-F]+), (0x[0-9a-fA-F]+|0), (\w+), (\w+),",
                              open(NATIVE_HOOKS_H).read()):
             kind, a, o, hook, status = m.group(1), int(m.group(2), 16), int(m.group(3), 16), m.group(4), m.group(5)
-            if hook in WASM_HOOK_SKIP or status == "gfx":
+            if (hook in WASM_HOOK_SKIP or status == "gfx") and not (GFX and status == "gfx"):
                 continue
             if kind == "entry":
                 ent[a] = "ffh_" + hook
@@ -833,6 +838,8 @@ def wasm_hooks():
                 site[(a, o)] = "ffh_" + hook
             else:
                 data[(a, o)] = hook
+        if GFX:
+            ent[GFX_DEVICE_ADDR] = "ffh_hulk_gfx_create_device"
         # debugging: HULK_WASM_DEBUG_HOOKS="site:0xCALLER:0xCALLEE:name,entry:0xADDR:0:name" (hooks the host sources
         # of HULK_WASM_HOST_EXTRA define as ffh_<name>; never in a committed build)
         for row in filter(None, os.environ.get("HULK_WASM_DEBUG_HOOKS", "").split(",")):
@@ -1375,7 +1382,9 @@ def classify(a, img):
 
 
 def host_sources():
-    return [x for x in os.environ.get("HULK_WASM_HOST_EXTRA", "").split(",") if x] + sorted(os.path.join(dp, f) for dp, _, fs in os.walk(os.path.join(HOST_DIR, "host")) for f in fs
+    gfx = sorted(os.path.join(HOST_DIR, "gfx", f) for f in os.listdir(os.path.join(HOST_DIR, "gfx"))
+                 if f.endswith((".c", ".cpp"))) if GFX else []
+    return [x for x in os.environ.get("HULK_WASM_HOST_EXTRA", "").split(",") if x] + gfx + sorted(os.path.join(dp, f) for dp, _, fs in os.walk(os.path.join(HOST_DIR, "host")) for f in fs
                   if f.endswith((".c", ".cpp")))
 
 
@@ -1464,6 +1473,9 @@ def cmd_link(a):
     names = func_names()
     rep = json.load(open(os.path.join(OUT, "compile.json")))
     objs = [os.path.join(OUT, "obj", flat(t) + ".o") for t in sorted(rep["info"])]
+    if GFX:
+        import wasm_gfx
+        objs += wasm_gfx.objects()
     syms = nm(objs)
     defined, undefined = set(), collections.Counter()
     for d, _ in syms.values():
@@ -1735,6 +1747,64 @@ def _cc(job):
     return src, None
 
 
+# the app runner (aot --app; docs/wasm-port.md "The macOS app"): run/native.c with HULK_APP, run/app/, the bgfx sink and
+# the bridge's host half (src/platform/sdl/pddi/), the window code (platform_events.cpp); bgfx (Metal) and SDL3 with
+# video (HULK_APP_SDL: an install prefix; the shared sdl-host is built without video)
+APP_SDL = os.environ.get("HULK_APP_SDL") or os.path.join(ROOT, "build/third_party/out/sdl-video")
+APP_FRAMEWORKS = ["CoreAudio", "AudioToolbox", "CoreFoundation", "IOKit", "GameController", "CoreHaptics",
+                  "ForceFeedback", "Foundation", "AVFoundation", "CoreMotion", "Carbon", "AppKit", "Metal", "MetalKit",
+                  "QuartzCore", "UniformTypeIdentifiers", "CoreVideo", "CoreMedia", "Cocoa", "VideoToolbox"]
+BGFX_DEFS = ["-DBX_CONFIG_DEBUG=0", "-DBIMG_CONFIG_DECODE_ASTC=0", "-DBGFX_CONFIG_RENDERER_WEBGPU=0",
+             "-DBGFX_CONFIG_MULTITHREADED=0", "-D__STDC_LIMIT_MACROS", "-D__STDC_FORMAT_MACROS",
+             "-D__STDC_CONSTANT_MACROS", "-DBGFX_CONFIG_RENDERER_METAL=1"]
+
+
+def app_objects(d, wflags):
+    """(objects, link flags) of the app runner's own sources (compiled here, cached by content and flags)."""
+    import wine_gfx
+    tp = os.path.join(ROOT, "build/third_party")
+    sdl = os.path.join(ROOT, "src/platform/sdl")
+    if not os.path.exists(os.path.join(APP_SDL, "lib/libSDL3.a")):
+        raise SystemExit("aot --app: no SDL3 with video at %s (HULK_APP_SDL)" % APP_SDL)
+    gen = os.path.join(d, "app-gen")
+    wine_gfx.embed_shaders(gen, "metal")        # the sink's programs (tools/wine_gfx.py shaders)
+    cxx = ["xcrun", "clang++", "-arch", "arm64", "-mmacosx-version-min=11.0", "-std=c++20", "-O2", "-g",
+           "-fno-exceptions", "-fno-rtti", "-Wall", "-Wno-unused-parameter", "-Wno-unused-private-field",
+           "-Wno-deprecated-declarations", "-I" + os.path.join(sdl, "pddi"), "-I" + gen, "-I" + sdl,
+           "-I" + os.path.join(APP_SDL, "include"), "-I" + d, "-I" + wabt_share()[0], "-I" + wabt_share()[1],
+           "-I" + os.path.join(tp, "src/bx/include"), "-I" + os.path.join(tp, "src/bx/include/compat/osx"),
+           "-I" + os.path.join(tp, "src/bimg/include"), "-I" + os.path.join(tp, "src/bgfx/include")] + BGFX_DEFS
+    run = os.path.join(HOST_DIR, "run")
+    jobs = [(os.path.join(run, "native.c"), [CC] + wflags + ["-DHULK_APP=1"])]
+    for f in sorted(os.listdir(os.path.join(run, "app"))):
+        if f.endswith(".cpp"):
+            jobs.append((os.path.join(run, "app", f), cxx))
+    for f in ("bgfx_sink.cpp", "bgfx_bridge.cpp"):
+        jobs.append((os.path.join(sdl, "pddi", f), cxx + ["-DHULK_PDDI_HOST=1", "-DHULK_PDDI_EMBED_SHADERS=1",
+                                                         "-DHULK_PDDI_BRIDGE_HOST=1"]))
+    jobs.append((os.path.join(sdl, "platform_events.cpp"), cxx + ["-DHULK_SDL_LINKED=1"]))
+    os.makedirs(os.path.join(d, "app"), exist_ok=True)
+    objs = []
+    for src, cmd in jobs:
+        key = hashlib.sha1(open(src, "rb").read() + " ".join(cmd).encode() + b"".join(
+            open(os.path.join(dp, f), "rb").read() for dp in (os.path.join(run, "app"), os.path.join(sdl, "pddi"), gen)
+            for f in sorted(os.listdir(dp)) if f.endswith(".h"))).hexdigest()[:16]
+        obj = os.path.join(d, "app", "%s.%s.o" % (os.path.basename(src).rsplit(".", 1)[0], key))
+        if not os.path.exists(obj):
+            r = subprocess.run(cmd + ["-c", src, "-o", obj + ".tmp"], capture_output=True, text=True, errors="replace")
+            if r.returncode:
+                raise SystemExit("aot --app: %s\n%s" % (src, r.stderr[-4000:]))
+            os.replace(obj + ".tmp", obj)
+        objs.append(obj)
+    lib = os.path.join(tp, "out/host/lib")
+    rt = subprocess.run(["xcrun", "clang", "--print-runtime-dir"], capture_output=True, text=True).stdout.strip()
+    lflags = [os.path.join(lib, n + ".a") for n in ("bgfx", "bimg", "bx")] + [
+        os.path.join(APP_SDL, "lib/libSDL3.a"), "-lc++", "-liconv", os.path.join(rt, "libclang_rt.osx.a")]
+    for fw in APP_FRAMEWORKS:
+        lflags += ["-framework", fw]
+    return objs, lflags
+
+
 def cmd_aot(a):
     """hulk.wasm -> C (wasm2c, module `game`) -> a native executable (build/wasm/hulk-aot) with the runner
     src/platform/wasm/run/native.c. Objects are cached by the C file's content."""
@@ -1775,8 +1845,12 @@ def cmd_aot(a):
         for src, err in ex.map(_cc, jobs):
             if err:
                 raise SystemExit("cc %s: %s" % (src, err))
-    out = os.path.join(OUT, "hulk-aot")
-    r = subprocess.run([CC] + objs + ["-o", out, "-lm"], capture_output=True, text=True)
+    lflags = ["-lm"]
+    if a.app:
+        app_objs, lflags = app_objects(d, flags)
+        objs = [o for o in objs if not os.path.basename(o).startswith("native.")] + app_objs
+    out = os.path.join(OUT, "hulk-app" if a.app else "hulk-aot")
+    r = subprocess.run([CC] + objs + ["-o", out] + lflags, capture_output=True, text=True)
     if r.returncode:
         raise SystemExit("link: " + r.stderr[-3000:])
     print("aot: %s in %.0f s" % (out, time.time() - t))
@@ -1794,6 +1868,7 @@ def main(argv=None):
     c.add_argument("--jobs", type=int, default=2)
     c.add_argument("--outputs", type=int, default=32)
     c.add_argument("--opt", default="-O2")
+    c.add_argument("--app", action="store_true", help="the macOS app runner (HULK_WASM_GFX=1 modules): hulk-app")
     a = ap.parse_args(argv)
     {"compile": cmd_compile, "link": cmd_link, "report": cmd_report, "aot": cmd_aot}[a.cmd](a)
 

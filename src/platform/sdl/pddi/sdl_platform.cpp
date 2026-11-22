@@ -344,9 +344,16 @@ void platformBeforeFrame(unsigned frame)
         }
 }
 
+#if HULK_PDDI_WASM
+extern "C" void hulk_wasm_gfx_frame_end(void);   // src/platform/wasm/gfx/gfx.c: D3D Swap's end of frame (the clock)
+#endif
+
 // after frame `frame` was presented
 void platformAfterFrame(unsigned frame)
 {
+#if HULK_PDDI_WASM
+    hulk_wasm_gfx_frame_end();
+#endif
     platformPump();
     if (frame < 3 || (frame & (frame - 1)) == 0)
         logf("pddi: frame %u presented (%u draws)\n", frame, drawCount());
