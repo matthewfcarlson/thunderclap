@@ -89,7 +89,8 @@ threads at the end, `HULK_STACK_AT=N` stops with a stack at frame N, `HULK_FILE_
 `HULK_INPUT="3000-3010:10,400-405:0/1,..."` holds pad 0's buttons over frame ranges (wButtons, hex; after a `/` the
 analog buttons held down, a hex mask: 1 A, 2 B, 4 X, 8 Y, 10 black, 20 white, 40/80 the triggers), `HULK_GS=1`
 prints the game-flow state's changes (GS_FRONTEND, GS_GAME, ...), `HULK_SNAPTEST=1` times a snapshot and restore of
-the state at the end.
+the state at the end, `HULK_ROLLTEST=A:B` copies the state at the first fiber switch of frame A, puts it back at frame
+B and checks that the run reaches B again with the same game hash (exit 0 "identical", else 3).
 
 Without a replay (a free run: no `HULK_INPUT_SOURCE`) the game keeps running: it sits in the front end
 (GS_FRONTEND) without input, and `HULK_INPUT="300-305:10,400-405:0/1,1000-1005:0/1"` (START, then A) takes it through
@@ -227,12 +228,21 @@ side holds (GPU objects, the window, the audio device) is derived from linear me
 - **Input.** The runner polls SDL once a presented frame (the SDL layer's gamepad source, src/platform/sdl/input/, and
   a keyboard map) and the module copies the pads into the sim block (`pads`, `pads_in`), where XInput reads them: a
   frame's input is game state, so it snapshots and could be recorded. A replay keeps the recording's pads.
-- **Audio.** dsound_null.c stays the clock-exact model of the voices for replays and headless runs. In the app's free
-  play it reports each call, once done, to the runner (weak hooks `ff_audio_obs` / `ff_audio_query`, null in other
-  builds), whose mixer (src/platform/sdl/audio/: Xbox ADPCM, mix bins, the I3DL2 reverb) plays the voices from the
-  game's buffers in linear memory in real time; the game then reads status and positions from the mixer, as the Wine
-  build's device clock does (the model moves 800 frames a DirectSoundDoWork, which the game calls about three times a
-  frame: streams would be refilled ahead of what was heard). Real time enters the game's state only there.
+- **Audio (D222: one deterministic model).** dsound_null.c is the only model of the voices the game reads (status,
+  positions, a one-shot's end, a stream buffer's consumption): its state is in the arena and the sim block, so a
+  snapshot carries it, and it is a function of the game's calls and the virtual clock alone. The voices' output frames
+  (48 kHz) pass on `SIM->ds_clock`, fixed at DirectSoundCreate: in replays 800 a DirectSoundDoWork (the Wine build's
+  frame clock, which the recordings were checked with; the game calls DoWork about three times a frame, so this runs
+  ~1.5x fast), in every other run the virtual clock's 48 kHz (`SIM->ds_frames`: at every DirectSound call the voices
+  move on to `SIM->clock`, as the console's APU plays in real time); `HULK_DS_CLOCK=work|time` overrides. In the app's
+  free play the runner's mixer (src/platform/sdl/audio/: Xbox ADPCM, mix bins, the I3DL2 reverb) only listens: weak
+  hooks `ff_audio_obs` (each call, once done) and `ff_audio_tick` (each advance, before it) drive a mirror of the voices
+  with the same cursor arithmetic (`HULK_CLOCK_MANUAL`), `aud_tick` renders exactly the frames the model played, and
+  they go to the playback device through a queue: its fill steers the device stream's rate within +-0.5%, and past
+  300 ms (a jump of the virtual clock: start-up movies, loads) frames are dropped until the queue is down to ~67 ms.
+  Nothing flows back. After a restore (`ff_audio_restored`) the mirror is made again from the model.
+  `HULK_AUDIO_CHECK=1` compares the mirror with the model before every advance; `HULK_AUDIO_LOG=1` logs game vs real
+  seconds, the queue, the rate and drops; `HULK_AUDIO=1` turns the mixer on without a renderer (`null`).
 - **Pacing.** The presents are paced at the game's rate (sdl_platform.cpp's `HULK_FPS_CAP`: the SwapBuffers vblank
   flag 0x005554a0, 60 Hz in press-start and movies, 30 in gameplay), off in replays and headless runs. In free play a
   present moves the virtual clock by the fields the original waited for (two with the flag clear), so game time keeps
@@ -258,6 +268,18 @@ side holds (GPU objects, the window, the audio device) is derived from linear me
   call_indirect").
 
 ## Status
+
+- 2026-11-22 (waud1, D222): **one deterministic audio model.** Free play's voices run on the virtual clock (48 kHz of
+  game time) in dsound_null.c, and the app's mixer renders what the model played instead of answering the game's
+  reads. Free runs of the app with the same `HULK_INPUT` paced at 30 fps (96 s) and unpaced under a CPU hog (9 s) give
+  the same game state (the previous build's differed in 1.38M words); with Metal the game hash can still differ in
+  the pddi front end's objects' pointers into the module's own malloc heap (above 1 GB: host history, e.g. a log
+  line, moves them; every differing word was one). `HULK_ROLLTEST` round trips (headless 1500:1800 and
+  900:2500 across a load; the app with `null` and the mixer on, 1500:2000) re-simulate identically. In gameplay the
+  game clock keeps to real time (35.01 s / 35.01 s, rate within 1.0005, no starved device). play3's records are
+  byte-identical (replays keep the DoWork clock; with `HULK_DS_CLOCK=time` play3's sound tag diverges from frame 586).
+  Open: rollback with the Metal renderer traps after a restore (the front end's statics: not audio's); the
+  mirror's resync is byte-granular (an ADPCM voice can sit a frame from the model after a restore: output only).
 
 - 2026-11-22 (wapp1, D190, milestones 2-4): **gameplay renders, input, audio, the bundle.** A free run driven by the
   real keyboard path (`HULK_KEY_SCRIPT`: Return / Space through press start and the difficulty menu, then W) reaches

@@ -106,6 +106,12 @@ static int32_t stream(uint32_t h, hulk_obj* o) {
     return streams[i] - 1;
 }
 
+/* a restored snapshot (sched.c HULK_ROLLTEST): the cache may name files of other records; reopen as needed */
+void ff_files_flush(void) {
+    for (uint32_t i = 0; i < MAX_OBJS; i++)
+        if (streams[i]) hio_close(streams[i] - 1), streams[i] = 0;
+}
+
 static void close_stream(uint32_t h) {
     uint32_t i = (h - HANDLE_BASE) / 4;
     if (i < MAX_OBJS && streams[i]) {

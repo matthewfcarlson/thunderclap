@@ -1,17 +1,21 @@
-/* The app's audio, the module's half (docs/wasm-port.md "The macOS app"): dsound_null.c keeps the game's view of the
- * voices (status, positions on the virtual clock); this observer hands each DirectSound call, once done, to the
- * runner's mixer (src/platform/sdl/audio/hulk_audio.cpp in run/app/audio.cpp: `hulk` imports aud_*), which plays the
- * voices' memory in the game's buffers in real time, and answers the game's status and position reads (as the Wine
- * build's device clock: real time enters the game's state, so only in free play; replays keep dsound_null's model).
+/* The app's audio, the module's half (docs/wasm-port.md "The macOS app"): dsound_null.c is the one model of the voices
+ * the game reads (status, positions on the virtual clock: D222); this observer hands each DirectSound call, once done,
+ * and each advance of the voices, before it happens, to the runner's mixer (src/platform/sdl/audio/hulk_audio.cpp in
+ * run/app/audio.cpp: `hulk` imports aud_*). The mixer keeps a mirror of the voices that the same calls and the same
+ * advances drive (the same cursor arithmetic), renders the frames of each advance (aud_tick) and queues them to the
+ * device: it produces the samples the model played and nothing flows back. HULK_AUDIO_CHECK=1 compares the mirror
+ * with the model before every advance and logs (and repairs) a difference.
  *
  * The shapes are audio_dsound.cpp's (the radsound HAL's call sites): DSBUFFERDESC {size, flags, bytes, format*,
  * mixbins*}, WAVEFORMATEX {u16 tag (1 PCM, 0x69 Xbox ADPCM), u16 channels, u32 rate, ..., u16 bits at +14}, mixbins
  * {u32 count, pairs*}, pair {u32 bin, s32 volume (mB)}, the I3DL2 listener as 12 words. A voice is named by the
  * buffer's handle (its address in the arena). On only with the pddi front end and outside replays (HULK_AUDIO=0:
- * off). */
+ * off; =1: on without a renderer too, e.g. HULK_GFX_RENDERER=null). */
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include "../host/hulk_host.h"
+#include "../host/sim.h"
 
 #define GI(name) __attribute__((import_module("hulk"), import_name(#name)))
 GI(aud_create) void ga_create(uint32_t voice, int32_t codec, int32_t channels, int32_t bits, uint32_t rate,
@@ -25,8 +29,9 @@ GI(aud_frequency) void ga_frequency(uint32_t voice, uint32_t hz);
 GI(aud_headroom) void ga_headroom(uint32_t voice, uint32_t mb);
 GI(aud_bins) void ga_bins(uint32_t voice, const uint32_t* bins, uint32_t nbins);
 GI(aud_listener) void ga_listener(const uint32_t* words12);
-GI(aud_work) void ga_work(void);
+GI(aud_tick) void ga_tick(uint32_t frames);
 GI(aud_status) uint32_t ga_status(uint32_t voice);
+GI(aud_resync) void ga_resync(uint32_t phase, uint32_t voice, const uint32_t* words9);
 GI(aud_where) uint32_t ga_where(uint32_t voice);
 
 int hulk_wasm_gfx_on(void);
@@ -60,18 +65,53 @@ static int audio_on(void) {
     if (on < 0) {
         const char* r = getenv("HULK_GFX_RENDERER");
         const char* e = getenv("HULK_AUDIO");
-        on = hulk_wasm_gfx_on() && !ff_replay_active() && !(r && !strcmp(r, "noop")) && !(e && *e == '0');
+        on = (hulk_wasm_gfx_on() || (e && *e == '1')) && !ff_replay_active() && !(r && !strcmp(r, "noop")) &&
+             !(e && *e == '0');
     }
     return on;
 }
 
-/* the game's reads of a voice's status (0x003c6ca2) and position (0x003c6cbe) in free play: the mixer's, which plays
- * in real time (the module's model moves 800 frames a DirectSoundDoWork, which the game calls about three times a
- * frame: streams would be refilled ahead of what was heard) */
-int ff_audio_query(uint32_t fn, uint32_t buffer, uint32_t* out) {
-    if (!audio_on()) return 0;
-    *out = fn == 0x003c6ca2u ? ga_status(buffer) : ga_where(buffer);
-    return 1;
+/* HULK_AUDIO_CHECK=1: the mirror against the model before each advance, when both stand at the same time (the
+ * model's voices: its live list) */
+int ff_ds_peek(uint32_t buffer, uint32_t* status, uint32_t* pos);
+static void check(void) {
+    static int on = -1;
+    static unsigned long long diffs;
+    if (on < 0) on = getenv("HULK_AUDIO_CHECK") && getenv("HULK_AUDIO_CHECK")[0] == '1';
+    if (!on) return;
+    for (uint32_t v = SIM->ds_voices; v; v = *(const uint32_t*)PTR(v + 8)) {
+        uint32_t st, pos;
+        if (!ff_ds_peek(v, &st, &pos)) continue;
+        uint32_t ms = ga_status(v) & 1, mp = ga_where(v);
+        if (ms != (st & 1) || mp != pos) {
+            if (diffs++ < 20)
+                fprintf(stderr, "audio check: voice %08x model %u@%u mirror %u@%u (frame %u)\n", v, st & 1, pos, ms,
+                        mp, SIM->frame);
+            if (!(st & 1)) ga_stop(v);
+            else ga_play(v, (int32_t)(st >> 2 & 1));
+            ga_position(v, pos);
+        }
+    }
+}
+
+/* a snapshot was put back (sched.c HULK_ROLLTEST; rollback): the mirror is made again from the model's voices (a
+ * voice the mirror lacks is created with the default mix bins; the mirror's voices the model lacks are released) */
+int ff_ds_describe(uint32_t buffer, uint32_t* w);
+void ff_audio_restored(void) {
+    if (!audio_on()) return;
+    uint32_t w[9];
+    ga_resync(0, 0, w);
+    for (uint32_t v = SIM->ds_voices; v; v = *(const uint32_t*)PTR(v + 8))
+        if (ff_ds_describe(v, w)) ga_resync(1, v, w);
+    ga_resync(2, 0, w);
+}
+
+/* the voices are about to move on by FRAMES (dsound_null.c): the mixer renders them from its mirror, which is the
+ * model as it is now */
+void ff_audio_tick(uint32_t frames) {
+    if (!audio_on()) return;
+    check();
+    ga_tick(frames);
 }
 
 void ff_audio_obs(uint32_t fn, const uint32_t* a) {
@@ -105,6 +145,5 @@ void ff_audio_obs(uint32_t fn, const uint32_t* a) {
         break;
     }
     case 0x003ca02f: if (a[1]) ga_listener(PTR(a[1])); break;
-    case 0x003c6e34: ga_work(); break;
     }
 }

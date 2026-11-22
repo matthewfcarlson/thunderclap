@@ -2838,3 +2838,28 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   takes; a free lowers the bounds its merged block can serve; a merge moves bounds off a vanished block start. Still
   first fit in address order, so every address is the same: play3's records byte-identical through 60,000 frames
   (with the next change too). First 12,000 frames on studio 17.8 -> 17.3 s (timing job 111485).
+
+## 2026-11-22 waud1: one deterministic audio model (D222)
+
+- The app's free play read voice status and positions from the real-time mixer (wapp1), so game state followed the
+  host's audio device: two free runs with the same frame-indexed input (`HULK_INPUT`) at different speeds gave
+  different game hashes. dsound_null.c is now the only model the game reads; outside replays its voices run on the
+  virtual clock's 48 kHz (`SIM->ds_clock` 1, synced to `SIM->clock` at every DirectSound call), and the app's mixer is
+  a mirror driven by the same calls and advances (`ff_audio_tick` -> `aud_tick`), rendering what the model played.
+  The same two runs now give the same game state (paced 96 s vs unpaced under load 9 s; HEAD's app: 1.38M words
+  differ). One leftover outside audio: with Metal the arena holds pddi front-end objects whose words point into the
+  module's own malloc heap (above 1 GB), and that heap's layout follows host history (a paced run's log lines moved it
+  by 0x18 bytes), so the game hash can differ while every differing word is such a pointer (3,905 of 3,905). Rollback
+  with graphics needs those allocations in the arena or outside the hashed state.
+- In gameplay the virtual clock keeps to real time exactly (35.01 game s in 35.01 real s): no field snapping or
+  rate correction beyond +-0.05% was needed. Start-up movies (BinkWait jumps the clock) and loads run the virtual clock
+  up to ~10x real time; the mixer drops those frames (silent in the capture) and the queue returns to ~67 ms.
+- Replays keep 800 frames a DoWork: play3's records are byte-identical. With the virtual clock (`HULK_DS_CLOCK=time`)
+  play3's sound* tag diverges from frame 586 (194 of 780 records) while every other tag is unchanged, so the
+  reference's sound records follow the DoWork clock the recording was checked with.
+- `HULK_KEY_SCRIPT` times keys by wall clock (tenths of a second since the first poll), so it cannot give
+  identical runs at different speeds; determinism tests use `HULK_INPUT` (frame-indexed) in the app.
+- `HULK_ROLLTEST=A:B` (sched.c): a snapshot at a fiber switch (every fiber suspended, all state in linear memory),
+  restore at B, re-simulate to B: identical headless and in the app with `null`; with Metal the run traps after the
+  restore with the mixer off too (the pddi front end's statics outside the snapshot), not an audio issue. Save paths
+  are game state: identical runs need the same save directory paths.

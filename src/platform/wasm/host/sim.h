@@ -55,6 +55,9 @@ typedef struct {
     uint32_t ds_voices;               /* the live buffers (a list in the arena) */
     /* arena.c (wasm15): no free block of 16k bytes or more below arena_lbn[k] (k = 1..64; 0: the base) */
     uint32_t arena_lbn[65];
+    uint32_t ds_clock;                /* the voices' clock: 0 a DirectSoundDoWork (replays), 1 the virtual clock */
+    uint32_t ds_spare;
+    uint64_t ds_frames;               /* ds_clock 1: the virtual clock's 48 kHz frames the voices have reached */
 } hulk_sim;
 
 #define SIM ((hulk_sim*)(uintptr_t)SIM_ADDR)

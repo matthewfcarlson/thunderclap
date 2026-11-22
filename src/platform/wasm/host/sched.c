@@ -10,6 +10,7 @@
 #include <emscripten/stack.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "hulk_host.h"
 #include "sim.h"
 
@@ -126,6 +127,69 @@ __attribute__((noinline)) static void fiber_swap(hfiber* from, hfiber* to) {
     as_start_unwind(from);
 }
 
+/* HULK_ROLLTEST=A:B (D222): a rollback round trip. At the first fiber switch of frame A (every fiber suspended: the
+ * whole game state is in linear memory) the state is copied; at frame B the game hash is taken and the copy put back,
+ * and the run plays A..B again: the second hash at B must be the first ("rolltest: identical"; exit 0, else 3). */
+uint64_t ff_game_hash(void);
+uint64_t ff_state_hash(void);
+uint32_t ff_state_bytes(void);
+void ff_files_flush(void);
+void ff_audio_restored(void) __attribute__((weak));     /* gfx/audio.c: the app's mixer makes its mirror again */
+static void state_copy(uint8_t* q, int restore) {
+    struct { uint32_t lo, n; } r[3] = {{0x0048ca80u, XBE_END - 0x0048ca80u},
+                                       {MAIN_STACK_LO, MAIN_STACK_HI - MAIN_STACK_LO + (uint32_t)sizeof(hulk_sim)},
+                                       {ARENA_LO, 0}};
+    r[2].n = (restore ? *(uint32_t*)q : ff_arena_top()) - ARENA_LO;
+    if (!restore) *(uint32_t*)q = ff_arena_top();
+    q += 4;
+    for (int i = 0; i < 3; i++) {
+        if (restore) memcpy(PTR(r[i].lo), q, r[i].n);
+        else memcpy(q, PTR(r[i].lo), r[i].n);
+        q += r[i].n;
+    }
+}
+static void rolltest(void) {
+    static long a = -1, b;
+    static int phase;
+    static uint8_t* snap;
+    static hfiber* snap_next;
+    static uint64_t h1, s1;
+    if (a < 0) {
+        const char* e = getenv("HULK_ROLLTEST");
+        a = 0;
+        if (e && sscanf(e, "%ld:%ld", &a, &b) != 2) a = 0;
+        if (b <= a) a = 0;
+    }
+    if (!a || !next_fiber) return;
+    if (phase == 0 && SIM->frame >= (uint32_t)a) {
+        uint32_t top = ff_arena_top();
+        snap = malloc(4 + (XBE_END - 0x0048ca80u) + (MAIN_STACK_HI - MAIN_STACK_LO) + sizeof(hulk_sim) + (top - ARENA_LO));
+        if (!snap) ff_fatal("rolltest: no memory");
+        state_copy(snap, 0);
+        snap_next = next_fiber;
+        phase = 1;
+        fprintf(stderr, "rolltest: snapshot at frame %u (game hash 0x%016llx)\n", SIM->frame,
+                (unsigned long long)ff_game_hash());
+    } else if (phase == 1 && SIM->frame >= (uint32_t)b) {
+        h1 = ff_game_hash();
+        s1 = ff_state_hash();
+        uint32_t f = SIM->frame;
+        state_copy(snap, 1);
+        ff_files_flush();
+        if (ff_audio_restored) ff_audio_restored();
+        next_fiber = snap_next;
+        phase = 2;
+        fprintf(stderr, "rolltest: frame %u game hash 0x%016llx state hash 0x%016llx; restored frame %u\n", f,
+                (unsigned long long)h1, (unsigned long long)s1, SIM->frame);
+    } else if (phase == 2 && SIM->frame >= (uint32_t)b) {
+        uint64_t h2 = ff_game_hash(), s2 = ff_state_hash();
+        fprintf(stderr, "rolltest: frame %u again: game hash 0x%016llx state hash 0x%016llx: %s\n", SIM->frame,
+                (unsigned long long)h2, (unsigned long long)s2, h1 == h2 ? "identical" : "DIFFERENT");
+        fflush(stderr);
+        exit(h1 == h2 ? 0 : 3);
+    }
+}
+
 /* the driver (not instrumented: tools/wasm_port.py lists it for Asyncify's removelist): runs fibers until the first
  * one returns */
 __attribute__((noinline)) void ff_sched_loop(hfiber* f) {
@@ -145,6 +209,7 @@ __attribute__((noinline)) void ff_sched_loop(hfiber* f) {
         as_stop_unwind();
         n_swaps++;
         if (sj_mode) sj_step(f);
+        rolltest();
         f = next_fiber;
     }
 }
