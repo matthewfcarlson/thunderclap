@@ -1970,9 +1970,18 @@ int owners::Object_1d3600::FUN_001d3600(const char* name, unsigned int unused) {
 
 // 0x001d36e0 FUN_001d36e0 (15 B): matches/0x001d36e0.cpp
 // sym: ?FUN_001d36e0@ScriptHandler@@QAEXH@Z
+// HULK_PORT_ABI (include/compat/ptr.h): the script's status. The original tail-returns 0x001d3600's int in eax; the
+// Lua closure sh_ProcessFile (script_state FUN_001d36e0(const char*)) returns it to the script. The port builds
+// return it (wasm7), the 32-bit builds keep void.
+#if defined(HULK_PORT_ABI)
+int ScriptHandler::FUN_001d36e0(int a) {
+    return ((owners::Object_1d3600 *)(((ScriptHandler_nv_1d36e0*)(this))))->FUN_001d3600((const char *)(hulk_uintptr)(int)a, 0);
+}
+#else
 void ScriptHandler::FUN_001d36e0(int a) {
     ((owners::Object_1d3600 *)(((ScriptHandler_nv_1d36e0*)(this))))->FUN_001d3600((const char *)(hulk_uintptr)(int)a, 0);
 }
+#endif
 
 
 // 0x001d3b00 FUN_001d3b00 (47 B): matches/0x001d3b00.cpp [wrapped: conflict: Obj]

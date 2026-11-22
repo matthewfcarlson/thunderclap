@@ -270,15 +270,28 @@ struct Controller {
     virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
     virtual void slot20(); virtual void slot21(); virtual bool slot22();
 };
-struct DrawableContainer { void vfunc_7_002a4150(); };
+// HULK_PORT_ABI (include/compat/ptr.h): slot 7's char (DrawableContainer::vfunc_7 0x002a4150 returns char). The
+// original returns the controller's 0 in al, or tail-returns 0x002a4150's result; callers of slot 7 read it. The
+// port builds return it (wasm7), the 32-bit builds keep void.
+#if defined(HULK_PORT_ABI)
+typedef char Ret_2a3740;
+#else
+typedef void Ret_2a3740;
+#endif
+struct DrawableContainer { Ret_2a3740 vfunc_7_002a4150(); };
 struct ParticleSystem : DrawableContainer {
     char pad[0xa4];
     Controller *controller;
-    void vfunc_7();
+    Ret_2a3740 vfunc_7();
 };
-void ParticleSystem::vfunc_7() {
+Ret_2a3740 ParticleSystem::vfunc_7() {
+#if defined(HULK_PORT_ABI)
+    if (controller && !controller->slot22()) return 0;
+    return DrawableContainer::vfunc_7_002a4150();
+#else
     if (controller && !controller->slot22()) return;
     DrawableContainer::vfunc_7_002a4150();
+#endif
 }
 }
 } // namespace fn_002a3740

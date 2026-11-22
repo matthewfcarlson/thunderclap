@@ -1064,9 +1064,17 @@ extern "C" bool FUN_002469e0() {
 // sym: _FUN_002469f0
 // (x64t15) the stream's read callback: the destination, the count and the flag as the reader takes them (the count and
 // the flag were pointer-typed, which the reader's int arguments truncated natively)
+// HULK_PORT_ABI (include/compat/ptr.h): the read's bool. The original tail-returns 0x002647e0's result in eax; the
+// stream's reader takes it from this callback. The port builds return it (wasm7), the 32-bit builds keep void.
+#if defined(HULK_PORT_ABI)
+extern "C" bool FUN_002469f0(Obj* o, void* a, int b, int c) {
+    return ((owners::X_2647e0 *)(o->ptr))->FUN_002647e0(a, b, 1, c);
+}
+#else
 extern "C" void FUN_002469f0(Obj* o, void* a, int b, int c) {
     ((owners::X_2647e0 *)(o->ptr))->FUN_002647e0(a, b, 1, c);
 }
+#endif
 
 
 // 0x00246a10 FUN_00246a10 (37 B): matches/0x00246a10.cpp

@@ -2620,3 +2620,15 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
 - Note: wasm_port.py compiles the snapshot's sources (HULK_WASM_SNAP/src), not the checkout: a source fix is tested by
   patching a private snapshot copy (build/wasm7/snap) or with fresh wasm_inputs.
 - wasm play3: first divergence 542 rng -> 751 rng (hulk/camera to 941).
+
+### wasm7: the HULK_WASM_DEBUG_VOIDRET batch (sound 2 -> 779)
+- One play3 run of the voidret build listed the reached void-read sites; this batch fixes the game-logic ones whose eax
+  is a real result: 0x002469f0 (stream read callback tail-returns 0x002647e0's bool), 0x002a3740
+  (ParticleSystem::vfunc_7 returns 0 or 0x002a4150's char), 0x001d36e0 (ScriptHandler::FUN_001d36e0: sh_ProcessFile's
+  status from 0x001d3600; gen/global.h declares it int under HULK_PORT_ABI). wasm play3: sound tag 2 -> 779; rng
+  still 751.
+- Left (eax incidental or not decidable statically): the d3dContext/pddiBaseContext render-state slots, frontend
+  FEContainer slots, boot-time drive/allocator slots, the free callback 0x001e8830, CAlertStatusCondition::vfunc_8
+  (0x0004a4e0: al of a heap pointer, address-dependent), and the audio sequencer family: SeqAction*::vfunc_2 (14
+  blocks) leave the caller's eax (0x0025dc20's queue pointer, their first argument) and 0x0025dc20 tail-returns it
+  to the SeqCommand vfunc_0s (likely the sound divergence at 779).

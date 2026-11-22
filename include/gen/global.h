@@ -6383,7 +6383,11 @@ class ScriptHandler {
 public:
     enum script_state { };
     virtual ~ScriptHandler(); // slot 0
+#if defined(HULK_PORT_ABI)
+    int FUN_001d36e0(int); // non-virtual; the port builds return 0x001d3600's status (sh_ProcessFile's result, wasm7)
+#else
     void FUN_001d36e0(int); // non-virtual
+#endif
     int f_04;
     char _pad_08[0x1004];
     int f_100c;
