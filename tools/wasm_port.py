@@ -94,7 +94,7 @@ HOST_CFLAGS = ["-O1", "-Wall", "-Wextra", "-Werror"]
 # host C++ (replay.cpp: the SDL layer's replay reader and checkpoint probe, compiled for the wasm host)
 HOST_CXXFLAGS = ["-O1", "-std=c++17", "-fno-exceptions", "-fno-rtti", "-Wall", "-Wextra", "-Werror", "-Wno-unused-function",
                  "-Wno-missing-field-initializers"]
-VERSION = "wasm3-5"          # bump when bind_tu() changes (object cache key)
+VERSION = "wasm14-1"          # bump when bind_tu() changes (object cache key)
 SYNTH = 0xF0000000
 
 # library code inside .text (tools/platform_map.py) and the library sections after it
@@ -308,6 +308,66 @@ def strip_inalloca(ir):
     return ir.replace("alloca inalloca ", "alloca ").replace("inalloca(", "byval(")
 
 
+def fix_param_block(ir):
+    """A function that takes the address of a parameter's copy and reads past it walks its stack arguments x86-style
+    (Render::Object::vfunc_6 0x1c4e00: `memcpy(this + 0x30, &a0, 0x40)` copies its sixteen int parameters). On x86 the
+    arguments are one block; on wasm each parameter's copy is its own local, which -O0 happens to lay out in a row
+    and -O1 does not. When a parameter copy's address escapes (it is used other than by a load or a store to it),
+    every stack parameter's copy becomes a slot of one block in x86 layout (4-byte slots, 8 for i64/double; the
+    this-pointer of a thiscall and fastcall's register parameters are not on the stack)."""
+    lines = ir.split("\n")
+    out, k = [], 0
+    while k < len(lines):
+        l = lines[k]
+        if not (l.startswith("define ") and ", ...)" not in l):
+            out.append(l)
+            k += 1
+            continue
+        end = k
+        while lines[end] != "}":
+            end += 1
+        body = lines[k + 1:end]
+        p = parse_func_line(l)
+        new = None
+        if p and p[3].params and p[3].cc != "x86_fastcallcc" and all(q.name for q in p[3].params):
+            params = p[3].params[1:] if p[3].cc == "x86_thiscallcc" else p[3].params
+            ok = all(not q.byval and not q.sret and not q.inreg and
+                     q.type in ("i8", "i16", "i32", "i64", "ptr", "float", "double") for q in params)
+            slots = {}
+            for b in body:
+                m = re.match(r"\s*store (\S+) (%[-\w.]+), ptr (%[-\w.]+),", b)
+                if m and m.group(2) in [q.name for q in params] and m.group(2) not in slots.values():
+                    slots[m.group(3)] = m.group(2)
+            if ok and len(slots) == len(params) and len(params) > 1:
+                esc = False
+                for b in body:
+                    for s in slots:
+                        if not re.search(r"%s(?![-\w.])" % re.escape(s), b):
+                            continue
+                        if re.match(r"\s*%s = alloca " % re.escape(s), b) or \
+                                re.match(r"\s*store [^,]+, ptr %s," % re.escape(s), b) or \
+                                re.match(r"\s*%%[-\w.]+ = load [^,]+, ptr %s," % re.escape(s), b):
+                            continue
+                        esc = True
+                if esc:
+                    off, offs = 0, {}
+                    for q in params:
+                        offs[q.name] = off
+                        off += 8 if q.type in ("i64", "double") else 4
+                    new = ["  %%ffpb = alloca [%d x i8], align 8" % off]
+                    for b in body:
+                        m = re.match(r"\s*(%[-\w.]+) = alloca ", b)
+                        if m and m.group(1) in slots:
+                            b = "  %s = getelementptr inbounds i8, ptr %%ffpb, i32 %d" % (m.group(1), offs[slots[m.group(1)]])
+                        new.append(b)
+        if new is None:
+            out += lines[k:end + 1]
+        else:
+            out += [l] + new + ["}"]
+        k = end + 1
+    return "\n".join(out)
+
+
 def fix_va_frames(ir, notes=None):
     """A variadic function that walks its arguments x86-style, from the address of its last named parameter
     (`(char*)&fmt + 4`), reads its own local copy of the parameter on wasm. Its address there becomes the variadic
@@ -368,7 +428,7 @@ def fix_va_frames(ir, notes=None):
 
 def prepare(ir):
     """Function aliases replaced by what they alias (vftable aliases are not function aliases and stay)."""
-    ir = fix_va_frames(strip_inalloca(ir))
+    ir = fix_param_block(fix_va_frames(strip_inalloca(ir)))
     for m in list(ALIAS.finditer(ir)):
         a, t = m.group(1), m.group(2)
         ir = ir.replace(m.group(0) + "\n", "", 1)

@@ -200,8 +200,14 @@ the area has the x86 layout. The host's printf family reads a `va_list` as x86 s
   the sprite constructor 0x2be440 passed 0x2bdaf0 a five-word rect, and 0x2bdaf0 reads six words (u from +0x14, the
   original's spill of the column width). With six words, -O0 and -O1 give the same game hash at frame 1, and some
   sprite u values that were 2.0 or 8.0 are now below 1. Bisect tools: build/wasm14/scripts (a TU prefix search over
-  mixed links, and a per-function search that marks a TU's -O1 functions `optnone`). On play3, -O1 still diverges at
-  frame 672 (rng); its bisect is in progress. -O1 runs 1,715 update frames/s at the end of play3 against -O0's 1,212.
+  mixed links, and a per-function search that marks a TU's -O1 functions `optnone`).
+  **-O1 now plays play3 exactly as -O0**: the same checkpoint records over the whole run (byte for byte to frame
+  60,000; first divergence from the reference actors 3810 in both). Before that, -O1 left play3 at frame 672 (rng):
+  Render::Object::vfunc_6 0x1c4e00 copies its sixteen int parameters with `memcpy(this + 0x30, &a0, 0x40)`, x86's
+  argument block. On wasm each parameter's copy is its own local; -O0 happened to lay them out in a row, -O1 did not.
+  wasm_port's `fix_param_block` now gives every function that lets a parameter copy's address escape one block of
+  x86-laid-out slots for its stack parameters (156 functions, most with by-value vectors). play3 to 60,000 frames:
+  -O0 86 s (1,273 update frames/s at the end), -O1 70 s (1,771).
 
 - 2026-11-21 (wasm3, play3): `-O0` is the default build again (`HULK_WASM_OPT=O1` for the optimised one: its game hash
   differs from frame 1). play3 on the compiled build runs all 60,000 frames (about 2,000 update frames/s, 31 s) and
