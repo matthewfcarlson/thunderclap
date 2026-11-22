@@ -12,12 +12,13 @@ the Wine build, and gates its records against the reference with tools/ckpt_ref.
         [--control CONTROL.ckref] [--json OUT]
     build/venv/bin/python tools/native_replay.py layout   # the probe's native offsets against decls / gen
 
-`run` writes OUT/trace.txt, OUT/trace.txt.ckref, OUT/stdout.txt and OUT/result.json (the frames reached, how the run
-ended, the checkpoint lines' verdicts), stops the process once the trace shows the checkpoint of frame --frames, and
-then runs `check` unless --no-check. `check` takes the records of any build (the Wine build's, a native one's, the
-wasm lane's: the same "HCKR" format), so two builds race on the same test: the verdict is ckpt_ref's (every compared
-(frame, tag) equal to the reference; the probe's unavailable tags are not compared) plus, with --frames, that the run
-has a record at every reference frame up to N. The exit status is 0 only when both hold.
+`run` empties OUT/save, OUT/tdata and OUT/udata first (every replay starts without saves), writes OUT/trace.txt,
+OUT/trace.txt.ckref, OUT/stdout.txt and OUT/result.json (the frames reached, how the run ended, the checkpoint lines'
+verdicts), stops the process once the trace shows the checkpoint of frame --frames, and then runs `check` unless
+--no-check. `check` takes the records of any build (the Wine build's, a native one's, the wasm lane's: the same "HCKR"
+format), so two builds race on the same test: the verdict is ckpt_ref's (every compared (frame, tag) equal to the
+reference; the probe's unavailable tags are not compared) plus, with --frames, that the run has a record at every
+reference frame up to N. The exit status is 0 only when both hold.
 
 Nothing it writes is committed: traces and records are derived from the game (build/ only).
 """
@@ -67,14 +68,30 @@ def scan(trace, pos, st):
         return pos
 
 
+STATE_DIRS = ("save", "tdata", "udata")
+
+
+def fresh_state_dirs(out):
+    """Empty the run's game-written directories (saves, title and user data): a save left by an earlier run in the
+    same --out sends the game down another path (the wasm lane's stop at frame 465 instead of ~8700, wasm11)."""
+    import shutil
+    for sub in STATE_DIRS:
+        d = os.path.join(out, sub)
+        if os.path.lexists(d):
+            if os.path.isdir(d) and not os.path.islink(d):
+                shutil.rmtree(d)
+            else:
+                os.remove(d)
+        os.makedirs(d)
+
+
 def cmd_run(a):
     exe = os.path.abspath(a.exe)
     out = os.path.abspath(a.out)
     rec = os.path.abspath(RECS.get(a.rec, a.rec))
     if not os.path.exists(rec):
         sys.exit("no recording " + rec)
-    for sub in ("save", "tdata", "udata"):
-        os.makedirs(os.path.join(out, sub), exist_ok=True)
+    fresh_state_dirs(out)
     trace = os.path.join(out, "trace.txt")
     for p in (trace, trace + ".ckref"):
         if os.path.exists(p):
