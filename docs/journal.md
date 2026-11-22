@@ -2863,3 +2863,16 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   restore at B, re-simulate to B: identical headless and in the app with `null`; with Metal the run traps after the
   restore with the mixer off too (the pddi front end's statics outside the snapshot), not an audio issue. Save paths
   are game state: identical runs need the same save directory paths.
+
+## 2026-11-22 wasm15: softx87's fdivu in three divisions
+
+- fdivu (a 128-bit mantissa over a small integer, the series' factorial steps) divides in digits of 48, 48 and 32
+  bits: every partial remainder is below the divisor (< 2^16), so a remainder and the next 48-bit digit still fit in
+  64 bits. Three divisions instead of four, the same quotient (50M random cases and every divisor 1..65535 identical).
+- Wine pair 111487 (control, HEAD 37916f45b) / 111488 (proof) on studio, play3 to 60,000: GATE ok (ref: ok), only
+  hulk-strict.exe differs. wasm: play3 records byte-identical through 60,000 frames; with the arena bounds, first
+  12,000 frames on studio 17.8 -> 16.7 s (timing job 111486). wasm2c microbenchmark: sin -18%.
+- Measured on the way: compiling the wasm host's x87.cpp at -O3 instead of -O1 gives the same records and next to no
+  gain once fdivu is fast; softx87 built natively for arm64 (even with __int128 products) is only ~20% faster than
+  through wasm2c, so native imports for it would not pay. softx87 is near its limit without changing its results;
+  the rest of the early frames' trig cost is the series' term count.

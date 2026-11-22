@@ -330,6 +330,7 @@ side holds (GPU objects, the window, the audio device) is derived from linear me
   (Wine pair 111481/111483, GATE ok).
   The arena's first fit starts at a bound per exact size up to 1 KB (`SIM->arena_lbn`, beside the per-class
   bounds): the same addresses, 17.8 -> 17.3 s.
+  fdivu in three divisions (48/48/32-bit digits, the same quotients): 17.3 -> 16.7 s (Wine pair 111487/111488).
 
 - 2026-11-22 (wasm14, -O1 vs -O0): **locals start as zeros** (`-ftrivial-auto-var-init=zero` in the front end;
   `HULK_WASM_ZEROINIT=0` turns it off). This is a deliberate difference from the Xbox, where an uninitialised local

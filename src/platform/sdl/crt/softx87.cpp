@@ -163,23 +163,21 @@ F fdiv(const F& a, const F& b) {
     return r;
 }
 
-// a / d for a small positive integer d (< 65536), in 32-bit digits
+// a / d for a small positive integer d (< 65536), in digits of 48, 48 and 32 bits (each partial remainder is below d,
+// so a remainder and the next digit fit in 64 bits)
 F fdivu(const F& a, u32 d) {
     if (fzero(a)) return a;
-    u64 rem = 0;
-    u64 w[2] = {a.hi, a.lo};
-    for (int k = 0; k < 2; k++) {
-        u64 cur = (rem << 32) | (w[k] >> 32);
-        u64 q1 = cur / d;
-        rem = cur - q1 * d;
-        cur = (rem << 32) | (u32)w[k];
-        u64 q0 = cur / d;
-        rem = cur - q0 * d;
-        w[k] = (q1 << 32) | q0;
-    }
-    F r = fmake(a.s, a.e, w[0], w[1]);
-    fnorm(r);
-    return r;
+    u64 c = a.hi >> 16;
+    u64 q2 = c / d;
+    u64 r = c - q2 * d;
+    c = (r << 48) | ((a.hi & 0xffff) << 32) | (a.lo >> 32);
+    u64 q1 = c / d;
+    r = c - q1 * d;
+    c = (r << 32) | (u32)a.lo;
+    u64 q0 = c / d;
+    F r_ = fmake(a.s, a.e, (q2 << 16) | (q1 >> 32), (q1 << 32) | q0);
+    fnorm(r_);
+    return r_;
 }
 
 // |a| vs |b|: -1, 0, 1
