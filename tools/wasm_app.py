@@ -7,7 +7,12 @@
 
 `build` runs, with HULK_WASM_GFX=1 in its own HULK_WASM_DIR (default build/wasm-app): `wasm_port.py compile`
 (every TU on a first build; afterwards only the two TUs the gfx hooks change, unless --all), `wasm_gfx.py compile`,
-`wasm_port.py link` and `aot --app`. Inputs as wasm_port.py's (HULK_WASM_SNAP, HULK_WASM_BINDINGS).
+`wasm_port.py link` and `aot --app`. Inputs as wasm_port.py's (HULK_WASM_SNAP, HULK_WASM_BINDINGS), from
+`tools/wasm_inputs.py` at the commit being built. The directory's tree objects are tied to the inputs they were
+compiled from (app-inputs.json: a digest of the snapshot, the binding map, the compiler tools and the wasm build
+knobs); when any of them changed, or objects come without that record (copied from another build directory), `build`
+compiles every TU again instead of linking stale objects (wapp2). Host files (src/platform/wasm) are compiled from
+the checkout the tools run in.
 
 `bundle` wraps hulk-app as an .app (Contents/MacOS/hulk-app, Info.plist). Not signed or notarised, and never
 published: it is built from the player's own game (D190; public binaries need the maintainer's check first). At start
@@ -15,6 +20,8 @@ the app takes the game from HULK_XBE / HULK_DATA_DIR, else from ~/Library/Applic
 extracted disc: default.xbe and its files), and keeps saves in ~/Library/Application Support/HulkUD/save
 (src/platform/wasm/run/app/app.cpp)."""
 import argparse
+import hashlib
+import json
 import os
 import plistlib
 import shutil
@@ -62,13 +69,69 @@ def cmd_sdl(a):
     print("sdl: %s" % os.path.join(SDL_VIDEO, "lib/libSDL3.a"))
 
 
+# what the tree objects of a build directory depend on besides the hooked TUs (wasm_port.py's inputs and knobs)
+STAMP = "app-inputs.json"
+KNOBS = ["HULK_WASM_OPT", "HULK_WASM_ZEROINIT", "HULK_WASM_OPT_EXCLUDE", "HULK_WASM_FPFIX", "HULK_WASM_DEBUG_HOOKS", "HULK_LLVM_BIN"]
+
+
+def _digest_tree(top):
+    h = hashlib.sha1()
+    for dp, dns, fns in os.walk(top):
+        dns.sort()
+        for f in sorted(fns):
+            p = os.path.join(dp, f)
+            h.update(os.path.relpath(p, top).encode() + b"\0")
+            with open(p, "rb") as fh:
+                h.update(hashlib.sha1(fh.read()).digest())
+    return h.hexdigest()
+
+
+def _digest_file(p):
+    with open(p, "rb") as fh:
+        return hashlib.sha1(fh.read()).hexdigest()
+
+
+def inputs_stamp(e):
+    """The inputs the directory's tree objects were compiled from (paths resolved as wasm_port.py does)."""
+    out = e["HULK_WASM_DIR"]
+    snap = e.get("HULK_WASM_SNAP") or os.path.join(out, "cp/snap")
+    bind = e.get("HULK_WASM_BINDINGS") or os.path.join(out, "maps/bindings.json")
+    for p in (os.path.join(snap, "manifest.json"), bind):
+        if not os.path.exists(p):
+            raise SystemExit("no %s: point HULK_WASM_SNAP / HULK_WASM_BINDINGS at tools/wasm_inputs.py's output" % p)
+    return {"snap": _digest_tree(snap), "bindings": _digest_file(bind),
+            "tools": {t: _digest_file(os.path.join(ROOT, "tools", t)) for t in ("wasm_port.py", "wasm_ir.py")},
+            "knobs": {k: e.get(k) for k in KNOBS}}
+
+
 def cmd_build(a):
     e = env()
     out = e["HULK_WASM_DIR"]
+    os.makedirs(out, exist_ok=True)
+    stamp = inputs_stamp(e)
+    sp = os.path.join(out, STAMP)
     first = not os.path.exists(os.path.join(out, "compile.json"))
+    full = first or a.all
+    if not full:
+        try:
+            old = json.load(open(sp))
+        except (OSError, ValueError):
+            old = None
+        if old != stamp:
+            what = "no %s (objects of unknown inputs)" % STAMP if old is None else \
+                "changed: " + ", ".join(k for k in stamp if old.get(k) != stamp[k])
+            print("build: the tree objects in %s are stale (%s): compiling every TU" % (out, what), flush=True)
+            full = True
+    if full and os.path.exists(sp):
+        os.remove(sp)       # (an interrupted full compile leaves no record)
     tools = os.path.join(ROOT, "tools")
     run([PY, os.path.join(tools, "wasm_port.py"), "compile", "--jobs", str(a.jobs)] +
-        ([] if first or a.all else ["--only"] + HOOKED_TUS), e)
+        ([] if full else ["--only"] + HOOKED_TUS), e)
+    rep = json.load(open(os.path.join(out, "compile.json")))
+    if rep.get("failed"):
+        raise SystemExit("build: %d TUs failed to compile (compile.json)" % len(rep["failed"]))
+    with open(sp, "w") as f:
+        json.dump(stamp, f, indent=1)
     run([PY, os.path.join(tools, "wasm_gfx.py"), "compile", "--jobs", str(a.jobs)], e)
     run([PY, os.path.join(tools, "wasm_port.py"), "link"], e)
     run([PY, os.path.join(tools, "wasm_port.py"), "aot", "--app", "--jobs", str(a.jobs)], e)

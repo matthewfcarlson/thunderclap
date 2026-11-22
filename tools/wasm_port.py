@@ -1712,6 +1712,10 @@ void ff_dispatch(uint32_t a, uint32_t ecx, uint32_t edx, void* st, void* rb) {
     if r.returncode:
         print(r.stderr[-3000:])
     cmd_report(a)
+    if r.returncode:        # (an older hulk.wasm left in the directory must not reach `aot`: wapp2)
+        if os.path.exists(os.path.join(OUT, "hulk.wasm")):
+            os.remove(os.path.join(OUT, "hulk.wasm"))
+        raise SystemExit("link failed (rc %d): %s/link.json" % (r.returncode, OUT))
 
 
 def cmd_report(a):
@@ -1786,9 +1790,12 @@ def app_objects(d, wflags):
     os.makedirs(os.path.join(d, "app"), exist_ok=True)
     objs = []
     for src, cmd in jobs:
+        # (run/app/input.cpp includes the SDL layer's input/hulk_input.cpp: that directory's sources count too)
         key = hashlib.sha1(open(src, "rb").read() + " ".join(cmd).encode() + b"".join(
-            open(os.path.join(dp, f), "rb").read() for dp in (os.path.join(run, "app"), os.path.join(sdl, "pddi"), gen)
-            for f in sorted(os.listdir(dp)) if f.endswith(".h"))).hexdigest()[:16]
+            open(os.path.join(dp, f), "rb").read() for dp in (os.path.join(run, "app"), os.path.join(sdl, "pddi"), gen,
+                                                              os.path.join(sdl, "input"))
+            for f in sorted(os.listdir(dp)) if f.endswith(".h") or dp.endswith("input") and f.endswith(".cpp")
+        )).hexdigest()[:16]
         obj = os.path.join(d, "app", "%s.%s.o" % (os.path.basename(src).rsplit(".", 1)[0], key))
         if not os.path.exists(obj):
             r = subprocess.run(cmd + ["-c", src, "-o", obj + ".tmp"], capture_output=True, text=True, errors="replace")

@@ -332,7 +332,10 @@ static void onResize(int w, int h, void*)
 }
 u32 w2c_hulk_plat_create_window(struct w2c_hulk*, u32 title, u32 w, u32 h, u32 hidden, u32 resizable)
 {
-    s_window = hulk_platform_create_window((const char*)M(title), (int)w, (int)h, (int)hidden, (int)resizable);
+    // the front end names its window for the native builds ("... (native)"): the app keeps the game's own name
+    (void)title;
+    s_window = hulk_platform_create_window("The Incredible Hulk: Ultimate Destruction", (int)w, (int)h, (int)hidden,
+                                           (int)resizable);
     if (s_window)
         hulk_platform_set_resize_handler(onResize, 0);
     return s_window != nullptr;

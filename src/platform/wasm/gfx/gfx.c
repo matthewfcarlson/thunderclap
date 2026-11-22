@@ -198,17 +198,18 @@ int hulk_platform_native_handles(void* window, void** nwh, void** ndt, int* wayl
     *wayland = 0;
     return 1;
 }
-typedef void (*resize_fn)(int, int, void*);
-static resize_fn on_resize;
-static void* on_resize_user;
-void hulk_platform_set_resize_handler(resize_fn fn, void* user) {
-    on_resize = fn;
-    on_resize_user = user;
+/* the handler is a front-end function (sdl_platform.cpp onResize) compiled through the i686 path: as a value it is
+ * its synthetic dispatch address, not a wasm table index, so it is called through ff_dispatch (a call through a C
+ * function pointer traps with "Invalid call_indirect" at the first window resize; wapp2) */
+static uint32_t on_resize, on_resize_user;
+void hulk_platform_set_resize_handler(void* fn, void* user) {
+    on_resize = (uint32_t)(uintptr_t)fn;
+    on_resize_user = (uint32_t)(uintptr_t)user;
 }
 void hulk_platform_pump(void) {
     gi_pump();
     int32_t w, h;
-    if (gi_resized(&w, &h) && on_resize) on_resize(w, h, on_resize_user);
+    if (gi_resized(&w, &h) && on_resize) ff_call(on_resize, 3, (uint32_t)w, (uint32_t)h, on_resize_user);
 }
 int hulk_platform_quit_requested(void) { return gi_quit_requested(); }
 int hulk_platform_has_focus(void) { return gi_has_focus(); }

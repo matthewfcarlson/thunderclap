@@ -2803,3 +2803,26 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
 - wasm (compiled, wasm2c): play3's records byte-identical through 12,000 frames; first 12,000 frames on studio 21.1 ->
   18.1 s. A wasm2c microbenchmark of softx87 (emcc -O1, clang -O2): sin 0.60 -> 0.42 us, acos 2.0 -> 0.63 us, atan2
   1.1 -> 0.47 us, fsqrt 1.2 -> 0.24 us.
+
+## 2026-11-22 wapp2: the wasm2c app's "Invalid call_indirect" trap was the window's resize handler
+
+- The app trapped within a second (`hulk-aot: trap: Invalid call_indirect`, frame 16-32, no input needed). lldb with
+  `b wasm_rt_trap`: func_types_eq_slowpath <- hulk_platform_pump (src/platform/wasm/gfx/gfx.c) <- the front end's
+  platformAfterFrame. The front end registers its resize handler (sdl_platform.cpp onResize) with
+  `hulk_platform_set_resize_handler`; compiled through the i686 path, that function as a value is its synthetic
+  dispatch address, and gfx.c called it through a C function pointer, i.e. a wasm call_indirect with an index that is
+  no table entry of that type. It only runs when the window resizes, and macOS resizes it on its own here (640x480 ->
+  1056x1025 on this display) shortly after it opens; wapp1's runs never saw a resize. Not stale objects and not the
+  gamepad. gfx.c now keeps the address and calls it through ff_call (ff_dispatch), as the vblank callback is.
+- The lead's build recipe (cp of build/wasm's objects, then a `--only` compile of the two hooked TUs) linked tree
+  objects of whatever inputs build/wasm last had. wasm_app.py now records the inputs a build directory's objects come
+  from (app-inputs.json: snapshot digest, binding map, wasm_port.py / wasm_ir.py, build knobs) and compiles every TU
+  when they differ or are unknown; from the IR cache a full compile is ~7 minutes on 2 jobs (from nothing, inputs at
+  HEAD: 7.5 minutes for the whole app build). `wasm_port.py link` printed "link rc 1" and exited 0, so `aot` could
+  build an app from an older hulk.wasm: it now exits nonzero and removes hulk.wasm. aot --app's object cache key now
+  covers src/platform/sdl/input/ (run/app/input.cpp includes hulk_input.cpp).
+- With a gamepad connected the SDL layer stops reading the keyboard (kb_active); the app merges the keyboard into
+  pad 0 instead (buttons OR, triggers max, a stick the keyboard pushes overrides). Window title without "(native)"
+  (the runner names the window; no pddi-layer edit).
+- play3 to 60,000 at a34b4362c (inputs a34b4362c988): the headless build's records are a prefix of the app's with
+  `HULK_GFX_RENDERER=null` (as wapp1 checked). Keyboard-scripted free run: gameplay at ~frame 1,000, 30 fps, no trap.

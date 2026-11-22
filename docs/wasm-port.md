@@ -242,8 +242,20 @@ side holds (GPU objects, the window, the audio device) is derived from linear me
   compile`, `wasm_port.py link`, `aot --app`), `wasm_app.py bundle` (build/app/Hulk.app: not signed or notarised;
   nothing built from the game is published or committed). Started from Finder the app reads the extracted disc from
   ~/Library/Application Support/HulkUD/disc and keeps saves in .../HulkUD/save; `hulk-app default.xbe` (with
-  `HULK_DATA_DIR`) as the other runners. Input: SDL3 gamepads, else the keyboard as pad 0 (docs/native-play.md's
-  map; `HULK_KEY_SCRIPT` holds keys for unattended runs).
+  `HULK_DATA_DIR`) as the other runners. Input: SDL3 gamepads and the keyboard as pad 0, merged when a gamepad is
+  there (docs/native-play.md's map; `HULK_KEY_SCRIPT` holds keys for unattended runs).
+- **Building from a clean state** (wapp2): inputs at the commit being built (`tools/wasm_inputs.py submit`, then
+  `fetch ID`), then `HULK_WASM_SNAP=.../snap HULK_WASM_BINDINGS=.../bindings.json tools/wasm_app.py build --jobs 2`
+  (every TU on a first build: about 8 minutes on 2 local jobs) and `wasm_app.py bundle`. The build directory records
+  the inputs its tree objects come from (app-inputs.json: the snapshot, the binding map, wasm_port.py / wasm_ir.py
+  and the build knobs); a build whose inputs changed, or whose objects were copied in from another directory, compiles
+  every TU again instead of linking stale objects. A failed `wasm_port.py link` exits nonzero and leaves no hulk.wasm.
+  Host files (src/platform/wasm) come from the checkout the tools run in: build from a `git archive` workspace when
+  the checkout carries other lanes' uncommitted host edits.
+- **Callbacks across the module boundary.** A function the front end hands the module's C host code as a value (the
+  resize handler of `hulk_platform_set_resize_handler`) is its synthetic dispatch address, not a wasm table index:
+  call it with `ff_call`, never through a C function pointer (wapp2: the first window resize trapped with "Invalid
+  call_indirect").
 
 ## Status
 
