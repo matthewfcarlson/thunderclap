@@ -509,6 +509,13 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   tests/test_wasm_data_stubs.py): a block-scope `extern float one;` linked as a stub collapsed every root TransformNode
   (0x295e20; write the original's DAT_ name) (gcmp1). To compare the app with the Wine build on a replay: the app's
   HULK_GFX_SHOT_GAME counts presents, not game frames (play3's intro: app N = Wine GameClock N-192), at most 64 frames.
+  Aspect Ratio is the game's own widescreen (`bgfxDisplay` slot 16 under HULK_PDDI_WASM; the frame stays 640x480,
+  stretched to the width): it changes the simulation (rng ~1,000 gameplay frames in), so it is per session and replays
+  and tests pin 4:3 (D234). Draw Distance sets World::Render's fade floats 0x4c53bc/0x4c53c4 only while World::Render
+  runs (draw_distance.c entry hook): every checkpoint tag stays, render bookkeeping in the game hash moves, so it is per
+  session too (D235); the game loads rooms only to ~390 units. Fog is runner-only. Compare settings by checkpoint
+  records, or by game hash within one build: the settings' menu handlers are module data whose addresses the game holds,
+  so game hashes differ between app builds (wvid1).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
