@@ -438,6 +438,12 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   `HULK_WASM_ZEROINIT=0` off), so stack garbage doesn't differ between -O0 and -O1; a function that reads its parameters
   through one's address (`memcpy(dst, &a0, n)`, x86's argument block) gets them as one x86-laid-out block
   (`fix_param_block`). Speed changes must keep play3's checkpoint records byte-identical (wasm14).
+  The macOS app (D190, docs/wasm-port.md "The macOS app"): `tools/wasm_app.py build|bundle` (`HULK_WASM_GFX=1`, its own
+  `HULK_WASM_DIR`); `HULK_GFX_RENDERER=null` gives the headless build's play3 records. It stays under build/, unsigned and
+  never published. pddi front-end units compiled for wasm are llvm-linked into one IR module before bind_tu (a vftable
+  naming another unit's method otherwise holds a wasm table index). For D194 i686 COFF comparisons, zero header bytes 4..7
+  (clang's time stamp) first. In free play the app's audio positions come from the real-time mixer, so game state takes
+  real time: rollback/netplay needs a deterministic audio model (wapp1).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
