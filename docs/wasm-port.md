@@ -199,7 +199,8 @@ the area has the x86 layout. The host's printf family reads a `va_list` as x86 s
   transcendental (sin, cos, tan, atan, atan2, exp, log, log10, pow, asin, acos): the same argument bits give the
   same result, and the tables are the host's, not game state. play3 to 60,000 frames, compiled: 70 s -> 43 s (arena)
   -> 27 s (tables); about 5,700 update frames/s from frame 24,000 on, about 1,100 over the first 12,000. Snapshot /
-  restore of the 26.5 MB state: 0.68 / 0.62 ms.
+  restore of the 26.5 MB state: 0.68 / 0.62 ms. The four TUs of `tools/wine_opt_exclude.txt` are optimised on wasm too
+  (`HULK_WASM_OPT_EXCLUDE=FILE` keeps a list at -O0): with them at -O1, play3's records stay byte-identical.
 
 - 2026-11-22 (wasm14, -O1 vs -O0): **locals start as zeros** (`-ftrivial-auto-var-init=zero` in the front end;
   `HULK_WASM_ZEROINIT=0` turns it off). This is a deliberate difference from the Xbox, where an uninitialised local

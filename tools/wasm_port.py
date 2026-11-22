@@ -58,13 +58,13 @@ HOST_DIR = os.path.join(ROOT, "src/platform/wasm")
 # front end runs as -O1
 # without LLVM's passes (no optnone; the IR keeps -O0's shape for bind_tu), the back end optimises. As the Wine
 # build's opt1 (tools/clang_probe.py): decompiled code's undefined behaviour stays as -O0 has it where a switch exists
-# (falling off a value-returning function, loops without side effects, library calls). The TUs the Wine build keeps
-# at -O0 (tools/wine_opt_exclude.txt: at -O1 they leave play3's checkpoints) stay -O0 here too.
+# (falling off a value-returning function, loops without side effects, library calls). The four TUs the Wine build
+# keeps at -O0 (tools/wine_opt_exclude.txt) are optimised here (wasm14: play3's records stay byte-identical);
+# HULK_WASM_OPT_EXCLUDE=FILE names TUs to keep at -O0.
 O0_FRONT = ["-O0"]
 OPT_FRONT = (O0_FRONT if os.environ.get("HULK_WASM_OPT", "O1") == "O0" else
              ["-O1", "-Xclang", "-disable-llvm-passes", "-fno-strict-return", "-fno-finite-loops", "-fno-builtin"])
-OPT_EXCLUDE = os.environ.get("HULK_WASM_OPT_EXCLUDE") or os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                                                     "wine_opt_exclude.txt")
+OPT_EXCLUDE = os.environ.get("HULK_WASM_OPT_EXCLUDE") or ""
 
 # the Wine build's `msvc` configuration (tools/clang_probe.py CONFIGS["msvc"], SSE float), as IR
 DIALECT = ["-Xclang", "-fno-wchar", "-fno-operator-names", "-Wno-c++11-narrowing", "-Wno-address-of-temporary"]
