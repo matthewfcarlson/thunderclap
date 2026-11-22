@@ -2632,3 +2632,16 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   (0x0004a4e0: al of a heap pointer, address-dependent), and the audio sequencer family: SeqAction*::vfunc_2 (14
   blocks) leave the caller's eax (0x0025dc20's queue pointer, their first argument) and 0x0025dc20 tail-returns it
   to the SeqCommand vfunc_0s (likely the sound divergence at 779).
+
+### wasm7: the native float passes on wasm (751 -> 779)
+- 751: props draw the rng when their PhysicsObject is awake (bit 1 of +0x1f4, 0x002f55d0). A prop went to sleep at
+  750 on both builds, but the Wine build woke it with an impulse (0x002f5db0 -> vfunc_13) and wasm did not. The
+  impulse sequences (probe 0x002f5db0, HULK_TRACE_SPAN of the impulse and state words, Wine 111420 vs wasm hooks)
+  agree in count from 449 to 739; the first value difference is frame 450, impulse 10: linear z and angular x/y one
+  ULP apart with identical positions and velocities: a float result rounding difference.
+- wasm_port.py now applies tools/native_float.py's passes to every TU (fpfix: castfix, fpcvt, x87ext with softx87
+  math in src/platform/wasm/host/x87.cpp, wasm6's parked set) plus retfix64: a `float` call of a `hulk_freg`
+  definition reads the double, as the Wine build's retfix does. The parked set alone left 751; retfix64 moved it.
+  HULK_WASM_FPFIX=0 turns them off.
+- wasm play3: first divergence 751 rng -> 779 rng (sound also 779, actors 780); 60,000 frames in 72 s (54-61 s
+  before on the same busy laptop: the passes cost ~20%).

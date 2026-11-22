@@ -89,7 +89,7 @@ HOST_CFLAGS = ["-O1", "-Wall", "-Wextra", "-Werror"]
 # host C++ (replay.cpp: the SDL layer's replay reader and checkpoint probe, compiled for the wasm host)
 HOST_CXXFLAGS = ["-O1", "-std=c++17", "-fno-exceptions", "-fno-rtti", "-Wall", "-Wextra", "-Werror", "-Wno-unused-function",
                  "-Wno-missing-field-initializers"]
-VERSION = "wasm3-4"          # bump when bind_tu() changes (object cache key)
+VERSION = "wasm3-5"          # bump when bind_tu() changes (object cache key)
 SYNTH = 0xF0000000
 
 # library code inside .text (tools/platform_map.py) and the library sections after it
@@ -611,10 +611,35 @@ def devirt(ir, tu, notes=None):
     return out
 
 
+def fpfix(ir, notes=None):
+    """The 64-bit builds' float passes (tools/native_float.py, docs/native-float64.md) on a TU's i686 IR: castfix
+    (`(float)i` inside an expression is not rounded), fpcvt (float -> integer conversions with the Wine build's
+    results; wasm's saturating truncations differ out of range) and x87ext (a math-shim result consumed by the next
+    arithmetic, fptrunc or fcmp keeps its 80-bit value; the shims are softx87's, host/x87.cpp). retfix64 is not
+    needed for the packers (they carry st(0) as a double) but is for direct calls: a `float` call of a `hulk_freg`
+    definition is read as the double, as the Wine build's retfix does (wasm7: the collision solver's impulses at
+    play3 frame 450 differed by an ULP, the props' sleep at 751). HULK_WASM_FPFIX=0 turns them off (wasm6)."""
+    if os.environ.get("HULK_WASM_FPFIX", "1") == "0":
+        return ir
+    import native_float
+    ir, a = native_float.castfix_ir(ir)
+    ir, b = native_float.fpcvt_ir(ir)
+    ir, c = native_float.x87ext_ir(ir)
+    ir, d = native_float.retfix64_ir(ir)
+    if notes is not None:
+        notes["fpfix: castfix"] += a
+        notes["fpfix: fpcvt"] += b
+        notes["fpfix: x87ext calls"] += c["shim calls"]
+        notes["fpfix: x87ext consumers"] += c["consumers"]
+        notes["fpfix: retfix64 definitions"] += d["float definitions"]
+        notes["fpfix: retfix64 calls"] += d["float calls"]
+    return ir
+
+
 def load_tu(tu, addrs, notes=None):
     """(prepared IR, mains, same) of a TU; a block that is a scalar deleting destructor clang didn't emit (it emits
     one only with its vftable) gets one in IR (wasm_ir.deleting_dtor)."""
-    ir = prepare(devirt(open(front(tu), errors="surrogateescape").read(), tu, notes))
+    ir = prepare(fpfix(devirt(open(front(tu), errors="surrogateescape").read(), tu, notes), notes))
     m = binding_map()["definitions"]
     pins = block_syms()
     # (an adjustor thunk's block is a stand-in that makes cl emit the thunk; the link writes its entry: adjustors())
@@ -1389,7 +1414,8 @@ def cmd_link(a):
         o = os.path.join(gen, os.path.splitext(os.path.basename(src))[0] + ".o")
         flags = HOST_CXXFLAGS if src.endswith(".cpp") else HOST_CFLAGS
         r = subprocess.run([EMCC] + flags + ["-I", os.path.join(HOST_DIR, "host"), "-I",
-                                             os.path.join(HOST_DIR, "host", "shim"), "-c", src, "-o", o],
+                                             os.path.join(HOST_DIR, "host", "shim"), "-I",
+                                             os.path.join(ROOT, "src/platform/sdl"), "-c", src, "-o", o],
                            capture_output=True, text=True)
         if r.returncode:
             raise SystemExit("host: %s\n%s" % (src, r.stderr[-3000:]))
