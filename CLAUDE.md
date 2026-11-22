@@ -422,6 +422,10 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   An include/gen edit changes ~900 TUs' wasm IR key: build with `ALL=1` (an `--only` build links stale objects).
   HULK_WASM_DEBUG_HOOKS takes the spec string, and a hooked TU stays hooked until recompiled. Frame numbers: a Wine fcall
   f=N is wasm's ff_replay_frame() N and ckdump f=N-1 (the checkpoint is taken before the update) (wasm8).
+  The wasm host arena zeroes every block, but the game heap (0x00266e00) reuses blocks and its layout differs from the
+  Wine build's (Wine --gfx's pddi objects use the host heap): an uninitialised constructor word the original reads shows up
+  as an early divergence; zero it under HULK_PORT_ABI (wasm9, 0x00105f50). A wasm debug hook's stderr is lost when the run
+  stops at its frame target (fflush), and every TU hooked earlier must be passed back to the build (wasm9).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
