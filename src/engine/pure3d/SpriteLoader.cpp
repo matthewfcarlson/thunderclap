@@ -1064,7 +1064,7 @@ Sprite_2be420* Sprite_2be420::vfunc_2(unsigned char flags) {
 
 
 // 0x002be440 FUN_002be440 (731 B): equivalent/0x002be440.cpp [wrapped: conflict: Gfx; pure3d::Sprite]
-// sym: ??0Sprite@pure3d@fn_002be440@@QAE@PAPAUItem_2be440@2@HHHPAUShader_2be440@2@HHHH@Z @b698a168cd56 @w55de26632eab @v7794094fca0a
+// sym: ??0Sprite@pure3d@fn_002be440@@QAE@PAPAUItem_2be440@2@HHHPAUShader_2be440@2@HHHH@Z @d6e47e2ff509 @wa1de37664d4b @v0ec144cba146
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_002be440 {
 // STATUS: equivalent (tools/equiv.py level 3: 15363 inputs, branch coverage 24/24)
