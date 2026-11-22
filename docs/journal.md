@@ -2603,3 +2603,20 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
 - Also tried, no effect at 541/542: the 64-bit float passes (castfix / fpcvt / x87ext with softx87 math) on the wasm
   IR. Not landed (25% slower); parked in build/wasm6/parked.
 - wasm play3: first divergence 541 camera -> 542 rng (hulk x/z, camera x/z also at 542).
+
+### wasm7: fight actions' still-running byte (542 -> 751)
+- 542: Wine-build probes (111409-111412) vs wasm entry hooks: at 542 wasm started a new fight move (6 CAction::vfunc_3
+  starts, one a CHeadTrackerAction drawing the extra rng step); Wine started none. One frame earlier the node list
+  runner 0x00231f20 calls slot 5 of each child action and tests al; fight::ExecuteAction::vfunc_5 (0x002396f0) and
+  fight::QueuedNodeAction::vfunc_5 (0x0023a210) are void in the source but end in 0x00231ee0 (`unsigned char`) and
+  leave its still-running byte in al (Wine 0x...01, wasm 0): the runner saw the child finished and moved on.
+- Fix: both return 0x00231ee0's byte under HULK_PORT_ABI (32-bit code unchanged); same batch: CButtonCondition slot 8
+  (0x000484c0) returns slot 9's bool (0x00048440, wasm4, passes it on).
+- Tool: wasm_port.py HULK_WASM_DEBUG_VOIDRET=1 (debugging packer): an indirect call with an integer result that reaches
+  a block leaving the result word untouched calls the host's ff_dbg_voidret(target, caller TU). On play3 (60,000
+  frames) 37 (target, TU) pairs, mostly pddi/d3d and frontend; game logic: CButtonCondition::vfunc_8,
+  fight::ExecuteAction/QueuedNodeAction::vfunc_5, CAlertStatusCondition::vfunc_8 (0x0004a4e0, from 812: returns
+  0x00059a30's pointer, tested in al: open), FUN_001cbd10 (CEventManager). tools/eaxscan.py + eaxcand.py: the static scan.
+- Note: wasm_port.py compiles the snapshot's sources (HULK_WASM_SNAP/src), not the checkout: a source fix is tested by
+  patching a private snapshot copy (build/wasm7/snap) or with fresh wasm_inputs.
+- wasm play3: first divergence 542 rng -> 751 rng (hulk/camera to 941).

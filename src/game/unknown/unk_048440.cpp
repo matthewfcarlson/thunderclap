@@ -104,6 +104,14 @@ CButtonCondition* __fastcall FUN_00048480(CButtonCondition* self) {
 // 0x000484c0 CButtonCondition::vfunc_8 (44 B): matches/0x000484c0.cpp [wrapped: conflict: CButtonCondition]
 // sym: ?f9@CButtonCondition@fn_000484c0@@UAEXPAX@Z
 namespace fn_000484c0 {
+// HULK_PORT_ABI (include/compat/ptr.h): the button test's bool. The original tail-calls slot 9 (the button-state
+// test) and leaves its bool in eax; CControllerCondition::vfunc_7 (0x00048440) returns it. The port builds return it
+// (wasm7), the 32-bit builds keep void.
+#if defined(HULK_PORT_ABI)
+typedef bool Ret_484c0;
+#else
+typedef void Ret_484c0;
+#endif
 struct A_484c0 {
     void* Fnf_000592a0();
 };
@@ -120,15 +128,19 @@ struct CButtonCondition {
     virtual void f6();
     virtual void f7();
     virtual void f8();
-    virtual void f9(void*);
+    virtual Ret_484c0 f9(void*);
     virtual void f10();
     char pad[8];
     int mIndex;
 };
-void CButtonCondition::f9(void* arg) {
+Ret_484c0 CButtonCondition::f9(void* arg) {
     void* p = ((A_484c0*)arg)->Fnf_000592a0();
     hulk_intptr v = ((B_484c0*)p)->Fnf_00059a30();
+#if defined(HULK_PORT_ABI)
+    return f9((void*)(v + 0x1f58 + mIndex * 12));
+#else
     f9((void*)(v + 0x1f58 + mIndex * 12));
+#endif
 }
 } // namespace fn_000484c0
 

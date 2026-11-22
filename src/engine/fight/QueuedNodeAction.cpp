@@ -11,6 +11,14 @@ namespace fn_fb73e034 {} using namespace fn_fb73e034;
 
 // ---- declarations shared by the functions below
 namespace fn_fb73e034 {
+// HULK_PORT_ABI (include/compat/ptr.h): vfunc_5 (0x0023a210) returns the node list's still-running byte. The original
+// ends in a call of 0x00231ee0 (`unsigned char`) and leaves its result in al; the list runner 0x00231f20 calls slot 5
+// of each child action and tests al. The port builds return it (wasm7), the 32-bit builds keep void.
+#if defined(HULK_PORT_ABI)
+typedef unsigned char Ret_23a210;
+#else
+typedef void Ret_23a210;
+#endif
 class Action_23a210 {
   public:
     virtual void vfunc_0();
@@ -21,7 +29,7 @@ class QueuedNodeAction : public Action_23a210 {
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual void vfunc_5(int param1, int param2);
+    virtual Ret_23a210 vfunc_5(int param1, int param2);
 
     char pad_4[8];    // 0x4 - 0xc
     int m_flags;      // 0xc
@@ -30,7 +38,7 @@ class QueuedNodeAction : public Action_23a210 {
         void func_22f0_002322f0(int a, int b);
         void func_1f20_00231f20(int a);
         bool func_24b0_002324b0(int a);
-        void func_1ee0_00231ee0();
+        Ret_23a210 func_1ee0_00231ee0();
         char pad[0x28]; // size 0x28 to reach 0x54
     } m_data;           // 0x2c
     int m_54;           // 0x54
@@ -127,7 +135,7 @@ namespace fn_fb73e034 {
 
 // 0x0023a210 fight::QueuedNodeAction::vfunc_5 (120 B): matches/0x0023a210.cpp
 // sym: ?vfunc_5@QueuedNodeAction@fn_fb73e034@@UAEXHH@Z
-void QueuedNodeAction::vfunc_5(int param1, int param2) {
+Ret_23a210 QueuedNodeAction::vfunc_5(int param1, int param2) {
     if (param1 == 0 && m_58 == 0) {
         m_data.func_22f0_002322f0(m_54, param2);
     }
@@ -136,12 +144,11 @@ void QueuedNodeAction::vfunc_5(int param1, int param2) {
     if (param1 == m_54 - 1) {
         if (m_data.func_24b0_002324b0(0)) {
             m_flags &= 0xfffffffc;
-            m_data.func_1ee0_00231ee0();
-            return;
+            return m_data.func_1ee0_00231ee0();
         }
         m_flags = (m_flags & 0xfffffffd) | 1;
     }
-    m_data.func_1ee0_00231ee0();
+    return m_data.func_1ee0_00231ee0();
 }
 
 } // namespace fn_fb73e034

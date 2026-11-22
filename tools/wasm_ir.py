@@ -326,9 +326,11 @@ def from_i32(e, p, reg):
     return v
 
 
-def packer(name, sig, target, types, indirect=False, locs=None):
+def packer(name, sig, target, types, indirect=False, locs=None, voidret=None):
     """An internal function of SIG's type that calls the generic entry TARGET (or ff_dispatch with the leading
-    pointer argument when INDIRECT) with the arguments in x86 places."""
+    pointer argument when INDIRECT) with the arguments in x86 places. VOIDRET (a debugging tag, an int: the caller's
+    TU index): an indirect call with an integer result that reached a block leaving the result word untouched (a void
+    block) calls the host's ff_dbg_voidret(target, tag) (HULK_WASM_DEBUG_VOIDRET, wasm_port.py)."""
     e = Emitter()
     params = (["ptr %fp"] if indirect else []) + ["%s %%a%d" % (p.type, k) for k, p in enumerate(sig.params)]
     head = "define internal %s %s(%s) {" % (sig.ret, at(name), ", ".join(params))
@@ -338,6 +340,9 @@ def packer(name, sig, target, types, indirect=False, locs=None):
     e("call void @llvm.memset.p0.i32(ptr align 8 %%st, i8 0, i32 %d, i1 false)" % max(size, 4))
     e("%rb = alloca [16 x i8], align 8")
     e("call void @llvm.memset.p0.i32(ptr align 8 %rb, i8 0, i32 16, i1 false)")
+    voidret = voidret if indirect and ret_kind(sig.ret) == "int" else None
+    if voidret is not None:
+        e("store i32 %d, ptr %%rb, align 8" % VOIDRET_MARK)
     for k, place, _ in places:
         p = sig.params[k]
         if place in regs:
@@ -355,10 +360,23 @@ def packer(name, sig, target, types, indirect=False, locs=None):
         f = e.v()
         e("%s = ptrtoint ptr %%fp to i32" % f)
         e("call void @ff_dispatch(i32 %s, i32 %s, i32 %s, ptr %%st, ptr %%rb)" % (f, regs["ecx"], regs["edx"]))
+        if voidret is not None:
+            w, c = e.v(), e.v()
+            e("%s = load i32, ptr %%rb, align 8" % w)
+            e("%s = icmp eq i32 %s, %d" % (c, w, VOIDRET_MARK))
+            e("br i1 %s, label %%vr, label %%vr.ok" % c)
+            e.lines.append("vr:")
+            e("call void @ff_dbg_voidret(i32 %s, i32 %d)" % (f, voidret))
+            e("store i32 0, ptr %rb, align 8")
+            e("br label %vr.ok")
+            e.lines.append("vr.ok:")
     else:
         e("call void %s(i32 %s, i32 %s, ptr %%st, ptr %%rb)" % (at(target), regs["ecx"], regs["edx"]))
     load_ret(e, sig.ret, "%rb")
     return [head] + e.lines + ["}"]
+
+
+VOIDRET_MARK = 0x5e5e5e5e     # the debugging packer's result-word mark (packer VOIDRET)
 
 
 def load_ret(e, t, rb):

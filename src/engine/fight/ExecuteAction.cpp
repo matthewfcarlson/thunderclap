@@ -335,6 +335,12 @@ ExecuteTrack_239490::~ExecuteTrack_239490() throw() {
 // 0x002396f0 fight::ExecuteAction::vfunc_5 (120 B): matches/0x002396f0.cpp [wrapped: conflict: fight::ExecuteAction]
 // sym: ?V5@ExecuteAction@fight@fn_002396f0@@UAEXIH@Z
 namespace fn_002396f0 {
+// HULK_PORT_ABI (include/compat/ptr.h): V5 returns the step list's still-running byte, as 0x0023a210 does (wasm7)
+#if defined(HULK_PORT_ABI)
+typedef unsigned char Ret_2396f0;
+#else
+typedef void Ret_2396f0;
+#endif
 class Action {
   public:
     virtual void V0();
@@ -342,7 +348,7 @@ class Action {
     virtual void V2();
     virtual void V3();
     virtual void V4();
-    virtual void V5(unsigned int, int);
+    virtual Ret_2396f0 V5(unsigned int, int);
     int pad4[2];
     unsigned int flags;
     char pad10[0x28];
@@ -352,7 +358,7 @@ class Sub_2396f0 {
     void Init_002322f0(unsigned int, int);
     void Run_00231f20(unsigned int);
     bool Check_002324b0(int);
-    void Finish_00231ee0();
+    Ret_2396f0 Finish_00231ee0();
 };
 namespace fight {
 class ExecuteAction : public Action {
@@ -361,10 +367,10 @@ class ExecuteAction : public Action {
     char pad39[0x27];
     unsigned int mCount;
     unsigned char mFlag;
-    void V5(unsigned int, int);
+    Ret_2396f0 V5(unsigned int, int);
 };
 } // namespace fight
-void fight::ExecuteAction::V5(unsigned int index, int arg) {
+Ret_2396f0 fight::ExecuteAction::V5(unsigned int index, int arg) {
     if (index == 0 && !mFlag)
         sub.Init_002322f0(mCount, arg);
     mFlag = 0;
@@ -372,12 +378,11 @@ void fight::ExecuteAction::V5(unsigned int index, int arg) {
     if (index == mCount - 1) {
         if (sub.Check_002324b0(0)) {
             flags &= 0xfffffffc;
-            sub.Finish_00231ee0();
-            return;
+            return sub.Finish_00231ee0();
         }
         flags = (flags & 0xfffffffd) | 1;
     }
-    sub.Finish_00231ee0();
+    return sub.Finish_00231ee0();
 }
 } // namespace fn_002396f0
 

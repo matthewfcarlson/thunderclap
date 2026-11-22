@@ -817,12 +817,17 @@ def bind_tu(ir, tu, tu_index, mains, same, bound, game, defsig, deftys):
     extra = []
     packers = {}
 
+    # debugging: HULK_WASM_DEBUG_VOIDRET=1 makes each indirect call with an integer result that reaches a block leaving
+    # the result untouched (a void block) call the host's ff_dbg_voidret(target, TU index) (a source dropping a result
+    # its callers read, the HULK_PORT_ABI class; host extra build/<agent>/dbg/voidret.c; never in a committed build)
+    voidret = tu_index if os.environ.get("HULK_WASM_DEBUG_VOIDRET") else None
+
     def need_packer(sig, target, indirect=False):
         key = (sig.key(types), target, indirect)
         if key not in packers:
             name = "ffp.%d" % len(packers)
             packers[key] = name
-            extra.extend(packer(name, sig, target, types, indirect))
+            extra.extend(packer(name, sig, target, types, indirect, voidret=voidret))
         return packers[key]
 
     sigs = {n: p[3] for n, (_, p) in list(defs.items()) + list(decls.items())}
@@ -1066,6 +1071,8 @@ def bind_tu(ir, tu, tu_index, mains, same, bound, game, defsig, deftys):
             lines.append("declare void %s(i32, i32, ptr, ptr)" % at(t))
     if any(k[2] for k in packers):
         lines.append("declare void @ff_dispatch(i32, i32, i32, ptr, ptr)")
+        if voidret is not None:
+            lines.append("declare void @ff_dbg_voidret(i32, i32)")
     text = "\n".join(lines)
     for intr in ("declare void @llvm.memset.p0.i32(ptr, i8, i32, i1)",
                  "declare void @llvm.memcpy.p0.p0.i32(ptr, ptr, i32, i1)"):
