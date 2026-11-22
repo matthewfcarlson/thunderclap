@@ -473,6 +473,12 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   and allocates in the arena (`wasm_gfx.py` C_RENAME); after a restore `ff_gfx_restored` re-makes only stale objects.
   `HULK_ROLLTEST=A:B` snapshots at frame ends (`ff_frame_checkpoint`); test rollbacks across the PRESSSTART->GAME load
   and compare module/gfx hashes too (wroll1, D227).
+  A camera's slot 27 (`v27(Vector*)`) and ProjectileMissile::vfunc_5 leave a pointer in eax that callers read (0x98500,
+  0x19e910). Scan for that class at run time: build with `HULK_WASM_DEBUG_VOIDRET=1 HULK_WASM_HOST_EXTRA=<file defining
+  ff_dbg_voidret(target, tu)>` (build/wasmq/dbg/voidret.c prints each distinct (target, TU) with its frame) and replay
+  play3; each listed block whose caller uses the value takes a `hulk_eaxptr` return. `wasm_port.py compile --only` keeps
+  compile.json's old `sigs`: check a HULK_PORT_ABI change in the IR or by a replay. A Wine dump/probe job after an
+  include/gen edit rebuilds the binding map (~30 min instead of ~2) (wasmq3).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
