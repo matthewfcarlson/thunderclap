@@ -6815,3 +6815,44 @@ name that carries an address any more. Unbound counts: see the commit message (c
   still to be declared as calling the free function). tests/native_host/native_unbound_test.py covers it.
 - Native play3 now loads the start-up scripts and runs them until the next local script-binding stand-in (0x00203490's
   Closure1, CWorldCollisionManager): config/rtti-baseline.json lists ~600 such Function/Method/Closure stand-ins.
+
+## nat3: the last native pass (2026-11-22, D221, mode D187)
+
+### Where native start-up stands
+- At HEAD natively, play3 matches frame 0 and crashes during the start-up scripts: Lua calls slot 2 of a local
+  polymorphic Function/Method/Closure stand-in (clang's one-slot vftable), gfx11's stop. 244 such local script
+  vftables remain in 37 TUs (3,297 local vftables in 953 TUs overall).
+- A private diagnostic (never landed: native_mac retarget() pointing only the script stand-ins' local vftables at the
+  game's by the Wine map) shows what the script_bind sweep buys. With it and this batch, native play3 runs every
+  start-up script, enters the front end and loads frontend/art/screens.p3d through the content fiber: textures
+  (DXTN), shaders and animations load; it stops in the skeleton loader (0x0027c140, a 32-bit pad view into
+  Copy_263fd0). Still at frame 0 of play3: the front end's first load happens inside frame 0.
+- Link inventory at HEAD (nat3's link report): 25,650 names bound by address; ~5,400 callee names left unbound for
+  IR mismatches (1,544 pointer / int argument, 1,068 argument count, 535 float / int, 429 data size, 346 i32 / i8,
+  317 result i1 / i8 ...), 3,487 unaddressed C++ names, 1,038 game vftable slots without a definition; 8,241 code
+  stubs. Redirecting every local vftable to the game's (the whole 2,914 the map pairs) crashes earlier (0x00292560):
+  the stand-ins' object layouts are 32-bit views, so a sweep needs records, not just vftables.
+
+### The batch (all matches / equivalent blocks keep MSVC and clang code; verify 111506: 36 TUs, 0 errors)
+- Script invokes: 220 Closure/Method/FunctionN::vfunc_2 blocks whose 32-bit source calls the bound function with a
+  propagated signature (`(const char*, int)` for a `(float, float)` instantiation ...) get a HULK_PTR64 branch with the
+  instantiation's own types and the dispatcher's natural-layout cells (script2's form; build/nat3/scripts/invgen.py).
+  The 32-bit text is unchanged. 58 were skipped (already typed, or Vector / enum results).
+- 0x00201be0 (wcm string setter): `(int)value` truncated the string natively.
+- LoadStream.cpp: `LoadStream::Init()` was bound by position to two addresses (0x002640f0 in 0x002641e0,
+  0x00263f50 in 0x00264430), so natively it was unbound: both calls by address names.
+- 0x00086da0 (the frame step): `x->a()` (0x0008db00, the scheduler step that pumps the content fiber) and `tail()`
+  (0x00086ad0) had no address names and were stubs: the content streamer was pumped 4 times in 40 s and the first
+  load never finished.
+- 0x002de210 DXTNHandler::vfunc_9 truncated the stream and texture pointers through `unsigned int`.
+- ShaderLoader 0x0028f2c0: the Texture view's `char pad0[0x10]` -> the Entity's words (pddi texture at native +0x18).
+- AnimationLoader 0x00289500 / 0x00289070: the loader views' pads -> HulkAnimationLoader's words (the heap id
+  0x00266da0 received was a pointer's half; the channel table read a name's bytes).
+
+### What is left (estimate)
+- The script_bind sweep (244 local vftables, 37 TUs): ~1-2 lane-days with a generator (demangled instantiation ->
+  game vftable from the Wine map, a HULK_PTR64 store after each construction or in the stand-in constructors).
+- Then the loaders: ~190 files in src/ keep `char pad[0x14]`-style 32-bit pads in views of objects with pointer
+  words; each loader touched by the front end and the first level is a stop like the ones above (each ~25 min of
+  compile + 12 min link + lldb). The 5,400 unbound IR-mismatch callees and 3,487 unaddressed C++ names are each a
+  potential silent stub on the gameplay path. GS_GAME natively is weeks of lane time, not days.

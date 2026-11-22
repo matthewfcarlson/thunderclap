@@ -26,6 +26,16 @@ struct Closure5_9c760 : hulk_script::FunctionGenView {
     hulk_intptr f_20;
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Closure5_9c760::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { bool a0; bool a1; bool a2; bool a3; float a4; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(bool, bool, bool, bool, float))&this->f_1c))(a->a0, a->a1, a->a2, a->a3, a->a4);
+}
+#else
 void Closure5_9c760::vfunc_2(void* __p0, void* __p1, void* __p2) { V * args = (V *)__p1;
 
     V a, b, c;
@@ -37,5 +47,6 @@ void Closure5_9c760::vfunc_2(void* __p0, void* __p1, void* __p2) { V * args = (V
     ++args;
     ((*(CCameraManager_9c760 * *)&this->f_20)->*(*(void (CCameraManager_9c760::**)(int, int, int, bool, float))&this->f_1c))(a.n, b.n, c.n, args->b, (args + 1)->f);
 }
+#endif
 } // namespace fn_0009c760
 

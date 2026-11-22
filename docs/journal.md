@@ -2987,3 +2987,19 @@ draws gives in-between frames with no tree change and no path back into the game
   size, so the scene target, the frame copies and the copy targets of the frame's size are made larger there and the
   passes into them get scaled viewports. 1x and 3x runs of the same HULK_INPUT give byte-identical checkpoint records;
   the game hash with Metal differs between two runs at the same setting (front-end pointers into the malloc heap).
+
+## 2026-11-22 nat3: the last native (64-bit macOS) pass (D221)
+
+- Native start-up at HEAD still stops at play3 frame 0 on a local script stand-in's vftable (Lua's slot-2 call). A
+  private diagnostic that points only the script stand-ins' local vftables at the game's (compile-time, never landed)
+  measured the rest: with it, start-up runs every script and loads the front end's first p3d far enough to need
+  six more source fixes in an afternoon, each one a 32-bit view or an unaddressed name (docs/native-build.md "nat3").
+- A name the Wine map binds by position can stand for different addresses at different call sites
+  (LoadStream::Init: 0x002640f0 in Destroy, 0x00263f50 in Target): natively it is one unbound name. Write each
+  call's own address name.
+- Script invokes that propagated another instantiation's signature (`(const char*, int)` for `(float, float)`) match
+  on 32-bit (stack slots) and pass the wrong registers natively; 220 got typed HULK_PTR64 branches by a generator.
+- Redirecting every local vftable to the game's crashes earlier than redirecting none: the game's slot functions
+  then run on stand-in objects built with 32-bit pads. Vftables and records go together.
+- The wasm build needs none of this (32-bit data at XBE addresses, packers for declaration mismatches): that is the
+  whole gap between the two ports.

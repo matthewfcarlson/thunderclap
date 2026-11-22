@@ -4953,10 +4953,21 @@ struct Function7_3ef30 : hulk_script::FunctionGenView {
     int f_1c;
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Function7_3ef30::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { int a0; float a1; float a2; float a3; float a4; float a5; float a6; };
+    const Args_* a = (const Args_*)__p1;
+    (*(void (**)(int, float, float, float, float, float, float))&this->f_1c)(a->a0, a->a1, a->a2, a->a3, a->a4, a->a5, a->a6);
+}
+#else
 void Function7_3ef30::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_0003ef50(a, b, c, this->f_1c);
 }
+#endif
 } // namespace fn_0003ef30
 
 namespace fn_f35f7bdf {

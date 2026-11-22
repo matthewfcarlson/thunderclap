@@ -244,11 +244,9 @@ struct Reader_289070 {
     int FUN_00266a30();
     void FUN_00266be0();
 };
-struct AnimationLoader_289070 {
-    char pad00[0x14];
-    Table_289070* table;
-    char pad18[8];
-    int count;
+// (nat3) decls/loaders.h HulkAnimationLoader: the channel table is its `channels` word, the count its `g` (the 32-bit
+// pads read a name's bytes as the table natively)
+struct AnimationLoader_289070 : HulkAnimationLoader {
     pure3d::AnimationMemoryBlock* FUN_00289070(Reader_289070* r);
 };
 struct Frame_289070 {
@@ -775,7 +773,7 @@ pure3d::AnimationMemoryBlock* AnimationLoader_289070::FUN_00289070(Reader_289070
             ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.n), (hulk_intptr)1, 4, (hulk_intptr)1));
             extra += f.n * 4;
             for (unsigned int i = f.n; i != 0; i--) {
-                Field_289070* fld = table->FUN_0028b020(f.key);
+                Field_289070* fld = ((Table_289070*)channels)->FUN_0028b020(f.key);
                 if (fld != 0) {
                     ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.value), (hulk_intptr)1, 2, (hulk_intptr)1));
                     fld->Measure(&f.outA, &f.outB, f.key, f.value);
@@ -786,7 +784,7 @@ pure3d::AnimationMemoryBlock* AnimationLoader_289070::FUN_00289070(Reader_289070
         } else if (id == 0x121400) {
             ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.skipC), (hulk_intptr)1, 4, (hulk_intptr)1));
             ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.x2), (hulk_intptr)1, 4, (hulk_intptr)1));
-            this->count = f.x2;
+            this->g = f.x2;
             extra += f.x2 * 24;
         }
         r->FUN_00266be0();
@@ -1034,7 +1032,9 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5(Animation **out, Pair_289500 *outId, Reader *r, int ctx);
-    char pad04[0x14];
+    int f04, f08, f0c;   // (nat3) decls/loaders.h HulkAnimationLoader's words (pad04[0x14] put f18.. at 32-bit offsets
+    void* f10;           // natively: the heap id 0x00266da0 got was a pointer's half)
+    void* f14;
     int f18;
     int f1c;
     int f20;

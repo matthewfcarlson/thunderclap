@@ -1155,11 +1155,22 @@ struct Method1_d5530 : hulk_script::FunctionGenView {
     void (::MessageOverlay::*f_1c)(const char *);
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Method1_d5530::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char * a0; };
+    const Args_* a = (const Args_*)__p1;
+    (((Obj_*)__p0)->*(*(void (Obj_::**)(const char *))&this->f_1c))(a->a0);
+}
+#else
 void Method1_d5530::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_d5530* d = (Dummy_d5530*)a;
     (d->*(*(void (Dummy_d5530::**)(void *))&this->f_1c))(*b);
 }
+#endif
 } // namespace fn_000d5530
 
 namespace fn_f27eef39 {
@@ -1218,10 +1229,21 @@ struct Method7_d5600 : hulk_script::FunctionGenView {
     void (::MessageOverlay::*f_1c)(const char *, const char *, const char *, const char *, const char *, const char *, const char *);
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Method7_d5600::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char * a0; const char * a1; const char * a2; const char * a3; const char * a4; const char * a5; const char * a6; };
+    const Args_* a = (const Args_*)__p1;
+    (((Obj_*)__p0)->*(*(void (Obj_::**)(const char *, const char *, const char *, const char *, const char *, const char *, const char *))&this->f_1c))(a->a0, a->a1, a->a2, a->a3, a->a4, a->a5, a->a6);
+}
+#else
 void Method7_d5600::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_000d5620(a, b, c, (*(int *)&this->f_1c));
 }
+#endif
 } // namespace fn_000d5600
 
 namespace fn_f27eef39 {
@@ -1304,6 +1326,17 @@ struct Method3_d56e0 : hulk_script::FunctionGenView {
     void (::MessageOverlay::*f_1c)(const char *, int, math::Vector);
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Method3_d56e0::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Vec_ { float x, y, z; };
+    struct Args_ { const char * a0; int a1; Vec_ a2; };
+    const Args_* a = (const Args_*)__p1;
+    (((Obj_*)__p0)->*(*(void (Obj_::**)(const char *, int, Vec_))&this->f_1c))(a->a0, a->a1, a->a2);
+}
+#else
 void Method3_d56e0::vfunc_2(void* __p0, void* __p1, void* __p2) { MessageOverlay_d56e0 * obj = (MessageOverlay_d56e0 *)__p0; void * args = (void *)__p1; void * other = (void *)__p2;
 
     char* p = (char*)args;
@@ -1314,6 +1347,7 @@ void Method3_d56e0::vfunc_2(void* __p0, void* __p1, void* __p2) { MessageOverlay
     math::Vector_d56e0 v = *(math::Vector_d56e0*)p;
     (obj->*(*(void (MessageOverlay_d56e0::**)(const char *, int, math::Vector_d56e0))&this->f_1c))(s, i, v);
 }
+#endif
 } // namespace fn_000d56e0
 
 
@@ -1349,10 +1383,21 @@ struct Method1_d5780 : hulk_script::FunctionGenView {
     void (::MessageOverlay::*f_1c)(bool);
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Method1_d5780::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { bool a0; };
+    const Args_* a = (const Args_*)__p1;
+    (((Obj_*)__p0)->*(*(void (Obj_::**)(bool))&this->f_1c))(a->a0);
+}
+#else
 void Method1_d5780::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_d5780 * obj = (CActorManager_d5780 *)__p0; unsigned char * b = (unsigned char *)__p1; void * unused = (void *)__p2;
 
     (obj->*(*(MFn_d5780 *)&this->f_1c))(*b);
 }
+#endif
 } // namespace fn_000d5780
 
 
@@ -1427,11 +1472,22 @@ struct Method1_d5870 : hulk_script::FunctionGenView {
     void (::MessageOverlay::*f_1c)(float);
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Method1_d5870::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { float a0; };
+    const Args_* a = (const Args_*)__p1;
+    (((Obj_*)__p0)->*(*(void (Obj_::**)(float))&this->f_1c))(a->a0);
+}
+#else
 void Method1_d5870::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_d5870* d = (Dummy_d5870*)a;
     (d->*(*(void (Dummy_d5870::**)(void *))&this->f_1c))(*b);
 }
+#endif
 } // namespace fn_000d5870
 
 namespace fn_f27eef39 {
@@ -1990,10 +2046,21 @@ struct Closure1_d6300 : hulk_script::FunctionGenView {
     void* f_20;
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Closure1_d6300::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { float a0; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(float))&this->f_1c))(a->a0);
+}
+#else
 void Closure1_d6300::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_d6300 * *)&this->f_20)->*(*(void (CActorManager_d6300::**)(const char *))&this->f_1c))(*b);
 }
+#endif
 } // namespace fn_000d6300
 
 

@@ -742,10 +742,21 @@ struct Method6_908e0 : hulk_script::FunctionGenView {
     void (::CStatsManager::*f_1c)(const char *, const char *, int, int, int, int);
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Method6_908e0::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char * a0; const char * a1; int a2; int a3; int a4; int a5; };
+    const Args_* a = (const Args_*)__p1;
+    (((Obj_*)__p0)->*(*(void (Obj_::**)(const char *, const char *, int, int, int, int))&this->f_1c))(a->a0, a->a1, a->a2, a->a3, a->a4, a->a5);
+}
+#else
 void Method6_908e0::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_00090900(a, b, c, (*(int *)&this->f_1c));
 }
+#endif
 } // namespace fn_000908e0
 
 namespace fn_f6df19d8 {
@@ -839,11 +850,22 @@ struct Method1_90a30 : hulk_script::FunctionGenView {
     void (::CStatsManager::*f_1c)(const char *);
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Method1_90a30::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char * a0; };
+    const Args_* a = (const Args_*)__p1;
+    (((Obj_*)__p0)->*(*(void (Obj_::**)(const char *))&this->f_1c))(a->a0);
+}
+#else
 void Method1_90a30::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_90a30* d = (Dummy_90a30*)a;
     (d->*(*(void (Dummy_90a30::**)(void *))&this->f_1c))(*b);
 }
+#endif
 } // namespace fn_00090a30
 
 
@@ -879,11 +901,22 @@ struct Method1_90ab0 : hulk_script::FunctionGenView {
     void (::CStatsManager::*f_1c)(const char *);   // (script2) the instantiation this code-identical block shares (its HEAD pin)
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Method1_90ab0::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { int a0; };
+    const Args_* a = (const Args_*)__p1;
+    (((Obj_*)__p0)->*(*(void (Obj_::**)(int))&this->f_1c))(a->a0);
+}
+#else
 void Method1_90ab0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_90ab0* d = (Dummy_90ab0*)a;
     (d->*(*(void (Dummy_90ab0::**)(void *))&this->f_1c))(*b);
 }
+#endif
 } // namespace fn_00090ab0
 
 
@@ -960,6 +993,17 @@ struct Method1_90bb0 : hulk_script::FunctionGenView {
     int (::CStatsManager::*f_1c)(const char *);
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Method1_90bb0::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char * a0; };
+    const Args_* a = (const Args_*)__p1;
+    int r = (((Obj_*)__p0)->*(*(int (Obj_::**)(const char *))&this->f_1c))(a->a0);
+    if (__p2) *(int*)__p2 = r;
+}
+#else
 void Method1_90bb0::vfunc_2(void* __p0, void* __p1, void* __p2) { CStatsManager_90bb0 * obj = (CStatsManager_90bb0 *)__p0; const char ** arg = (const char **)__p1; int * out = (int *)__p2;
 
     StatsFn f = (*(StatsFn *)&this->f_1c);
@@ -968,6 +1012,7 @@ void Method1_90bb0::vfunc_2(void* __p0, void* __p1, void* __p2) { CStatsManager_
     if (out)
         *out = r;
 }
+#endif
 } // namespace fn_00090bb0
 
 
@@ -1108,6 +1153,17 @@ struct Method1_90d50 : hulk_script::FunctionGenView {
     const char * (::CStatsManager::*f_1c)(int);
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Method1_90d50::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { int a0; };
+    const Args_* a = (const Args_*)__p1;
+    const char * r = (((Obj_*)__p0)->*(*(const char * (Obj_::**)(int))&this->f_1c))(a->a0);
+    if (__p2) *(const char **)__p2 = r;
+}
+#else
 void Method1_90d50::vfunc_2(void* __p0, void* __p1, void* __p2) { CStatsManager_90d50 * manager = (CStatsManager_90d50 *)__p0; const char ** argument = (const char **)__p1; int * result = (int *)__p2;
 
     int (CStatsManager_90d50::*fn)(const char*) = (*(int (CStatsManager_90d50::**)(const char *))&this->f_1c);
@@ -1116,6 +1172,7 @@ void Method1_90d50::vfunc_2(void* __p0, void* __p1, void* __p2) { CStatsManager_
     if (result)
         *result = value;
 }
+#endif
 } // namespace fn_00090d50
 
 namespace fn_f6df19d8 {
@@ -1409,10 +1466,21 @@ struct Closure1_91050 : hulk_script::FunctionGenView {
     void* f_20;
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Closure1_91050::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { int a0; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(int))&this->f_1c))(a->a0);
+}
+#else
 void Closure1_91050::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_91050 * *)&this->f_20)->*(*(void (CActorManager_91050::**)(const char *))&this->f_1c))(*b);
 }
+#endif
 } // namespace fn_00091050
 
 
@@ -1477,6 +1545,17 @@ struct Closure1_91160 : hulk_script::FunctionGenView {
     void* f_20;
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Closure1_91160::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char * a0; };
+    const Args_* a = (const Args_*)__p1;
+    int r = ((*(Obj_**)&this->f_20)->*(*(int (Obj_::**)(const char *))&this->f_1c))(a->a0);
+    if (__p2) *(int*)__p2 = r;
+}
+#else
 void Closure1_91160::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** argument = (const char **)__p1; int * result = (int *)__p2;
 
     CStatsManager_91160* obj = (*(CStatsManager_91160 * *)&this->f_20);
@@ -1485,6 +1564,7 @@ void Closure1_91160::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused
     if (result)
         *result = value;
 }
+#endif
 } // namespace fn_00091160
 
 

@@ -74,6 +74,7 @@ class LoadStream : public ContentLoadStream {
     void Setup_00264310(const char*);
     LoadStream* Target(const char*, int, int);
     void Base0_00263f50();
+    void FUN_002640f0();   // (nat3) Target_2640f0::run on the same record
     void Init_00264310(const ContentLoadArgs* a);
 };
 extern "C" void FUN_00267070(void*);
@@ -517,7 +518,7 @@ LoadStream::LoadStream(hulk_intptr a, int b) {
 // sym: ?Destroy@LoadStream@fn_fa1126e6@@QAEXXZ
 void LoadStream::Destroy() {
     vftable = (void*)DAT_0042ae9c;
-    Init();
+    FUN_002640f0();   // (nat3) the original calls 0x002640f0 here (`Init` bound by position in the Wine map only)
     if (file)
         file->Release();
     if (m20)
@@ -605,7 +606,7 @@ void Stream::FUN_00264310(const char *name)
 LoadStream* LoadStream::Target(const char* a, int b, int c) {
     refs = 0;
     vftable = (void*)DAT_0042ae9c;
-    Init();
+    Base0_00263f50();   // (nat3) by its address name (`Init` bound by position in the Wine map only)
     sync = 1;
     buffered = (c == 1);
     Setup_00264310(a);

@@ -282,10 +282,21 @@ struct Method1_b0240 : hulk_script::FunctionGenView {
     void (::CHapticControllerManager::*f_1c)(bool);
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Method1_b0240::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { bool a0; };
+    const Args_* a = (const Args_*)__p1;
+    (((Obj_*)__p0)->*(*(void (Obj_::**)(bool))&this->f_1c))(a->a0);
+}
+#else
 void Method1_b0240::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_b0240 * obj = (CActorManager_b0240 *)__p0; unsigned char * b = (unsigned char *)__p1; void * unused = (void *)__p2;
 
     (obj->*(*(MFn_b0240 *)&this->f_1c))(*b);
 }
+#endif
 } // namespace fn_000b0240
 
 

@@ -330,6 +330,17 @@ struct Method3_1f7940 : hulk_script::FunctionGenView {
     unsigned int (::CEffectManager::*f_1c)(char *, float, float);
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Method3_1f7940::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { char * a0; float a1; float a2; };
+    const Args_* a = (const Args_*)__p1;
+    unsigned int r = (((Obj_*)__p0)->*(*(unsigned int (Obj_::**)(char *, float, float))&this->f_1c))(a->a0, a->a1, a->a2);
+    if (__p2) *(unsigned int*)__p2 = r;
+}
+#else
 void Method3_1f7940::vfunc_2(void* __p0, void* __p1, void* __p2) { CEffectManager_1f7940 * obj = (CEffectManager_1f7940 *)__p0; void * args = (void *)__p1; unsigned int * result = (unsigned int *)__p2;
 
     struct Args {
@@ -346,6 +357,7 @@ void Method3_1f7940::vfunc_2(void* __p0, void* __p1, void* __p2) { CEffectManage
     if (result)
         *result = r;
 }
+#endif
 } // namespace fn_001f7940
 
 
@@ -479,6 +491,17 @@ struct Method1_1f7af0 : hulk_script::FunctionGenView {
     bool (::CEffectManager::*f_1c)(bool);
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Method1_1f7af0::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { bool a0; };
+    const Args_* a = (const Args_*)__p1;
+    bool r = (((Obj_*)__p0)->*(*(bool (Obj_::**)(bool))&this->f_1c))(a->a0);
+    if (__p2) *(bool*)__p2 = r;
+}
+#else
 void Method1_1f7af0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; bool * b = (bool *)__p1; bool * out = (bool *)__p2;
 
     Fn_1f7af0 f = (*(Fn_1f7af0 *)&this->f_1c);
@@ -487,6 +510,7 @@ void Method1_1f7af0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     if (out)
         *out = v;
 }
+#endif
 } // namespace fn_001f7af0
 
 
@@ -754,6 +778,17 @@ struct Closure1_1f7e90 : hulk_script::FunctionGenView {
     void* f_20;
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Closure1_1f7e90::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { char * a0; };
+    const Args_* a = (const Args_*)__p1;
+    unsigned int r = ((*(Obj_**)&this->f_20)->*(*(unsigned int (Obj_::**)(char *))&this->f_1c))(a->a0);
+    if (__p2) *(unsigned int*)__p2 = r;
+}
+#else
 void Closure1_1f7e90::vfunc_2(void* __p0, void* __p1, void* __p2) { char ** argument = (char **)__p1; unsigned int * result = (unsigned int *)__p2;
 
     CEffectManager_1f7e90* m = (*(CEffectManager_1f7e90 * *)&this->f_20);
@@ -762,6 +797,7 @@ void Closure1_1f7e90::vfunc_2(void* __p0, void* __p1, void* __p2) { char ** argu
     if (result)
         *result = value;
 }
+#endif
 } // namespace fn_001f7e90
 
 

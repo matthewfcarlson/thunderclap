@@ -1149,11 +1149,22 @@ struct Method1_8a510 : hulk_script::FunctionGenView {
     void (::CGameFlowManager::*f_1c)(int);
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Method1_8a510::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { int a0; };
+    const Args_* a = (const Args_*)__p1;
+    (((Obj_*)__p0)->*(*(void (Obj_::**)(int))&this->f_1c))(a->a0);
+}
+#else
 void Method1_8a510::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_8a510* d = (Dummy_8a510*)a;
     (d->*(*(void (Dummy_8a510::**)(void *))&this->f_1c))(*b);
 }
+#endif
 } // namespace fn_0008a510
 
 
@@ -1189,11 +1200,22 @@ struct Method1_8a590 : hulk_script::FunctionGenView {
     void (::CGameFlowManager::*f_1c)(const char *);
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Method1_8a590::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char * a0; };
+    const Args_* a = (const Args_*)__p1;
+    (((Obj_*)__p0)->*(*(void (Obj_::**)(const char *))&this->f_1c))(a->a0);
+}
+#else
 void Method1_8a590::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_8a590* d = (Dummy_8a590*)a;
     (d->*(*(void (Dummy_8a590::**)(void *))&this->f_1c))(*b);
 }
+#endif
 } // namespace fn_0008a590
 
 
@@ -1365,6 +1387,16 @@ struct Method2_8a7e0 : hulk_script::FunctionGenView {
     void (::CGameFlowManager::*f_1c)(const char *, const char *);
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Method2_8a7e0::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char * a0; const char * a1; };
+    const Args_* a = (const Args_*)__p1;
+    (((Obj_*)__p0)->*(*(void (Obj_::**)(const char *, const char *))&this->f_1c))(a->a0, a->a1);
+}
+#else
 void Method2_8a7e0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
 
     CFEManager_8a7e0* m = (CFEManager_8a7e0*)unused;
@@ -1372,6 +1404,7 @@ void Method2_8a7e0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused 
     int x = *(int*)((char*)p + sizeof(void*));   // (script2, stop 6) the second argument follows a pointer cell
     (m->*(*(void (CFEManager_8a7e0::**)(const char *, int))&this->f_1c))(s, x);
 }
+#endif
 } // namespace fn_0008a7e0
 
 
@@ -1406,6 +1439,17 @@ struct Method1_8a860 : hulk_script::FunctionGenView {
     const char * (::CGameFlowManager::*f_1c)(const char *);
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Method1_8a860::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char * a0; };
+    const Args_* a = (const Args_*)__p1;
+    const char * r = (((Obj_*)__p0)->*(*(const char * (Obj_::**)(const char *))&this->f_1c))(a->a0);
+    if (__p2) *(const char **)__p2 = r;
+}
+#else
 void Method1_8a860::vfunc_2(void* __p0, void* __p1, void* __p2) { CGameFlowManager_8a860 * a = (CGameFlowManager_8a860 *)__p0; const char ** p = (const char **)__p1; const char ** out = (const char **)__p2;
 
     Fn_8a860 f = (*(Fn_8a860 *)&this->f_1c);
@@ -1414,6 +1458,7 @@ void Method1_8a860::vfunc_2(void* __p0, void* __p1, void* __p2) { CGameFlowManag
     if (out)
         *out = x;
 }
+#endif
 } // namespace fn_0008a860
 
 
@@ -2188,10 +2233,21 @@ struct Closure2_8b390 : hulk_script::FunctionGenView {
     void* f_20;
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Closure2_8b390::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char * a0; const char * a1; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(const char *, const char *))&this->f_1c))(a->a0, a->a1);
+}
+#else
 void Closure2_8b390::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_8b390 * p = (Pair_8b390 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_8b390 * *)&this->f_20)->*(*(void (CActorManager_8b390::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#endif
 } // namespace fn_0008b390
 
 
@@ -2231,6 +2287,17 @@ struct Closure1_8b420 : hulk_script::FunctionGenView {
     void* f_20;
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Closure1_8b420::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char * a0; };
+    const Args_* a = (const Args_*)__p1;
+    const char * r = ((*(Obj_**)&this->f_20)->*(*(const char * (Obj_::**)(const char *))&this->f_1c))(a->a0);
+    if (__p2) *(const char **)__p2 = r;
+}
+#else
 void Closure1_8b420::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** argument = (const char **)__p1; const char ** result = (const char **)__p2;
 
     CGameFlowManager_8b420* obj = (*(CGameFlowManager_8b420 * *)&this->f_20);
@@ -2239,6 +2306,7 @@ void Closure1_8b420::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused
     if (result)
         *result = value;
 }
+#endif
 } // namespace fn_0008b420
 
 

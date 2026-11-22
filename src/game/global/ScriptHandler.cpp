@@ -1666,6 +1666,16 @@ struct Method2_1d3120 : hulk_script::FunctionGenView {
     void (::ScriptHandler::*f_1c)(const char *, const char *);
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Method2_1d3120::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char * a0; const char * a1; };
+    const Args_* a = (const Args_*)__p1;
+    (((Obj_*)__p0)->*(*(void (Obj_::**)(const char *, const char *))&this->f_1c))(a->a0, a->a1);
+}
+#else
 void Method2_1d3120::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
 
     CFEManager_1d3120* m = (CFEManager_1d3120*)unused;
@@ -1673,6 +1683,7 @@ void Method2_1d3120::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused
     int x = *(int*)((char*)p + sizeof(void*));   // (script2, stop 6) the second argument follows a pointer cell
     (m->*(*(void (CFEManager_1d3120::**)(const char *, int))&this->f_1c))(s, x);
 }
+#endif
 } // namespace fn_001d3120
 
 
@@ -1708,6 +1719,17 @@ struct Method1_1d31a0 : hulk_script::FunctionGenView {
     float (::ScriptHandler::*f_1c)(const char *);
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Method1_1d31a0::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char * a0; };
+    const Args_* a = (const Args_*)__p1;
+    float r = (((Obj_*)__p0)->*(*(float (Obj_::**)(const char *))&this->f_1c))(a->a0);
+    if (__p2) *(float*)__p2 = r;
+}
+#else
 void Method1_1d31a0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_1d31a0 * a = (CActorManager_1d31a0 *)__p0; const char ** p = (const char **)__p1; float * out = (float *)__p2;
 
     Fn_1d31a0 f = (*(Fn_1d31a0 *)&this->f_1c);
@@ -1716,6 +1738,7 @@ void Method1_1d31a0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager
     if (out)
         *out = x;
 }
+#endif
 } // namespace fn_001d31a0
 
 
@@ -2191,10 +2214,21 @@ struct Closure2_1d4150 : hulk_script::FunctionGenView {
     void* f_20;
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Closure2_1d4150::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char * a0; const char * a1; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(const char *, const char *))&this->f_1c))(a->a0, a->a1);
+}
+#else
 void Closure2_1d4150::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_1d4150 * p = (Pair_1d4150 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_1d4150 * *)&this->f_20)->*(*(void (CActorManager_1d4150::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#endif
 } // namespace fn_001d4150
 
 namespace fn_f55829c3 {
@@ -2259,6 +2293,17 @@ struct Closure1_1d41e0 : hulk_script::FunctionGenView {
     void* f_20;
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Closure1_1d41e0::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char * a0; };
+    const Args_* a = (const Args_*)__p1;
+    float r = ((*(Obj_**)&this->f_20)->*(*(float (Obj_::**)(const char *))&this->f_1c))(a->a0);
+    if (__p2) *(float*)__p2 = r;
+}
+#else
 void Closure1_1d41e0::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr ignored = (hulk_intptr)__p0; const char ** arg = (const char **)__p1; float * out = (float *)__p2;
 
     CActorManager_1d41e0* obj = (*(CActorManager_1d41e0 * *)&this->f_20);
@@ -2267,6 +2312,7 @@ void Closure1_1d41e0::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr 
     if (out)
         *out = value;
 }
+#endif
 } // namespace fn_001d41e0
 
 namespace fn_f55829c3 {

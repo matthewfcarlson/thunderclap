@@ -1022,10 +1022,21 @@ struct Function5_1b3930 : hulk_script::FunctionGenView {
     int f_1c;
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Function5_1b3930::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { int a0; int a1; float a2; float a3; float a4; };
+    const Args_* a = (const Args_*)__p1;
+    (*(void (**)(int, int, float, float, float))&this->f_1c)(a->a0, a->a1, a->a2, a->a3, a->a4);
+}
+#else
 void Function5_1b3930::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_001b3950(a, b, c, this->f_1c);
 }
+#endif
 } // namespace fn_001b3930
 
 namespace fn_f5af65ff {
@@ -1956,6 +1967,18 @@ struct Method2_1b5ce0 : hulk_script::FunctionGenView {
     bool (::CCollisionManager::*f_1c)(math::Vector, int);
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Method2_1b5ce0::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Vec_ { float x, y, z; };
+    struct Args_ { Vec_ a0; int a1; };
+    const Args_* a = (const Args_*)__p1;
+    bool r = (((Obj_*)__p0)->*(*(bool (Obj_::**)(Vec_, int))&this->f_1c))(a->a0, a->a1);
+    if (__p2) *(bool*)__p2 = r;
+}
+#else
 void Method2_1b5ce0::vfunc_2(void* __p0, void* __p1, void* __p2) { Callee_1b5ce0 * a = (Callee_1b5ce0 *)__p0; VecI * p = (VecI *)__p1; char * out = (char *)__p2;
 
     Fn_1b5ce0 f = (*(Fn_1b5ce0 *)&this->f_1c);
@@ -1963,6 +1986,7 @@ void Method2_1b5ce0::vfunc_2(void* __p0, void* __p1, void* __p2) { Callee_1b5ce0
     if (out)
         *out = r;
 }
+#endif
 } // namespace fn_001b5ce0
 
 namespace fn_f5af65ff {

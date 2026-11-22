@@ -31,6 +31,18 @@ struct Closure3_200140 : hulk_script::FunctionGenView {
     hulk_intptr f_20;
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Closure3_200140::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Vec_ { float x, y, z; };
+    struct Args_ { Vec_ a0; const char * a1; bool a2; };
+    const Args_* a = (const Args_*)__p1;
+    bool r = ((*(Obj_**)&this->f_20)->*(*(bool (Obj_::**)(Vec_, const char *, bool))&this->f_1c))(a->a0, a->a1, a->a2);
+    if (__p2) *(bool*)__p2 = r;
+}
+#else
 void Closure3_200140::vfunc_2(void* __p0, void* __p1, void* __p2) { Args * args = (Args *)__p1; bool * out = (bool *)__p2;
 
     CTriggerVolumeManager_200140* p = (*(CTriggerVolumeManager_200140 * *)&this->f_20);
@@ -43,5 +55,6 @@ void Closure3_200140::vfunc_2(void* __p0, void* __p1, void* __p2) { Args * args 
     if (out)
         *out = r;
 }
+#endif
 } // namespace fn_00200140
 

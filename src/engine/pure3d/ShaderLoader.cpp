@@ -104,9 +104,10 @@ public:
     virtual void v10();
     virtual Impl_28f2c0 *v11(const char *name, void *data);
 };
-class TexRes {
+class TexRes {   // pure3d::Texture: the Entity's words (natively 0x18 bytes, CLAUDE.md), then its pddi texture
 public:
-    char pad0[0x10];
+    void *vftable;
+    int words[3];
     void *f10;
 };
 class Factory_28f2c0 {

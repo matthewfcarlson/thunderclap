@@ -303,7 +303,7 @@ extern bool __cdecl Check_00085d90();   // (gfx1) 0x00085d90 (this TU defines it
 extern unsigned char __cdecl Check_0008db80();   // (gfx5) unsigned char, as defined; (gfx1) 0x0008db80 (`Check` stood for both and carried no address: unbound natively)
 class B_86da0 {
   public:
-    void a();
+    void FUN_0008db00();   // (nat3) by its address name (was `a`: natively unbound, the scheduler step never ran)
 };
 extern "C" unsigned char __cdecl FUN_0008db80(void);   // (decl2) as defined (unk_08ceb0.cpp)
 // (decl1) `thunk` / `f656a0` -> common.h's thunk_FUN_00270a50 (the jmp thunk 0x002696a0 to 0x00270a50) and game/global.h's
@@ -317,7 +317,7 @@ class A_86da0 {
     B_86da0* x;
     void* pad2[4];
     C_86da0* y;
-    void tail();
+    void FUN_00086ad0();   // (nat3) by its address name (was `tail`: natively unbound)
     void run();
 };
 struct Function_86eb0 { virtual void vfunc_0(); virtual void vfunc_1(); };
@@ -1360,7 +1360,7 @@ namespace fn_f5b26912 {
 // sym: ?run@A_86da0@fn_f5b26912@@QAEXXZ
 void A_86da0::run() {
     if (x)
-        x->a();
+        x->FUN_0008db00();
     else {
         thunk_FUN_00270a50();
         FUN_002656a0();
@@ -1370,10 +1370,10 @@ void A_86da0::run() {
     if (x) {
         while (FUN_0008db80()) {
             FUN_0008db90();
-            x->a();
+            x->FUN_0008db00();
         }
     }
-    tail();
+    FUN_00086ad0();
 }
 
 } // namespace fn_f5b26912
@@ -1503,6 +1503,17 @@ struct Function2_86fa0 : hulk_script::FunctionGenView {
     void* f_1c;
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (nat3) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells, and the
+// instantiation's own types (the 32-bit source's propagated (const char*, int) passes them in other registers)
+void Function2_86fa0::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char * a0; const char * a1; };
+    const Args_* a = (const Args_*)__p1;
+    const char * r = (*(const char * (**)(const char *, const char *))&this->f_1c)(a->a0, a->a1);
+    if (__p2) *(const char **)__p2 = r;
+}
+#else
 void Function2_86fa0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * ignored = (void *)__p0; void ** args = (void **)__p1; void ** out = (void **)__p2;
 
     void* a = args[0];
@@ -1512,6 +1523,7 @@ void Function2_86fa0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * ignor
     if (out)
         *out = value;
 }
+#endif
 } // namespace fn_00086fa0
 
 namespace fn_f5b26912 {
