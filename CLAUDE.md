@@ -460,6 +460,12 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   Time wasm builds by the image's own frame clock (`hulk: frame N (... X s in all)` in stdout.txt), not native_replay's
   wall time (it stops ~1 s after the target), on an idle queue host (build/wasm15/tj/submit.sh). Game back end -O2 and
   host x87.cpp -O3 give the same records but no speed; softx87 natively is only ~20% faster than through wasm2c (wasm15b).
+  The app's 60 fps option (D224) is a game-menu item injected at run time: fe_options.c overlays misc.rcf with patched
+  copies of the player's own frontend text (commit only the inserted item and its strings, never game text); entry hooks
+  0xdf9e0 / 0xf8e70 / 0xb5ad0 (`wasm_port.GFX_APP_HOOKS`) connect it. The game is variable-step: 60 fps changes only the
+  pacing (one virtual-clock field per present); no per-frame constants need scaling. The rate is per session
+  (port_settings.txt; replays ignore it; netplay peers must share it). `HULK_INPUT` takes the left stick
+  (`FROM-TO:BUTTONS/ANALOG/LX/LY`) (fps1).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
