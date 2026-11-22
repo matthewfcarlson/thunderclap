@@ -332,11 +332,14 @@ void CGameCamera::vfunc_37(int index, int first, int second, float turns) {
 
 // 0x000a93e0 CGameCamera::vfunc_27 (17 B): matches/0x000a93e0.cpp
 // sym: ?vfunc_27@CGameCamera@@UAEXPAX@Z
-void CGameCamera::vfunc_27(void* __p0) { unsigned int * p = (unsigned int *)__p0;
+hulk_eaxptr CGameCamera::vfunc_27(void* __p0) { unsigned int * p = (unsigned int *)__p0;
 
     p[0] = 0;
     p[1] = 0;
     p[2] = 0;
+#ifdef HULK_PORT_ABI
+    return p; // the original leaves P in eax; 0x00098500 reads it
+#endif
 }
 
 

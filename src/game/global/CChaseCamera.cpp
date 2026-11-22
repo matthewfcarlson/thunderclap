@@ -1512,7 +1512,11 @@ void Body_a0dc0::FUN_000a0dc0(float a1, float a2, float a3)
 namespace fn_000a0f40 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // CChaseCamera::vfunc_27 @ 0x000a0f40
-struct Vector3 { float x,y,z; }; struct CameraData { char pad[0x20]; Vector3 direction; char pad2[4]; Vector3 position; }; class CChaseCamera { public: virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual CameraData* vfunc_14(); char pad[0x23c]; float distance; void vfunc_27(Vector3* result); }; void CChaseCamera::vfunc_27(Vector3* result) { CameraData* first = vfunc_14(); float x = distance * first->direction.x; float y = distance * first->direction.y; float z = distance * first->direction.z; CameraData* second = vfunc_14(); result->x = x + second->position.x; result->y = y + second->position.y; result->z = z + second->position.z; }
+struct Vector3 { float x,y,z; }; struct CameraData { char pad[0x20]; Vector3 direction; char pad2[4]; Vector3 position; }; class CChaseCamera { public: virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual CameraData* vfunc_14(); char pad[0x23c]; float distance; hulk_eaxptr vfunc_27(Vector3* result); }; hulk_eaxptr CChaseCamera::vfunc_27(Vector3* result) { CameraData* first = vfunc_14(); float x = distance * first->direction.x; float y = distance * first->direction.y; float z = distance * first->direction.z; CameraData* second = vfunc_14(); result->x = x + second->position.x; result->y = y + second->position.y; result->z = z + second->position.z;
+#ifdef HULK_PORT_ABI
+    return result; // the original leaves RESULT in eax; 0x00098500 reads it
+#endif
+}
 } // namespace fn_000a0f40
 
 

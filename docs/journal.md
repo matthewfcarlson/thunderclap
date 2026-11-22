@@ -2916,3 +2916,15 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   `hulk_game_state`. A rolltest 4000:5200 across a menu toggle at 4800 is identical: the restore puts the rate back
   to 30 and the re-simulated toggle makes it 60 again. play3's records stay byte-identical (headless, app with `null`
   and the overlay, app with Metal).
+
+## wasmq3: play3's camera cut at 10196 (wasm, 2026-11-22)
+
+- play3 on the wasm build lost the camera for good at 10196 (rng 10198): CCameraManager cuts from the chase camera to a
+  script camera through a CBlendCamera, whose 0x00098500 reads each camera's state. A Wine probe (exit probes with
+  dereferences on 0x98500/0xa04c0/0x9f8c0, f=10196) against the wasm hooks: the script camera's state is identical in
+  both (its d = 90.00001 is the original's too); the chase camera's position is 0,0,0 on wasm. 0x98500 takes the
+  position from slot 27's eax (`Vector* v27(Vector*)`), and CChaseCamera::vfunc_27 (0x000a0f40), CDramaticCamera's
+  (0x000a8f70) and CGameCamera's (0x000a93e0) are void with eax = the out pointer in the original: the HULK_PORT_ABI
+  class. They now return `hulk_eaxptr` (gen CGameCamera's slot 27 and its four overrides too); MSVC and the Wine build
+  keep void (blocks MATCH, code hashes unchanged). play3's first persistent divergence moves from 10196 to rng 10847
+  (actors 10860 float drift, particle 10869, camera 10928).

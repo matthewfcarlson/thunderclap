@@ -183,7 +183,7 @@ class CDramaticCamera : public CGameCamera_a8400 {
     virtual void m_vf24_00292c40(float, float, float);
     virtual void m_vf25_00292bd0(void*, void*, void*);
     virtual void m_vf26_00292ba0();
-    virtual void vfunc_27(Vec3_a8f70* out);
+    virtual hulk_eaxptr vfunc_27(Vec3_a8f70* out);
     CDramaticCamera();
     CameraAnimationController_a8400 *controller;
     VectorCamera_a8400 *rig;
@@ -337,7 +337,7 @@ CDramaticCamera_a8970::~CDramaticCamera_a8970() {
 
 // 0x000a8f70 CDramaticCamera::vfunc_27 (101 B): matches/0x000a8f70.cpp
 // sym: ?vfunc_27@CDramaticCamera@fn_f6c39404@@UAEXPAUVec3_a8f70@2@@Z
-void CDramaticCamera::vfunc_27(Vec3_a8f70* out) {
+hulk_eaxptr CDramaticCamera::vfunc_27(Vec3_a8f70* out) {
     Vec3_a8f70 d;
     Vec3_a8f70* f = &GetMat_00292930()->a;
     d.x = f->x * 10.0f;
@@ -350,6 +350,9 @@ void CDramaticCamera::vfunc_27(Vec3_a8f70* out) {
     out->x = x;
     out->y = y;
     out->z = z;
+#ifdef HULK_PORT_ABI
+    return out; // the original leaves OUT in eax; 0x00098500 reads it
+#endif
 }
 
 } // namespace fn_f6c39404

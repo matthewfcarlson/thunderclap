@@ -887,7 +887,7 @@ public:
 class CGameCamera : public ::pure3d::Camera {
 public:
     virtual ~CGameCamera(); // overrides core::IRefCount slot 2
-    virtual void vfunc_27(void*); // slot 27
+    virtual hulk_eaxptr vfunc_27(void*); // slot 27
     virtual void vfunc_28(); // slot 28
     virtual void vfunc_29(); // slot 29
     virtual void vfunc_30(int); // slot 30
@@ -1676,7 +1676,7 @@ public:
 class CChaseCamera : public ::CGameCamera {
 public:
     virtual ~CChaseCamera(); // overrides core::IRefCount slot 2
-    virtual void vfunc_27(void*); // overrides CGameCamera slot 27
+    virtual hulk_eaxptr vfunc_27(void*); // overrides CGameCamera slot 27
     virtual void vfunc_28(); // overrides CGameCamera slot 28
     virtual void vfunc_29(); // overrides CGameCamera slot 29
     virtual void vfunc_30(int); // overrides CGameCamera slot 30
@@ -2364,7 +2364,7 @@ public:
 class CDramaticCamera : public ::CGameCamera {
 public:
     virtual ~CDramaticCamera(); // overrides core::IRefCount slot 2
-    virtual void vfunc_27(void*); // overrides CGameCamera slot 27
+    virtual hulk_eaxptr vfunc_27(void*); // overrides CGameCamera slot 27
     virtual void vfunc_28(); // overrides CGameCamera slot 28
     virtual void vfunc_29(); // overrides CGameCamera slot 29
     virtual void vfunc_35(int, int, int, int); // overrides CGameCamera slot 35
@@ -4196,7 +4196,7 @@ public:
 class CNISCamera : public ::CGameCamera {
 public:
     virtual ~CNISCamera(); // overrides core::IRefCount slot 2
-    virtual void vfunc_27(void*); // overrides CGameCamera slot 27
+    virtual hulk_eaxptr vfunc_27(void*); // overrides CGameCamera slot 27
     virtual void vfunc_28(); // overrides CGameCamera slot 28
     virtual void vfunc_29(); // overrides CGameCamera slot 29
     virtual void vfunc_35(int, int, int, int); // overrides CGameCamera slot 35
@@ -4934,7 +4934,7 @@ public:
 class CScriptCamera : public ::CGameCamera {
 public:
     virtual ~CScriptCamera(); // overrides core::IRefCount slot 2
-    virtual void vfunc_27(void*); // overrides CGameCamera slot 27
+    virtual hulk_eaxptr vfunc_27(void*); // overrides CGameCamera slot 27
     virtual void vfunc_28(); // overrides CGameCamera slot 28
     virtual void vfunc_29(); // overrides CGameCamera slot 29
     virtual void vfunc_31(int); // overrides CGameCamera slot 31
