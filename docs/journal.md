@@ -2656,3 +2656,10 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   vfunc_8 `void*` under HULK_PORT_ABI only); the 32-bit code is unchanged (MATCH, relocs ok). The 64-bit builds
   read the same garbage today: the fix serves them too.
 - wasm play3: first divergence 779 rng -> 870 actors (float drift, window 840..870); rng now first differs at 2711.
+- 870 (actors, a soldier spawned at 857): its name carried the encounter map's count (`...+a-as+100.0` in Wine,
+  `...+0` on wasm) because the encounter map (0x001f9530 inserts, 0x001f9630 finds) stayed empty: the node pool's
+  slot 3, core::MemoryPool::vfunc_3 (0x0026fe00), tail-returns slot 13's block and the void block returned none, so
+  every insert got a null node. MemoryPool::vfunc_3 and MemoryTwoWayAllocator::vfunc_3 (0x0026d410, same shape)
+  return the block under HULK_PORT_ABI, and gen/core.h's IMemoryAllocator slot 3 family is `void*` there. The name
+  now matches; 870 does not move: the spawned soldier is updated (turns and steps) in its spawn frame 858 on wasm
+  and only from 859 in Wine (actor words at the first 0x00059c10 call of 858/859, Wine 111430/111433 vs a wasm hook).

@@ -1033,7 +1033,11 @@ public:
 // .?AUIMemoryAllocator@core@@  vftable 0x42aef4 (13)
 struct IMemoryAllocator : public ::core::IRefCount {
 public:
+#if defined(HULK_PORT_ABI)
+    virtual void* vfunc_3(int) = 0; // slot 3 (allocate); the port builds return the block (wasm8)
+#else
     virtual void vfunc_3(int) = 0; // slot 3
+#endif
     virtual void vfunc_4(void*) = 0; // slot 4
     virtual bool vfunc_5(void*) = 0; // slot 5
     virtual int vfunc_6(void*, int) = 0; // slot 6
@@ -1164,7 +1168,11 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~MemoryAllocatorMalloc(); // overrides core::IRefCount slot 2
+#if defined(HULK_PORT_ABI)
+    virtual void* vfunc_3(int); // overrides core::IMemoryAllocator slot 3 (the port builds' block, wasm8)
+#else
     virtual void vfunc_3(int); // overrides core::IMemoryAllocator slot 3
+#endif
     virtual void vfunc_4(void*); // overrides core::IMemoryAllocator slot 4
     virtual bool vfunc_5(void*); // overrides core::IMemoryAllocator slot 5
     virtual int vfunc_6(void*, int); // overrides core::IMemoryAllocator slot 6
@@ -1180,7 +1188,11 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~MemoryDlAllocator(); // overrides core::IRefCount slot 2
+#if defined(HULK_PORT_ABI)
+    virtual void* vfunc_3(int); // overrides core::IMemoryAllocator slot 3 (the port builds' block, wasm8)
+#else
     virtual void vfunc_3(int); // overrides core::IMemoryAllocator slot 3
+#endif
     virtual void vfunc_4(void*); // overrides core::IMemoryAllocator slot 4
     virtual bool vfunc_5(void*); // overrides core::IMemoryAllocator slot 5
     virtual int vfunc_6(void*, int); // overrides core::IMemoryAllocator slot 6
@@ -1209,7 +1221,11 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~MemoryPool(); // overrides core::IRefCount slot 2
+#if defined(HULK_PORT_ABI)
+    virtual void* vfunc_3(int); // overrides core::IMemoryAllocator slot 3 (the port builds' block, wasm8)
+#else
     virtual void vfunc_3(int); // overrides core::IMemoryAllocator slot 3
+#endif
     virtual void vfunc_4(void*); // overrides core::IMemoryAllocator slot 4
     virtual bool vfunc_5(void*); // overrides core::IMemoryAllocator slot 5
     virtual int vfunc_6(void*, int); // overrides core::IMemoryAllocator slot 6
@@ -1247,7 +1263,11 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~MemoryTwoWayAllocator(); // overrides core::IRefCount slot 2
+#if defined(HULK_PORT_ABI)
+    virtual void* vfunc_3(int); // overrides core::IMemoryAllocator slot 3 (the port builds' block, wasm8)
+#else
     virtual void vfunc_3(int); // overrides core::IMemoryAllocator slot 3
+#endif
     virtual void vfunc_4(void*); // overrides core::IMemoryAllocator slot 4
     virtual bool vfunc_5(void*); // overrides core::IMemoryAllocator slot 5
     virtual int vfunc_6(void*, int); // overrides core::IMemoryAllocator slot 6

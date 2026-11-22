@@ -142,9 +142,17 @@ extern "C" hulk_uintptr FUN_0026fd80(hulk_uintptr value, uint_26fd80 alignment) 
 
 // 0x0026fe00 core::MemoryPool::vfunc_3 (8 B): matches/0x0026fe00.cpp
 // sym: ?vfunc_3@MemoryPool@core@@UAEXH@Z
+// HULK_PORT_ABI (include/compat/ptr.h): slot 3 allocates; the original tail-returns slot 13's block in eax (the
+// tree map's node pool, 0x001f9530, reads it). The port builds return it (wasm8), the 32-bit builds keep void.
+#if defined(HULK_PORT_ABI)
+void* core::MemoryPool::vfunc_3(int ) {
+    return vfunc_13();
+}
+#else
 void core::MemoryPool::vfunc_3(int ) {
     vfunc_13();
 }
+#endif
 
 
 // 0x0026fe10 core::MemoryPool::vfunc_6 (5 B): matches/0x0026fe10.cpp

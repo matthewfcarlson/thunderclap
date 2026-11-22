@@ -88,8 +88,15 @@ class MemoryTwoWayAllocator_26d320 {
     hulk_uintptr a, b, c, d, flag;
     hulk_uintptr f(uint_26d320 x, uint_26d320 y);
 };
+// HULK_PORT_ABI (include/compat/ptr.h): 0x0026d320 returns the block, and slot 3 (0x0026d410) tail-returns it to
+// its callers. The port builds return it (wasm8), the 32-bit builds keep void.
+#if defined(HULK_PORT_ABI)
+typedef hulk_uintptr Ret_26d410;
+#else
+typedef void Ret_26d410;
+#endif
 struct ThisCall_0026d320 {
-    void FUN_0026d320(unsigned int, unsigned int);
+    Ret_26d410 FUN_0026d320(unsigned int, unsigned int);
 };
 
 
@@ -401,10 +408,17 @@ MemoryTwoWayAllocator* MemoryTwoWayAllocator::vfunc_2(unsigned char flags) {
 
 // 0x0026d410 core::MemoryTwoWayAllocator::vfunc_3 (15 B): matches/0x0026d410.cpp
 // sym: ?vfunc_3@MemoryTwoWayAllocator@core@@UAEXH@Z
+#if defined(HULK_PORT_ABI)
+void* core::MemoryTwoWayAllocator::vfunc_3(int __p0) { unsigned int p = (unsigned int)__p0;
+
+    return (void*)((ThisCall_0026d320*)(this))->FUN_0026d320(p, 4);
+}
+#else
 void core::MemoryTwoWayAllocator::vfunc_3(int __p0) { unsigned int p = (unsigned int)__p0;
 
     ((ThisCall_0026d320*)(this))->FUN_0026d320(p, 4);
 }
+#endif
 
 
 // 0x0026d420 core::MemoryTwoWayAllocator::vfunc_4 (25 B): matches/0x0026d420.cpp
