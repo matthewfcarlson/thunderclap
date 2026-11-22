@@ -2686,3 +2686,11 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   calls a body by address (same leak class on the port builds; listed in build/wasm10/RESUME.md). On the Xbox the
   pddi d3d objects and texture staging buffers came from the game heap too (operator new 0x0008d690 in XBE code,
   e.g. 0x00326900 +0xcc); only XDK resource memory did not, and the wasm shim already takes that from the host.
+- (wasm10, 11-22) **The rest of the empty `X::~X() {}` `??_G` stand-ins (18 blocks in 18 TUs: 0x0005b770, 0x0007af60,
+  0x000d83f0, 0x0023b4f0, 0x0027e900, 0x00286500, 0x0028e040/60/80, 0x00295600, 0x002a5040, 0x002a7580, 0x002aaef0,
+  0x002ac550, 0x002c3a80, 0x002d66e0, 0x003250f0; 0x00105e30 above) are D114's explicit functions**: each original
+  `??_G` calls its destructor's body by address, which the port builds skipped. All MATCH with relocs ok and /GX-; the
+  18 TUs dropped `// cl-flags: /GX` (14 left: docs/tech-debt.md). wasm play3: first divergence 2313 particle -> 3810
+  actors (camera 5875 is the Wine build's known 5880 transient window); the run still stops at 8640 on an unbound
+  0x0035618d (XCreateSaveGame: the wasm host has no row for it). A wasm snapshot built before a `??_G` rename needs
+  its report.json symbol for the address updated, or the vftable keeps clang's own `??_G`.

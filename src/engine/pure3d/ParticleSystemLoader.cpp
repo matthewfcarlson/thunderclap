@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002aa160..0x002ad790 (kind game, layer engine, confidence high), dominant class pure3d::ParticleSystemLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -2190,9 +2189,26 @@ FUN_002ac4a0::FUN_002ac4a0(unsigned int bytes)
 // 0x002ac540 pure3d::ParticleAllocatorTemplate<pure3d::SpriteParticle>::vfunc_3 (5 B): not yet verified
 
 // 0x002ac550 pure3d::ParticleAllocatorTemplate<pure3d::SpriteParticle>::vfunc_2 (30 B): matches/0x002ac550.cpp
-// sym: ??_G?$ParticleAllocatorTemplate@USpriteParticle@pure3d@@@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@ParticleAllocatorTemplate_2ac550@fn_002ac550@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (wasm10, D114) an explicit function: the empty specialization `~ParticleAllocatorTemplate() {}` stood for it:
+// the port builds bound the `??_G`'s destructor call to that empty definition, so the body never ran (wasm play3
+// leaked a CPathAgent's move agent this way, 0x00105e30). The destructor's body 0x002ac570, then (flags & 1)
+// operator delete.
+namespace fn_002ac550 {
+struct ParticleAllocatorTemplate_2ac550 {
+    void FUN_002ac570();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* ParticleAllocatorTemplate_2ac550::vfunc_2(unsigned int flags) {
+    FUN_002ac570();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002ac550
+// the destructor itself, which other objects' code references:
 template <> pure3d::ParticleAllocatorTemplate<pure3d::SpriteParticle>::~ParticleAllocatorTemplate() {}
 #if defined(HULK_PTR64)
 template class pure3d::ParticleAllocatorTemplate<pure3d::SpriteParticle>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2ac550)
