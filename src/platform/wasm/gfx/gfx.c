@@ -75,6 +75,9 @@ GI(plat_toggle_fullscreen) int32_t gi_toggle_fullscreen(void);
 GI(plat_resized) int32_t gi_resized(int32_t* w, int32_t* h);
 GI(plat_sleep_ms) void gi_sleep_ms(uint32_t ms);
 GI(plat_pad) int32_t gi_pad(uint32_t port, uint8_t* out18);
+GI(plat_pace) void gi_pace(uint32_t fields);
+GI(plat_display_rate) void gi_display_rate(uint32_t rate);
+GI(gfx_discontinuity) void gi_discontinuity(void);
 
 /* the layout of the packets the runner reads (draw_sink.h as this module lays it out: gfx_abi.cpp) */
 uint32_t hulk_wasm_gfx_abi(uint32_t* table, uint32_t cap);
@@ -251,7 +254,7 @@ static void remake(uint32_t v) {
 static int v_same(uint32_t v) { return hs[v].kind == vt[v].kind && hs[v].stamp == vt[v].stamp; }
 static uint32_t n_restores;
 extern unsigned int hulk_native_frame_no;
-int hulk_wasm_fps60(void);     /* fe_options.c */
+int hulk_wasm_frame_rate(void);
 void ff_gfx_restored(void) {
     if (!hulk_wasm_gfx_on()) return;
     hulk_native_frame_no = SIM->frame;      /* (the platform layer's frame number: screenshots by game frame) */
@@ -269,10 +272,11 @@ void ff_gfx_restored(void) {
             remake(v);
             remade++;
         }
+    gi_discontinuity();      /* (the runner draws the next frame without interpolating from the dropped timeline) */
     n_restores++;
     if (getenv("HULK_GFX_ROLL_LOG"))
         fprintf(stderr, "gfx: restore %u: %u sink objects dropped, %u made again (frame rate %d)\n", n_restores,
-                dropped, remade, hulk_wasm_fps60() ? 60 : 30);
+                dropped, remade, hulk_wasm_frame_rate());
 }
 
 uint32_t hulk_gfx_sink_create_texture(const void* d) {
@@ -531,21 +535,46 @@ void hulk_gfx_free(void* p) { if (p) ff_arena_free(p); }
 void ff_frame_end(void);
 void ff_frame_checkpoint(void);
 int ff_replay_active(void);
-int hulk_wasm_fps60(void);     /* fe_options.c */
 void hulk_wasm_gfx_frame_end(void) {
     if (SIM->d3d_vblank_cb) ff_call(SIM->d3d_vblank_cb, 0);
     ff_frame_end();
     hulk_native_frame_no = SIM->frame;
     /* a free run's frame lasts what the original's SwapBuffers waits for (0x31b190): one field with the flag
-     * 0x005554a0 set (menus, movies: 60 Hz), two with it clear (gameplay: 30 Hz), as the presents are paced
-     * (sdl_platform.cpp HULK_FPS_CAP); ff_frame_end moved the clock one field. With the options menus' frame rate at
-     * 60 (fe_options.c, D224) or HULK_FPS_CAP=60, gameplay takes one field too. A replay keeps its own clock. */
+     * 0x005554a0 set (menus, movies: 60 Hz), two with it clear (gameplay: 30 Hz), as the updates are paced
+     * (plat_pace); ff_frame_end moved the clock one field. At every display rate (D228a): the display's rate only
+     * changes how often the runner draws each update (run/app/interp.cpp). A replay keeps its own clock. */
     static int free_run = -1;
     if (free_run < 0) free_run = !ff_replay_active();
-    if (free_run && !hulk_wasm_fps60() && !*(volatile uint8_t*)PTR(0x005554a0u)) SIM->clock += HULK_TSC_HZ / 60;
+    if (free_run && !*(volatile uint8_t*)PTR(0x005554a0u)) SIM->clock += HULK_TSC_HZ / 60;
     static int live = -1;
     if (live < 0) live = !getenv("HULK_INPUT") && !ff_replay_active();
     uint8_t pad[18];
     if (live && gi_pad(0, pad)) memcpy(SIM->pads[0], pad, 18);
     ff_frame_checkpoint();
+}
+
+/* ------------------------------------------------------------------------------------------- display rates (fps2)
+ * D228a: the simulation steps at the original's rate whatever the display does. The display rate (30: the
+ * original's presents, 60, 120, 0: the display's refresh) is host state, not game state: the runner records each
+ * update's drawing and draws it again with interpolated transforms (run/app/interp.cpp). The settings layer applies
+ * it with hulk_wasm_frame_rate_apply (at load and on a change; it takes effect at the next frame end); until it has,
+ * the options menu's 30/60 item (hulk_wasm_fps60, fe_options.c) decides. HULK_DISPLAY_FPS (the runner's) overrides
+ * both without touching the menus. */
+static int g_rate = -1, g_applied;
+int hulk_wasm_fps60(void);     /* fe_options.c */
+static int rate_now(void) {
+    return g_applied ? g_rate : hulk_wasm_fps60() ? 60 : 30;
+}
+int hulk_wasm_frame_rate(void) { return rate_now(); }
+void hulk_wasm_frame_rate_apply(int value) {
+    g_applied = 1;
+    g_rate = value == 60 || value == 120 || value == 0 ? value : 30;
+}
+/* the SwapBuffers wait (sdl_platform.cpp platformFramePace under HULK_PDDI_WASM): the runner draws the update and
+ * waits; fields: 1 with the flag 0x005554a0 set (60 Hz), else 2 */
+void hulk_wasm_frame_pace(void) {
+    static int sent = -2;
+    int r = rate_now();
+    if (r != sent) gi_display_rate((uint32_t)r), sent = r;
+    gi_pace(*(volatile uint8_t*)PTR(0x005554a0u) ? 1u : 2u);
 }

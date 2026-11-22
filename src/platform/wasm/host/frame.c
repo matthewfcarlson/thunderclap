@@ -163,6 +163,11 @@ static void frame_end(void* unused) {
     if (getenv("HULK_STACK_AT") && SIM->frame == (uint32_t)atol(getenv("HULK_STACK_AT")))
         ff_fatal("stack at frame %u (HULK_STACK_AT)", SIM->frame);
     SIM->clock += HULK_TSC_HZ / 60;
+    /* HULK_HASH_EVERY=N: the game hash every N frames (comparing runs frame by frame: display rates, fps2) */
+    static long hash_every = -1;
+    if (hash_every < 0) hash_every = getenv("HULK_HASH_EVERY") ? atol(getenv("HULK_HASH_EVERY")) : 0;
+    if (hash_every > 0 && SIM->frame % hash_every == 0)
+        fprintf(stderr, "hulk: frame %u game hash 0x%016llx\n", SIM->frame, (unsigned long long)ff_game_hash());
     if (every && SIM->frame % every == 0) {
         double now = ff_now_ms();
         fprintf(stderr, "hulk: frame %u (%.0f frames/s over the last %ld, %.1f s in all)\n", SIM->frame,

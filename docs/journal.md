@@ -2945,3 +2945,22 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   movies at the host's draw rate; the runner now sleeps to a per-movie wall-clock anchor, which only decides when
   BinkWait returns. Free runs with the same HULK_INPUT (holding B through a skip) under different CPU load end in the
   same game hash; rolltests across a movie (100:160) and across a skip (110:200) are identical.
+
+## 2026-11-22 fps2: the same game at any display rate (D228a)
+
+fps1's 60 fps changed the step (a jump peaked 0.5 units higher). Now the simulation always takes the original's fields
+and the runner draws extra frames. The draw sink was the right seam: the bgfx sink draws only from a packet's vertex
+constants (plus textures, state, buffers), so recording each update's sink calls and lerping the constants of matched
+draws gives in-between frames with no tree change and no path back into the game. What we learned:
+- The shader serial (`pddiBaseShader` +0xc) is a change serial, new at every set-up: keyed on it, 97% of the front
+  end's draws never matched. The shader kind plus the prim buffer serial, combiner hash, texture ordinals and pass
+  match 99.5% of draws.
+- Camera-space translations move with distance when the camera turns (things 2,700 units away moved 37 units in one
+  update with a 0.8 degree turn): a jump test has to be relative (40 units + 0.3 x distance), or every far draw snaps.
+- Elementwise lerp of composite matrices (bone x modelview, world x view x projection) is enough at 30 Hz steps: the
+  shrink is 1 - cos(theta/2), invisible below 20 degrees an update, and decomposition is not possible for composites.
+- A present clock independent of the update clock handles a 75 Hz display (2-3 presents an update at their true
+  times); at whole ratios it realigns every update and the last present is the update's own frame.
+- Input latency is unchanged to the first present (~2 ms after the pad's sample); the update's full pose arrives
+  period - display period later (16.7 ms at 60, 25 at 120).
+

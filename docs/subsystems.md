@@ -181,7 +181,10 @@ The constants once listed as per-frame risks are not per-frame (fps1, D224): 1/3
 constructor, in `pure3d::MultiController::vfunc_23` (`0x2b1df0`) animation frames to seconds; 1/60 in `0x38660` is
 degrees / 60, and the controller/drive error callbacks step 1/60 inside the disconnect pause loop. `CSoundVoiceManager`
 pre-rolls voices with 100 fixed 1/60 s steps (`0x1f6580`, `0x1f6650`), which is audio, not physics. A scripted run at
-30 and 60 keeps walking, attack and jump timings (docs/wasm-port.md "The frame-rate option").
+30 and 60 keeps walking, attack and jump timings (docs/wasm-port.md "The frame-rate option"), but not exactly: a
+jump peaked 0.5 units higher at 60 (smaller integration steps). So the port never changes the step (D228a, fps2):
+the simulation always runs at the original's rate and higher display rates draw interpolated frames between updates
+(docs/wasm-port.md "Display rates by interpolation"); the game state is identical at any display rate.
 
 **60 fps experiment for the hybrid build**: make `SetFrontEndVSync60` always store 1 (or NOP the
 two-vblank branch in `0x31b190`), then compare replays. Unlocked frame rate in the port: replace

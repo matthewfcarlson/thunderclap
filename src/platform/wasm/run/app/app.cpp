@@ -21,6 +21,7 @@
 #include "pddi/bgfx_bridge.h"
 #include "platform_events.h"
 #include "gfx_wire.h"
+#include "interp.h"
 
 using namespace hulk::pddi;
 
@@ -103,8 +104,13 @@ static const hulk_gfx_callbacks s_callbacks = {cbLog, cbFatal, cbScreenshot};
 // ------------------------------------------------------------------------------------------- transient vertices
 static SinkVertex* s_pendingHost;
 static u32 s_pendingStaging, s_pendingCount;
+static u32 s_recStaging, s_recCount;          // (recording: the module's staging, copied at the next call)
 static void flush()
 {
+    if (s_recStaging) {
+        interp_transient((const SinkVertex*)M(s_recStaging), s_recCount);
+        s_recStaging = 0;
+    }
     if (s_pendingHost) {
         memcpy(s_pendingHost, M(s_pendingStaging), (size_t)s_pendingCount * sizeof(SinkVertex));
         s_pendingHost = nullptr;
@@ -136,22 +142,19 @@ static void drop(uint32_t vid)
     if (!r)
         return;
     switch (r->kind) {
+    // (interp_destroy: now, or once no recorded stream can still draw it)
     case kResTexture:
-        hulk_gfx_sink_destroy_texture(r->id);
+        interp_destroy(1, r->id, 0);
         break;
     case kResVertices:
-        hulk_gfx_sink_destroy_buffers(r->id, kSinkNone);
+        interp_destroy(2, r->id, kSinkNone);
         break;
     case kResIndices:
-        hulk_gfx_sink_destroy_buffers(kSinkNone, r->id);
+        interp_destroy(2, kSinkNone, r->id);
         break;
     case kResRenderTarget:
     case kResCopyTarget: {
-        SinkTarget t = {r->id, r->id2};
-        if (r->kind == kResRenderTarget)
-            hulk_gfx_sink_destroy_render_target(&t);
-        else
-            hulk_gfx_sink_destroy_copy_target(&t);
+        interp_destroy(r->kind == kResRenderTarget ? 3 : 4, r->id, r->id2);
         if (Res* f = res(r->pair); f && f->kind == kResFrameBuffer && f->pair == vid)
             *f = Res{};
         break;
@@ -341,6 +344,14 @@ u32 w2c_hulk_gfx_alloc_transient(struct w2c_hulk*, u32 count, u32 token, u32 sta
 {
     flush();
     uint32_t tok = kSinkNone;
+    if (interp_recording()) {          // (the stream keeps a copy: drawn later, from the sink's buffer then)
+        tok = 0;
+        memcpy(M(token), &tok, 4);
+        s_recStaging = staging;
+        s_recCount = count;
+        interp_transient(nullptr, 0);
+        return 1;
+    }
     SinkVertex* v = hulk_gfx_sink_alloc_transient(count, &tok);
     memcpy(M(token), &tok, 4);
     if (!v)
@@ -378,6 +389,8 @@ void w2c_hulk_gfx_set_pass(struct w2c_hulk*, u32 p)
     SinkPass pass = *MT<const SinkPass>(p);
     if (pass.target != kSinkTargetScene)
         pass.target = hostFrameBuffer(pass.target);
+    if (interp_recording())
+        return interp_pass(pass);
     hulk_gfx_sink_set_pass(&pass);
 }
 void w2c_hulk_gfx_copy_frame(struct w2c_hulk*, u32 pass, u32 dst)
@@ -385,6 +398,8 @@ void w2c_hulk_gfx_copy_frame(struct w2c_hulk*, u32 pass, u32 dst)
     flush();
     const SinkTarget* w = MT<const SinkTarget>(dst);
     SinkTarget t = {hostTexture(w->texture), hostFrameBuffer(w->frameBuffer)};
+    if (interp_recording())
+        return interp_copy((uint16_t)pass, t);
     hulk_gfx_sink_copy_frame(pass, &t);
 }
 u32 w2c_hulk_gfx_draw_resources(struct w2c_hulk*) { flush(); return hulk_gfx_sink_draw_resources(); }
@@ -451,6 +466,8 @@ void w2c_hulk_gfx_submit_draw(struct w2c_hulk*, u32 pk)
     flush();
     DrawPacket p;
     packet(MT<const WDrawPacket>(pk), &p);
+    if (interp_recording())
+        return interp_draw(p);
     hulk_gfx_sink_submit_draw(&p);
 }
 void w2c_hulk_gfx_combiner_stats(struct w2c_hulk*, u32 a, u32 b, u32 c)
@@ -464,6 +481,8 @@ void w2c_hulk_gfx_fx_draw(struct w2c_hulk*, u32 p)
     FxPacket fx = *MT<const FxPacket>(p);
     for (int i = 0; i < 4; i++)
         fx.texture[i] = hostTexture(fx.texture[i]);
+    if (interp_recording())
+        return interp_fx(fx);
     hulk_gfx_sink_fx_draw(&fx);
 }
 u32 w2c_hulk_gfx_query_result(struct w2c_hulk*, u32 q, u32 pixels)
@@ -477,15 +496,31 @@ void w2c_hulk_gfx_present(struct w2c_hulk*, u32 p)
 {
     flush();
     const SinkPresent* sp = MT<const SinkPresent>(p);
+    if (interp_recording())
+        return interp_present(*sp);          // (drawn by interp_pace, with the ring after each present's stream)
     hulk_app_movie_overlay(sp->windowWidth, sp->windowHeight);     // (run/app/movie.c: the hold-to-skip ring)
     hulk_gfx_sink_present(sp);
 }
-void w2c_hulk_gfx_frame(struct w2c_hulk*) { flush(); hulk_gfx_sink_frame(); }
+void w2c_hulk_gfx_frame(struct w2c_hulk*)
+{
+    flush();
+    if (!interp_frame())
+        hulk_gfx_sink_frame();
+}
 void w2c_hulk_gfx_request_screenshot(struct w2c_hulk*, u32 path)
 {
     hulk_gfx_sink_request_screenshot((const char*)M(path));
 }
-void w2c_hulk_gfx_context_destroyed(struct w2c_hulk*) { flush(); hulk_gfx_sink_context_destroyed(); }
+void w2c_hulk_gfx_context_destroyed(struct w2c_hulk*)
+{
+    flush();
+    interp_context_destroyed();
+    hulk_gfx_sink_context_destroyed();
+}
+// display rates (fps2, D228a: run/app/interp.cpp): the module's SwapBuffers wait, the rate, a restore
+void w2c_hulk_plat_pace(struct w2c_hulk*, u32 fields) { interp_pace(fields); }
+void w2c_hulk_plat_display_rate(struct w2c_hulk*, u32 rate) { interp_set_rate((int)rate); }
+void w2c_hulk_gfx_discontinuity(struct w2c_hulk*) { interp_discontinuity(); }
 
 // ------------------------------------------------------------------------------------------- the window
 u32 w2c_hulk_plat_video_init(struct w2c_hulk*) { return (u32)hulk_platform_video_init(); }
@@ -511,6 +546,7 @@ u32 w2c_hulk_plat_create_window(struct w2c_hulk*, u32 title, u32 w, u32 h, u32 h
                                            (int)resizable);
     if (s_window)
         hulk_platform_set_resize_handler(onResize, 0);
+    interp_set_window(s_window);
     return s_window != nullptr;
 }
 void w2c_hulk_plat_pump(struct w2c_hulk*) { hulk_platform_pump(); }

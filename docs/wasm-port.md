@@ -301,6 +301,9 @@ side holds (GPU objects, the window, the audio device) is derived from linear me
 ### The frame-rate option (fps1, D224)
 
 The user's decision D224: 60 fps is a menu toggle in the game's own options, 30 (the original) by default.
+**Superseded in part by D228a (fps2, "Display rates by interpolation" below):** the simulation no longer takes one
+field a present at 60; the item now sets the display rate only. The menu injection described here stands (wopt1
+moves the item into Video Options).
 
 - **Why only pacing changes.** The game is variable-step: every update takes the measured dt (GameClock, clamped at
   66,666 us), the physics update passes dt without a fixed sub-step, animation is time-based. 30 fps in gameplay comes
@@ -388,8 +391,79 @@ The game's Bink movies (the start-up logos, the attract loop, the cut-scenes) pl
   and reopens or re-seeks the rest (the picture lazily at the next copy, the sound to the movie's time).
   `HULK_MOVIES=0` turns the movie hooks off (the null model); `HULK_MOVIE_LOG=1` logs opens, pauses, closes and
   restores. The runner's `hulk_app_movie_playing()` says a movie plays (its frames are not to be interpolated: fps2).
+### Display rates by interpolation (fps2, D228a)
+
+The user's decision D228a: the game is deterministic whatever the frame rate. fps1's 60 fps changed the simulation
+step (one field a present: a jump peaked 0.5 units higher); this replaces it. The simulation always steps at the
+original's rate (two 60 Hz fields an update in gameplay, one in the front end and movies, as SwapBuffers 0x31b190
+waits), so a run's game state depends only on its frame-indexed input; the display presents at 60, 120 or the
+display's refresh by drawing the last simulated frame again with its transforms interpolated from the frame before.
+
+- **Where: the runner, at the draw sink.** Rendering never feeds back into the module: the sink calls that answer
+  the module (preparePipeline's program, resources made, query results) stay immediate; only what draws is
+  recorded. With interpolation on, app.cpp's sink imports append each update's passes, frame copies, draws (the packet
+  with copies of its vertex constants and, for prim streams, its transient vertices), full-screen passes and present
+  to a stream (`run/app/interp.cpp`) instead of submitting them; the frame's end (`gfx_frame`) closes it. No tree
+  source changes and no game-state change: the recorder reads linear memory only.
+- **What is interpolated.** The bgfx sink draws only from a packet's vertex constants, fragment uniforms, stages,
+  state and buffers (`modelview`/`projection` are informational), so the constants are what move. Fixed-function
+  draws (vs_vp_ff layout): c0-c3 the modelview (camera folded in), c4-c7 the projection, c14-c29 the lights (camera
+  space, lerped when the same lights are on), c32-c47 the stage texture matrices (lerped unless a component steps by
+  more than 0.5: a scroll wrapping), and the normal matrix c52-c54 recomputed from the interpolated modelview. Vertex
+  programs (c96-c191: skin, skin_onebone, refract, skin_refract): every constant lerped (the projection columns, the
+  camera-space bone rows, refract's clip and world matrices, light directions, material). Matrices are lerped element
+  by element, not decomposed: the constants are composites (bone x modelview, world x view x projection) that a
+  decomposition cannot take apart, and over one 30 Hz step the shrink of a lerped rotation is 1 - cos(theta/2)
+  (0.14% at 6 degrees a frame, 1.5% at 20). Fragment uniforms, textures and buffers are frame N's.
+- **Matching draws between N-1 and N.** A draw's key: pass, prim buffer serial (bufferOwner; 0 for a prim stream),
+  vertex program, shader kind, combiner hash, the four stage texture ordinals, primitive kind, prim stream or buffer;
+  a draw is the k-th of its key in its frame. (Not the shader serial: it is a change serial, new at every set-up of
+  the shader, so text and HUD draws never matched.) Keys with the same count in both frames pair in order; otherwise
+  each draw of N takes the unused draw of N-1 nearest in camera-space translation. A pair whose camera-space
+  translation moved more than 40 units plus 0.3 of its distance (a camera turn moves far things by distance x angle:
+  play3's world sits 100-3,000 units away and moves 1-40 units an update), whose axes turned more than 30 degrees or
+  whose scale stepped by half is drawn from N unchanged (a teleport, a respawn reusing a slot); when more than half
+  of the matched draws with a known transform jump, the frame is a camera cut and nothing interpolates. An unmatched fixed-function draw
+  (spawned, a particle stream whose size changed) whose modelview and projection equal a matched draw's takes that
+  draw's interpolated transform (world-space particles move with the camera); any other unmatched draw is frame N's.
+  Stamped with `HULK_INTERP_LOG=1` (matched, snapped, substituted, unmatched per frame).
+- **Presents.** A running present clock steps by the display period d (1/60, 1/120 or the display's refresh); the
+  presents falling in an update's period P (1/30 s in gameplay, 1/60 in the front end's 60 Hz screens) draw its
+  stream at alpha = (t - start + d) / P, clamped to 1. At a whole ratio m = P / d the clock realigns with every
+  update and present k (0..m-1) is at alpha (k+1)/m: the last present of each update is frame N exactly, as the
+  30 fps path shows it. A display rate that does not divide (75 Hz) gets 2 or 3 presents an update at their true
+  times. The displayed state trails the simulation by P - d (17 ms at 60, 25 ms at 120); input is still sampled once
+  an update, at the same point. Movies: while wmov1's `hulk_app_movie_playing()` (run/app/movie.c) says 1, nothing
+  is recorded or drawn twice: each movie frame is presented as it comes; the skip ring
+  (`hulk_app_movie_overlay`) is drawn once per present, after the re-submitted stream. The HUD's quads do
+  not move. The front
+  buffer (the effects' overlay reads the previous frame as presented) is kept only by the last present, so the
+  overlay reads simulated frames as at 30. Resources the module destroys while a stream may still be drawn are
+  destroyed once that stream is retired. After a restore (rollback) the next frame is drawn without interpolation.
+- **Pacing** moves from the front end's platformFramePace (sdl_platform.cpp, `HULK_PDDI_WASM` only) to the runner
+  (`plat_pace(fields)`): the frame period is the original's (the flag 0x005554a0), the presents of a frame at
+  deadline + k x period / m. Pacing stays off in replays, with `noop`, and with `HULK_FPS_CAP=0`.
+- **The option.** "Frame Rate: 30 FPS / 60 FPS / 120 FPS / Display" (fps1's item; `frame_rate=30|60|120|display` in
+  port_settings.txt; 30 = no recording, today's path). "Display" presents at the display's refresh (vsync).
+  `HULK_DISPLAY_FPS=30|60|120|display` overrides it in the runner without touching the menus. The setting is host
+  state (not in a snapshot); the menu's own objects (the item's NamedValueInt and selector) show it, the only game
+  words that depend on it.
+- **Audio**: waud1's model advances by the virtual clock, which follows the fixed simulation step: unchanged.
 
 ## Status
+
+- 2026-11-22 (fps2, D228a): **the game state is the same at any display rate.** The simulation always steps at the
+  original's rate; 60, 120 and the display's refresh draw interpolated frames between updates in the runner ("Display
+  rates by interpolation"). The same `HULK_INPUT` run (8,000 frames through the front end, the load and 4,200 frames
+  of walking, jumps and attacks) with Metal at 30, 60 and 120 gives the same game hash at all 800 checkpoints (every
+  10 frames). Paced: presents 60.0 / 120 / 75.0 fps (a 75 Hz display) with 30.0 updates a second in gameplay. Draws
+  matched between updates: 99.1-99.5%, 0.2-0.3% drawn unchanged after a jump, 0.5% unmatched; two camera cuts in 4,800
+  updates (the game's start and one cut-scene cut). Input to the first present that shows it: about 2 ms at every rate;
+  to the update's own frame: 2 ms at 30, 16.7 at 60, 24 at 120, 23.7 at 75 Hz. Cost: matching 0.04-0.07 ms an update,
+  re-submitting a stream 0.4-0.65 ms of CPU a present; the GPU 0.34 ms a frame at 30 and 60, 0.44 at 120
+  (640x480).
+  `HULK_ROLLTEST` with Metal at 60 identical (900:2500, 3700:4200 across the load, 4300:6300). play3 to 60,000 with
+  `null`: records byte-identical (prefix) to HEAD's headless build. fps1's one-field step at 60 is gone.
 
 - 2026-11-22 (wmov1, D231): **movies with picture and sound, hold B to skip.** The start-up movies, the attract loop
   and the cut-scenes play in the app in real time ("Movies" above): FFmpeg's Bink decoder loaded at run time,
