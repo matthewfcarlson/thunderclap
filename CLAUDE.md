@@ -208,7 +208,10 @@ stub natively that returns without writing: declare it extern "C". A native run'
 ordered worklist of unbound callees (gfx11). A native hang: attach with `lldb -p PID --batch -s FILE` and break in the wait loop's callees (HULK_HANG
 samples show only the loop). `jobq.py cancel --name ME` cancels all your unfinished jobs and needs `--all`; cancel by id (D110).
 `pure3d::X::~X() {}` standing for a `??_G` scalar deleting destructor defines nothing natively; write it as an explicit
-function: the body by its address, then the free when `flags & 1`. A raw `(char*)this + HULK_SPE(k)` in a pad view reads
+function: the body by its address, then the free when `flags & 1`. On the port builds an empty `X::~X() {}` (or template
+specialization) standing for a `??_G` whose original calls the destructor body by address also leaks: the `??_G` calls the
+empty definition and the body never runs (wasm10: 0x00105e30's CPathAgent leaked a CMoveAgent and a golem, and the game
+heap's layout diverged); write it in D114's explicit form. A raw `(char*)this + HULK_SPE(k)` in a pad view reads
 as `layout` to the x64 gate when the record moves: give the view a field at that offset. After a symbol change, a local
 native run needs the snapshot's report.json refreshed (TreeDefs binds vftable slots and callers through its address ->
 32-bit symbol table) and the new address names added to a private copy of the binding map (D117). Rename the old 32-bit symbol in the snapshot's
