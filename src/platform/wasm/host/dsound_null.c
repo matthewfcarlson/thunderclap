@@ -23,6 +23,15 @@ typedef struct {
 } buf;
 #define MAGIC 0x46554244u                    /* "DBUF" */
 
+/* The app's mixer (src/platform/wasm/gfx/audio.c, HULK_WASM_GFX=1 builds; docs/wasm-port.md "The macOS app") hears
+ * each call once it is done, by the function's address and its stack arguments; it changes nothing the game reads.
+ * Elsewhere it is not linked (a weak reference: null). */
+void ff_audio_obs(uint32_t fn, const uint32_t* args) __attribute__((weak));
+/* In the app's free play the mixer plays the voices in real time, and the game reads their status and positions from
+ * it (as the Wine build's device clock): ff_audio_query answers 1 with the value. */
+int ff_audio_query(uint32_t fn, uint32_t buffer, uint32_t* out) __attribute__((weak));
+#define OBS(fn) do { if (ff_audio_obs) ff_audio_obs(0x##fn##u, (const uint32_t*)st); } while (0)
+
 static buf* B(uint32_t p) { buf* b = PTR(p); return b && b->magic == MAGIC ? b : 0; }
 
 static void voice_length(buf* b) {
@@ -66,10 +75,11 @@ FFG(003c696c) { UNUSED; if (ARG(3)) *(uint32_t*)PTR(ARG(3)) = 0; RET(0); }      
 FFG(003c6e34) {                                                                 /* DirectSoundDoWork */
     UNUSED;
     for (buf* b = PTR(SIM->ds_voices); b; b = PTR(b->next)) advance(b, FRAMES_PER_WORK);
+    OBS(003c6e34);
     RET(0);
 }
 FFG(003c98ca) { UNUSED; RET(0); }                                               /* CommitDeferredSettings */
-FFG(003ca02f) { UNUSED; RET(0); }                                               /* SetI3DL2Listener */
+FFG(003ca02f) { UNUSED; OBS(003ca02f); RET(0); }                                             /* SetI3DL2Listener */
 FFG(003c9ea7) {         /* IDirectSound_CreateSoundBuffer(ds, DSBUFFERDESC*, buffer**, unk) */
     UNUSED;
     const uint32_t* d = PTR(ARG(1));
@@ -93,12 +103,14 @@ FFG(003c9ea7) {         /* IDirectSound_CreateSoundBuffer(ds, DSBUFFERDESC*, buf
     b->next = SIM->ds_voices;                   /* (the game hands its own memory over with SetBufferData) */
     SIM->ds_voices = (uint32_t)(uintptr_t)b;
     *(uint32_t*)PTR(ARG(2)) = (uint32_t)(uintptr_t)b;
+    OBS(003c9ea7);
     RET(0);
 }
 FFG(003c4737) {                                                                 /* IDirectSoundBuffer_Release */
     UNUSED;
     buf* b = B(ARG(0));
     if (!b) { RET(0); return; }
+    OBS(003c4737);
     for (uint32_t* p = &SIM->ds_voices; *p; p = &((buf*)PTR(*p))->next)
         if (*p == ARG(0)) { *p = b->next; break; }
     b->magic = 0;
@@ -114,25 +126,30 @@ FFG(003c93c9) {         /* SetBufferData(buffer, data, bytes): the game's memory
         voice_length(b);
         if (!b->frames) b->playing = 0;
     }
+    OBS(003c93c9);
     RET(0);
 }
 FFG(003c6bbe) {         /* Play(buffer, r1, r2, flags) */
     UNUSED;
     buf* b = B(ARG(0));
     if (b) { b->looping = ARG(3) & 1; b->playing = b->frames != 0; }
+    OBS(003c6bbe);
     RET(0);
 }
-FFG(003c6c06) { UNUSED; buf* b = B(ARG(0)); if (b) b->playing = 0; RET(0); }   /* Stop */
+FFG(003c6c06) { UNUSED; buf* b = B(ARG(0)); if (b) b->playing = 0; OBS(003c6c06); RET(0); }   /* Stop */
 FFG(003c6ca2) {         /* GetStatus(buffer, status*) */
     UNUSED;
     buf* b = B(ARG(0));
-    *(uint32_t*)PTR(ARG(1)) = b && b->playing ? (1u | (b->looping ? 4u : 0u)) : 0;
+    uint32_t v = b && b->playing ? (1u | (b->looping ? 4u : 0u)) : 0;
+    if (b && ff_audio_query) ff_audio_query(0x003c6ca2u, ARG(0), &v);
+    *(uint32_t*)PTR(ARG(1)) = v;
     RET(0);
 }
 FFG(003c6cbe) {         /* GetCurrentPosition(buffer, play*, write*) */
     UNUSED;
     buf* b = B(ARG(0));
     uint32_t p = b ? frame_to_bytes(b, b->cursor >> 32) : 0;
+    if (b && ff_audio_query) ff_audio_query(0x003c6cbeu, ARG(0), &p);
     if (ARG(1)) *(uint32_t*)PTR(ARG(1)) = p;
     if (ARG(2)) *(uint32_t*)PTR(ARG(2)) = p;
     RET(0);
@@ -146,8 +163,9 @@ FFG(003c6cde) {         /* SetCurrentPosition(buffer, bytes) */
                                : n / b->frame_bytes;
         b->cursor = f >= b->frames ? 0 : f << 32;
     }
+    OBS(003c6cde);
     RET(0);
 }
-FFG(003c89b1) { UNUSED; buf* b = B(ARG(0)); if (b) b->freq = ARG(1) ? ARG(1) : b->rate; RET(0); }   /* SetFrequency */
-FFG(003c6b86) { UNUSED; RET(0); }                                               /* SetHeadroom */
-FFG(003c6ba2) { UNUSED; RET(0); }                                               /* SetMixBinVolumes */
+FFG(003c89b1) { UNUSED; buf* b = B(ARG(0)); if (b) b->freq = ARG(1) ? ARG(1) : b->rate; OBS(003c89b1); RET(0); }   /* SetFrequency */
+FFG(003c6b86) { UNUSED; OBS(003c6b86); RET(0); }                                             /* SetHeadroom */
+FFG(003c6ba2) { UNUSED; OBS(003c6ba2); RET(0); }                                             /* SetMixBinVolumes */

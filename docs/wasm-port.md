@@ -227,18 +227,34 @@ side holds (GPU objects, the window, the audio device) is derived from linear me
 - **Input.** The runner polls SDL once a presented frame (the SDL layer's gamepad source, src/platform/sdl/input/, and
   a keyboard map) and the module copies the pads into the sim block (`pads`, `pads_in`), where XInput reads them: a
   frame's input is game state, so it snapshots and could be recorded. A replay keeps the recording's pads.
-- **Audio.** dsound_null.c stays the clock-exact model of the voices (the game sees the same positions and status in
-  every mode). The runner is an observer: at each DirectSoundDoWork the module hands it the playing voices (buffer,
-  format, frequency, volume, cursor) and it mixes 800 frames of 48 kHz from linear memory (the SDL layer's Xbox ADPCM
-  decoder) into an SDL audio stream.
-- **Pacing.** The runner paces presents at the game's rate (the SwapBuffers vblank flag 0x005554a0: 60 Hz in the front
-  end, 30 in gameplay; sdl_platform.cpp's `HULK_FPS_CAP`), off in replays and headless runs.
-- **Build.** `HULK_WASM_GFX=1` with its own `HULK_WASM_DIR`: `wasm_gfx.py compile` (front end units), `wasm_port.py
-  link` (adds them, the hooks and src/platform/wasm/gfx/), `wasm_port.py aot --app` (the runner plus
-  src/platform/wasm/run/app/, bgfx, SDL3 with video). `tools/wasm_app.py bundle` makes `Hulk.app` in build/ (not
-  signed or notarised; nothing built from the game is published or committed).
+- **Audio.** dsound_null.c stays the clock-exact model of the voices for replays and headless runs. In the app's free
+  play it reports each call, once done, to the runner (weak hooks `ff_audio_obs` / `ff_audio_query`, null in other
+  builds), whose mixer (src/platform/sdl/audio/: Xbox ADPCM, mix bins, the I3DL2 reverb) plays the voices from the
+  game's buffers in linear memory in real time; the game then reads status and positions from the mixer, as the Wine
+  build's device clock does (the model moves 800 frames a DirectSoundDoWork, which the game calls about three times a
+  frame: streams would be refilled ahead of what was heard). Real time enters the game's state only there.
+- **Pacing.** The presents are paced at the game's rate (sdl_platform.cpp's `HULK_FPS_CAP`: the SwapBuffers vblank
+  flag 0x005554a0, 60 Hz in press-start and movies, 30 in gameplay), off in replays and headless runs. In free play a
+  present moves the virtual clock by the fields the original waited for (two with the flag clear), so game time keeps
+  to real time.
+- **Build.** `tools/wasm_app.py sdl` (SDL3 with video, build/third_party/out/sdl-video), `wasm_app.py build`
+  (`HULK_WASM_GFX=1` in its own `HULK_WASM_DIR`, default build/wasm-app: `wasm_port.py compile`, `wasm_gfx.py
+  compile`, `wasm_port.py link`, `aot --app`), `wasm_app.py bundle` (build/app/Hulk.app: not signed or notarised;
+  nothing built from the game is published or committed). Started from Finder the app reads the extracted disc from
+  ~/Library/Application Support/HulkUD/disc and keeps saves in .../HulkUD/save; `hulk-app default.xbe` (with
+  `HULK_DATA_DIR`) as the other runners. Input: SDL3 gamepads, else the keyboard as pad 0 (docs/native-play.md's
+  map; `HULK_KEY_SCRIPT` holds keys for unattended runs).
 
 ## Status
+
+- 2026-11-22 (wapp1, D190, milestones 2-4): **gameplay renders, input, audio, the bundle.** A free run driven by the
+  real keyboard path (`HULK_KEY_SCRIPT`: Return / Space through press start and the difficulty menu, then W) reaches
+  GS_GAME at frame ~1,000 and moves the Hulk; presents hold 30.0 fps in gameplay (worst 34 ms) and up to 60 in press
+  start; the mixer's capture (`HULK_AUDIO_CAPTURE`) has sound throughout (RMS 1,200-4,500 over 10 s windows, front end
+  and gameplay). play3 replayed with Metal (`HULK_GFX_SHOT_GAME`) shows gameplay with its HUD and effects. **play3 to
+  60,000: the headless build, the app with `null` and the app drawing with Metal all write the same records** (the
+  dsound hooks are null outside the app's free play). Open: a human play session, rollback with graphics (GPU objects
+  after a restore), the front end's statics outside the snapshot, Bink movies (null: black), FPS beyond 30.
 
 - 2026-11-22 (wapp1, D190, milestone 1): **the app draws.** `HULK_WASM_GFX=1` with its own `HULK_WASM_DIR`:
   `wasm_port.py compile --only src/platform/xbox/pure3d/d3dDevice.cpp src/game/Render/Canvas/HulkShaderCallback.cpp`
@@ -253,7 +269,7 @@ side holds (GPU objects, the window, the audio device) is derived from linear me
   the headless build of the same tree** (the front end changes nothing the game reads). The SDL-layer switch
   (`HULK_PDDI_LAYOUT64` = native and not wasm) leaves the Wine image's pddi objects byte-identical (D194: all 16 i686
   objects compared, COFF time stamps aside). Open: input, audio, the vblank flag's frame rate (presents are paced at
-  30 in the front end), the .app bundle.
+  30 in the front end), the .app bundle (milestones 2-4 below).
 
 - 2026-11-22 (wasmq, D217): **qsort orders equal elements as the Xbox CRT does.** crt.c's 0x00345f90 is
   src/platform/sdl/crt/hulk_qsort.h, written clean-room from the XBE qsort run as a black box (docs/qsort.md;

@@ -2777,3 +2777,14 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
 - play3 to 60,000: records are byte-identical between the headless build, the app with the game's d3d layer on the
   null device, and the app with the pddi front end on bgfx noop: the graphics path changes nothing the game reads.
 - Comparing i686 COFF objects for D194: clang writes a time stamp at header offset 4 (zero it before comparing).
+
+## 2026-11-22 wapp1: input, audio, pacing and the bundle of the wasm2c app (D190, milestones 2-4)
+
+- DirectSoundDoWork runs about three times a game frame, so the wasm host's null DirectSound (800 frames of 48 kHz a
+  DoWork) moves voices about 1.5x faster than real time in free play: fine for replays (the Wine build's frame clock),
+  wrong for heard audio, whose streams the game refills from the positions it reads. The app's free play reads
+  positions from the real-time mixer instead (as the Wine build's device clock).
+- With the pddi front end the game's own SwapBuffers (and its vblank wait) never runs: a present is one d3d_null Swap
+  (one 60 Hz field of virtual clock). Free play adds the second field when 0x005554a0 is clear (gameplay), so game time
+  matches the 30 fps pacing.
+- play3 records stay byte-identical with Metal drawing: the graphics path changes nothing the game reads.

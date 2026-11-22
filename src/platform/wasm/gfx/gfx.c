@@ -262,6 +262,16 @@ void hulk_wasm_gfx_frame_end(void) {
     if (SIM->d3d_vblank_cb) ff_call(SIM->d3d_vblank_cb, 0);
     ff_frame_end();
     hulk_native_frame_no = SIM->frame;
+    /* a free run's frame lasts what the original's SwapBuffers waits for (0x31b190): one field with the flag
+     * 0x005554a0 set (menus, movies: 60 Hz), two with it clear (gameplay: 30 Hz), as the presents are paced
+     * (sdl_platform.cpp HULK_FPS_CAP); ff_frame_end moved the clock one field. A replay keeps its own clock. */
+    static int free_run = -1, cap60 = -1;
+    if (free_run < 0) {
+        free_run = !ff_replay_active();
+        const char* c = getenv("HULK_FPS_CAP");
+        cap60 = c && atoi(c) == 60;
+    }
+    if (free_run && !cap60 && !*(volatile uint8_t*)PTR(0x005554a0u)) SIM->clock += HULK_TSC_HZ / 60;
     static int live = -1;
     if (live < 0) live = !getenv("HULK_INPUT") && !ff_replay_active();
     uint8_t pad[18];
