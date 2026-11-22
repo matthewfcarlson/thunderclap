@@ -17,6 +17,7 @@ import concurrent.futures
 import hashlib
 import json
 import os
+import re
 import subprocess
 import sys
 
@@ -34,6 +35,31 @@ TU_BASE = 4000
 # operator new / delete: the arena (src/platform/wasm/gfx/gfx.c), as the Wine image's pddi objects take msvcrt's
 CXX_RENAME = {"??2@YAPAXI@Z": "hulk_gfx_op_new", "??3@YAXPAX@Z": "hulk_gfx_op_delete",
               "??_U@YAPAXI@Z": "hulk_gfx_op_new_array", "??_V@YAXPAX@Z": "hulk_gfx_op_delete_array"}
+# the C library's allocations too (texture levels, prim buffers' copies): the arena, so the front end's objects never
+# hold pointers into the module's own malloc heap, whose layout follows the host's history (wroll1)
+C_RENAME = {"malloc": "hulk_gfx_malloc", "calloc": "hulk_gfx_calloc", "realloc": "hulk_gfx_realloc",
+            "free": "hulk_gfx_free"}
+# The front end's statics are game state (wroll1): its objects are in the arena and the statics point at them
+# (the pending uploads, the active shader, the device) or count with them (texture ordinals, prim buffer serials), so
+# a snapshot carries them. Every mutable global goes to one data section, which src/platform/wasm/gfx/gfx.c hands
+# the snapshot (__start_/__stop_hulk_pddi_state) with its own resource table. Left out: the frame pacer's host times.
+STATE_SECTION = "hulk_pddi_state"
+HOST_STATICS = ("platformFramePace",)
+
+
+def state_section(ir):
+    """Every mutable internal global of the bound front end in STATE_SECTION (one line each: `@x = internal global T
+    V, align N`)."""
+    out, n = [], 0
+    for line in ir.split("\n"):
+        if (line.startswith("@") and " = internal global " in line and ", section " not in line
+                and not any(h in line.split(" = ", 1)[0] for h in HOST_STATICS)):
+            line, k = re.subn(r", align (\d+)$", r', section "%s", align \1' % STATE_SECTION, line)
+            if not k:
+                raise SystemExit("wasm_gfx: unexpected global form: %s" % line[:200])
+            n += 1
+        out.append(line)
+    return "\n".join(out), n
 
 
 def units():
@@ -123,9 +149,12 @@ def cmd_compile(a):
                 else:
                     for old, new in CXX_RENAME.items():
                         ir = ir.replace('@"%s"' % old, "@" + new)
+                    for old, new in C_RENAME.items():
+                        ir = re.sub(r'(?<![\w."$?@])@%s(?=[\s(),])' % old, "@" + new, ir)
                     ir = wp.prepare(ir)
                     text, info = wp.bind_tu(ir, os.path.join(PDDI, "pddi.cpp"), TU_BASE, {}, {}, {}, set(sigs), sigs,
                                             deftys)
+                    text, info["state_globals"] = state_section(text)
                     bound = os.path.join(d, "pddi.ll")
                     with open(bound, "w", errors="surrogateescape") as f:
                         f.write(text)

@@ -132,61 +132,105 @@ __attribute__((noinline)) static void fiber_swap(hfiber* from, hfiber* to) {
  * and the run plays A..B again: the second hash at B must be the first ("rolltest: identical"; exit 0, else 3). */
 uint64_t ff_game_hash(void);
 uint64_t ff_state_hash(void);
+void ff_game_dump(const char* path);
+/* HULK_ROLLTEST_DUMP=PREFIX: the game state at B before the restore (PREFIX.1) and again (PREFIX.2) */
+static void roll_dump(int k) {
+    const char* p = getenv("HULK_ROLLTEST_DUMP");
+    if (!p) return;
+    char path[512];
+    snprintf(path, sizeof path, "%s.%d", p, k);
+    ff_game_dump(path);
+}
 uint32_t ff_state_bytes(void);
 void ff_files_flush(void);
 void ff_audio_restored(void) __attribute__((weak));     /* gfx/audio.c: the app's mixer makes its mirror again */
+/* gfx/gfx.c (wroll1): the pddi front end's statics and resource table (a data section of the module, above 1 GB) are
+ * game state too when it draws; after a restore the runner's GPU objects are made to match them */
+uint32_t ff_gfx_state(uint32_t* lo) __attribute__((weak));
+void ff_gfx_restored(void) __attribute__((weak));
+uint64_t ff_gfx_hash(void) __attribute__((weak));
+static uint32_t gfx_state(uint32_t* lo) {
+    *lo = 0;
+    return ff_gfx_state ? ff_gfx_state(lo) : 0;
+}
+uint32_t ff_module_state(uint32_t* lo);       /* frame.c: the tree's own globals (wasm_port.py GAME_STATE_SECTION) */
+uint64_t ff_module_hash(void);
 static void state_copy(uint8_t* q, int restore) {
-    struct { uint32_t lo, n; } r[3] = {{0x0048ca80u, XBE_END - 0x0048ca80u},
+    struct { uint32_t lo, n; } r[5] = {{0x0048ca80u, XBE_END - 0x0048ca80u},
                                        {MAIN_STACK_LO, MAIN_STACK_HI - MAIN_STACK_LO + (uint32_t)sizeof(hulk_sim)},
-                                       {ARENA_LO, 0}};
+                                       {ARENA_LO, 0}, {0, 0}, {0, 0}};
     r[2].n = (restore ? *(uint32_t*)q : ff_arena_top()) - ARENA_LO;
     if (!restore) *(uint32_t*)q = ff_arena_top();
     q += 4;
-    for (int i = 0; i < 3; i++) {
+    r[3].n = gfx_state(&r[3].lo);
+    r[4].n = ff_module_state(&r[4].lo);
+    for (int i = 0; i < 5; i++) {
         if (restore) memcpy(PTR(r[i].lo), q, r[i].n);
         else memcpy(q, PTR(r[i].lo), r[i].n);
         q += r[i].n;
     }
 }
+static long roll_a = -1, roll_b;
+static int rolltest_on(void) {
+    if (roll_a < 0) {
+        const char* e = getenv("HULK_ROLLTEST");
+        roll_a = 0;
+        if (e && sscanf(e, "%ld:%ld", &roll_a, &roll_b) != 2) roll_a = 0;
+        if (roll_b <= roll_a) roll_a = 0;
+    }
+    return roll_a > 0;
+}
 static void rolltest(void) {
-    static long a = -1, b;
     static int phase;
     static uint8_t* snap;
     static hfiber* snap_next;
-    static uint64_t h1, s1;
-    if (a < 0) {
-        const char* e = getenv("HULK_ROLLTEST");
-        a = 0;
-        if (e && sscanf(e, "%ld:%ld", &a, &b) != 2) a = 0;
-        if (b <= a) a = 0;
-    }
+    static uint64_t h1, s1, g1, m1;
+    long a = rolltest_on() ? roll_a : 0, b = roll_b;
     if (!a || !next_fiber) return;
     if (phase == 0 && SIM->frame >= (uint32_t)a) {
-        uint32_t top = ff_arena_top();
-        snap = malloc(4 + (XBE_END - 0x0048ca80u) + (MAIN_STACK_HI - MAIN_STACK_LO) + sizeof(hulk_sim) + (top - ARENA_LO));
+        uint32_t top = ff_arena_top(), glo, mlo;
+        uint32_t bytes = 4 + (XBE_END - 0x0048ca80u) + (MAIN_STACK_HI - MAIN_STACK_LO) + sizeof(hulk_sim) +
+                         (top - ARENA_LO) + gfx_state(&glo) + ff_module_state(&mlo);
+        double t0 = ff_now_ms();
+        snap = malloc(bytes);
         if (!snap) ff_fatal("rolltest: no memory");
         state_copy(snap, 0);
+        double t1 = ff_now_ms();
         snap_next = next_fiber;
         phase = 1;
-        fprintf(stderr, "rolltest: snapshot at frame %u (game hash 0x%016llx)\n", SIM->frame,
-                (unsigned long long)ff_game_hash());
+        fprintf(stderr, "rolltest: snapshot at frame %u (game hash 0x%016llx; %u bytes, %.2f ms)\n", SIM->frame,
+                (unsigned long long)ff_game_hash(), bytes, t1 - t0);
     } else if (phase == 1 && SIM->frame >= (uint32_t)b) {
         h1 = ff_game_hash();
         s1 = ff_state_hash();
+        g1 = ff_gfx_hash ? ff_gfx_hash() : 0;
+        m1 = ff_module_hash();
+        roll_dump(1);
         uint32_t f = SIM->frame;
+        double t0 = ff_now_ms();
         state_copy(snap, 1);
+        double t1 = ff_now_ms();
         ff_files_flush();
         if (ff_audio_restored) ff_audio_restored();
+        double t2 = ff_now_ms();
+        if (ff_gfx_restored) ff_gfx_restored();
+        double t3 = ff_now_ms();
         next_fiber = snap_next;
         phase = 2;
-        fprintf(stderr, "rolltest: frame %u game hash 0x%016llx state hash 0x%016llx; restored frame %u\n", f,
-                (unsigned long long)h1, (unsigned long long)s1, SIM->frame);
+        fprintf(stderr, "rolltest: frame %u game hash 0x%016llx state hash 0x%016llx gfx 0x%016llx; restored frame %u "
+                "(state %.2f ms, files+audio %.2f ms, gfx %.2f ms)\n", f, (unsigned long long)h1,
+                (unsigned long long)s1, (unsigned long long)g1, SIM->frame, t1 - t0, t2 - t1, t3 - t2);
     } else if (phase == 2 && SIM->frame >= (uint32_t)b) {
-        uint64_t h2 = ff_game_hash(), s2 = ff_state_hash();
-        fprintf(stderr, "rolltest: frame %u again: game hash 0x%016llx state hash 0x%016llx: %s\n", SIM->frame,
-                (unsigned long long)h2, (unsigned long long)s2, h1 == h2 ? "identical" : "DIFFERENT");
+        uint64_t h2 = ff_game_hash(), s2 = ff_state_hash(), g2 = ff_gfx_hash ? ff_gfx_hash() : 0;
+        uint64_t m2 = ff_module_hash();
+        int same = h1 == h2 && g1 == g2 && m1 == m2;
+        if (m1 != m2) fprintf(stderr, "rolltest: the module's own globals differ\n");
+        roll_dump(2);
+        fprintf(stderr, "rolltest: frame %u again: game hash 0x%016llx state hash 0x%016llx gfx 0x%016llx: %s\n",
+                SIM->frame, (unsigned long long)h2, (unsigned long long)s2, (unsigned long long)g2,
+                same ? "identical" : "DIFFERENT");
         fflush(stderr);
-        exit(h1 == h2 ? 0 : 3);
+        exit(same ? 0 : 3);
     }
 }
 
@@ -343,6 +387,19 @@ void ff_sleep(uint32_t ms) {
     set_deadline(t, SIM->clock + (uint64_t)ms * (HULK_TSC_HZ / 1000));
     if (ms == 0) t->state = T_RUNNABLE;     /* a yield: others run first if they can */
     reschedule();
+}
+
+/* the end of a frame (D3D Swap, the app's present): with HULK_ROLLTEST the running fiber is suspended and resumed at
+ * once, so the driver sees every fiber suspended there (the whole state in linear memory) once a frame. A run that
+ * never waits (the app's gameplay with a renderer: no fiber switch for thousands of frames) otherwise gives it no
+ * point to snapshot at; the frame's end is also the one where the runner's GPU work of the frame is complete
+ * (wroll1). Nothing the game reads changes (an unwind writes only the fiber's Asyncify buffer). */
+void ff_frame_checkpoint(void) {
+    if (!rolltest_on()) return;
+    hulk_obj* t = cur();
+    if (!t || !t->fiber) return;
+    hfiber* c = ctx_of(t->fiber);
+    fiber_swap(c, c);
 }
 
 /* a time slice: a thread that polls (the clock, the current thread) instead of waiting lets the others run every

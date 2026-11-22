@@ -2895,3 +2895,24 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
 - At 60 the Hulk's walk, attacks and jump timings match 30 at equal game time (0.2 units over 47 s); a jump peaks 0.5
   units higher (smaller integration steps). Left-trigger moves end up to 9 units apart, less than the same plan at 30
   started one frame later (37): sensitivity to input timing, not the rate.
+
+## 2026-11-22 wroll1: rollback with graphics in the wasm2c app; the tree's module globals in the snapshot (D225, D227)
+
+- With Metal the app's game state held three kinds of host history: the pddi front end's C allocations (texture
+  levels, prim buffer copies) in the module's own malloc heap, the front end's statics outside the snapshot, and the
+  sink's bgfx handle values in front-end objects. Now the allocations are the arena's (`wasm_gfx.py` C_RENAME), the
+  statics a snapshotted data section (`hulk_pddi_state`), and the front end sees only ids gfx.c gives out, with
+  stamps; after a restore the runner's objects whose stamps differ are dropped and made again from the restored CPU
+  copies (0.05-0.4 ms; 9-561 objects in the tests). Paced (95 s) and unpaced-under-load (5.8 s) Metal runs with the
+  same `HULK_INPUT` end in the same game state; the frames after a restore are pixel-identical to an unrestored run.
+- With a renderer the game never waits in gameplay, so `HULK_ROLLTEST` (snapshot at a fiber switch) never fired:
+  rolltest now suspends and resumes the running fiber at each frame's end (`ff_frame_checkpoint`, only with it set).
+- A rollback across PRESSSTART -> GAME (1200:2500) differed with `null` too, i.e. headless as well: the tree's own
+  globals with no XBE address (function-local statics and guards, stand-ins like globalTextBible, the XboxDrive) are
+  module data above 1 GB and were not restored; CSPManager 0x001e4760's local static registered its atexit entry a
+  second time (4 words in the sim block). `wasm_port.py` puts them (73, not ??_R0) in `hulk_game_state`, which the
+  snapshot carries; hashed apart from the game hash (vftable pointers move with the build).
+- fe_options.c (fps1) kept the frame-rate setting and the game objects it watches in host statics: now in
+  `hulk_game_state`. A rolltest 4000:5200 across a menu toggle at 4800 is identical: the restore puts the rate back
+  to 30 and the re-simulated toggle makes it 60 again. play3's records stay byte-identical (headless, app with `null`
+  and the overlay, app with Metal).

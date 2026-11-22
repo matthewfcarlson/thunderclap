@@ -12,7 +12,8 @@
  * - The end of a presented frame (sdl_platform.cpp platformAfterFrame): what d3d_null.c's Swap does (the vblank
  *   callback, ff_frame_end: the virtual clock), then the runner's pad for port 0 when it has a window and no replay
  *   or HULK_INPUT drives the pad.
- * - The front end's operator new / delete: the game arena, so a snapshot carries its objects. */
+ * - The front end's operator new / delete and C allocations: the game arena, so a snapshot carries its objects; its
+ *   statics are in a data section the snapshot carries too (ff_gfx_state), with the resource table below. */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -37,20 +38,18 @@ GI(gfx_scene_target) uint32_t gi_scene_target(void);
 GI(gfx_target_width) uint32_t gi_target_width(void);
 GI(gfx_target_height) uint32_t gi_target_height(void);
 GI(gfx_destroy_frame_targets) void gi_destroy_frame_targets(void);
-GI(gfx_create_texture) uint32_t gi_create_texture(const void* desc);
-GI(gfx_update_texture) uint32_t gi_update_texture(uint32_t texture, uint32_t level, uint32_t w, uint32_t h,
+/* resources by the module's ids (vids: "resources" below); the runner maps each to its sink's objects */
+GI(gfx_create_texture) uint32_t gi_create_texture(uint32_t vid, const void* desc);
+GI(gfx_update_texture) uint32_t gi_update_texture(uint32_t vid, uint32_t level, uint32_t w, uint32_t h,
                                                   const void* data, uint32_t pitch, uint32_t size);
-GI(gfx_destroy_texture) void gi_destroy_texture(uint32_t texture);
-GI(gfx_update_vertex_buffer) uint32_t gi_update_vertex_buffer(uint32_t b, const void* data);
-GI(gfx_update_index_buffer) uint32_t gi_update_index_buffer(uint32_t b, const uint16_t* idx, uint32_t n, uint32_t owner);
-GI(gfx_destroy_buffers) void gi_destroy_buffers(uint32_t vb, uint32_t ib);
+GI(gfx_update_vertex_buffer) uint32_t gi_update_vertex_buffer(uint32_t vid, const void* data);
+GI(gfx_update_index_buffer) uint32_t gi_update_index_buffer(uint32_t vid, const uint16_t* idx, uint32_t n, uint32_t owner);
+GI(gfx_create_target) uint32_t gi_create_target(uint32_t vid, uint32_t fb, uint32_t w, uint32_t h, uint32_t render);
+GI(gfx_create_query) uint32_t gi_create_query(uint32_t vid);
+GI(gfx_destroy) void gi_destroy(uint32_t vid);
 GI(gfx_alloc_transient) uint32_t gi_alloc_transient(uint32_t count, uint32_t* token, void* staging);
-GI(gfx_create_copy_target) void gi_create_copy_target(uint32_t w, uint32_t h, void* out);
-GI(gfx_create_render_target) void gi_create_render_target(uint32_t w, uint32_t h, void* out);
-GI(gfx_destroy_copy_target) void gi_destroy_copy_target(void* t);
-GI(gfx_destroy_render_target) void gi_destroy_render_target(void* t);
-GI(gfx_frame_copy) void gi_frame_copy(void* out);
-GI(gfx_front_buffer) uint32_t gi_front_buffer(void);
+GI(gfx_frame_copy) uint32_t gi_frame_copy(uint32_t vid, uint32_t fb);
+GI(gfx_front_buffer) uint32_t gi_front_buffer(uint32_t vid);
 GI(gfx_set_pass) void gi_set_pass(const void* pass);
 GI(gfx_copy_frame) void gi_copy_frame(uint32_t pass, const void* dst);
 GI(gfx_draw_resources) uint32_t gi_draw_resources(void);
@@ -60,7 +59,6 @@ GI(gfx_submit_draw) void gi_submit_draw(const void* packet);
 GI(gfx_combiner_stats) void gi_combiner_stats(int32_t* generated, int32_t* generic, int32_t* draws);
 GI(gfx_fx_resources) uint32_t gi_fx_resources(void);
 GI(gfx_fx_draw) void gi_fx_draw(const void* packet);
-GI(gfx_create_query) uint32_t gi_create_query(void);
 GI(gfx_query_result) uint32_t gi_query_result(uint32_t q, int32_t* pixels);
 GI(gfx_present) void gi_present(const void* p);
 GI(gfx_frame) void gi_frame(void);
@@ -134,17 +132,229 @@ uint32_t hulk_gfx_sink_scene_target(void) { return gi_scene_target(); }
 uint32_t hulk_gfx_sink_target_width(void) { return gi_target_width(); }
 uint32_t hulk_gfx_sink_target_height(void) { return gi_target_height(); }
 void hulk_gfx_sink_destroy_frame_targets(void) { gi_destroy_frame_targets(); }
-uint32_t hulk_gfx_sink_create_texture(const void* d) { return gi_create_texture(d); }
+/* ------------------------------------------------------------------------------------------- resources (wroll1)
+ * The front end names its sink objects by ids this module gives out (vids), never the runner's: a vid and what it
+ * stands for (the texture's description and the CPU copies of its levels, a prim buffer's copies, a target's size)
+ * are kept in `vt`, in the front end's state section (tools/wasm_gfx.py STATE_SECTION), so a snapshot carries them
+ * with the objects that hold the vids, and the game state never holds an id whose value follows the runner's history.
+ * Every change to a vid takes a new stamp from a counter in the same section. `hs` (outside the state) mirrors what
+ * the runner holds: each vid's kind and the stamp of its last change there. A restore puts `vt` back and leaves `hs`:
+ * every vid whose stamps differ (made, changed or destroyed since the snapshot, or changed on a timeline the restore
+ * dropped) is made again in the runner from the restored copies (gfx_restored), the rest is left alone. Stamps rise
+ * along a run and a restore returns to an earlier point of it, so a stamp both sides hold names the same contents. */
+#define GS __attribute__((section("hulk_pddi_state")))
+#define NVID 16384u
+#define VID_FIRST 4u                /* 1..3: the sink's own targets (the frame copy's texture and frame buffer, the
+                                     * front buffer), whatever the runner's ids for them are at the time */
+#define KNONE 0xffffu               /* draw_sink.h kSinkNone */
+enum { V_FREE, V_TEX, V_VB, V_IB, V_TGT, V_FB, V_QUERY };
+typedef struct {
+    uint8_t kind, pad[3];
+    uint32_t stamp;
+    /* V_TEX: SinkTextureDesc (6 words), the level table (arena: 16 x {data, w, h, pitch, size}), levels uploaded
+     * V_VB: packed copy, count, owner, stride, flags, prim kind; V_IB: indices, count, owner
+     * V_TGT: w, h, render (1) or copy (0) target, its frame buffer's vid; V_FB: its target's vid */
+    uint32_t a[8];
+} vrec;
+GS static vrec vt[NVID];
+GS static uint32_t v_stamp, v_hint;
+typedef struct { uint8_t kind, pad[3]; uint32_t stamp, pair; } hrec;     /* pair: a target's other vid */
+static hrec hs[NVID];
+static uint32_t n_fails;
+
+extern char __start_hulk_pddi_state[], __stop_hulk_pddi_state[];
+uint32_t ff_gfx_state(uint32_t* lo) {
+    if (!hulk_wasm_gfx_on()) return 0;
+    *lo = (uint32_t)(uintptr_t)__start_hulk_pddi_state;
+    return (uint32_t)(__stop_hulk_pddi_state - __start_hulk_pddi_state);
+}
+uint64_t ff_gfx_hash(void) {
+    uint32_t lo, n = ff_gfx_state(&lo);
+    uint64_t h = 0xcbf29ce484222325ull;
+    for (uint32_t i = 0; i < n; i++) h = (h ^ ((const uint8_t*)PTR(lo))[i]) * 0x100000001b3ull;
+    return h;
+}
+
+static uint32_t v_alloc(int kind) {
+    for (uint32_t k = 0; k < NVID - VID_FIRST; k++) {
+        uint32_t v = VID_FIRST + (v_hint + k) % (NVID - VID_FIRST);
+        if (vt[v].kind == V_FREE) {
+            memset(&vt[v], 0, sizeof vt[v]);
+            vt[v].kind = (uint8_t)kind;
+            v_hint = v + 1 - VID_FIRST;
+            return v;
+        }
+    }
+    ff_fatal("gfx: more than %u sink objects", NVID - VID_FIRST);
+}
+static vrec* v_get(uint32_t v, int kind) { return v >= VID_FIRST && v < NVID && vt[v].kind == kind ? &vt[v] : 0; }
+/* the runner now holds V as the module describes it */
+static void v_sent(uint32_t v) {
+    hs[v].kind = vt[v].kind;
+    hs[v].stamp = vt[v].stamp;
+    hs[v].pair = vt[v].kind == V_TGT ? vt[v].a[3] : vt[v].kind == V_FB ? vt[v].a[0] : 0;
+}
+/* the runner no longer holds V (nor, for a target, its other half) */
+static void v_dropped(uint32_t v) {
+    uint32_t p = hs[v].pair;
+    if ((hs[v].kind == V_TGT || hs[v].kind == V_FB) && p < NVID && hs[p].pair == v) memset(&hs[p], 0, sizeof hs[p]);
+    memset(&hs[v], 0, sizeof hs[v]);
+}
+static void v_free(uint32_t v) {
+    if (vt[v].kind == V_TEX && vt[v].a[6]) ff_arena_free(PTR(vt[v].a[6]));
+    memset(&vt[v], 0, sizeof vt[v]);
+    if (v - VID_FIRST < v_hint) v_hint = v - VID_FIRST;
+}
+static void fail(const char* what, uint32_t v) {
+    if (n_fails++ < 8) fprintf(stderr, "gfx: the runner refused %s %u\n", what, v);
+}
+
+/* (the runner's objects for V made from the record: a restore's reconciliation) */
+void hulk_pddi_convert_packed(const void* packed, uint32_t count, uint32_t flags, void* out);   /* bgfx_draw.cpp */
+typedef struct { uint32_t vertices, count, owner, packed, packedStride, vertexFlags, primKind; } wvdata;
+static void send_vb(uint32_t v, void* conv) {
+    vrec* r = &vt[v];
+    wvdata d = {(uint32_t)(uintptr_t)conv, r->a[1], r->a[2], r->a[0], r->a[3], r->a[4], r->a[5]};
+    if (!gi_update_vertex_buffer(v, &d)) fail("a vertex buffer", v);
+}
+static void remake(uint32_t v) {
+    vrec* r = &vt[v];
+    switch (r->kind) {
+    case V_TEX: {
+        if (!gi_create_texture(v, r->a)) fail("a texture", v);
+        const uint32_t* lv = PTR(r->a[6]);
+        for (uint32_t l = 0; l < 16; l++)
+            if (r->a[7] & (1u << l)) gi_update_texture(v, l, lv[5 * l + 1], lv[5 * l + 2], PTR(lv[5 * l]), lv[5 * l + 3], lv[5 * l + 4]);
+        break;
+    }
+    case V_VB: {
+        void* conv = malloc((size_t)r->a[1] * 80u);       /* (host memory: the restored state is not touched) */
+        if (!conv) ff_fatal("gfx: no room to convert %u vertices", r->a[1]);
+        hulk_pddi_convert_packed(PTR(r->a[0]), r->a[1], r->a[4], conv);
+        send_vb(v, conv);
+        free(conv);
+        break;
+    }
+    case V_IB:
+        if (!gi_update_index_buffer(v, PTR(r->a[0]), r->a[1], r->a[2])) fail("an index buffer", v);
+        break;
+    case V_TGT:
+        if (!gi_create_target(v, r->a[3], r->a[0], r->a[1], r->a[2])) fail("a target", v);
+        v_sent(r->a[3]);
+        break;
+    case V_QUERY:
+        if (!gi_create_query(v)) fail("a query", v);
+        break;
+    }
+    v_sent(v);
+}
+static int v_same(uint32_t v) { return hs[v].kind == vt[v].kind && hs[v].stamp == vt[v].stamp; }
+static uint32_t n_restores;
+extern unsigned int hulk_native_frame_no;
+int hulk_wasm_fps60(void);     /* fe_options.c */
+void ff_gfx_restored(void) {
+    if (!hulk_wasm_gfx_on()) return;
+    hulk_native_frame_no = SIM->frame;      /* (the platform layer's frame number: screenshots by game frame) */
+    uint32_t remade = 0, dropped = 0;
+    /* what the runner holds and the restored state doesn't describe so: gone (a target with its frame buffer) */
+    for (uint32_t v = VID_FIRST; v < NVID; v++) {
+        if (hs[v].kind == V_FREE || v_same(v)) continue;
+        gi_destroy(v);
+        v_dropped(v);
+        dropped++;
+    }
+    /* what the restored state describes and the runner doesn't hold: made again */
+    for (uint32_t v = VID_FIRST; v < NVID; v++)
+        if (vt[v].kind != V_FREE && vt[v].kind != V_FB && hs[v].kind == V_FREE) {
+            remake(v);
+            remade++;
+        }
+    n_restores++;
+    if (getenv("HULK_GFX_ROLL_LOG"))
+        fprintf(stderr, "gfx: restore %u: %u sink objects dropped, %u made again (frame rate %d)\n", n_restores,
+                dropped, remade, hulk_wasm_fps60() ? 60 : 30);
+}
+
+uint32_t hulk_gfx_sink_create_texture(const void* d) {
+    uint32_t v = v_alloc(V_TEX);
+    vrec* r = &vt[v];
+    memcpy(r->a, d, 24);
+    r->a[6] = (uint32_t)(uintptr_t)ff_arena_alloc(16 * 5 * 4, 16);
+    r->stamp = ++v_stamp;
+    if (!gi_create_texture(v, r->a)) fail("a texture", v);
+    v_sent(v);
+    return v;
+}
+/* the data is the texture's CPU copy of the level (bgfxTexture::m_levels, in the arena): kept as a pointer */
 uint32_t hulk_gfx_sink_update_texture(uint32_t t, uint32_t level, uint32_t w, uint32_t h, const void* data,
                                       uint32_t pitch, uint32_t size) {
-    return gi_update_texture(t, level, w, h, data, pitch, size);
+    vrec* r = v_get(t, V_TEX);
+    if (r && level < 16) {
+        uint32_t* lv = PTR(r->a[6]);
+        lv[5 * level] = (uint32_t)(uintptr_t)data;
+        lv[5 * level + 1] = w;
+        lv[5 * level + 2] = h;
+        lv[5 * level + 3] = pitch;
+        lv[5 * level + 4] = size;
+        r->a[7] |= 1u << level;
+        r->stamp = ++v_stamp;
+    }
+    if (!gi_update_texture(t, level, w, h, data, pitch, size)) fail("a texture upload", t);
+    if (r) v_sent(t);
+    return 1;       /* (the runner's memory is not the game's business: a refused upload is logged, not retried) */
 }
-void hulk_gfx_sink_destroy_texture(uint32_t t) { gi_destroy_texture(t); }
-uint32_t hulk_gfx_sink_update_vertex_buffer(uint32_t b, const void* d) { return gi_update_vertex_buffer(b, d); }
+void hulk_gfx_sink_destroy_texture(uint32_t t) {
+    if (!v_get(t, V_TEX)) return;     /* (the sink's own targets are never the front end's to destroy) */
+    gi_destroy(t);
+    v_dropped(t);
+    v_free(t);
+}
+/* a prim buffer's vertices: SinkVertexData's packed copy (bgfxPrimBuffer::m_vertices, in the arena) is kept, and
+ * the converted vertices are made from it again after a restore */
+uint32_t hulk_gfx_sink_update_vertex_buffer(uint32_t b, const void* d) {
+    const wvdata* w = d;
+    vrec* r = v_get(b, V_VB);
+    if (!r) {
+        b = v_alloc(V_VB);
+        r = &vt[b];
+    }
+    r->a[0] = w->packed;
+    r->a[1] = w->count;
+    r->a[2] = w->owner;
+    r->a[3] = w->packedStride;
+    r->a[4] = w->vertexFlags;
+    r->a[5] = w->primKind;
+    r->stamp = ++v_stamp;
+    if (!gi_update_vertex_buffer(b, d)) fail("a vertex buffer", b);
+    v_sent(b);
+    return b;
+}
 uint32_t hulk_gfx_sink_update_index_buffer(uint32_t b, const uint16_t* idx, uint32_t n, uint32_t owner) {
-    return gi_update_index_buffer(b, idx, n, owner);
+    vrec* r = v_get(b, V_IB);
+    if (!r) {
+        b = v_alloc(V_IB);
+        r = &vt[b];
+    }
+    r->a[0] = (uint32_t)(uintptr_t)idx;
+    r->a[1] = n;
+    r->a[2] = owner;
+    r->stamp = ++v_stamp;
+    if (!gi_update_index_buffer(b, idx, n, owner)) fail("an index buffer", b);
+    v_sent(b);
+    return b;
 }
-void hulk_gfx_sink_destroy_buffers(uint32_t vb, uint32_t ib) { gi_destroy_buffers(vb, ib); }
+void hulk_gfx_sink_destroy_buffers(uint32_t vb, uint32_t ib) {
+    if (v_get(vb, V_VB)) {
+        gi_destroy(vb);
+        v_dropped(vb);
+        v_free(vb);
+    }
+    if (v_get(ib, V_IB)) {
+        gi_destroy(ib);
+        v_dropped(ib);
+        v_free(ib);
+    }
+}
 /* bgfx's transient vertices: the front end writes them here; the runner copies them into bgfx's buffer before its
  * next sink call (80 bytes a SinkVertex) */
 void* hulk_gfx_sink_alloc_transient(uint32_t count, uint32_t* token) {
@@ -158,12 +368,55 @@ void* hulk_gfx_sink_alloc_transient(uint32_t count, uint32_t* token) {
     }
     return gi_alloc_transient(count, token, staging) ? staging : 0;
 }
-void hulk_gfx_sink_create_copy_target(uint32_t w, uint32_t h, void* out) { gi_create_copy_target(w, h, out); }
-void hulk_gfx_sink_create_render_target(uint32_t w, uint32_t h, void* out) { gi_create_render_target(w, h, out); }
-void hulk_gfx_sink_destroy_copy_target(void* t) { gi_destroy_copy_target(t); }
-void hulk_gfx_sink_destroy_render_target(void* t) { gi_destroy_render_target(t); }
-void hulk_gfx_sink_frame_copy(void* out) { gi_frame_copy(out); }
-uint32_t hulk_gfx_sink_front_buffer(void) { return gi_front_buffer(); }
+/* the front end's targets: two vids (the texture, its frame buffer), made and destroyed together */
+static void make_target(uint32_t w, uint32_t h, uint32_t render, uint32_t* out) {
+    uint32_t t = v_alloc(V_TGT), fb = v_alloc(V_FB);
+    vt[t].a[0] = w;
+    vt[t].a[1] = h;
+    vt[t].a[2] = render;
+    vt[t].a[3] = fb;
+    vt[fb].a[0] = t;
+    vt[t].stamp = vt[fb].stamp = ++v_stamp;
+    if (!gi_create_target(t, fb, w, h, render)) fail("a target", t);
+    v_sent(t);
+    v_sent(fb);
+    out[0] = t;
+    out[1] = fb;
+}
+static void drop_target(uint32_t* t) {
+    vrec* r = v_get(t[0], V_TGT);
+    if (r) {
+        uint32_t fb = r->a[3];
+        gi_destroy(t[0]);
+        v_dropped(t[0]);
+        v_free(fb);
+        v_free(t[0]);
+    }
+    t[0] = t[1] = KNONE;
+}
+void hulk_gfx_sink_create_copy_target(uint32_t w, uint32_t h, void* out) { make_target(w, h, 0, out); }
+void hulk_gfx_sink_create_render_target(uint32_t w, uint32_t h, void* out) { make_target(w, h, 1, out); }
+void hulk_gfx_sink_destroy_copy_target(void* t) { drop_target(t); }
+void hulk_gfx_sink_destroy_render_target(void* t) { drop_target(t); }
+/* the sink's own targets: fixed vids; the runner maps them to its current objects at each call */
+void hulk_gfx_sink_frame_copy(void* out) {
+    uint32_t got = gi_frame_copy(1, 2), *t = out;
+    t[0] = got & 1 ? 1 : KNONE;
+    t[1] = got & 2 ? 2 : KNONE;
+}
+uint32_t hulk_gfx_sink_front_buffer(void) { return gi_front_buffer(3) ? 3 : KNONE; }
+/* occlusion queries: the sink has no way to destroy one, so the runner keeps the ones a restore orphans for reuse */
+uint32_t hulk_gfx_sink_create_query(void) {
+    uint32_t v = v_alloc(V_QUERY);
+    vt[v].stamp = ++v_stamp;
+    if (!gi_create_query(v)) {
+        v_free(v);
+        return KNONE;
+    }
+    v_sent(v);
+    return v;
+}
+
 void hulk_gfx_sink_set_pass(const void* p) { gi_set_pass(p); }
 void hulk_gfx_sink_copy_frame(uint32_t pass, const void* dst) { gi_copy_frame(pass, dst); }
 uint32_t hulk_gfx_sink_draw_resources(void) { return gi_draw_resources(); }
@@ -173,8 +426,17 @@ void hulk_gfx_sink_submit_draw(const void* p) { gi_submit_draw(p); }
 void hulk_gfx_sink_combiner_stats(int32_t* a, int32_t* b, int32_t* c) { gi_combiner_stats(a, b, c); }
 uint32_t hulk_gfx_sink_fx_resources(void) { return gi_fx_resources(); }
 void hulk_gfx_sink_fx_draw(const void* p) { gi_fx_draw(p); }
-uint32_t hulk_gfx_sink_create_query(void) { return gi_create_query(); }
-uint32_t hulk_gfx_sink_query_result(uint32_t q, int32_t* pixels) { return gi_query_result(q, pixels); }
+/* (HULK_GFX_ROLL_LOG: whether the game reads occlusion results, whose arrival follows the GPU's timing) */
+uint32_t hulk_gfx_sink_query_result(uint32_t q, int32_t* pixels) {
+    uint32_t r = gi_query_result(q, pixels);
+    static int logged = -1;
+    if (logged < 0) logged = !getenv("HULK_GFX_ROLL_LOG");
+    if (!logged && r) {
+        logged = 1;
+        fprintf(stderr, "gfx: frame %u: first occlusion result (query %u: %d pixels)\n", SIM->frame, q, *pixels);
+    }
+    return r;
+}
 void hulk_gfx_sink_present(const void* p) { gi_present(p); }
 void hulk_gfx_sink_frame(void) { gi_frame(); }
 void hulk_gfx_sink_request_screenshot(const char* path) { gi_request_screenshot(path); }
@@ -255,9 +517,19 @@ void* hulk_gfx_op_new(uint32_t n) { return ff_arena_alloc(n ? n : 1, 16); }
 void* hulk_gfx_op_new_array(uint32_t n) { return ff_arena_alloc(n ? n : 1, 16); }
 void hulk_gfx_op_delete(void* p) { if (p) ff_arena_free(p); }
 void hulk_gfx_op_delete_array(void* p) { if (p) ff_arena_free(p); }
+/* the front end's C allocations (tools/wasm_gfx.py C_RENAME: texture levels, prim buffers' copies, conversions): the
+ * arena too (wroll1), so its objects never point into the module's own heap, whose layout follows the host */
+void* hulk_gfx_malloc(uint32_t n) { return ff_arena_alloc(n ? n : 1, 16); }
+void* hulk_gfx_calloc(uint32_t n, uint32_t k) {
+    if (k && n > 0xffffffffu / k) return 0;
+    return ff_arena_alloc(n * k ? n * k : 1, 16);     /* (ff_arena_alloc zeroes) */
+}
+void* hulk_gfx_realloc(void* p, uint32_t n) { return ff_arena_realloc(p, n ? n : 1); }
+void hulk_gfx_free(void* p) { if (p) ff_arena_free(p); }
 
 /* ------------------------------------------------------------------------------------------- the frame */
 void ff_frame_end(void);
+void ff_frame_checkpoint(void);
 int ff_replay_active(void);
 int hulk_wasm_fps60(void);     /* fe_options.c */
 void hulk_wasm_gfx_frame_end(void) {
@@ -275,4 +547,5 @@ void hulk_wasm_gfx_frame_end(void) {
     if (live < 0) live = !getenv("HULK_INPUT") && !ff_replay_active();
     uint8_t pad[18];
     if (live && gi_pad(0, pad)) memcpy(SIM->pads[0], pad, 18);
+    ff_frame_checkpoint();
 }

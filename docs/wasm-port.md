@@ -89,8 +89,24 @@ threads at the end, `HULK_STACK_AT=N` stops with a stack at frame N, `HULK_FILE_
 `HULK_INPUT="3000-3010:10,400-405:0/1,..."` holds pad 0's buttons over frame ranges (wButtons, hex; after a `/` the
 analog buttons held down, a hex mask: 1 A, 2 B, 4 X, 8 Y, 10 black, 20 white, 40/80 the triggers), `HULK_GS=1`
 prints the game-flow state's changes (GS_FRONTEND, GS_GAME, ...), `HULK_SNAPTEST=1` times a snapshot and restore of
-the state at the end, `HULK_ROLLTEST=A:B` copies the state at the first fiber switch of frame A, puts it back at frame
-B and checks that the run reaches B again with the same game hash (exit 0 "identical", else 3).
+the state at the end, `HULK_ROLLTEST=A:B` copies the state at the end of frame A, puts it back at the end of frame B
+and checks that the run reaches B again with the same game hash, the same module-globals hash and (with a renderer)
+the same front-end hash (exit 0 "identical", else 3; the lines give the snapshot's size and the restore's cost;
+`HULK_ROLLTEST_DUMP=PREFIX` writes the game state at B before (PREFIX.1) and after (PREFIX.2)). With it set, every
+frame's end suspends and resumes the running fiber (`ff_frame_checkpoint`), so the driver has every fiber suspended
+there: the app's gameplay with a renderer never waits, and would give no fiber switch to snapshot at.
+
+The snapshot (sched.c `state_copy`) is the image's data, the main stack and the sim block, the arena up to its top,
+and two data sections of the module (wroll1, D227): `hulk_game_state`, the tree's own mutable globals
+(`wasm_port.py` GAME_STATE_SECTION: function-local statics and their guards and the stand-in globals that have no
+XBE address, ~73; not RTTI type descriptors, whose spare word caches a name the C library allocates), and, with a
+renderer, `hulk_pddi_state` (the front end's, below). Both are hashed apart from the game hash (`ff_module_hash`,
+`ff_gfx_hash`): their words include pointers into module data (vftables), which move with the build, and the game
+hash stays comparable between builds. A restore that left `hulk_game_state` re-simulated a different game across
+PRESSSTART -> GAME (CSPManager 0x001e4760's local static registered its atexit entry a second time). Host code
+that keeps game-facing state in its own statics (what the game reads back, or game objects it holds: fe_options.c's
+frame-rate setting, its NamedValueInt objects and its handler) declares them in `hulk_game_state` too
+(`__attribute__((section("hulk_game_state")))`); host-only state (caches, host times, file handles) stays out.
 
 Without a replay (a free run: no `HULK_INPUT_SOURCE`) the game keeps running: it sits in the front end
 (GS_FRONTEND) without input, and `HULK_INPUT="300-305:10,400-405:0/1,1000-1005:0/1"` (START, then A) takes it through
@@ -221,10 +237,25 @@ side holds (GPU objects, the window, the audio device) is derived from linear me
   `null` the game's own d3d layer runs on d3d_null.c exactly as in the headless build, so the app run headless gives
   the headless build's play3 records. The gfx-only site hook 0x001c1a40 (`hulk_cast_self`, native_hooks.h) takes the
   same switch. The headless module (`HULK_WASM_GFX` unset) is unchanged and needs no new imports.
-- **Game state.** The front end's objects are allocated in the arena (operator new -> `ff_arena_alloc`), so a snapshot
-  carries them with the game objects that point at them; sink ids inside them name GPU objects the runner owns. Not
-  covered yet: the front-end units' own statics (module data above 1 GB) and re-making GPU objects after a restore
-  (rollback with graphics is later work; the replay check and snapshots stay headless).
+- **Game state.** The front end's objects and its C allocations (texture levels, prim buffers' copies; `wasm_gfx.py`
+  C_RENAME) are in the arena, so a snapshot carries them with the game objects that point at them and they never
+  point into the module's own malloc heap (whose layout follows host history). Its mutable statics (73, less the frame
+  pacer's host times) are in the data section `hulk_pddi_state`, which the snapshot carries.
+- **Rollback with graphics** (wroll1, D225). The front end names every sink object by an id gfx.c gives out (a vid:
+  textures, vertex and index buffers, targets and their frame buffers, queries; 1..3 are the sink's own frame copy and
+  front buffer), never the runner's ids, so game state never holds a value that follows the runner's history. gfx.c's
+  table of vids (`vt`, in `hulk_pddi_state`) keeps what each stands for: a texture's description and pointers to its
+  levels' CPU copies, a prim buffer's packed copy, a target's size; every change takes a stamp from a counter in the
+  same section. A mirror outside the state (`hs`) holds the kind and stamp the runner last got for each vid. After a
+  restore (`ff_gfx_restored`) the vids whose stamps differ (made, changed or dropped since the snapshot) are dropped
+  in the runner and made again from the restored copies (a prim buffer's vertices converted again by
+  `hulk_pddi_convert_packed`, bgfx_draw.cpp under HULK_PDDI_WASM); the rest stay. Stamps rise along a run and a
+  restore returns to an earlier point of it, so equal stamps mean equal contents. The runner (app.cpp) maps each vid
+  to its sink's ids and translates the ids in packets, passes, copies and fx draws; the sink cannot destroy a query,
+  so the queries a restore orphans are kept for the next ones. Cost: 0.05-0.4 ms a restore (9-561 objects), next to
+  2-3 ms for the ~35 MB of state. The front end's statics outside the section are the pacer's host times. Open:
+  occlusion results arrive when the GPU has them (none was read in 8,000 frames of free play); a snapshot taken
+  between frames' draws would mix two frames' draws in one present (rolltest snapshots at frame ends).
 - **Input.** The runner polls SDL once a presented frame (the SDL layer's gamepad source, src/platform/sdl/input/, and
   a keyboard map) and the module copies the pads into the sim block (`pads`, `pads_in`), where XInput reads them: a
   frame's input is game state, so it snapshots and could be recorded. A replay keeps the recording's pads.
@@ -310,6 +341,14 @@ The user's decision D224: 60 fps is a menu toggle in the game's own options, 30 
 - 2026-11-22 (fps1, D224): **the frame-rate option.** "Frame Rate: 30 FPS / 60 FPS" in the options and pause menus
   (camera options), saved in port_settings.txt, 30 by default ("The frame-rate option" above). play3's records
   unchanged; gameplay at 60 keeps the speeds and timings of 30.
+
+- 2026-11-22 (wroll1, D225/D227): **rollback and determinism with graphics.** In the app with Metal, `HULK_ROLLTEST`
+  round trips re-simulate identically in the front end (900:2500), in gameplay (1500:1800, 1500:2500) and across the
+  PRESSSTART -> GAME load (1200:2500, also with `null`); the frames after a restore are pixel-identical to a run
+  without it (screenshots at 1201..2490). A restore costs 2-3 ms (state) plus 0.05-0.4 ms (GPU objects). Free runs
+  with the same `HULK_INPUT` paced at 30 fps (95 s) and unpaced under a CPU hog (5.8 s) end in the same game state.
+  A rolltest across a frame-rate menu toggle (4000:5200, toggle at 4800) restores the setting and the pacing with
+  it. play3's records are byte-identical to HEAD's (headless, the app with `null` and with Metal).
 
 - 2026-11-22 (waud1, D222): **one deterministic audio model.** Free play's voices run on the virtual clock (48 kHz of
   game time) in dsound_null.c, and the app's mixer renders what the model played instead of answering the game's

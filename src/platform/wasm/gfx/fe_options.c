@@ -38,8 +38,13 @@ int ff_replay_active(void);     /* replay.cpp */
 #define NV_NAME "PortFrameRate"
 #define CB_NAME "PortFrameRateChanged"
 
-/* ------------------------------------------------------------------------------------------- the setting */
-static int g_loaded, g_fps60;
+/* Game-facing state of this host file (the setting the game clock follows, the game objects and the handler the game
+ * holds) is game state: it lives in the tree's snapshotted section (tools/wasm_port.py GAME_STATE_SECTION), so a
+ * restore puts back the setting with the menus' objects that show it (wroll1). The settings file is host state: after
+ * a restore past a change it keeps the newer value, which the next start reads (g_loaded stays: no reread). */
+#define GAME_STATE __attribute__((section("hulk_game_state")))
+static int g_loaded;
+GAME_STATE static int g_fps60;
 
 static const char* settings_path(char* out, size_t cap) {
     const char* d = getenv("HULK_SAVE_DIR");
@@ -92,7 +97,7 @@ int hulk_wasm_fps60(void) {
 #define NV_NAME_OFF 0x18
 #define NV_VALUE 0x40
 #define NV_PENDING 0x44
-static uint32_t g_nv[4], g_nv_vft;     /* the "PortFrameRate" objects (one per front-end slot) and their vftable */
+GAME_STATE static uint32_t g_nv[4], g_nv_vft;     /* the "PortFrameRate" objects (one per front-end slot) and their vftable */
 
 static int nv_ours(uint32_t p) {
     return p && *(uint32_t*)PTR(p) == g_nv_vft && !strncmp((const char*)PTR(p + NV_NAME_OFF), NV_NAME, 0x28);
@@ -115,7 +120,7 @@ static void on_frame_rate(uint32_t ecx, uint32_t edx, void* st, void* rb) {
         }
 }
 
-static uint32_t g_handler[2], g_handler_vft[4];
+GAME_STATE static uint32_t g_handler[2], g_handler_vft[4];
 
 void ffgo_000df9e0(uint32_t, uint32_t, void*, void*);   /* the game's int-callback lookup (the hook's original) */
 void ffh_hulk_app_fe_callback(uint32_t ecx, uint32_t edx, void* st, void* rb) {

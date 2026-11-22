@@ -1197,6 +1197,33 @@ def _init(game, defsig, deftys):
     _G.update(game=game, defsig=defsig, deftys=deftys)
 
 
+# The tree's own mutable globals (wroll1, D227): a TU's statics with no XBE address (function-local statics and their
+# guards, stand-in globals such as pure3d's globalTextBible or the XboxDrive object) are module data above 1 GB, not
+# image or arena memory, yet they are game state: a restore that leaves them (sched.c HULK_ROLLTEST) re-simulates a
+# different game (an atexit registration made twice across PRESSSTART -> GAME). They go to one data section, which
+# sched.c snapshots with the image and the arena (__start_/__stop_hulk_game_state). Left out: RTTI type descriptors
+# (??_R0: type_info's spare word caches a name the C library allocates; never game state). The section is hashed
+# apart from the game hash (frame.c ff_module_hash): its words include pointers into module data (vftables), whose
+# values change with the build.
+GAME_STATE_SECTION = "hulk_game_state"
+_GLOBAL_DEF = re.compile(r'^(@\S+|@"[^"]*") = (?:internal |dso_local )+global ')
+
+
+def game_state_section(text):
+    out, n = [], 0
+    for line in text.split("\n"):
+        if line.startswith("@") and _GLOBAL_DEF.match(line) and ", section " not in line and "??_R0" not in line:
+            if ", comdat" in line:
+                line = line.replace(", comdat", ', section "%s", comdat' % GAME_STATE_SECTION, 1)
+            else:
+                line, k = re.subn(r", align (\d+)$", r', section "%s", align \1' % GAME_STATE_SECTION, line)
+                if not k:
+                    line += ', section "%s"' % GAME_STATE_SECTION
+            n += 1
+        out.append(line)
+    return "\n".join(out), n
+
+
 def compile_tu(job):
     tu, tu_index, addrs = job
     game, defsig, deftys = _G["game"], _G["defsig"], _G["deftys"]
@@ -1204,6 +1231,7 @@ def compile_tu(job):
         dv = collections.Counter()
         ir, mains, same = load_tu(tu, addrs, dv)
         text, info = bind_tu(ir, tu, tu_index, mains, same, tu_bindings(tu), game, defsig, deftys)
+        text, info["state_globals"] = game_state_section(text)
         d = os.path.join(OUT, "obj")
         os.makedirs(d, exist_ok=True)
         wl = os.path.join(d, flat(tu) + ".ll")

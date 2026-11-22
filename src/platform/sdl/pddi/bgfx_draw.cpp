@@ -1030,3 +1030,12 @@ void bgfxContext::drawPrimBuffer(bgfxShader* sh, bgfxPrimBuffer* b, const char* 
 
 } // namespace pddi
 } // namespace hulk
+
+#if HULK_PDDI_WASM
+// The wasm module's resource reconciliation after a restore (src/platform/wasm/gfx/gfx.c): a prim buffer's sink
+// vertices made again from its CPU copy, as bgfxPrimBuffer::prepare makes them
+extern "C" void hulk_pddi_convert_packed(const void* packed, uint32_t count, uint32_t flags, void* out)
+{
+    hulk::pddi::convertPacked((const char*)packed, (int)count, flags, (hulk::pddi::Vertex*)out);
+}
+#endif

@@ -216,11 +216,13 @@ FFG(00380010) { UNUSED; RET(0); }                               /* SetIndices */
 
 /* Swap: the end of a frame */
 void ff_frame_end(void);
+void ff_frame_checkpoint(void);
 FFG(00381df0) {
     UNUSED;
     T("Swap");
     if (SIM->d3d_vblank_cb) ff_call(SIM->d3d_vblank_cb, 0);
     ff_frame_end();
+    ff_frame_checkpoint();
     RET(0);
 }
 

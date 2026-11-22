@@ -44,6 +44,18 @@ uint64_t ff_game_hash(void) {
     if (top > at) h = fnv(PTR(at), top - at, h);
     return h;
 }
+/* the tree's own mutable globals (tools/wasm_port.py GAME_STATE_SECTION, wroll1): game state in module data, carried
+ * by snapshots; hashed apart from the game hash (their words include vftable pointers into module data, which move
+ * with the build) */
+extern char __start_hulk_game_state[] __attribute__((weak)), __stop_hulk_game_state[] __attribute__((weak));
+uint32_t ff_module_state(uint32_t* lo) {
+    *lo = (uint32_t)(uintptr_t)__start_hulk_game_state;
+    return (uint32_t)(__stop_hulk_game_state - __start_hulk_game_state);
+}
+uint64_t ff_module_hash(void) {
+    uint32_t lo, n = ff_module_state(&lo);
+    return fnv(PTR(lo), n, 0xcbf29ce484222325ull);
+}
 uint32_t ff_state_bytes(void) { return (XBE_END - STATE_DATA_LO) + 0x00100000u + sizeof(hulk_sim) + (ff_arena_top() - ARENA_LO); }
 /* HULK_DUMP=PATH: the state's bytes at the end of the run, in hash order (finding what differs between runs) */
 #include "hulk_io.h"
@@ -80,6 +92,7 @@ static void dump_game(const char* path) {
     }
     hio_close(f);
 }
+void ff_game_dump(const char* path) { dump_game(path); }
 /* a snapshot and a restore of the whole state (timing only: HULK_SNAPTEST) */
 static void snap_test(void) {
     uint32_t n = ff_state_bytes();

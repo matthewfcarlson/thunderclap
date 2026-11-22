@@ -112,6 +112,82 @@ static void flush()
 
 static void* s_window;
 
+// ------------------------------------------------------------------------------------------- the module's ids (wroll1)
+// The module names sink objects by its own ids (vids: src/platform/wasm/gfx/gfx.c "resources"), so the game state
+// never holds the sink's ids, whose values follow this process's history; here each vid is mapped to what the sink
+// made for it. After a restore the module drops and makes again the vids whose contents differ.
+enum { kVids = 16384 };
+enum ResKind : uint8_t {
+    kResNone, kResTexture, kResVertices, kResIndices, kResRenderTarget, kResCopyTarget, kResFrameBuffer, kResQuery,
+    kResSinkOwned
+};
+struct Res {
+    ResKind kind;
+    uint32_t id, id2;     // the sink's ids (a target: its texture and frame buffer)
+    uint32_t pair;        // a target's frame buffer vid, a frame buffer's target vid
+};
+static Res s_res[kVids];
+static uint32_t s_spareQuery[1024], s_spareQueries;      // (the sink can't destroy a query: kept for the next one)
+static Res* res(uint32_t vid) { return vid < kVids ? &s_res[vid] : nullptr; }
+static void drop(uint32_t vid)
+{
+    Res* r = res(vid);
+    if (!r)
+        return;
+    switch (r->kind) {
+    case kResTexture:
+        hulk_gfx_sink_destroy_texture(r->id);
+        break;
+    case kResVertices:
+        hulk_gfx_sink_destroy_buffers(r->id, kSinkNone);
+        break;
+    case kResIndices:
+        hulk_gfx_sink_destroy_buffers(kSinkNone, r->id);
+        break;
+    case kResRenderTarget:
+    case kResCopyTarget: {
+        SinkTarget t = {r->id, r->id2};
+        if (r->kind == kResRenderTarget)
+            hulk_gfx_sink_destroy_render_target(&t);
+        else
+            hulk_gfx_sink_destroy_copy_target(&t);
+        if (Res* f = res(r->pair); f && f->kind == kResFrameBuffer && f->pair == vid)
+            *f = Res{};
+        break;
+    }
+    case kResFrameBuffer:
+        if (Res* t = res(r->pair); t && (t->kind == kResRenderTarget || t->kind == kResCopyTarget) && t->pair == vid) {
+            *r = Res{};
+            drop(t - s_res);
+        }
+        break;
+    case kResQuery:
+        if (r->id != kSinkNone && s_spareQueries < sizeof s_spareQuery / sizeof s_spareQuery[0])
+            s_spareQuery[s_spareQueries++] = r->id;
+        break;
+    default:
+        break;
+    }
+    *r = Res{};
+    r->id = r->id2 = kSinkNone;
+}
+// a vid in a packet as the sink's id (kSinkNone and kSinkTargetScene stay)
+static uint32_t hostId(uint32_t vid)
+{
+    Res* r = res(vid);
+    return r && r->kind != kResNone ? r->id : vid == kSinkNone || vid >= kVids ? vid : kSinkNone;
+}
+static uint32_t hostTexture(uint32_t vid) { return hostId(vid); }
+static uint32_t hostFrameBuffer(uint32_t vid)
+{
+    Res* r = res(vid);
+    if (r && r->kind == kResFrameBuffer) {
+        Res* t = res(r->pair);
+        return t ? t->id2 : kSinkNone;
+    }
+    return hostId(vid);
+}
+
 extern "C" {
 
 // ------------------------------------------------------------------------------------------- the sink
@@ -163,20 +239,34 @@ u32 w2c_hulk_gfx_scene_target(struct w2c_hulk*) { return hulk_gfx_sink_scene_tar
 u32 w2c_hulk_gfx_target_width(struct w2c_hulk*) { return hulk_gfx_sink_target_width(); }
 u32 w2c_hulk_gfx_target_height(struct w2c_hulk*) { return hulk_gfx_sink_target_height(); }
 void w2c_hulk_gfx_destroy_frame_targets(struct w2c_hulk*) { flush(); hulk_gfx_sink_destroy_frame_targets(); }
-u32 w2c_hulk_gfx_create_texture(struct w2c_hulk*, u32 desc)
+u32 w2c_hulk_gfx_create_texture(struct w2c_hulk*, u32 vid, u32 desc)
 {
     flush();
-    return hulk_gfx_sink_create_texture(MT<SinkTextureDesc>(desc));
+    Res* r = res(vid);
+    if (!r)
+        return 0;
+    drop(vid);
+    r->kind = kResTexture;
+    r->id = hulk_gfx_sink_create_texture(MT<SinkTextureDesc>(desc));
+    return r->id != kSinkNone;
 }
-u32 w2c_hulk_gfx_update_texture(struct w2c_hulk*, u32 t, u32 level, u32 w, u32 h, u32 data, u32 pitch, u32 size)
+u32 w2c_hulk_gfx_update_texture(struct w2c_hulk*, u32 vid, u32 level, u32 w, u32 h, u32 data, u32 pitch, u32 size)
 {
     flush();
-    return hulk_gfx_sink_update_texture(t, level, w, h, M(data), pitch, size);
+    Res* r = res(vid);
+    if (!r || r->kind != kResTexture || r->id == kSinkNone)
+        return 0;
+    return hulk_gfx_sink_update_texture(r->id, level, w, h, M(data), pitch, size);
 }
-void w2c_hulk_gfx_destroy_texture(struct w2c_hulk*, u32 t) { flush(); hulk_gfx_sink_destroy_texture(t); }
-u32 w2c_hulk_gfx_update_vertex_buffer(struct w2c_hulk*, u32 b, u32 data)
+u32 w2c_hulk_gfx_update_vertex_buffer(struct w2c_hulk*, u32 vid, u32 data)
 {
     flush();
+    Res* r = res(vid);
+    if (!r)
+        return 0;
+    if (r->kind != kResVertices)
+        drop(vid);
+    r->kind = kResVertices;
     const WSinkVertexData* w = MT<WSinkVertexData>(data);
     SinkVertexData d;
     d.vertices = MT<const SinkVertex>(w->vertices);
@@ -186,14 +276,66 @@ u32 w2c_hulk_gfx_update_vertex_buffer(struct w2c_hulk*, u32 b, u32 data)
     d.packedStride = w->packedStride;
     d.vertexFlags = w->vertexFlags;
     d.primKind = w->primKind;
-    return hulk_gfx_sink_update_vertex_buffer(b, &d);
+    r->id = hulk_gfx_sink_update_vertex_buffer(r->id, &d);
+    return r->id != kSinkNone;
 }
-u32 w2c_hulk_gfx_update_index_buffer(struct w2c_hulk*, u32 b, u32 idx, u32 n, u32 owner)
+u32 w2c_hulk_gfx_update_index_buffer(struct w2c_hulk*, u32 vid, u32 idx, u32 n, u32 owner)
 {
     flush();
-    return hulk_gfx_sink_update_index_buffer(b, MT<const uint16_t>(idx), n, owner);
+    Res* r = res(vid);
+    if (!r)
+        return 0;
+    if (r->kind != kResIndices)
+        drop(vid);
+    r->kind = kResIndices;
+    r->id = hulk_gfx_sink_update_index_buffer(r->id, MT<const uint16_t>(idx), n, owner);
+    return r->id != kSinkNone;
 }
-void w2c_hulk_gfx_destroy_buffers(struct w2c_hulk*, u32 vb, u32 ib) { flush(); hulk_gfx_sink_destroy_buffers(vb, ib); }
+u32 w2c_hulk_gfx_create_target(struct w2c_hulk*, u32 vid, u32 fb, u32 w, u32 h, u32 render)
+{
+    flush();
+    Res *r = res(vid), *f = res(fb);
+    if (!r || !f)
+        return 0;
+    drop(vid);
+    drop(fb);
+    SinkTarget t;
+    if (render)
+        hulk_gfx_sink_create_render_target(w, h, &t);
+    else
+        hulk_gfx_sink_create_copy_target(w, h, &t);
+    r->kind = render ? kResRenderTarget : kResCopyTarget;
+    r->id = t.texture;
+    r->id2 = t.frameBuffer;
+    r->pair = fb;
+    f->kind = kResFrameBuffer;
+    f->pair = vid;
+    return t.texture != kSinkNone;
+}
+u32 w2c_hulk_gfx_create_query(struct w2c_hulk*, u32 vid)
+{
+    flush();
+    Res* r = res(vid);
+    if (!r)
+        return 0;
+    drop(vid);
+    uint32_t q = kSinkNone;
+    if (s_spareQueries) {
+        q = s_spareQuery[--s_spareQueries];
+    } else {
+        q = hulk_gfx_sink_create_query();
+    }
+    if (q == kSinkNone)
+        return 0;
+    r->kind = kResQuery;
+    r->id = q;
+    return 1;
+}
+void w2c_hulk_gfx_destroy(struct w2c_hulk*, u32 vid)
+{
+    flush();
+    drop(vid);
+}
 u32 w2c_hulk_gfx_alloc_transient(struct w2c_hulk*, u32 count, u32 token, u32 staging)
 {
     flush();
@@ -207,29 +349,42 @@ u32 w2c_hulk_gfx_alloc_transient(struct w2c_hulk*, u32 count, u32 token, u32 sta
     s_pendingCount = count;
     return 1;
 }
-void w2c_hulk_gfx_create_copy_target(struct w2c_hulk*, u32 w, u32 h, u32 out)
+// the sink's own targets: fixed vids naming whatever the sink holds now
+u32 w2c_hulk_gfx_frame_copy(struct w2c_hulk*, u32 vid, u32 fb)
 {
     flush();
-    hulk_gfx_sink_create_copy_target(w, h, MT<SinkTarget>(out));
+    SinkTarget t;
+    hulk_gfx_sink_frame_copy(&t);
+    Res *r = res(vid), *f = res(fb);
+    if (r)
+        r->kind = kResSinkOwned, r->id = t.texture;
+    if (f)
+        f->kind = kResSinkOwned, f->id = t.frameBuffer;
+    return (t.texture != kSinkNone ? 1 : 0) | (t.frameBuffer != kSinkNone ? 2 : 0);
 }
-void w2c_hulk_gfx_create_render_target(struct w2c_hulk*, u32 w, u32 h, u32 out)
+u32 w2c_hulk_gfx_front_buffer(struct w2c_hulk*, u32 vid)
 {
     flush();
-    hulk_gfx_sink_create_render_target(w, h, MT<SinkTarget>(out));
+    uint32_t t = hulk_gfx_sink_front_buffer();
+    Res* r = res(vid);
+    if (r)
+        r->kind = kResSinkOwned, r->id = t;
+    return t != kSinkNone;
 }
-void w2c_hulk_gfx_destroy_copy_target(struct w2c_hulk*, u32 t) { flush(); hulk_gfx_sink_destroy_copy_target(MT<SinkTarget>(t)); }
-void w2c_hulk_gfx_destroy_render_target(struct w2c_hulk*, u32 t)
+void w2c_hulk_gfx_set_pass(struct w2c_hulk*, u32 p)
 {
     flush();
-    hulk_gfx_sink_destroy_render_target(MT<SinkTarget>(t));
+    SinkPass pass = *MT<const SinkPass>(p);
+    if (pass.target != kSinkTargetScene)
+        pass.target = hostFrameBuffer(pass.target);
+    hulk_gfx_sink_set_pass(&pass);
 }
-void w2c_hulk_gfx_frame_copy(struct w2c_hulk*, u32 out) { flush(); hulk_gfx_sink_frame_copy(MT<SinkTarget>(out)); }
-u32 w2c_hulk_gfx_front_buffer(struct w2c_hulk*) { flush(); return hulk_gfx_sink_front_buffer(); }
-void w2c_hulk_gfx_set_pass(struct w2c_hulk*, u32 p) { flush(); hulk_gfx_sink_set_pass(MT<const SinkPass>(p)); }
 void w2c_hulk_gfx_copy_frame(struct w2c_hulk*, u32 pass, u32 dst)
 {
     flush();
-    hulk_gfx_sink_copy_frame(pass, MT<const SinkTarget>(dst));
+    const SinkTarget* w = MT<const SinkTarget>(dst);
+    SinkTarget t = {hostTexture(w->texture), hostFrameBuffer(w->frameBuffer)};
+    hulk_gfx_sink_copy_frame(pass, &t);
 }
 u32 w2c_hulk_gfx_draw_resources(struct w2c_hulk*) { flush(); return hulk_gfx_sink_draw_resources(); }
 u32 w2c_hulk_gfx_has_vertex_program(struct w2c_hulk*, u32 vp) { return hulk_gfx_sink_has_vertex_program(vp); }
@@ -258,13 +413,15 @@ static void packet(const WDrawPacket* w, DrawPacket* p)
     p->vertexConstantCount = w->vertexConstantCount;
     memcpy(p->frag, w->frag, sizeof p->frag);
     memcpy(p->stage, w->stage, sizeof p->stage);
+    for (int i = 0; i < 4; i++)
+        p->stage[i].texture = hostTexture(p->stage[i].texture);
     p->state = w->state;
     p->count = w->count;
     p->vertexCount = w->vertexCount;
     p->transient = w->transient;
-    p->vertexBuffer = w->vertexBuffer;
-    p->indexBuffer = w->indexBuffer;
-    p->query = w->query;
+    p->vertexBuffer = hostId(w->vertexBuffer);
+    p->indexBuffer = hostId(w->indexBuffer);
+    p->query = hostId(w->query);
     p->pass = w->pass;
     p->pad2 = w->pad2;
     p->modelview = MT<const float>(w->modelview);
@@ -300,11 +457,20 @@ void w2c_hulk_gfx_combiner_stats(struct w2c_hulk*, u32 a, u32 b, u32 c)
     hulk_gfx_sink_combiner_stats(MT<int32_t>(a), MT<int32_t>(b), MT<int32_t>(c));
 }
 u32 w2c_hulk_gfx_fx_resources(struct w2c_hulk*) { flush(); return hulk_gfx_sink_fx_resources(); }
-void w2c_hulk_gfx_fx_draw(struct w2c_hulk*, u32 p) { flush(); hulk_gfx_sink_fx_draw(MT<const FxPacket>(p)); }
-u32 w2c_hulk_gfx_create_query(struct w2c_hulk*) { flush(); return hulk_gfx_sink_create_query(); }
+void w2c_hulk_gfx_fx_draw(struct w2c_hulk*, u32 p)
+{
+    flush();
+    FxPacket fx = *MT<const FxPacket>(p);
+    for (int i = 0; i < 4; i++)
+        fx.texture[i] = hostTexture(fx.texture[i]);
+    hulk_gfx_sink_fx_draw(&fx);
+}
 u32 w2c_hulk_gfx_query_result(struct w2c_hulk*, u32 q, u32 pixels)
 {
-    return hulk_gfx_sink_query_result(q, MT<int32_t>(pixels));
+    uint32_t id = hostId(q);
+    if (id == kSinkNone)
+        return kQueryPending;
+    return hulk_gfx_sink_query_result(id, MT<int32_t>(pixels));
 }
 void w2c_hulk_gfx_present(struct w2c_hulk*, u32 p) { flush(); hulk_gfx_sink_present(MT<const SinkPresent>(p)); }
 void w2c_hulk_gfx_frame(struct w2c_hulk*) { flush(); hulk_gfx_sink_frame(); }
