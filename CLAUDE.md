@@ -429,6 +429,11 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   Wine build's (Wine --gfx's pddi objects use the host heap): an uninitialised constructor word the original reads shows up
   as an early divergence; zero it under HULK_PORT_ABI (wasm9, 0x00105f50). A wasm debug hook's stderr is lost when the run
   stops at its frame target (fflush), and every TU hooked earlier must be passed back to the build (wasm9).
+  A matches block ending in a call whose result stays in eax (`call __RTDynamicCast; add esp,0x14; ret`) returns that
+  value: write it non-`void` (MSVC 7.1 gives the same bytes; the port builds return nothing; wasm12: FEContainer slots
+  38..46 left a dialog's buttons null). ff_dispatch_miss serves every kernel and host-method call: to find a bad indirect
+  call, break on ff_fatal. `tools/native_replay.py run` empties the run's save/tdata/udata first (a stale save changes the
+  game's path). HULK_TRACE=2 over a whole replay writes gigabytes: bound it to a frame window (wasm11/wasm12).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
