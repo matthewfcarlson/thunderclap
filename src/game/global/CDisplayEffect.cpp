@@ -51,13 +51,13 @@ class Inner_dedd0 {
     virtual void f12();
     virtual void f13();
     virtual void f14();
-    virtual void f15();
+    virtual void f15(unsigned int colour);   // pure3d::Font slot 15: set the colour
 };
 class DrawableText {
   public:
     char pad[8];
     Inner_dedd0* p;
-    void vfunc_1();
+    void vfunc_1(unsigned int colour);
 };
 
 } // namespace fn_f27df9e5
@@ -92,9 +92,9 @@ void CDisplayEffect::DrawableText::vfunc_0() {
 namespace fn_f27df9e5 {
 
 // 0x000dedd0 CDisplayEffect::DrawableText::vfunc_1 (8 B): matches/0x000dedd0.cpp
-// sym: ?vfunc_1@DrawableText@fn_f27df9e5@@QAEXXZ
-void DrawableText::vfunc_1() {
-    p->f15();
+// sym: ?vfunc_1@DrawableText@fn_f27df9e5@@QAEXI@Z
+void DrawableText::vfunc_1(unsigned int colour) {
+    p->f15(colour);         // (wopt1) the colour is forwarded: the original's jmp passes the caller's argument on
 }
 
 } // namespace fn_f27df9e5

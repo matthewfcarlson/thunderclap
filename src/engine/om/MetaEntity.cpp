@@ -55,8 +55,8 @@ class MetaEntity_25e710 {
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual int v5();
-    virtual int vfunc_6();
+    virtual int v5(void* arg);
+    virtual int vfunc_6(void* arg);
 };
 
 
@@ -129,10 +129,10 @@ MetaEntity_25e6f0* MetaEntity_25e6f0::construct(void* arg) {
 
 
 // 0x0025e710 om::MetaEntity::vfunc_4 (5 B): matches/0x0025e710.cpp
-// sym: ?vfunc_6@MetaEntity_25e710@fn_f87db03b@@UAEHXZ
+// sym: ?vfunc_6@MetaEntity_25e710@fn_f87db03b@@UAEHPAX@Z
 // Same code shape as 0x0022a930 (propagated; names are from that function)
-int MetaEntity_25e710::vfunc_6() {
-    return v5();
+int MetaEntity_25e710::vfunc_6(void* arg) {
+    return v5(arg);         // (wopt1) the original's jmp passes the caller's argument on (om::Entity slot 4 takes one)
 }
 
 } // namespace fn_f87db03b
