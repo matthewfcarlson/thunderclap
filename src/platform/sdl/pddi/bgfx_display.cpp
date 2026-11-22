@@ -11,6 +11,11 @@ namespace pddi {
 
 enum { kNone = 0xffff };
 
+#if HULK_PDDI_WASM
+// the app's aspect-ratio setting (src/platform/wasm/gfx/gfx.c, wvid1, D234): the display's aspect as num/den
+extern "C" void hulk_wasm_display_aspect(unsigned ww, unsigned wh, unsigned* num, unsigned* den);
+#endif
+
 bgfxDisplay::bgfxDisplay(bgfxDevice* device)
     : m_device(device), m_width(640), m_height(480), m_depth(32), m_initialised(false), m_frame(0), m_nativeType(0),
       m_wantCopy(1), m_prevAsked(0xfffffff0u), m_windowWidth(640), m_windowHeight(480), m_scaleMode(0)
@@ -81,6 +86,22 @@ void bgfxDisplay::presentRect(int* x, int* y, int* w, int* h) const
 {
     unsigned ww = m_windowWidth, wh = m_windowHeight, fw = m_width, fh = m_height;
     unsigned rw = ww, rh = wh;
+#if HULK_PDDI_WASM
+    // the app: the rectangle of the display's aspect (the aspect-ratio setting; 4:3 is the frame's own); the runner
+    // draws the scene target at that shape (src/platform/wasm/run/app/app.cpp "Render resolution", the same formula)
+    unsigned an, ad;
+    hulk_wasm_display_aspect(ww, wh, &an, &ad);
+    if (an * 3 != ad * 4 && ww && wh) {
+        if ((unsigned long long)ww * ad <= (unsigned long long)wh * an) {
+            rw = ww;
+            rh = (unsigned)(((unsigned long long)ww * ad + an / 2) / an);
+        } else {
+            rh = wh;
+            rw = (unsigned)(((unsigned long long)wh * an + ad / 2) / ad);
+        }
+        fw = fh = 0;
+    }
+#endif
     if (fw && fh && ww && wh) {
         unsigned k = ww / fw < wh / fh ? ww / fw : wh / fh;
         if (m_scaleMode == 2 && k >= 1) {
@@ -224,7 +245,18 @@ void bgfxDisplay::vfunc_14()
     m_frame++;
 }
 void bgfxDisplay::vfunc_15(int a0, int a1) { PDDI_STUB(15); }   // copy the back buffer rect (CopyRects): G4
+#if HULK_PDDI_WASM
+pddi_freg bgfxDisplay::vfunc_16()
+{
+    unsigned an, ad;
+    hulk_wasm_display_aspect(m_windowWidth, m_windowHeight, &an, &ad);
+    if (an * 3 == ad * 4)                   // 4:3: the frame's own, as before
+        return m_height ? (float)m_width / (float)m_height : 4.0f / 3.0f;
+    return (float)an / (float)ad;
+}
+#else
 pddi_freg bgfxDisplay::vfunc_16() { return m_height ? (float)m_width / (float)m_height : 4.0f / 3.0f; }
+#endif
 unsigned int bgfxDisplay::vfunc_17() { return 0; }
 
 } // namespace pddi

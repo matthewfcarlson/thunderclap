@@ -3021,3 +3021,23 @@ draws gives in-between frames with no tree change and no path back into the game
   unproven-accept). play3 headless records byte-identical before and after (60,000 frames).
 - **Guard.** `wasm_port.py link` lists the data names it stubs (`data_undefined` in link.json) and fails on one that
   config/wasm-data-stubs.json (only shrinks; now just `??_7type_info@@6B@`) doesn't list. Function stubs stay reported.
+
+## 2026-11-22 wvid1: aspect ratio, HUD frame, draw distance and fog in the app (D234, D235)
+
+- **Widescreen is the game's own path.** The app reports the chosen aspect through `bgfxDisplay::vfunc_16` (the
+  frame stays an anamorphic 640x480, as an Xbox 16:9 480p mode) and the runner draws the scene target at that shape.
+  Hor+ cameras, the HUD's text layout and the movie scaling follow by themselves; the corner brackets are fixed 4:3
+  models (HUD Frame: Screen Edges reuses HULK_HUD=edge).
+- **16:9 changes the simulation, as remaster.md 3.3 predicted.** On fps2's 8,000-frame HULK_INPUT run the checkpoint
+  records match 4:3 through the front end, the load and ~1,000 gameplay frames, then rng/legacy diverge at record
+  4,342 (~frame 7,000), particles 4,728, hulk/camera 4,773, actors 4,800; flow, clock, mission, sound never. User
+  decision D234: a per-session setting (replays and tests pin 4:3; netplay peers share it).
+- **Draw distance leaves the simulation alone but not the game hash.** Setting World::Render's fade floats only while
+  it runs: all ten checkpoint tags identical over 8,000 frames; the game hash identical to frame 7,010 and different
+  from 7,020, when rooms past 295 units first come into view: pure3d's per-frame render lists' tails past the faithful
+  high-water mark, the pddi front end's vids/serials of prim buffers uploaded at their first draw, and the arena
+  allocator's bounds after those uploads. World::Render's own list of drawn rooms (+0x54c) is write-only. D235: also a
+  per-session setting. Resident rooms reach only 340-390 units in the first mission (14-16 rooms), so Far is 400.
+- **Game hashes don't compare across app builds any more**: the settings' menu handlers are module data whose address
+  the game's NamedValueInt objects hold, so two builds differ from frame ~10; compare settings within one build
+  (`HULK_DRAWDIST_FORCE` compares the hook alone with identical menus).

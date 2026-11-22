@@ -15,13 +15,32 @@ int ff_replay_active(void);     /* replay.cpp */
 /* the appliers (their modules) */
 void hulk_wasm_frame_rate_apply(int value);                             /* gfx.c (fps2): the display rate */
 void hulk_wasm_render_res_apply(int value);                             /* gfx.c: the runner's render size */
+void hulk_wasm_aspect_apply(int value);                                 /* gfx.c: the display's aspect (wvid1) */
+void hulk_wasm_hud_edge_apply(int value);                               /* gfx.c: the HUD frame at the edges */
+void hulk_wasm_fog_apply(int value);                                    /* gfx.c: the runner's fog override */
+void hulk_wasm_draw_distance_apply(int value);                          /* draw_distance.c: World::Render's fade */
 
 static void apply_remastered(int value);
 static void apply_frame_rate(int value) { hulk_wasm_frame_rate_apply(value); }
 static void apply_render_res(int value) { hulk_wasm_render_res_apply(value); }
+static void apply_aspect(int value) { hulk_wasm_aspect_apply(value); }
+static void apply_fog(int value) { hulk_wasm_fog_apply(value); }
+static void apply_hud_edge(int value) { hulk_wasm_hud_edge_apply(value); }
+static void apply_draw_distance(int value) { hulk_wasm_draw_distance_apply(value); }
 
 /* Render resolution values: 1..4 a multiple of the game's 640x480; 0 the window's (display's) pixels; 720 / 1080 /
- * 1440 / 2160 that height at the frame's 4:3 (960x720 ...). Output only: the game sees 640x480 at every value. */
+ * 1440 / 2160 that height at the display's aspect (960x720 at 4:3 ...). Output only: the game sees 640x480 at every
+ * value.
+ * Aspect ratio (wvid1, D234): 43 / 169 / 1610 / 219 (21:9 is 64:27, 2560x1080), 0 the window's (clamped to 4:3 ..
+ * 21:9). The game's own widescreen: the display reports the aspect (as an Xbox 16:9 mode does: anamorphic 640x480),
+ * cameras widen horizontally (Hor+, ComputeRealFOV 0x9f790) and the HUD lays out on the wider frame. It changes the
+ * simulation (the logic view's frustum: ambient despawn, om::Stream, the rubble spawn; docs/wasm-port.md "Aspect
+ * ratio"), so like the frame rate it is a per-session setting that replays and tests pin to 4:3, and netplay peers
+ * must share it (the item locks during netplay).
+ * HUD frame (wvid1): at an aspect wider than 4:3 the HUD's corner brackets (four fixed models drawn for a 4:3 frame)
+ * stay in the middle (0, the original's 16:9) or move out to the picture's edges (1); the game lays out the rest.
+ * Draw distance (wvid1): World::Render's room fade start (0x4c53bc; band 0x4c53c4 scaled with it) while it runs,
+ * render-only; 270 is the original's. Fog: 0 the game's, 1 reduced (planes x2.5), 2 off (the runner's packets). */
 static const port_setting k_settings[] = {
     {"remastered", "Remastered Edition", PS_SCREEN_GAMEPLAY, PS_ONOFF, 2, {0, 1}, {"Off", "On"},
      0, 1, 0, apply_remastered},
@@ -31,6 +50,13 @@ static const port_setting k_settings[] = {
      {"Original (640x480)", "2x (1280x960)", "3x (1920x1440)", "4x (2560x1920)", "Window", "720p", "1080p", "1440p",
       "4K"},
      1, 0, 1, apply_render_res},
+    {"aspect", "Aspect Ratio", PS_SCREEN_VIDEO, PS_CHOICE, 5, {43, 169, 1610, 219, 0},
+     {"4:3 (Original)", "16:9", "16:10", "21:9", "Window"}, 43, 0, 1, apply_aspect},
+    {"hud_frame", "HUD Frame", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Centred (Original)", "Screen Edges"}, 0, 1, 1,
+     apply_hud_edge},
+    {"draw_distance", "Draw Distance", PS_SCREEN_VIDEO, PS_CHOICE, 3, {270, 400, 700},
+     {"Original", "Far", "Very Far"}, 270, 400, 1, apply_draw_distance},
+    {"fog", "Fog", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"On (Original)", "Reduced", "Off"}, 0, 1, 1, apply_fog},
 };
 enum { N_SETTINGS = sizeof k_settings / sizeof k_settings[0] };
 

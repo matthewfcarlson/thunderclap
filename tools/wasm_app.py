@@ -32,7 +32,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PY = sys.executable
 TP = os.path.join(ROOT, "build/third_party")
 SDL_VIDEO = os.path.join(TP, "out/sdl-video")
-HOOKED_TUS = ["src/platform/xbox/pure3d/d3dDevice.cpp", "src/game/Render/Canvas/HulkShaderCallback.cpp"]
+HOOKED_TUS = ["src/platform/xbox/pure3d/d3dDevice.cpp", "src/game/Render/Canvas/HulkShaderCallback.cpp",
+              "src/game/Render/LevelLoader.cpp"]
 
 
 def env():

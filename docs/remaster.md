@@ -322,6 +322,9 @@ mods/<pack>/models/mdl-<xxh64>.glb      replacement mesh(es) for one prim buffer
      renderer shows the wider picture. Objects the logic frustum culls would then be missing at the screen edges,
      because `Render::Object`s are culled with it (`World::Render`, `FUN_001c2820`). So the pin is a test-mode
      knob, not a play option.
+   - Done in the wasm app (wvid1, D234): Aspect Ratio is the game's own widescreen as a per-session setting; measured,
+     16:9 diverges the simulation (rng first, ~1,000 gameplay frames in). docs/wasm-port.md "Aspect ratio, HUD
+     frame, draw distance and fog".
 3. **Draw distance can be render-only**, in four parts:
    1. **Room fade constants.** Override the three floats (270/25/150) at start-up. The remaster's platform layer
       writes the named data items after data initialisation (an override table). No source edit; `World::Render`'s
@@ -331,6 +334,10 @@ mods/<pack>/models/mdl-<xxh64>.glb      replacement mesh(es) for one prim buffer
       there. The scripts' calls are untouched.
    3. **Far plane.** Substituted in the backend's projection (point 1). The game's far plane of 3000 already exceeds
       the room cut-off, so loaded rooms are not clipped.
+   Parts 1 and 2 are done in the wasm app (wvid1, D235): the floats are set by an entry hook only while
+      `World::Render` runs, and fog is overridden in the runner's packets. Measured: the simulation is unchanged (all
+      checkpoint tags), but drawing more rooms moves render bookkeeping in the game hash (pure3d's render lists, the
+      front end's upload order), so draw distance is per session like aspect. Part 3 is not needed below 3,000.
    4. **Far field.** Rooms the game has not loaded: the streaming budget decides which rooms are resident, and
       loading more would fire room events into simulation. So the remaster owns a **far-field layer**. Its own `.p3d`
       reader (the format is fully mapped, [formats/p3d.md](formats/p3d.md); `tools/p3d.py city` already merges a

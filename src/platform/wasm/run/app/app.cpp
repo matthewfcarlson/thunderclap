@@ -202,25 +202,33 @@ static uint32_t hostFrameBuffer(uint32_t vid)
 // an occlusion query's pixel count is scaled back. Render targets (the effects' smaller targets) keep their sizes.
 static int s_rrMode = 1, s_rrPending;
 static uint32_t s_logW, s_logH, s_physW, s_physH, s_winW, s_winH;
+// the display's aspect (gfx_display_aspect: the aspect-ratio setting, wvid1 D234; 4:3 the frame's own): the scene
+// target takes that shape (the game's 640x480 frame drawn anamorphically, as on an Xbox 16:9 mode) and the module's
+// present rectangle (bgfx_display.cpp presentRect) is the same rectangle of the window
+static uint32_t s_aspN = 4, s_aspD = 3;
 static void rrSize(uint32_t* pw, uint32_t* ph)
 {
     uint32_t lw = s_logW, lh = s_logH, w = lw, h = lh;
+    bool own = s_aspN * 3 == s_aspD * 4;    // 4:3: sizes from the frame's own (as before)
+    uint32_t an = own ? lw : s_aspN, ad = own ? lh : s_aspD;
+    if (!an || !ad)
+        an = 4, ad = 3;
     if (s_rrMode >= 1 && s_rrMode <= 4) {
-        w = lw * (uint32_t)s_rrMode;
         h = lh * (uint32_t)s_rrMode;
+        w = own ? lw * (uint32_t)s_rrMode : (uint32_t)(((uint64_t)h * an + ad / 2) / ad);
     } else if (s_rrMode == 0) {
-        if (s_winW && s_winH) {         // the largest rectangle of the frame's aspect in the window (its present rect)
-            if ((uint64_t)s_winW * lh <= (uint64_t)s_winH * lw) {
+        if (s_winW && s_winH) {         // the largest rectangle of the display's aspect in the window (its present rect)
+            if ((uint64_t)s_winW * ad <= (uint64_t)s_winH * an) {
                 w = s_winW;
-                h = (uint32_t)(((uint64_t)s_winW * lh + lw / 2) / lw);
+                h = (uint32_t)(((uint64_t)s_winW * ad + an / 2) / an);
             } else {
                 h = s_winH;
-                w = (uint32_t)(((uint64_t)s_winH * lw + lh / 2) / lh);
+                w = (uint32_t)(((uint64_t)s_winH * an + ad / 2) / ad);
             }
         }
     } else if (s_rrMode > 4) {
         h = (uint32_t)s_rrMode;
-        w = (uint32_t)(((uint64_t)h * lw + lh / 2) / lh);
+        w = (uint32_t)(((uint64_t)h * an + ad / 2) / ad);
     }
     const uint32_t kMax = 8192;
     if (w > kMax || h > kMax) {
@@ -514,6 +522,7 @@ u32 w2c_hulk_gfx_draw_resources(struct w2c_hulk*) { flush(); return hulk_gfx_sin
 u32 w2c_hulk_gfx_has_vertex_program(struct w2c_hulk*, u32 vp) { return hulk_gfx_sink_has_vertex_program(vp); }
 
 // a draw packet with host pointers (the out fields of preparePipeline go back)
+static void fogOverride(DrawPacket* p);
 static void packet(const WDrawPacket* w, DrawPacket* p)
 {
     p->frame = w->frame;
@@ -557,6 +566,7 @@ static void packet(const WDrawPacket* w, DrawPacket* p)
     p->ambient = w->ambient;
     p->lighting = w->lighting;
     p->fog = w->fog;
+    fogOverride(p);
 }
 u32 w2c_hulk_gfx_prepare_pipeline(struct w2c_hulk*, u32 pk)
 {
@@ -635,6 +645,27 @@ void w2c_hulk_gfx_render_res(struct w2c_hulk*, u32 value)
         return;
     s_rrMode = (int)value;
     s_rrPending = 1;
+}
+void w2c_hulk_gfx_display_aspect(struct w2c_hulk*, u32 num, u32 den)
+{
+    if (!num || !den || (num == s_aspN && den == s_aspD))
+        return;
+    s_aspN = num, s_aspD = den;
+    s_rrPending = 1;
+    fprintf(stderr, "hulk-app: display aspect %u:%u\n", num, den);
+}
+// the fog setting (wvid1): 0 the game's, 1 reduced (the planes x2.5), 2 off. Output only: the packets the sink draws
+static int s_fog;
+void w2c_hulk_gfx_fog(struct w2c_hulk*, u32 value) { s_fog = (int)value; }
+static void fogOverride(DrawPacket* p)
+{
+    if (s_fog == 2) {
+        p->fog = 0;
+        p->frag[1][3] = 0.0f;
+    } else if (s_fog == 1 && p->fog) {
+        p->frag[2][0] *= 2.5f;
+        p->frag[2][1] *= 2.5f;
+    }
 }
 void w2c_hulk_gfx_request_screenshot(struct w2c_hulk*, u32 path)
 {

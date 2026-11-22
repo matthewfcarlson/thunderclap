@@ -348,8 +348,9 @@ most enhancements on; turning the edition off restores every faithful value (D23
   remastered-only setting takes its faithful value, its item shows that value and turns back to it when changed; the
   player's own values stay in the file and come back when the switch is turned on.
 - **Defaults** (D233, when the file has no value): the edition on; Frame Rate 60 FPS (every display has it; 120 and
-  Display are one selection away); Render Resolution Window (the window's own pixels). Faithful: Frame Rate
-  30, Render Resolution Original (640x480).
+  Display are one selection away); Render Resolution Window (the window's own pixels); Aspect Ratio Window, HUD
+  Frame Screen Edges, Draw Distance Far, Fog Reduced (wvid1, below). Faithful: Frame Rate 30, Render Resolution
+  Original (640x480), Aspect Ratio 4:3, HUD Frame Centred, Draw Distance Original, Fog On.
 - **The file** is `HULK_SAVE_DIR/port_settings.txt` (`key=value` lines; fps1's `frame_rate=60` file reads as it is),
   next to the game's saves, written at every change. Runs that test or replay never read or write it and start from
   the faithful values: a recording, a `HULK_INPUT` run and `HULK_ROLLTEST` (`HULK_SETTINGS_FILE=1` makes a `HULK_INPUT`
@@ -392,10 +393,66 @@ multiple of the frame; 0: the largest rectangle of the frame's aspect in the win
   3x (1920x1440 window): byte-identical checkpoint records (`HULK_CKREF=1`). The game hash cannot show it with Metal
   (two runs at the same setting differ: the front end's pointers into the module's malloc heap, waud1). Screenshots
   at 1920x1440 show the frame, HUD and text at full resolution.
-- **Not done.** Aspect: the frame stays 4:3. The game's own widescreen (16:9 modes in 0x4d3508, Hor+ cameras, an
-  aspect-wide HUD layout; docs/subsystems.md §1-2) follows `bgfxDisplay::vfunc_16`; a 16:9 option would change what
-  the game computes (FOV, HUD layout, possibly on-screen tests), so it needs its own game-state check before it can be
-  a setting.
+- **Aspect.** At an aspect other than 4:3 (the next section) the render size keeps the game's 480 lines per multiple
+  and takes the aspect's width (Original at 16:9: 853x480; 720p: 1280x720), and Window fills the window's rectangle of
+  that aspect: the module's present rectangle (bgfx_display.cpp presentRect) and the runner's use the same formula.
+
+### Aspect ratio, HUD frame, draw distance and fog (wvid1, D234 / D235)
+
+Video Options has four more rows (port_settings.c): Aspect Ratio, HUD Frame, Draw Distance and Fog. Faithful values:
+4:3, Centred, Original, On; remastered defaults: Window, Screen Edges, Far, Reduced.
+
+- **Aspect Ratio: 4:3 (Original) / 16:9 / 16:10 / 21:9 / Window** (`aspect=43|169|1610|219|0`; 21:9 is 64:27; Window
+  is the window's own shape, clamped to 4:3 .. 64:27). The game's own widescreen, as an Xbox in a 16:9 video mode
+  plays it: the frame stays 640x480 (the 480p widescreen modes of the mode table 0x4d3508 are anamorphic 640x480 too)
+  and the display reports the aspect (`bgfxDisplay::vfunc_16`, d3dDisplay::GetAspectRatio 0x31b500's slot, under
+  `HULK_PDDI_WASM`: gfx.c `hulk_wasm_display_aspect`). The cameras widen horizontally through ComputeRealFOV 0x9f790
+  (Hor+: the vertical FOV is the 4:3 one), the HUD's text, message box and icons lay out on the wider frame
+  (COverlayManager's half-width 0x4de600), and movies scale by the display aspect (0x334620). The runner draws the
+  scene target at the aspect (the import `gfx_display_aspect`; "Render resolution") and presents it unstretched.
+  - **It changes the simulation** (D234 accepts this). The logic view's frustum follows the camera's FOV (docs/remaster.md
+    3.2: ambient despawn after 150 frames off screen, om::Stream's slots, the `killBuild` rubble spawn's
+    `cm_IsPointInCameraView`). Measured on fps2's 8,000-frame `HULK_INPUT` run (front end, the load, 2,000 frames of
+    the first mission): the game hash differs from frame 10 (the front end's and the HUD's layout words); the
+    checkpoint records stay identical through the front end, the load and the first ~1,000 gameplay frames, then the
+    gameplay RNG and `legacy` diverge at record 4,342 (about game frame 7,000: something off screen at 4:3 is on screen
+    at 16:9, or the reverse), particles at 4,728, the Hulk and the camera at 4,773 (drift), actors at 4,800; flow,
+    clock, mission and sound never. So, like the frame rate, it is a **per-session setting**: replays, `HULK_INPUT`
+    runs and `HULK_ROLLTEST` start at 4:3 (port_settings.c), netplay peers must share it and the item locks during
+    netplay (when netplay exists), and its determinism holds within a setting (rolltests below).
+  - Window follows resizes and fullscreen as they happen (the cameras re-run ComputeRealFOV when the aspect changes).
+- **HUD Frame: Centred (Original) / Screen Edges** (`hud_frame=0|1`). The HUD's corner brackets are four fixed models
+  drawn for a 4:3 frame, so at 16:9 they sit in the middle (as on the Xbox). Screen Edges moves them out to the
+  picture's edges with the Wine build's `HULK_HUD=edge` shift (docs/wine-widescreen-60fps.md; bgfx_context.cpp
+  `vfunc_109`, the fixed-function vertex shader's `u_vc[55]`). Nothing at 4:3; `HULK_HUD=edge|centre` overrides it.
+  Render-only, but the shift is a word of the front end's context (in the arena): like aspect, per session.
+- **Draw Distance: Original / Far / Very Far** (`draw_distance=270|400|700`): World::Render 0x1c88f0 fades a resident
+  room out from 0x4c53bc (270) over 0x4c53c4 (25) units of horizontal distance and skips it beyond their sum
+  (docs/remaster.md 3.1). An entry hook (`wasm_port.GFX_APP_HOOKS`, src/platform/wasm/gfx/draw_distance.c) sets the
+  two floats to the setting's start and a band scaled with it (25 x start / 270) while World::Render runs and puts
+  270 / 25 back when it returns; nothing else reads them. The near-volume radius 0x4c53c0 (150) stays. The camera's
+  near/far/FOV, the projection and culling are untouched (the game's far plane, 3,000, is beyond every choice).
+  - **Rooms the game has not loaded never appear.** The streaming budget decides what is resident: in the first
+    mission 14-16 rooms, the farthest 340-390 units from the camera (`HULK_DRAWDIST_LOG=N` logs it every N frames).
+    Far (400) draws every resident room there; Very Far (700) only helps where more is resident. Drawing the rest of
+    a location is the far-field layer, a later remaster stage (docs/remaster.md 3.3).
+  - **The simulation is unchanged; the game hash is not** (D235). The same `HULK_INPUT` run with the hook at 270 and
+    at 1,000 (`HULK_DRAWDIST_FORCE=N`, a test knob: the menus hold the same values in both runs) gives identical
+    checkpoint records on all ten tags over 8,000 frames, and the same game hash to frame 7,010; at 7,020, when rooms
+    beyond 295 units first come into view, 367 words differ, all render bookkeeping: the tails of pure3d's per-frame
+    render lists past the faithful run's high-water mark, the pddi front end's vids and serials of prim buffers it
+    uploads at their first draw, and from those uploads the arena allocator's bounds. (World::Render's own list of
+    rooms drawn, +0x54c of its manager, is written only by 0x1c6800, 0x1c88f0 and the constructor 0x1c9030 and read by
+    nothing; a room's fade f58 is only ever written 0.) Any approach that has the game draw more rooms moves these
+    words, so draw distance is a per-session setting too: replays and tests pin Original, netplay peers must share
+    it and it locks during netplay. Netplay's desync detection hashes the game with the session's settings fixed,
+    which every peer shares.
+- **Fog: On (Original) / Reduced / Off** (`fog=0|1|2`): the runner's draw packets only (app.cpp `fogOverride`: Reduced
+  moves the start and end planes out 2.5x, Off clears the fog flag); the game's fog state, set by the location
+  scripts (`rm_SetFogPlanes`, e.g. 30..900 or 30..1,200), is untouched, and nothing in module memory changes.
+  Measured with Fog Off and HUD Frame Screen Edges at 4:3 against the faithful values (7,300 frames, one build): the
+  checkpoint records identical, and the game state differs only in the five words of the two items' menu objects
+  (their named ints' choice indices), as the frame-rate item's do.
 
 ### Movies (wmov1; hold to skip: D231)
 
@@ -509,6 +566,13 @@ display's refresh by drawing the last simulated frame again with its transforms 
 - **Audio**: waud1's model advances by the virtual clock, which follows the fixed simulation step: unchanged.
 
 ## Status
+
+- 2026-11-22 (wvid1, D234/D235): **Aspect Ratio, HUD Frame, Draw Distance, Fog** (Video Options; "Aspect ratio, HUD
+  frame, draw distance and fog" above). 16:9 is the game's own widescreen and changes the simulation from ~1,000
+  gameplay frames in; draw distance keeps every checkpoint tag but moves render bookkeeping in the game hash; both
+  are per-session settings that replays and tests pin to the original. `HULK_ROLLTEST` with Metal identical at
+  16:9 + Screen Edges + Very Far + Reduced fog + 60 fps (6500:7600 in gameplay, 1200:2500 across the load) and at
+  21:9 + Far (6900:7500). play3 to 60,000 with `null`: records byte-identical (prefix) to the 08a213c72 user app.
 
 - 2026-11-22 (wopt1, D232/D233): **Video Options and Gameplay Options; the remastered edition; render resolution.**
   Options (front end and pause menu) has two new screens built from one settings table (port_settings.c): Frame Rate

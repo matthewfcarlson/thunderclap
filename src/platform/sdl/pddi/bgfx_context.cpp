@@ -597,6 +597,9 @@ void bgfxContext::vfunc_108(int n)
 // the viewport's x0, y0, x1, y1 as fractions, +0x24 near, far, field of view, aspect): mode 0 a perspective
 // (z in [0, w], w = camera depth), 1 an orthographic view of the aspect, 2 pixel coordinates; the viewport in
 // pixels of the target (FUN_00321520)
+#if HULK_PDDI_WASM
+extern "C" int hulk_wasm_hud_edge(void);
+#endif
 void bgfxContext::vfunc_109()
 {
     ViewBlock* k = viewBlock();
@@ -628,7 +631,12 @@ void bgfxContext::vfunc_109()
 #if HULK_PDDI_GAME
     {
         static const char* e = getenv("HULK_HUD");
+#if HULK_PDDI_WASM
+        // the app: the HUD Frame setting (src/platform/wasm/gfx/gfx.c, wvid1), HULK_HUD=edge|centre over it
+        const bool edge = e ? (e[0] == 'e' || e[0] == 'E') : hulk_wasm_hud_edge() != 0;
+#else
         static const bool edge = e && (e[0] == 'e' || e[0] == 'E');
+#endif
         if (edge && k->mode == 0 && k->aspect > 1.4f && k->nearZ > 0.09f && k->nearZ < 0.11f && k->farZ == 100.0f) {
             float t = (float)bx::tan(k->fov * 0.5f) - 0.75f * k->aspect;
             if (t > -0.02f && t < 0.02f) {

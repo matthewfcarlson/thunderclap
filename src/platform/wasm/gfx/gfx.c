@@ -20,6 +20,7 @@
 #include <time.h>
 #include "../host/hulk_host.h"
 #include "../host/sim.h"
+#include "port_settings.h"
 
 #define GI(name) __attribute__((import_module("hulk"), import_name(#name)))
 
@@ -65,6 +66,8 @@ GI(gfx_frame) void gi_frame(void);
 GI(gfx_request_screenshot) void gi_request_screenshot(const char* path);
 GI(gfx_context_destroyed) void gi_context_destroyed(void);
 GI(gfx_render_res) void gi_render_res(int32_t value);
+GI(gfx_display_aspect) void gi_display_aspect(uint32_t num, uint32_t den);
+GI(gfx_fog) void gi_fog(int32_t value);
 GI(plat_video_init) int32_t gi_video_init(void);
 GI(plat_error) uint32_t gi_error(char* buf, uint32_t cap);
 GI(plat_create_window) int32_t gi_create_window(const char* title, int32_t w, int32_t h, int32_t hidden, int32_t resizable);
@@ -449,6 +452,47 @@ void hulk_gfx_sink_request_screenshot(const char* path) { gi_request_screenshot(
  * end and the game keep the 640x480 frame; app.cpp "Render resolution") */
 void hulk_wasm_render_res_apply(int value) { gi_render_res(value); }
 void hulk_gfx_sink_context_destroyed(void) { gi_context_destroyed(); }
+/* the fog setting (port_settings.c, wvid1): the runner's packets (0 the game's fog, 1 reduced, 2 off); output only */
+void hulk_wasm_fog_apply(int value) { gi_fog(value); }
+
+/* The aspect-ratio setting (port_settings.c, wvid1, D234): what the display reports to the game (bgfxDisplay slot 16,
+ * d3dDisplay::GetAspectRatio 0x31b500's place) and the shape of the frame in the window. The game's frame stays
+ * 640x480 (an Xbox 16:9 mode is the same anamorphic 640x480): the cameras widen horizontally (Hor+) and the HUD lays
+ * out on the wider frame; the runner draws the scene target at the aspect (app.cpp "Render resolution") and presents
+ * it unstretched. 43 / 169 / 1610 / 219 (64:27), 0 the window's, clamped to 4:3 .. 64:27. Game state follows it (the
+ * logic view), so tests and replays pin 43 (port_settings.c). */
+static int g_aspect = 43, g_hud_edge;
+/* the HUD Frame setting (port_settings.c): 1 moves the HUD's 4:3 corner-bracket frame models out to the edges of a
+ * wider picture (bgfx_context.cpp vfunc_109, docs/wine-widescreen-60fps.md "HULK_HUD=edge"); nothing at 4:3 */
+void hulk_wasm_hud_edge_apply(int value) { g_hud_edge = value; }
+int hulk_wasm_hud_edge(void) {
+    hulk_settings_load();
+    return g_hud_edge;
+}
+static uint32_t g_asp_sent_n = 4, g_asp_sent_d = 3;
+void hulk_wasm_aspect_apply(int value) { g_aspect = value; }
+void hulk_wasm_display_aspect(uint32_t ww, uint32_t wh, uint32_t* num, uint32_t* den) {
+    hulk_settings_load();
+    uint32_t n = 4, d = 3;
+    switch (g_aspect) {
+    case 169: n = 16, d = 9; break;
+    case 1610: n = 16, d = 10; break;
+    case 219: n = 64, d = 27; break;
+    case 0:
+        if (ww && wh) {
+            n = ww, d = wh;
+            if ((uint64_t)n * 3 < (uint64_t)d * 4) n = 4, d = 3;            /* narrower than 4:3: 4:3, letterboxed */
+            else if ((uint64_t)n * 27 > (uint64_t)d * 64) n = 64, d = 27;   /* wider than 21:9: 21:9, pillarboxed */
+        }
+        break;
+    default: break;
+    }
+    if (n != g_asp_sent_n || d != g_asp_sent_d) {
+        g_asp_sent_n = n, g_asp_sent_d = d;
+        gi_display_aspect(n, d);
+    }
+    *num = n, *den = d;
+}
 
 /* ------------------------------------------------------------------------------------------- the window */
 int hulk_platform_video_init(void) { return gi_video_init(); }
