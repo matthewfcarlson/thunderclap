@@ -2663,3 +2663,12 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   return the block under HULK_PORT_ABI, and gen/core.h's IMemoryAllocator slot 3 family is `void*` there. The name
   now matches; 870 does not move: the spawned soldier is updated (turns and steps) in its spawn frame 858 on wasm
   and only from 859 in Wine (actor words at the first 0x00059c10 call of 858/859, Wine 111430/111433 vs a wasm hook).
+- wasm9 (D212), 870 (actors): the soldier spawned at 857 moves in its spawn frame on wasm because its
+  CPathGraphAgent (constructor 0x00105f50) leaves +0x5d (path ready), +0x8c, +0x9c, +0xb4, +0xc0, +0xd0
+  uninitialized and 0x00104d00 tests +0x5d (and +0xb4) before the queued path request is served. Wine (and the Xbox)
+  hand back a fresh zero block (span at 0x00104d00, job 111439: +0x5c word 0 at 858, 0x101 at 859); the wasm heap
+  hands back a recycled one (+0x5d = 0x94), so 0x00104d00 steered toward the waypoint (+0x2064 dir, +0x2070 = 1.0)
+  one frame early. Actor +0x640 (contact list Ent28[128] at +0x638, FUN_00038e80) is written in 858 on both builds:
+  not a cause. The port builds zero those words under HULK_PORT_ABI. wasm play3: 870 -> 2010 (actors), 60,000
+  frames in 98 s. The wasm and Wine heaps lay out the same spawn differently (agent - actor 0x27f0 vs 0x3f80):
+  further uninitialized reads can surface the same way.

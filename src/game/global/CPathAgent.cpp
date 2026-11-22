@@ -1143,6 +1143,18 @@ public:
 
 CPathGraphAgent::CPathGraphAgent(Owner_105f50 *o) : CCharacterAgent(o)
 {
+#if defined(HULK_PORT_ABI)
+    // HULK_PORT_ABI (include/compat/ptr.h): the original leaves these words uninitialized and 0x00104d00 tests
+    // +0x5d (path ready) and +0xb4 before the path request queued below is served; on the Xbox (and the Wine build)
+    // the block is fresh, zero memory. The port builds' heap lays blocks out differently and can hand back a
+    // recycled one (wasm play3 858: +0x5d = 0x94 made a spawned soldier move one frame early), so they zero them (wasm9).
+    pad5d[0] = pad5d[1] = pad5d[2] = 0;
+    *(int*)pad8c = 0;
+    *(int*)pad9c = 0;
+    *(int*)padb4 = 0;
+    *(int*)padc0 = 0;
+    *(int*)padd0 = 0;
+#endif
     f90 = 0;
     f94 = 0;
     f98 = 0;
