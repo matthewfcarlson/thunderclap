@@ -1236,8 +1236,7 @@ class Entity {
     char pad[0x24];
 };
 } // namespace om
-extern char g_pool_2579f0[];
-void Release2(void*, void*);
+void __cdecl FUN_00247550(void* pool, void* p);   // (gcmp1) the pool release, as 0x00257c90 calls it
 void F1_00256d40(void*);
 void F2_00257730(void*);
 namespace audio {
@@ -1251,7 +1250,9 @@ class Sequence : public om::Entity {
     char m3c[8];
     char m44[8];
     virtual ~Sequence();
-    static void operator delete(void* p) { Release2(g_pool_2579f0, p); }
+    // (gcmp1) the Sequence pool DAT_004e7620 (0x00257c90's free), never a TU-local name: one bound nothing on the port
+    // builds (a named stub)
+    static void operator delete(void* p) { FUN_00247550((char*)&DAT_004e7620, p); }
 };
 Sequence::~Sequence() {
     sb.Reset();

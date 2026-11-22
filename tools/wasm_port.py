@@ -1674,9 +1674,9 @@ void ff_dispatch(uint32_t a, uint32_t ecx, uint32_t edx, void* st, void* rb) {
     if os.path.exists(out):     # (standalone: what the link left undefined is an `env` import)
         missing |= {n for m, n, kind in wasm_imports(out) if m == "env"}
     missing = sorted(missing)
+    decl = {}
     if missing:
         want = set(missing)
-        decl = {}
         for t in sorted(rep["info"]):
             for line in open(os.path.join(OUT, "obj", flat(t) + ".ll"), errors="surrogateescape"):
                 if not (line.startswith("declare ") or (line.startswith("@") and " external " in line)):
@@ -1738,7 +1738,7 @@ void ff_dispatch(uint32_t a, uint32_t ecx, uint32_t edx, void* st, void* rb) {
             warn[(m.group(1), m.group(2))] += 1
     link = {"rc": r.returncode, "objects": len(objs), "entries": len(entries),
             "stubs": {k: list(v) for k, v in stubs.items()}, "thunks": {k: "0x%08x" % v for k, v in thunks.items()},
-            "named_undefined": missing, "destructors": {k: "0x%08x" % v for k, v in dtors.items()} if missing else {}, "warnings": [list(k) + [n] for k, n in warn.items()],
+            "named_undefined": missing, "data_undefined": data_stubs(missing, decl), "destructors": {k: "0x%08x" % v for k, v in dtors.items()} if missing else {}, "warnings": [list(k) + [n] for k, n in warn.items()],
             "stderr": r.stderr[-6000:] if r.returncode else ""}
     json.dump(link, open(os.path.join(OUT, "link.json"), "w"), indent=1)
     print("link rc %d: %d objects, %d generic entries, %d thunks, %d unbound entries, %d named stubs, %d warnings" % (
@@ -1746,10 +1746,39 @@ void ff_dispatch(uint32_t a, uint32_t ecx, uint32_t edx, void* st, void* rb) {
     if r.returncode:
         print(r.stderr[-3000:])
     cmd_report(a)
+    baseline = json.load(open(DATA_STUB_BASELINE))["names"] if os.path.exists(DATA_STUB_BASELINE) else []
+    new_data, gone = data_stub_check(link["data_undefined"], baseline)
+    if gone:
+        print("data stubs: %d baseline name(s) no longer stubs, drop them from %s: %s" % (
+            len(gone), os.path.relpath(DATA_STUB_BASELINE, ROOT), ", ".join(gone)))
+    if new_data and not r.returncode:
+        if os.path.exists(os.path.join(OUT, "hulk.wasm")):
+            os.remove(os.path.join(OUT, "hulk.wasm"))
+        raise SystemExit("link: %d data name(s) bound nothing and became zero-filled stubs (name game data DAT_<addr>; "
+                         "config/wasm-data-stubs.json only shrinks): %s" % (len(new_data), ", ".join(new_data)))
     if r.returncode:        # (an older hulk.wasm left in the directory must not reach `aot`: wapp2)
         if os.path.exists(os.path.join(OUT, "hulk.wasm")):
             os.remove(os.path.join(OUT, "hulk.wasm"))
         raise SystemExit("link failed (rc %d): %s/link.json" % (r.returncode, OUT))
+
+
+# (gcmp1) A data name the link leaves undefined becomes a zero-filled 64-byte stub: whatever reads or points at it gets
+# zeros, silently (0x00295e20's `extern float one` stood for the identity matrix 0x4c9f38 and made every root
+# scenegraph transform a zero matrix: the intro's sky, backdrop and props vanished). Sources name game data by its
+# address (DAT_<addr>), never by a TU-local name. config/wasm-data-stubs.json lists the data stubs known when the
+# check came in; it only shrinks. Function stubs (destructors, vfunc views) stay reported, not failing.
+DATA_STUB_BASELINE = os.path.join(ROOT, "config/wasm-data-stubs.json")
+
+
+def data_stubs(missing, decl):
+    """The named stubs that are data: no function declaration names them (the stub is a zero-filled global)."""
+    return sorted(n for n in missing if not (decl.get(n, (None, ""))[1] or "").startswith("declare "))
+
+
+def data_stub_check(data, baseline):
+    """-> (new, gone): data stubs not in the baseline (the link fails on them), baseline names no longer stubs (the
+    baseline can shrink: drop them)."""
+    return sorted(set(data) - set(baseline)), sorted(set(baseline) - set(data))
 
 
 def cmd_report(a):
@@ -1760,6 +1789,8 @@ def cmd_report(a):
         ns = sorted({(v[1] or "?") for v in link["stubs"].values() if v[0] == kind})
         print("  %s (%d): %s" % (kind, len(ns), ", ".join(ns[:30]) + (" ..." if len(ns) > 30 else "")))
     print("named undefined: %d" % len(link["named_undefined"]), ", ".join(link["named_undefined"][:40]))
+    if "data_undefined" in link:
+        print("named undefined data (zero-filled stubs): %d" % len(link["data_undefined"]), ", ".join(link["data_undefined"]))
     for w in link["warnings"][:20]:
         print("  warning:", *w)
 

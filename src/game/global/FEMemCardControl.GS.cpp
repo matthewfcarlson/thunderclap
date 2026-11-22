@@ -1026,9 +1026,9 @@ const char* text;
 if(mode) text=(*(const char**)&DAT_004a0ce8);
 else if(DAT_004dd6ec->FUN_00086280()->flag) text=(*(const char**)&DAT_004a0ce4);
 else text=(*(const char**)&DAT_004a0ce0);
-extern const float zero_d94e0; // the shared 0.0f constant in .rdata
 unsigned int setting=(*(hulk_uintptr*)&DAT_004a0c60);
-service->FUN_000be310(text,buffer,&zero_d94e0,&zero_d94e0,&zero_d94e0,3,setting,setting);
+// (gcmp1) the shared 0.0f constant in .rdata by its own name: a TU-local `zero_d94e0` was a named stub on the port builds
+service->FUN_000be310(text,buffer,&DAT_003f335c,&DAT_003f335c,&DAT_003f335c,3,setting,setting);
 active=1;
 value=0;
 ((owners::MenuScreen_bc9f0 *)label)->FUN_000bc9f0((hulk_intptr)"DynamicControlButtonLabel", 0);

@@ -1,0 +1,6 @@
+{
+ "about": "tools/wasm_port.py link: data names the wasm link leaves undefined (zero-filled stubs) known when the check came in (gcmp1, 2026-11-22). Only shrinks: a new data stub fails the link; name game data DAT_<addr>.",
+ "names": [
+  "??_7type_info@@6B@"
+ ]
+}

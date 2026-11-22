@@ -3003,3 +3003,21 @@ draws gives in-between frames with no tree change and no path back into the game
   then run on stand-in objects built with 32-bit pads. Vftables and records go together.
 - The wasm build needs none of this (32-bit data at XBE addresses, packers for declaration mismatches): that is the
   whole gap between the two ports.
+
+## 2026-11-22: gcmp1, the intro's missing scenery in the wasm app (a data name that bound nothing)
+
+- **Symptom.** In the app's in-engine intro (the fly-around of the base, the soldier with the VR headset) the canyon
+  backdrop, the helicopter, the jeeps, the officers and the subtitle text were missing. Compared with the Wine build
+  (`--gfx`) on play3 without the press that skips the intro: game state identical (every ckref tag), app frame N =
+  Wine GameClock frame N-192 (the app's screenshot numbering counts presents), same draw count per frame (239 at 750)
+  — the draws reached the sink, but 48 a frame carried a world matrix with a zero 3x3, collapsing them to a point.
+- **Cause.** 0x00295e20 `pure3d::scenegraph::Node::vfunc_17` returned `&one` from a block-scope `extern float one`
+  (the original: 0x4c9f38, the identity matrix). MSVC matched and the relocations were ok, but on the wasm link `one`
+  bound nothing and became a zero-filled named stub, so every root TransformNode combined its local matrix with
+  zeros. Found by debug hooks on the matrix stack (PushLoadMatrix of a zero 3x3) and TransformNode::vfunc_17 (world
+  zero, parent a plain Node). The void-eax run-time scan over the intro showed nothing new.
+- **Fix.** The DAT_ name (DAT_004c9f38), and the two other data names the wasm link stubbed: the audio Sequence pool
+  (DAT_004e7620 with its free FUN_00247550, as 0x00257c90) and the shared 0.0f (DAT_003f335c in 0x000d94e0, D187
+  unproven-accept). play3 headless records byte-identical before and after (60,000 frames).
+- **Guard.** `wasm_port.py link` lists the data names it stubs (`data_undefined` in link.json) and fails on one that
+  config/wasm-data-stubs.json (only shrinks; now just `??_7type_info@@6B@`) doesn't list. Function stubs stay reported.

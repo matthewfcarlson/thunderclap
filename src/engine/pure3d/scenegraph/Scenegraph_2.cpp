@@ -1067,8 +1067,9 @@ void* pure3d::scenegraph::Node::vfunc_17() {
     this->f_10 &= ~4;
     if ((*(pure3d::scenegraph::Node * *)&this->f_14))
         return (void*)((*(pure3d::scenegraph::Node * *)&this->f_14)->vfunc_17());
-    extern float one;
-    return (void*)(&one);
+    // (gcmp1) the identity matrix by its own address, as 0x00295e00: a block-scope `extern float one` bound nothing
+    // on the port builds (a named stub), so every root TransformNode's world was garbage with a zero 3x3
+    return (void*)(((float*)&DAT_004c9f38));
 }
 
 

@@ -380,6 +380,23 @@
    },
    "why": "D154: rooverlay_dominated under 3d027e12e: --wine at 3,000 (job 111175, checker c881deece6f7) reads the original's .rdata through a pointer on 2969 inputs; the proof predates rooverlay"
   },
+  "0x000d94e0": {
+   "modes": {
+    "msvc": {
+     "code": "01fe7ed9fdff",
+     "accepted": "2026-11-22T16:15:28",
+     "why": "D187 macOS-first: gcmp1, the shared 0.0f constant by its own name DAT_003f335c (a TU-local zero_d94e0 was a named stub on the port builds)",
+     "by": "unproven-accept"
+    },
+    "wine": {
+     "code": "65d2589a6bc5",
+     "accepted": "2026-11-22T16:15:28",
+     "why": "D187 macOS-first: gcmp1, the shared 0.0f constant by its own name DAT_003f335c (a TU-local zero_d94e0 was a named stub on the port builds)",
+     "by": "unproven-accept"
+    }
+   },
+   "why": "D187 macOS-first: gcmp1, the shared 0.0f constant by its own name DAT_003f335c (a TU-local zero_d94e0 was a named stub on the port builds)"
+  },
   "0x000ddac0": {
    "modes": {
     "wine": {
@@ -1515,5 +1532,5 @@
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   }
  },
- "total": 166
+ "total": 168
 }
