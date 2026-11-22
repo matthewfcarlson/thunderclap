@@ -449,6 +449,13 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   call_indirect"). `wasm_app.py build` recompiles every TU when its app-inputs.json record changed or is missing (objects
   copied from another build dir are rebuilt); build the app from fresh `wasm_inputs.py` inputs (~8 min on 2 jobs);
   `wasm_port.py link` exits nonzero on a failed link (wapp2).
+  Audio (D222): dsound_null.c is the only voice model the game reads (arena + sim). Free play advances voices by the
+  virtual clock (48 kHz of `SIM->clock`), never per DoWork; replays keep 800 frames a DoWork (`HULK_DS_CLOCK=time`
+  diverges play3's sound tag from frame 586). The app's mixer only mirrors the model (`ff_audio_tick`/`aud_tick`); never
+  feed mixer state back into the game. Free-play determinism tests use `HULK_INPUT` (frame-indexed), not
+  `HULK_KEY_SCRIPT` (wall clock), with the same save directory paths; `HULK_ROLLTEST=A:B` checks a snapshot/restore round
+  trip. With Metal, the game hash includes pddi front-end pointers into the module's malloc heap, which host history
+  moves (waud1).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
