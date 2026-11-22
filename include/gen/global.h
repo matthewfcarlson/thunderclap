@@ -630,7 +630,11 @@ public:
     CAlertStatusCondition(void* owner = 0) : ::CCondition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_7(void*); // overrides CCondition slot 7
+#if defined(HULK_PORT_ABI)
+    virtual void* vfunc_8(void*); // slot 8; the port builds return 0x00059a30's entity (0x0004a500 reads it, wasm8)
+#else
     virtual void vfunc_8(void*); // slot 8
+#endif
     int compare;
     int status;
 };
@@ -2908,7 +2912,11 @@ public:
 class CGrappleAlertStatusCondition : public ::CAlertStatusCondition {
 public:
     CGrappleAlertStatusCondition(void* owner = 0) : ::CAlertStatusCondition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
+#if defined(HULK_PORT_ABI)
+    virtual void* vfunc_8(void*); // overrides CAlertStatusCondition slot 8 (the port builds' result, wasm8)
+#else
     virtual void vfunc_8(void*); // overrides CAlertStatusCondition slot 8
+#endif
 };
 
 // .?AVCGrappleAttachAction@@  vftable 0x3f377c (9)

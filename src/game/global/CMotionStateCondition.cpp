@@ -54,6 +54,13 @@ CMotionStateCondition_4a220* __fastcall FUN_0004a220(CMotionStateCondition_4a220
 // 0x0004a260 CMotionStateCondition::vfunc_8 (19 B): matches/0x0004a260.cpp [wrapped: conflict: CCondition; CMotionStateCondition]
 // sym: ?v8@CMotionStateCondition@fn_0004a260@@UAEXPAX@Z
 namespace fn_0004a260 {
+// HULK_PORT_ABI (include/compat/ptr.h): 0x00059a30 returns its word +0x10, and slot 8's caller (0x0004a280, gen's
+// `int vfunc_8(hulk_intptr)`) reads it from eax. The port builds return it (wasm8), the 32-bit builds keep void.
+#if defined(HULK_PORT_ABI)
+typedef hulk_intptr Ret_4a260;
+#else
+typedef void Ret_4a260;
+#endif
 class CCondition {
   public:
     virtual void v0();
@@ -64,18 +71,22 @@ class CCondition {
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual void v8(void*);
+    virtual Ret_4a260 v8(void*);
 };
 class CMotionStateCondition : public CCondition {
   public:
-    virtual void v8(void*);
+    virtual Ret_4a260 v8(void*);
 };
 struct H {
     H* first_000592a0();
-    void second_00059a30();
+    Ret_4a260 second_00059a30();
 };
-void CMotionStateCondition::v8(void* p) {
+Ret_4a260 CMotionStateCondition::v8(void* p) {
+#if defined(HULK_PORT_ABI)
+    return ((H*)p)->first_000592a0()->second_00059a30();
+#else
     ((H*)p)->first_000592a0()->second_00059a30();
+#endif
 }
 } // namespace fn_0004a260
 

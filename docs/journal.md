@@ -2645,3 +2645,14 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   HULK_WASM_FPFIX=0 turns them off.
 - wasm play3: first divergence 751 rng -> 779 rng (sound also 779, actors 780); 60,000 frames in 72 s (54-61 s
   before on the same busy laptop: the passes cost ~20%).
+
+### wasm8: slot-8 condition entities under HULK_PORT_ABI (779 -> 870)
+- 779: a fight ExecuteAction (0x002394c0) in the Wine build evaluated a condition list that wasm skipped. The fresh
+  HULK_WASM_DEBUG_VOIDRET run on the fpfix build listed CAlertStatusCondition::vfunc_8 (0x0004a4e0) from frame 741
+  (7,752 reads): it is `return obj->FUN_000592a0()->FUN_00059a30()` in the original (0x00059a30 returns its word
+  +0x10, the fighter's entity), and its caller vfunc_7 (0x0004a500) tests that entity, so on wasm the condition was
+  always false. Same shape in CMotionStateCondition::vfunc_8 (0x0004a260, read by 0x0004a280 from frame 2677).
+- Both return the entity under HULK_PORT_ABI (gen/global.h: CAlertStatusCondition / CGrappleAlertStatusCondition
+  vfunc_8 `void*` under HULK_PORT_ABI only); the 32-bit code is unchanged (MATCH, relocs ok). The 64-bit builds
+  read the same garbage today: the fix serves them too.
+- wasm play3: first divergence 779 rng -> 870 actors (float drift, window 840..870); rng now first differs at 2711.

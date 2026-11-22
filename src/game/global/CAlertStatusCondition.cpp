@@ -71,8 +71,15 @@ class CCondition_4a4e0 {
     virtual void v7();
     virtual void v8(void*);
 };
+// HULK_PORT_ABI (include/compat/ptr.h): 0x00059a30 returns its word +0x10 (the fighter's entity), and slot 8's
+// callers (0x0004a500) read it from eax. The port builds return it (wasm8), the 32-bit builds keep void.
+#if defined(HULK_PORT_ABI)
+typedef void* Ret_4a4e0;
+#else
+typedef void Ret_4a4e0;
+#endif
 struct H {
-    void second_00059a30();
+    Ret_4a4e0 second_00059a30();
 };
 
 } // namespace fn_f4b9a9e9
@@ -192,9 +199,13 @@ CAlertStatusCondition_4a4a0* __fastcall FUN_0004a4a0(CAlertStatusCondition_4a4a0
 // 0x0004a4e0 CAlertStatusCondition::vfunc_8 (19 B): matches/0x0004a4e0.cpp
 // sym: ?vfunc_8@CAlertStatusCondition@@UAEXPAX@Z
 // Same code shape as 0x0004a260 (propagated; names are from that function)
-void CAlertStatusCondition::vfunc_8(void* __p0) { void * p = (void *)__p0;
+Ret_4a4e0 CAlertStatusCondition::vfunc_8(void* __p0) { void * p = (void *)__p0;
 
+#if defined(HULK_PORT_ABI)
+    return ((H *)((owners::Object_592a0 *)(((H*)p)))->FUN_000592a0())->second_00059a30();
+#else
     ((H *)((owners::Object_592a0 *)(((H*)p)))->FUN_000592a0())->second_00059a30();
+#endif
 }
 
 
