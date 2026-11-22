@@ -280,7 +280,9 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   `code_changed` for every lane (gfx10, c664c687f). A block whose code hashes are unchanged in every mode and only its checker view moved
   (a declaration edit) takes `tree_tu.py unproven-accept ADDR --view-only --why "D187 macOS-first: view-only ..."`; it
   refuses with "carry instead" when a D159 carry would re-pin it, and verify lists the backlog oldest first
-  (`unproven_baseline_view_only`; gfx10, 48a1ea657). No Wine pair or x64 gate is required for these landings, and no whole-tree verify unless a widely included header changed,
+  (`unproven_baseline_view_only`; gfx10, 48a1ea657). A D187 `unproven-accept` of changed code is followed by
+  `tree_tu.py hash TU --unproven-accepted` (re-pins the block's `// sym:` hashes), or materialize refuses the block for
+  every lane (e6d25af1d, 6c98004e2). No Wine pair or x64 gate is required for these landings, and no whole-tree verify unless a widely included header changed,
   (run the gate when it helps find layout bugs). Checker and tool changes still need regress and the reviewer. The rest
   of this section is the full bar, which applies again when the mode ends. A caller's member call by an unaddressed name (`C20::F`,
   `A::f8`) never binds natively: name it `FUN_<addr>` and add the 32-bit name to the binding map; a TU-local `g_xxx`
@@ -503,6 +505,9 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   remastered default, remastered-only, apply): add a row, never a hand-written menu item. Replays, `HULK_INPUT` and
   `HULK_ROLLTEST` start from faithful values and never touch port_settings.txt; pin values with `HULK_SETTINGS=k=v,...`.
   Render resolution is runner-only (app.cpp): the game always sees 640x480 (wopt1, D232/D233).
+  The wasm link fails on a new data (non-function) named stub (config/wasm-data-stubs.json only shrinks;
+  tests/test_wasm_data_stubs.py): a block-scope `extern float one;` linked as a stub collapsed every root TransformNode
+  (0x295e20; write the original's DAT_ name) (gcmp1).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
