@@ -302,6 +302,24 @@ static bool inPlayerFolder(const char* path)
     return !strncasecmp(full, d, n) && (full[n] == 0 || full[n] == '/');
 }
 
+// The app's end (run/native.c's proc_exit: the game's ExitProcess, which the window's close button, Cmd+Q and the
+// menus' Quit lead to; src/platform/wasm/gfx/gfx.c hulk_platform_quit_requested): the movies, the audio and SDL closed
+// before the process exits with the game's code.
+extern "C" void hulk_app_movie_quit(void);     // run/app/movie.c
+extern "C" void hulk_app_audio_quit(void);     // run/app/audio.cpp
+extern "C" void hulk_app_quit(int code)
+{
+    static bool once;
+    if (once)
+        return;
+    once = true;
+    hulk_app_movie_quit();
+    hulk_app_audio_quit();
+    SDL_Quit();
+    fprintf(stderr, "hulk-app: quit (exit code %d)\n", code);
+    fflush(stderr);
+}
+
 // HULK_GFX_RENDERER: metal (the app's default) | noop | null (the game's own d3d layer on the null device: the
 // headless build's run, for the replay check). Then the game, as above. Consumes `--choose-game` from argv.
 extern "C" void hulk_app_start(int* argc, char** argv)

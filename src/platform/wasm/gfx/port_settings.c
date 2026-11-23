@@ -88,7 +88,7 @@ static port_setting k_settings[] = {
     {"draw_distance", "Draw Distance", PS_SCREEN_VIDEO, PS_CHOICE, 3, {270, 400, 700},
      {"Original", "Far", "Very Far"}, 270, 400, 1, apply_draw_distance},
     {"fog", "Fog", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"On (Original)", "Reduced", "Off"}, 0, 1, 1, apply_fog},
-    {"texture_pack", "Texture Pack", PS_SCREEN_VIDEO, PS_CHOICE, 1, {0}, {"Off"}, 0, 0, 1, apply_texture_pack},
+    {"texture_pack", "Texture Pack", PS_SCREEN_GAMEPLAY, PS_CHOICE, 1, {0}, {"Off"}, 0, 0, 1, apply_texture_pack},
     {"mipmaps", "Mipmaps", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Original", "Full"}, 0, 1, 1, apply_mipmaps},
     {"aniso", "Anisotropic Filtering", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 16}, {"Off (Original)", "16x"}, 0, 16, 1,
      apply_aniso},

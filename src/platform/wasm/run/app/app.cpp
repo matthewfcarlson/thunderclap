@@ -692,6 +692,7 @@ void w2c_hulk_gfx_quality(struct w2c_hulk*, u32 what, u32 value) { rm::setQualit
 // the Texture Pack setting (port_settings.c texture_pack; texpack.cpp): the installed packs, the chosen one
 u32 w2c_hulk_gfx_texpack_list(struct w2c_hulk*, u32 buf, u32 cap) { return texpack_list((char*)M(buf), cap); }
 void w2c_hulk_gfx_texpack(struct w2c_hulk*, u32 value) { texpack_select(value); }
+u32 w2c_hulk_gfx_texpack_status(struct w2c_hulk*, u32 buf, u32 cap) { return texpack_status((char*)M(buf), cap); }
 void w2c_hulk_gfx_request_screenshot(struct w2c_hulk*, u32 path)
 {
     hulk_gfx_sink_request_screenshot((const char*)M(path));

@@ -3334,3 +3334,30 @@ draws gives in-between frames with no tree change and no path back into the game
 - A first try stored the pack in the APK (assets, stored, AssetManager.openFd as `fd:N@OFF`): it installed (1.31 GB,
   streamed install in 5 s) and replayed identically, but the user chose the separate file; the patch is
   build/wapk1/apk-assets.patch (local).
+## 2026-11-22 wquit1: Quit in the app's menus; the pack status line
+
+- **Quit.** "Quit Game" at the end of the main menu's Story Mode column quits at once. The game's front-end functions
+  ("OnSelect function NAME") are looked up by name at parse time (0x000df970, from FEDoFunction's constructor); an
+  entry hook answers our names with host handler objects, the same trick as fps1's int callbacks, so a menu item can
+  call any host code. The window's close button, Cmd+Q and the menu share one path (a quit request the pddi pump turns
+  into ExitProcess(0)); it waits while the game holds a file open for writing (a save), and the runner's proc_exit
+  closes the movies, audio and SDL. Tested: the menu item, Cmd+Q (System Events keystroke) and the close button (AX
+  click) all exit 0 with the same log lines.
+- **The front end has room for 66 screens.** fe_real.txt has 63; a 67th (a "Texture and Model Packs" screen, then a
+  one-line dummy screen) crashes the parse at frame ~92 with a call through null in the DollyScript reader, while
+  4 KB of comments or ten extra named ints don't.
+- **And almost no heap.** A No/Yes confirm screen for Quit (and a pause-menu "Quit to Desktop" with its screen) worked
+  in free runs, but play3 then hung at frame ~26,500: the menus are parsed again at 26,654, and the extra screen left a
+  later level load out of game heap (`sample` on the hung app: 0x00266e00 -> the out-of-memory spin 0x0008d320). The
+  control at the same base passes. Bisected with HULK_-prefixed knobs (the module's environment takes only HULK_*
+  variables: a first round of WQ_* knobs silently did nothing), on clean bases (a `--workspace` older than the
+  checkout's HEAD ships its files over the newer HEAD): the overlay text, not the code, and only the screen. So Quit
+  has no confirm, and a row past a screen's nine places now gets no named int.
+- **Video Options had outgrown its nine locators** (12 rows at 62e7c5c90: Anti-Aliasing, Far Field, Lighting and
+  Dynamic Lights never showed). Texture Pack moved to Gameplay Options, which now ends with the packs' status, and
+  Anti-Aliasing shows again; Far Field, Lighting and Dynamic Lights still have no item.
+- **Status text at run time.** A TextLabel's text setter (0x000f8500) takes a string id, and a name that is no id is
+  shown as written: host text can go into a label without touching the string table. It runs only when the screen
+  opens, so runs that never open it keep the same game memory whatever packs are installed.
+- The story menu's cursor ignored d-pad presses in its first ~half second after opening; scripted menu runs need
+  generous gaps.

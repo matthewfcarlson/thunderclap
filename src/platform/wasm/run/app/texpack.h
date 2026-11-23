@@ -35,4 +35,8 @@ uint32_t texpack_generation();                   // changes when another pack is
 void meshpack_vertices(uint32_t vid, const hulk::pddi::SinkVertexData& d);
 void meshpack_indices(uint32_t vid, const uint16_t* idx, uint32_t n);
 void meshpack_dropped(uint32_t vid);
+unsigned meshpack_replaced();                    // buffers drawn with a replacement now
+// Video Options' pack status line (fe_options.c, through the import gfx_texpack_status): the installed packs, the
+// selected one's textures and models, and how many of each are shown replaced now: two lines parted by '\n' (wquit1)
+uint32_t texpack_status(char* out, uint32_t cap);
 void meshpack_draw(uint32_t vbVid, uint32_t ibVid, bool counted, hulk::pddi::DrawPacket* p);

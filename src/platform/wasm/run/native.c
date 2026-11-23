@@ -29,6 +29,7 @@ uint8_t* hulk_run_memory(void) { return g.w2c_memory.data; }     /* (the app's i
 uint64_t hulk_run_memory_size(void) { return g.w2c_memory.size; }
 #ifdef HULK_APP
 void hulk_app_start(int* argc, char** argv);    /* run/app/start.cpp: the app's defaults and the game, before the module's env */
+void hulk_app_quit(int code);                   /* run/app/start.cpp: the movies, the audio and SDL closed */
 #endif
 static const char* cstr(u32 a) { return (const char*)mem(a); }
 static void put32(u32 a, u32 v) { memcpy(mem(a), &v, 4); }
@@ -165,6 +166,9 @@ u32 W(fd_close)(wasi* w, u32 fd) { (void)w, (void)fd; return 0; }
 void W(proc_exit)(wasi* w, u32 code) {
     (void)w;
     fflush(stdout);
+#ifdef HULK_APP
+    hulk_app_quit((int)code);
+#endif
     exit((int)code);
 }
 

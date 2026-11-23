@@ -827,7 +827,7 @@ GFX_DEVICE_ADDR = 0x0031ba60        # d3dCreateDevice (pure3d::InitPlatform 0x00
 # tutorial_skip.c, wskip1)
 GFX_APP_HOOKS = {0x000df9e0: "ffh_hulk_app_fe_callback", 0x000f8e70: "ffh_hulk_app_named_int",
                  0x000b5ad0: "ffh_hulk_app_fe_sync", 0x001c88f0: "ffh_hulk_app_world_render",
-                 0x00088c30: "ffh_hulk_app_update_sim"}
+                 0x00088c30: "ffh_hulk_app_update_sim", 0x000df970: "ffh_hulk_app_fe_function"}
 _HOOKS = None
 
 

@@ -514,10 +514,46 @@ Video Options has four more rows (port_settings.c): Aspect Ratio, HUD Frame, Dra
 
 ### Texture and model packs (wpack1)
 
-Video Options > Texture Pack: Off / each pack folder under `<app dir>/mods` (remastered default: the first one). The
+Gameplay Options > Texture Pack: Off / each pack folder under `<app dir>/mods` (remastered default: the first one; the
+row was in Video Options until wquit1 moved it: Video Options had ten rows for the front end's nine places, and the
+tenth, Anti-Aliasing, was not shown; a screen of its own is not possible, see "No more screens" below). The
 runner replaces textures at upload and prim buffers at their draws (run/app/texpack.cpp, meshpack.cpp); the module
 never sees a replacement, so checkpoint records and HULK_ROLLTEST are unchanged with a pack on. Keys, the pack layout,
 `HULK_PACK_DUMP` and the Dolphin converter: [texture-packs.md](texture-packs.md) "Override packs in the app".
+
+- **Pack status** (wquit1): in the front end's Gameplay Options (not the pause menu's: its heap, below), two
+  read-only lines after the items say what is active: "Pack contents: N textures, M
+  models" and "Replaced now: N textures, M models" (the textures and prim buffers shown replaced at that moment), or
+  "N packs installed, none in use", or "No packs installed. Put packs in:" and the folder. The text is the runner's
+  (texpack.cpp `texpack_status`, the import `gfx_texpack_status`), set into the labels with the game's own setter
+  (0x000f8500, a text that is no string id is shown as it is) when the screen opens (the entry's first OnSelect is the
+  front-end function "Port_PackStatus", fe_options.c's 0x000df970 hook) and when the pack changes. The string table
+  holds only a fixed placeholder, so a run that never opens the screen has the same game memory with any packs.
+- **No more screens, little heap.** The front end's parser holds at most 66 screens of fe_real.txt: the disc has 63,
+  and Video Options and Gameplay Options take two. A 67th (tried: a packs screen, a dummy screen) crashes the parse at
+  frame ~92 (an indirect call through null in the DollyScript reader). The menus' text is also parsed again in play
+  (play3 at frame 26,654), and the game heap there has almost no margin: one more screen (a quit confirm in fe_real.txt,
+  or a "Quit to Desktop" with its screen in fe_run.txt) ran a later level load out of memory, and play3 hung at
+  ~26,500 in the out-of-memory spin 0x0008d320 (`sample` on the hung app shows 0x00266e00 -> 0x0008d320). Add items to
+  existing screens and test any menu change with play3 past frame 27,000. Video Options' nine places
+  (FEsubMenu_text1..9 / FEpause_text1..9, the only locators) are full: at 62e7c5c90 the table has 12 Video rows and
+  only the first nine have items (Far Field, Lighting and Dynamic Lights work from the file and `HULK_SETTINGS` only);
+  a row without an item gets no named int either (fe_options.c `shown`). MAXS (16) bounds the table (15 rows).
+
+### Quitting the app (wquit1)
+
+- **The menu.** The front end's Story Mode column (the main menu after Press START) ends with "Quit Game"
+  (FEmain_center_item4, after Load Game; Up from New Game reaches it). It quits at once: the game looks front-end
+  functions up by name when the text is parsed (0x000df970, from FEDoFunction's constructor 0x000e19d0), and a fourth
+  entry hook (tools/wasm_port.py GFX_APP_HOOKS) answers "Port_Quit" / "Port_PackStatus" with host handler objects.
+  There is no confirm screen and no pause-menu item: either cost a screen the heap cannot hold (above). Both editions.
+- **One way out.** The menu item, the window's close button and Cmd+Q (SDL_EVENT_WINDOW_CLOSE_REQUESTED /
+  SDL_EVENT_QUIT in the runner's event pump) all become a quit request (gfx.c `hulk_app_request_quit`,
+  `hulk_platform_quit_requested`), which sdl_platform.cpp's pump turns into ExitProcess(0) as the window's close
+  always did. While the game holds a file open for writing (a save in progress: xapi.c's CreateFileA with
+  GENERIC_WRITE) the request waits, up to 10 s. The settings file is written and closed at every change. The runner's
+  proc_exit then closes the movies, the audio device and the mixer and calls SDL_Quit (start.cpp `hulk_app_quit`);
+  the exit code is 0. Replays and `HULK_INPUT` runs never select it; the request is host state only.
 
 ### Renderer options and the runner's passes (wr2, D236)
 

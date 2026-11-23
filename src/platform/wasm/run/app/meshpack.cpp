@@ -73,6 +73,15 @@ void meshpack_indices(uint32_t vid, const uint16_t* idx, uint32_t n)
         return;
     s_ib[vid].assign(idx, idx + n);
 }
+// the buffers drawn with a replacement now (Video Options' pack status: texpack_status)
+unsigned meshpack_replaced()
+{
+    unsigned n = 0;
+    for (auto& it : s_vb)
+        n += it.second.state == 1;
+    return n;
+}
+
 void meshpack_dropped(uint32_t vid)
 {
     auto it = s_vb.find(vid);

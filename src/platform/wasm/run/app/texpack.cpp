@@ -1244,6 +1244,46 @@ void texpack_dropped(uint32_t vid)
     t = Tex();
 }
 
+// "1,234"
+static std::string thousands(size_t v)
+{
+    std::string s = std::to_string(v);
+    for (int i = (int)s.size() - 3; i > 0; i -= 3)
+        s.insert((size_t)i, ",");
+    return s;
+}
+uint32_t texpack_status(char* out, uint32_t cap)
+{
+    scan();
+    std::string s;
+    if (s_packs.empty()) {
+        s = "No packs installed. Put packs in:\n";
+        std::string mods = modsDir();
+        const char* home = getenv("HOME");
+        if (home && *home && !mods.compare(0, strlen(home), home))
+            mods = "~" + mods.substr(strlen(home));
+        s += mods;
+    } else if (s_sel < 0 || s_sel >= (int)s_packs.size()) {
+        s = std::to_string(s_packs.size()) + (s_packs.size() == 1 ? " pack" : " packs") + " installed, none in use\n";
+    } else {
+        const Pack& p = s_packs[s_sel];
+        unsigned tex = 0;
+        for (uint32_t vid : s_live)
+            tex += s_tex[vid].state == kReplaced;
+        s = "Pack contents: " + thousands(p.files.size()) + " textures, " + thousands(p.models.size()) + " models\n" +
+            "Replaced now: " + thousands(tex) + " textures, " + thousands(meshpack_replaced()) + " models";
+    }
+    for (char& c : s)                       // (the menu's font: printable ASCII; '\n' parts the two lines)
+        if (c != '\n' && ((unsigned char)c < 0x20 || (unsigned char)c > 0x7e))
+            c = '?';
+    if (!cap)
+        return 0;
+    uint32_t n = (uint32_t)s.size() < cap - 1 ? (uint32_t)s.size() : cap - 1;
+    memcpy(out, s.data(), n);
+    out[n] = 0;
+    return n;
+}
+
 uint32_t texpack_query_texture(uint32_t vid, uint32_t id)
 {
     return texpack_tracks(vid) && s_tex[vid].repl != kSinkNone ? s_tex[vid].orig : id;

@@ -276,4 +276,17 @@ void w2c_hulk_aud_resync(struct w2c_hulk*, u32 phase, u32 voice, u32 words)
         hulk_audio_voice_stop(v);
 }
 
+// the app quits (start.cpp hulk_app_quit, after the movies' voices are released): the device stopped, the mixer down
+void hulk_app_audio_quit(void)
+{
+    if (s_dev) {
+        SDL_DestroyAudioStream(s_dev);
+        s_dev = nullptr;
+    }
+    s_voices.clear();
+    if (s_up)
+        hulk_audio_shutdown();
+    s_up = false;
+}
+
 } // extern "C"

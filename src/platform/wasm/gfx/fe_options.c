@@ -24,6 +24,24 @@
  *   menu's 0x000bcf40): a selector shows its first choice until the game's code sets it, so the hook sets ours to the
  *   settings the same way (vfunc_25, the choice's index = the named int's value).
  *
+ * A fourth hook, 0x000df970 (the lookup of a front-end function by name, FEDoFunction's constructor 0x000e19d0), gives
+ * the app's Quit item its action: "Port_Quit" is a host handler object like the callbacks' (wquit1). The main menu's
+ * Story Mode column gets "Quit Game" (FEmain_center_item4, after Load Game), which asks the app to quit (gfx.c
+ * hulk_app_request_quit: the same clean exit as the window's close button and Cmd+Q). No confirm screen and no
+ * pause-menu item: see gen_quit_entry.
+ *
+ * The screen with the Texture Pack item (Gameplay Options) ends with two read-only lines, the texture and model packs'
+ * status (labels "port_pack_status" and "port_pack_status2": the runner's texpack_status through gfx.c): their text is
+ * set when the screen opens (its entry's first OnSelect is the function "Port_PackStatus", through the same hook) and
+ * when the Texture Pack item changes, with the label's own setter 0x000f8500 (a text that is no string id is shown as
+ * it is). Only then: a run that never opens the screen never sets them (the string table holds a fixed placeholder).
+ *
+ * Screens and heap are scarce: the front end's parser holds at most 66 screens of fe_real.txt (the disc has 63; a
+ * 67th crashes the parse with a call through null at frame ~92), and the menus' text is parsed again in play (play3
+ * at frame 26,654), where one more screen ran a later level load out of game heap (wquit1). Add items to existing
+ * screens, and test a menu change with play3 past frame 27,000 (Video Options' nine places, FEsubMenu_text1..9, are
+ * all the locators there are).
+ *
  * The named ints hold choice indices; the settings hold values (port_settings.h). With the remastered-edition switch
  * off a remastered-only item shows its faithful choice and turns back to it when changed. HULK_FE_OPTIONS=0 serves the
  * disc's misc.rcf unpatched; HULK_FE_OPTIONS_LOG=1 logs the items. */
@@ -107,6 +125,24 @@ static void refresh(int i, int screen) {
     }
 }
 
+/* the Packs screen's status lines: the runner's text into the labels (a label's TextEntry at +0x18, 0x000f8500 with the
+ * string manager 0x000fc1b0; dynamic_cast 0x00344e74 FEObject -> TextLabel 0x0049f48c, as 0x000b8f20 does) */
+uint32_t hulk_wasm_texture_pack_status(char* buf, uint32_t cap);    /* gfx.c */
+static char g_pack_status[200];
+static void pack_status_show(void) {
+    hulk_wasm_texture_pack_status(g_pack_status, sizeof g_pack_status);
+    char* line[2] = {g_pack_status, strchr(g_pack_status, '\n')};
+    if (line[1]) *line[1]++ = 0;
+    for (int k = 0; k < 2; k++) {
+        static const char* const names[2] = {"port_pack_status", "port_pack_status2"};
+        if (!line[k] || !*line[k]) line[k] = (char*)" ";
+        uint32_t c = ff_call(0x000fc260u, 1, (uint32_t)(uintptr_t)names[k]);
+        uint32_t l = c ? ff_call(0x00344e74u, 5, c, 0, 0x0049dba4u, 0x0049f48cu, 0) : 0;
+        if (l) ff_call_this(0x000f8500u, l + 0x18, 3, (uint32_t)(uintptr_t)line[k], ff_call(0x000fc1b0u, 0), 1);
+        if (log_on()) fprintf(stderr, "hulk: frame %u: pack status %d \"%s\"%s\n", SIM->frame, k, line[k], l ? "" : " (no label)");
+    }
+}
+
 /* the handlers' call slot: (this, choice index) */
 static void on_change(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     (void)edx, (void)rb;
@@ -124,6 +160,7 @@ static void on_change(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     } else {
         refresh(i, locked);             /* a locked item turns back to its faithful choice */
     }
+    if (!strcmp(s->key, "texture_pack")) pack_status_show();
 }
 
 void ffgo_000df9e0(uint32_t, uint32_t, void*, void*);   /* the game's int-callback lookup (the hook's original) */
@@ -175,6 +212,40 @@ void ffh_hulk_app_fe_sync(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     g_busy = 0;
 }
 
+/* the Quit item's function: (this, argument count, arguments) -> 0, as the game's front-end functions return */
+void hulk_app_request_quit(const char* why);    /* gfx.c */
+static void on_quit(uint32_t ecx, uint32_t edx, void* st, void* rb) {
+    (void)ecx, (void)edx, (void)st;
+    hulk_app_request_quit("the menu's Quit");
+    RET(0);
+}
+static void on_pack_status(uint32_t ecx, uint32_t edx, void* st, void* rb) {
+    (void)ecx, (void)edx, (void)st;
+    pack_status_show();
+    RET(0);
+}
+GAME_STATE static uint32_t g_quit_handler[2], g_quit_vft[4], g_status_handler[2], g_status_vft[4];
+
+void ffgo_000df970(uint32_t, uint32_t, void*, void*);   /* the game's front-end function lookup (the hook's original) */
+void ffh_hulk_app_fe_function(uint32_t ecx, uint32_t edx, void* st, void* rb) {
+    const char* name = ARG(0) ? (const char*)PTR(ARG(0)) : 0;
+    if (name && !strcmp(name, "Port_Quit")) {
+        if (!g_quit_vft[0])
+            for (int k = 0; k < 4; k++) g_quit_vft[k] = ff_host_method(on_quit);
+        g_quit_handler[0] = (uint32_t)(uintptr_t)g_quit_vft;
+        RET((uint32_t)(uintptr_t)g_quit_handler);
+        return;
+    }
+    if (name && !strcmp(name, "Port_PackStatus")) {
+        if (!g_status_vft[0])
+            for (int k = 0; k < 4; k++) g_status_vft[k] = ff_host_method(on_pack_status);
+        g_status_handler[0] = (uint32_t)(uintptr_t)g_status_vft;
+        RET((uint32_t)(uintptr_t)g_status_handler);
+        return;
+    }
+    ffgo_000df970(ecx, edx, st, rb);
+}
+
 /* ------------------------------------------------------------------------------------------- the menus' text */
 typedef struct { char* p; uint32_t n, cap; } buf_t;
 static void put(buf_t* b, const void* s, uint32_t n) {
@@ -217,11 +288,28 @@ static const struct { const char* screen; const char* id; const char* label; } k
     {"port_gameplay_options", "TBS_PORT_GAMEPLAY_OPTIONS", "Gameplay Options"},
 };
 
+/* the screen with the Texture Pack item: it ends with the packs' status lines */
+static int pack_screen(void) {
+    const port_setting* s = hulk_settings_at(hulk_settings_find("texture_pack"));
+    return s ? s->screen : -1;
+}
+
 /* The inserted text: `pause` 0 for fe_real.txt (the front end: FEmain_left_item<n> entries, FEsubMenu_text<k> items),
  * 1 for fe_run.txt (the pause menu: FEpause_text<n>, its bars and slide animations) */
 #define CRLF "\r\n"
+/* A screen has nine places (FEsubMenu_text1..9 / FEpause_text1..9): a setting past them has no item, and no named int
+ * either. Each named int is game heap the pause menu's text holds through gameplay, and that heap is short: play3's
+ * re-parse of the menus at frame 26,654 already fails to create the last ones at 06503c904, and one more allocation
+ * there ran a later load out of memory (the 0x0008d320 spin) (wquit1). */
+static int shown(int i) {
+    const port_setting* s = hulk_settings_at(i);
+    int k = 0;
+    for (int j = 0; j < i; j++) k += hulk_settings_at(j)->screen == s->screen;
+    return i < MAXS && k < 9;
+}
 static void gen_values(buf_t* b) {
     for (int i = 0; i < hulk_settings_count() && i < MAXS; i++) {
+        if (!shown(i)) continue;
         char nv[64], cb[64];
         nv_name(i, nv, sizeof nv);
         cb_name(i, cb, sizeof cb);
@@ -231,10 +319,11 @@ static void gen_values(buf_t* b) {
 static void gen_entries(buf_t* b, int pause) {
     for (int sc = 0; sc < PS_SCREENS; sc++) {
         int slot = (pause ? 4 : 5) + sc;
-        printf_(b, "    AddTextButton \"%s%d\"" CRLF "    {" CRLF "        text \"%s\" 1" CRLF
+        printf_(b, "    AddTextButton \"%s%d\"" CRLF "    {" CRLF "        text \"%s\" 1" CRLF "%s"
                    "        OnSelect gotoscreen \"%s\"" CRLF
                    "        OnHighlight function \"UpdateControlButtonString\" \"DynamicControlButtonLabel\"  \"1\"" CRLF,
-                pause ? "FEpause_text" : "FEmain_left_item", slot, k_screens[sc].id, k_screens[sc].screen);
+                pause ? "FEpause_text" : "FEmain_left_item", slot, k_screens[sc].id,
+                !pause && sc == pack_screen() ? "        OnSelect function \"Port_PackStatus\"" CRLF : "", k_screens[sc].screen);
         if (pause)
             printf_(b, "        $MACRO_INSERT FormatText" CRLF "        SelectedDrawable \"FE_selectBar\"" CRLF
                        "        NotSelectedDrawable \"FE_backgroundBar\"" CRLF
@@ -255,7 +344,7 @@ static void gen_screens(buf_t* b, int pause) {
         int k = 0;
         for (int i = 0; i < hulk_settings_count() && i < MAXS; i++) {
             const port_setting* s = hulk_settings_at(i);
-            if (s->screen != sc || k >= (pause ? 9 : 9)) continue;
+            if (s->screen != sc || !shown(i)) continue;
             k++;
             char nv[64], sel[64], id[64];
             nv_name(i, nv, sizeof nv);
@@ -280,8 +369,38 @@ static void gen_screens(buf_t* b, int pause) {
                 printf_(b, "        $MACRO_INSERT menu_item_%d" CRLF, k);
             puts_(b, "    }" CRLF CRLF);
         }
+        for (int l = 0; !pause && sc == pack_screen() && l < 2 && k + 1 + l <= 9; l++)    /* the packs' status (read-only) */
+            printf_(b, "    AddLabel \"%s%d\"" CRLF "    {" CRLF "        text \"TBS_PORT_PACK_STATUS\" 1" CRLF
+                       "        name \"port_pack_status%s\"" CRLF "        $MACRO_INSERT FormatText" CRLF "        halign center" CRLF
+                       "    }" CRLF CRLF,
+                    pause ? "FEpause_text" : "FEsubMenu_text", k + 1 + l, l ? "2" : "");
         puts_(b, "    $MACRO_INSERT SetupControlButtonLabel" CRLF "}" CRLF CRLF);
     }
+}
+
+/* the Quit item (the front end's Story Mode column, fe_real.txt only): it quits at once (Port_Quit). A confirm screen
+ * cost too much: the front end's text is parsed again in play (play3 at frame 26,654), and one more screen there (or
+ * the pause menu's "Quit to Desktop" and its screen) ran a later level load out of game heap (0x00266e00 ends in the
+ * out-of-memory spin 0x0008d320); an item alone fits (wquit1). */
+static void gen_quit_entry(buf_t* b) {
+    puts_(b, "    AddTextButton \"FEmain_center_item4\"" CRLF "    {" CRLF "        text \"TBS_PORT_QUIT_GAME\" 1" CRLF
+             "        OnSelect function \"Port_Quit\"" CRLF
+             "        OnHighlight function \"UpdateControlButtonString\" \"DynamicControlButtonLabel\"  \"1\"" CRLF
+             "        $MACRO_INSERT menu_item_4" CRLF "    }" CRLF CRLF);
+}
+static const struct { const char* id; const char* text; } k_quit_strings[] = {
+    {"TBS_PORT_QUIT_GAME", "Quit Game"},
+};
+
+/* the line where screen `name`'s control-button label is set up (its last line before the closing brace): 0 when the
+ * screen or the line is missing */
+static const char* screen_tail(const char* s, uint32_t n, const char* name) {
+    char want[80];
+    snprintf(want, sizeof want, "AddScreen \"%s\"", name);
+    const char* sc = find(s, n, s, want);
+    const char* t = sc ? find(s, n, sc, "$MACRO_INSERT SetupControlButtonLabel") : 0;
+    const char* next = sc ? find(s, n, sc + 1, "AddScreen \"") : 0;
+    return t && (!next || t < next) ? line_start(s, t) : 0;
 }
 
 /* fe_real.txt / fe_run.txt: the named values after CameraInvertY's, the entries at the end of "options" (before its
@@ -294,16 +413,29 @@ static int patch_fe(const char* s, uint32_t n, int pause, buf_t* out) {
     const char* next = opt ? find(s, n, opt + 1, "AddScreen \"") : 0;
     const char* c = find(s, n, s, "AddScreen \"camera_options\"");
     if (!a || !b || !c || (next && b > next) || !(a < b && b < c) || find(s, n, s, "\"Port_")) return 0;
-    a = line_end(s, n, a);
-    b = line_start(s, b);
-    c = line_start(s, c);
-    put(out, s, (uint32_t)(a - s));
-    gen_values(out);
-    put(out, a, (uint32_t)(b - a));
-    gen_entries(out, pause);
-    put(out, b, (uint32_t)(c - b));
-    gen_screens(out, pause);
-    put(out, c, (uint32_t)(s + n - c));
+    /* the Quit item: at the end of the Story Mode column (front end only; left out when the screen is missing) */
+    const char* q = pause ? 0 : screen_tail(s, n, "story_mode");
+    struct { const char* at; int what; } ins[4] = {
+        {line_end(s, n, a), 0}, {line_start(s, b), 1}, {line_start(s, c), 2}, {q, 3}};
+    int k = q ? 4 : 3;
+    for (int i = 1; i < k; i++)         /* in the file's order (a stable sort) */
+        for (int j = i; j > 0 && ins[j].at < ins[j - 1].at; j--) {
+            __typeof__(ins[0]) t = ins[j];
+            ins[j] = ins[j - 1];
+            ins[j - 1] = t;
+        }
+    const char* at = s;
+    for (int i = 0; i < k; i++) {
+        put(out, at, (uint32_t)(ins[i].at - at));
+        at = ins[i].at;
+        switch (ins[i].what) {
+        case 0: gen_values(out); break;
+        case 1: gen_entries(out, pause); break;
+        case 2: gen_screens(out, pause); break;
+        default: gen_quit_entry(out); break;
+        }
+    }
+    put(out, at, (uint32_t)(s + n - at));
     return 1;
 }
 
@@ -318,6 +450,9 @@ static int patch_strings(const char* s, uint32_t n, buf_t* out) {
     put(out, s, n);
     if (n >= 4 && !(s[n - 4] == '\r' && s[n - 2] == '\n')) put(out, "\r\0\n\0", 4);
     for (int sc = 0; sc < PS_SCREENS; sc++) put_string(out, k_screens[sc].id, k_screens[sc].label);
+    for (unsigned i = 0; i < sizeof k_quit_strings / sizeof k_quit_strings[0]; i++)
+        put_string(out, k_quit_strings[i].id, k_quit_strings[i].text);
+    put_string(out, "TBS_PORT_PACK_STATUS", " ");   /* (a fixed placeholder: the text is set when Video Options opens) */
     for (int i = 0; i < hulk_settings_count() && i < MAXS; i++) {
         const port_setting* st = hulk_settings_at(i);
         char id[64];
@@ -417,7 +552,7 @@ static void overlay_build(overlay_t* o, int32_t fd) {
     if (!patched) return;
     o->size = o->tail_off + o->tail.n;
     o->state = 1;
-    fprintf(stderr, "hulk: %s: the Video and Gameplay Options screens (%d files patched)\n", o->path, patched);
+    fprintf(stderr, "hulk: %s: the Video and Gameplay Options screens and Quit (%d files patched)\n", o->path, patched);
 }
 
 static overlay_t* overlay_of(const char* path, int32_t fd) {

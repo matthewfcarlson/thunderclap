@@ -71,6 +71,7 @@ GI(gfx_fog) void gi_fog(int32_t value);
 GI(gfx_quality) void gi_quality(uint32_t what, int32_t value);
 GI(gfx_texpack_list) uint32_t gi_texpack_list(char* buf, uint32_t cap);
 GI(gfx_texpack) void gi_texpack(uint32_t value);
+GI(gfx_texpack_status) uint32_t gi_texpack_status(char* buf, uint32_t cap);
 GI(plat_video_init) int32_t gi_video_init(void);
 GI(plat_error) uint32_t gi_error(char* buf, uint32_t cap);
 GI(plat_create_window) int32_t gi_create_window(const char* title, int32_t w, int32_t h, int32_t hidden, int32_t resizable);
@@ -465,6 +466,7 @@ void hulk_wasm_quality_apply(int what, int value) { gi_quality((uint32_t)what, v
  * textures at upload (run/app/texpack.cpp); nothing in the module changes. */
 uint32_t hulk_wasm_texture_pack_list(char* buf, uint32_t cap) { return gi_texpack_list(buf, cap); }
 void hulk_wasm_texture_pack_apply(int value) { gi_texpack((uint32_t)value); }
+uint32_t hulk_wasm_texture_pack_status(char* buf, uint32_t cap) { return gi_texpack_status(buf, cap); }
 
 /* The aspect-ratio setting (port_settings.c, wvid1, D234): what the display reports to the game (bgfxDisplay slot 16,
  * d3dDisplay::GetAspectRatio 0x31b500's place) and the shape of the frame in the window. The game's frame stays
@@ -536,7 +538,41 @@ void hulk_platform_pump(void) {
     int32_t w, h;
     if (gi_resized(&w, &h) && on_resize) ff_call(on_resize, 3, (uint32_t)w, (uint32_t)h, on_resize_user);
 }
-int hulk_platform_quit_requested(void) { return gi_quit_requested(); }
+/* Quitting (wquit1): the window's close button, Cmd+Q (both SDL_EVENT_QUIT / CLOSE_REQUESTED in the runner) and the
+ * menus' Quit (fe_options.c) end the app one way: sdl_platform.cpp's pump sees the request and calls ExitProcess(0)
+ * (the runner's proc_exit then closes the movies, the audio and SDL: start.cpp hulk_app_quit). Never in the middle
+ * of a save: while the game holds a file open for writing (a save's files: xapi.c CreateFileA with GENERIC_WRITE)
+ * the request waits, up to QUIT_WAIT_MS. The settings file is written and closed at every change (port_settings.c),
+ * so it needs nothing here. The request is host state and nothing of it reaches the game until the exit. */
+#define QUIT_WAIT_MS 10000.0
+static const char* g_quit_why;
+void hulk_app_request_quit(const char* why) {
+    if (!g_quit_why) fprintf(stderr, "hulk: quit requested (%s)\n", why);
+    if (!g_quit_why) g_quit_why = why;
+}
+static int writing_files(void) {
+    int n = 0;
+    for (int i = 0; i < MAX_OBJS; i++)
+        if (SIM->objs[i].kind == OBJ_FILE && SIM->objs[i].writable) n++;
+    return n;
+}
+int hulk_platform_quit_requested(void) {
+    if (!g_quit_why && gi_quit_requested()) hulk_app_request_quit("the window");
+    if (!g_quit_why) return 0;
+    static double since;
+    int w = writing_files();
+    if (w) {
+        double now = ff_now_ms();
+        if (!since) {
+            since = now;
+            fprintf(stderr, "hulk: quit waits for %d file%s being written (a save)\n", w, w == 1 ? "" : "s");
+        }
+        if (now - since < QUIT_WAIT_MS) return 0;
+        fprintf(stderr, "hulk: quit after %.0f ms with %d file%s still open for writing\n", now - since, w, w == 1 ? "" : "s");
+    }
+    fprintf(stderr, "hulk: quit\n");
+    return 1;
+}
 int hulk_platform_has_focus(void) { return gi_has_focus(); }
 int hulk_platform_is_fullscreen(void) { return gi_is_fullscreen(); }
 int hulk_platform_toggle_fullscreen(void) { return gi_toggle_fullscreen(); }

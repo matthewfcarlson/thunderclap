@@ -374,6 +374,11 @@ static void close_mov(mov* m) {
     free(m);
 }
 
+/* the app quits (start.cpp hulk_app_quit): every movie closed, its voices released before the mixer goes */
+void hulk_app_movie_quit(void) {
+    while (s_movs) close_mov(s_movs);
+}
+
 /* the movie the handle holds now (its identity from the handle's reserved words) */
 static mov* make(u32 h) {
     mov* old = find(h);
