@@ -656,6 +656,9 @@ rm::kWindows): run/app/windows.cpp draws each layeredReflect building draw again
 (shaders/vs_rm_window.sc, fs_rm_window.sc) showing a procedural room behind every pane: the facade's alpha is 0 on the
 glass, stage 1/2's mapped layer is the game's night window lights (lamps follow it), its texgen'd layer the sphere map
 (over the room by Fresnel). Output only: play3's records identical with it on and off.
+wlook1 (section 5.7): a room per window chosen by its centre in world space (office, home, storage; shops and lobbies on
+the first storey above the street), its own light colour, on or off, blinds, curtains, silhouettes; as bright as the
+game's night layer.
 
 ### Profile (wprof1)
 

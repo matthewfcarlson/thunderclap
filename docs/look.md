@@ -229,7 +229,8 @@ covered).
   ceiling light, furniture and blinds, shifting with parallax as the camera moves; dark offices show a dim room instead
   of flat teal glass. Climbing the glass tower (28,000) the panes show rooms the Hulk can look into, with the sphere map
   only at grazing angles. Faraway bays fade to their average colour (no shimmer).
-- **What is weaker.** At the original's exposure the rooms are darker overall than the game's flat glow (the game paints
+- **What is weaker** (wlook0; wlook1 brightened the rooms, chose them per window and fixed the speckle: 5.7). At the
+  original's exposure the rooms are darker overall than the game's flat glow (the game paints
   every pane with an env-map shine, the interiors show that shine only at grazing angles); some pane edges show a few
   pixels of colour noise where a 2x2 pixel quad straddles two triangles and the derivative frame is wrong; one room
   per texture tile means a wall between two bays of the same office. Daylight facades are untested (play3 has no city
@@ -259,6 +260,46 @@ covered).
   procedural rooms are the fallback and the far look.
 - Reflections are the game's sphere maps until SSR (wssr1).
 - Daytime facades are not in play3: tune the day look from a save in downtown day.
+
+### 5.7 Room variety (wlook1, L2)
+
+The user (11-23, D243 L2): "let's keep interiors on ... Let's make sure we have a few interiors". fs_rm_window.sc now
+chooses a room per window, not per texture tile:
+- **Rooms, not tiles.** A bay larger than a room is split into rooms of a storey (~3.4 units) and an office's width
+  (~4.5 units), up to 3 x 3. Each room's identity is its centre in world space (the decal's position moved to the room's
+  middle along the facade's axes, through the modelview's inverse: rooms are in world space), quantised to 1.25 units:
+  two bays with the same texture tile on one face, on two faces or on two buildings get different rooms, and a room
+  keeps its look across frames, reloads and rollbacks.
+- **Types.** Office (desks in a row with monitors that glow, a ceiling grid with every other panel lit, a door or a
+  whiteboard, carpet), home (a sofa, a floor lamp with a glowing shade, art in a frame or a shelf, a rug on planks, six
+  wall colours), storage (stacked boxes, shelving, one bare bulb, mostly dark), and on the first storey above the street
+  (the lowest building foot drawn lately: windows.cpp tracks the prim buffers' height ranges) shops (a counter, spots, a
+  neon sign in pink, cyan or amber) and lobbies (a double-height box, stone floor, a reception desk, a plant, a pillar).
+  Above the street: 42% offices, 44% homes, 14% storage.
+- **The box.** The floor is below the sill and the ceiling just above the head (a lobby's well above it), so a window
+  looks into a room rather than a box of its own size; depth 0.9 of the room's width (x1.4 lobbies, x0.8 storage).
+- **Light.** Each room its own colour temperature (homes 2700-3000 K, offices 3500-6500 K, lobbies warm, shops cool),
+  pulled towards the game's own window-light colour where the game paints the pane lit; on or off: the game's lit panes
+  stay lit, and a share by type and time of day beyond them (storage a third, shops and lobbies twice as often). Lit
+  rooms are as bright as the game's night layer (the lamp follows the painted window light's luminance, at least a
+  typical lit window's), unlit rooms take the city's glow (a dim blue fill), so the skyline keeps the original's glow.
+  Faces are shaded (floor 0.72, sides 0.8, ceiling 0.9) and the light falls off into the room.
+- **What is behind the glass.** Venetian blinds (anti-aliased: slats finer than a pixel blend to their average, no
+  moire), a roller blind glowing when the room is lit, or curtains; sometimes (14% of lit offices and homes) a
+  silhouette standing in the room.
+- **The frame.** On walls the room's vertical is the world's up and the face normal is made horizontal; only the bay's
+  size comes from the derivatives. Room identity, type and light are per room, so they can't flicker per pixel.
+- Debug: `HULK_WINDOWS=...,5,...` (the sixth value) shows the room types (blue office, orange home, white lobby, grey
+  storage, magenta shop; brighter when lit).
+- Pictures: build/wlook1/png/ (`win-*` before/after at game frames 15,000-28,000, `windows-contact.png` a sheet of 12
+  windows).
+- **Cost.** Windows too small to show a room (most of a skyline: a room under ~4 pixels) take only the room's average
+  (type, light and colour) and skip the box, its contents and the blinds, so the variety costs only where rooms are
+  seen. A/B turns of 30 frames within one run, play3's night city (game frames 14,400-27,600, 5,940 frames a side),
+  1280x960, MSAA 4x, every remastered option on: the windows pass of HEAD (wlook0's rooms) +0.93 ms GPU and +0.29 ms
+  render thread, wlook1's +1.10 ms and +0.18 ms. Neither laptop run was free of other lanes' Metal replays (wperf1,
+  wgrass1: frames took 30 ms and 57 ms instead of ~10 ms), which inflates every GPU number; relative to its frame the
+  new pass costs no more than the old (1.9% against 3.1%). An idle measurement is still owed (`HULK_WINDOWS_AB=30`).
 
 ## 6. Decisions for the user
 

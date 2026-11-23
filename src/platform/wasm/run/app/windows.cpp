@@ -18,6 +18,7 @@
 #include <string.h>
 
 #include <unordered_map>
+#include <utility>
 
 #include <bgfx/bgfx.h>
 
@@ -75,6 +76,10 @@ class WindowsPass final : public rm::Pass {
         float s = (float)fmod(fabs(floor(c[0] / 4) * 12.9898 + floor(c[1] / 4) * 4.1414 + floor(c[2] / 4) * 78.233),
                               97.0);
         m_seed[d.owner] = s;
+        float lo = 1e30f, hi = -1e30f;                  // (wlook1: the buffer's height range: the building's foot)
+        for (uint32_t i = 0; i < d.count; i++)
+            lo = fminf(lo, d.vertices[i].pos[1]), hi = fmaxf(hi, d.vertices[i].pos[1]);
+        m_height[d.owner] = {lo, hi};
         m_ownerOf[sinkBuffer] = d.owner;
     }
     void buffersDropped(uint32_t sinkBuffer) override
@@ -82,12 +87,22 @@ class WindowsPass final : public rm::Pass {
         auto it = m_ownerOf.find(sinkBuffer);
         if (it != m_ownerOf.end()) {
             m_seed.erase(it->second);
+            m_height.erase(it->second);
             m_ownerOf.erase(it);
         }
     }
     void frame() override
     {
         abCost();
+        // the street's height: the lowest building foot drawn, kept low for a while (a view of upper storeys only
+        // must not take a tower's middle for the street)
+        if (m_footMin < 1e29f) {
+            if (m_ground > 1e29f || m_footMin < m_ground)
+                m_ground = m_footMin;
+            else
+                m_ground += (m_footMin - m_ground) * 0.002f;
+        }
+        m_footMin = 1e30f;
         if (logOn() && ++m_frames == 300) {
             fprintf(stderr, "hulk-app: windows: %.1f building draws a frame drawn again with interiors\n",
                     m_drawn / 300.0);
@@ -146,7 +161,13 @@ class WindowsPass final : public rm::Pass {
         auto it = m_seed.find(m_q.bufferOwner);
         m_k[0][0] = up[0] / l, m_k[0][1] = up[1] / l, m_k[0][2] = up[2] / l;
         m_k[0][3] = it != m_seed.end() ? it->second : (float)(m_q.bufferOwner % 97);
-        rm::uniform("u_rmWin", &m_k[0][0], 3);
+        auto ht = m_height.find(m_q.bufferOwner);
+        m_k[3][0] = ht != m_height.end() ? ht->second.first : 0.0f;
+        m_k[3][1] = ht != m_height.end() ? ht->second.second : 0.0f;   // (equal: no foot known)
+        if (ht != m_height.end())
+            m_footMin = fminf(m_footMin, ht->second.first);
+        m_k[3][2] = m_ground < 1e29f ? m_ground : -1e30f;      // (none yet: the foot alone)
+        rm::uniform("u_rmWin", &m_k[0][0], 4);
         m_q.pipeline = prog;
         m_q.query = kSinkNone;
         m_q.state.depthTest = 1;
@@ -192,8 +213,11 @@ class WindowsPass final : public rm::Pass {
     float m_mats[3][16];
     // u_rmWin (fs_rm_window.sc): [0] up + seed (per draw); [1] depth, F0, reflection, lamp; [2] night bias, mask view,
     // share of rooms lit by day, at night beyond the game's lit panes
-    float m_k[3][4] = {{0, 1, 0, 0}, {0.9f, 0.12f, 1.0f, 0.8f}, {0.0f, 0.0f, 0.12f, 0.2f}};
+    // [3] the prim buffer's height range, the street's height (wlook1: shops and lobbies on the first storey)
+    float m_k[4][4] = {{0, 1, 0, 0}, {0.9f, 0.12f, 1.0f, 0.8f}, {0.0f, 0.0f, 0.12f, 0.2f}, {0, 0, 0, 0}};
     std::unordered_map<uint32_t, float> m_seed;        // prim buffer owner -> seed
+    std::unordered_map<uint32_t, std::pair<float, float>> m_height;   // prim buffer owner -> lowest, highest y
+    float m_footMin = 1e30f, m_ground = 1e30f;
     std::unordered_map<uint32_t, uint32_t> m_ownerOf;  // sink vertex buffer -> owner
     unsigned m_frames = 0;
     double m_drawn = 0;

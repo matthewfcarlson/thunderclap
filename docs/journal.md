@@ -3575,3 +3575,16 @@ passes; output only (checkpoint records identical with every setting).
   (0.35 + 0.6 tan)); the Hulk's contact shadow stays on his feet.
 - Bisect a picture artefact by turning options off one at a time before tuning the suspect: the survey named the
   shadows, the bands were AO's.
+
+## 2026-11-23 wlook1: window interiors, a room per window (D243 L2; docs/look.md 5.7)
+
+- Rooms are chosen by their centre in world space (the decal's position moved to the room's middle, through the
+  modelview's inverse), not the texture tile: one facade tile used on every face and building no longer repeats its
+  room. Big bays split into storey- and office-sized rooms.
+- Types: office, home, storage; shops (neon) and lobbies (double height) only on the first storey above the street.
+  A building's prim buffers can be sections of it, so "the street" is the lowest building foot drawn lately (kept low,
+  rising slowly), not the buffer's own foot: with the buffer's foot every section's bottom storey got shops.
+- Lit rooms follow the game's night layer's brightness (so the skyline keeps its glow); unlit ones take a dim city fill;
+  venetian blinds average their slats below a pixel (the moire of the mid-distance towers).
+- The frame is snapped on walls (vertical = the world's up, the normal horizontal): only the bay's size comes from
+  derivatives.
