@@ -61,7 +61,9 @@ import jobq  # noqa: E402
 
 WB = "~/hulk-jobs/wasm"
 TARGETS = ("app", "aot")
-TREE_PREFIXES = ("src/game/", "src/engine/", "src/platform/xbox/", "include/", "src/link-order.txt")
+# overlay paths a build from shipped inputs would not see: what the wasm inputs are made from (INPUT_PATHS, below) and
+# the pddi shader sources (the Metal binaries are this machine's build/third_party/out/shaders/metal)
+SHADER_PREFIX = "src/platform/sdl/pddi/shaders/"
 SRC_DIRS = ["include", "src", "tools", "config"]
 KEEP_INPUTS = 4
 HASHCACHE = os.path.join(jobq.JOBS, "wb-hashcache.json")
@@ -77,7 +79,7 @@ def tp(*p):
 def ffmpeg_prefix():
     for p in (os.environ.get("HULK_FFMPEG_PREFIX"), "/opt/homebrew/opt/ffmpeg", "/usr/local/opt/ffmpeg"):
         if p and os.path.exists(os.path.join(p, "include/libavformat/avformat.h")):
-            return os.path.realpath(p)
+            return p        # (rev5) not resolved: the app's library dir is the opt/ link, as in a local build
     return None
 
 
@@ -154,8 +156,51 @@ FROZEN_CACHE = True
 """
 
 
+class host_lock:
+    """(rev5) One sync to a host at a time: the daemon preps jobs in threads, and two syncs of one inputs-STAMP.tmp
+    could mark a mix .complete. The lock file is wine_build_job.sync_host's (build/jobs/nb-sync-HOST.lock), so Wine
+    build and wasm syncs to one host take turns too."""
+    def __init__(self, name):
+        import fcntl
+        self.f = open(os.path.join(jobq.JOBS, "nb-sync-%s.lock" % name), "w")
+        fcntl.flock(self.f, fcntl.LOCK_EX)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        self.f.close()
+
+
+def host_home(cfg):
+    """The host checkout (hosts.json `dir`, default hulk-permute), as a path its shell expands."""
+    return "~/" + cfg.get("dir", "hulk-permute")
+
+
+KEEP_TC = 2         # versions of each toolchain piece kept on a host (the newest by mtime; ~1.1 GB an Emscripten)
+
+PRUNE_TC = r"""
+import os, shutil, sys, time
+tc, keep, current = os.path.expanduser(sys.argv[1]), int(sys.argv[2]), set(sys.argv[3:])
+by = {}
+for n in os.listdir(tc):
+    if n.endswith(".tmp") or n in current:
+        continue
+    by.setdefault(n.split("-", 1)[0], []).append((os.path.getmtime(os.path.join(tc, n)), n))
+for kind, xs in by.items():
+    for _, n in sorted(xs, reverse=True)[max(0, keep - 1):]:
+        shutil.rmtree(os.path.join(tc, n), ignore_errors=True)
+        print("pruned " + n)
+"""
+
+
 def sync_toolchain(name, quiet=False):
-    """Make ~/hulk-jobs/wasm/tc/<emscripten-V> and <wabt-V> complete on the host."""
+    with host_lock(name):
+        _sync_toolchain(name, quiet)
+
+
+def _sync_toolchain(name, quiet=False):
+    """Make ~/hulk-jobs/wasm/tc/<emscripten-V>, <wabt-V> and <node-V> complete on the host."""
     cfg = host_cfg(name)
     ssh, dest = ssh_parts(cfg)
     tcs = toolchain()
@@ -201,12 +246,15 @@ def sync_toolchain(name, quiet=False):
         print(msg, file=sys.stderr if quiet else sys.stdout)
     # check it runs there
     tc = {k: v[0] for k, v in toolchain().items()}
-    chk = ("EMSDK_PYTHON=~/hulk-permute/build/venv/bin/python {wb}/tc/{em}/libexec/emcc --version | head -1 && "
+    chk = ("EMSDK_PYTHON={home}/build/venv/bin/python {wb}/tc/{em}/libexec/emcc --version | head -1 && "
            "{wb}/tc/{wabt}/bin/wasm2c --version && {wb}/tc/{node}/bin/node --version").format(
-               wb=WB, em=tc["emscripten"], wabt=tc["wabt"], node=tc["node"])
+               home=host_home(cfg), wb=WB, em=tc["emscripten"], wabt=tc["wabt"], node=tc["node"])
     r = remote(ssh, dest, chk, check=False, capture=True)
     if r.returncode:
         sys.exit("toolchain on %s does not run: %s" % (name, (r.stderr or r.stdout)[-400:]))
+    # older versions beyond KEEP_TC (a job still on one names it in its spec; a removed one fails that job's check)
+    remote(ssh, dest, "%s -c %s %s/tc %d %s" % (cfg.get("python", "python3"), shlex.quote(PRUNE_TC), WB, KEEP_TC,
+                                                " ".join(sorted(tc.values()))), check=False)
 
 
 def hashes(items):
@@ -263,6 +311,11 @@ def live_stamps():
 
 
 def sync_inputs(name, stamp, quiet=False):
+    with host_lock(name):
+        _sync_inputs(name, stamp, quiet)
+
+
+def _sync_inputs(name, stamp, quiet=False):
     cfg = host_cfg(name)
     ssh, dest = ssh_parts(cfg)
     d = "%s/inputs-%s" % (WB, stamp)
@@ -277,6 +330,9 @@ def sync_inputs(name, stamp, quiet=False):
     for dd, src in items:
         remote(ssh, dest, "mkdir -p %s/%s" % (tmp, os.path.dirname(dd) or "."))
         rsync(ssh, src + ("/" if os.path.isdir(src) else ""), dest, "%s/%s%s" % (tmp, dd, "/" if os.path.isdir(src) else ""))
+    if inputs_stamp() != stamp:     # (rev5) the local inputs changed under the copy: never name a mix by STAMP
+        remote(ssh, dest, "rm -rf %s" % tmp, check=False)
+        sys.exit("the local inputs changed while they were copied to %s (stamp %s): submit again" % (name, stamp))
     keep = {dd.split("/")[0] for dd, _ in items}
     remote(ssh, dest, "cd %s && for x in *; do case \" %s \" in *\" $x \"*) ;; *) rm -rf \"$x\";; esac; done; "
                       "touch .complete && cd .. && rm -rf inputs-%s && mv inputs-%s.tmp inputs-%s"
@@ -351,6 +407,8 @@ def pack_dir(d):
 # another commit fit HEAD when these paths are the same at both
 INPUT_PATHS = ["include", "src/game", "src/engine", "src/platform/xbox", "src/link-order.txt", "config",
                "tools/wasm_inputs.py", "tools/tree_tu.py", "tools/wine_link.py", "tools/clang_probe.py"]
+# config files the wasm build itself reads (wasm_port.py link), not the inputs
+INPUT_EXCEPT = ["config/wasm-data-stubs.json"]
 
 
 def same_tree(c1, c2):
@@ -358,7 +416,8 @@ def same_tree(c1, c2):
         return False
     if c1 == c2:
         return True
-    return subprocess.run(["git", "diff", "--quiet", c1, c2, "--"] + INPUT_PATHS, cwd=ROOT,
+    return subprocess.run(["git", "diff", "--quiet", c1, c2, "--"] + INPUT_PATHS +
+                          [":(exclude)" + x for x in INPUT_EXCEPT], cwd=ROOT,
                           capture_output=True).returncode == 0
 
 
@@ -399,13 +458,20 @@ def find_inputs(sel, commit):
 
 def overlay(a, commit):
     """({dest: local path}, deletions)."""
+    files, dele = {}, []
     if a.workspace:
         import wine_build_job
-        return wine_build_job.overlay(os.path.abspath(a.workspace))
-    files = {}
+        files, dele = wine_build_job.overlay(os.path.abspath(a.workspace))
+    # (rev5) --files adds to a workspace's overlay (and wins over it)
     for rel, (sha, mode) in jobq.collect_files(a.files, a.dirty, SRC_DIRS + ["tests"]).items():
         files[rel] = os.path.join(jobq.STORE, sha)
-    return files, []
+        if rel in dele:
+            dele.remove(rel)
+    return files, dele
+
+
+def is_input_path(rel):
+    return rel not in INPUT_EXCEPT and any(rel == x or rel.startswith(x + "/") for x in INPUT_PATHS)
 
 
 TEST_KINDS = {"play3": 1, "rolltest": 2, "input": (1, 2)}
@@ -506,12 +572,17 @@ def submit_job(a, spec, ov, slots, limit, label):
 def cmd_submit(a):
     commit = jobq.head_commit()
     files, dele = overlay(a, commit)
-    tree = sorted(f for f in list(files) + dele if f.startswith(TREE_PREFIXES))
+    tree = sorted(f for f in list(files) + dele if is_input_path(f))
     tgz, note = find_inputs(a.inputs, commit)
     if tree and tgz and not a.tree_ok:
-        sys.exit("refused: the overlay changes %d tree file(s) (%s ...) but the wasm inputs are %s, whose tree the build "
-                 "uses: pass --inputs make (the job makes them from its sources) or --tree-ok" % (
-                     len(tree), tree[0], note))
+        sys.exit("refused: the overlay changes %d file(s) the wasm inputs are made from (%s ...) but the inputs are %s, "
+                 "which the build uses as they are: pass --inputs make (the job makes them from its sources) or "
+                 "--tree-ok (the inputs already hold the change)" % (len(tree), tree[0], note))
+    shaders = sorted(f for f in list(files) + dele if f.startswith(SHADER_PREFIX))
+    if shaders and a.target == "app" and not a.shaders_ok:
+        sys.exit("refused: the overlay changes pddi shader sources (%s ...), but the app embeds this machine's compiled "
+                 "Metal shaders (build/third_party/out/shaders/metal): compile them here first (tools/wine_gfx.py "
+                 "shaders, from the same sources) and pass --shaders-ok" % shaders[0])
     env = {}
     for e in a.env or []:
         k, _, v = e.partition("=")
@@ -620,10 +691,12 @@ def main():
     p.add_argument("--bundle", action="store_true", help="app: also the Hulk.app bundle")
     p.add_argument("--inputs", default="auto", help="auto | make | JOB | FILE.tgz | DIR")
     p.add_argument("--tree-ok", action="store_true", help="the inputs already hold the overlay's tree edits")
+    p.add_argument("--shaders-ok", action="store_true",
+                   help="this machine's compiled shaders (build/third_party/out/shaders/metal) hold the overlay's edits")
     g = p.add_mutually_exclusive_group()
     g.add_argument("--workspace", help="a private workspace: its files that differ from HEAD travel")
     g.add_argument("--dirty", action="store_true", help="every modified/untracked file of this checkout")
-    p.add_argument("--files", nargs="*", default=[], help="PATH or SRC=DEST to overlay")
+    p.add_argument("--files", nargs="*", default=[], help="PATH or SRC=DEST to overlay (on top of --workspace / --dirty)")
     p.add_argument("--env", nargs="*", help="HULK_WASM_*=V / HULK_PDDI_*=V build knobs")
     p.add_argument("--host", help="pin to a wasm host")
     p.add_argument("--lineage", help="the host's build directory (default NAME-TARGET)")

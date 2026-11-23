@@ -41,6 +41,7 @@ OUTD = os.path.join(RUN, "wb-out")
 PY = sys.executable
 KEEP_WINPUTS = 6
 KEEP_LINEAGES = 8
+WINPUT_LOCKS = []      # (held for the job's life)
 
 
 def log(msg):
@@ -114,6 +115,14 @@ def wasm_inputs(spec, summ, env):
     tgz = os.path.join(RUN, "wbrun/wasm-in.tgz")
     key = sha_file(tgz)[:16]
     d = os.path.join(WB, "winputs", key)
+    os.makedirs(os.path.join(WB, "winputs"), exist_ok=True)
+    # (rev5) one unpacker at a time; a job holds a shared lock on its inputs while it builds from them, so pruning
+    # (below, by another job) never removes a directory in use
+    lk = open(os.path.join(WB, "winputs", key + ".lock"), "a+")
+    fcntl.flock(lk, fcntl.LOCK_SH)
+    if not os.path.exists(os.path.join(d, ".complete")):
+        fcntl.flock(lk, fcntl.LOCK_UN)
+        fcntl.flock(lk, fcntl.LOCK_EX)      # (only unpackers and brief checkers hold it while it is incomplete)
     if not os.path.exists(os.path.join(d, ".complete")):
         tmp = d + ".tmp%d" % os.getpid()
         shutil.rmtree(tmp, ignore_errors=True)
@@ -125,10 +134,18 @@ def wasm_inputs(spec, summ, env):
         shutil.rmtree(tmp, ignore_errors=True)
         open(os.path.join(d, ".complete"), "w").close()
     os.utime(d)
+    fcntl.flock(lk, fcntl.LOCK_SH)      # (downgrade: others may read, nobody may remove)
+    WINPUT_LOCKS.append(lk)
     old = sorted((os.path.join(WB, "winputs", n) for n in os.listdir(os.path.join(WB, "winputs"))
-                  if ".tmp" not in n), key=os.path.getmtime, reverse=True)
+                  if ".tmp" not in n and not n.endswith(".lock")), key=os.path.getmtime, reverse=True)
     for p in old[KEEP_WINPUTS:]:
+        try:
+            g = open(p + ".lock", "a+")
+            fcntl.flock(g, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except OSError:
+            continue        # (in use)
         shutil.rmtree(p, ignore_errors=True)
+        g.close()
     summ["wasm_inputs"] = {"tgz": key, "meta": json.load(open(os.path.join(d, "meta.json")))}
     return os.path.join(d, "snap"), os.path.join(d, "bindings.json")
 
@@ -286,7 +303,10 @@ def test_play3(t, exes, base):
         same = filecmp_prefix(os.path.join(base, "cand/trace.txt.ckref"), os.path.join(base, "ctl/trace.txt.ckref"))
         _, _, gate = ckref_check(os.path.join(base, "cand/trace.txt.ckref"), ref, os.path.join(base, "gate.json"),
                                  t["frames"], control=os.path.join(base, "ctl/trace.txt.ckref"))
-        res["compare"] = {"ok": rc == 0 and bool(gate.get("ok")), "records_identical": same,
+        # (rev5) both runs must reach the target frame: a candidate that crashed early compares a short prefix
+        reached = all((res[r_].get("last_frame") or -1) >= t["frames"] for r_ in ("cand", "ctl"))
+        res["compare"] = {"ok": rc == 0 and bool(gate.get("ok")) and reached, "reached": reached,
+                          "records_identical": same,
                           "vs_control": first_line(rep), "gate": (gate.get("gate") or {}).get("new_count")}
     return res
 
@@ -323,7 +343,9 @@ def test_free(t, exes, base):
             hashes[role] = h
             with open(os.path.join(out, "hashes.txt"), "w") as f:
                 f.write("".join("%d %s\n" % x for x in h))
-            r["ok"] = rc == 0 and bool(h)
+            # (rev5) a run that crashed, timed out or stopped short of its frames is not ok, whatever its hashes say
+            every = t.get("every", 10)
+            r["ok"] = rc == 0 and bool(h) and h[-1][0] >= t["frames"] - every
             r["hashes"] = len(h)
             r["last"] = h[-1] if h else None
         res[role] = r
@@ -332,7 +354,9 @@ def test_free(t, exes, base):
         a, b = dict(hashes.get("cand", [])), dict(hashes.get("ctl", []))
         common = sorted(set(a) & set(b))
         diff = [f for f in common if a[f] != b[f]]
-        res["compare"] = {"ok": bool(common) and not diff, "common": len(common),
+        reached = bool(common) and common[-1] >= t["frames"] - t.get("every", 10)
+        res["compare"] = {"ok": reached and not diff and res["cand"]["ok"] and res["ctl"]["ok"],
+                          "common": len(common), "last_common": common[-1] if common else None,
                           "first_differing_frame": diff[0] if diff else None}
     return res
 

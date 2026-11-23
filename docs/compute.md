@@ -385,18 +385,22 @@ $J $W hosts                       # what each wasm host holds
 
 - **Sources.** The base is `git archive HEAD`; by default nothing else travels (the build is HEAD's). `--workspace DIR`
   ships what a private workspace changes against HEAD (and deletes what it lacks), `--dirty` this checkout's modified
-  and untracked files (other lanes' too), `--files` named paths. Host code and tools come from the job's sources; the
-  game's TUs from the wasm inputs.
+  and untracked files (other lanes' too), `--files` named paths (on top of either). Host code and tools come from
+  the job's sources; the game's TUs from the wasm inputs. Submit refuses an overlay the build would silently ignore:
+  files the wasm inputs are made from (below) unless `--inputs make` / `--tree-ok`, and pddi shader sources
+  (src/platform/sdl/pddi/shaders: the app embeds this machine's compiled Metal shaders, build/third_party/out/
+  shaders/metal) unless they were compiled here first (`tools/wine_gfx.py shaders`) and `--shaders-ok` says so.
 - **Wasm inputs.** `auto` (default) takes a fetched `tools/wasm_inputs.py` tarball (build/jobs/out/*/wasm-in.tgz) or
   directory (build/wasm-inputs/C12) whose commit has HEAD's tree (include, src/game, src/engine, src/platform/xbox,
-  link order, config and the input tools unchanged), else makes them in the job (`make`, ~11 min more on 8 slots).
-  An overlay that touches the tree needs `--inputs make` (or `--tree-ok`): built from other inputs the edit would be
-  silently ignored, so submit refuses.
+  link order, config but config/wasm-data-stubs.json, and tools/wasm_inputs, tree_tu, wine_link, clang_probe
+  unchanged), else makes them in the job (`make`, ~11 min more on 8 slots). The host unpacks a tarball once
+  (~/hulk-jobs/wasm/winputs/KEY, the 6 most recent kept) under a lock; a job holds a shared lock on the directory it
+  builds from, so no other job unpacks over it or prunes it.
 - **On the host.** The job runs `wbrun/wasm_build_run.py` (tools/wasm_build_run.py, shipped with the job). The run
   directory's `build` becomes a directory of links to the host checkout's build/ with `third_party`, `functions.csv`,
   `ckpt` and `rp1` taken from the job's inputs, so nothing is written into the host's shared build/. The build
   directory is the lineage `~/hulk-jobs/wasm/ws/LINEAGE/out` (default lineage NAME-TARGET; one job at a time, a flock;
-  the 8 most recently used kept): wasm_port's front-end IR is keyed by content and wasm_app's app-inputs.json stamp
+  the 8 most recently used kept; ~0.6 GB each: front-end IR, objects, the aot C objects): wasm_port's front-end IR is keyed by content and wasm_app's app-inputs.json stamp
   (snapshot, binding map, wasm_port/wasm_ir, native_hooks.h, knobs) decides whether every TU compiles again (the
   headless target uses the same stamp), so a rebuild with the same inputs only binds what it must and relinks.
   Stale IR is pruned after each full compile. The lineage lock is released before the tests, which run on the
@@ -407,8 +411,11 @@ $J $W hosts                       # what each wasm host holds
   ad hoc). The tree's front end is the host's LLVM (`~/llvm/bin`, the clang jobs' 22.1.8, the laptop's Homebrew
   version), the runner and app are compiled by the Command Line Tools (`/usr/bin/clang`, `xcrun`), with
   `MACOSX_DEPLOYMENT_TARGET=11.0` so a host on a newer macOS makes executables the laptop runs. `setup` copies the
-  toolchain once per host (the version is the directory's name: a new Homebrew version is copied again); `prep`
-  (run by the daemon at dispatch) checks it and the inputs.
+  toolchain once per host (the version is the directory's name: a new Homebrew version is copied again, and only the
+  2 newest versions of each piece stay: ~1.1 GB an Emscripten, 0.2 GB a node); `prep` (run by the daemon at
+  dispatch) checks it and the inputs. Every copy to a host (toolchain or inputs, and wine_build_job's input syncs)
+  holds build/jobs/nb-sync-HOST.lock, and an inputs copy is marked complete only if the local inputs still hash to
+  its stamp afterwards.
 - **Inputs** (`~/hulk-jobs/wasm/inputs-STAMP`, by content hash, the newest 4 kept): build/functions.csv, SDL3 with
   video, bgfx/bimg/bx and their headers, the Metal shader binaries, mingw-w64's headers (wasm_gfx), FFmpeg's headers
   (the app loads the player's FFmpeg at run time from the submitter's prefix, `HULK_FFMPEG_LIBDIR`), and play3's
@@ -426,12 +433,16 @@ $J $W hosts                       # what each wasm host holds
   records over the shorter run; `input` compares the game hashes frame by frame (first differing frame). With a
   control the test's verdict is that comparison (the candidate may add no divergence the control lacks); alone, a
   play3 run must match the reference to its target frame (records past it, the image stops a little late, are
-  reported but not judged). Results:
+  reported but not judged), so standalone play3 tests are for short runs: the port's current records diverge from
+  the original's at 5,875 (camera; then particle 14,584, hulk 34,240, actors 34,260 to 60,000, in every build
+  of 5992da211's tree, 11-22), and a longer run needs `--control` (ckpt_gate's verdict). Both runs of a pair must
+  reach the target frame (play3: the trace's last checkpoint; input: the last hash within EVERY of it) and exit 0, or
+  the comparison fails, whatever the common frames say. Results:
   wb-out/tests/NAME/{cand,ctl}/ (trace.txt.ckref, result.json, check.json, stdout.txt, hashes.txt; a trace over 4 MB
   keeps its last 256 KB as trace.txt.tail) and summary.json's `tests`; the job exits 5 when a test fails (its outputs
   still come back).
-- **Hosts.** `wasm` is in mac2's and studio's caps (hosts.json). mac1 has no Command Line Tools (no `xcrun`, no SDK),
-  so it builds nothing; installing them there would make it a third wasm host.
+- **Hosts.** `wasm` is in mac2's and studio's caps (hosts.json). mac1 has no Command Line Tools (no `xcrun`, no SDK)
+  and stays without `wasm` (user, 11-22: the wasm hosts are mac2 and studio).
 - **Timing.** (wbuild1, 11-22, HEAD 5992da211, 8 slots.) Cold (empty lineage): the headless build on mac2
   80 s (compile 46 s, link 13 s, aot 21 s), the app with its bundle on studio 100 s. Warm (same inputs, a rebuild):
   the app 29 s on mac2 (hooked TUs, gfx, link, aot from cached objects), the headless build 34 s (link + aot; its
