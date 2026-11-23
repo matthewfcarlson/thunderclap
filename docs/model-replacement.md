@@ -319,7 +319,13 @@ treated as data, and each asset's own licence file is still checked before use.
    - AO from height.
 
    It writes a NEW pack (the user's installed packs are inputs only). Generated maps are never committed.
-4. *Setting:* Video Options "Materials: Original / PBR / Estimated PBR".
+4. *Packs, not layers (user, 2026-11-22):* a PBR set is its own pack folder in `mods/`, next to the HD ("remastered")
+   pack: e.g. "Hulk Final Remaster" and "Hulk Final Remaster PBR". The player picks one in the existing Video Options
+   "Texture Pack" selector; packs are never stacked or merged. A PBR pack is self-contained: its albedo PNGs (hard
+   links to the source pack's files where possible, to save disk) plus the `_n`/`_r`/`_m`/... maps, and the
+   estimation tool writes exactly such a pack from an HD pack. Shading follows the selected pack: PBR shading where it
+   has maps, the plain per-pixel path elsewhere. So no separate "Materials" setting is needed; the pack status line
+   (wquit1's) should say whether the selected pack has PBR maps.
 
 **Checks for both:** game state unchanged (checkpoint records; `HULK_ROLLTEST` with Metal; comparisons within one
 build); shaders build for Metal, Vulkan and GLES (Android); GPU cost measured at 1x and 3x; screenshots, dumps, exports
