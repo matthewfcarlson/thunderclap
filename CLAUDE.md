@@ -530,6 +530,12 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   **The player's folder is off limits to tests:** ~/Library/Application Support/HulkUD (saves, settings, game.txt, mods)
   belongs to the user. Lanes never read-modify, delete or write there; every test run sets its own `HULK_APP_DIR` and
   `HULK_SAVE_DIR` under build/<lane>/ (scripted runs never default to the player's folder) (user, 11-22).
+  The Android app (wand1, docs/wasm-port.md "The Android app"): `tools/wasm_android.py bgfx|build --wasm-dir D|apk
+  [--ffmpeg]` (same hulk.wasm, NDK clang API 31, debug APK, never published); Android-only host code in
+  src/platform/wasm/android/, run/android/ or under `#if defined(__ANDROID__)`. Gamepad-only UI (no touch; user 11-22).
+  macOS and Android play3 null records are byte-identical (60,244 frames; tests/android/wasm_apk_replay.sh): a change
+  that breaks this breaks co-op. A fullscreen Android window sends no size event: the runner reports it once the
+  renderer is up. Ask the lead when sync_main.py refuses; never fast-forward the shared checkout by hand.
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
