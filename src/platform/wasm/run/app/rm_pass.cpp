@@ -14,12 +14,14 @@
 #include <bgfx/bgfx.h>
 
 #include "pddi/bgfx_bridge.h"
+#include "rm_post.h"
 #include "texpack.h"
 
 using namespace hulk::pddi;
 
 // the sink's extras for the app (bgfx_sink.cpp under HULK_SINK_OVERLAY)
 extern "C" uint32_t hulk_gfx_sink_quality(uint32_t aniso, uint32_t msaa);
+extern "C" uint32_t hulk_gfx_sink_targets(uint32_t hdr, uint32_t depthRead);
 extern "C" void hulk_gfx_sink_scene_handles(uint32_t* fb, uint32_t* colour, uint32_t* depth, uint32_t* samples);
 
 namespace rm {
@@ -52,9 +54,11 @@ Registrar::Registrar(Pass* p)
 
 const Settings& settings() { return s_settings; }
 
+static uint8_t s_forced[kQualityCount];
+static bool s_forcing;
 void setQuality(uint32_t what, int32_t value)
 {
-    if (what == 0 || what >= kQualityCount || s_settings.value[what] == value)
+    if (what == 0 || what >= kQualityCount || s_settings.value[what] == value || (s_forced[what] && !s_forcing))
         return;
     s_settings.value[what] = value;
     for (Pass* p : ordered())
@@ -67,13 +71,116 @@ void packet(DrawPacket& p)
         q->packet(p);
 }
 
+// ---- mid-frame views (wr3a): the game's pass ids renumbered in submission order, the runner's views among them
+namespace {
+bool s_frameOpen;                 // a frame's first sink call was seen (closed by the present)
+bool s_remap;                     // this frame renumbers (a pass asked for mid-frame views)
+uint16_t s_next;                  // the next free view
+uint16_t s_map[256];              // game pass id -> view, valid where s_mapFrame == s_frameNo
+uint32_t s_mapFrame[256], s_frameNo = 1;
+uint16_t s_curGame = 0xffff;      // the game's current pass and the sink pass it is now
+SinkPass s_curSink;
+enum : uint16_t { kLastView = 250 };
+
+void beginFrame()
+{
+    if (s_frameOpen)
+        return;
+    s_frameOpen = true;
+    s_frameNo++;
+    s_next = 0;
+    s_curGame = 0xffff;
+    s_remap = false;
+    for (Pass* q : ordered())
+        s_remap = s_remap || q->midFrame();
+}
+uint16_t lookup(uint16_t g)
+{
+    if (!s_remap)
+        return g;
+    if (g < 256 && s_mapFrame[g] == s_frameNo)
+        return s_map[g];
+    uint16_t v = s_next <= kLastView ? s_next++ : kLastView;
+    if (g < 256)
+        s_map[g] = v, s_mapFrame[g] = s_frameNo;
+    return v;
+}
+void markScene(const SinkPass& pass);
+} // namespace
+
+uint16_t newView()
+{
+    beginFrame();
+    if (!s_remap || s_next > kLastView)
+        return kNoView;
+    return s_next++;
+}
+
+uint16_t splitPass()
+{
+    beginFrame();
+    if (!s_remap || s_next > kLastView || s_curGame == 0xffff)
+        return kNoView;
+    uint16_t old = s_curSink.id;
+    SinkPass p = s_curSink;
+    p.id = s_next++;
+    p.clearFlags = 0;
+    s_map[s_curGame] = p.id, s_mapFrame[s_curGame] = s_frameNo;
+    s_curSink = p;
+    markScene(p);
+    hulk_gfx_sink_set_pass(&p);
+    return old;
+}
+
+uint16_t sinkView(uint16_t gamePass) { return s_remap ? lookup(gamePass) : gamePass; }
+
+uint16_t currentGamePass() { return s_curGame; }
+
+bool viewsHere(int n, uint16_t* out) { return s_curGame != 0xffff && viewsBefore(s_curGame, n, out); }
+
+bool viewsBefore(uint16_t g, int n, uint16_t* out)
+{
+    beginFrame();
+    bool mapped = g < 256 && s_mapFrame[g] == s_frameNo;
+    if (!s_remap || n <= 0 || s_next + n + (mapped ? 1 : 0) > kLastView + 1 || (mapped && g != s_curGame))
+        return false;
+    for (int i = 0; i < n; i++)
+        out[i] = s_next++;
+    if (mapped)
+        splitPass();                    // (the pass's draws so far stay in its old view, the rest after ours)
+    return true;
+}
+
 static unsigned s_stencilDraws, s_allDraws;      // (HULK_RM_LOG: the game's stencil draws a frame)
 void submitDraw(const DrawPacket& p)
 {
+    beginFrame();
     s_stencilDraws += p.state.stencil != 0, s_allDraws++;
-    for (Pass* q : ordered())
-        q->draw(p);
-    hulk_gfx_sink_submit_draw(&p);
+    DrawPacket q = p;
+    q.pass = sinkView(p.pass);
+    for (Pass* r : ordered())
+        r->draw(q);
+    q.pass = sinkView(p.pass);          // (a pass may have split the game's pass: rm::viewsHere)
+    hulk_gfx_sink_submit_draw(&q);
+}
+
+void copyFrame(uint16_t pass, const SinkTarget& dst)
+{
+    beginFrame();
+    for (Pass* r : ordered())
+        r->copy(pass, dst);
+    SinkTarget t = dst;
+    hulk_gfx_sink_copy_frame(sinkView(pass), &t);
+}
+
+void fxDraw(const FxPacket& p)
+{
+    beginFrame();
+    for (Pass* r : ordered())
+        r->fx(p);
+    FxPacket q = p;
+    q.pass = sinkView(p.pass);
+    hulk_gfx_sink_fx_draw(&q);
 }
 
 void vertices(uint32_t sinkBuffer, const SinkVertexData& d)
@@ -90,22 +197,32 @@ void buffersDropped(uint32_t sinkBuffer)
 
 static uint8_t s_passScene[65536 / 8];
 bool passIsScene(uint16_t pass) { return s_passScene[pass >> 3] >> (pass & 7) & 1; }
-
-void setPass(const SinkPass& pass)
+namespace {
+void markScene(const SinkPass& pass)
 {
     if (pass.target == kSinkTargetScene)
         s_passScene[pass.id >> 3] |= (uint8_t)(1 << (pass.id & 7));
     else
         s_passScene[pass.id >> 3] &= (uint8_t)~(1 << (pass.id & 7));
+}
+} // namespace
+
+void setPass(const SinkPass& pass)
+{
+    beginFrame();
+    SinkPass p = pass;
     if (pass.target == kSinkTargetScene && !s_sceneSeen) {
         s_sceneSeen = true;
-        SinkPass p = pass;
         for (Pass* q : ordered())
-            q->sceneBegin(p);
-        hulk_gfx_sink_set_pass(&p);
-        return;
+            q->sceneBegin(p);           // (a pass may take views before the scene's: rm::newView)
     }
-    hulk_gfx_sink_set_pass(&pass);
+    s_curGame = pass.id;
+    p.id = sinkView(pass.id);
+    s_curSink = p;
+    markScene(p);
+    for (Pass* q : ordered())
+        q->passSet(pass.id, p);
+    hulk_gfx_sink_set_pass(&p);
 }
 
 void present(const SinkPresent& p)
@@ -122,6 +239,7 @@ void present(const SinkPresent& p)
             q->postScene(s, view);
     hulk_gfx_sink_present(&p);
     s_sceneSeen = false;
+    s_frameOpen = false;
 }
 
 // HULK_RM_LOG=1: every 300 presented frames, bgfx's GPU and submit (CPU) times a frame and the draw count
@@ -152,8 +270,34 @@ static void costLog()
     }
 }
 
+// HULK_RM_FORCE="what=value,...": pins Quality rows (rm_pass.h numbers) over the menu's (development; wr3a)
+static void forceLog()
+{
+    static bool done;
+    if (done)
+        return;
+    done = true;
+    const char* e = getenv("HULK_RM_FORCE");
+    while (e && *e) {
+        unsigned w = 0;
+        int v = 0, n = 0;
+        if (sscanf(e, "%u=%d%n", &w, &v, &n) != 2)
+            break;
+        fprintf(stderr, "hulk-app: rm: quality %u pinned to %d (HULK_RM_FORCE)\n", w, v);
+        s_forced[w < kQualityCount ? w : 0] = 1;
+        s_settings.value[w < kQualityCount ? w : 0] = v - 1;   // (differs: setQuality applies it)
+        s_forcing = true;
+        setQuality(w, v);
+        s_forcing = false;
+        e += n;
+        if (*e == ',')
+            e++;
+    }
+}
+
 void frame()
 {
+    forceLog();
     costLog();
     for (Pass* q : ordered())
         q->frame();
@@ -196,7 +340,12 @@ class QualityPass final : public Pass {
     {
         texpack_mipmaps(s[kMipmaps]);
         int msaa = s[kMsaa];
-        if (hulk_gfx_sink_quality(s[kAniso] ? 1 : 0, (uint32_t)(msaa > 1 ? msaa : 1)))
+        bool remake = hulk_gfx_sink_quality(s[kAniso] ? 1 : 0, (uint32_t)(msaa > 1 ? msaa : 1)) != 0;
+        // wr3a: the scene in half floats (HDR), its depth sampled (ambient occlusion)
+        int hdr = s[kHdr] != 0;          // (the sink falls back to 8 bits where half floats can't be drawn)
+        if (hulk_gfx_sink_targets((uint32_t)hdr, s[kAo] ? 1 : 0))
+            remake = true;
+        if (remake)
             appTargetsChanged();
         if (s[kAniso] != m_aniso || msaa != m_msaa)
             fprintf(stderr, "hulk-app: anisotropic filtering %s, MSAA %dx\n", s[kAniso] ? "16x" : "off",

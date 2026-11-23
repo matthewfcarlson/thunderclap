@@ -3381,3 +3381,28 @@ draws gives in-between frames with no tree change and no path back into the game
   game-facing statics share it). The arrays now hold four stages (the block still MATCHes). The Metal app did not
   crash in the same run (its globals layout or stage use differs), but any port global after those arrays was exposed.
 - The pause menu's options order is by locator, not by text: Options > Video Options is three downs from the top.
+
+## 2026-11-23 wr3a: HDR, ambient occlusion and sun shadows in the app (R3's first slice)
+
+docs/hdr-shadows.md. Three Video Options rows (`hdr`, `ao`, `shadows`), runner passes that draw between the game's
+passes; output only (checkpoint records identical with every setting).
+- **Views between the game's passes.** bgfx runs views in id order and the front end numbers its passes as it goes, so a
+  pass that must run inside the frame (tone mapping before the effects, occlusion between opaque and translucent draws,
+  shadow maps before the scene) gets its views by renumbering: while one asks (`Pass::midFrame`) rm maps the game's pass
+  ids to views in submission order and hands out its own among them; a pass that has drawn already goes on in a new view
+  (`rm::splitPass`). Copies and effect quads (app.cpp, interp.cpp) now go through rm too. A pass that compares a
+  draw's view with an earlier one must use the game's id (`rm::currentGamePass`): the first combined run lost the
+  Hulk's shadow because the skinned Hulk is drawn after the occlusion's split.
+- **The game's frame** (play3 city, frame 18,900): sky (opaque dome, additive glows), ~180 room draws (unlit, shader
+  kinds 1/2), ~70 lit props and characters (vertex programs 0 and 6), 66 alpha-blended non-transient draws, transient
+  alpha, the stencil-shadow quad (2D, dst x src colour), skinned lit draws (vertex program 1), translucent effects;
+  then the colour pass (copy, quad), the bloom (copy, bright pass, 3 blur passes, composite), the HUD's pass.
+- **The sun** is the game's key light in world space: the strongest directional light of the lit draws (camera space,
+  D3D's direction of travel) through the frame's inverse view gives the same direction in every frame of play3's desert
+  and city, (-0.58, -0.81, 0.07): the light rig is the location's, not the camera's.
+- **Depth on Metal.** The scene's D24S8 (Depth32Float_Stencil8 on Apple GPUs) samples fine through texture2d<float> once
+  it is not write-only. The occlusion first came out blank for two reasons worth remembering: the projection was taken
+  from the sky's first draw (the sky is drawn first, with its own near/far: take it from a room draw), and the
+  linearisation `B / max(d*C - A, eps)` clamps a denominator that is always negative for D3D depth (use min with -eps).
+- **Screenshots of two runs at one GameClock frame** can show different poses (HULK_GFX_SHOT_GAME takes the next
+  present); compare stills by eye, not pixel diffs, when runs ran concurrently.

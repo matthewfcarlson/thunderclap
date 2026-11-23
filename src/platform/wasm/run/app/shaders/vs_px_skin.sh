@@ -4,6 +4,9 @@
 #include <bgfx_shader.sh>
 
 uniform vec4 u_vc[96];          // c96 .. c191
+#ifdef PX_CAST
+uniform vec4 u_rmCast[4];       // (wr3a) camera space -> the shadow map's clip space, rows
+#endif
 
 #define VC_CONST     u_vc[0]    // c96: (0, 1, 256, 0.5)
 #define VC_PROJ      2          // c98:  projection rows
@@ -48,4 +51,8 @@ void main()
     v_texcoord1 = vec4(a_texcoord1, 0.0, 1.0);
     v_texcoord2 = vec4(a_texcoord2, 0.0, 1.0);
     v_texcoord3 = vec4(a_texcoord3, 0.0, 1.0);
+#ifdef PX_CAST
+    gl_Position = vec4(dot(vec4(view.xyz, 1.0), u_rmCast[0]), dot(vec4(view.xyz, 1.0), u_rmCast[1]),
+                       dot(vec4(view.xyz, 1.0), u_rmCast[2]), 1.0);   // (wr3a: a shadow caster, the sun's view)
+#endif
 }

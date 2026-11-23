@@ -41,6 +41,9 @@ static void apply_msaa(int value) { hulk_wasm_quality_apply(3, value); }
 static void apply_far_field(int value) { hulk_wasm_quality_apply(4, value); }
 static void apply_lighting(int value) { hulk_wasm_quality_apply(6, value); }
 static void apply_dyn_lights(int value) { hulk_wasm_quality_apply(7, value); }
+static void apply_hdr(int value) { hulk_wasm_quality_apply(8, value); }
+static void apply_ao(int value) { hulk_wasm_quality_apply(9, value); }
+static void apply_shadows(int value) { hulk_wasm_quality_apply(10, value); }
 static void apply_tutorial_skip(int value) { hulk_wasm_tutorial_skip_apply(value); }
 
 /* Render resolution values: 1..4 a multiple of the game's 640x480; 0 the window's (display's) pixels; 720 / 1080 /
@@ -69,6 +72,10 @@ static void apply_tutorial_skip(int value) { hulk_wasm_tutorial_skip_apply(value
  * Lighting, Dynamic Lights (wlight1; run/app/lighting.cpp, docs/lighting.md): the game's lights evaluated per pixel
  * (1) instead of per vertex (0); health orbs as point lights (1) on the draws around them, the baked world included.
  * Output only.
+ * HDR, Ambient Occlusion, Shadows (wr3a; run/app/hdr.cpp, ao.cpp, shadows.cpp, docs/hdr-shadows.md): the scene in half
+ * floats, tone mapped before the game's own bloom (1); screen-space occlusion on the world and the objects (1); sun
+ * shadow maps for the characters and objects, onto the world and each other, replacing the game's stencil shadows (1 one
+ * 1024 map, 2 two 2048 cascades). Output only.
  * Tutorial skip (wskip1): a star behind the Hulk's start in the two tutorial missions (c00m01, c00m02) ends the mission
  * through its own success path when he walks into it (tutorial_skip.c). It changes the game (the mission ends), so it
  * is per session: replays and tests pin it off, netplay peers must share it. */
@@ -100,6 +107,10 @@ static port_setting k_settings[] = {
      apply_lighting},
     {"dyn_lights", "Dynamic Lights", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "Health Orbs"}, 0, 1, 1,
      apply_dyn_lights},
+    {"hdr", "HDR", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 1, 1, apply_hdr},
+    {"ao", "Ambient Occlusion", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 1, 1, apply_ao},
+    {"shadows", "Shadows", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"Original", "Low", "High"}, 0, 2, 1,
+     apply_shadows},
     {"tutorial_skip", "Tutorial Skip", PS_SCREEN_GAMEPLAY, PS_ONOFF, 2, {0, 1}, {"Off", "On"}, 0, 1, 1,
      apply_tutorial_skip},
 };

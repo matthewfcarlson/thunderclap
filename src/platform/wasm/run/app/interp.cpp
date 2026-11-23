@@ -428,10 +428,10 @@ void drawStream(const Stream& s, const Stream* prev, float t, bool last)
             rm::setPass(s.passes[op.index]);
             break;
         case kOpCopy:
-            hulk_gfx_sink_copy_frame(s.copies[op.index].pass, &s.copies[op.index].t);
+            rm::copyFrame(s.copies[op.index].pass, s.copies[op.index].t);
             break;
         case kOpFx:
-            hulk_gfx_sink_fx_draw(&s.fx[op.index]);
+            rm::fxDraw(s.fx[op.index]);
             break;
         case kOpPresent: {
             SinkPresent p = s.presents[op.index];

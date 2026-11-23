@@ -733,6 +733,24 @@ machine's out/rm-shaders/metal and an overlay that edits run/app/shaders needs `
   `HULK_LIGHT_DUMP=a:b:file` (every draw of presented frames a..b, small prim buffers with content keys) and
   `HULK_LIGHT_HIDE=ordinal,...` (hides a texture's draws).
 
+### HDR, ambient occlusion and shadows (wr3a)
+
+docs/hdr-shadows.md. Three Video Options rows (port_settings.c `hdr` Off/On, `ao` Off/On, `shadows` Original/Low/High;
+faithful off, remastered On/On/High), runner passes run/app/hdr.cpp, ao.cpp, shadows.cpp that draw between the game's
+passes: while one is on, rm renumbers the game's passes in submission order with the runner's views among them
+(`rm::newView`, `viewsBefore`, `viewsHere`, `splitPass`; copies and effect quads now go through rm too).
+- **HDR**: the scene target and frame copies in RGBA16F (sink overlay); tone mapped (a knee at 0.8, plus a glow of the
+  light above 1) in views just before the game's first effect copy or quad, so the game's colour pass, bloom, overlay
+  and HUD run unchanged on top.
+- **Ambient occlusion**: the scene's depth made readable; a half-size screen-space obscurance from it and the world
+  pass's projection, blurred and multiplied into the scene once the world's opaque draws are done (before translucent
+  draws, particles, the stencil-shadow quad and the HUD).
+- **Shadows**: a D16 atlas from the sun (the game's key light in world space), drawn before the scene from the world
+  pass's opaque draws with caster programs (rooms and the rest in two rows); received by the lighting pass's per-pixel
+  programs (every opaque world-pass draw takes one while Shadows are on); the baked world takes only the objects'
+  shadows; the game's stencil-shadow quad is hidden.
+- Output only: checkpoint records identical with every setting; the pddi units compile byte-identical (D194).
+
 ### Movies (wmov1; hold to skip: D231)
 
 The game's Bink movies (the start-up logos, the attract loop, the cut-scenes) play with picture and sound in the app.

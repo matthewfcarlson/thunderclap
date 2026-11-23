@@ -235,7 +235,11 @@ static struct {
     uint32_t msaa;          // scene target samples (1, 2, 4, 8)
     uint32_t msaaMade;      // the samples the scene target was made with
     uint32_t width, height; // the back buffer (for the reset)
-} s_quality = {0, 1, 1, 0, 0};
+    uint32_t hdr, hdrMade;  // wr3a: the scene target (and the frame copies) in half floats (RGBA16F) asked for / made
+    uint32_t hdrReal;       // the scene is in half floats (asked for, and this renderer draws and blits them)
+    uint32_t depthRead, depthReadMade;   // wr3a: the scene's depth sampled by the runner's passes (AO, shadows)
+} s_quality = {0, 1, 1, 0, 0, 0, 0, 0, 0, 0};
+static uint8_t s_copyHdr[4096];          // a copy target's texture was made in half floats (blits need one format)
 static uint64_t msaaFlags(uint32_t n)
 {
     return n >= 8 ? BGFX_TEXTURE_RT_MSAA_X8 : n >= 4 ? BGFX_TEXTURE_RT_MSAA_X4 : n >= 2 ? BGFX_TEXTURE_RT_MSAA_X2
@@ -452,10 +456,19 @@ unsigned BgfxSink::makeCopyTarget(unsigned w, unsigned h, unsigned* fb)
 {
     *fb = kNone;
     const uint64_t clamp = BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP;
-    bgfx::TextureHandle t = bgfx::createTexture2D((uint16_t)w, (uint16_t)h, false, 1, bgfx::TextureFormat::BGRA8,
+#if HULK_SINK_OVERLAY
+    const bgfx::TextureFormat::Enum format = s_quality.hdrReal ? bgfx::TextureFormat::RGBA16F : bgfx::TextureFormat::BGRA8;
+#else
+    const bgfx::TextureFormat::Enum format = bgfx::TextureFormat::BGRA8;
+#endif
+    bgfx::TextureHandle t = bgfx::createTexture2D((uint16_t)w, (uint16_t)h, false, 1, format,
                                                   (m_quadCopy ? BGFX_TEXTURE_RT : BGFX_TEXTURE_BLIT_DST) | clamp);
     if (!bgfx::isValid(t))
         return kNone;
+#if HULK_SINK_OVERLAY
+    if (t.idx < sizeof s_copyHdr)
+        s_copyHdr[t.idx] = (uint8_t)(s_quality.hdrReal ? 1 : 0);
+#endif
     if (m_quadCopy) {
         bgfx::FrameBufferHandle f = bgfx::createFrameBuffer(1, &t, true);
         if (!bgfx::isValid(f)) {
@@ -536,19 +549,35 @@ bool BgfxSink::frameTargets(uint32_t width, uint32_t height)
         return m_offscreen = false;
 #if HULK_SINK_OVERLAY
     if (m_sceneFb != kNone && m_targetWidth == width && m_targetHeight == height &&
-        s_quality.msaaMade == s_quality.msaa)
+        s_quality.msaaMade == s_quality.msaa && s_quality.hdrMade == s_quality.hdr &&
+        s_quality.depthReadMade == s_quality.depthRead)
         return m_offscreen = true;
     const uint64_t msaa = msaaFlags(s_quality.msaa);
     s_quality.msaaMade = s_quality.msaa;
+    s_quality.hdrMade = s_quality.hdr;
+    s_quality.depthReadMade = s_quality.depthRead;
+    {
+        const bgfx::Caps* c = bgfx::getCaps();
+        const uint32_t need = BGFX_CAPS_FORMAT_TEXTURE_FRAMEBUFFER | BGFX_CAPS_FORMAT_TEXTURE_2D;
+        s_quality.hdrReal = s_quality.hdr && c && (c->formats[bgfx::TextureFormat::RGBA16F] & need) == need &&
+                            (!(msaa & BGFX_TEXTURE_RT_MSAA_MASK) || msaa == BGFX_TEXTURE_RT ||
+                             (c->formats[bgfx::TextureFormat::RGBA16F] & BGFX_CAPS_FORMAT_TEXTURE_MSAA));
+    }
+    const bgfx::TextureFormat::Enum colourFormat =
+        s_quality.hdrReal ? bgfx::TextureFormat::RGBA16F : bgfx::TextureFormat::BGRA8;
+    const uint64_t depthFlags = s_quality.depthRead ? msaa | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP |
+                                                          BGFX_SAMPLER_POINT
+                                                    : BGFX_TEXTURE_RT_WRITE_ONLY | (msaa == BGFX_TEXTURE_RT ? 0 : msaa);
 #else
     if (m_sceneFb != kNone && m_targetWidth == width && m_targetHeight == height)
         return m_offscreen = true;
     const uint64_t msaa = BGFX_TEXTURE_RT;
+    const bgfx::TextureFormat::Enum colourFormat = bgfx::TextureFormat::BGRA8;
+    const uint64_t depthFlags = BGFX_TEXTURE_RT_WRITE_ONLY;
 #endif
     destroyFrameTargets();
     const uint64_t rt = msaa | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT;
-    bgfx::TextureHandle colour = bgfx::createTexture2D((uint16_t)width, (uint16_t)height, false, 1,
-                                                       bgfx::TextureFormat::BGRA8, rt);
+    bgfx::TextureHandle colour = bgfx::createTexture2D((uint16_t)width, (uint16_t)height, false, 1, colourFormat, rt);
     // depth + stencil: D24S8 where the renderer can render to it, else 32-bit float depth + stencil (MoltenVK and
     // Apple GPUs have no D24S8)
     const bgfx::Caps* caps = bgfx::getCaps();
@@ -556,7 +585,7 @@ bool BgfxSink::frameTargets(uint32_t width, uint32_t height)
     if (caps && !(caps->formats[bgfx::TextureFormat::D24S8] & BGFX_CAPS_FORMAT_TEXTURE_FRAMEBUFFER))
         depthFormat = bgfx::TextureFormat::D32FS8;
     bgfx::TextureHandle depth = bgfx::createTexture2D((uint16_t)width, (uint16_t)height, false, 1, depthFormat,
-                                                      BGFX_TEXTURE_RT_WRITE_ONLY | (msaa == BGFX_TEXTURE_RT ? 0 : msaa));
+                                                      depthFlags);
     bgfx::TextureHandle both[2] = {colour, depth};
     bgfx::FrameBufferHandle fb = bgfx::createFrameBuffer(2, both, true);
     if (!bgfx::isValid(fb)) {
@@ -675,6 +704,14 @@ extern "C" uint32_t hulk_gfx_sink_quality(uint32_t aniso, uint32_t msaa)
     s_quality.msaa = msaa >= 8 ? 8 : msaa >= 4 ? 4 : msaa >= 2 ? 2 : 1;
     return s_quality.msaa != s_quality.msaaMade;
 }
+// wr3a: the scene target in half floats (hdr) and its depth sampled (depthRead); 1: the targets must be made again
+extern "C" uint32_t hulk_gfx_sink_targets(uint32_t hdr, uint32_t depthRead)
+{
+    s_quality.hdr = hdr ? 1 : 0;
+    s_quality.depthRead = depthRead ? 1 : 0;
+    return s_quality.hdr != s_quality.hdrMade || s_quality.depthRead != s_quality.depthReadMade;
+}
+extern "C" uint32_t hulk_gfx_sink_scene_hdr() { return s_quality.hdrReal; }
 // the scene target's frame buffer and textures (the runner's own passes draw into it before the present)
 extern "C" void hulk_gfx_sink_scene_handles(uint32_t* fb, uint32_t* colour, uint32_t* depth, uint32_t* samples)
 {
@@ -852,6 +889,10 @@ void BgfxSink::setPass(const SinkPass& p)
 // with quad copies a draw into dst's frame buffer in that pass
 void BgfxSink::copyFrame(uint16_t pass, SinkTarget dst)
 {
+#if HULK_SINK_OVERLAY
+    if (dst.texture < sizeof s_copyHdr && s_copyHdr[dst.texture] != (s_quality.hdrReal ? 1 : 0))
+        return;                     // (a copy made before the scene target's format changed: remade between frames)
+#endif
     if (!m_quadCopy) {
         bgfx::TextureRegion d, s;
         d.init(bgfx::TextureHandle{(uint16_t)dst.texture});

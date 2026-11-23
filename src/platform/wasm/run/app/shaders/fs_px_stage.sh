@@ -15,6 +15,14 @@
 uniform vec4 u_vc[96];
 uniform vec4 u_rmPx;
 uniform vec4 u_rmLight[16];
+// wr3a: sun shadows (run/app/shadows.cpp, docs/hdr-shadows.md). u_rmShadow[0..2] / [4..6]: cascade 0 / 1, camera
+// space -> (u, v, depth) in the atlas's first row (the characters' and objects' depth); [8] x the cascades (0: no
+// shadows), y the view depth where cascade 1 starts, z the darkening of the baked world in shadow, w of the key light;
+// [9] xyz towards the sun (camera space), w the normal offset (camera units); [10] x the v offset of the second row
+// (the world's depth), y 1: the draw also takes the world's shadows (characters and objects), z the depth bias, w the
+// atlas texel (uv); [11] x the view depth where the shadows have faded out.
+uniform vec4 u_rmShadow[12];
+SAMPLER2DSHADOW(s_rmShadow, 4);
 
 #define PX_MAX_LIGHTS 8
 
@@ -44,6 +52,32 @@ vec3 pxDynamic(vec3 pos, vec3 n)
         }
     }
     return sum * u_rmPx.z;
+}
+
+float pxShadowTap(vec3 q)
+{
+    float t = u_rmShadow[10].w * 0.5;
+    return 0.25 * (shadow2D(s_rmShadow, vec3(q.x - t, q.y - t, q.z)) + shadow2D(s_rmShadow, vec3(q.x + t, q.y - t, q.z)) +
+                   shadow2D(s_rmShadow, vec3(q.x - t, q.y + t, q.z)) + shadow2D(s_rmShadow, vec3(q.x + t, q.y + t, q.z)));
+}
+
+// the sun's visibility at a camera-space point with normal n (1: lit)
+float pxShadow(vec3 pos, vec3 n)
+{
+    if (u_rmShadow[8].x < 0.5 || pos.z > u_rmShadow[11].x)
+        return 1.0;
+    vec4 p = vec4(pos + n * u_rmShadow[9].w * (1.0 + pos.z * 0.01), 1.0);
+    bool second = u_rmShadow[8].x > 1.5 && pos.z > u_rmShadow[8].y;
+    vec3 q = second ? vec3(dot(p, u_rmShadow[4]), dot(p, u_rmShadow[5]), dot(p, u_rmShadow[6]))
+                    : vec3(dot(p, u_rmShadow[0]), dot(p, u_rmShadow[1]), dot(p, u_rmShadow[2]));
+    if (q.z >= 1.0 || q.z <= 0.0)
+        return 1.0;
+    q.z -= u_rmShadow[10].z;
+    float vis = pxShadowTap(q);
+    if (u_rmShadow[10].y > 0.5)
+        vis = min(vis, pxShadowTap(vec3(q.x, q.y + u_rmShadow[10].x, q.z)));
+    float fade = saturate((pos.z - u_rmShadow[11].x * 0.85) / (u_rmShadow[11].x * 0.15));
+    return mix(vis, 1.0, fade);
 }
 
 // Direct3D's light i (vs_vp_ff.sh lightTerm, unchanged)
@@ -89,16 +123,28 @@ vec4 pxLit(vec4 base, vec4 spec, vec4 nv, vec3 pos, float which, bool front)
     if (model < 0.5) {                                            // unlit: the vertex colours (+ dynamic light)
         if (which > 0.5)
             return spec;
-        return vec4(base.rgb + dyn, base.a);
+        vec3 b = base.rgb;
+        if (u_rmShadow[8].x > 0.5) {                              // (the baked light under a caster's shadow)
+            vec3 fn = (hasN && u_rmPx.w < 0.5) ? dir : pxFaceNormal(pos);
+            float facing = saturate(dot(fn, u_rmShadow[9].xyz) * 4.0);
+            b *= 1.0 - u_rmShadow[8].z * (1.0 - pxShadow(pos, fn)) * facing;
+        }
+        return vec4(b + dyn, base.a);
     }
     if (model < 1.5) {                                            // Direct3D fixed function
         vec3 n = dir * nv.w;                                      // (the faithful path's length: no renormalising)
         vec3 eye = -normalize(pos);
         vec3 diffuse = vec3(0.0, 0.0, 0.0);
         vec3 sp = vec3(0.0, 0.0, 0.0);
+        float key = u_rmShadow[8].x > 0.5 ? mix(1.0, pxShadow(pos, dir), u_rmShadow[8].w) : 1.0;
         for (int i = 0; i < 4; i++) {
-            if (u_vc[14 + 4 * i].w > 0.5)
-                diffuse += pxLightTerm(i, pos, n, eye, sp);
+            if (u_vc[14 + 4 * i].w > 0.5) {
+                vec3 spi = vec3(0.0, 0.0, 0.0);
+                vec3 di = pxLightTerm(i, pos, n, eye, spi);
+                float k = i == 0 ? key : 1.0;                     // (the key light, the sun's stand-in, is shadowed)
+                diffuse += di * k;
+                sp += spi * k;
+            }
         }
         vec4 diffuseMat = spec;                                   // (vs_px_ff: the diffuse material rides here)
         if (which > 0.5)
@@ -118,7 +164,8 @@ vec4 pxLit(vec4 base, vec4 spec, vec4 nv, vec3 pos, float which, bool front)
                                  vec3(1.0, 1.0, 1.0)), base.a));
     }
     vec3 colour = base.xyz;
-    colour = max(vec3(0.0, 0.0, 0.0), max(ndl, 0.0) * u_vc[10].xyz) * u_vc[6].xyz + colour;
+    float key = u_rmShadow[8].x > 0.5 ? mix(1.0, pxShadow(pos, dir), u_rmShadow[8].w) : 1.0;
+    colour = max(vec3(0.0, 0.0, 0.0), max(ndl, 0.0) * u_vc[10].xyz) * u_vc[6].xyz * key + colour;
     for (int i = 1; i < 4; i++)
         colour = max(vec3(0.0, 0.0, 0.0), dot(n, -u_vc[9 + 2 * i].xyz) * u_vc[10 + 2 * i].xyz) * u_vc[6].xyz + colour;
     colour += dyn * u_vc[6].xyz;

@@ -18,7 +18,11 @@
 namespace rm {
 
 // The Video Options rows of the runner's passes (port_settings.c; gfx_quality what = the index below)
-enum Quality : uint32_t { kMipmaps = 1, kAniso, kMsaa, kFarField, kDrawDistance, kLighting, kDynLights, kQualityCount };
+enum Quality : uint32_t {
+    kMipmaps = 1, kAniso, kMsaa, kFarField, kDrawDistance, kLighting, kDynLights,
+    kHdr, kAo, kShadows,                  // wr3a (docs/hdr-shadows.md): 0 off; shadows 1 low, 2 high
+    kQualityCount
+};
 struct Settings {
     int value[kQualityCount];
     int operator[](Quality q) const { return value[q]; }
@@ -52,6 +56,15 @@ class Pass {
     // draws advances it
     virtual void postScene(const Scene&, uint16_t& view) {}
     virtual void frame() {}               // between presented frames
+    // wr3a: every pass the game sets (its own id, and the pass as the sink gets it), after sceneBegin
+    virtual void passSet(uint16_t gamePass, const hulk::pddi::SinkPass&) {}
+    // wr3a: the game's frame copies and effect quads as they reach the sink (before), `pass` the game's pass id
+    virtual void copy(uint16_t pass, const hulk::pddi::SinkTarget& dst) {}
+    virtual void fx(const hulk::pddi::FxPacket&) {}
+    // a pass that draws between the game's passes this frame (rm::newView, rm::splitPass): asked at the frame's
+    // first pass; while any pass says yes the game's pass ids are renumbered in submission order with the runner's
+    // views among them (off: the game's ids reach the sink unchanged)
+    virtual bool midFrame() const { return false; }
 };
 
 struct Registrar {
@@ -70,6 +83,28 @@ void buffersDropped(uint32_t sinkBuffer);
 void setPass(const hulk::pddi::SinkPass& p);       // instead of hulk_gfx_sink_set_pass
 void present(const hulk::pddi::SinkPresent& p);    // instead of hulk_gfx_sink_present
 void frame();                                      // after the sink's frame
+
+// wr3a: mid-frame views (Pass::midFrame). newView: a bgfx view that runs after everything submitted so far and
+// before the game's next pass (kNoView: none left this frame, or no pass asked for them); splitPass: the game's
+// current pass goes on in a new view (same target and viewport, no clear) so views can run between its draws so far
+// and the rest; returns the old view (the draws so far), kNoView when it could not. sinkView: the view a game pass id
+// draws in now. Draw packets reach the passes' hooks with their sink view in `pass`.
+enum : uint16_t { kNoView = 0xffff };
+uint16_t newView();
+uint16_t splitPass();
+uint16_t sinkView(uint16_t gamePass);
+// n views (out[0..n-1], in order) that run before the game pass `gamePass`'s next work: after what it drew so far when
+// it is the current pass (it goes on in a new view), before it when it has not started; false: none to be had
+bool viewsBefore(uint16_t gamePass, int n, uint16_t* out);
+// n views before the rest of the game's current pass (the draw being handed to the passes' draw hooks goes after them)
+bool viewsHere(int n, uint16_t* out);
+// the game's id of the pass being drawn now (stable when a pass is split; 0xffff before the frame's first pass)
+uint16_t currentGamePass();
+void copyFrame(uint16_t pass, const hulk::pddi::SinkTarget& dst);   // instead of hulk_gfx_sink_copy_frame
+void fxDraw(const hulk::pddi::FxPacket& p);                         // instead of hulk_gfx_sink_fx_draw
+
+// a runner shader (run/app/shaders, tools/rm_shaders.py) by name for the renderer's profile; kNoView (0xffff): none
+uint16_t loadShader(const char* name);
 
 // app.cpp's (render resolution): the scene target and the frame-sized copies are made again between frames
 void appTargetsChanged();

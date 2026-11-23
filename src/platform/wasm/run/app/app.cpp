@@ -530,7 +530,7 @@ void w2c_hulk_gfx_copy_frame(struct w2c_hulk*, u32 pass, u32 dst)
     SinkTarget t = {hostTexture(w->texture), hostFrameBuffer(w->frameBuffer)};
     if (interp_recording())
         return interp_copy((uint16_t)pass, t);
-    hulk_gfx_sink_copy_frame(pass, &t);
+    rm::copyFrame((uint16_t)pass, t);
 }
 u32 w2c_hulk_gfx_draw_resources(struct w2c_hulk*) { flush(); return hulk_gfx_sink_draw_resources(); }
 u32 w2c_hulk_gfx_has_vertex_program(struct w2c_hulk*, u32 vp) { return hulk_gfx_sink_has_vertex_program(vp); }
@@ -623,7 +623,7 @@ void w2c_hulk_gfx_fx_draw(struct w2c_hulk*, u32 p)
     gs_fx();
     if (interp_recording())
         return interp_fx(fx);
-    hulk_gfx_sink_fx_draw(&fx);
+    rm::fxDraw(fx);
 }
 u32 w2c_hulk_gfx_query_result(struct w2c_hulk*, u32 q, u32 pixels)
 {

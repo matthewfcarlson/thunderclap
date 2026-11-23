@@ -25,6 +25,7 @@
 struct RmEmbeddedShader { const char* name; const char* profile; const unsigned char* data; unsigned size; };
 static const RmEmbeddedShader g_rm_shaders[] = {{0, 0, 0, 0}};     // (no shaders: the passes stay off)
 #endif
+#include "shadows.h"
 #include "texpack.h"
 
 using namespace hulk::pddi;
@@ -129,7 +130,8 @@ class LightingPass final : public rm::Pass {
     }
     void packet(DrawPacket& p) override
     {
-        if ((!m_perPixel && !m_dynMode) || m_abOff)
+        bool shadows = rm::shadowsOn();                 // (wr3a: every opaque draw receives the sun's shadows)
+        if ((!m_perPixel && !m_dynMode && !shadows) || m_abOff)
             return;
         if (p.viewMode != 0 || p.query != kSinkNone || (p.vertexProgram > 2 && p.vertexProgram != 6) ||
             p.pipeline == kSinkNone)
@@ -137,7 +139,8 @@ class LightingPass final : public rm::Pass {
         bool skin = p.vertexProgram == 1 || p.vertexProgram == 2;
         bool lit = skin || p.lighting;
         bool dyn = m_dynMode && m_dynCount && !p.state.blend && near(p);   // (an orb's light reaches the draw)
-        if (lit ? !m_perPixel && !dyn : !dyn)
+        bool shadowed = shadows && !p.state.blend && p.state.depthWrite;
+        if (lit ? !m_perPixel && !dyn && !shadowed : !dyn && !shadowed)
             return;
         if (!m_up && !up())
             return;
@@ -155,13 +158,24 @@ class LightingPass final : public rm::Pass {
         if (!vp1)
             return;
         // glows and other blended effects take no light, nor draws in another pass than the world's (the HUD's models)
-        bool receives = m_dynCount && !p.state.blend && p.pass == m_viewPass;
+        bool receives = m_dynCount && !p.state.blend && rm::currentGamePass() == m_viewPass;
         bool skin = vp1 == 2 || vp1 == 3;
         float px[4] = {skin ? 2.0f : p.lighting ? 1.0f : 0.0f, receives ? (float)m_dynCount : 0.0f, m_dynStrength,
                        0.0f};
         bgfx::setUniform(m_uPx, px);
         if (receives)
             bgfx::setUniform(m_uLight, m_dynCam, (uint16_t)(2 * m_dynCount));
+        // wr3a: the sun's shadows (shadows.cpp); every program of ours declares the sampler, so one is always bound
+        static const float kNoShadow[12][4] = {};
+        uint16_t atlas = kInvalid;
+        bool takesWorld = p.lighting || vp1 != 1 || p.shaderKind < 1 || p.shaderKind > 2;
+        const float* sc = p.state.blend ? nullptr : rm::shadowConstants(takesWorld, &atlas);
+        bgfx::setUniform(m_uShadow, sc ? sc : &kNoShadow[0][0], 12);
+        if (atlas == kInvalid)
+            atlas = rm::shadowDummy();
+        if (atlas != kInvalid)
+            bgfx::setTexture(4, m_sShadow, bgfx::TextureHandle{atlas},
+                             BGFX_SAMPLER_COMPARE_LEQUAL | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
         m_draws++;
     }
     // prim buffers' bounding spheres (the draws near a light take the per-pixel program; the rest keep the faithful)
@@ -257,6 +271,8 @@ class LightingPass final : public rm::Pass {
             return false;
         m_uPx = bgfx::createUniform("u_rmPx", bgfx::UniformType::Vec4);
         m_uLight = bgfx::createUniform("u_rmLight", bgfx::UniformType::Vec4, 16);
+        m_uShadow = bgfx::createUniform("u_rmShadow", bgfx::UniformType::Vec4, 12);
+        m_sShadow = bgfx::createUniform("s_rmShadow", bgfx::UniformType::Sampler);
         return m_up = true;
     }
     struct Light {
@@ -298,7 +314,7 @@ class LightingPass final : public rm::Pass {
             return;
         if (!m_haveView && takeView(p)) {
             m_haveView = true;
-            m_viewPass = p.pass;
+            m_viewPass = rm::currentGamePass();     // (the game's pass: the runner's views may split it, wr3a)
             // last frame's lights into this frame's camera space, the nearest kMax
             m_dynCount = 0;
             struct Near { float d2; const Light* l; };
@@ -380,6 +396,7 @@ class LightingPass final : public rm::Pass {
     bool m_up = false;
     int m_perPixel = 0, m_dynMode = 0;
     bgfx::UniformHandle m_uPx = BGFX_INVALID_HANDLE, m_uLight = BGFX_INVALID_HANDLE;
+    bgfx::UniformHandle m_uShadow = BGFX_INVALID_HANDLE, m_sShadow = BGFX_INVALID_HANDLE;
     unsigned m_frames = 0;
     double m_draws = 0;
 };
@@ -438,6 +455,7 @@ class LightDump final : public rm::Pass {
     {
         if (m_on < 0)
             open();
+        m_inFrame = m_on > 0 && p.frame >= m_a && p.frame <= m_b;
         if (!m_on || p.frame < m_a || p.frame > m_b)
             return;
         const float* c = p.vertexConstants;
@@ -460,6 +478,26 @@ class LightDump final : public rm::Pass {
                             p.lights[i].position[0], p.lights[i].position[1], p.lights[i].position[2],
                             p.lights[i].direction[0], p.lights[i].direction[1], p.lights[i].direction[2],
                             p.lights[i].range);
+    }
+    // (wr3a) the frame's passes, copies and effect quads between the draws
+    void passSet(uint16_t game, const SinkPass& p) override
+    {
+        if (m_on > 0 && m_inFrame)
+            fprintf(m_f, "PASS game%u view%u target%s%x clear%x %u,%u %ux%u\n", game, p.id,
+                    p.target == kSinkTargetScene ? "scene" : "", p.target == kSinkTargetScene ? 0 : p.target,
+                    p.clearFlags, p.x, p.y, p.w, p.h);
+    }
+    void copy(uint16_t pass, const SinkTarget& dst) override
+    {
+        if (m_on > 0 && m_inFrame)
+            fprintf(m_f, "COPY pass%u -> tex%u fb%u\n", pass, dst.texture, dst.frameBuffer);
+    }
+    void fx(const FxPacket& p) override
+    {
+        if (m_on > 0 && m_inFrame)
+            fprintf(m_f, "FX pass%u prog%u quad %.0f,%.0f-%.0f,%.0f tex%u,%u n%u state%x target %ux%u\n", p.pass,
+                    p.program, p.x0, p.y0, p.x1, p.y1, p.texture[0], p.texture[1], p.textures, p.state,
+                    p.targetWidth, p.targetHeight);
     }
     void vertices(uint32_t, const SinkVertexData& d) override
     {
@@ -500,9 +538,30 @@ class LightDump final : public rm::Pass {
 
   private:
     int m_on = -1;
+    bool m_inFrame = false;
     unsigned m_a = 0, m_b = 0;
     FILE* m_f = nullptr;
 };
 HULK_RM_REGISTER_PASS(LightDump);
 
 } // namespace
+
+// (rm_pass.h) a runner shader by name for this renderer's profile, made once; 0xffff when there is none
+uint16_t rm::loadShader(const char* name)
+{
+    static std::unordered_map<std::string, uint16_t> made;
+    auto it = made.find(name);
+    if (it != made.end())
+        return it->second;
+    uint16_t h = kInvalid;
+    const char* prof = profile();
+    for (const RmEmbeddedShader* s = g_rm_shaders; s->name; s++)
+        if (!strcmp(s->name, name) && !strcmp(s->profile, prof)) {
+            bgfx::ShaderHandle sh = bgfx::createShader(bgfx::makeRef(s->data, s->size));
+            if (bgfx::isValid(sh))
+                h = sh.idx;
+            break;
+        }
+    made[name] = h;
+    return h;
+}

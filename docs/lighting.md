@@ -65,5 +65,8 @@ Health orbs become point lights for the draws around them:
 
 ## Settings and cost
 
-Rows in `port_settings.c` (faithful value off, remastered default on): `lighting` 0/1, `dyn_lights` 0/1/2. Costs are
+Rows in `port_settings.c` (faithful value off, remastered default on): `lighting` 0/1, `dyn_lights` 0/1/2. With
+Shadows on (docs/hdr-shadows.md) every opaque draw of the world pass takes a per-pixel program too, which samples the
+sun's shadow atlas (fs_px_stage.sh `pxShadow`); the world pass is identified by the game's pass id
+(`rm::currentGamePass`), since the runner's views may split it. Costs are
 in docs/wasm-port.md's renderer options table (measured with HULK_RM_LOG / HULK_LIGHT_LOG).
