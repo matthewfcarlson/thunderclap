@@ -527,6 +527,9 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   state is unchanged. Tests pin a pack with `HULK_SETTINGS=remastered=1,texture_pack=<hash>` (a remastered-only setting
   stays faithful in pinned runs unless `remastered=1` is pinned too). `HULK_PACK_DUMP=<dir>` dumps keys/PNGs/OBJs (player's
   machine only); `texpack_convert.py pack` turns a Dolphin pack into an app pack (docs/texture-packs.md).
+  **The player's folder is off limits to tests:** ~/Library/Application Support/HulkUD (saves, settings, game.txt, mods)
+  belongs to the user. Lanes never read-modify, delete or write there; every test run sets its own `HULK_APP_DIR` and
+  `HULK_SAVE_DIR` under build/<lane>/ (scripted runs never default to the player's folder) (user, 11-22).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
