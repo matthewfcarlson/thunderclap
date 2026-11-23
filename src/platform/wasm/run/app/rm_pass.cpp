@@ -152,6 +152,25 @@ bool viewsBefore(uint16_t g, int n, uint16_t* out)
 }
 
 static unsigned s_stencilDraws, s_allDraws;      // (HULK_RM_LOG: the game's stencil draws a frame)
+// wlook2: the next transient draw's vertices (the sink's copy, written before the draw is handed over)
+namespace {
+const SinkVertex* s_tVerts;
+uint32_t s_tCount;
+} // namespace
+void setTransient(const SinkVertex* v, uint32_t count)
+{
+    s_tVerts = v, s_tCount = count;
+}
+const SinkVertex* transientVertices(const DrawPacket& p, uint32_t* count)
+{
+    if (p.transient == kSinkNone || !s_tVerts || s_tCount < p.vertexCount) {
+        *count = 0;
+        return nullptr;
+    }
+    *count = s_tCount;
+    return s_tVerts;
+}
+
 void submitDraw(const DrawPacket& p)
 {
     beginFrame();
@@ -164,6 +183,8 @@ void submitDraw(const DrawPacket& p)
         r->draw(q);
     q.pass = sinkView(p.pass);          // (a pass may have split the game's pass: rm::viewsHere)
     hulk_gfx_sink_submit_draw(&q);
+    if (p.transient != kSinkNone)
+        s_tVerts = nullptr, s_tCount = 0;   // (one draw's)
 }
 
 void copyFrame(uint16_t pass, const SinkTarget& dst)
@@ -343,9 +364,9 @@ class QualityPass final : public Pass {
         texpack_mipmaps(s[kMipmaps]);
         int msaa = s[kMsaa];
         bool remake = hulk_gfx_sink_quality(s[kAniso] ? 1 : 0, (uint32_t)(msaa > 1 ? msaa : 1)) != 0;
-        // wr3a: the scene in half floats (HDR), its depth sampled (ambient occlusion)
+        // wr3a: the scene in half floats (HDR), its depth sampled (ambient occlusion, the atmosphere)
         int hdr = s[kHdr] != 0;          // (the sink falls back to 8 bits where half floats can't be drawn)
-        if (hulk_gfx_sink_targets((uint32_t)hdr, s[kAo] ? 1 : 0))
+        if (hulk_gfx_sink_targets((uint32_t)hdr, s[kAo] || s[kAtmosphere] ? 1 : 0))   // (wlook2: the atmosphere)
             remake = true;
         if (remake)
             appTargetsChanged();
@@ -362,6 +383,9 @@ HULK_RM_REGISTER_PASS(QualityPass);
 
 } // namespace
 } // namespace rm
+
+// wlook2: the Fog row's value (atmosphere.cpp scales its own fog by it)
+int rm::fogSetting() { return rm::s_fog; }
 
 // app.cpp's gfx_fog import lands here (the fog pass's setting)
 extern "C" void rm_set_fog(int value) { rm::s_fog = value; }

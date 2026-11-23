@@ -31,6 +31,7 @@
 #include <math.h>
 
 #include <algorithm>
+#include <array>
 #include <atomic>
 #include <condition_variable>
 #include <deque>
@@ -1451,3 +1452,54 @@ void texpack_dump_line(const char* line)
     }
 }
 uint32_t texpack_generation() { return s_selGen; }
+
+// ------------------------------------------------------------------------------------------- mean colours (wlook2)
+// The night lights (nightlights.cpp) colour a glow's light by its texture: the mean of the top level of every small
+// texture (128 x 128 or less), by the front end's ordinal (the draw packet's stage ordinal), made once per upload.
+namespace {
+struct MeanSrc { uint32_t ordinal, format, w, h; };
+MeanSrc* s_meanSrc;                                       // by vid
+std::unordered_map<uint32_t, std::array<float, 4>>& means()
+{
+    static std::unordered_map<uint32_t, std::array<float, 4>> m;
+    return m;
+}
+} // namespace
+
+void texpack_mean_created(uint32_t vid, const SinkTextureDesc& desc)
+{
+    if (vid >= kMaxVids)
+        return;
+    if (!s_meanSrc)
+        s_meanSrc = new MeanSrc[kMaxVids]();
+    s_meanSrc[vid] = MeanSrc{desc.ordinal, desc.format, desc.width, desc.height};
+    if (desc.pddiFormat == 11 || desc.pddiFormat == 12 || desc.width * desc.height > 128 * 128)
+        s_meanSrc[vid].ordinal = 0;                       // (linear or large: none)
+}
+
+void texpack_mean_level0(uint32_t vid, uint32_t w, uint32_t h, const void* data, uint32_t size)
+{
+    if (!s_meanSrc || vid >= kMaxVids || !s_meanSrc[vid].ordinal || !data || w * h > 128 * 128)
+        return;
+    const MeanSrc& m = s_meanSrc[vid];
+    uint32_t need = m.format == kSinkBGRA8 ? w * h * 4 : ((w + 3) / 4) * ((h + 3) / 4) * (m.format == kSinkBC1 ? 8 : 16);
+    if (size < need)
+        return;
+    std::vector<RGBA> img = decodeLevel(m.format, w, h, (const uint8_t*)data);
+    double s[4] = {0, 0, 0, 0};
+    for (const RGBA& p : img) {
+        double a = p.a / 255.0;
+        s[0] += p.r / 255.0 * a, s[1] += p.g / 255.0 * a, s[2] += p.b / 255.0 * a, s[3] += a;
+    }
+    double n = img.empty() ? 1.0 : (double)img.size();
+    means()[m.ordinal] = {(float)(s[0] / n), (float)(s[1] / n), (float)(s[2] / n), (float)(s[3] / n)};
+}
+
+bool texpack_mean(uint32_t ordinal, float out[4])
+{
+    auto it = means().find(ordinal);
+    if (!ordinal || it == means().end())
+        return false;
+    memcpy(out, it->second.data(), 4 * sizeof(float));
+    return true;
+}

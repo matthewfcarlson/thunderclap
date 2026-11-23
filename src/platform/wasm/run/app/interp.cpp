@@ -480,6 +480,7 @@ void drawStream(const Stream& s, const Stream* prev, float t, bool last)
                     break;
                 memcpy(v, &s.verts[d.t0], (size_t)d.nt * sizeof(SinkVertex));
                 p.transient = tok;
+                rm::setTransient(v, d.nt);               // (wlook2: the night lights read glow sprites)
             }
             rm::submitDraw(p);
             break;

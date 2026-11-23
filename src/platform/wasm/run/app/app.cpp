@@ -87,6 +87,7 @@ static void flush()
     }
     if (s_pendingHost) {
         memcpy(s_pendingHost, M(s_pendingStaging), (size_t)s_pendingCount * sizeof(SinkVertex));
+        rm::setTransient(s_pendingHost, s_pendingCount);     // (wlook2: the night lights read glow sprites)
         s_pendingHost = nullptr;
     }
 }
@@ -331,6 +332,8 @@ u32 w2c_hulk_gfx_create_texture(struct w2c_hulk*, u32 vid, u32 desc)
     r->id = hulk_gfx_sink_create_texture(MT<SinkTextureDesc>(desc));
     if (r->id != kSinkNone)
         texpack_created(vid, &r->id, *MT<SinkTextureDesc>(desc));     // (texture packs: texpack.cpp)
+    if (r->id != kSinkNone)
+        texpack_mean_created(vid, *MT<SinkTextureDesc>(desc));        // (wlook2: glow colours)
     return r->id != kSinkNone;
 }
 u32 w2c_hulk_gfx_update_texture(struct w2c_hulk*, u32 vid, u32 level, u32 w, u32 h, u32 data, u32 pitch, u32 size)
@@ -341,6 +344,8 @@ u32 w2c_hulk_gfx_update_texture(struct w2c_hulk*, u32 vid, u32 level, u32 w, u32
     if (!r || r->kind != kResTexture || r->id == kSinkNone)
         return 0;
     gs_tex(0, size);
+    if (level == 0)
+        texpack_mean_level0(vid, w, h, M(data), size);                 // (wlook2: glow colours)
     if (texpack_tracks(vid))
         return texpack_update(vid, level, w, h, M(data), pitch, size);
     return hulk_gfx_sink_update_texture(r->id, level, w, h, M(data), pitch, size);

@@ -63,8 +63,8 @@ by its own windows, signs and street lamps; glass and wet streets reflect; dista
 | screen-space reflections | in progress (wssr1) | glass, wet streets, water; falls back to the game's sphere maps |
 | material classes | new | from shader kind and texture keys: glass (layeredReflect's mask), metal, asphalt, concrete, foliage, skin; a small per-texture table made offline from the player's own textures, overridable by packs (`mat` keys, remaster.md 2.7) |
 | PBR packs | new, content | albedo/normal/roughness for the ~1,600 textures a session uploads; generated normals where none (70% of room groups) |
-| emissive night | new | lit window panes, signs and lamps as emissive + a clustered light list (point lights from emissive draws, like the health orbs); light pools on streets |
-| sky and atmosphere | new | an analytic sky (Preetham/Hosek-style or a small precomputed scattering LUT) per location and time, sun disc, aerial perspective replacing linear fog, height fog |
+| emissive night | exists (wlook2, docs/night.md) | Night Lights: the game's lamp, sign and vehicle glows as a tiled light list in the per-pixel lighting; light pools on streets. Window spill is still to do |
+| sky and atmosphere | exists (wlook2, docs/night.md) | Atmosphere: the game's dome re-graded (zenith, horizon glow, city-lit clouds, stars, moon at the key light), height fog and aerial perspective over the game's fog, lamps' in-scattering |
 | volumetrics | new | froxel or ray-marched sun shafts and lamp cones (half/quarter resolution) |
 | colour grading | new | a 3D LUT after tone mapping (filmic ACES-like curve, per-location LUTs; authored in any grading tool as a neutral 33^3 PNG strip) |
 | particles | new | soft particles (depth fade), lit smoke from the sun and the orb lights, HDR sparks |

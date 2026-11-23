@@ -817,6 +817,18 @@ mirrored ray is marched across that depth (Low half size, High full size) and th
 surface by Fresnel; where no ray hits, the game's own REFL / sphere-map surface stays. Other passes read the result
 through run/app/ssr.h (docs/reflections.md "SSR interface"). Output only: play3's records identical.
 
+### Night Lights and Atmosphere (wlook2)
+
+docs/night.md. Two Video Options rows (port_settings.c `night_lights` Off/On, `atmosphere` Original/Enhanced; faithful
+off, remastered On/Enhanced). run/app/nightlights.cpp turns the night city's own additive glows (street lamps, signs,
+vehicle lights, markers; the sprites' centres from their transient vertices, `rm::transientVertices`) into world-space
+lights, kept steady across frames by distance matching, and hands the per-pixel lighting a tiled light list (a 64 x 64
+float texture: lights, then 16 indices per screen tile); pools under the lamps, spill on walls and characters.
+run/app/atmosphere.cpp re-grades the game's sky dome in its own draw (fs_rm_sky.sc: zenith, horizon glow, clouds lit
+from below by the city, stars, a moon at the key light) and, after ambient occlusion, adds exponential height fog,
+aerial perspective and the lamps' in-scattering from the scene's depth (fs_rm_atmos.sc). The Fog row scales the added
+fog. Output only: play3's records identical.
+
 ### Movies (wmov1; hold to skip: D231)
 
 The game's Bink movies (the start-up logos, the attract loop, the cut-scenes) play with picture and sound in the app.

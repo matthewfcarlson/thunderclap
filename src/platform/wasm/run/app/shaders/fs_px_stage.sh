@@ -23,6 +23,8 @@ uniform vec4 u_rmLight[16];
 // atlas texel (uv); [11] x the view depth where the shadows have faded out.
 uniform vec4 u_rmShadow[12];
 SAMPLER2DSHADOW(s_rmShadow, 4);
+// wlook2: the night lights (rm_city.sh: u_rmCity, s_rmCity at stage 5)
+#include "rm_city.sh"
 
 #define PX_MAX_LIGHTS 8
 
@@ -110,7 +112,7 @@ vec3 pxLightTerm(int i, vec3 pos, vec3 n, vec3 eye, inout vec3 spec)
 }
 
 // the lit colours: which = 0 the diffuse colour (v_color0), 1 the specular colour (v_color1); front: the face's side
-vec4 pxLit(vec4 base, vec4 spec, vec4 nv, vec3 pos, float which, bool front)
+vec4 pxLit(vec4 base, vec4 spec, vec4 nv, vec3 pos, float which, bool front, vec2 fc)
 {
     float model = u_rmPx.x;
     bool hasN = nv.w > 0.0001;
@@ -120,6 +122,8 @@ vec4 pxLit(vec4 base, vec4 spec, vec4 nv, vec3 pos, float which, bool front)
     vec3 dyn = vec3(0.0, 0.0, 0.0);
     if (u_rmPx.y > 0.5)
         dyn = pxDynamic(pos, (hasN && u_rmPx.w < 0.5) ? dir : pxFaceNormal(pos));
+    if (u_rmCity[0].x > 0.5 && which < 0.5)                      // (wlook2: the night lights)
+        dyn += cityLight(pos, (hasN && u_rmPx.w < 0.5) ? dir : pxFaceNormal(pos), fc);
     if (model < 0.5) {                                            // unlit: the vertex colours (+ dynamic light)
         if (which > 0.5)
             return spec;
@@ -178,6 +182,6 @@ vec4 pxLit(vec4 base, vec4 spec, vec4 nv, vec3 pos, float which, bool front)
 #else
 #define PX_FRONT true
 #endif
-#define v_color0 pxLit(v_pxbase, v_pxspec, v_pxnormal, v_pxpos, 0.0, PX_FRONT)
-#define v_color1 pxLit(v_pxbase, v_pxspec, v_pxnormal, v_pxpos, 1.0, PX_FRONT)
+#define v_color0 pxLit(v_pxbase, v_pxspec, v_pxnormal, v_pxpos, 0.0, PX_FRONT, gl_FragCoord.xy)
+#define v_color1 pxLit(v_pxbase, v_pxspec, v_pxnormal, v_pxpos, 1.0, PX_FRONT, gl_FragCoord.xy)
 #include "fs_vp_stage.sh"

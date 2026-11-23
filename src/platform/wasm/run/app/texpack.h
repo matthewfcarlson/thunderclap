@@ -21,6 +21,12 @@ bool texpack_tracks(uint32_t vid);               // texpack_update uploads this 
 // a draw that counts for an occlusion query samples the original (the game reads the pixel count): the sink id to use
 uint32_t texpack_query_texture(uint32_t vid, uint32_t id);
 
+// ---- wlook2: the mean colour of small textures' top levels (night lights: a glow's colour), by ordinal
+void texpack_mean_created(uint32_t vid, const hulk::pddi::SinkTextureDesc& desc);
+void texpack_mean_level0(uint32_t vid, uint32_t w, uint32_t h, const void* data, uint32_t size);
+// rgb: the mean colour premultiplied by alpha, a: the mean alpha (false: not known)
+bool texpack_mean(uint32_t ordinal, float out[4]);
+
 // ---- shared with meshpack.cpp (model overrides)
 uint64_t texpack_xxh64(const void* p, size_t n);
 bool texpack_models_wanted();                    // a pack has models, or HULK_PACK_DUMP is on

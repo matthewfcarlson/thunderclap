@@ -3536,3 +3536,26 @@ passes; output only (checkpoint records identical with every setting).
 - Checks: play3 60,000 null records identical (test 111711: candidate 111708, control 111709, mac2); Metal Off/High
   records identical to 30,100; cost High +3.0 ms GPU, Low +1.9 ms at 1280x960 MSAA 4x (A/B turns, loaded laptop);
   `wasm_android.py build` links.
+
+
+## 2026-11-23 wlook2: night lights and atmosphere (Video Options > Night Lights, Atmosphere; docs/night.md)
+
+- **The night city's lights are the game's own glows.** Lamps, signs, vehicle lights and markers are additive sprites
+  (6 transient vertices, one/one, unlit, depth tested) drawn after the opaque traversal: play3's downtown lamp halos
+  are 2.6-3 units across about 12 units above the street (a lamp's light must reach ~25 units). The runner now hands
+  the passes a transient draw's vertices (`rm::setTransient` from app.cpp's flush and interp.cpp's replay), and
+  texpack.cpp keeps the mean colour of small textures by ordinal (`texpack_mean`) for a glow's colour.
+- **Steady lights need world space and identity by place.** Lights are matched across frames by distance; a light that
+  stays within 1 unit is static and outlives its glow being off screen. Halo sprites pulled towards the camera wobble
+  ~0.6 units as it moves (0.35 made lamps "moving" and drop out). An in-place `toWorld(cam, cam)` (aliased output)
+  put the camera hundreds of units off and expired every static light after four frames: the flicker.
+- **The sky dome uses the rooms' projection** (near 0.1, far ~3,300), so "a different near/far" does not find it: it is
+  the shader-kind-0, one-stage, opaque mesh around the camera drawn before the first room draw (desert: two layers,
+  r 2,531 / 2,048, centres 0.2 / 0.09 r away; the canyon backdrop next, r 568 and 5,047 vertices, is scenery). The
+  game's sky layers write depth hundreds of units out: the air pass treats view depth beyond 600 as sky.
+- **Tiled forward lighting fits the per-pixel programs**: one 64 x 64 RGBA32F texture (2 texels a light, then 16
+  indices per screen tile, tiles >= 32 px, <= 32 x 32), read by every fs_pxcmb program through `gl_FragCoord` passed
+  from `main` (the v_color0 macro expands there). Pools need an inverse-square shape plus a downward lobe; a plain
+  smooth falloff with a 30-unit radius lit whole plazas like daylight.
+- Height fog in the location's night fog colour (downtown 0, 0.118, 0.157) greys the deep-blue dome if it reaches the
+  sky; at night it is darkened and warmed by the city glow and kept thin (0.004 at the ground, falloff 0.04).

@@ -25,6 +25,7 @@
 struct RmEmbeddedShader { const char* name; const char* profile; const unsigned char* data; unsigned size; };
 static const RmEmbeddedShader g_rm_shaders[] = {{0, 0, 0, 0}};     // (no shaders: the passes stay off)
 #endif
+#include "nightlights.h"
 #include "shadows.h"
 #include "texpack.h"
 
@@ -159,10 +160,12 @@ class LightingPass final : public rm::Pass {
     // in it), never when an interpolated update's draws are recorded: then no frame's lights are known yet
     void late(DrawPacket& p) override
     {
-        if (!m_dynMode || m_abOff)
+        bool night = rm::nightLightsActive();            // (wlook2: the night lights reach draws like the orbs)
+        if ((!m_dynMode && !night) || m_abOff)
             return;
-        dynamicDraw(p);
-        if (!m_dynCount || p.viewMode != 0 || p.query != kSinkNone || p.pipeline == kSinkNone || p.state.blend ||
+        if (m_dynMode)
+            dynamicDraw(p);
+        if ((!m_dynCount && !night) || p.viewMode != 0 || p.query != kSinkNone || p.pipeline == kSinkNone || p.state.blend ||
             (p.vertexProgram != 0 && p.vertexProgram != 6) || m_progs.ours(p.pipeline))
             return;
         if (near(p))                                    // (an orb's light reaches the draw)
@@ -197,6 +200,7 @@ class LightingPass final : public rm::Pass {
         bool takesWorld = p.lighting || vp1 != 1 || p.shaderKind < 1 || p.shaderKind > 2;
         const float* sc = p.state.blend ? nullptr : rm::shadowConstants(takesWorld, &atlas);
         bgfx::setUniform(m_uShadow, sc ? sc : &kNoShadow[0][0], 12);
+        rm::nightLightsBind(p);                         // (wlook2: every program of ours declares s_rmCity)
         if (atlas == kInvalid)
             atlas = rm::shadowDummy();
         if (atlas != kInvalid)
@@ -430,6 +434,8 @@ class LightingPass final : public rm::Pass {
                 s2 = fmaxf(s2, c[4 * i + j] * c[4 * i + j]);
         }
         float r = b.r * sqrtf(3.0f * s2);              // (a bound on the modelview's scale)
+        if (rm::nightLightsTouch(cc, r))
+            return true;
         for (int k = 0; k < m_dynCount; k++) {
             const float* l = m_dynCam[2 * k];
             float dx = l[0] - cc[0], dy = l[1] - cc[1], dz = l[2] - cc[2], rr = r + l[3];

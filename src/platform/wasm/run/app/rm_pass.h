@@ -23,6 +23,8 @@ enum Quality : uint32_t {
     kHdr, kAo, kShadows,                  // wr3a (docs/hdr-shadows.md): 0 off; shadows 1 low, 2 high
     kWindows,                             // wlook0 (docs/look.md): 0 the game's glass, 1 interiors
     kReflections,                         // wssr1 (docs/reflections.md): 0 off, 1 low, 2 high
+    kNightLights,                         // wlook2 (docs/night.md): 0 off, 1 the city's lamps and glows light the world
+    kAtmosphere,                          // wlook2 (docs/night.md): 0 the game's sky and fog, 1 enhanced
     kQualityCount
 };
 struct Settings {
@@ -108,6 +110,14 @@ bool viewsHere(int n, uint16_t* out);
 uint16_t currentGamePass();
 void copyFrame(uint16_t pass, const hulk::pddi::SinkTarget& dst);   // instead of hulk_gfx_sink_copy_frame
 void fxDraw(const hulk::pddi::FxPacket& p);                         // instead of hulk_gfx_sink_fx_draw
+
+// wlook2: a draw's transient vertices as the sink holds them (app.cpp / interp.cpp hand them over before the draw
+// reaches the passes); null when the draw is a buffer draw or they are unknown
+void setTransient(const hulk::pddi::SinkVertex* v, uint32_t count);
+const hulk::pddi::SinkVertex* transientVertices(const hulk::pddi::DrawPacket& p, uint32_t* count);
+
+// the Fog row (port_settings.c fog): 0 the game's, 1 reduced, 2 off
+int fogSetting();
 
 // a runner shader (run/app/shaders, tools/rm_shaders.py) by name for the renderer's profile; kNoView (0xffff): none
 uint16_t loadShader(const char* name);
