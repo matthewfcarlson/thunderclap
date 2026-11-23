@@ -656,6 +656,13 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   `rm::Pass::late` (per presented draw), never in `packet`, which at 60/120 fps runs when the update is recorded. The
   controller-stall banner (input.cpp, Core Text) shares bgfx_sink's single overlay slot with the movie skip ring; a third
   overlay user needs the slot arbitrated in movie.c's `hulk_app_movie_overlay`.
+  Window interiors (wlook0, docs/look.md §5): layeredReflect's facade alpha is 0 exactly on the glass; its stages 1/2 are
+  a texgen'd sphere map and a UV-mapped night window-light layer (the lit-office pattern), told apart by
+  `u_vc[48+s].x > 3`. run/app/windows.cpp redraws each building draw as a decal (vs_px_ff.sh `PX_DECAL` depth pull,
+  less-equal, mask blend) from the next rm hook into the kept packet's view, at order 3. A runner fragment shader reads
+  the draw's vertex constants by declaring `uniform vec4 u_vc[96]`; its helpers take varyings as arguments (bgfx hands
+  varyings to `main` only). Remastered option rows each take the next Quality index (`rm_pass.h` k*): rebase before
+  landing a new row.
   Build id (wver1): apps and APKs carry the short commit (`+dirty` for local builds with uncommitted host files or tools,
   `+N` for N queue overlay files): stdout `hulk-app: build <id>`, the window title, Info.plist, the APK's versionName and
   SetupActivity. `wasm_app.py build` writes it from HULK_BUILD_ID (wasm_build_run.py sets it) or git into
