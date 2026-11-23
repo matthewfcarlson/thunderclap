@@ -576,6 +576,14 @@ shell and crashes the queue daemon, and a restart loses running jobs (11-20: 0x8
 workspaces and fetched job outputs once landed.
 Wine runs are `--needs wine`. xemu jobs always carry `-snapshot`. Full Wine builds go through `tools/wine_build_job.py`
 (`--host local` only on purpose; graphics runs stay on the laptop), replays through `tools/wine_replay_job.py`.
+Wasm builds and their tests go through `tools/wasm_build_job.py` (`--needs wasm`: mac2 and studio only, user 11-22;
+docs/compute.md "Wasm builds and tests"): `submit --name ME --target app|aot [--bundle] [--workspace DIR|--files P...]
+[--test play3:N|rolltest:A:B|input:N[:E]] [--control JOB|PATH]`, `wait`, `fetch ID --dest build/ME/...`; `test --exe JOB
+--control JOB --test ...` runs a candidate and its control on one host. A cold app build is ~100 s there against ~24 min
+on the laptop: local `wasm_port.py compile` / `wasm_app.py build` only for a single quick debug build. Tree edits need
+`--inputs make`; shader edits are compiled locally first (`--shaders-ok`). A standalone play3 test fails past ~5,875 (the
+known camera transient): long runs take `--control`. Free-run game hashes include the run's save/data paths: compare
+runs made in the same directory (the job does) (wbuild1).
 Terms: the *Wine build* is the 32-bit clang image run under Wine (`tools/wine_*.py`, `docs/wine-*.md`, `HULK_WINE_*`; the old
 `native_*` names, `HULK_NATIVE_*` and `--native` still work as aliases). *Native* means the 64-bit builds for the supported targets.
 
