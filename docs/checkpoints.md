@@ -178,6 +178,23 @@ matched may diverge in the run (the control's own divergences are the known ones
 ckpt_gate transients are float drift (the quantised hashes agree): the camera from frame 5,875 (the 5880/5910
 checkpoints) and Hulk and the actors from 34,240 (34260).
 
+**The shared transients against play3.ckref (v3, wasmq4, 2026-11-22).** Every Wine build since at least 110325 (decl2)
+and the wasm build after wasmq4's fix give the same records against the reference to 60,000: no persistent divergence,
+and these short runs of differing (frame, tag) records (camera = the logic view's position, hulk = the main actor,
+actors = every actor's words); all but the particle frames are float drift, the quantised hashes agreeing:
+
+| tag | frames | what it is |
+|---|---|---|
+| camera | 5,875-5,925 | float drift (ckpt_gate's 5880 / 5910) |
+| camera, hulk | 34,240-34,282 | float drift (34260) |
+| actors | 34,260; 47,160-47,340; 48,360; 49,200-49,290 (every 30th frame: the actor records) | float drift (quantised hashes agree) where the reference's three runs agree: real, not yet traced (needs an xemu field dump) |
+| particle | 14,584-14,601; 14,659-14,670 | reference noise ("The 16 frames after 14,584" below): the original's own runs split there |
+
+ckpt_gate's `--known` list (5880, 5910, 34260, 52620, 52650) only marks frames in its listing of the control-versus-proof
+`ckpt` lines; the gates compare a proof with its control (and the reference gate exempts whatever the control already
+misses), so these shared transients need no change there. Until wasmq4 (0x0009ffc0's asin, docs/journal.md) the wasm build
+differed from the Wine build at 7 more camera frames (38,673, 38,684, 38,961-38,964, 46,930).
+
 ## The rule: when a refactor needs no re-proof (D155; adopted as D162, refined as D163)
 
 **Adopted** by the user (D162, "adopt + audit"; D163 sets the bar). Status: pieces 1-3 landed (window-counted block

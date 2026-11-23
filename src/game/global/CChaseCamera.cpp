@@ -1025,11 +1025,17 @@ Vec_9fef0* __cdecl FUN_0009fef0(Vec_9fef0* out, const Vec_9fef0* axis, const Vec
 
 // 0x0009ffc0 FUN_0009ffc0 (68 B): matches/0x0009ffc0.cpp
 // sym: _FUN_0009ffc0
+// (wasmq4) the call is the game's clamping asin 0x000189c0, which returns the CRT result unrounded in st0, and the
+// product is rounded once, when stored: declared by its definition (hulk_freg), not as asinf (float), or the port
+// builds round the angle to a float before the product (play3 wasm camera 38673, 38684, 38961-38964, 46930)
+} // namespace fn_f69c308d
+namespace fn_f7aff818 { hulk_freg __cdecl FUN_000189c0(float x); }
+namespace fn_f69c308d {
 extern "C" char FUN_0009ffc0(float a, float b, float c, float* out) {
     float v = (float)(sin(b * 0.017453292519943295f) / a * c);
     if (v > 1.0f)
         return 0;
-    *out = asinf(v) * 57.295776f;
+    *out = (float)(fn_f7aff818::FUN_000189c0(v) * 57.295776f);
     return 1;
 }
 

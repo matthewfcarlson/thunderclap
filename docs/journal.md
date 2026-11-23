@@ -3078,3 +3078,27 @@ draws gives in-between frames with no tree change and no path back into the game
   (vertex colours = baked world lighting, UV set 2, skin weights) taken from the nearest original vertex. A test pack
   that scaled the first mission's skinned groups by 1.3 and dropped half the HUD models' triangles drew as expected;
   records identical. Skinned replacement by joint name (remaster.md R5) is the documented next step.
+
+## 2026-11-22 wasmq4: the wasm build's last camera-only frames (0x0009ffc0's asin)
+
+- **Re-scoped first.** Against play3.ckref the wasm build (after wasmq3) and every Wine build since decl2 (110325, to
+  111488) give identical records except camera 38,673, 38,684, 38,961-38,964 and 46,930, which only wasm missed. The
+  rest (camera 5,875-5,925; hulk/camera 34,240-34,282; actors 34,260, 47,160-47,340, 48,360, 49,200-49,290; particle
+  14,584-14,670) is shared, and the particle frames are the reference's own noise (checkpoints.md "The 16 frames after
+  14,584"). The shared list is now in docs/checkpoints.md.
+- **The camera frames were 1-ULP pos_y differences** (Wine 111517 / wasm ckdump), no propagation. CChaseCamera
+  (vftable 0x405604) state 6, 0x000a6400: the pitch target f.q came out 8 float ULPs off after the clamp to
+  `lo2 = -deg - (o48 + f470)`; o48 is 0x0009ffc0's `asinf(v) * 57.295776f`.
+- **Cause: a library name bound to a game function.** The source called `asinf`, which binds (bindings.json, by
+  position) to the game's clamping asin 0x000189c0. The original keeps that call's st0 result unrounded for the
+  product (fmul dword; fstp dword), and so does the Wine build (x87-keep code); the port builds took the declared
+  `float` return and rounded the angle to a float before the product. Fix: declare and call the definition
+  (`fn_f7aff818::FUN_000189c0`, hulk_freg) and round the product once; still MATCH with relocations ok. `asinf` is the
+  only libm name in the binding map that resolves to a game function, so there is no sibling.
+- **How it was found:** Wine probes (FUNCS/EXIT on the camera family, SPAN of the camera object) against wasm entry
+  hooks; calls inside one TU do not reach wasm entry hooks, so the last step used debug calls compiled into a private
+  snapshot copy (an `extern "C" ffh_<name>` that the hook host file defines links fine).
+- **Two side results.** Wine's msvcrt asin equals x87 code at PC 53 (fsub/fadd/fmul/fsqrt rounded to 53 bits, then
+  fpatan) on all 8,281 arguments of one frame, while softx87's asin (unrounded root) differs on 1,354; Wine's acos is
+  musl's (0 of 15,764 differ). Switching wasm's asin to the PC-53 root, or acos to musl/libm, changed no play3 record
+  in 60,000 frames, so nothing changed there.
