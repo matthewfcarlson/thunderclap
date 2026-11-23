@@ -521,6 +521,12 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   run/app/start.cpp); `<app dir>` is `HULK_APP_DIR` (default ~/Library/Application Support/HulkUD). Option held at
   launch or `--choose-game` asks again; `HULK_NO_UI` and scripted runs never prompt. Test with your own
   `HULK_APP_DIR`, never the player's folder; drive start.cpp with SDL mocked (build/wui1/scripts/harness.cpp) (wui1).
+  Texture/model packs (wpack1): <app dir>/mods/<pack>/textures/tex-<key>.png and models/mdl-<key>.obj (run/app/
+  texpack.cpp, meshpack.cpp). Keys are hashed at the sink (tex = XXH64(le32 format, w, h, level-0 bytes)); PNG payloads
+  reach the sink rows flipped, like GC. Replacements live beside the original (occlusion-query draws keep it), so game
+  state is unchanged. Tests pin a pack with `HULK_SETTINGS=remastered=1,texture_pack=<hash>` (a remastered-only setting
+  stays faithful in pinned runs unless `remastered=1` is pinned too). `HULK_PACK_DUMP=<dir>` dumps keys/PNGs/OBJs (player's
+  machine only); `texpack_convert.py pack` turns a Dolphin pack into an app pack (docs/texture-packs.md).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
