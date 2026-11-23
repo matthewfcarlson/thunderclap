@@ -107,6 +107,8 @@ static void apply_developer(int value);
  * effects and the HUD (1 Natural: a little more contrast and colour; 2 Cinematic: firmer contrast, cool shadows and
  * warm highlights by the location's time of day, a soft vignette), inside HDR's tone map (no pass of its own: with HDR
  * off nothing is graded). Output only.
+ * Anti-Aliasing's TAA (wperf1; run/app/taa.cpp, docs/performance.md): value 1, the scene single-sampled, its draws
+ * jittered and resolved against a reprojected history before the game's effects. Output only.
  * Upscaler, Render Scale (wperf1; run/app/upscale.cpp, docs/performance.md): the scene drawn at a share of the
  * render resolution (100% .. 50%: FSR's Ultra Quality 1.3x, Quality 1.5x, Balanced 1.7x, Performance 2x) and brought
  * to the present size by the upscaler: Off the bilinear stretch as before, FSR 1 (AMD's EASU + RCAS, MIT), Auto the
@@ -150,8 +152,8 @@ static port_setting k_settings[] = {
     {"mipmaps", "Mipmaps", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Original", "Full"}, 0, 1, 1, apply_mipmaps},
     {"aniso", "Anisotropic Filtering", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 16}, {"Off (Original)", "16x"}, 0, 16, 1,
      apply_aniso},
-    {"msaa", "Anti-Aliasing", PS_SCREEN_VIDEO, PS_CHOICE, 4, {0, 2, 4, 8},
-     {"Off (Original)", "MSAA 2x", "MSAA 4x", "MSAA 8x"}, 0, 4, 1, apply_msaa},
+    {"msaa", "Anti-Aliasing", PS_SCREEN_VIDEO, PS_CHOICE, 5, {0, 2, 4, 8, 1},
+     {"Off (Original)", "MSAA 2x", "MSAA 4x", "MSAA 8x", "TAA"}, 0, 4, 1, apply_msaa},
     {"far_field", "Far Field", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On (Experimental)"}, 0, 0, 1,
      apply_far_field},
     {"lighting", "Lighting", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Per-Vertex (Original)", "Per-Pixel"}, 0, 1, 1,
