@@ -676,6 +676,13 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   world space (world up = the room modelview's second column); night is rooms' fog luminance < 0.15 (downtown night
   0.087); layeredReflect glass is stage 0's alpha-0 texels. Window decals draw before the trace and get SSR from its
   composite; later passes read `rm::ssrResult` (ssr.h).
+  Night Lights / Atmosphere (wlook2, docs/night.md): run/app/nightlights.cpp turns the world pass's additive glows
+  (unlit, depth tested; sprite centres from `rm::transientVertices`, colour from `texpack_mean`) into world-space lights
+  matched by place across frames (static within 1 unit), handed to every per-pixel program as a tiled list
+  (shaders/rm_city.sh: s_rmCity at stage 5, u_rmCity[3]; every program of ours declares and binds it). The sky dome uses
+  the rooms' projection: find it as the shader-kind-0 mesh around the camera before the first room draw (atmosphere.cpp);
+  the game's sky layers write depth hundreds of units out, so depth-based passes treat view depth > 600 as sky. Never
+  write `toWorld(x, x)` in place (an aliased output put the camera hundreds of units off).
   Build id (wver1): apps and APKs carry the short commit (`+dirty` for local builds with uncommitted host files or tools,
   `+N` for N queue overlay files): stdout `hulk-app: build <id>`, the window title, Info.plist, the APK's versionName and
   SetupActivity. `wasm_app.py build` writes it from HULK_BUILD_ID (wasm_build_run.py sets it) or git into
