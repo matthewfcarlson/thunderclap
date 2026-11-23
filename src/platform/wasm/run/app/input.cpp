@@ -16,6 +16,7 @@
 // S seconds in the probe: the stall, simulated where it happens. Android keeps the main-thread path (its joysticks
 // come through SDL's Java layer).
 #include <stdint.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "input/hulk_input.cpp"
@@ -40,6 +41,8 @@ static int app_kb_env(void)
 }
 
 #if HULK_APP_PAD_THREAD
+#include <CoreGraphics/CoreGraphics.h>
+#include <CoreText/CoreText.h>
 #include <IOKit/hid/IOHIDManager.h>
 
 enum { PT_OFF, PT_PROBE, PT_INIT, PT_UP, PT_FAILED, PT_DONE };
@@ -66,6 +69,9 @@ static struct {
     HulkPadState mst[HULK_INPUT_PORTS];
     int warned;
     char* title;                // the window's title while the notice is in it
+    int banner;                 // the on-screen notice is up (main thread; hulk_app_notice_overlay draws it)
+    int dismissed;              // the player put it away (its key)
+    int keyDown;                // the dismiss key's last state
 } g_pt;
 
 // HIDAPI's init, outside SDL: an IOHIDManager matching every HID device creates them all (no device is opened)
@@ -165,6 +171,147 @@ static void pt_notice(int on)
     }
 }
 
+// The on-screen notice (wpol1): a banner at the top of the window, drawn by the runner over the presented frame
+// (bgfx_sink's overlay image, which the movie skip ring also uses: run/app/movie.c hands the slot here when it has no
+// ring). Never module memory, never a modal dialog (a dialog would block the main thread like the stall it reports).
+// Text by Core Text into a B, G, R, A image (straight alpha, as the overlay blends), made again for a new window size.
+static struct {
+    uint8_t* img;
+    unsigned w, h, ww, wh, version;
+    int x, y;
+} g_nb;
+
+static CTLineRef nb_line(const char* text, CTFontRef font)
+{
+    CFStringRef str = CFStringCreateWithCString(kCFAllocatorDefault, text, kCFStringEncodingUTF8);
+    const void* keys[] = {kCTFontAttributeName, kCTForegroundColorFromContextAttributeName};
+    const void* vals[] = {font, kCFBooleanTrue};
+    CFDictionaryRef attrs = CFDictionaryCreate(kCFAllocatorDefault, keys, vals, 2, &kCFTypeDictionaryKeyCallBacks,
+                                               &kCFTypeDictionaryValueCallBacks);
+    CFAttributedStringRef as = CFAttributedStringCreate(kCFAllocatorDefault, str, attrs);
+    CTLineRef line = CTLineCreateWithAttributedString(as);
+    CFRelease(as);
+    CFRelease(attrs);
+    CFRelease(str);
+    return line;
+}
+
+static void nb_render(unsigned ww, unsigned wh)
+{
+    static const char* kLines[] = {
+        "Controllers unavailable",
+        "macOS's game controller service isn't responding. The keyboard still works.",
+        "Quit apps that use gamepads (such as Chrome), or restart gamecontrollerd.",
+        "A controller connects as soon as the service recovers.   Press Delete to dismiss.",
+    };
+    enum { kN = 4 };
+    free(g_nb.img);
+    g_nb.img = 0;
+    g_nb.ww = ww, g_nb.wh = wh;
+    float fs = (float)wh / 34.0f;
+    fs = fs < 11.0f ? 11.0f : fs > 40.0f ? 40.0f : fs;
+    CTLineRef lines[kN];
+    float widths[kN], asc[kN], desc[kN], width = 0;
+    for (int pass = 0; pass < 2; pass++) {          // (a second pass with a smaller font when the window is narrow)
+        CTFontRef bold = CTFontCreateUIFontForLanguage(kCTFontUIFontEmphasizedSystem, fs, 0);
+        CTFontRef body = CTFontCreateUIFontForLanguage(kCTFontUIFontSystem, fs * 0.82f, 0);
+        if (!bold || !body) {
+            if (bold) CFRelease(bold);
+            if (body) CFRelease(body);
+            return;
+        }
+        width = 0;
+        for (int i = 0; i < kN; i++) {
+            lines[i] = nb_line(kLines[i], i == 0 ? bold : body);
+            CGFloat a = 0, d = 0, l = 0;
+            widths[i] = (float)CTLineGetTypographicBounds(lines[i], &a, &d, &l);
+            asc[i] = (float)a, desc[i] = (float)d;
+            width = widths[i] > width ? widths[i] : width;
+        }
+        CFRelease(bold);
+        CFRelease(body);
+        float pad = fs * 0.9f, room = (float)ww * 0.94f - 2.0f * pad;
+        if (pass == 1 || width <= room || room <= 0.0f)
+            break;
+        for (int i = 0; i < kN; i++)
+            CFRelease(lines[i]);
+        fs *= room / width;
+    }
+    float pad = fs * 0.9f, gap = fs * 0.28f;
+    float textH = 0;
+    for (int i = 0; i < kN; i++)
+        textH += asc[i] + desc[i] + (i ? gap : 0.0f);
+    unsigned w = (unsigned)(width + 2.0f * pad + 1.0f), h = (unsigned)(textH + 2.0f * pad + 1.0f);
+    if (w > ww)
+        w = ww;
+    if (h > wh)
+        h = wh;
+    uint8_t* img = (uint8_t*)calloc((size_t)w * h, 4);
+    CGColorSpaceRef cs = CGColorSpaceCreateDeviceRGB();
+    CGContextRef c = img ? CGBitmapContextCreate(img, w, h, 8, (size_t)w * 4, cs,
+                                                 kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little) : 0;
+    CGColorSpaceRelease(cs);
+    if (!c) {
+        free(img);
+        for (int i = 0; i < kN; i++)
+            CFRelease(lines[i]);
+        return;
+    }
+    // a dark rounded panel (y up: row 0 of the image is the panel's top)
+    float r = fs * 0.5f;
+    CGPathRef panel = CGPathCreateWithRoundedRect(CGRectMake(0.5, 0.5, w - 1.0, h - 1.0), r, r, 0);
+    CGContextAddPath(c, panel);
+    CGContextSetRGBFillColor(c, 0.06, 0.06, 0.07, 0.84);
+    CGContextFillPath(c);
+    CGPathRelease(panel);
+    CGContextSetTextMatrix(c, CGAffineTransformIdentity);
+    float y = (float)h - pad;
+    for (int i = 0; i < kN; i++) {
+        y -= asc[i];
+        if (i == 0)
+            CGContextSetRGBFillColor(c, 1.0, 0.80, 0.35, 1.0);
+        else if (i == kN - 1)
+            CGContextSetRGBFillColor(c, 0.72, 0.72, 0.74, 1.0);
+        else
+            CGContextSetRGBFillColor(c, 0.96, 0.96, 0.96, 1.0);
+        CGContextSetTextPosition(c, pad, y);
+        CTLineDraw(lines[i], c);
+        y -= desc[i] + gap;
+        CFRelease(lines[i]);
+    }
+    CGContextFlush(c);
+    CGContextRelease(c);
+    for (size_t i = 0; i < (size_t)w * h; i++) {    // (premultiplied -> straight alpha: the overlay blends SRC_ALPHA)
+        uint8_t* q = img + 4 * i;
+        if (q[3] && q[3] < 255)
+            for (int k = 0; k < 3; k++)
+                q[k] = (uint8_t)((q[k] * 255u + q[3] / 2u) / q[3]);
+    }
+    g_nb.img = img;
+    g_nb.w = w, g_nb.h = h;
+    g_nb.x = (int)(ww - w) / 2;
+    g_nb.y = (int)(wh / 28u);
+    g_nb.version++;
+}
+
+// the notice's dismiss key (Delete: SDL's Backspace), held now; HULK_KEY_SCRIPT's "Backspace" too (tests; its tenths
+// of a second counted from the pad thread's start here)
+static int nb_dismiss_key(void)
+{
+    const bool* k = SDL_GetKeyboardState(0);
+    if (k && k[SDL_SCANCODE_BACKSPACE])
+        return 1;
+    if (g_script_n < 0)
+        kb_script_load();
+    unsigned dsec = (unsigned)((SDL_GetTicks() - g_pt.t0) / 100);
+    for (int i = 0; i < g_script_n; i++)
+        if (dsec >= g_script[i].from && dsec < g_script[i].to)
+            for (int j = 0; j < g_script[i].n; j++)
+                if (g_script[i].code[j] == SDL_SCANCODE_BACKSPACE)
+                    return 1;
+    return 0;
+}
+
 static void pt_start(void)
 {
     g_pt.mu = SDL_CreateMutex();
@@ -196,9 +343,23 @@ static void app_update(void*)
                 "pending for %u s); the keyboard works. Quit apps that poll gamepads (e.g. Chrome) or restart "
                 "gamecontrollerd; a controller attaches when the init completes", PT_WARN_MS / 1000);
         pt_notice(1);
+        g_pt.banner = 1;
     }
     if (ph != PT_PROBE && ph != PT_INIT && g_pt.title)
         pt_notice(0);
+    if (g_pt.banner && ph != PT_PROBE && ph != PT_INIT) {
+        g_pt.banner = 0;                                    // (the init came through: controllers attach now)
+        SDL_Log("input: controller notice cleared (gamepad init completed)");
+    }
+    if (g_pt.banner && SDL_WasInit(SDL_INIT_VIDEO)) {       // (its dismiss key: Delete, which the keymap leaves free)
+        int down = nb_dismiss_key();
+        if (down && !g_pt.keyDown) {
+            g_pt.banner = 0;
+            g_pt.dismissed = 1;
+            SDL_Log("input: controller notice dismissed");
+        }
+        g_pt.keyDown = down;
+    }
     if (ph != PT_UP)
         return;
     SDL_LockMutex(g_pt.mu);
@@ -298,6 +459,26 @@ extern "C" int hulk_app_pad_stop(unsigned wait_ms)
 #else
     (void)wait_ms;
     return 1;
+#endif
+}
+
+// The overlay slot's other user (run/app/movie.c, when no skip ring is up): 1 when the controller notice is drawn
+extern "C" void hulk_gfx_sink_overlay(const void* bgra, unsigned w, unsigned h, int x, int y, unsigned version);
+extern "C" int hulk_app_notice_overlay(unsigned ww, unsigned wh)
+{
+#if HULK_APP_PAD_THREAD
+    if (!g_pt.banner || !ww || !wh)
+        return 0;
+    if (!g_nb.img || g_nb.ww != ww || g_nb.wh != wh)
+        nb_render(ww, wh);
+    if (!g_nb.img)
+        return 0;
+    // (versions apart from the ring's, so the shared texture is filled again whenever the slot changes hands)
+    hulk_gfx_sink_overlay(g_nb.img, g_nb.w, g_nb.h, g_nb.x, g_nb.y, 0x80000000u | g_nb.version);
+    return 1;
+#else
+    (void)ww, (void)wh;
+    return 0;
 #endif
 }
 

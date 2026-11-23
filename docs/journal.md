@@ -3480,3 +3480,24 @@ passes; output only (checkpoint records identical with every setting).
   (+50%, capped). The bounce multiplies on top within 0.25 s of touchdown.
 - **The computer interface's Buy Menu refresh calls the store list 0x000c21b0 from CFEManager.cpp** (another TU), so an
   entry hook there sets the moves up in the front end (Continue Game) before any UpdateSimulation ran.
+
+## 2026-11-23 wpol1: steady health-orb lights; an on-screen notice for the controller stall
+
+- **The flicker was identification, not the light.** An orb is a sprite (6 transient vertices) and a 14-vertex mesh
+  with the same texture; wlight1 counted an orb only when the sprite came right before its mesh. The game sorts its
+  blended draws back to front, so the two are adjacent in some frames only (and in either order): each orb's light
+  went on and off from frame to frame. play3 to frame 20,000 at 30 fps (Metal, all remastered options,
+  `HULK_LIGHT_TRACE`): 934 frames where an orb's light went off for one frame and back (116 with the orb within 60
+  units); now an adjacent pair names the mesh (prim buffer + texture, either order) and the named mesh alone is an
+  orb: 118 (5 within 60 units, orbs appearing or being collected; the rest are orbs 100-400 units away leaving the
+  view). 60 fps: 10 (2), 120 fps without HDR: 4 (1), 60 fps without shadows or HDR: 10 (2).
+- **Two smaller gaps.** The ~6 draws a frame before the first world draw (the Hulk) took no orb light: they now
+  take the lights placed with the last frame's camera. And the choice of which draws take the per-pixel program for
+  an orb's light was made in `packet`, which for 60/120 fps runs when an update's draws are recorded, before any
+  frame's lights exist: with Shadows off the ground never glowed at 60/120. The choice is now made as each presented
+  frame is drawn (new `rm::Pass::late`, called in `rm::submitDraw` before the passes' `draw`).
+- **Controller notice.** wpad1's stall (gamecontrollerd deadlocked) now also shows a banner at the top of the
+  window after 3 s: the runner's overlay image (bgfx_sink's, shared with the movie skip ring: movie.c hands the slot
+  to input.cpp when no ring is up), text by Core Text (AppKit already links it), never module memory or a modal
+  dialog. It goes when the gamepad init completes or on Delete (`HULK_KEY_SCRIPT=80-90:Backspace` in tests).
+  Free runs with `HULK_PAD_INIT_DELAY=8` / `=60`: up at 3 s, cleared at 8.0 s, dismissed by the key at 8.0 s.

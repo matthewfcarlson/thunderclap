@@ -114,6 +114,18 @@ int logOn()
     return on;
 }
 
+// HULK_LIGHT_TRACE=a:b (development, wpol1): one line a presented frame for presents a..b: the frame's lights
+int traceOn(unsigned present)
+{
+    static long a = -2, b = -1;
+    if (a == -2) {
+        a = -1;
+        if (const char* e = getenv("HULK_LIGHT_TRACE"))
+            sscanf(e, "%ld:%ld", &a, &b);
+    }
+    return a >= 0 && (long)present >= a && (long)present <= b;
+}
+
 class LightingPass final : public rm::Pass {
   public:
     const char* name() const override { return "lighting"; }
@@ -138,23 +150,37 @@ class LightingPass final : public rm::Pass {
             return;
         bool skin = p.vertexProgram == 1 || p.vertexProgram == 2;
         bool lit = skin || p.lighting;
-        bool dyn = m_dynMode && m_dynCount && !p.state.blend && near(p);   // (an orb's light reaches the draw)
         bool shadowed = shadows && !p.state.blend && p.state.depthWrite;
-        if (lit ? !m_perPixel && !dyn && !shadowed : !dyn && !shadowed)
+        if (lit ? !m_perPixel && !shadowed : !shadowed)
             return;
-        if (!m_up && !up())
+        ours(p);
+    }
+    // wpol1: the dynamic lights' part of the choice is made as the presented frame is drawn (with the lights placed
+    // in it), never when an interpolated update's draws are recorded: then no frame's lights are known yet
+    void late(DrawPacket& p) override
+    {
+        if (!m_dynMode || m_abOff)
             return;
-        uint16_t prog = m_progs.get(p.vertexProgram, p.generic ? 0 : p.combinerHash);
-        if (prog == kInvalid && !p.generic)
-            prog = m_progs.get(p.vertexProgram, 0);
-        if (prog != kInvalid)
-            p.pipeline = prog;
+        dynamicDraw(p);
+        if (!m_dynCount || p.viewMode != 0 || p.query != kSinkNone || p.pipeline == kSinkNone || p.state.blend ||
+            (p.vertexProgram != 0 && p.vertexProgram != 6) || m_progs.ours(p.pipeline))
+            return;
+        if (near(p))                                    // (an orb's light reaches the draw)
+            ours(p);
     }
     void draw(const DrawPacket& p) override
     {
-        if (m_dynMode)
-            dynamicDraw(p);
         uint8_t vp1 = m_progs.ours(p.pipeline);
+        if (p.viewMode == 0 && !p.state.blend && p.query == kSinkNone) {
+            m_tOpaque++;
+            if (!m_haveView)
+                m_tEarly++;
+            if (vp1)
+                m_tOurs++;
+            if (vp1 && m_dynCount && rm::currentGamePass() == m_viewPass)
+                m_tRecv++;
+        }
+        m_tFrame = p.frame;
         if (!vp1)
             return;
         // glows and other blended effects take no light, nor draws in another pass than the world's (the HUD's models)
@@ -204,6 +230,11 @@ class LightingPass final : public rm::Pass {
     {
         auto it = m_ownerOf.find(sinkBuffer);
         if (it != m_ownerOf.end()) {
+            for (size_t i = 0; i < m_orbSigs.size();)
+                if ((uint32_t)(m_orbSigs[i] >> 32) == it->second)
+                    m_orbSigs[i] = m_orbSigs.back(), m_orbSigs.pop_back();
+                else
+                    i++;
             m_bounds.erase(it->second);
             m_ownerOf.erase(it);
         }
@@ -221,8 +252,20 @@ class LightingPass final : public rm::Pass {
                 m_world.push_back(w);
             }
         m_lightsMade += m_found.size(), m_framesSeen++;
+        if (traceOn(m_present)) {
+            fprintf(stderr, "LT p=%u f=%u view=%d@%u t=%.2f,%.2f,%.2f opaque=%u early=%u ours=%u recv=%u found=%zu dyn=%d",
+                    m_present, m_tFrame, m_haveView ? 1 : 0, m_tViewIdx, m_view[0][3], m_view[1][3], m_view[2][3],
+                    m_tOpaque, m_tEarly, m_tOurs, m_tRecv, m_found.size(), m_dynCount);
+            for (size_t i = 0; i < m_found.size() && i < 6; i++)
+                fprintf(stderr, " F%.2f,%.2f,%.2f", m_found[i].pos[0], m_found[i].pos[1], m_found[i].pos[2]);
+            for (int k = 0; k < m_dynCount && k < 6; k++)
+                fprintf(stderr, " D%.2f,%.2f,%.2f", m_dynCam[2 * k][0], m_dynCam[2 * k][1], m_dynCam[2 * k][2]);
+            fprintf(stderr, "\n");
+        }
+        m_present++;
+        m_tOpaque = m_tEarly = m_tOurs = m_tRecv = m_tViewIdx = 0;
         m_found.clear();
-        m_haveView = false;
+        m_haveView = m_placed = false;
         m_dynCount = 0;
     }
     void frame() override
@@ -265,6 +308,17 @@ class LightingPass final : public rm::Pass {
     bool m_abOff = false;
     unsigned m_abFrame = 0, m_abTurns = 0, m_abN[2] = {0, 0};
     double m_abGpu[2] = {0, 0}, m_abCpu[2] = {0, 0};
+    // the draw takes the runner's per-pixel program for its vertex program and combiner
+    void ours(DrawPacket& p)
+    {
+        if (!m_up && !up())
+            return;
+        uint16_t prog = m_progs.get(p.vertexProgram, p.generic ? 0 : p.combinerHash);
+        if (prog == kInvalid && !p.generic)
+            prog = m_progs.get(p.vertexProgram, 0);
+        if (prog != kInvalid)
+            p.pipeline = prog;
+    }
     bool up()
     {
         if (!*profile())
@@ -288,10 +342,10 @@ class LightingPass final : public rm::Pass {
             p.lighting || p.state.blend || !p.state.depthWrite || p.shaderKind < 1 || p.shaderKind > 2)
             return false;
         const float* c = p.vertexConstants;
+        float m[3][4];                                  // (m_view keeps the last camera until this one is good)
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 4; j++)
-                m_view[i][j] = c[4 * i + j];
-        float(*m)[4] = m_view;
+                m[i][j] = c[4 * i + j];
         float det = m[0][0] * (m[1][1] * m[2][2] - m[1][2] * m[2][1]) - m[0][1] * (m[1][0] * m[2][2] - m[1][2] * m[2][0]) +
                     m[0][2] * (m[1][0] * m[2][1] - m[1][1] * m[2][0]);
         if (fabsf(det) < 1e-12f)
@@ -306,6 +360,7 @@ class LightingPass final : public rm::Pass {
         m_inv[2][0] = (m[1][0] * m[2][1] - m[1][1] * m[2][0]) * id;
         m_inv[2][1] = (m[0][1] * m[2][0] - m[0][0] * m[2][1]) * id;
         m_inv[2][2] = (m[0][0] * m[1][1] - m[0][1] * m[1][0]) * id;
+        memcpy(m_view, m, sizeof m_view);
         return true;
     }
     void dynamicDraw(const DrawPacket& p)
@@ -313,33 +368,12 @@ class LightingPass final : public rm::Pass {
         if (p.viewMode != 0)
             return;
         if (!m_haveView && takeView(p)) {
-            m_haveView = true;
+            m_haveView = m_viewKnown = true;
+            m_tViewIdx = p.drawIndex;
             m_viewPass = rm::currentGamePass();     // (the game's pass: the runner's views may split it, wr3a)
-            // last frame's lights into this frame's camera space, the nearest kMax
-            m_dynCount = 0;
-            struct Near { float d2; const Light* l; };
-            Near near[64];
-            int n = 0;
-            for (const Light& l : m_world) {
-                if (n == 64)
-                    break;
-                float c[3];
-                for (int i = 0; i < 3; i++)
-                    c[i] = m_view[i][0] * l.pos[0] + m_view[i][1] * l.pos[1] + m_view[i][2] * l.pos[2] + m_view[i][3];
-                near[n].d2 = c[0] * c[0] + c[1] * c[1] + c[2] * c[2];
-                near[n].l = &l;
-                n++;
-            }
-            std::sort(near, near + n, [](const Near& a, const Near& b) { return a.d2 < b.d2; });
-            for (int k = 0; k < n && k < kMax; k++) {
-                const Light& l = *near[k].l;
-                float* o = m_dynCam[2 * k];
-                for (int i = 0; i < 3; i++)
-                    o[i] = m_view[i][0] * l.pos[0] + m_view[i][1] * l.pos[1] + m_view[i][2] * l.pos[2] + m_view[i][3];
-                o[3] = l.radius;
-                memcpy(m_dynCam[2 * k + 1], l.colour, sizeof l.colour);
-                m_dynCount++;
-            }
+            place();                                // (the frame's own camera)
+        } else if (!m_haveView && !m_placed && m_viewKnown) {
+            place();                                // (the draws before the frame's first world draw: the last camera)
         }
         Light l;
         if (m_found.size() < 64 && glow(p, &l)) {
@@ -347,6 +381,35 @@ class LightingPass final : public rm::Pass {
                 if (fabsf(f.pos[0] - l.pos[0]) + fabsf(f.pos[1] - l.pos[1]) + fabsf(f.pos[2] - l.pos[2]) < 0.5f)
                     return;
             m_found.push_back(l);
+        }
+    }
+    // the last frame's lights into this frame's camera space (m_view), the nearest kMax
+    void place()
+    {
+        m_placed = true;
+        m_dynCount = 0;
+        struct Near { float d2; const Light* l; };
+        Near near[64];
+        int n = 0;
+        for (const Light& l : m_world) {
+            if (n == 64)
+                break;
+            float c[3];
+            for (int i = 0; i < 3; i++)
+                c[i] = m_view[i][0] * l.pos[0] + m_view[i][1] * l.pos[1] + m_view[i][2] * l.pos[2] + m_view[i][3];
+            near[n].d2 = c[0] * c[0] + c[1] * c[1] + c[2] * c[2];
+            near[n].l = &l;
+            n++;
+        }
+        std::sort(near, near + n, [](const Near& a, const Near& b) { return a.d2 < b.d2; });
+        for (int k = 0; k < n && k < kMax; k++) {
+            const Light& l = *near[k].l;
+            float* o = m_dynCam[2 * k];
+            for (int i = 0; i < 3; i++)
+                o[i] = m_view[i][0] * l.pos[0] + m_view[i][1] * l.pos[1] + m_view[i][2] * l.pos[2] + m_view[i][3];
+            o[3] = l.radius;
+            memcpy(m_dynCam[2 * k + 1], l.colour, sizeof l.colour);
+            m_dynCount++;
         }
     }
     // a fixed-function buffer draw whose bounding sphere (by its modelview) meets one of this frame's lights
@@ -383,8 +446,19 @@ class LightingPass final : public rm::Pass {
     // a health orb's draw (docs/lighting.md "Finding them"): its light, camera space
     bool glow(const DrawPacket& p, Light* l);
     enum { kMax = 8 };
-    bool m_haveView = false;
+    bool m_haveView = false, m_viewKnown = false, m_placed = false;
     uint16_t m_viewPass = 0;
+    // orb meshes known by their prim buffer and texture (wpol1): the sprite + mesh pair names them once; the game sorts
+    // its blended draws back to front, so the pair is adjacent in some frames only and the mesh alone counts after
+    std::vector<uint64_t> m_orbSigs;
+    struct PendingMesh {
+        bool on;
+        uint32_t texture;
+        uint64_t sig;
+        float pos[3];
+    } m_mesh = {};                          // an unknown orb-like mesh drawn just before (its sprite may follow)
+    void learn(uint64_t sig);
+    void orb(const float pos[3], Light* l, uint32_t frame);
     float m_view[3][4], m_inv[3][3];
     std::vector<Light> m_found, m_world;
     float m_dynCam[2 * kMax][4];
@@ -399,6 +473,7 @@ class LightingPass final : public rm::Pass {
     bgfx::UniformHandle m_uShadow = BGFX_INVALID_HANDLE, m_sShadow = BGFX_INVALID_HANDLE;
     unsigned m_frames = 0;
     double m_draws = 0;
+    unsigned m_present = 0, m_tFrame = 0, m_tOpaque = 0, m_tEarly = 0, m_tOurs = 0, m_tRecv = 0, m_tViewIdx = 0;
 };
 HULK_RM_REGISTER_PASS(LightingPass);
 
@@ -406,33 +481,63 @@ HULK_RM_REGISTER_PASS(LightingPass);
 // then a small mesh (14 vertices, no vertex colours) with the same texture, both additive (one, one), unlit and fixed
 // function; the mesh's modelview puts it at the orb. (Found in play3's tutorial and city draws; the mesh's content key
 // differs between locations, the pair's shape does not.) The orb's colour is the health orbs' green: the textures
-// are grey and the draws carry no colour of their own (docs/lighting.md "Finding them").
+// are grey and the draws carry no colour of their own (docs/lighting.md "Finding them"). The game sorts its blended
+// draws back to front, so the two are adjacent only in some frames, in either order (wpol1): an adjacent pair names
+// the mesh (its prim buffer and texture), and a named mesh is an orb by itself from then on.
 bool LightingPass::glow(const DrawPacket& p, Light* l)
 {
     bool additive = p.state.blend && p.state.srcBlend == kBlendOne && p.state.dstBlend == kBlendOne &&
                     p.state.blendOp == kBlendAdd && p.vertexProgram == 0 && !p.lighting && p.viewMode == 0;
     uint32_t sprite = m_sprite;
     m_sprite = kSinkNone;
+    PendingMesh mesh = m_mesh;
+    m_mesh.on = false;
     if (!additive)
         return false;
     if (p.transient != kSinkNone) {
-        if (p.vertexCount == 6)
-            m_sprite = p.stage[0].texture;
+        if (p.vertexCount != 6)
+            return false;
+        m_sprite = p.stage[0].texture;
+        if (mesh.on && mesh.texture == p.stage[0].texture) {      // (the pair the other way round: mesh, sprite)
+            learn(mesh.sig);
+            orb(mesh.pos, l, p.frame);
+            return true;
+        }
         return false;
     }
-    if (sprite == kSinkNone || sprite != p.stage[0].texture || p.vertexCount != 14 || !p.vertexConstants ||
-        p.vertexConstantCount < 4)
+    if (p.vertexCount != 14 || !p.vertexConstants || p.vertexConstantCount < 4)
         return false;
     const float* c = p.vertexConstants;
-    l->pos[0] = c[3], l->pos[1] = c[7], l->pos[2] = c[11];
-    float scale = sqrtf(c[0] * c[0] + c[4] * c[4] + c[8] * c[8]);     // (the mesh's own scale: the view is a rotation)
+    float pos[3] = {c[3], c[7], c[11]};
+    uint64_t sig = (uint64_t)p.bufferOwner << 32 | p.stage[0].texture;
+    bool known = std::find(m_orbSigs.begin(), m_orbSigs.end(), sig) != m_orbSigs.end();
+    if (!known) {
+        if (sprite == kSinkNone || sprite != p.stage[0].texture) {  // (perhaps a pair's first: its sprite next)
+            m_mesh.on = true, m_mesh.texture = p.stage[0].texture, m_mesh.sig = sig;
+            memcpy(m_mesh.pos, pos, sizeof pos);
+            return false;
+        }
+        learn(sig);
+    }
+    orb(pos, l, p.frame);
+    return true;
+}
+
+void LightingPass::learn(uint64_t sig)
+{
+    if (m_orbSigs.size() < 64 && std::find(m_orbSigs.begin(), m_orbSigs.end(), sig) == m_orbSigs.end())
+        m_orbSigs.push_back(sig);
+}
+
+// the orb's light: at the mesh's translation (camera space), the health orbs' green
+void LightingPass::orb(const float pos[3], Light* l, uint32_t frame)
+{
+    memcpy(l->pos, pos, sizeof l->pos);
     l->radius = m_dynRadius;
     static int logged;
-    if (logOn() && logged < 40 && (p.frame % 50) == 0)
-        logged++, fprintf(stderr, "hulk-app: lighting: orb f%u at %.2f %.2f %.2f scale %.3f\n", p.frame, c[3], c[7],
-                          c[11], scale);
+    if (logOn() && logged < 40 && (frame % 50) == 0)
+        logged++, fprintf(stderr, "hulk-app: lighting: orb f%u at %.2f %.2f %.2f\n", frame, pos[0], pos[1], pos[2]);
     l->colour[0] = 0.45f, l->colour[1] = 1.0f, l->colour[2] = 0.3f, l->colour[3] = 1.0f;
-    return true;
 }
 
 // HULK_LIGHT_DUMP=a:b[:path]: every draw of presented frames a..b, one line each (identification of glow draws)

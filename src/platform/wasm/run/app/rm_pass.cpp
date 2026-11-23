@@ -159,6 +159,8 @@ void submitDraw(const DrawPacket& p)
     DrawPacket q = p;
     q.pass = sinkView(p.pass);
     for (Pass* r : ordered())
+        r->late(q);
+    for (Pass* r : ordered())
         r->draw(q);
     q.pass = sinkView(p.pass);          // (a pass may have split the game's pass: rm::viewsHere)
     hulk_gfx_sink_submit_draw(&q);

@@ -643,6 +643,7 @@ int hulk_app_movie_playing(void) {
 }
 
 void hulk_gfx_sink_overlay(const void* bgra, unsigned w, unsigned h, int x, int y, unsigned version);  /* bgfx_sink */
+int hulk_app_notice_overlay(unsigned ww, unsigned wh);      /* run/app/input.cpp */
 
 /* before the present (run/app/app.cpp): the ring in the bottom-right corner of a window ww x wh, a tenth of its
  * smaller side across. Our own drawing: a faint full circle and the held part of it from twelve o'clock clockwise. */
@@ -650,7 +651,8 @@ void hulk_app_movie_overlay(unsigned ww, unsigned wh) {
     static uint8_t* img;
     static unsigned size, drawn_ring = ~0u, drawn_size;
     if (!s_ring || !s_movs) {
-        hulk_gfx_sink_overlay(0, 0, 0, 0, 0, s_ring_version);
+        if (!hulk_app_notice_overlay(ww, wh))          /* (run/app/input.cpp: the controller notice, wpol1) */
+            hulk_gfx_sink_overlay(0, 0, 0, 0, 0, s_ring_version);
         return;
     }
     unsigned d = (ww < wh ? ww : wh) / 10;

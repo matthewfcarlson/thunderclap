@@ -47,6 +47,9 @@ Health orbs become point lights for the draws around them:
   (found with `HULK_LIGHT_DUMP=a:b:file`, a list of a frame's draws, and `HULK_LIGHT_HIDE=ordinal,...`, which hides the
   draws of a texture). The textures are grey and the draws carry no colour of their own, so the light is the orbs'
   green. The other glowing pickups and effects (the red and blue pickups in the city) are a follow-up.
+  The game sorts its blended draws back to front, so the sprite and the mesh are adjacent only in some frames, and
+  in either order: an adjacent pair names the mesh (its prim buffer and texture), and a named mesh is an orb by itself
+  from then on (wpol1). Counting only adjacent pairs found each orb in some frames and not the next: the flicker.
   The position is the draw's camera-space translation, read from its vertex constants (so the interpolated position
   under the 60/120 fps display rates, which re-draw recorded streams with blended constants).
 - **Applying them:** a draw receives the lights through its per-pixel program: a smooth falloff to zero at the
@@ -56,12 +59,18 @@ Health orbs become point lights for the draws around them:
 - **Order within a frame:** the world is drawn before the effects, so a frame's orbs are known only after the ground
   is drawn. The lights are kept in world space and applied the next presented frame: each frame's camera (the view
   matrix) is taken from the first static world draw, whose modelview is the view. One presented frame of latency in
-  world space is invisible for a pickup (they hardly move); the camera's own motion is exact.
+  world space is invisible for a pickup (they hardly move); the camera's own motion is exact. The draws before the
+  frame's first world draw (the Hulk, ~6 a frame) take the lights placed by the last frame's camera (wpol1).
+- **Which draws take them** is decided as each presented frame is drawn (`rm::Pass::late`), never when an interpolated
+  update's draws are recorded (`packet`), when no frame's lights are known yet: before wpol1, at 60/120 fps with
+  Shadows off the ground never took an orb's light.
 - Lights are render-only state, rebuilt every presented frame from the stream (nothing to snapshot or restore:
   rollback and HULK_ROLLTEST are unaffected), at most 8 per frame (the nearest to the camera). Only opaque draws of
   the world's pass receive them (not the glows themselves, nor the HUD's models, which have a camera of their own).
 - `HULK_LIGHT_LOG=1`: per-pixel draws and lights a frame, and some orb positions; `HULK_LIGHT_ORB=strength,radius`
-  tunes the lights (development).
+  tunes the lights (development). `HULK_LIGHT_TRACE=a:b`: one line for each presented frame a..b (counted from the
+  start): the camera, the draws that took the lights, the orbs found (camera space) and the lights applied
+  (build/wpol1/scripts/lt.py, lt2.py count the frames where a light goes off and on again).
 
 ## Settings and cost
 

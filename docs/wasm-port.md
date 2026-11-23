@@ -290,7 +290,11 @@ side holds (GPU objects, the window, the audio device) is derived from linear me
   (SDL's MFi observers run on the main thread) all take. The pad thread first makes the same IOHIDManager call
   outside SDL (the probe), so a stall holds nothing of SDL's; the main thread reads the pad thread's snapshot, never
   calls an SDL joystick function (`SDL_HINT_AUTO_UPDATE_JOYSTICKS=0`), keeps the keyboard as pad 0, and after 3 s
-  logs and titles the window "controllers unavailable"; a pad attaches when the probe returns. Quitting skips
+  logs, titles the window "controllers unavailable" and shows a banner at the top of the window (wpol1: the runner's
+  overlay image, drawn by Core Text in input.cpp; movie.c hands it the overlay slot when no skip ring is up; never
+  module memory, never a modal dialog) naming the fix (quit apps that use gamepads, such as Chrome, or restart
+  gamecontrollerd); the banner goes when the init completes or the player presses Delete (`Backspace` in
+  `HULK_KEY_SCRIPT`); a pad attaches when the probe returns. Quitting skips
   `SDL_Quit` only while the thread is inside SDL. `HULK_PAD_INIT_DELAY=S` (tests) sleeps S seconds in the probe.
   Android keeps the main-thread path.
 - **First launch** (wui1; run/app/start.cpp). The game is the player's own extracted disc (default.xbe and the .rcf

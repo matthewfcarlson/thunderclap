@@ -45,6 +45,10 @@ class Pass {
     virtual void settingsChanged(const Settings&) {}
     // a game draw as the runner hands it on (both prepare_pipeline and submit see the same packet)
     virtual void packet(hulk::pddi::DrawPacket&) {}
+    // a game draw about to reach the sink (direct or replayed), before any pass's draw: a pass may still change it
+    // (wpol1: a choice that depends on what the presented frame has drawn so far; `packet` sees an interpolated
+    // update's draws when they are recorded, before any of its frames is drawn)
+    virtual void late(hulk::pddi::DrawPacket&) {}
     // a game draw about to reach the sink (direct or replayed): a pass may submit draws of its own before it
     virtual void draw(const hulk::pddi::DrawPacket&) {}
     // a prim buffer the game wrote (the sink's id after the write) / the sink buffers of one it dropped
