@@ -541,6 +541,10 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   build/wasm/save and exit 2 on a `HULK_SAVE_DIR` inside the player's folder unless `HULK_APP_DIR` is set. A game with no
   writable save folder stalls at a mission summary. play3 is recorded with no-fmv and skip-intro, so a free run can't
   follow its input; reach later points from a saved game (build/whang1/scripts/ufree.sh) (whang1).
+  App profile (wprof1, docs/wasm-port.md "Profile"): `HULK_GFX_STATS=N` logs draws, uploads, import times, bgfx
+  CPU/GPU and pacing lateness every N updates (free when off). Prim buffers upload once and draws are cheap; the main
+  thread's costs are the module's game code (x87 helpers, ff_dispatch), bgfx Metal encoding and interp. Measure pacing
+  jitter and CPU on an idle machine: under the lanes' load timers wake 1-2 ms late and A/B runs disagree.
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
