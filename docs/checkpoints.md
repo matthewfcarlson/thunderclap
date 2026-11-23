@@ -181,19 +181,23 @@ checkpoints) and Hulk and the actors from 34,240 (34260).
 **The shared transients against play3.ckref (v3, wasmq4, 2026-11-22).** Every Wine build since at least 110325 (decl2)
 and the wasm build after wasmq4's fix give the same records against the reference to 60,000: no persistent divergence,
 and these short runs of differing (frame, tag) records (camera = the logic view's position, hulk = the main actor,
-actors = every actor's words); all but the particle frames are float drift, the quantised hashes agreeing:
+actors = every actor's words; actor records come every 30 frames); all but the particle frames are float drift, the quantised
+hashes agreeing:
 
 | tag | frames | what it is |
 |---|---|---|
 | camera | 5,875-5,925 | float drift (ckpt_gate's 5880 / 5910) |
-| camera, hulk | 34,240-34,282 | float drift (34260) |
-| actors | 34,260; 47,160-47,340; 48,360; 49,200-49,290 (every 30th frame: the actor records) | float drift (quantised hashes agree) where the reference's three runs agree: real, not yet traced (needs an xemu field dump) |
+| camera, hulk, actors | 34,240-34,282 (actors: 34,260) | float drift (34260): the Hulk's root y 1 ULP above the original's (xemu dump 111530: 401d45b4 against 401d45b3) from Pose::Update's matrix product 0x0022ca90 in frame 34,240, so from its inputs (0x0022ca90 itself already computes at double, -ffp-eval-method=double); not yet traced further |
+| actors | 47,160-47,340; 48,360; 49,200-49,290 (every 30th frame) | fixed by wasmq4 (0x0001b510's damage, below the table): one actor's health 1 ULP off from frame 47,137 |
 | particle | 14,584-14,601; 14,659-14,670 | reference noise ("The 16 frames after 14,584" below): the original's own runs split there |
 
 ckpt_gate's `--known` list (5880, 5910, 34260, 52620, 52650) only marks frames in its listing of the control-versus-proof
 `ckpt` lines; the gates compare a proof with its control (and the reference gate exempts whatever the control already
 misses), so these shared transients need no change there. Until wasmq4 (0x0009ffc0's asin, docs/journal.md) the wasm build
-differed from the Wine build at 7 more camera frames (38,673, 38,684, 38,961-38,964, 46,930).
+differed from the Wine build at 7 more camera frames (38,673, 38,684, 38,961-38,964, 46,930). The actors frames from 47,160
+were both builds': 0x0001b510 (CWeaponCollisionAction's spawn) interpolates a hit's damage, scales it and stores it, all in st(0)
+in the original; the source rounded the interpolated value to a float twice on the way (xemu dump 111531: health 433dc293
+against 433dc292). After wasmq4 both builds have only the 5,875 and 34,240 drift and the particle noise.
 
 ## The rule: when a refactor needs no re-proof (D155; adopted as D162, refined as D163)
 

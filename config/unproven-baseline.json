@@ -1,6 +1,17 @@
 {
  "comment": "D126: equivalent blocks whose code had no passing proof-ledger line when the materialize gate began, each mode pinned to that code hash. Only shrinks (ledger_append removes proven modes; unproven-accept adds, with a reason).",
  "blocks": {
+  "0x0001b510": {
+   "modes": {
+    "wine": {
+     "code": "ffaef2e9c38b",
+     "accepted": "2026-11-22T21:05:38",
+     "why": "D187 macOS-first: wasmq4, the interpolated damage kept in st(0) to its store (hulk_freg; the original rounds once); MSVC code unchanged; play3 wasm actors 47160-49290 fixed, Wine build confirmation pending",
+     "by": "unproven-accept"
+    }
+   },
+   "why": "D187 macOS-first: wasmq4, the interpolated damage kept in st(0) to its store (hulk_freg; the original rounds once); MSVC code unchanged; play3 wasm actors 47160-49290 fixed, Wine build confirmation pending"
+  },
   "0x0001c9b0": {
    "modes": {
     "wine": {
@@ -1532,5 +1543,5 @@
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   }
  },
- "total": 168
+ "total": 169
 }

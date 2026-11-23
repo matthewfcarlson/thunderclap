@@ -3210,3 +3210,27 @@ draws gives in-between frames with no tree change and no path back into the game
   frame's first world-pass room draw lands in place; the first room draw into the scene target is not always the
   world's (another scene pass draws rooms for the map), hence "the scene pass with the most room draws last frame".
 - Cost as prototyped: one draw per prim group (~1,000-3,800 a frame in downtown); docs/far-field.md has the plan.
+
+## 2026-11-22 wasmq4 (2): the shared actors drift from 47,160 (0x0001b510's damage)
+
+- **Reference side by xemu field dumps** (queue jobs on mac2 / studio, -snapshot, build/wasmq4/scripts/submit_xemu.sh:
+  ckpt1's xemu_ref.sh plus hybrid/hooks.cpp and exclude.txt shipped as files, since a queue workspace has no hybrid/):
+  111531 at 47,160, 111530 at 34,240. At 47,160 only actor 5's health differs: 433dc293 in the original, 433dc292 in both
+  builds.
+- **Writer by Wine HULK_TRACE_WATCH on the absolute health word** (the actor's address from a SPAN of 0x00040970's ecx;
+  heap addresses are stable within a lineage): 0x0003b1c0 SetHealth from 0x00043350 (damage) from 0x000437a0, called by
+  0x0001b510 (CWeaponCollisionAction's spawn action) with the damage. 0x00043350 itself rounds at every step, as the
+  original does; the damage it is given was already one ULP off.
+- **Cause:** 0x0001b510 interpolates the hit's damage (`t * (hi - lo) + lo`), scales it by the multiplier and by the
+  attacker's strength words; the original keeps all of it in st(0) and rounds once when storing, the source rounded the
+  interpolated value to a `float` twice on the way (`float v`). Now `hulk_freg v` and `(hulk_freg)` on the first product;
+  MSVC code unchanged (D187: Wine-mode unproven-accept, re-pinned). wasm and Wine (111547) play3 to 60,000: the actors
+  frames 47,160-49,290 are gone, nothing new; both builds give the same records.
+- **34,240 (Hulk y, open).** Watch on the Hulk node's matrix row: in frame 34,240 the last writer is 0x0022ca90 (matrix
+  product) under Pose::Update, giving 401d45b4 against the original's 401d45b3, so one of its inputs differs. 0x0022ca90's
+  float sums already evaluate at double in both clang builds (-ffp-eval-method=double: a hulk_freg rewrite changes neither
+  code hash), and the softx87 asin/acos variants changed nothing there either.
+- **Probe notes.** HULK_TRACE_FUNCS/EXIT are link-time (`--env`), SPAN/FROM/MAX/WATCH/XDEREF run-time (`--replay-env`);
+  hot probes (matrix functions) need `--replay-timeout` well above the 300 s default. A wasm entry hook does not see calls
+  made inside the defining TU, even at -O0 (HULK_WASM_OPT_EXCLUDE): for those, compile `ffh_<name>` debug calls into a
+  private snapshot copy, which link against the hook host file.

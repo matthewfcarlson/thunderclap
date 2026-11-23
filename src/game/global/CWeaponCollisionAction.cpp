@@ -257,7 +257,7 @@ void Obj_1b4f0::F() {
 } // namespace fn_f260fe7b
 
 // 0x0001b510 FUN_0001b510 (3860 B): equivalent/0x0001b510.cpp [wrapped: macros]
-// sym: ?FUN_0001b510@SpawnAction@fn_0001b510@@QAEXPAUItem@2@PAUV3@2@1PAX@Z @f68404762151 @wbb109b82445a @vb2d237c71817
+// sym: ?FUN_0001b510@SpawnAction@fn_0001b510@@QAEXPAUItem@2@PAUV3@2@1PAX@Z @f68404762151 @wffaef2e9c38b @vb2d237c71817
 namespace fn_0001b510 {
 // STATUS: equivalent (tools/equiv.py level 3: 3297 inputs, branch coverage 180/187, incomplete)
 // FUN_0001b510 @ 0x0001b510
@@ -746,12 +746,13 @@ void SpawnAction::FUN_0001b510(Item *e, V3 *a8, V3 *a12, void *a16)
         // lo and hi live in the (not yet used) l248 / l252 slots
         f.l248 = f20->f90;
         f.l252 = f20->f94;
-        float v = f.l248;
+        // (wasmq4) the damage stays in st(0) from the interpolation to the store: one rounding (play3 actors 47160)
+        hulk_freg v = f.l248;
         if (f.l252 > 0.0f)
             v = Y->FUN_0003ebb0(1) * (f.l252 - f.l248) + f.l248;
         v = v * f.mult;
         if (Y->f1b28 != 0)
-            f.l248 = (Y->f11c->f30c * Y->f11c->f170) * v;
+            f.l248 = ((hulk_freg)Y->f11c->f30c * Y->f11c->f170) * v;
         else
             f.l248 = v * Y->f11c->f30c;
     }
