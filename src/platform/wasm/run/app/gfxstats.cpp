@@ -60,7 +60,11 @@ uint16_t s_vbUp[65536], s_ibUp[65536];
 uint64_t s_lastWall;
 }
 
+#if defined(__APPLE__)
 uint64_t gs_now() { return clock_gettime_nsec_np(CLOCK_UPTIME_RAW); }
+#else
+uint64_t gs_now() { struct timespec t; clock_gettime(CLOCK_MONOTONIC, &t); return (uint64_t)t.tv_sec * 1000000000ull + t.tv_nsec; }
+#endif
 
 int gs_init()
 {
