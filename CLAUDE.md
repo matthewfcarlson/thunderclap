@@ -643,6 +643,13 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   gamecontrollerd is deadlocked (Chrome's gamepad polling); the main thread's event pump (unless
   SDL_HINT_AUTO_UPDATE_JOYSTICKS=0), SDL_Quit and SDL's MFi connect observers all wait on that lock. Never call an SDL
   joystick/gamepad function on the main thread; read the pad thread's snapshot. `HULK_PAD_INIT_DELAY=S` simulates the stall.
+  Traversal Moves (wtrav1, D242, traversal.c, docs/traversal.md §11): store moves in spare CUnlockableMove slots go
+  after the store order's unlocked prefix (the store reads row n as order position n, 0x000c2c20; init.lua assigns
+  positions only as the story unlocks moves, so an entry parked at the end lists but never opens). A move's locked byte
+  (+8) also disables it in the fight script (0x12f110 needs unlocked and bought). Set store entries up from the
+  store-list hook 0x000c21b0 (front end, before any UpdateSimulation). CJumpAction::vfunc_7 0x18d40 returns false near
+  the apex (FallAction takes over); a landing is the motion state (+0x140, 3 = Air) leaving Air. Test knobs
+  `HULK_TRAV_FORCE=C,J`, `HULK_TRAV_TEST_XP=N`, `HULK_TRAV_LOG=1..3`.
   Build id (wver1): apps and APKs carry the short commit (`+dirty` for local builds with uncommitted host files or tools,
   `+N` for N queue overlay files): stdout `hulk-app: build <id>`, the window title, Info.plist, the APK's versionName and
   SetupActivity. `wasm_app.py build` writes it from HULK_BUILD_ID (wasm_build_run.py sets it) or git into
