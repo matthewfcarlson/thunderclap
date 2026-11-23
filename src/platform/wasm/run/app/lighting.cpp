@@ -197,7 +197,7 @@ class LightingPass final : public rm::Pass {
         // wr3a: the sun's shadows (shadows.cpp); every program of ours declares the sampler, so one is always bound
         static const float kNoShadow[12][4] = {};
         uint16_t atlas = kInvalid;
-        bool takesWorld = p.lighting || vp1 != 1 || p.shaderKind < 1 || p.shaderKind > 2;
+        bool takesWorld = p.lighting || vp1 != 1 || !rm::shadowWorldDraw(p);   // (wlook1: the shadows' own test)
         const float* sc = p.state.blend ? nullptr : rm::shadowConstants(takesWorld, &atlas);
         bgfx::setUniform(m_uShadow, sc ? sc : &kNoShadow[0][0], 12);
         rm::nightLightsBind(p);                         // (wlook2: every program of ours declares s_rmCity)

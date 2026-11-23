@@ -71,6 +71,11 @@ Helpers for full-screen passes are run/app/rm_post.h (programs, targets, views, 
   150 and 300 units.
 - What the player sees: contact darkening where walls meet streets, in window recesses and doorways, under cars, props
   and vegetation; moderate, so it does not double the baked occlusion in the vertex colours.
+- **Banding** (wlook1): the desert ground's horizontal stripes under the remastered defaults (docs/look.md section 1,
+  first taken for shadow acne) were the occlusion's: the 24-bit depth's terraces on ground seen at a grazing angle
+  tilted the one-texel normal row by row, and the samples read the tilt as occlusion. The normal now takes a two-texel
+  baseline and a sample must rise ~4 degrees above the surface's plane (an angle bias of 0.07 x its distance) to
+  occlude: flat ground and walls stay open, corners, steps and contacts keep their darkening.
 - `HULK_AO=radius,strength,fade0,fade1` (3, 1.5, 150, 300); `HULK_AO_SHOW=1|2|3|4` shows the occlusion, the view depth,
   the raw depth or the half-size output; `HULK_AO_LOG=1`; `HULK_AO_AB=N`.
 
@@ -87,10 +92,16 @@ Helpers for full-screen passes are run/app/rm_post.h (programs, targets, views, 
 - **Casters.** Every opaque draw of the world pass (fixed function, two-sided, skin, onebone; not transient, not
   blended, not stencil, no query) is drawn again into the atlas as it reaches the sink, once per cascade, with the
   faithful vertex transform and the sun's view (vs_rm_cast_*.sc: vs_px_ff.sh / vs_px_skin.sh under PX_CAST), alpha-tested
-  holes kept (fs_rm_cast.sc). Rooms (unlit world shaders whose modelview is the view itself) go to the world row, the
-  rest (characters, props, cars) to the first row. play3's city: 90-190 casters a frame, 25-45 of them rooms.
+  holes kept (fs_rm_cast.sc). Rooms (unlit world shaders, `simple`, `layered` or `layeredReflect`, whose modelview is
+  the view itself) go to the world row, the rest (characters, props, cars) to the first row. play3's city: 90-190
+  casters a frame, 25-45 of them rooms. (wlook1: `simple` rooms, the desert's ground and the tutorial's buildings, were
+  counted as objects until then: they cast into the first row and took it, shadowing themselves; `rm::shadowWorldDraw`
+  is the one test, shared with the lighting pass's receivers.)
 - **Receivers.** The lighting pass's per-pixel programs (fs_px_stage.sh pxShadow: normal offset, depth bias, 2x2
-  compare taps): with Shadows on, every opaque draw of the world pass takes a per-pixel program (as with Lighting:
+  compare taps; wlook1: each cascade's own bias from its texel size, scaled by the slope to the sun: a normal offset of
+  texel x (0.6 + 1.4 sin) and a depth bias of texel x (0.35 + 0.6 tan), tan capped at 4, so the far cascade's ~5x
+  larger texels no longer streak walls at 30-150 units while the near cascade's bias stays a few centimetres and the
+  Hulk's contact shadow stays on his feet; `HULK_SHADOW_BIAS=n0,n1,b0,b1` in texels): with Shadows on, every opaque draw of the world pass takes a per-pixel program (as with Lighting:
   Per-Pixel). The baked world takes only the first row (it already holds its own shadows; world-on-world shadows would
   double them), darkened by 45% where it faces the sun; characters and objects take both rows on their key light (85%).
 - **The game's own shadow.** Its stencil volumes' darkening quad (a stencil-tested, blended 2D draw in the world pass) is

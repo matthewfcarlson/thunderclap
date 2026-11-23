@@ -18,9 +18,10 @@ uniform vec4 u_rmLight[16];
 // wr3a: sun shadows (run/app/shadows.cpp, docs/hdr-shadows.md). u_rmShadow[0..2] / [4..6]: cascade 0 / 1, camera
 // space -> (u, v, depth) in the atlas's first row (the characters' and objects' depth); [8] x the cascades (0: no
 // shadows), y the view depth where cascade 1 starts, z the darkening of the baked world in shadow, w of the key light;
-// [9] xyz towards the sun (camera space), w the normal offset (camera units); [10] x the v offset of the second row
-// (the world's depth), y 1: the draw also takes the world's shadows (characters and objects), z the depth bias, w the
-// atlas texel (uv); [11] x the view depth where the shadows have faded out.
+// [9] xyz towards the sun (camera space); [10] x the v offset of the second row (the world's depth), y 1: the draw also
+// takes the world's shadows (characters and objects), w the atlas texel (uv); [11] x the view depth where the shadows
+// have faded out; [3] / [7] cascade 0 / 1's bias (wlook1): x, y the normal offset (camera units) and its part x sin of
+// the angle to the sun, z, w the depth bias (depth units) and its part x tan.
 uniform vec4 u_rmShadow[12];
 SAMPLER2DSHADOW(s_rmShadow, 4);
 // wlook2: the night lights (rm_city.sh: u_rmCity, s_rmCity at stage 5)
@@ -63,18 +64,25 @@ float pxShadowTap(vec3 q)
                    shadow2D(s_rmShadow, vec3(q.x - t, q.y + t, q.z)) + shadow2D(s_rmShadow, vec3(q.x + t, q.y + t, q.z)));
 }
 
-// the sun's visibility at a camera-space point with normal n (1: lit)
+// the sun's visibility at a camera-space point with normal n (1: lit). wlook1: each cascade's bias is its own
+// (u_rmShadow[3] / [7]: x + y sin the normal offset in camera units, z + w tan the depth bias, from the cascade's
+// texel), scaled by the surface's slope to the sun, so a receiver at a grazing sun neither streaks (acne: the far
+// cascade's texels are ~5x the near one's) nor lifts its contact shadows (the near cascade's bias stays a few cm)
 float pxShadow(vec3 pos, vec3 n)
 {
     if (u_rmShadow[8].x < 0.5 || pos.z > u_rmShadow[11].x)
         return 1.0;
-    vec4 p = vec4(pos + n * u_rmShadow[9].w * (1.0 + pos.z * 0.01), 1.0);
     bool second = u_rmShadow[8].x > 1.5 && pos.z > u_rmShadow[8].y;
+    vec4 b = second ? u_rmShadow[7] : u_rmShadow[3];
+    float ndl = abs(dot(n, u_rmShadow[9].xyz));
+    float sinT = sqrt(saturate(1.0 - ndl * ndl));
+    float tanT = min(sinT / max(ndl, 0.05), 4.0);
+    vec4 p = vec4(pos + n * (b.x + b.y * sinT), 1.0);
     vec3 q = second ? vec3(dot(p, u_rmShadow[4]), dot(p, u_rmShadow[5]), dot(p, u_rmShadow[6]))
                     : vec3(dot(p, u_rmShadow[0]), dot(p, u_rmShadow[1]), dot(p, u_rmShadow[2]));
     if (q.z >= 1.0 || q.z <= 0.0)
         return 1.0;
-    q.z -= u_rmShadow[10].z;
+    q.z -= b.z + b.w * tanT;
     float vis = pxShadowTap(q);
     if (u_rmShadow[10].y > 0.5)
         vis = min(vis, pxShadowTap(vec3(q.x, q.y + u_rmShadow[10].x, q.z)));

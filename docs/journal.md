@@ -3559,3 +3559,19 @@ passes; output only (checkpoint records identical with every setting).
   smooth falloff with a 30-unit radius lit whole plazas like daylight.
 - Height fog in the location's night fog colour (downtown 0, 0.118, 0.157) greys the deep-blue dome if it reaches the
   sky; at night it is darkened and warmed by the city glow and kept thin (0.004 at the ground, falloff 0.04).
+
+## 2026-11-23 wlook1: the desert's "shadow acne" was the ambient occlusion's (D243 L4)
+
+- The horizontal bands on the desert ground under the remastered defaults (docs/look.md section 1) stayed with
+  Shadows off and went with AO off: the 24-bit depth's terraces on ground seen at a grazing angle tilt fs_rm_ao.sc's
+  one-texel normal row by row, and its samples read the tilt as occlusion. A two-texel normal and an angle bias (a
+  sample must rise ~4 degrees above the plane: 0.07 x its distance) leave flat ground and walls open and keep corners,
+  steps and contacts.
+- The tutorial tower's fine streaks (game frame 6,000) were shadow acne: `simple` rooms (shader kind 0: the desert's
+  ground and the tutorial's buildings) were not counted as the world, so they cast into the objects' row and took it,
+  with one bias (cascade 0's texel) for both cascades. Every unlit world shader with the view as its modelview is now
+  a room (`rm::shadowWorldDraw`, shared by the casters and the lighting pass's receivers), and the receiver's normal
+  offset and depth bias are per cascade, from its texel and the slope to the sun (texel x (0.6 + 1.4 sin), texel x
+  (0.35 + 0.6 tan)); the Hulk's contact shadow stays on his feet.
+- Bisect a picture artefact by turning options off one at a time before tuning the suspect: the survey named the
+  shadows, the bands were AO's.

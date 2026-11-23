@@ -41,7 +41,10 @@ void main()
         return;
     }
     vec3 p = viewPos(uv, d);
-    vec2 tx = vec2(u_rmAo2.w, u_rmAo3.w);
+    // wlook1: the normal over a two-texel baseline: the depth buffer's steps (terraces of the 24-bit depth on ground seen
+    // at a grazing angle) tilt a one-texel normal by a few milliradians, row by row, which the samples read as
+    // occlusion: the horizontal bands on the desert ground
+    vec2 tx = vec2(u_rmAo2.w, u_rmAo3.w) * 2.0;
     // the normal from the nearer neighbour on each axis (edges keep their own side)
     vec3 px1 = at(uv + vec2(tx.x, 0.0)) - p, px0 = p - at(uv - vec2(tx.x, 0.0));
     vec3 py1 = at(uv + vec2(0.0, tx.y)) - p, py0 = p - at(uv - vec2(0.0, tx.y));
@@ -67,7 +70,9 @@ void main()
         vec3 v = q - p;
         float vv = dot(v, v);
         float range = saturate(1.0 - vv / (r * r * 4.0));
-        sum += max(dot(v, n) - 0.002 * p.z - 0.02, 0.0) / (vv + 0.01) * range;
+        // (an angle bias: a sample has to rise ~4 degrees above the surface's plane to occlude, so a flat surface with
+        // a slightly wrong normal stays open while corners, steps and contacts keep their occlusion)
+        sum += max(dot(v, n) - 0.07 * sqrt(vv) - 0.002 * p.z - 0.02, 0.0) / (vv + 0.01) * range;
     }
     float ao = max(0.0, 1.0 - 2.0 * u_rmAo3.x * sum / 12.0);
     float fade = saturate((p.z - u_rmAo3.y) / max(u_rmAo3.z - u_rmAo3.y, 1.0));

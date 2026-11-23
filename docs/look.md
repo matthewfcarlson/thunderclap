@@ -42,9 +42,14 @@ anisotropy clean the streets' shimmer; draw distance and reduced fog open up the
   soft. HD packs (texture-packs.md) fix this where a pack exists.
 - *Effects.* Particles are unlit sprites with hard depth intersections; impacts have no screen response beyond the
   game's own shake and flash.
-- *Shadow acne.* In the desert at the remastered defaults the ground shows horizontal banding (game frame 12,000, and
-  the tutorial tower's wall at 6,000): the sun is low and the baked world's receiver bias is too small at the far
-  cascade. A follow-up for shadows.cpp (slope-scaled bias or a larger normal offset for the world row).
+- *Shadow acne* (fixed, wlook1, L4). In the desert at the remastered defaults the ground showed horizontal banding
+  (game frame 12,000) and the tutorial tower's wall fine streaks (6,000). Two causes: the ground's bands were the
+  ambient occlusion's (the 24-bit depth's terraces tilting its one-texel normal; with AO off they were gone, with
+  shadows off they stayed), and the walls' streaks were shadow acne: `simple` rooms (the desert's ground and the
+  tutorial's buildings) were treated as objects, so they cast into the objects' row and shadowed themselves, with one
+  bias for both cascades (the far cascade's texels are ~5x the near one's). Fixed in fs_rm_ao.sc (a two-texel
+  normal and an angle bias) and shadows.cpp (every unlit world shader is a room; a per-cascade, slope-scaled normal
+  offset and depth bias): docs/hdr-shadows.md. Before/after: build/wlook1/png/acne-6000.png, acne-12000.png.
 
 ## 2. Three art directions
 

@@ -62,6 +62,8 @@ class ShadowPass final : public rm::Pass {
         m_cascades = level >= 2 ? 2 : 1;
         if (const char* e = getenv("HULK_SHADOW"))       // (tuning: baked darkening, key light, cascade 0 far, far)
             sscanf(e, "%f,%f,%f,%f", &m_baked, &m_key, &m_far0, &m_far1);
+        if (const char* e = getenv("HULK_SHADOW_BIAS"))  // (tuning, in texels: normal offset, + x sin, depth, + x tan)
+            sscanf(e, "%f,%f,%f,%f", &m_bias[0], &m_bias[1], &m_bias[2], &m_bias[3]);
         if (const char* e = getenv("HULK_SUN")) {        // (a fixed sun: its direction of travel, world space)
             float x, y, z;
             if (sscanf(e, "%f,%f,%f", &x, &y, &z) == 3)
@@ -250,10 +252,14 @@ class ShadowPass final : public rm::Pass {
                 v[j] = ry[j] * sv + (j == 3 ? (bottom ? 0.75f : 0.25f) : 0.0f);
                 d[j] = rz[j];
             }
-            if (c == 0) {
-                m_consts[9][3] = 1.5f * texel;                       // the normal offset
-                m_consts[10][2] = 1.5f * texel / (2.0f * zr);        // the depth bias
-            }
+            // wlook1: the receiver's bias for this cascade, from its own texel (a texel of the far cascade is ~5x
+            // the near one's) and the surface's slope to the sun (fs_px_stage.sh pxShadow): the normal offset
+            // texel x (n0 + n1 sin), the depth bias texel x (b0 + b1 tan) in the cascade's depth units
+            float* b = m_consts[4 * c + 3];
+            b[0] = m_bias[0] * texel;
+            b[1] = m_bias[1] * texel;
+            b[2] = m_bias[2] * texel / (2.0f * zr);
+            b[3] = m_bias[3] * texel / (2.0f * zr);
         }
         float sunCam[3];
         for (int i = 0; i < 3; i++)
@@ -312,10 +318,13 @@ class ShadowPass final : public rm::Pass {
         m_casts++;
         m_worldCasts += world;
     }
-    // a room: unlit fixed function, a world shader, the modelview the view itself
+  public:
+    // a room: unlit fixed function, a world shader (simple, layered or layeredReflect: wlook1, the desert's ground and
+    // the tutorial's buildings are `simple`), the modelview the view itself
     bool isWorld(const DrawPacket& p) const
     {
-        if (p.vertexProgram != 0 || p.lighting || p.shaderKind < 1 || p.shaderKind > 2 || p.vertexConstantCount < 4)
+        if (!m_ready || p.vertexProgram != 0 || p.lighting || p.shaderKind > 2 || p.vertexConstantCount < 4 ||
+            !p.vertexConstants)
             return false;
         const float* c = p.vertexConstants;
         for (int i = 0; i < 3; i++)
@@ -324,6 +333,8 @@ class ShadowPass final : public rm::Pass {
                     return false;
         return true;
     }
+
+  private:
     // HULK_SHADOW_AB=N: shadows off and on in turns of N presented frames (GPU and render thread time a frame)
     void abCost()
     {
@@ -355,6 +366,7 @@ class ShadowPass final : public rm::Pass {
 
     int m_level = 0, m_size = 1024, m_cascades = 1;
     float m_baked = 0.45f, m_key = 0.85f, m_far0 = 30.0f, m_far1 = 150.0f;
+    float m_bias[4] = {0.6f, 1.4f, 0.35f, 0.6f};
     bool m_sunFixed = false, m_sunSeen = false;
     V3 m_sun = norm(v3(0.35f, -1.0f, 0.25f));
     bool m_ready = false, m_haveViews = false, m_viewsSet = false;
@@ -379,4 +391,5 @@ const float* rm::shadowConstants(bool takesWorld, uint16_t* atlas)
     *atlas = c ? s_pass->atlas() : rm::kNoHandle;
     return c;
 }
+bool rm::shadowWorldDraw(const DrawPacket& p) { return s_pass && s_pass->isWorld(p); }
 uint16_t rm::shadowDummy() { return s_pass ? s_pass->dummy() : rm::kNoHandle; }
