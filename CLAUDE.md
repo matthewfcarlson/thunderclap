@@ -564,6 +564,15 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   position on a quarter-unit grid (prim groups split into buffers, low bits perturbed; downtown day/dusk/night share
   geometry, so the location is voted). `wasm_app.py bundle` refuses paths outside its own checkout's build/. Never wait
   with `until ! pgrep -f PAT` in a command containing PAT (it matches itself) (wr2).
+  Lighting / Dynamic Lights (wlight1, docs/lighting.md): one runner pass (run/app/lighting.cpp) swaps lit draws to
+  per-pixel programs from run/app/shaders (the fragment shader includes the faithful `fs_vp_stage.sh`, one `fs_pxcmb_<hash>`
+  per combiner key; pddi shaders and the Wine image untouched); play3's characters are vertex program 6 (fixed function,
+  two-sided), not the skin programs. A health orb is a pair of additive draws (6-vertex sprite, then a 14-vertex mesh, same
+  texture) drawn twice a frame; its light lives in world space (`HULK_LIGHT_DUMP` / `HULK_LIGHT_HIDE` identify draws).
+  tools/rm_shaders.py compiles the runner's shaders into build/third_party/out/rm-shaders/<profile>; queue hosts have no
+  shaderc, so after editing run/app/shaders run it locally and submit with `--shaders-ok`. Editing tools/wasm_port.py
+  recompiles every TU of an app build (its digest is in app-inputs.json): put app-only steps in wasm_app.py. Measure a
+  pass's cost as A/B turns within one run (`HULK_LIGHT_AB=N`), never as separate runs under load.
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
