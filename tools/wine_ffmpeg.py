@@ -156,8 +156,87 @@ def build_host():
 
 # android-arm64: the same configuration cross-compiled by the NDK's clang (docs/native-android.md "Running the image"):
 # shared libraries whose sonames are the plain lib*.so names (configure's android target), as the APK's lib/arm64-v8a/
-# needs them; tools/native_elf.py links them with HULK_ANDROID_FFMPEG=<this prefix>, tools/android_apk.py packs them
+# needs them; tools/native_elf.py links them with HULK_ANDROID_FFMPEG=<this prefix>, tools/android_apk.py packs them.
+# It also plays a disc pack's AV1 movies (wapk1; tools/disc_av1.py: Matroska, AV1 + Opus): dav1d (VideoLAN's AV1
+# decoder, BSD 2-clause, a pinned release tarball) built static by meson with the NDK and linked into libavcodec.so
+# (--enable-libdav1d), FFmpeg's own Opus decoder (with libswresample) and its Matroska demuxer. Needs meson and pkg-config
+# (build/venv/bin/pip install meson pkgconf). The libraries stay LGPL 2.1+ (dav1d's licence is BSD: its notice goes
+# with them, build/third_party/out/LICENSES-DAV1D.txt).
 ANDROID_DIR = os.path.join(OUT, "ffmpeg-android-arm64")
+DAV1D_VER = "1.5.1"
+DAV1D_SHA256 = "401813f1f89fa8fd4295805aa5284d9aed9bc7fc1fdbe554af4292f64cbabe21"
+DAV1D_URL = "https://downloads.videolan.org/pub/videolan/dav1d/%s/dav1d-%s.tar.xz" % (DAV1D_VER, DAV1D_VER)
+DAV1D_SRC = os.path.join(SRC, "dav1d")
+ANDROID_AV1 = ["--enable-libdav1d", "--enable-decoder=libdav1d,opus", "--enable-demuxer=matroska",
+               "--enable-swresample"]     # (FFmpeg's Opus decoder resamples with it: libswresample.so too)
+
+
+def fetch_dav1d():
+    os.makedirs(DL, exist_ok=True)
+    path = os.path.join(DL, "dav1d-%s.tar.xz" % DAV1D_VER)
+    if not os.path.exists(path):
+        log("download dav1d %s" % DAV1D_VER)
+        with urllib.request.urlopen(DAV1D_URL, timeout=600) as r, open(path + ".part", "wb") as f:
+            shutil.copyfileobj(r, f)
+        os.replace(path + ".part", path)
+    if sha256(path) != DAV1D_SHA256:
+        raise SystemExit("%s: sha256 differs from the pinned %s" % (os.path.relpath(path, ROOT), DAV1D_SHA256))
+    stamp = os.path.join(DAV1D_SRC, ".pinned")
+    if os.path.exists(stamp) and open(stamp).read().strip() == DAV1D_SHA256:
+        return
+    shutil.rmtree(DAV1D_SRC, ignore_errors=True)
+    os.makedirs(DAV1D_SRC)
+    with tarfile.open(path) as t:
+        for m in t.getmembers():
+            parts = m.name.split("/", 1)
+            if len(parts) < 2 or not parts[1]:
+                continue
+            m.name = parts[1]
+            t.extract(m, DAV1D_SRC, filter="data")
+    open(stamp, "w").write(DAV1D_SHA256 + "\n")
+
+
+def venv_tool(name):
+    p = os.path.join(os.path.dirname(sys.executable), name)
+    return p if os.path.exists(p) else shutil.which(name)
+
+
+def build_dav1d_android(nb, logf):
+    """dav1d as a static PIC library for aarch64 Android (its NEON assembly on); -> the prefix"""
+    fetch_dav1d()
+    meson, ninja = venv_tool("meson"), shutil.which("ninja")
+    if not meson or not ninja:
+        raise SystemExit("dav1d needs meson and ninja (build/venv/bin/pip install meson pkgconf; brew install ninja)")
+    bd = os.path.join(ANDROID_DIR, "dav1d-build")
+    prefix = os.path.join(ANDROID_DIR, "dav1d")
+    cross = os.path.join(ANDROID_DIR, "dav1d-cross.ini")
+    os.makedirs(ANDROID_DIR, exist_ok=True)
+    open(cross, "w").write("""[binaries]
+c = '%s'
+ar = '%s'
+strip = '%s'
+[built-in options]
+c_args = ['-fPIC']
+[host_machine]
+system = 'android'
+cpu_family = 'aarch64'
+cpu = 'armv8-a'
+endian = 'little'
+""" % (os.path.join(nb, "aarch64-linux-android29-clang"), os.path.join(nb, "llvm-ar"), os.path.join(nb, "llvm-strip")))
+    shutil.rmtree(bd, ignore_errors=True)
+    with open(logf, "a") as f:
+        for cmd in ([meson, "setup", bd, DAV1D_SRC, "--cross-file", cross, "--prefix", prefix, "--libdir", "lib",
+                     "--buildtype", "release", "--default-library", "static", "-Denable_tools=false",
+                     "-Denable_tests=false", "-Denable_examples=false", "-Db_staticpic=true"],
+                    [ninja, "-C", bd, "-j", str(JOBS)], [ninja, "-C", bd, "install"]):
+            f.write("$ " + " ".join(cmd) + "\n")
+            f.flush()
+            if subprocess.run(cmd, stdout=f, stderr=subprocess.STDOUT).returncode:
+                raise SystemExit("dav1d build failed at %s (log %s)" % (os.path.basename(cmd[0]), os.path.relpath(logf, ROOT)))
+    open(os.path.join(OUT, "LICENSES-DAV1D.txt"), "w").write(
+        "dav1d %s (https://code.videolan.org/videolan/dav1d), linked into libavcodec.so of the Android FFmpeg build:\n\n"
+        % DAV1D_VER + open(os.path.join(DAV1D_SRC, "COPYING")).read())
+    return prefix
 
 
 def build_android():
@@ -178,11 +257,18 @@ def build_android():
            "--ar=" + os.path.join(nb, "llvm-ar"), "--ranlib=" + os.path.join(nb, "llvm-ranlib"),
            "--strip=" + os.path.join(nb, "llvm-strip"), "--host-cc=/usr/bin/clang", "--enable-shared",
            "--disable-static", "--enable-pic", "--extra-ldflags=-Wl,-z,max-page-size=16384"] + FF_CONFIGURE
-    with open(logf, "w") as f:
+    open(logf, "w").close()
+    dav1d = build_dav1d_android(nb, logf)
+    pkgc = venv_tool("pkg-config")
+    if not pkgc:
+        raise SystemExit("FFmpeg's configure finds dav1d through pkg-config (build/venv/bin/pip install pkgconf)")
+    cfg += ANDROID_AV1 + ["--pkg-config=" + pkgc, "--pkg-config-flags=--static"]
+    env = dict(os.environ, PKG_CONFIG_PATH=os.path.join(dav1d, "lib/pkgconfig"), PKG_CONFIG_LIBDIR="")
+    with open(logf, "a") as f:
         for cmd in (cfg, ["make", "-j", str(JOBS)], ["make", "install"]):
             f.write("$ " + " ".join(cmd) + "\n")
             f.flush()
-            r = subprocess.run(cmd, cwd=od, stdout=f, stderr=subprocess.STDOUT)
+            r = subprocess.run(cmd, cwd=od, stdout=f, stderr=subprocess.STDOUT, env=env)
             if r.returncode:
                 raise SystemExit("android FFmpeg build failed at %s (log %s)" % (cmd[0], os.path.relpath(logf, ROOT)))
     lic = [l for l in open(logf) if l.startswith("License:")]

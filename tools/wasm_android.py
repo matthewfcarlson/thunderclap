@@ -75,8 +75,8 @@ def compile_all(jobs, n):
             print("  " + os.path.basename(obj), flush=True)
 
 
-# FFmpeg for Android (tools/wine_ffmpeg.py build --target android-arm64: Bink decoders and demuxer only, LGPL 2.1+,
-# shared). run/app/movie.c is built against its headers and loads the libraries at run time from HULK_FFMPEG_DIR
+# FFmpeg for Android (tools/wine_ffmpeg.py build --target android-arm64: the Bink decoders and demuxer, and dav1d /
+# Opus / Matroska for a disc pack's AV1 movies; LGPL 2.1+, shared). run/app/movie.c is built against its headers and loads the libraries at run time from HULK_FFMPEG_DIR
 # (GameActivity: <files dir>/ffmpeg when it holds them, else the APK's own lib dir, where `apk --ffmpeg` puts them for
 # local tests); without them the movies play black and can be skipped.
 FFMPEG = os.environ.get("HULK_ANDROID_FFMPEG") or os.path.join(TP, "out/ffmpeg-android-arm64/install")

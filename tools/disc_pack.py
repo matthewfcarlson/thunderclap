@@ -3,6 +3,7 @@
 wasm apps read in place (src/platform/wasm/run/disc.c), beside the extracted folder and the Xbox .iso.
 
   build/venv/bin/python tools/disc_pack.py build SRC OUT.hulkdisc [--level 19] [--chunk 256] [--jobs 2]
+        [--av1 DIR] [--texpack F.hulkpack ...]
   build/venv/bin/python tools/disc_pack.py verify PACK [--source SRC]      # every file's bytes round-trip
   build/venv/bin/python tools/disc_pack.py measure SRC [--levels 3,9,19] [--chunks 64,256,1024] [--stride 8]
   build/venv/bin/python tools/disc_pack.py ls PACK|ISO                      # the files (an .iso: its XDVDFS tree)
@@ -11,7 +12,12 @@ wasm apps read in place (src/platform/wasm/run/disc.c), beside the extracted fol
 
 SRC is the extracted disc folder (default.xbe, the .rcf archives) or an Xbox disc image: a full (Redump) image, whose
 game partition starts at 0x18300000, or a trimmed (xiso) image, whose XDVDFS volume starts at 0. With --av1 DIR
-(tools/disc_av1.py encode) the movies' pictures are stored as AV1 (see "Movies" below).
+(tools/disc_av1.py encode) the movies' pictures are stored as AV1 (see "Movies" below); a SRC that is itself a pack
+keeps its AV1 movies (unless --av1 replaces them) and its texture packs. With --texpack F.hulkpack (a one-file texture
+pack, texpack_convert.py bundle) the pack also carries that texture pack, so one file holds the game and its HD
+textures (wapk1: Android's file picker grants the one file picked): its files go under .hulk/texpacks/<name>/
+(<name>: the file's name without .hulkpack), and the app lists it in Video Options > Texture Pack like a one-file pack
+whenever the game comes from this pack (run/app/texpack.cpp).
 
 The format (all little-endian; nothing in it but what the source holds):
   0x00 "HULKDISC" | u32 version (1) | u32 chunk size | u64 index offset | u32 index size (zstd) | u32 index raw size
@@ -23,7 +29,8 @@ The format (all little-endian; nothing in it but what the source holds):
        (1: the pack's own, 2: a folder), u64 size, u32 first chunk, u32 0} sorted by name; chunks x {u64 offset, u32 stored size, u32 kind}; the names
        (NUL-terminated, '/'-separated, relative to the disc's root).
 Files under ".hulk/" are the pack's own (the game never lists them): .hulk/pack.json (the source, the settings and
-every disc file's size and sha256: `verify` checks them with no source at hand) and the movies' AV1 streams.
+every disc file's size and sha256: `verify` checks them with no source at hand), the movies' AV1 streams and the
+texture packs (each member's size and sha256 in the manifest too).
 
 zstd is BSD-licensed (facebook/zstd); this tool uses the system's libzstd through ctypes (Homebrew's zstd, or
 HULK_LIBZSTD), and the runners compile zstd's decompressor from the pinned sources fetch-zstd unpacks into
@@ -323,13 +330,39 @@ def cmd_build(a):
         raise SystemExit("a disc pack is the game: keep it under build/ (never in the tracked tree)")
     replace = {}             # disc name -> (keep bytes, member name, member bytes): the AV1 movies (disc_av1.py)
     extra = {}
+    lazy = {}                # .hulk/ name -> (a PackSource, its name, size): members read from another pack
     av1 = None
+    texpacks = {}
     if a.av1:
         import disc_av1
         av1 = disc_av1.load_for_pack(a.av1, src)
         for disc_name, ranges in av1["zero"].items():
             replace[disc_name] = ranges
         extra.update(av1["members"])
+    elif src.kind == "pack":     # (its AV1 movies: the disc files' replaced ranges are zeros in it already)
+        sman = src.manifest()
+        if "av1" in sman:
+            av1 = {"manifest": sman["av1"]}
+            for n, (size, _first) in src.all.items():
+                if n.startswith(".hulk/av1/"):
+                    lazy[n] = (src, n, size)
+    if src.kind == "pack":
+        texpacks.update(src.manifest().get("texpacks", {}))
+        for n, (size, _first) in src.all.items():
+            if n.startswith(".hulk/texpacks/"):
+                lazy[n] = (src, n, size)
+    for t in a.texpack or []:
+        tp = PackSource(t, z)
+        name = os.path.basename(t)
+        if name.lower().endswith(".hulkpack"):
+            name = name[:-9]
+        if not name or "/" in name or not any(n.startswith("textures/") for n in tp.files):
+            raise SystemExit("%s: not a one-file texture pack (texpack_convert.py bundle)" % t)
+        for n in [k for k in lazy if k.startswith(".hulk/texpacks/%s/" % name)]:
+            del lazy[n]
+        for n, size in tp.files.items():
+            lazy[".hulk/texpacks/%s/%s" % (name, n)] = (tp, n, size)
+        texpacks[name] = {"source": os.path.basename(t), "files": len(tp.files), "bytes": sum(tp.files.values())}
     t0 = time.time()
     names = sorted(src.files)
     log("disc_pack: %s %s, %d files, %.2f GB; zstd %s level %d, %d KiB chunks, %d jobs" % (
@@ -357,16 +390,23 @@ def cmd_build(a):
         def read(self, name, off, n):
             if name in members:
                 return members[name][off:off + n]
+            if name in lazy:
+                p, inner, _size = lazy[name]
+                return p.read(inner, off, n)
             return rd.read(name, off, n)
     both = Both()
     manifest = {"tool": "disc_pack.py %d" % VERSION, "source": src.kind, "zstd": z.version(), "level": a.level,
                 "chunk": chunk, "files": {}}
     if av1:
         manifest["av1"] = av1["manifest"]
+    if texpacks:
+        manifest["texpacks"] = texpacks
     # the manifest is written last (it holds the digests), so it needs its own size up front: two passes over a
     # placeholder are avoided by writing it as the last file of the order (its name sorts after the disc's)
     for name, data in members.items():
         both.files[name] = len(data)
+    for name, (_p, _inner, size) in lazy.items():
+        both.files[name] = size
     plan = plan_chunks(both, chunk)
     tmp = out + ".part"
     total = 0
@@ -401,6 +441,7 @@ def cmd_build(a):
             hashes[name] = hstate[name].hexdigest()
         manifest["files"] = {n: [src.files[n], hashes[n]] for n in names}
         manifest["members"] = {n: [len(d), hashlib.sha256(d).hexdigest()] for n, d in members.items()}
+        manifest["members"].update({n: [v[2], hstate[n].hexdigest()] for n, v in lazy.items()})
         mj = json.dumps(manifest, indent=1, sort_keys=True).encode()
         mname = ".hulk/pack.json"
         first[mname] = len(chunks)
@@ -412,7 +453,7 @@ def cmd_build(a):
             pos += len(stored)
         sizes = dict(both.files)
         sizes[mname] = len(mj)
-        dirs = set(getattr(src, "dirs", ()))
+        dirs = set(d for d in getattr(src, "dirs", ()) if not d.startswith(".hulk"))
         allnames = sorted(set(sizes) | dirs)
         nb = bytearray()
         noffs = {}
@@ -502,15 +543,36 @@ def cmd_verify(a):
         if src and not same_src:
             bad.append("%s: bytes differ from the source" % name)
     for name, (size, digest) in man.get("members", {}).items():
-        b = p.read(name, 0, size)
-        if hashlib.sha256(b).hexdigest() != digest:
+        if name not in p.all or p.all[name][0] != size:
+            bad.append("%s: missing, or not its manifest's size" % name)
+            continue
+        h = hashlib.sha256()
+        for off in range(0, max(size, 1), 8 << 20):
+            h.update(p.read(name, off, 8 << 20))
+        if h.hexdigest() != digest:
             bad.append("%s: sha256 differs" % name)
+    tps = man.get("texpacks", {})
+    for t in a.texpack or []:           # (a texture pack it carries, byte for byte against its file)
+        tp = PackSource(t, z)
+        name = os.path.basename(t)[:-9] if t.lower().endswith(".hulkpack") else os.path.basename(t)
+        if name not in tps:
+            bad.append("%s: the pack carries no texture pack %s" % (t, name))
+            continue
+        have = {n[len(".hulk/texpacks/%s/" % name):]: v[0] for n, v in p.all.items()
+                if n.startswith(".hulk/texpacks/%s/" % name)}
+        if have != tp.files:
+            bad.append("%s: its files differ from the pack's .hulk/texpacks/%s/" % (t, name))
+            continue
+        for n, size in tp.files.items():
+            if tp.read(n, 0, size) != p.read(".hulk/texpacks/%s/%s" % (name, n), 0, size):
+                bad.append("%s: %s differs" % (t, n))
     for b in bad:
         log("FAIL " + b)
     nrep = sum(len(r) for r in replaced.values())
-    log("verify %s: %d files, %.2f GB, %s%s in %.0f s: %s" % (
+    log("verify %s: %d files, %.2f GB, %s%s%s in %.0f s: %s" % (
         a.pack, len(p.files), nbytes / 1e9, "against %s %s" % (src.kind, a.source) if src else "against its manifest",
         ", %d movies' pictures replaced by AV1 (their headers kept, the rest zero)" % nrep if nrep else "",
+        "".join(", texture pack %s (%d files)" % (k, v["files"]) for k, v in sorted(tps.items())),
         time.time() - t0, "FAIL" if bad else "ok"))
     return 1 if bad else 0
 
@@ -632,9 +694,11 @@ def main(argv=None):
     c.add_argument("--chunk", type=int, default=256, help="KiB of a file per chunk")
     c.add_argument("--jobs", type=int, default=2)
     c.add_argument("--av1", help="the AV1 movies (a tools/disc_av1.py encode directory)")
+    c.add_argument("--texpack", action="append", help="a one-file texture pack (.hulkpack) the pack carries (wapk1)")
     c = sp.add_parser("verify")
     c.add_argument("pack")
     c.add_argument("--source")
+    c.add_argument("--texpack", action="append", help="check a texture pack it carries against this .hulkpack")
     c = sp.add_parser("measure")
     c.add_argument("src")
     c.add_argument("--levels", default="3,9,19")

@@ -3,8 +3,9 @@
 // One override layer: <mods>/<pack>/textures/tex-<key>.png, <mods> = HULK_MODS_DIR or <app dir>/mods (<app dir>:
 // HULK_APP_DIR, default ~/Library/Application Support/HulkUD). A pack may also be one file, <mods>/<pack>.hulkpack, or
 // <name>.hulkpack in the app bundle's Contents/Resources (wpkg1: `texpack_convert.py bundle`, a disc pack of the pack's
-// folder read through run/disc.h): the same textures/ tree, and textures/baked/tex-<key>-<format>-<alpha>.bin, the
-// replacement this file would make (the disk cache's layout), used as it is instead of decoding and encoding the PNG.
+// folder read through run/disc.h), or .hulk/texpacks/<name>/ in the disc pack the game comes from (wapk1: `disc_pack.py
+// build --texpack`: one file with the game and its textures): the same textures/ tree, and
+// textures/baked/tex-<key>-<format>-<alpha>.bin, the replacement this file would make (the disk cache's layout), used as it is instead of decoding and encoding the PNG.
 // The key is the content hash of what the sink receives (remaster.md 2.7 option A, D9): XXH64 (seed 0) over le32 format (SinkTextureFormat), le32 width, le32 height and the
 // level-0 bytes of the upload, as 16 lowercase hex digits. tools/texpack_convert.py computes the same key from the Xbox
 // ImageData payload; HULK_PACK_DUMP lists (and optionally writes) every key a session uploads.
@@ -283,6 +284,18 @@ static void scan()
             for (auto& n : more)
                 names.push_back(n), dirs.push_back(std::string(res) + "/" + n);
         }
+    }
+    // the texture packs a disc pack carries (wapk1: `disc_pack.py build --texpack`, .hulk/texpacks/<name>/), listed
+    // like one-file packs whenever the game comes from that pack
+    const char* data = getenv("HULK_DATA_DIR");
+    const char* src = data && *data ? hdisc_source(data) : nullptr;
+    if (src && !strcmp(src, "pack")) {
+        std::string tp = std::string(data) + "/.hulk/texpacks";
+        std::vector<std::string> more;
+        hdisc_list(tp.c_str(), [](void* ud, const char* n) { ((std::vector<std::string>*)ud)->push_back(n); }, &more);
+        std::sort(more.begin(), more.end());
+        for (auto& n : more)
+            names.push_back(n + ".hulkpack"), dirs.push_back(tp + "/" + n);
     }
     for (size_t i = 0; i < names.size(); i++) {
         Pack p;

@@ -3316,3 +3316,21 @@ draws gives in-between frames with no tree change and no path back into the game
 - HEAD's own app build diverges from the reference at 5875 (camera), 14584, 34240, 34260 on play3 (control 111575):
   compare candidates to a control, not to the reference alone.
 - The Android build at HEAD failed in gfxstats.cpp (macOS-only CLOCK_UPTIME_RAW): fixed in 66ec42785.
+
+## 2026-11-22 wapk1: one APK plus one file (the game, AV1 movies and the HD texture pack) for Android
+
+- The user's ask, after a scope change: an APK beside one packed file to load. Android's picker grants only the file
+  picked, so the texture pack travels inside the disc pack: `disc_pack.py build SRC OUT --texpack F.hulkpack` stores
+  its files under `.hulk/texpacks/<name>/` (a pack SRC keeps its AV1 movies and texture packs). texpack.cpp lists them
+  as a one-file pack when HULK_DATA_DIR is a pack; disc.c now lists a `.hulk/` folder when asked for it directly.
+- Android FFmpeg plays AV1 packs: dav1d 1.5.1 (meson + NDK, static, in libavcodec.so), FFmpeg's Opus decoder (needs
+  libswresample: configure drops it silently otherwise, "Disabled opus_decoder because not all dependencies are
+  satisfied: swresample"), the Matroska demuxer. 30 s to build.
+- The emulator's Vulkan device is llvmpipe (`adb shell cmd gpu vkjson`): BC native, ~17 frames/s with Vulkan; its GLES
+  (ANGLE on SwiftShader) lists no S3TC. bgfx decodes a format the device lacks to BGRA8 at upload
+  (getViableTextureFormat), so Mali handhelds (no textureCompressionBC) work at 4-8x texture memory.
+- `native_replay.py run` without `--data` reads isos/extracted whatever XBE path follows `--`: pass `--data PACK` to
+  test a pack. A HULK_SAVE_DIR reused between replays carries a save and diverges play3 from frame 450.
+- A first try stored the pack in the APK (assets, stored, AssetManager.openFd as `fd:N@OFF`): it installed (1.31 GB,
+  streamed install in 5 s) and replayed identically, but the user chose the separate file; the patch is
+  build/wapk1/apk-assets.patch (local).

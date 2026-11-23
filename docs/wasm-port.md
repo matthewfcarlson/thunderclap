@@ -814,9 +814,19 @@ through it and stays mounted; names are case-insensitive; images are read-only. 
   pack keeps every movie's first 64 KiB (header and frame index) and stores the rest as zeros (no bytes), and the
   archives' headers, directories and name tables as they are. The runner (movie.c) decodes
   `.hulk/av1/<archive>/<entry hash>.mkv` instead when the pack has one, with the frame count, the rate and the sound
-  tracks' ids taken from the kept Bink header. Needs an FFmpeg with libdav1d and Opus: Homebrew's has both. The
-  Android FFmpeg build (`wine_ffmpeg.py --target android-arm64`) is Bink-only, so on Android an AV1 pack's movies play
-  black (a log line says why): use the pack without AV1 there, or extend that build with dav1d (open).
+  tracks' ids taken from the kept Bink header. Needs an FFmpeg with libdav1d and Opus: Homebrew's has both, and so
+  does the Android build (`wine_ffmpeg.py build --target android-arm64`, wapk1: dav1d 1.5.1, BSD 2-clause, from its
+  pinned VideoLAN tarball, built static by meson with the NDK and linked into libavcodec.so; FFmpeg's own Opus decoder,
+  which needs libswresample.so; the Matroska demuxer; still LGPL 2.1+, dav1d's notice in
+  build/third_party/out/LICENSES-DAV1D.txt; needs `build/venv/bin/pip install meson pkgconf`).
+- **Texture packs in the disc pack** (wapk1): `disc_pack.py build SRC OUT --texpack F.hulkpack` also stores a one-file
+  texture pack's files under `.hulk/texpacks/<name>/`, so one file holds the game and its HD textures (Android's
+  picker grants only the file picked, not its neighbours). A SRC that is a pack keeps its AV1 movies and texture packs,
+  so `disc_pack.py build hulk-av1.hulkdisc hulk-hd.hulkdisc --texpack hfr-baked.hulkpack` adds the pack to an AV1 pack
+  (1.325 GB, 157 s); `verify PACK --source ISO --texpack F` checks the disc files, every member's sha256 and the
+  texture pack byte for byte against its file. disc.c lists a folder under `.hulk/` when asked for it (the root's
+  listing still hides `.hulk`), and texpack.cpp lists `<HULK_DATA_DIR>/.hulk/texpacks/<name>` as a one-file pack
+  `<name>` whenever the game comes from a pack (the chooser's choice, the bundle's game.hulkdisc, Android's `fd:N`).
 - **Sizes** (the USA/Asia disc): folder 2.447 GB; trimmed .iso 2.447 GB (a full Redump image is 7.8 GB); disc pack
   2.060 GB (84.2%, 145 s to build on 2 threads); disc pack with AV1 movies 1.045 GB (42.7%; the 28 movies 1,226 MB of
   Bink -> 205 MB, about 10 min to encode). The texture pack below: 605 MB of PNGs -> 280 MB as one baked file.
@@ -868,7 +878,8 @@ Gamepad only (the user, 11-22: handhelds with built-in controls, which SDL sees 
   (`<files>/log.txt`; stdout and stderr also go to logcat, tag `hulk`) and SDL_ORIENTATIONS (landscape), then any
   `HULK_*` / `SDL_*` string extra of the intent (SetupActivity passes them on), so scripted runs use `am start --es`.
 - **Movies.** run/app/movie.c is built against the Android FFmpeg headers (`tools/wine_ffmpeg.py build --target
-  android-arm64`: Bink decoders and demuxer only, LGPL 2.1+) and loads `libavutil.so` / `libavcodec.so` /
+  android-arm64`: the Bink decoders and demuxer, plus dav1d / Opus / Matroska for an AV1 pack's movies; LGPL 2.1+)
+  and loads `libavutil.so` / `libavcodec.so` /
   `libavformat.so` at run time from HULK_FFMPEG_DIR: `<files>/ffmpeg` when the player put them there, else the APK's
   lib dir (`apk --ffmpeg` bundles them for local tests). Without them the movies play black and can be skipped as on
   macOS. Whether a distributed APK may carry FFmpeg is the user's decision (LGPL dynamic linking).
@@ -890,6 +901,20 @@ Gamepad only (the user, 11-22: handhelds with built-in controls, which SDL sees 
   debug build `adb push <disc>/. /data/local/tmp/hulk-data/` then `adb shell run-as org.thunderclap.hulkud sh -c 'mkdir
   -p files/disc && cp -r /data/local/tmp/hulk-data/. files/disc/'` and `adb shell rm -rf /data/local/tmp/hulk-data`.
   Logs: `adb logcat -s hulk SDL`, or `adb exec-out run-as org.thunderclap.hulkud cat files/log.txt`.
+- **One APK plus one file** (wapk1): `wasm_android.py apk --ffmpeg` (16 MB) and a disc pack carrying the AV1 movies
+  and the HD texture pack (`disc_pack.py build ... --texpack`, 1.325 GB). On the device: copy the .hulkdisc anywhere
+  the system picker reaches (e.g. Download), install the APK, launch "Hulk UD", choose "Choose a disc image or pack"
+  and pick the file; it is read in place (a persisted read permission; no copy) and later launches start directly.
+  Checked on the emulator (picker driven with `input tap`): the game from the picked file (`HULK_DATA_DIR=fd:N`),
+  Video Options' pack "hfr-baked" listed and drawn (Vulkan), the AV1 start-up movies decoded (every frame), and play3
+  with `null` (`HULK_TEST_DISC=picked sh tests/android/wasm_apk_replay.sh ...`) to 78,840 frames: the macOS app's
+  records from the same pack (60,030 frames) are a byte prefix of Android's. The emulator's Vulkan device is llvmpipe
+  (CPU; it has BC), so Vulkan runs there take ~17 frames/s.
+- **BC textures** (the game's DXT and a baked pack's BC1/BC3): bgfx's Vulkan and GLES renderers take a format the
+  device lacks through `getViableTextureFormat`: decoded to BGRA8 on the CPU at upload (4x the memory of BC3, 8x of
+  BC1), no change in the sink. Mali and PowerVR Vulkan drivers report no `textureCompressionBC`, recent Adreno ones do
+  (public capability reports; no hardware here): on Mali handhelds every texture takes that path. A transcode to
+  ASTC / ETC2 is the open user decision.
 - **Open**: the gamepad path is untested (the emulator has no gamepad device; SDL maps a handheld's built-in controls
   through SDLControllerManager); lifecycle (pause / resume, the surface lost on home); performance on hardware.
 

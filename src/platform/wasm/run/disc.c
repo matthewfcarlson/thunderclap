@@ -447,7 +447,7 @@ int hdisc_list(const char* path, void (*fn)(void* ud, const char* name), void* u
     size_t len = strlen(dir->name);
     for (int i = 0; i < im->nents; i++) {
         const dent* e = &im->ents[i];
-        if (e->hidden || !*e->name) continue;
+        if ((e->hidden && !dir->hidden) || !*e->name) continue;     /* (.hulk/ lists only when asked for itself) */
         const char* rest = e->name;
         if (len) {
             if (strncasecmp(rest, dir->name, len) || rest[len] != '/') continue;

@@ -27,7 +27,8 @@ void hdisc_close(int fd);
 int hdisc_in_image(int fd);
 /* what the path names: HDISC_NONE / FILE / DIR (an image itself is a directory) */
 int hdisc_kind(const char* path);
-/* calls fn for every name in the directory (an image's own ".hulk" files are not listed); the count, or -1 */
+/* calls fn for every name in the directory (an image's own ".hulk" files are not listed, except in a listing of a
+ * folder under .hulk/ itself: a pack's texture packs, .hulk/texpacks/<name>/); the count, or -1 */
 int hdisc_list(const char* path, void (*fn)(void* ud, const char* name), void* ud);
 /* the disc source a path is: "folder" (a host directory), "iso", "pack", or 0 */
 const char* hdisc_source(const char* path);

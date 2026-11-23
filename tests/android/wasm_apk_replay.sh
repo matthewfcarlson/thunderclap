@@ -7,11 +7,13 @@ set -e
 . build/android/env.sh
 OUT=$1; FR=${2:-60000}; R=${3:-null}; P=org.thunderclap.hulkud; F=/data/user/0/$P/files
 DISC=${HULK_TEST_DISC:-$F/disc}   # (or the installed pack: /sdcard/Android/data/$P/files/game.hulkdisc; wpkg1)
+# HULK_TEST_DISC=picked: the file chosen before in SetupActivity's picker (its saved content URI, read as fd:N; wapk1)
+if [ "$DISC" = picked ]; then DARG=""; else DARG="--es HULK_DATA_DIR $DISC"; fi
 mkdir -p $OUT
 adb shell am force-stop $P
 adb shell run-as $P sh -c "'rm -rf files/run; mkdir -p files/run/save files/run/tdata files/run/udata; rm -f files/log.txt'"
 adb logcat -c
-adb shell am start -n $P/.SetupActivity --es HULK_DATA_DIR $DISC --es HULK_TRACE_FILE $F/run/trace.txt \
+adb shell am start -n $P/.SetupActivity $DARG --es HULK_TRACE_FILE $F/run/trace.txt \
   --es HULK_SAVE_DIR $F/run/save --es HULK_TDATA_DIR $F/run/tdata --es HULK_UDATA_DIR $F/run/udata \
   --es HULK_INPUT_SOURCE replay:$F/play3.hrp --es HULK_HANG 120 --es HULK_CKPT 1 --es HULK_CKPT_ALL 1 \
   --es HULK_AUDIO_CLOCK frame --es HULK_CKPT_REGIONS 0 --es HULK_AUDIO_NOMIX 1 --es HULK_CKREF 1 \

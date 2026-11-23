@@ -212,7 +212,9 @@ disk cache's layout), made offline by tools/texbake.cpp, which compiles run/app/
 for the original's format and alpha use, which the tool reads off the Xbox texture the key comes from (DXT1: opaque
 or 1-bit, as texpack.cpp decides). The app uses a baked replacement as it is, so the pixels are the same as from the
 PNG and there is no decode or encode at run time; a key without one (or `HULK_TEXPACK_MAX` / `HULK_TEXPACK_RAW` set)
-falls back to the PNG if the file has it. `--payload png` stores the PNGs only (the app decodes and encodes as for a
+falls back to the PNG if the file has it. A disc pack can carry the file too (`disc_pack.py build SRC OUT --texpack
+F.hulkpack`, wapk1; docs/wasm-port.md "Disc sources"): the app lists it the same way whenever the game comes from
+that pack, so one file holds the game and its textures. `--payload png` stores the PNGs only (the app decodes and encodes as for a
 folder, with the disk cache keyed by the pack file).
 
 Formats compared (the converted "Hulk Final Remaster" pack, 2,308 textures):
