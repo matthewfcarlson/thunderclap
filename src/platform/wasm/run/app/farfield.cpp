@@ -39,6 +39,7 @@
 #include "interp.h"
 #include "rm_pass.h"
 #include "texpack.h"
+#include "../disc.h"
 
 using namespace hulk::pddi;
 
@@ -70,11 +71,11 @@ uint32_t rcfHash(const char* s)
 }
 bool rcfOpen(RcfFile& r, const std::string& path)
 {
-    r.fd = open(path.c_str(), O_RDONLY);
+    r.fd = hdisc_open(path.c_str());        // (the disc may be an image: run/disc.h)
     if (r.fd < 0)
         return false;
     uint8_t h[0x3c];
-    if (pread(r.fd, h, sizeof h, 0) != (ssize_t)sizeof h || memcmp(h, "ATG CORE CEMENT LIBRARY", 23))
+    if (hdisc_pread(r.fd, h, sizeof h, 0) != (ssize_t)sizeof h || memcmp(h, "ATG CORE CEMENT LIBRARY", 23))
         return false;
     uint32_t dirOff, dirSize, namesOff, namesSize, count;
     memcpy(&dirOff, h + 0x24, 4), memcpy(&dirSize, h + 0x28, 4), memcpy(&namesOff, h + 0x2c, 4);
@@ -83,8 +84,8 @@ bool rcfOpen(RcfFile& r, const std::string& path)
         return false;
     std::vector<uint32_t> dir(3 * (size_t)count);
     std::vector<uint8_t> nt(namesSize);
-    if (pread(r.fd, dir.data(), dirSize, dirOff) != (ssize_t)dirSize ||
-        pread(r.fd, nt.data(), namesSize, namesOff) != (ssize_t)namesSize)
+    if (hdisc_pread(r.fd, dir.data(), dirSize, dirOff) != (ssize_t)dirSize ||
+        hdisc_pread(r.fd, nt.data(), namesSize, namesOff) != (ssize_t)namesSize)
         return false;
     std::unordered_map<uint32_t, uint32_t> byHash;
     for (uint32_t i = 0; i < count; i++)
@@ -115,7 +116,7 @@ bool rcfRead(const RcfFile& r, const std::string& name, std::vector<uint8_t>& ou
     if (it == r.files.end())
         return false;
     out.resize(it->second.second);
-    return pread(r.fd, out.data(), out.size(), it->second.first) == (ssize_t)out.size();
+    return hdisc_pread(r.fd, out.data(), out.size(), it->second.first) == (ssize_t)out.size();
 }
 
 // ------------------------------------------------------------------------------------------- p3d (docs/formats/p3d.md)

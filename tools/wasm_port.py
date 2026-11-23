@@ -1861,7 +1861,7 @@ def app_objects(d, wflags):
            "-I" + os.path.join(tp, "src/bx/include"), "-I" + os.path.join(tp, "src/bx/include/compat/osx"),
            "-I" + os.path.join(tp, "src/bimg/include"), "-I" + os.path.join(tp, "src/bgfx/include")] + BGFX_DEFS
     run = os.path.join(HOST_DIR, "run")
-    jobs = [(os.path.join(run, "native.c"), [CC] + wflags + ["-DHULK_APP=1"])]
+    jobs = [(os.path.join(run, "native.c"), [CC] + wflags + ["-DHULK_APP=1"])]     # (disc.c, zstd_dec.c: cmd_aot's)
     for f in sorted(os.listdir(os.path.join(run, "app"))):
         if f.endswith(".cpp"):
             jobs.append((os.path.join(run, "app", f), cxx))
@@ -1882,7 +1882,7 @@ def app_objects(d, wflags):
                                                               os.path.join(sdl, "input"), os.path.join(sdl, "movies"))
             for f in sorted(os.listdir(dp)) if f.endswith(".h") or dp.endswith("input") and f.endswith(".cpp")
             or dp.endswith("movies") and f == "movie.c"
-        )).hexdigest()[:16]
+        ) + open(os.path.join(run, "disc.h"), "rb").read()).hexdigest()[:16]
         obj = os.path.join(d, "app", "%s.%s.o" % (os.path.basename(src).rsplit(".", 1)[0], key))
         if not os.path.exists(obj):
             r = subprocess.run(cmd + ["-c", src, "-o", obj + ".tmp"], capture_output=True, text=True, errors="replace")
@@ -1917,17 +1917,22 @@ def cmd_aot(a):
     flags = [a.opt, "-I", d, "-I", share, "-I", inc, "-w", "-fno-strict-aliasing"]
     jobs, objs = [], []
     impl = open(os.path.join(d, "game-impl.h"), "rb").read()
+    import disc_pack            # the disc sources (run/disc.c: folders, .iso images, disc packs; zstd's decompressor)
+    disc = [os.path.join(HOST_DIR, "run/disc.c"), os.path.join(HOST_DIR, "run/zstd_dec.c")]
     for f in sorted(os.listdir(d)) + [os.path.join(share, "wasm-rt-impl.c"), os.path.join(share, "wasm-rt-mem-impl.c"),
                                       os.path.join(share, "wasm-rt-exceptions-impl.c"),
-                                      os.path.join(HOST_DIR, "run/native.c")]:
+                                      os.path.join(HOST_DIR, "run/native.c")] + disc:
         if not f.endswith(".c"):
             continue
         src = f if os.path.isabs(f) else os.path.join(d, f)
-        key = hashlib.sha1(open(src, "rb").read() + impl + " ".join(flags).encode()).hexdigest()[:16]
+        fl = flags + disc_pack.zstd_flags() if src in disc else flags
+        extra = open(os.path.join(HOST_DIR, "run/disc.h"), "rb").read() if src.startswith(os.path.join(HOST_DIR, "run")) \
+            else b""
+        key = hashlib.sha1(open(src, "rb").read() + extra + impl + " ".join(fl).encode()).hexdigest()[:16]
         obj = os.path.join(d, "obj", "%s.%s.o" % (os.path.basename(src)[:-2], key))
         objs.append(obj)
         if not os.path.exists(obj):
-            jobs.append((src, obj, flags))
+            jobs.append((src, obj, fl))
     os.makedirs(os.path.join(d, "obj"), exist_ok=True)
     keep = set(objs)
     for f in os.listdir(os.path.join(d, "obj")):

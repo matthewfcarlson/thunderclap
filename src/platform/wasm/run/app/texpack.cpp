@@ -1,8 +1,11 @@
 // Texture override packs for the app (wpack1, docs/texture-packs.md "Override packs in the app", docs/remaster.md 2.7).
 //
 // One override layer: <mods>/<pack>/textures/tex-<key>.png, <mods> = HULK_MODS_DIR or <app dir>/mods (<app dir>:
-// HULK_APP_DIR, default ~/Library/Application Support/HulkUD). The key is the content hash of what the sink receives
-// (remaster.md 2.7 option A, D9): XXH64 (seed 0) over le32 format (SinkTextureFormat), le32 width, le32 height and the
+// HULK_APP_DIR, default ~/Library/Application Support/HulkUD). A pack may also be one file, <mods>/<pack>.hulkpack, or
+// <name>.hulkpack in the app bundle's Contents/Resources (wpkg1: `texpack_convert.py bundle`, a disc pack of the pack's
+// folder read through run/disc.h): the same textures/ tree, and textures/baked/tex-<key>-<format>-<alpha>.bin, the
+// replacement this file would make (the disk cache's layout), used as it is instead of decoding and encoding the PNG.
+// The key is the content hash of what the sink receives (remaster.md 2.7 option A, D9): XXH64 (seed 0) over le32 format (SinkTextureFormat), le32 width, le32 height and the
 // level-0 bytes of the upload, as 16 lowercase hex digits. tools/texpack_convert.py computes the same key from the Xbox
 // ImageData payload; HULK_PACK_DUMP lists (and optionally writes) every key a session uploads.
 //
@@ -40,6 +43,7 @@
 
 #include "pddi/bgfx_bridge.h"
 #include "interp.h"
+#include "../disc.h"
 #if !defined(__APPLE__)
 #define st_mtimespec st_mtim     // (Linux / Android name of the same timespec: wand1)
 #endif
@@ -102,6 +106,21 @@ static uint64_t xxh64(const uint8_t* p, size_t len)
     h *= P3;
     return h ^ (h >> 32);
 }
+// a whole file, a host one or one in a .hulkpack (run/disc.h); false when it can't be read
+static bool readAll(const std::string& path, std::vector<uint8_t>& out, size_t max = (size_t)512 << 20)
+{
+    int fd = hdisc_open(path.c_str());
+    if (fd < 0)
+        return false;
+    uint64_t n = hdisc_size(fd);
+    bool ok = n <= max;
+    if (ok) {
+        out.resize((size_t)n);
+        ok = hdisc_pread(fd, out.data(), out.size(), 0) == (int64_t)n;
+    }
+    hdisc_close(fd);
+    return ok;
+}
 static uint64_t textureKey(uint32_t format, uint32_t w, uint32_t h, const void* data, uint32_t size)
 {
     std::vector<uint8_t> b(12 + (size_t)size);
@@ -112,7 +131,9 @@ static uint64_t textureKey(uint32_t format, uint32_t w, uint32_t h, const void* 
 }
 
 // ------------------------------------------------------------------------------------------- packs
+extern "C" const char* hulk_app_resources_dir(void);    // start.cpp
 struct Pack {
+    bool file = false;                                   // a .hulkpack (dir is the file; read through run/disc.h)
     std::string name, dir;
     std::unordered_map<uint64_t, std::string> files;     // key -> path
     std::unordered_map<uint64_t, std::string> models;    // mdl key -> path (meshpack.cpp)
@@ -154,20 +175,18 @@ static bool parseKey(const char* fn, uint64_t* key, const char* prefix = "tex-",
 }
 static void scanDir(Pack& p, const std::string& dir, int depth)
 {
-    DIR* d = opendir(dir.c_str());
-    if (!d)
-        return;
-    while (struct dirent* e = readdir(d)) {
-        if (e->d_name[0] == '.')
+    std::vector<std::string> names;
+    hdisc_list(dir.c_str(), [](void* ud, const char* n) { ((std::vector<std::string>*)ud)->push_back(n); }, &names);
+    for (const std::string& n : names) {
+        if (n[0] == '.')
             continue;
         uint64_t k;
-        std::string path = dir + "/" + e->d_name;
-        if (parseKey(e->d_name, &k))
+        std::string path = dir + "/" + n;
+        if (parseKey(n.c_str(), &k))
             p.files.emplace(k, path);                // (first one wins: a pack lists a key once)
-        else if (depth < 2 && e->d_type == DT_DIR)
+        else if (depth < 2 && hdisc_kind(path.c_str()) == HDISC_DIR)
             scanDir(p, path, depth + 1);
     }
-    closedir(d);
 }
 static std::string appDir()
 {
@@ -190,11 +209,12 @@ static void diskInit();
 // read instead of listing the folder when present
 static bool readIndex(Pack& p, const std::string& tex)
 {
-    FILE* f = fopen((tex + "/index.txt").c_str(), "r");
-    if (!f)
+    std::vector<uint8_t> text;
+    if (!readAll(tex + "/index.txt", text, 64u << 20))
         return false;
-    char line[600];
-    while (fgets(line, sizeof line, f)) {
+    text.push_back(0);
+    char* save = nullptr;
+    for (char* line = strtok_r((char*)text.data(), "\n", &save); line; line = strtok_r(nullptr, "\n", &save)) {
         char* sp = strchr(line, ' ');
         if (!sp)
             continue;
@@ -208,7 +228,6 @@ static bool readIndex(Pack& p, const std::string& tex)
         if (parseKey(fn, &k))
             p.files.emplace(k, tex + "/" + (sp + 1));
     }
-    fclose(f);
     return true;
 }
 static void scan()
@@ -242,7 +261,7 @@ static void scan()
     double t0 = nowMs();
     std::string mods = modsDir();
     DIR* d = mods.empty() ? nullptr : opendir(mods.c_str());
-    std::vector<std::string> names;
+    std::vector<std::string> names, dirs;        // (a pack's name; the folder or .hulkpack file holding it)
     if (d) {
         while (struct dirent* e = readdir(d))
             if (e->d_name[0] != '.')
@@ -250,14 +269,36 @@ static void scan()
         closedir(d);
     }
     std::sort(names.begin(), names.end());
-    for (auto& n : names) {
+    for (auto& n : names)
+        dirs.push_back(mods + "/" + n);
+    if (const char* res = hulk_app_resources_dir()) {   // (the app bundle's packs: wasm_app.py bundle --with-texpack)
+        if (DIR* rd = opendir(res)) {
+            std::vector<std::string> more;
+            while (struct dirent* e = readdir(rd))
+                if (e->d_name[0] != '.' && strlen(e->d_name) > 9 &&
+                    !strcasecmp(e->d_name + strlen(e->d_name) - 9, ".hulkpack"))
+                    more.push_back(e->d_name);
+            closedir(rd);
+            std::sort(more.begin(), more.end());
+            for (auto& n : more)
+                names.push_back(n), dirs.push_back(std::string(res) + "/" + n);
+        }
+    }
+    for (size_t i = 0; i < names.size(); i++) {
         Pack p;
-        p.name = n;
-        p.dir = mods + "/" + n;
+        p.name = names[i];
+        p.dir = dirs[i];
+        if (p.name.size() > 9 && !strcasecmp(p.name.c_str() + p.name.size() - 9, ".hulkpack")) {
+            if (hdisc_kind(p.dir.c_str()) != HDISC_DIR)
+                continue;                            // (not a pack, or damaged: disc.c says why)
+            p.name.resize(p.name.size() - 9);
+            p.file = true;
+        }
+        const std::string& n = p.name;
         std::string tex = p.dir + "/textures";
         if (!readIndex(p, tex))
             scanDir(p, tex, 0);
-        if (DIR* md = opendir((p.dir + "/models").c_str())) {        // mdl-<key>.obj (meshpack.cpp)
+        if (DIR* md = p.file ? nullptr : opendir((p.dir + "/models").c_str())) {   // mdl-<key>.obj (meshpack.cpp)
             while (struct dirent* e = readdir(md)) {
                 uint64_t k;
                 if (parseKey(e->d_name, &k, "mdl-", ".obj"))
@@ -267,8 +308,8 @@ static void scan()
         }
         if (p.files.empty() && p.models.empty())
             continue;
-        fprintf(stderr, "hulk-app: pack \"%s\": %zu textures, %zu models\n", n.c_str(), p.files.size(),
-                p.models.size());
+        fprintf(stderr, "hulk-app: pack \"%s\"%s: %zu textures, %zu models\n", n.c_str(), p.file ? " (one file)" : "",
+                p.files.size(), p.models.size());
         s_packs.push_back(std::move(p));
         if (s_packs.size() >= 11)                 // (the setting's choices: Off and 11 packs)
             break;
@@ -662,7 +703,10 @@ static void halve(std::vector<RGBA>& img, uint32_t& cw, uint32_t& ch, AlphaMode 
 static std::shared_ptr<Encoded> build(const std::string& path, uint32_t origFormat, AlphaMode am)
 {
     int w, h, n;
-    stbi_uc* px = stbi_load(path.c_str(), &w, &h, &n, 4);
+    std::vector<uint8_t> file;
+    if (!readAll(path, file))
+        return nullptr;
+    stbi_uc* px = stbi_load_from_memory(file.data(), (int)file.size(), &w, &h, &n, 4);
     if (!px)
         return nullptr;
     static int maxDim = getenv("HULK_TEXPACK_MAX") ? atoi(getenv("HULK_TEXPACK_MAX")) : 4096;
@@ -828,8 +872,24 @@ static void diskInit()
 static std::string diskPath(uint64_t key, const std::string& path, uint32_t format, AlphaMode am)
 {
     struct stat st;
-    if (s_diskDir.empty() || stat(path.c_str(), &st))
+    if (s_diskDir.empty())
         return std::string();
+    if (stat(path.c_str(), &st)) {                  // (a file in a .hulkpack: its size, the pack file's times)
+        std::string up = path;
+        int fd = hdisc_open(path.c_str());
+        if (fd < 0)
+            return std::string();
+        int64_t size = (int64_t)hdisc_size(fd);
+        hdisc_close(fd);
+        for (size_t sl; (sl = up.rfind('/')) != std::string::npos && sl > 0;) {
+            up.resize(sl);
+            if (!stat(up.c_str(), &st))
+                break;
+        }
+        if (!S_ISREG(st.st_mode))
+            return std::string();
+        st.st_size = size;
+    }
     static int maxDim = getenv("HULK_TEXPACK_MAX") ? atoi(getenv("HULK_TEXPACK_MAX")) : 4096;
     bool raw = getenv("HULK_TEXPACK_RAW") && *getenv("HULK_TEXPACK_RAW") == '1';
     char meta[64];
@@ -905,6 +965,41 @@ static void diskWrite(const std::string& file, const Encoded& e)
         diskPrune(s_diskCap * 9 / 10);
 }
 
+// a .hulkpack's baked replacement of `path` (textures/baked/tex-<key>-<format>-<alpha>.bin: the disk cache's layout,
+// made by tools/texbake.cpp with this file's build()), or nullptr
+static std::shared_ptr<Encoded> bakedRead(uint64_t key, const std::string& path, uint32_t format, AlphaMode am)
+{
+    static bool off = getenv("HULK_TEXPACK_MAX") || (getenv("HULK_TEXPACK_RAW") && *getenv("HULK_TEXPACK_RAW") == '1');
+    size_t sl = path.rfind('/');
+    if (off || sl == std::string::npos)             // (other build settings than the baked ones: build from the PNG)
+        return nullptr;
+    char fn[80];
+    snprintf(fn, sizeof fn, "/baked/tex-%016llx-%u-%u.bin", (unsigned long long)key, format, (unsigned)am);
+    std::vector<uint8_t> b;
+    if (!readAll(path.substr(0, sl) + fn, b, 256u << 20) || b.size() < 24)
+        return nullptr;
+    uint32_t hd[6];
+    memcpy(hd, b.data(), sizeof hd);
+    if (hd[0] != kDiskMagic || hd[1] != kDiskVersion || hd[5] < 1 || hd[5] > 16 || hd[2] > kSinkBC3 ||
+        b.size() < 24 + 16 * (size_t)hd[5])
+        return nullptr;
+    auto e = std::make_shared<Encoded>();
+    e->format = hd[2], e->w = hd[3], e->h = hd[4], e->levels = hd[5];
+    size_t total = 0;
+    for (uint32_t l = 0; l < e->levels; l++) {
+        uint32_t lv[4];                             // width, height, pitch, size
+        memcpy(lv, b.data() + 24 + 16 * l, sizeof lv);
+        e->lw.push_back(lv[0]), e->lh.push_back(lv[1]), e->pitch.push_back(lv[2]), e->size.push_back(lv[3]);
+        e->offset.push_back((uint32_t)total);
+        total += lv[3];
+    }
+    size_t at = 24 + 16 * (size_t)e->levels;
+    if (b.size() != at + total)
+        return nullptr;
+    e->data.assign(b.begin() + (ptrdiff_t)at, b.end());
+    return e;
+}
+
 // workers: decode + encode off the runner's thread
 struct Job {
     uint64_t key;
@@ -935,8 +1030,10 @@ static void worker()
             s_jobs.pop_front();
         }
         double t0 = nowMs();
-        std::string file = j.mips ? std::string() : diskPath(j.key, j.path, j.format, j.am);
-        auto e = file.empty() ? nullptr : diskRead(file);
+        auto e = j.mips ? nullptr : bakedRead(j.key, j.path, j.format, j.am);
+        std::string file = j.mips || e ? std::string() : diskPath(j.key, j.path, j.format, j.am);
+        if (!file.empty())
+            e = diskRead(file);
         if (j.mips) {
             e = buildMips(*j.mips);
         } else if (!e) {

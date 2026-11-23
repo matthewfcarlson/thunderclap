@@ -5,6 +5,7 @@ runner, compiled by the NDK for arm64-v8a (Android 12+, API 31) into libmain.so 
   build/venv/bin/python tools/wasm_android.py bgfx                 # bx/bimg/bgfx for android-arm64 (Vulkan + GLES)
   build/venv/bin/python tools/wasm_android.py build [--wasm-dir build/wasm-app] [--jobs 2]   # -> <out>/libmain.so
   build/venv/bin/python tools/wasm_android.py apk [--out <out>/hulk.apk]                    # tools/android_apk.py
+  build/venv/bin/python tools/wasm_android.py install [--apk A] [--game PACK|ISO] [--texpack F.hulkpack]   # adb
 
 `build` takes the HULK_WASM_GFX=1 module a `tools/wasm_app.py build` made (<wasm-dir>/hulk.wasm: the macOS app's,
 so the two runners run the same module), runs wasm2c on it into <out>/aot and compiles the C with the NDK clang at the
@@ -171,7 +172,10 @@ def cmd_build(a):
                  "-I" + os.path.join(TP, "src/bx/include"), "-I" + os.path.join(TP, "src/bimg/include"),
                  "-I" + os.path.join(TP, "src/bgfx/include")] + wg.COMMON_DEFS + RENDERER_DEFS
     cc = CC + ["-std=c11", "-O2", "-g", "-Wall", "-Wno-unused-parameter", "-I" + SDLDIR]
-    host = [(os.path.join(run, "native.c"), CC + gflags + ["-DHULK_APP=1", "-Dmain=SDL_main"])]
+    import disc_pack            # the disc sources (run/disc.c: folders, .iso images, disc packs; zstd's decompressor)
+    host = [(os.path.join(run, "native.c"), CC + gflags + ["-DHULK_APP=1", "-Dmain=SDL_main"]),
+            (os.path.join(run, "disc.c"), cc + disc_pack.zstd_flags()),
+            (os.path.join(run, "zstd_dec.c"), cc + disc_pack.zstd_flags())]
     for sub in ("app", "android"):
         for f in sorted(os.listdir(os.path.join(run, sub))):
             if f.endswith(".cpp"):
@@ -183,7 +187,7 @@ def cmd_build(a):
                                                             "-DHULK_PDDI_BRIDGE_HOST=1", "-DHULK_SINK_OVERLAY=1"]))
     host.append((os.path.join(SDLDIR, "platform_events.cpp"), cxx + ["-DHULK_SDL_LINKED=1"]))
     hdrs = b"".join(open(os.path.join(dp, f), "rb").read()
-                    for dp in (os.path.join(run, "app"), os.path.join(SDLDIR, "pddi"), gen, os.path.join(SDLDIR, "input"),
+                    for dp in (run, os.path.join(run, "app"), os.path.join(SDLDIR, "pddi"), gen, os.path.join(SDLDIR, "input"),
                                os.path.join(SDLDIR, "movies"), os.path.join(SDLDIR, "audio"))
                     if os.path.isdir(dp) for f in sorted(os.listdir(dp))
                     if os.path.isfile(os.path.join(dp, f)))
@@ -227,6 +231,52 @@ def cmd_apk(a):
     raise SystemExit(android_apk.main())
 
 
+# --------------------------------------------------------------------------------------------- install (wpkg1)
+PKG = "org.thunderclap.hulkud"
+
+
+def cmd_install(a):
+    """adb: the APK, then the player's disc pack (or .iso) as <files>/game.hulkdisc (game.iso) and texture packs into
+    <files>/mods/, which SetupActivity and texpack.cpp find with no setup. <files> is the app's internal files dir; the
+    bytes stream through `adb exec-in run-as` (a debug build), with no copy on the device (files adb writes into the
+    external dir belong to the shell). Not in the APK: it would be copied again on every install, and an APK has to
+    stay under 4 GB."""
+    import shutil
+    adb = shutil.which("adb") or os.path.join(os.environ.get("ANDROID_HOME") or os.path.join(ROOT, "build/android/sdk"),
+                                              "platform-tools/adb")
+
+    def run(*cmd, stdin=None):
+        print("$ adb " + " ".join(cmd), flush=True)
+        subprocess.run([adb] + list(cmd), check=True, stdin=stdin)
+
+    def push(src, dest):
+        with open(src, "rb") as f:
+            # (one argument: the device's shell would otherwise run the redirect outside run-as)
+            run("exec-in", "run-as %s sh -c \"cat > '%s.part'\"" % (PKG, dest), stdin=f)
+        import time
+        for _ in range(120):        # (adb returns once it has sent the bytes; the device's cat may still be writing)
+            got = subprocess.run([adb, "shell", "run-as", PKG, "stat", "-c", "%s", dest + ".part"], capture_output=True,
+                                 text=True).stdout.strip()
+            if got == str(os.path.getsize(src)):
+                break
+            time.sleep(1)
+        if got != str(os.path.getsize(src)):
+            raise SystemExit("install: %s arrived as %s bytes of %d" % (dest, got or "no", os.path.getsize(src)))
+        run("shell", "run-as", PKG, "mv", dest + ".part", dest)
+    if a.apk:
+        run("install", "-r", a.apk)
+    if a.game or a.texpack:
+        run("shell", "run-as", PKG, "mkdir", "-p", "files/mods")
+    if a.game:
+        kind = os.path.splitext(a.game)[1].lower()
+        if kind not in (".hulkdisc", ".iso"):
+            raise SystemExit("--game takes a disc pack (.hulkdisc) or an .iso")
+        run("shell", "run-as", PKG, "rm", "-f", "files/game.hulkdisc", "files/game.iso")
+        push(a.game, "files/game" + kind)
+    if a.texpack:
+        push(a.texpack, "files/mods/" + os.path.basename(a.texpack))
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sp = ap.add_subparsers(dest="cmd", required=True)
@@ -240,8 +290,12 @@ def main(argv=None):
     c = sp.add_parser("apk")
     c.add_argument("--out")
     c.add_argument("--ffmpeg", action="store_true", help="put FFmpeg's libraries (LGPL) in the APK: local tests only")
+    c = sp.add_parser("install")
+    c.add_argument("--apk")
+    c.add_argument("--game", help="the player's disc pack (.hulkdisc) or .iso")
+    c.add_argument("--texpack", help="a one-file texture pack (.hulkpack)")
     a = ap.parse_args(argv)
-    {"bgfx": cmd_bgfx, "build": cmd_build, "apk": cmd_apk}[a.cmd](a)
+    {"bgfx": cmd_bgfx, "build": cmd_build, "apk": cmd_apk, "install": cmd_install}[a.cmd](a)
 
 
 if __name__ == "__main__":

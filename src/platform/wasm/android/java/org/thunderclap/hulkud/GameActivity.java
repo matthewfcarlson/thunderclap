@@ -2,7 +2,8 @@
 // and bgfx statically; native.c's main is SDL_main). The runner reads its configuration from the environment, as the
 // macOS app does; this activity sets the Android defaults before SDL loads the library, then any HULK_* / SDL_* string
 // extra of the launching intent, so a scripted run passes settings with `am start --es` (SetupActivity forwards them):
-//   HULK_DATA_DIR     the disc SetupActivity found (extra), else <files dir>/disc
+//   HULK_DATA_DIR     the disc SetupActivity found (extra), else <files dir>/disc; a picked disc image or pack (extra
+//                     DISC_URI, a content URI) is opened here and passed as its descriptor, "fd:N" (run/disc.h)
 //   HULK_SAVE_DIR     <files dir>/save         HULK_TDATA_DIR / HULK_UDATA_DIR  <files dir>/tdata, /udata
 //   HULK_APP_DIR      <files dir> (texture and model packs: <files dir>/mods; the settings file is in the save dir)
 //   HULK_GFX_RENDERER vulkan (gles: bgfx's OpenGL ES; null: the headless build's run)
@@ -21,6 +22,8 @@ import org.libsdl.app.SDLActivity;
 
 public class GameActivity extends SDLActivity {
     static final String TAG = "hulk";
+    static final String DISC_URI = "org.thunderclap.hulkud.DISC_URI";
+    private android.os.ParcelFileDescriptor disc;      // (kept open for the process: the runner reads its fd)
 
     static void setenv(String k, String v, boolean overwrite) {
         try {
@@ -41,6 +44,15 @@ public class GameActivity extends SDLActivity {
                 Object v = ex.get(k);
                 if (v instanceof String && (k.startsWith("HULK_") || k.startsWith("SDL_")))
                     setenv(k, (String) v, true);
+            }
+        }
+        String uri = ex != null && ex.get(DISC_URI) instanceof String ? (String) ex.get(DISC_URI) : null;
+        if (uri != null) {
+            try {
+                disc = getContentResolver().openFileDescriptor(android.net.Uri.parse(uri), "r");
+                setenv("HULK_DATA_DIR", "fd:" + disc.getFd(), true);
+            } catch (Exception e) {
+                Log.e(TAG, "the disc image " + uri + " cannot be opened: " + e);
             }
         }
         setenv("HULK_DATA_DIR", new File(files, "disc").getAbsolutePath(), false);

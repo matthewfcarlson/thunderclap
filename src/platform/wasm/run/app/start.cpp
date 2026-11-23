@@ -1,13 +1,17 @@
 // The app's start-up: where the game is (docs/wasm-port.md "The macOS app", "First launch"; wui1).
 //
-// The game is the player's own extracted disc: default.xbe and the .rcf archives next to it. In order:
+// The game is the player's own disc: the extracted folder (default.xbe and the .rcf archives next to it), the Xbox
+// disc image (.iso, read in place) or a disc pack (tools/disc_pack.py, .hulkdisc); run/disc.h reads all three, an
+// image's files named as if it were the folder (<image>/default.xbe). In order:
 //   1. the command line: `hulk-app <path>/default.xbe` (argv[1]) or HULK_XBE, with HULK_DATA_DIR (default: the XBE's
 //      folder); HULK_DATA_DIR alone means <it>/default.xbe. Never a window: replays and tests pass the XBE.
-//   2. the remembered choice: <app dir>/game.txt (one line, the disc folder);
-//   3. <app dir>/disc (the extracted disc copied there by hand);
-//   4. a chooser: an alert (Choose Folder... / Choose default.xbe... / Quit), then the system's open panel (SDL3's
-//      file dialog, NSOpenPanel). The choice is checked (below) and remembered in game.txt; a bad one says why and
-//      asks again.
+//   2. a game bundled with the app (`tools/wasm_app.py bundle --with-game`): Contents/Resources/game.hulkdisc (or
+//      game.iso) beside the executable's folder;
+//   3. the remembered choice: <app dir>/game.txt (one line, the disc folder or image);
+//   4. <app dir>/disc (the extracted disc copied there by hand), <app dir>/disc.hulkdisc or <app dir>/disc.iso;
+//   5. a chooser: an alert (Choose Folder... / Choose File... / Quit), then the system's open panel (SDL3's file
+//      dialog, NSOpenPanel): a folder, or default.xbe, an .iso or a .hulkdisc. The choice is checked (below) and
+//      remembered in game.txt; a bad one says why and asks again.
 // `--choose-game` as the first argument, or holding Option at launch, goes to the chooser even when a game is
 // remembered (`open Hulk.app --args --choose-game`). <app dir> is HULK_APP_DIR, default
 // ~/Library/Application Support/HulkUD; saves go to <app dir>/save unless HULK_SAVE_DIR says otherwise.
@@ -28,6 +32,11 @@
 #include <unistd.h>
 
 #include <SDL3/SDL.h>
+#if defined(__APPLE__)
+#include <mach-o/dyld.h>
+#endif
+
+#include "../disc.h"
 
 static const uint32_t kTitleId = 0x56550039;       // the certificate's title ID of The Incredible Hulk: UD
 
@@ -43,35 +52,66 @@ static bool isFile(const char* p)
     return !stat(p, &st) && S_ISREG(st.st_mode);
 }
 
+// a file of the disc (a folder's or an image's), whole up to len bytes; the bytes read, or -1
+static long readDiscFile(const char* p, void* buf, size_t len, uint64_t off = 0)
+{
+    int fd = hdisc_open(p);
+    if (fd < 0) return -1;
+    long n = (long)hdisc_pread(fd, buf, len, off);
+    hdisc_close(fd);
+    return n;
+}
+
 static const char* endsWith(const char* s, const char* suf)
 {
     size_t n = strlen(s), m = strlen(suf);
     return n >= m && !strcasecmp(s + n - m, suf) ? s + n - m : nullptr;
 }
 
-// Is `dir` an extracted disc of the game? Empty `why` when it is.
+// The app bundle's Contents/Resources (macOS: the executable's ../Resources), or null outside a bundle
+extern "C" const char* hulk_app_resources_dir(void)
+{
+    static char dir[PATH_MAX];
+    static int done;
+    if (done++) return dir[0] ? dir : nullptr;
+#if defined(__APPLE__)
+    char exe[PATH_MAX], real[PATH_MAX];
+    uint32_t n = sizeof exe;
+    if (_NSGetExecutablePath(exe, &n) == 0 && realpath(exe, real)) {
+        char* slash = strrchr(real, '/');
+        if (slash) {
+            *slash = 0;
+            char r[PATH_MAX + 16];
+            snprintf(r, sizeof r, "%s/../Resources", real);
+            if (isDir(r) && realpath(r, dir)) return dir;
+        }
+    }
+#endif
+    dir[0] = 0;
+    return nullptr;
+}
+
+// Is `dir` the game's disc (a folder, an .iso or a disc pack)? Empty `why` when it is.
 static void checkDisc(const char* dir, char* why, size_t whyLen)
 {
     char p[1200];
     why[0] = 0;
     snprintf(p, sizeof p, "%s/default.xbe", dir);
-    FILE* f = fopen(p, "rb");
-    if (!f) {
+    uint8_t h[0x200];
+    long n = readDiscFile(p, h, sizeof h);
+    if (n < 0) {
         snprintf(why, whyLen, "There is no default.xbe in\n%s.", dir);
         return;
     }
-    uint8_t h[0x200];
-    size_t n = fread(h, 1, sizeof h, f);
     uint32_t base = 0, cert = 0, id = 0;
     bool ok = n >= 0x120 && !memcmp(h, "XBEH", 4);
     if (ok) {
         memcpy(&base, h + 0x104, 4);
         memcpy(&cert, h + 0x118, 4);
         uint8_t c[12];
-        ok = cert > base && !fseek(f, (long)(cert - base), SEEK_SET) && fread(c, 1, sizeof c, f) == sizeof c;
+        ok = cert > base && readDiscFile(p, c, sizeof c, cert - base) == (long)sizeof c;
         if (ok) memcpy(&id, c + 8, 4);
     }
-    fclose(f);
     if (!ok) {
         snprintf(why, whyLen, "%s is not an Xbox executable (XBE).", p);
         return;
@@ -83,21 +123,18 @@ static void checkDisc(const char* dir, char* why, size_t whyLen)
     }
     // the archives the game mounts are the ones its rcfs.txt lists (comma-separated, then the game's own arguments)
     snprintf(p, sizeof p, "%s/rcfs.txt", dir);
-    f = fopen(p, "rb");
     char list[1024] = {0};
-    if (!f || !fread(list, 1, sizeof list - 1, f)) {
-        if (f) fclose(f);
+    if (readDiscFile(p, list, sizeof list - 1) <= 0) {
         snprintf(why, whyLen, "rcfs.txt is missing from\n%s.\nCopy the whole disc, not only default.xbe.", dir);
         return;
     }
-    fclose(f);
     char missing[512] = {0};
     int nMissing = 0;
     for (char* t = strtok(list, ", \t\r\n"); t; t = strtok(nullptr, ", \t\r\n")) {
         if (!endsWith(t, ".rcf"))
             continue;
         snprintf(p, sizeof p, "%s/%s", dir, t);
-        if (!isFile(p) && strlen(missing) + strlen(t) + 3 < sizeof missing) {
+        if (hdisc_kind(p) != HDISC_FILE && strlen(missing) + strlen(t) + 3 < sizeof missing) {
             if (nMissing++) strcat(missing, ", ");
             strcat(missing, t);
         }
@@ -174,12 +211,12 @@ static bool chooseGame(char* dir, size_t len, const char* firstError)
     bool chosen = false;
     for (;;) {
         char msg[2200];
-        snprintf(msg, sizeof msg, "%s%sHulk needs your own copy of the game: choose the extracted disc folder or its "
-                 "default.xbe.\n\nA disc image (.iso) has to be extracted to a folder first.",
+        snprintf(msg, sizeof msg, "%s%sHulk needs your own copy of the game: choose the extracted disc folder, or a "
+                 "file: its default.xbe, the Xbox disc image (.iso) or a disc pack (.hulkdisc).",
                  why, why[0] ? "\n\n" : "");
         const SDL_MessageBoxButtonData buttons[] = {
             {SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT, 1, "Choose Folder\xE2\x80\xA6"},
-            {0, 2, "Choose default.xbe\xE2\x80\xA6"},
+            {0, 2, "Choose File\xE2\x80\xA6"},
             {SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT, 0, "Quit"},
         };
         const SDL_MessageBoxData box = {why[0] ? SDL_MESSAGEBOX_WARNING : SDL_MESSAGEBOX_INFORMATION, nullptr,
@@ -192,7 +229,8 @@ static bool chooseGame(char* dir, size_t len, const char* firstError)
         if (b == 1) {
             SDL_ShowOpenFolderDialog(onPicked, &pick, nullptr, nullptr, false);
         } else {
-            static const SDL_DialogFileFilter xbe[] = {{"Xbox executable (default.xbe)", "xbe"}};
+            static const SDL_DialogFileFilter xbe[] = {
+                {"The game (default.xbe, disc image, disc pack)", "xbe;iso;hulkdisc"}};
             SDL_ShowOpenFileDialog(onPicked, &pick, nullptr, xbe, 1, nullptr, false);
         }
         while (!pick.done) {            // (with no window the panel is modal: the callback has run already)
@@ -212,7 +250,7 @@ static bool chooseGame(char* dir, size_t len, const char* firstError)
         }
         char d[1024];
         snprintf(d, sizeof d, "%s", pick.path);
-        if (isFile(d)) {                // default.xbe itself: its folder is the disc
+        if (isFile(d) && !hdisc_source(d)) {    // default.xbe itself: its folder is the disc (an image is one)
             char* slash = strrchr(d, '/');
             if (slash) *slash = 0;
         }
@@ -327,7 +365,22 @@ extern "C" void hulk_app_start(int* argc, char** argv)
 
     char why[1600] = {0};
     if (!choose && !optionHeld()) {
-        if (remembered[0]) {                        // 2. the remembered choice
+        const char* res = hulk_app_resources_dir();  // 2. a game bundled with the app
+        static const char* const kBundled[] = {"game.hulkdisc", "game.iso"};
+        for (const char* name : kBundled) {
+            char g[1200], gWhy[1600];
+            if (!res) break;
+            snprintf(g, sizeof g, "%s/%s", res, name);
+            if (!isFile(g)) continue;
+            checkDisc(g, gWhy, sizeof gWhy);
+            if (!gWhy[0]) {
+                fprintf(stderr, "hulk-app: the game bundled with the app (%s)\n", g);
+                useDisc(g);
+                return;
+            }
+            fprintf(stderr, "hulk-app: the bundled game %s is not usable: %s\n", g, gWhy);
+        }
+        if (remembered[0]) {                        // 3. the remembered choice
             checkDisc(remembered, why, sizeof why);
             if (!why[0]) {
                 useDisc(remembered);
@@ -338,22 +391,25 @@ extern "C" void hulk_app_start(int* argc, char** argv)
             snprintf(was, sizeof was, "The game chosen before is gone or changed. %s", why);
             snprintf(why, sizeof why, "%s", was);
         }
-        char disc[1100];                            // 3. <app dir>/disc
-        snprintf(disc, sizeof disc, "%s/disc", app);
-        char discWhy[1600];
-        checkDisc(disc, discWhy, sizeof discWhy);
-        if (!discWhy[0]) {
-            useDisc(disc);
-            return;
+        static const char* const kAppDisc[] = {"disc", "disc.hulkdisc", "disc.iso"};
+        for (const char* name : kAppDisc) {         // 4. <app dir>/disc (a folder or an image)
+            char disc[1100];
+            snprintf(disc, sizeof disc, "%s/%s", app, name);
+            char discWhy[1600];
+            checkDisc(disc, discWhy, sizeof discWhy);
+            if (!discWhy[0]) {
+                useDisc(disc);
+                return;
+            }
+            if (!why[0] && (isDir(disc) || isFile(disc))) snprintf(why, sizeof why, "%s", discWhy);
         }
-        if (!why[0] && isDir(disc)) snprintf(why, sizeof why, "%s", discWhy);
     }
     if (!mayPrompt()) {
         fprintf(stderr, "hulk-app: no game: pass <disc>/default.xbe (this run does not prompt: HULK_NO_UI or a "
                 "scripted run)%s%s\n", why[0] ? ": " : "", why);
         exit(2);
     }
-    char dir[1024];                                 // 4. the chooser
+    char dir[1024];                                 // 5. the chooser
     if (!chooseGame(dir, sizeof dir, why[0] ? why : nullptr)) {
         fprintf(stderr, "hulk-app: no game chosen\n");
         exit(2);

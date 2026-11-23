@@ -3,7 +3,7 @@
 
   build/venv/bin/python tools/wasm_app.py sdl                      # SDL3 with video -> build/third_party/out/sdl-video
   build/venv/bin/python tools/wasm_app.py build [--jobs 2]         # the gfx module and hulk-app (HULK_WASM_DIR)
-  build/venv/bin/python tools/wasm_app.py bundle [--out build/app/Hulk.app]
+  build/venv/bin/python tools/wasm_app.py bundle [--out build/app/Hulk.app] [--with-game PACK|ISO] [--with-texpack F]
 
 `build` runs, with HULK_WASM_GFX=1 in its own HULK_WASM_DIR (default build/wasm-app): `wasm_port.py compile`
 (every TU on a first build; afterwards only the two TUs the gfx hooks change, unless --all), `wasm_gfx.py compile`,
@@ -14,7 +14,11 @@ knobs); when any of them changed, or objects come without that record (copied fr
 compiles every TU again instead of linking stale objects (wapp2). Host files (src/platform/wasm) are compiled from
 the checkout the tools run in.
 
-`bundle` wraps hulk-app as an .app (Contents/MacOS/hulk-app, Info.plist). Not signed or notarised, and never
+`bundle` wraps hulk-app as an .app (Contents/MacOS/hulk-app, Info.plist). --with-game puts the player's own disc pack
+(tools/disc_pack.py) or .iso in as Contents/Resources/game.hulkdisc / game.iso, which the app then plays with no setup;
+--with-texpack puts a one-file texture pack (texpack_convert.py bundle) in as Contents/Resources/<its name>.hulkpack,
+listed by Video Options > Texture Pack (wpkg1; copies are APFS clones where the volume allows). Such a bundle holds
+the game: a personal build that never leaves the player's machine. Not signed or notarised, and never
 published: it is built from the player's own game (D190; public binaries need the maintainer's check first). At start
 the app takes the game from the command line (HULK_XBE / HULK_DATA_DIR), else the disc remembered in
 ~/Library/Application Support/HulkUD/game.txt, else .../HulkUD/disc, else it asks the player to choose the extracted
@@ -163,8 +167,21 @@ def cmd_bundle(a):
             "LSApplicationCategoryType": "public.app-category.action-games"}
     with open(os.path.join(app, "Contents/Info.plist"), "wb") as f:
         plistlib.dump(info, f)
-    print("bundle: %s (unsigned; the game: chosen at first launch, or ~/Library/Application Support/HulkUD/disc)"
-          % os.path.relpath(app, ROOT))
+    res = os.path.join(app, "Contents/Resources")
+    extra = []
+    for src, kinds in ((a.with_game, (".hulkdisc", ".iso")), (a.with_texpack, (".hulkpack",))):
+        if not src:
+            continue
+        ext = os.path.splitext(src)[1].lower()
+        if ext not in kinds:
+            raise SystemExit("bundle: %s is not a %s file" % (src, " / ".join(kinds)))
+        os.makedirs(res, exist_ok=True)
+        dst = os.path.join(res, "game" + ext if kinds[0] == ".hulkdisc" else os.path.basename(src))
+        if subprocess.run(["cp", "-c", src, dst], capture_output=True).returncode:      # (an APFS clone, else a copy)
+            shutil.copyfile(src, dst)
+        extra.append("%s %.2f GB" % (os.path.basename(dst), os.path.getsize(dst) / 1e9))
+    print("bundle: %s (unsigned; %s)" % (os.path.relpath(app, ROOT), "with " + ", ".join(extra) if extra else
+          "the game: chosen at first launch, or ~/Library/Application Support/HulkUD/disc"))
 
 
 def main(argv=None):
@@ -179,6 +196,8 @@ def main(argv=None):
     c = sp.add_parser("bundle")
     c.add_argument("--exe")
     c.add_argument("--out", default=os.path.join(ROOT, "build/app/Hulk.app"))
+    c.add_argument("--with-game", help="the player's disc pack (.hulkdisc) or .iso: Contents/Resources/game.*")
+    c.add_argument("--with-texpack", help="a one-file texture pack (.hulkpack): Contents/Resources/")
     a = ap.parse_args(argv)
     {"sdl": cmd_sdl, "build": cmd_build, "bundle": cmd_bundle}[a.cmd](a)
 

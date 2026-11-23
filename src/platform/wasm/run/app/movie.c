@@ -28,6 +28,7 @@
 #include <unistd.h>
 
 #include "audio/hulk_audio.h"
+#include "../disc.h"
 
 typedef uint32_t u32;
 struct w2c_hulk;
@@ -139,7 +140,9 @@ static int ff_up(void) {
 #define avcodec_parameters_to_context ff.avcodec_parameters_to_context
 #define avcodec_receive_frame ff.avcodec_receive_frame
 #define avcodec_send_packet ff.avcodec_send_packet
-#define av_find_input_format ff.av_find_input_format
+/* (a disc pack's AV1 movie opens as Matroska: movie.c asks for the bink demuxer by name) */
+static const char* s_fmt_override;
+#define av_find_input_format(n) ff.av_find_input_format(s_fmt_override ? s_fmt_override : (n))
 #define av_read_frame ff.av_read_frame
 #define avformat_alloc_context ff.avformat_alloc_context
 #define avformat_close_input ff.avformat_close_input
@@ -187,26 +190,41 @@ typedef struct { u32 hash, off, size; int file; } rcf_ent;
 static rcf_ent* s_ents;
 static unsigned s_nents;
 static int s_fds[32];
+static char* s_rcf_names[32];       /* the archives' names in the disc's root */
 static int s_nfds;
 
 static void rcf_add(const char* path) {
     if (s_nfds >= 32) return;
-    int fd = open(path, O_RDONLY);
+    int fd = hdisc_open(path);          /* (the disc may be an image: run/disc.h) */
     if (fd < 0) return;
     uint8_t h[0x3c];
     u32 dir_off, dir_size, count;
-    if (pread(fd, h, sizeof h, 0) != (ssize_t)sizeof h || memcmp(h, "ATG CORE CEMENT LIBRARY", 23)) { close(fd); return; }
+    if (hdisc_pread(fd, h, sizeof h, 0) != (ssize_t)sizeof h || memcmp(h, "ATG CORE CEMENT LIBRARY", 23)) {
+        hdisc_close(fd);
+        return;
+    }
     memcpy(&dir_off, h + 0x24, 4);
     memcpy(&dir_size, h + 0x28, 4);
     memcpy(&count, h + 0x38, 4);
-    if (dir_size != 12 * count || count > 100000) { close(fd); return; }
+    if (dir_size != 12 * count || count > 100000) { hdisc_close(fd); return; }
     u32* dir = malloc(dir_size ? dir_size : 1);
-    if (pread(fd, dir, dir_size, dir_off) != (ssize_t)dir_size) { free(dir); close(fd); return; }
+    if (hdisc_pread(fd, dir, dir_size, dir_off) != (ssize_t)dir_size) { free(dir); hdisc_close(fd); return; }
     s_ents = realloc(s_ents, (s_nents + count) * sizeof *s_ents);
     for (u32 i = 0; i < count; i++)
         s_ents[s_nents++] = (rcf_ent){dir[3 * i], dir[3 * i + 1], dir[3 * i + 2], s_nfds};
     free(dir);
+    const char* slash = strrchr(path, '/');
+    s_rcf_names[s_nfds] = strdup(slash ? slash + 1 : path);
     s_fds[s_nfds++] = fd;
+}
+
+static void rcf_one(void* ud, const char* name) {
+    size_t n = strlen(name);
+    if (n > 4 && !strcasecmp(name + n - 4, ".rcf")) {
+        char p[1024];
+        snprintf(p, sizeof p, "%s/%s", (const char*)ud, name);
+        rcf_add(p);
+    }
 }
 
 static void rcf_scan(void) {
@@ -214,18 +232,7 @@ static void rcf_scan(void) {
     if (done++) return;
     const char* d = getenv("HULK_DATA_DIR");
     if (!d) return;
-    DIR* dir = opendir(d);
-    if (!dir) return;
-    struct dirent* e;
-    while ((e = readdir(dir))) {
-        size_t n = strlen(e->d_name);
-        if (n > 4 && !strcasecmp(e->d_name + n - 4, ".rcf")) {
-            char p[1024];
-            snprintf(p, sizeof p, "%s/%s", d, e->d_name);
-            rcf_add(p);
-        }
-    }
-    closedir(dir);
+    hdisc_list(d, rcf_one, (void*)d);
 }
 
 static const rcf_ent* rcf_find(u32 hash) {
@@ -270,11 +277,68 @@ static int rcf_read(void* ctx, unsigned long long pos, void* buf, int n) {
     const rcf_ent* e = ctx;
     if (pos >= e->size) return 0;
     if (pos + (unsigned)n > e->size) n = (int)(e->size - pos);
-    ssize_t r = pread(s_fds[e->file], buf, (size_t)n, (off_t)(e->off + pos));
+    int64_t r = hdisc_pread(s_fds[e->file], buf, (size_t)n, e->off + pos);
     return r < 0 ? -1 : (int)r;
 }
 
+#if defined(HULK_HAVE_FFMPEG)
+/* A disc pack may hold the movie's picture as AV1 (tools/disc_av1.py; the pack keeps only the Bink file's head, the
+ * rest is zeros): .hulk/av1/<archive>/<hash>.mkv, AV1 and the Bink file's sound tracks as Opus, in its track order.
+ * The frame count, the rate and the tracks' ids come from the Bink header the game reads too. 1: opened (*out),
+ * 0: the pack has it but it does not open (no AV1 / Opus decoder in this FFmpeg), -1: none. */
+typedef struct { int fd; unsigned long long size; } av1_io;
+static int av1_read(void* ctx, unsigned long long pos, void* buf, int n) {
+    av1_io* a = ctx;
+    if (pos >= a->size) return 0;
+    if (pos + (unsigned)n > a->size) n = (int)(a->size - pos);
+    int64_t r = hdisc_pread(a->fd, buf, (size_t)n, pos);
+    return r < 0 ? -1 : (int)r;
+}
+static void av1_close(void* ctx) {
+    av1_io* a = ctx;
+    hdisc_close(a->fd);
+    free(a);
+}
+static int open_av1(mov* m, HulkMovie** out) {
+    const char* d = getenv("HULK_DATA_DIR");
+    char p[1200];
+    if (!d || !s_rcf_names[m->ent->file]) return -1;
+    snprintf(p, sizeof p, "%s/.hulk/av1/%s/%08x.mkv", d, s_rcf_names[m->ent->file], m->hash);
+    int fd = hdisc_open(p);
+    if (fd < 0) return -1;
+    uint8_t hd[0x200];
+    u32 frames, num, den, tracks;
+    if (rcf_read((void*)m->ent, 0, hd, sizeof hd) != (int)sizeof hd || memcmp(hd, "BIK", 3)) { hdisc_close(fd); return 0; }
+    memcpy(&frames, hd + 8, 4), memcpy(&num, hd + 28, 4), memcpy(&den, hd + 32, 4), memcpy(&tracks, hd + 40, 4);
+    av1_io* a = malloc(sizeof *a);
+    a->fd = fd, a->size = hdisc_size(fd);
+    HulkMovieIO io = {a, av1_read, av1_close, a->size};
+    s_fmt_override = "matroska";
+    HulkMovie* v = hulk_movie_open(&io);
+    s_fmt_override = 0;
+    if (!v) {
+        static int said;
+        if (!said++) mvlog("the disc pack's movies are AV1 and this FFmpeg cannot decode them (it needs libdav1d and "
+                           "Opus): movies play black");
+        return 0;
+    }
+    v->info.frames = frames, v->info.fps_num = (int)num, v->info.fps_den = (int)den;
+    for (int i = 0; i < v->ntracks && i < (int)tracks && tracks <= 16; i++) {
+        u32 id;
+        memcpy(&id, hd + 44 + 8 * tracks + 4 * i, 4);
+        v->tracks[i].id = (int)id;
+    }
+    *out = v;
+    return 1;
+}
+#endif
+
 static HulkMovie* open_dec(mov* m) {
+#if defined(HULK_HAVE_FFMPEG)
+    HulkMovie* v = 0;
+    int r = open_av1(m, &v);
+    if (r >= 0) return v;           /* (0: the pack's Bink pictures are zeros: black, not the Bink decoder on them) */
+#endif
     HulkMovieIO io = {(void*)m->ent, rcf_read, 0, m->ent->size};
     return hulk_movie_open(&io);
 }

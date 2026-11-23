@@ -2,14 +2,19 @@
 // run/app/start.cpp (wui1), driven by the gamepad alone (handhelds with built-in controls: D-pad / stick to move, A to
 // choose, B to go back; the system's folder picker is used as it is).
 //
-// The game is the player's own extracted disc (default.xbe and the .rcf archives). In order:
+// The game is the player's own disc: the extracted folder (default.xbe and the .rcf archives), the Xbox disc image
+// (.iso) or a disc pack (tools/disc_pack.py, .hulkdisc; wpkg1). In order:
 //   1. a launching intent that names HULK_DATA_DIR (scripted runs: `am start -n .../.SetupActivity --es HULK_DATA_DIR ..`);
 //   2. <files dir>/disc: the copy made by an earlier choice (or by `adb shell run-as ... ` on a debug build);
-//   3. <external files dir>/disc (Android/data/org.thunderclap.hulkud/files/disc) when the app can read it;
-//   4. a chooser: a message with "Choose the disc folder" / "Quit", then the system's folder picker (Storage Access
-//      Framework). The chosen folder is checked as start.cpp checks it (an XBE whose certificate carries the game's
-//      title ID, every archive rcfs.txt lists) and copied into <files dir>/disc (the game reads files by path; a SAF
-//      folder gives only content URIs). A bad choice says why and asks again.
+//   3. <external files dir>/disc (Android/data/org.thunderclap.hulkud/files/disc) when the app can read it, then
+//      game.hulkdisc or game.iso there or in <files dir> (`tools/wasm_android.py install --game` puts it in <files>);
+//   4. the image or pack chosen before (its content URI, kept with a persisted read permission);
+//   5. a chooser: a message with "Choose the disc folder" / "Choose a disc image or pack" / "Quit", then the system's
+//      picker (Storage Access Framework). A folder is checked as start.cpp checks it (an XBE whose certificate carries
+//      the game's title ID, every archive rcfs.txt lists) and copied into <files dir>/disc (the game reads files by
+//      path; a SAF folder gives only content URIs). An image or pack is checked by its header and read in place:
+//      GameActivity opens it and hands the runner its descriptor (HULK_DATA_DIR=fd:N, run/disc.h), no copy. A bad
+//      choice says why and asks again.
 // Every HULK_* / SDL_* string extra is passed on to GameActivity. Nothing of the game is in this source but the ID.
 package org.thunderclap.hulkud;
 
@@ -47,10 +52,11 @@ import java.util.Map;
 public class SetupActivity extends Activity {
     static final String TAG = "hulk";
     static final int kTitleId = 0x56550039;    // the certificate's title ID of The Incredible Hulk: UD
-    static final int PICK = 1;
+    static final int PICK = 1, PICK_FILE = 2;
+    static final String PREFS = "hulk", GAME_URI = "game_uri";
 
     private TextView msg;
-    private Button choose, quit;
+    private Button choose, chooseFile, quit;
     private volatile boolean copying;
     private final Handler ui = new Handler(Looper.getMainLooper());
 
@@ -190,8 +196,65 @@ public class SetupActivity extends Activity {
             if (w == null) { launch(new File(ext, "disc")); return; }
             if (why == null) why = w;
         }
+        for (File dir : new File[] {ext, getFilesDir()}) {
+            for (String n : new String[] {"game.hulkdisc", "game.iso"}) {
+                File f = dir == null ? null : new File(dir, n);
+                if (f == null || !f.isFile()) continue;
+                String w = imageCheck(f.getAbsolutePath(), null);
+                if (w == null) { launch(f); return; }
+                if (why == null) why = w;
+            }
+        }
+        String uri = getSharedPreferences(PREFS, MODE_PRIVATE).getString(GAME_URI, null);
+        if (uri != null) {
+            String w = imageCheck(null, Uri.parse(uri));
+            if (w == null) { launchUri(Uri.parse(uri)); return; }
+            if (why == null) why = "The disc image chosen before is gone or changed. " + w;
+        }
         buildUi();
         show(why);
+    }
+
+    // ------------------------------------------------------------------ disc images and packs (wpkg1)
+    // null when the file (a path, or a content URI) starts as a disc pack or holds an Xbox (XDVDFS) volume at 0 or at
+    // a full image's game partition; the runner checks the game itself (start.cpp checkDisc)
+    String imageCheck(String path, Uri uri) {
+        try (android.os.ParcelFileDescriptor pfd = path != null
+                 ? android.os.ParcelFileDescriptor.open(new File(path), android.os.ParcelFileDescriptor.MODE_READ_ONLY)
+                 : getContentResolver().openFileDescriptor(uri, "r");
+             FileInputStream in = new FileInputStream(pfd.getFileDescriptor())) {
+            java.nio.channels.FileChannel ch = in.getChannel();
+            java.nio.ByteBuffer b = java.nio.ByteBuffer.allocate(20);
+            if (ch.read(b, 0) == 20 && new String(b.array(), 0, 8, "ISO-8859-1").equals("HULKDISC")) return null;
+            for (long base : new long[] {0, 0x18300000L}) {
+                b.clear();
+                if (ch.read(b, base + 32 * 2048) == 20
+                    && new String(b.array(), 0, 20, "ISO-8859-1").equals("MICROSOFT*XBOX*MEDIA")) return null;
+            }
+            return "That file is not an Xbox disc image (.iso) or a disc pack (.hulkdisc).";
+        } catch (Exception e) {
+            return "The file cannot be read: " + e.getMessage();
+        }
+    }
+
+    void launchUri(Uri uri) {
+        Intent g = new Intent(this, GameActivity.class);
+        Bundle ex = getIntent() != null ? getIntent().getExtras() : null;
+        if (ex != null) g.putExtras(ex);
+        g.putExtra(GameActivity.DISC_URI, uri.toString());
+        startActivity(g);
+        finish();
+    }
+
+    void pickFile() {
+        Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        i.addCategory(Intent.CATEGORY_OPENABLE);
+        i.setType("*/*");
+        try {
+            startActivityForResult(i, PICK_FILE);
+        } catch (Exception e) {
+            show("This device has no file picker (" + e.getMessage() + ").");
+        }
     }
 
     void launch(File disc) {
@@ -219,6 +282,10 @@ public class SetupActivity extends Activity {
         choose.setText("Choose the disc folder");
         choose.setOnClickListener(v -> pick());
         l.addView(choose);
+        chooseFile = new Button(this);
+        chooseFile.setText("Choose a disc image or pack");
+        chooseFile.setOnClickListener(v -> pickFile());
+        l.addView(chooseFile);
         quit = new Button(this);
         quit.setText("Quit");
         quit.setOnClickListener(v -> finish());
@@ -228,9 +295,11 @@ public class SetupActivity extends Activity {
 
     void show(String why) {
         msg.setText((why != null ? why + "\n\n" : "") + "Hulk needs your own copy of the game: choose the folder that "
-                    + "holds the extracted disc (default.xbe and the .rcf archives). It is copied into the app's "
-                    + "storage (about 2.3 GB).\n\nA disc image (.iso) has to be extracted to a folder first.");
+                    + "holds the extracted disc (default.xbe and the .rcf archives; it is copied into the app's "
+                    + "storage, about 2.3 GB), or the disc image (.iso) or a disc pack (.hulkdisc), which is read "
+                    + "where it is.");
         choose.setEnabled(true);
+        chooseFile.setEnabled(true);
         quit.setEnabled(true);
         choose.requestFocus();
     }
@@ -267,11 +336,26 @@ public class SetupActivity extends Activity {
     @Override
     protected void onActivityResult(int req, int res, Intent data) {
         super.onActivityResult(req, res, data);
+        if (req == PICK_FILE) {
+            if (res != RESULT_OK || data == null || data.getData() == null) { show(null); return; }
+            Uri u = data.getData();
+            try {
+                getContentResolver().takePersistableUriPermission(u, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            } catch (SecurityException e) {
+                Log.w(TAG, "no persistable permission for " + u + ": " + e);
+            }
+            String w = imageCheck(null, u);
+            if (w != null) { show(w); return; }
+            getSharedPreferences(PREFS, MODE_PRIVATE).edit().putString(GAME_URI, u.toString()).apply();
+            launchUri(u);
+            return;
+        }
         if (req != PICK) return;
         if (res != RESULT_OK || data == null || data.getData() == null) { show(null); return; }
         final Uri tree = data.getData();
         final String rootId = DocumentsContract.getTreeDocumentId(tree);
         choose.setEnabled(false);
+        chooseFile.setEnabled(false);
         quit.setEnabled(false);
         msg.setText("Checking the folder…");
         copying = true;

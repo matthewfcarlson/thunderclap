@@ -3300,3 +3300,19 @@ draws gives in-between frames with no tree change and no path back into the game
   (111571); rolltests 6650:6800 and 11990:12100 across both skips identical (111573, Metal hidden). The `input` pair
   (111572) differs from frame 10 by game hash, as any new settings row does (the row's named int and handler are
   game-held module data); the checkpoint records of that 14,000-frame run with the setting off are identical.
+
+## 2026-11-22 wpkg1: the game from an .iso or a compressed disc pack; AV1 movies; one-file texture packs (D237)
+
+- The disc is mostly already-compressed media: zstd at any level or chunk size gives ~84% (2.45 -> 2.06 GB). The
+  movie archives are 99-100% (Bink) and sound.rcf 88%; rooms.rcf 44%, art.rcf 61%. The size win is the movies:
+  1,226 MB of Bink -> 205 MB as AV1 + Opus, so the AV1 pack is 1.045 GB.
+- What the game reads of a movie (HULK_DISC_TRACE over play3): each movie archive's 60-byte header and directory,
+  and for an opened movie the first 1 KiB (bink_null.c takes 44 bytes). So the AV1 pack keeps 64 KiB of every movie
+  and zeros the rest, and the records stay byte-identical.
+- The Bink sound tracks are 6 mono tracks per movie (ids 0..5 at header offset 44 + 8n): at 48 kbit/s each Opus is
+  bigger than the AV1 picture of the 640x336 movies; 32 kbit/s mono.
+- Pipes both ways to a child (stdin list in, "ok" lines out) deadlock once both fill (~240 lines here): texbake reads
+  its list from a file. `adb exec-in` returns before the device has written the last bytes: poll the size, then mv.
+- HEAD's own app build diverges from the reference at 5875 (camera), 14584, 34240, 34260 on play3 (control 111575):
+  compare candidates to a control, not to the reference alone.
+- The Android build at HEAD failed in gfxstats.cpp (macOS-only CLOCK_UPTIME_RAW): fixed in 66ec42785.

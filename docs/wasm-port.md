@@ -294,7 +294,8 @@ side holds (GPU objects, the window, the audio device) is derived from linear me
   certificate carries the game's title ID (0x56550039), and every archive the disc's rcfs.txt lists; a bad choice
   says why (no default.xbe, another game, missing archives) and asks again. A good one is remembered, so later
   launches start directly. To choose again: hold Option while the app starts, or `open Hulk.app --args
-  --choose-game` (`hulk-app --choose-game`). A disc image (.iso) is not read: the alert says to extract it first.
+  --choose-game` (`hulk-app --choose-game`). Since wpkg1 the disc may also be an Xbox disc image (.iso) or a disc
+  pack (.hulkdisc), and a game bundled in the app comes first: "Disc sources" below.
   `<app dir>` is `HULK_APP_DIR`, default ~/Library/Application Support/HulkUD (tests use their own). Runs that must not
   prompt never show the chooser: anything given on the command line, and with no game found `HULK_NO_UI=1` or a scripted
   run (`HULK_INPUT`, `HULK_KEY_SCRIPT`, `HULK_INPUT_SOURCE`, `HULK_CKPT`) exits 2 with the reason.
@@ -777,6 +778,69 @@ display's refresh by drawing the last simulated frame again with its transforms 
   state (not in a snapshot); the menu's own objects (the item's NamedValueInt and selector) show it, the only game
   words that depend on it.
 - **Audio**: waud1's model advances by the virtual clock, which follows the fixed simulation step: unchanged.
+
+### Disc sources: folder, .iso, disc pack (wpkg1, D237)
+
+The runners read the game from one of three sources through one host file layer, run/disc.c (disc.h): the extracted
+folder as before, an Xbox disc image (.iso) read in place, or a disc pack, one compressed seekable file. An image's
+files are named as if it were the folder (`<image>/default.xbe`, `<image>/art.rcf`): `HULK_DATA_DIR` / `HULK_XBE` /
+argv take the image's path, and every reader goes through the layer: the module's `hulk` file imports (run/native.c:
+open, read, size, kind, list), the app's movies (movie.c reads the RCF archives directly), the far field (farfield.cpp),
+the start-up check (start.cpp) and file texture packs (texpack.cpp). An image is mounted the first time a path runs
+through it and stays mounted; names are case-insensitive; images are read-only. `HULK_DISC_LOG=1` logs mounts,
+`HULK_DISC_TRACE=1` every read of an image's file (name, offset, size).
+
+- **.iso** (XDVDFS, written from the format's public description): the volume descriptor is sector 32 of the game
+  partition, which starts at 0 in a trimmed (xiso) image and at 0x18300000 in a full Redump image; both are detected.
+  Directory tables are binary trees walked once at mount. A read is one pread at the file's sector.
+- **Disc pack** (`tools/disc_pack.py`, `.hulkdisc`): every file in 256 KiB chunks, each a zstd frame (level 19, with
+  its checksum), stored as it is when zstd saves less than 3% (the Bink movies, most of sound.rcf), or not stored when
+  all zero; a zstd index at the end; `.hulk/pack.json` holds every file's size and sha256. A read that covers whole
+  chunks decompresses into the caller's buffer, partial reads go through a 16-chunk cache; stored chunks are plain
+  preads. zstd's decompressor (facebook/zstd v1.5.7, BSD; `disc_pack.py fetch-zstd` unpacks the pinned tarball into
+  build/third_party/src/zstd, which the build tools do on first use) is compiled into the runners from run/zstd_dec.c.
+  `disc_pack.py build SRC OUT` (SRC: the folder or an .iso), `verify PACK [--source SRC]` (every file's bytes against
+  the manifest's sha256 and, with a source, byte for byte), `measure SRC` (levels x chunk sizes on a sample), `ls`,
+  `cat`. Chunk size and level (measured on every 16th chunk): 64 / 256 / 1024 KiB at level 19 give 84.6 / 84.0 / 84.3%,
+  levels 3 / 9 / 15 / 19 at 256 KiB 84.9 / 84.6 / 84.1 / 84.0%; one-thread decompression 450-790 MB/s at every
+  setting, so 256 KiB / 19 (the smallest file) costs nothing at load. By file: rooms.rcf 44%, art.rcf 61%,
+  sound_en.rcf 74%, sound.rcf 88%, the movie archives 99-100%.
+- **AV1 movies** (optional; `tools/disc_av1.py encode SRC DIR`, then `disc_pack.py build SRC OUT --av1 DIR`): each
+  Bink movie (.rmv in the movie archives) is re-encoded as Matroska: AV1 (SVT-AV1, preset 6, CRF 30, 8-bit 4:2:0, the
+  same size, frame count and rate: every frame passed through, each encode's decoded frame count checked against the
+  Bink header) and every Bink sound track as Opus (32 kbit/s mono) in the Bink file's track order. SSIM against the Bink
+  decode 0.98 on a sample. The game's own model never sees it: the trace (`HULK_DISC_TRACE`) shows the game reads only
+  each movie archive's header and directory and the first KiB of a movie it opens (bink_null.c takes 44 bytes); the
+  pack keeps every movie's first 64 KiB (header and frame index) and stores the rest as zeros (no bytes), and the
+  archives' headers, directories and name tables as they are. The runner (movie.c) decodes
+  `.hulk/av1/<archive>/<entry hash>.mkv` instead when the pack has one, with the frame count, the rate and the sound
+  tracks' ids taken from the kept Bink header. Needs an FFmpeg with libdav1d and Opus: Homebrew's has both. The
+  Android FFmpeg build (`wine_ffmpeg.py --target android-arm64`) is Bink-only, so on Android an AV1 pack's movies play
+  black (a log line says why): use the pack without AV1 there, or extend that build with dav1d (open).
+- **Sizes** (the USA/Asia disc): folder 2.447 GB; trimmed .iso 2.447 GB (a full Redump image is 7.8 GB); disc pack
+  2.060 GB (84.2%, 145 s to build on 2 threads); disc pack with AV1 movies 1.045 GB (42.7%; the 28 movies 1,226 MB of
+  Bink -> 205 MB, about 10 min to encode). The texture pack below: 605 MB of PNGs -> 280 MB as one baked file.
+- **Checks**: tests/wasm_disc/run.sh FOLDER IMAGE (disc.c against the folder: every file whole and at random offsets
+  and lengths; tests/wasm_disc/make_test_iso.py writes a synthetic disc as a trimmed and a full-layout image, sparse);
+  play3 (`HULK_GFX_RENDERER=null`, one hulk-app, queue build 111577) writes checkpoint records byte-identical to the
+  folder's from the pack (to frame 60,240), the .iso (20,100) and the AV1 pack (20,550), and the folder's are
+  identical to HEAD's own build (the reference gate reports the same known divergences, 5875 camera ..., for all);
+  `HULK_ROLLTEST=900:2500` from the pack is identical. Android (emulator, `install --game`): the pack's records equal
+  the folder's to frame ~24,700. AV1 decode, a Metal free run from the AV1 pack: the start-up movies open with the
+  Bink header's frame count, rate and 6 tracks, every frame decoded and copied. Load time: 20 s for 20,000 frames from
+  each source (level loads included); the whole 2.45 GB pack reads through disc.c in ~5 s. A stored (raw) chunk has
+  no checksum at run time (zstd frames do): `verify` is the full check.
+- **Where the app finds a game** (start.cpp): the command line; a game bundled in the app
+  (`Contents/Resources/game.hulkdisc` or `game.iso`); the remembered choice (game.txt: a folder or an image);
+  `<app dir>/disc`, `disc.hulkdisc` or `disc.iso`; else the chooser, whose "Choose File..." takes default.xbe, an .iso
+  or a .hulkdisc. Android: SetupActivity's "Choose a disc image or pack" (`ACTION_OPEN_DOCUMENT`, a persisted read
+  permission) hands GameActivity the content URI; it opens the file and passes its descriptor as `HULK_DATA_DIR=fd:N`,
+  which disc.c reads with pread (no copy). `<files>/game.hulkdisc` (or the external files dir's) is found first.
+- **Personal bundles** (never published: they hold the game; the employer check rule): `wasm_app.py bundle
+  --with-game PACK|ISO [--with-texpack FILE.hulkpack]` copies them (APFS clones) into Hulk.app's Contents/Resources;
+  the app plays the bundled game with no setup and lists the bundled texture pack. Android: `wasm_android.py install
+  [--apk A] --game PACK [--texpack F]` streams them into the app's internal files dir (`adb exec-in run-as ... cat`;
+  a debug build), not into the APK (copied again at every install, and an APK stays under 4 GB).
 
 ## The Android app (wand1)
 

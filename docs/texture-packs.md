@@ -201,6 +201,42 @@ same run without a pack; `HULK_ROLLTEST` identical with the pack on at 6500:7600
    `<mods>/NAME/textures/` (hard links to the pack's files, index.txt, pack.json); `keys <xbox dir> keys.txt` checks
    the converter's keys against a dump.
 
+### One-file packs (wpkg1)
+
+`texpack_convert.py bundle <mods>/NAME <xbox dir> OUT.hulkpack [--payload baked|png|both]` writes a pack folder as
+one file: a disc pack (tools/disc_pack.py; read through run/disc.h) of its textures/ tree. Put it in `<mods>` (or in
+the app bundle with `wasm_app.py bundle --with-texpack`): Video Options > Texture Pack lists it by its file name
+without `.hulkpack`, beside the loose folders, which work as before. With `--payload baked` (the default) the file
+holds `textures/baked/tex-<key>-<format>-<alpha>.bin` for every key: the replacement the app itself would make (the
+disk cache's layout), made offline by tools/texbake.cpp, which compiles run/app/texpack.cpp's own encoder (`build()`),
+for the original's format and alpha use, which the tool reads off the Xbox texture the key comes from (DXT1: opaque
+or 1-bit, as texpack.cpp decides). The app uses a baked replacement as it is, so the pixels are the same as from the
+PNG and there is no decode or encode at run time; a key without one (or `HULK_TEXPACK_MAX` / `HULK_TEXPACK_RAW` set)
+falls back to the PNG if the file has it. `--payload png` stores the PNGs only (the app decodes and encodes as for a
+folder, with the disk cache keyed by the pack file).
+
+Formats compared (the converted "Hulk Final Remaster" pack, 2,308 textures):
+
+| | size | load (per texture, CPU) | quality |
+|---|---|---|---|
+| PNG folder (today) | 605 MB | decode + BC encode: 2,291 ms for 352 textures (6.5 ms each) | the app's BC1/BC3/BGRA8 encode |
+| PNG, one file | ~605 MB (PNG does not compress) | the same | the same |
+| baked BC1/BC3/BGRA8 + mips, zstd, one file | 280 MB (579 MB raw) | read + zstd: 110 ms for the same 352 (0.3 ms each) | identical to today (same encoder, same bytes) |
+| BC7 + mips | 519 MB raw (before zstd) | read | better than BC1 at 2x its size; Apple silicon Macs only (Metal BC); most Android GPUs lack BC |
+| ASTC 4x4 / 6x6 / 8x8 + mips | 519 / 234 / 130 MB raw | read | 4x4 ~ BC7; 6x6 smaller, softer; Apple silicon (Metal) and Android GPUs both |
+
+(Load: the 8,000-frame scripted run, noop renderer, no disk cache; the same 361 swaps and 41.5 MB of replacements
+either way. BC7/ASTC sizes are computed from the baked chains' level sizes: no encoder was run.)
+
+Recommendation: the baked one-file pack. It is the smallest file that needs no new code path in the sink (BC1 / BC3 /
+BGRA8 are what the sink already takes), it shows exactly the pixels the PNG folder shows, and a texture costs a read
+instead of an encode. BC7 brings nothing here: 1,621 of the 2,308 replacements are BC1 (0.5 byte a pixel), so BC7 (1
+byte) would be about as big as the baked set, and many Android GPUs lack BC. ASTC is the one format both Apple
+silicon (Metal) and the Android handhelds sample natively, and 6x6 would make the raw set ~40% of the baked one; it
+needs a new sink format (src/platform/sdl/pddi: a shared-layer change) and an encoder (ARM's astcenc, Apache 2.0),
+so it is a decision for later, worth taking if BC textures turn out unsupported or slow on the handhelds' GPUs
+(not checked here: the emulator test ran without a pack).
+
 ### Models (the minimal version)
 
 `<mods>/<pack>/models/mdl-<key>.obj` replaces one prim buffer's geometry at its draws (run/app/meshpack.cpp).

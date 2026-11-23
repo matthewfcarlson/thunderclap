@@ -7,6 +7,8 @@
   texpack_convert.py keys <xbox dir> <keys.txt>          # check the app's sink keys against a HULK_PACK_DUMP list
   texpack_convert.py pack <pack dir> <xbox dir> --name NAME [--map build/texpack/map.json] [--mods DIR]
                                                          # -> <mods>/NAME/textures/tex-<sink key>.png (the app)
+  texpack_convert.py bundle <mods>/NAME <xbox dir> OUT.hulkpack [--payload baked|png|both]
+                                                         # the app pack as one file (wpkg1; docs/texture-packs.md)
 
 <pack dir> is the folder of tex1_*.png files; <xbox dir> holds the Xbox RCFs
 (isos/extracted). Everything runs from the user's own files; nothing here is
@@ -557,6 +559,124 @@ def cmd_pack(a):
     print(f"wrote {len(keys)} textures to {tex} ({linked} hard links, {copied} copies)")
 
 
+# ---- one-file packs (wpkg1) ----------------------------------------------------
+ALPHA_FULL, ALPHA_OPAQUE, ALPHA_PUNCH = 0, 1, 2     # run/app/texpack.cpp AlphaMode
+
+
+def bc1_alpha(data):
+    """texpack.cpp's alpha use of a DXT1 original: opaque, or 1-bit (a 3-colour block that uses index 3)"""
+    b = np.frombuffer(data[:len(data) // 8 * 8], "<u2").reshape(-1, 4)
+    three = b[:, 0] <= b[:, 1]
+    idx = (b[:, 2].astype(np.uint32) | b[:, 3].astype(np.uint32) << 16)[three]
+    for i in range(16):
+        if np.any((idx >> (2 * i) & 3) == 3):
+            return ALPHA_PUNCH
+    return ALPHA_OPAQUE
+
+
+def texbake_exe():
+    """tools/texbake.cpp (the app's encoder, run/app/texpack.cpp's build()) compiled once into build/texpack/"""
+    import hashlib, subprocess
+    import disc_pack
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    srcs = [os.path.join(root, f) for f in ("tools/texbake.cpp", "src/platform/wasm/run/app/texpack.cpp",
+                                            "src/platform/wasm/run/disc.c", "src/platform/wasm/run/disc.h")]
+    h = hashlib.sha1(b"".join(open(f, "rb").read() for f in srcs)).hexdigest()[:12]
+    exe = os.path.join(root, "build/texpack/texbake-" + h)
+    if os.path.exists(exe):
+        return exe
+    os.makedirs(os.path.dirname(exe), exist_ok=True)
+    tp = os.path.join(root, "build/third_party/src")
+    cc = ["xcrun", "clang"] if sys.platform == "darwin" else ["cc"]
+    cxx = ["xcrun", "clang++"] if sys.platform == "darwin" else ["c++"]
+    objs = []
+    for c in ("disc.c", "zstd_dec.c"):
+        o = exe + "." + c + ".o"
+        subprocess.run(cc + ["-O2", "-c", os.path.join(root, "src/platform/wasm/run", c), "-o", o] +
+                       disc_pack.zstd_flags(), check=True)
+        objs.append(o)
+    inc = ["-I" + os.path.join(root, d) for d in ("src/platform/sdl/pddi", "src/platform/sdl")] + \
+        ["-I" + os.path.join(tp, d) for d in ("bimg/include", "bx/include", "bgfx/include")]
+    if sys.platform == "darwin":
+        inc.append("-I" + os.path.join(tp, "bx/include/compat/osx"))
+    subprocess.run(cxx + ["-std=c++20", "-O2", "-fno-exceptions", "-fno-rtti", "-w", srcs[0], "-o", exe] + inc + objs +
+                   ["-lpthread"], check=True)
+    for o in objs:
+        os.remove(o)
+    return exe
+
+
+def cmd_bundle(a):
+    """An app pack folder (`pack`'s output) as one .hulkpack: a disc pack (tools/disc_pack.py) of the folder, with
+    textures/baked/tex-<key>-<format>-<alpha>.bin, the app's own encodes, when --payload is baked or both."""
+    import subprocess, tempfile, time
+    import disc_pack
+    src = os.path.abspath(os.path.expanduser(a.src))
+    tex = os.path.join(src, "textures")
+    keys = {}
+    for line in open(os.path.join(tex, "index.txt")):
+        k, _, f = line.strip().partition(" ")
+        if k.startswith("tex-") and f:
+            keys[k[4:]] = f
+    out = os.path.abspath(a.out)
+    stage = tempfile.mkdtemp(prefix="hulkpack-", dir=os.path.dirname(out))
+    t0 = time.time()
+    try:
+        st = os.path.join(stage, "textures")
+        os.makedirs(os.path.join(st, "baked"))
+        shutil.copyfile(os.path.join(tex, "index.txt"), os.path.join(st, "index.txt"))
+        for f in ("pack.json",):
+            if os.path.exists(os.path.join(src, f)):
+                shutil.copyfile(os.path.join(src, f), os.path.join(stage, f))
+        if a.payload in ("png", "both"):
+            for k, f in keys.items():
+                d = os.path.join(st, f)
+                try:
+                    os.link(os.path.join(tex, f), d)
+                except OSError:
+                    shutil.copyfile(os.path.join(tex, f), d)
+        else:                       # (index.txt lists PNGs: the app keys on it; baked ones are found beside them)
+            pass
+        if a.payload in ("baked", "both"):
+            # the (format, alpha) the app keys each replacement by: from the Xbox texture the key was made from
+            want = {}
+            for _a, _path, _tn, blob in xbox_textures(a.xbox):
+                u = sink_upload(blob, a.png_rows == "flipped")
+                if u is None:
+                    continue
+                k = sink_key(*u)
+                if k in keys and k not in want:
+                    want[k] = (u[0], bc1_alpha(u[3]) if u[0] == SINK_BC1 else ALPHA_FULL)
+            missing = sorted(set(keys) - set(want))
+            if missing:
+                print(f"bundle: {len(missing)} keys not among the Xbox textures (kept as PNG only): {missing[:5]}")
+            exe = texbake_exe()
+            lines = "".join(f"{os.path.join(tex, keys[k])}\t{fmt}\t{am}\t"
+                            f"{os.path.join(st, 'baked', f'tex-{k}-{fmt}-{am}.bin')}\n"
+                            for k, (fmt, am) in sorted(want.items()))
+            jobs = max(1, a.jobs)
+            procs = []
+            for i in range(jobs):           # (each worker's list from a file: pipes both ways would fill and stall)
+                lst = os.path.join(stage, "bake%d.txt" % i)
+                open(lst, "w").write("".join(lines.splitlines(True)[i::jobs]))
+                procs.append(subprocess.Popen([exe], stdin=open(lst), stdout=subprocess.PIPE, text=True))
+            bad = 0
+            for p_ in procs:
+                bad += sum(1 for ln in p_.stdout if ln.startswith("fail"))
+                p_.wait()
+            for i in range(jobs):
+                os.remove(os.path.join(stage, "bake%d.txt" % i))
+            print(f"bundle: baked {len(want) - bad} replacements in {time.time() - t0:.0f} s ({bad} failed)")
+            if a.payload == "baked" and missing:
+                for k in missing:
+                    os.link(os.path.join(tex, keys[k]), os.path.join(st, keys[k]))
+        disc_pack.main(["build", stage, out, "--level", str(a.level), "--chunk", "256", "--jobs", str(a.jobs)])
+    finally:
+        shutil.rmtree(stage, ignore_errors=True)
+    print(f"bundle: {out} {os.path.getsize(out) / 1e6:.1f} MB ({len(keys)} textures, payload {a.payload}) "
+          f"in {time.time() - t0:.0f} s")
+
+
 def cmd_convert(a):
     if a.map and os.path.exists(a.map):
         m = json.load(open(a.map))
@@ -608,8 +728,17 @@ def main():
     p.add_argument("--png-rows", choices=("flipped", "stored"), default="flipped" if PNG_ROWS_FLIPPED else "stored",
                    help="the row order PNG payloads reach the sink in (`keys` checks it)")
     p.add_argument("--include-image", action="store_true")
+    p = sp.add_parser("bundle")
+    p.add_argument("src", help="an app pack folder (<mods>/NAME, `pack`'s output)")
+    p.add_argument("xbox")
+    p.add_argument("out", help="OUT.hulkpack (the game's derived content: keep it under build/ or the mods folder)")
+    p.add_argument("--payload", choices=("baked", "png", "both"), default="baked")
+    p.add_argument("--level", type=int, default=19)
+    p.add_argument("--jobs", type=int, default=2)
+    p.add_argument("--png-rows", choices=("flipped", "stored"), default="flipped" if PNG_ROWS_FLIPPED else "stored")
     a = ap.parse_args()
-    {"names": cmd_names, "map": cmd_map, "convert": cmd_convert, "keys": cmd_keys, "pack": cmd_pack}[a.cmd](a)
+    {"names": cmd_names, "map": cmd_map, "convert": cmd_convert, "keys": cmd_keys, "pack": cmd_pack,
+     "bundle": cmd_bundle}[a.cmd](a)
 
 
 if __name__ == "__main__":

@@ -2,7 +2,8 @@
  * plus this file and wabt's wasm-rt, built by `tools/wasm_port.py aot` (docs/wasm-port.md "The standalone module").
  *   build/wasm/hulk-aot isos/extracted/default.xbe
  * It defines the module's imports: the WASI calls its C library makes (stdio, arguments, environment, the clock,
- * exit) and the `hulk` host files (src/platform/wasm/host/hulk_io.h), relative to the working directory. */
+ * exit) and the `hulk` host files (src/platform/wasm/host/hulk_io.h), relative to the working directory; files read
+ * may be inside a disc image (an .iso or a disc pack named as a folder: run/disc.h). */
 #include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -14,6 +15,7 @@
 #include <time.h>
 #include <unistd.h>
 
+#include "disc.h"
 #include "game.h"
 #include "wasm-rt-exceptions.h"
 #include "wasm-rt-impl.h"
@@ -52,11 +54,13 @@ static void pick_env(void) {
 /* ------------------------------------------------------------------------------------------- hulk (files) */
 u32 w2c_hulk_open(struct w2c_hulk* h, u32 path, u32 mode) {
     (void)h;
-    int fl = mode == 0 ? O_RDONLY : mode == 1 ? O_RDWR : O_RDWR | O_CREAT | O_TRUNC;
+    if (mode == 0) return (u32)hdisc_open(cstr(path));     /* (a host file, or one in a disc image: run/disc.h) */
+    int fl = mode == 1 ? O_RDWR : O_RDWR | O_CREAT | O_TRUNC;
     return (u32)open(cstr(path), fl, 0666);
 }
 u32 w2c_hulk_read(struct w2c_hulk* h, u32 fd, u32 buf, u32 n, u32 off) {
     (void)h;
+    if (hdisc_in_image((int)fd)) return (u32)hdisc_pread((int)fd, mem(buf), n, off);
     u32 done = 0;
     while (done < n) {
         ssize_t r = pread((int)fd, mem(buf + done), n - done, (off_t)off + done);
@@ -73,32 +77,29 @@ u32 w2c_hulk_write(struct w2c_hulk* h, u32 fd, u32 buf, u32 n, u32 off) {
 }
 u32 w2c_hulk_size(struct w2c_hulk* h, u32 fd) {
     (void)h;
+    if (hdisc_in_image((int)fd)) return (u32)hdisc_size((int)fd);
     struct stat sb;
     return fstat((int)fd, &sb) ? 0 : (u32)sb.st_size;
 }
 u32 w2c_hulk_truncate(struct w2c_hulk* h, u32 fd, u32 n) { (void)h; return (u32)ftruncate((int)fd, n); }
-void w2c_hulk_close(struct w2c_hulk* h, u32 fd) { (void)h; close((int)fd); }
+void w2c_hulk_close(struct w2c_hulk* h, u32 fd) { (void)h; hdisc_close((int)fd); }
 u32 w2c_hulk_kind(struct w2c_hulk* h, u32 path) {
     (void)h;
-    struct stat sb;
-    if (stat(cstr(path), &sb)) return 0;
-    return S_ISREG(sb.st_mode) ? 1 : S_ISDIR(sb.st_mode) ? 2 : 0;
+    return (u32)hdisc_kind(cstr(path));
 }
 u32 w2c_hulk_mkdir(struct w2c_hulk* h, u32 path) { (void)h; return (u32)mkdir(cstr(path), 0777); }
+struct list_to { u32 buf, cap, need; };
+static void list_one(void* ud, const char* name) {
+    struct list_to* l = ud;
+    u32 n = (u32)strlen(name) + 1;
+    if (l->need + n <= l->cap) memcpy(mem(l->buf + l->need), name, n);
+    l->need += n;
+}
 u32 w2c_hulk_list(struct w2c_hulk* h, u32 path, u32 buf, u32 cap) {
     (void)h;
-    DIR* d = opendir(cstr(path));
-    if (!d) return 0;
-    u32 need = 0;
-    struct dirent* e;
-    while ((e = readdir(d))) {
-        if (!strcmp(e->d_name, ".") || !strcmp(e->d_name, "..")) continue;
-        u32 n = (u32)strlen(e->d_name) + 1;
-        if (need + n <= cap) memcpy(mem(buf + need), e->d_name, n);
-        need += n;
-    }
-    closedir(d);
-    return need;
+    struct list_to l = {buf, cap, 0};
+    hdisc_list(cstr(path), list_one, &l);
+    return l.need;
 }
 
 /* ------------------------------------------------------------------------------------------- WASI (preview 1) */
