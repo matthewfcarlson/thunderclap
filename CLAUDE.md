@@ -683,6 +683,13 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   the rooms' projection: find it as the shader-kind-0 mesh around the camera before the first room draw (atmosphere.cpp);
   the game's sky layers write depth hundreds of units out, so depth-based passes treat view depth > 600 as sky. Never
   write `toWorld(x, x)` in place (an aliased output put the camera hundreds of units off).
+  Look (wlook1, D243; docs/look.md): every unlit world shader with the view as its modelview (`simple`, `layered`,
+  `layeredReflect`) is a room for the shadows (`rm::shadowWorldDraw`, casters and receivers); the shadow bias is per
+  cascade and slope-scaled; AO uses a two-texel normal and an angle bias (D24 terraces band grazing ground otherwise).
+  Bisect a picture artefact by turning options off one at a time (the "shadow acne" bands were AO's). Window rooms are
+  chosen by their world-space centre; shops and lobbies sit within 4.5 units of the lowest building foot drawn lately.
+  Colour Grade (`grade`, `rm::kGrade`) runs only inside HDR's tone map (`rm::gradeConstants`); clamp channels at 0
+  before any curve that divides. `HULK_GFX_WINDOW=1280x960` makes `HULK_GFX_SHOT_GAME` captures 1280x960.
   Build id (wver1): apps and APKs carry the short commit (`+dirty` for local builds with uncommitted host files or tools,
   `+N` for N queue overlay files): stdout `hulk-app: build <id>`, the window title, Info.plist, the APK's versionName and
   SetupActivity. `wasm_app.py build` writes it from HULK_BUILD_ID (wasm_build_run.py sets it) or git into
