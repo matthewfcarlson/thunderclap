@@ -3273,3 +3273,30 @@ draws gives in-between frames with no tree change and no path back into the game
 - Tool lesson: editing tools/wasm_port.py in a workspace makes `wasm_app.py build` recompile every TU (the tool's
   digest is in app-inputs.json); the shader step therefore lives in wasm_app.py (and wasm_android.py).
 
+## 2026-11-22 wskip1: a star that skips the two tutorial missions (the app)
+
+- **What.** Gameplay Options > Tutorial Skip (remastered-only, default On; faithful Off). In c00m01 and c00m02 a
+  spinning star waits ~4 units behind the Hulk where play starts; walking into it ends the mission through the game's
+  own bindings (src/platform/wasm/gfx/tutorial_skip.c; docs/wasm-port.md "Tutorial skip").
+- **Mission state is not enough.** Setting c00m01's progress to "complete" does nothing until the mission's last
+  stage polls it, so the skip calls the success sequence the mission's ending calls (progress, the next mission to
+  acquire, MISSION_SUCCESS; for c00m02 the next mission, the XP and MISSION_IMMEDIATELOAD). Jumping c00m02's script
+  state to "complete" during its intro started a later stage's streaming: a temp heap with no room left, and the game
+  spins in its out-of-memory loop FUN_0008d320 (sampled: UpdateSimulation > Lua > 0x002080b0 > 0x002047c0 >
+  0x00266e00 > 0x0008d320). A hang whose stack ends in 0x0008d320 is the game's own allocation failure.
+- **"In play" needs more than a controller slot.** c00m02's in-engine intro gives the Hulk slot 0 and moves him while
+  the camera cuts close; the star waits for the game camera (camera manager flags, world +8 then +4, & 0x5e == 0, as
+  cm_IsGameCameraActive), no letterbox (nism_IsLetterBoxOn's two floats on the logic view's +0x14), the logic view
+  within 14 units and the Hulk standing for 45 updates.
+- **Drawing through the game's pddi from host code.** The context *(0x52c2a8) slot 30/31 (begin/end prims), the
+  stream's +8 / +0x10 vertex pointers and FUN_0008ef00 (next vertex), the device *(0x52c2a0) slot 11 ("simple") and
+  shader slot 6 (BLMD, LIT, 2SID) work the same with the pddi front end and the game's own d3d layer. A transparent
+  disc drawn with depth writes hid the Hulk behind it: context slots 62/63 set and read the z write.
+- **Checks.** Free runs (Metal hidden, HULK_INPUT): c00m01 skip -> Mission Success -> Save (save.dat written) ->
+  Continue -> c00m02; c00m02 skip -> c01m10 loads and plays to its own Mission Success. Off: the checkpoint records of
+  a 12,000-frame run identical to HEAD's app. HULK_ROLLTEST 6450:6600 (placement, the shaders' creation) and
+  6650:6800 (the skip) identical (game, state and gfx hashes). Two On runs of 18,000 frames: identical records.
+  Queue (wbuild1): candidate 111569 vs control 111568 (HEAD 686761671): play3 to 60,000 (null) records identical
+  (111571); rolltests 6650:6800 and 11990:12100 across both skips identical (111573, Metal hidden). The `input` pair
+  (111572) differs from frame 10 by game hash, as any new settings row does (the row's named int and handler are
+  game-held module data); the checkpoint records of that 14,000-frame run with the setting off are identical.

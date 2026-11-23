@@ -56,10 +56,12 @@ static void log_rooms(uint32_t mgr, uint32_t ctx) {
 }
 
 void ffgo_001c88f0(uint32_t, uint32_t, void*, void*);   /* World::Render (the hook's original) */
+void hulk_wasm_tutorial_skip_draw(uint32_t ctx);         /* tutorial_skip.c: the star, after the rooms */
 void ffh_hulk_app_world_render(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     if (g_start == 270) {
         ffgo_001c88f0(ecx, edx, st, rb);
         log_rooms(ecx, ARG(0));
+        hulk_wasm_tutorial_skip_draw(ARG(0));
         return;
     }
     float* start = (float*)PTR(FADE_START);
@@ -71,4 +73,5 @@ void ffh_hulk_app_world_render(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     *start = s0;
     *band = b0;
     log_rooms(ecx, ARG(0));
+    hulk_wasm_tutorial_skip_draw(ARG(0));
 }

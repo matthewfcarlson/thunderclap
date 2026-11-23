@@ -603,6 +603,38 @@ core and the main thread is asleep ~89% of the time.
   buffer counts and texture / target memory, and the pacing waits (late p50 / p99 / max, yielding). Draws and uploads
   are counted at the sink imports (an update's own draws), not at interp's re-submits; turning it on hashes every
   draw's constants (~1 us a draw).
+### Tutorial skip (wskip1)
+
+Gameplay Options > Tutorial Skip: Off / On (`tutorial_skip=0|1`; remastered-only, remastered default On, faithful Off).
+In the two tutorial missions, c00m01 (the moves) and c00m02 (being the Hulk), a spinning, glowing star with a light
+beam waits about 4 units behind the Hulk where play starts (towards the camera: pull the stick back). Walking into it
+ends the mission as a completed one. To turn it off: Options > Gameplay Options > Tutorial Skip: Off (or Remastered
+Edition: Off), or `tutorial_skip=0` in `HULK_SAVE_DIR/port_settings.txt`.
+
+- **The game's own success path** (src/platform/wasm/gfx/tutorial_skip.c). The skip runs one line of our own Lua
+  through the game's `sh_DoString` (0x001d3f00), calling the bindings the mission's own ending calls: for c00m01 the
+  mission's progress "complete", `gfm_SetAcquireMission("c00m02")` and `sm_SetMissionState(MISSION_SUCCESS)` (the
+  Mission Success screen: Save, Continue); for c00m02 `gfm_SetNextMission("c01m10")`, its XP award and
+  `MISSION_IMMEDIATELOAD` (no summary, as in the game). The fades and the c00m01 cut-scene that close the missions
+  are skipped. The save, the next mission and the XP are the game's. Setting only the mission's progress or its script
+  state is not enough: the missions poll those conditions only in their last stage, and jumping c00m02's script state
+  during its intro made its streaming allocate a temp heap with no room left (the game's out-of-memory loop
+  FUN_0008d320).
+- **When the star appears.** An entry hook on UpdateSimulation 0x00088c30 (`wasm_port.GFX_APP_HOOKS`) checks after
+  each update: the game-flow manager's chapter 0, mission 1 or 2; the main actor (world +0x20, +0x124). The star is
+  placed when the Hulk is in play (a controller slot, +0x20a8 >= 0, and the logic view within 14 units: the chase
+  camera; an intro's cameras are far while the script already moves him) and has stood still for 45 updates. It fires
+  when he comes within 1.8 units of it horizontally while in play, once per mission run (a new main actor starts
+  again). Its place, the counts and whether it fired are in `hulk_game_state`, computed only from game state, so the
+  same input gives the same game and HULK_ROLLTEST holds across the skip.
+- **Drawing** is the game's pddi context after World::Render (draw_distance.c's hook calls
+  `hulk_wasm_tutorial_skip_draw`): two of the device's "simple" shaders (kept, in the arena), prim-stream triangles in
+  world space (an extruded five-pointed star shaded by a fixed light; an additive glow disc facing the camera and a
+  beam, drawn without depth writes so the Hulk behind them still draws). Our own geometry; no game assets. It moves
+  the front end's render bookkeeping like any draw, only while the star is up.
+- **Per session.** It changes the game (the mission ends), so replays, `HULK_INPUT` runs and HULK_ROLLTEST pin it off
+  (pin it on with `HULK_SETTINGS=remastered=1,tutorial_skip=1`), and netplay peers must share it. Off, nothing runs:
+  the checkpoint records are the original's. `HULK_TSKIP_LOG=1` logs the placement and the skip, `=2` every 30 updates.
 
 ### Lighting and dynamic lights (wlight1)
 

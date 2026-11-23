@@ -20,6 +20,7 @@ void hulk_wasm_hud_edge_apply(int value);                               /* gfx.c
 void hulk_wasm_fog_apply(int value);                                    /* gfx.c: the runner's fog override */
 void hulk_wasm_draw_distance_apply(int value);                          /* draw_distance.c: World::Render's fade */
 void hulk_wasm_texture_pack_apply(int value);                           /* gfx.c: the runner's texture pack (wpack1) */
+void hulk_wasm_tutorial_skip_apply(int value);                          /* tutorial_skip.c: the star (wskip1) */
 uint32_t hulk_wasm_texture_pack_list(char* buf, uint32_t cap);          /* gfx.c: the installed packs' names */
 void hulk_wasm_quality_apply(int what, int value);                      /* gfx.c: the runner's passes (wr2) */
 
@@ -40,6 +41,7 @@ static void apply_msaa(int value) { hulk_wasm_quality_apply(3, value); }
 static void apply_far_field(int value) { hulk_wasm_quality_apply(4, value); }
 static void apply_lighting(int value) { hulk_wasm_quality_apply(6, value); }
 static void apply_dyn_lights(int value) { hulk_wasm_quality_apply(7, value); }
+static void apply_tutorial_skip(int value) { hulk_wasm_tutorial_skip_apply(value); }
 
 /* Render resolution values: 1..4 a multiple of the game's 640x480; 0 the window's (display's) pixels; 720 / 1080 /
  * 1440 / 2160 that height at the display's aspect (960x720 at 4:3 ...). Output only: the game sees 640x480 at every
@@ -66,7 +68,10 @@ static void apply_dyn_lights(int value) { hulk_wasm_quality_apply(7, value); }
  * docs/far-field.md).
  * Lighting, Dynamic Lights (wlight1; run/app/lighting.cpp, docs/lighting.md): the game's lights evaluated per pixel
  * (1) instead of per vertex (0); health orbs as point lights (1) on the draws around them, the baked world included.
- * Output only. */
+ * Output only.
+ * Tutorial skip (wskip1): a star behind the Hulk's start in the two tutorial missions (c00m01, c00m02) ends the mission
+ * through its own success path when he walks into it (tutorial_skip.c). It changes the game (the mission ends), so it
+ * is per session: replays and tests pin it off, netplay peers must share it. */
 static port_setting k_settings[] = {
     {"remastered", "Remastered Edition", PS_SCREEN_GAMEPLAY, PS_ONOFF, 2, {0, 1}, {"Off", "On"},
      0, 1, 0, apply_remastered},
@@ -95,6 +100,8 @@ static port_setting k_settings[] = {
      apply_lighting},
     {"dyn_lights", "Dynamic Lights", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "Health Orbs"}, 0, 1, 1,
      apply_dyn_lights},
+    {"tutorial_skip", "Tutorial Skip", PS_SCREEN_GAMEPLAY, PS_ONOFF, 2, {0, 1}, {"Off", "On"}, 0, 1, 1,
+     apply_tutorial_skip},
 };
 enum { N_SETTINGS = sizeof k_settings / sizeof k_settings[0] };
 
