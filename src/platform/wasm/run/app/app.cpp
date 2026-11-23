@@ -185,6 +185,7 @@ static uint32_t s_logW, s_logH, s_physW, s_physH, s_winW, s_winH;
 // target takes that shape (the game's 640x480 frame drawn anamorphically, as on an Xbox 16:9 mode) and the module's
 // present rectangle (bgfx_display.cpp presentRect) is the same rectangle of the window
 static uint32_t s_aspN = 4, s_aspD = 3;
+static int s_rrScale = 100;             // (wperf1: percent of the render size; rm::setRenderScale)
 static void rrSize(uint32_t* pw, uint32_t* ph)
 {
     uint32_t lw = s_logW, lh = s_logH, w = lw, h = lh;
@@ -208,6 +209,10 @@ static void rrSize(uint32_t* pw, uint32_t* ph)
     } else if (s_rrMode > 4) {
         h = (uint32_t)s_rrMode;
         w = (uint32_t)(((uint64_t)h * an + ad / 2) / ad);
+    }
+    if (s_rrScale > 0 && s_rrScale < 100) {     // (wperf1: the Render Scale row; the upscaler makes up the rest)
+        w = (uint32_t)(((uint64_t)w * (uint32_t)s_rrScale + 50) / 100);
+        h = (uint32_t)(((uint64_t)h * (uint32_t)s_rrScale + 50) / 100);
     }
     const uint32_t kMax = 8192;
     if (w > kMax || h > kMax) {
@@ -251,6 +256,15 @@ static void rrRemake()
     }
     refreshSinkOwned();
     fprintf(stderr, "hulk-app: render resolution %ux%u (the game's frame %ux%u)\n", w, h, s_logW, s_logH);
+}
+
+// (rm_pass.h, wperf1) the Render Scale row: the scene target at pct percent of the render size, between frames
+void rm::setRenderScale(int pct)
+{
+    if (pct == s_rrScale)
+        return;
+    s_rrScale = pct;
+    s_rrPending = 1;
 }
 
 // (rm_pass.h) the scene target is made again between frames (MSAA changed)

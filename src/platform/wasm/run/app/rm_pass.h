@@ -26,6 +26,9 @@ enum Quality : uint32_t {
     kNightLights,                         // wlook2 (docs/night.md): 0 off, 1 the city's lamps and glows light the world
     kAtmosphere,                          // wlook2 (docs/night.md): 0 the game's sky and fog, 1 enhanced
     kGrade,                               // wlook1 (docs/look.md "Colour grade"): 0 original, 1 natural, 2 cinematic
+    // (16: wgrass1's grass)
+    kUpscaler = 17,                       // wperf1 (docs/performance.md): 0 off, 1 auto, 2 FSR 1
+    kRenderScale,                         // wperf1: the scene target's share of the render resolution, percent
     kQualityCount
 };
 struct Settings {
@@ -125,6 +128,10 @@ uint16_t loadShader(const char* name);
 
 // app.cpp's (render resolution): the scene target and the frame-sized copies are made again between frames
 void appTargetsChanged();
+// app.cpp's (wperf1, the Render Scale row): the scene target at pct percent of the render resolution (between frames)
+void setRenderScale(int pct);
+// the present being drawn (valid in postScene; null elsewhere): its rectangle in the window is the upscalers' output
+const hulk::pddi::SinkPresent* currentPresent();
 // the scene target's samples (an occlusion query's count is per sample)
 uint32_t sceneSamples();
 // the pass (SinkPass id) draws into the scene target (this frame's last setPass of that id)

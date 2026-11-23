@@ -656,6 +656,13 @@ void BgfxSink::copyQuad(uint16_t view, unsigned srcTex, unsigned dstFb, unsigned
     fullQuad(view, srcTex, BGFX_SAMPLER_POINT, -1.0f, 1.0f, 1.0f, -1.0f);
 }
 
+#if HULK_SINK_OVERLAY
+// wperf1 (the app's upscalers, run/app/upscale.cpp): the next present draws this texture (the present rectangle's
+// size) 1:1 instead of the scene target
+static unsigned s_presentSource = kNone;
+extern "C" void hulk_gfx_sink_present_source(uint32_t texture) { s_presentSource = texture; }
+#endif
+
 // Before bgfx::frame: the scene target onto the back buffer, a quad in the last view: 1:1 (point sampled) when the
 // window has the frame's size, else scaled into the present rectangle with black bars around it (G5).
 void BgfxSink::present(const SinkPresent& p)
@@ -680,7 +687,16 @@ void BgfxSink::present(const SinkPresent& p)
     bgfx::setViewMode(view, bgfx::ViewMode::Sequential);
     float x0 = 2.0f * (float)p.x / (float)ww - 1.0f, x1 = 2.0f * (float)(p.x + p.w) / (float)ww - 1.0f;
     float y0 = 1.0f - 2.0f * (float)p.y / (float)wh, y1 = 1.0f - 2.0f * (float)(p.y + p.h) / (float)wh;
+#if HULK_SINK_OVERLAY
+    if (s_presentSource != kNone) {
+        fullQuad(view, s_presentSource, BGFX_SAMPLER_POINT, x0, y0, x1, y1);
+        s_presentSource = kNone;
+    } else {
+        fullQuad(view, m_sceneColour, p.point ? BGFX_SAMPLER_POINT : 0, x0, y0, x1, y1);
+    }
+#else
     fullQuad(view, m_sceneColour, p.point ? BGFX_SAMPLER_POINT : 0, x0, y0, x1, y1);
+#endif
 #if HULK_SINK_OVERLAY
     drawOverlay(view, ww, wh);
 #endif

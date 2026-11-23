@@ -53,6 +53,8 @@ static void apply_reflections(int value) { hulk_wasm_quality_apply(12, value); }
 static void apply_night_lights(int value) { hulk_wasm_quality_apply(13, value); }
 static void apply_atmosphere(int value) { hulk_wasm_quality_apply(14, value); }
 static void apply_grade(int value) { hulk_wasm_quality_apply(15, value); }
+static void apply_upscaler(int value) { hulk_wasm_quality_apply(17, value); }
+static void apply_render_scale(int value) { hulk_wasm_quality_apply(18, value); }
 static void apply_tutorial_skip(int value) { hulk_wasm_tutorial_skip_apply(value); }
 static void apply_traversal(int value) { hulk_wasm_traversal_apply(value); }
 static void apply_developer(int value);
@@ -105,6 +107,10 @@ static void apply_developer(int value);
  * effects and the HUD (1 Natural: a little more contrast and colour; 2 Cinematic: firmer contrast, cool shadows and
  * warm highlights by the location's time of day, a soft vignette), inside HDR's tone map (no pass of its own: with HDR
  * off nothing is graded). Output only.
+ * Upscaler, Render Scale (wperf1; run/app/upscale.cpp, docs/performance.md): the scene drawn at a share of the
+ * render resolution (100% .. 50%: FSR's Ultra Quality 1.3x, Quality 1.5x, Balanced 1.7x, Performance 2x) and brought
+ * to the present size by the upscaler: Off the bilinear stretch as before, FSR 1 (AMD's EASU + RCAS, MIT), Auto the
+ * platform's best (FSR 1 today). Output only (the game sees 640x480 at every scale).
  * Tutorial skip (wskip1): a star behind the Hulk's start in the two tutorial missions (c00m01, c00m02) ends the mission
  * through its own success path when he walks into it (tutorial_skip.c). It changes the game (the mission ends), so it
  * is per session: replays and tests pin it off, netplay peers must share it.
@@ -128,6 +134,11 @@ static port_setting k_settings[] = {
      {"Original (640x480)", "2x (1280x960)", "3x (1920x1440)", "4x (2560x1920)", "Window", "720p", "1080p", "1440p",
       "4K"},
      1, 0, 1, apply_render_res},
+    {"upscaler", "Upscaler", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"Off (Original)", "Auto", "FSR 1"}, 0, 1, 1,
+     apply_upscaler},
+    {"render_scale", "Render Scale", PS_SCREEN_VIDEO, PS_CHOICE, 5, {100, 77, 67, 59, 50},
+     {"Native", "Ultra Quality (77)", "Quality (67)", "Balanced (59)", "Performance (50)"}, 100, 100, 1,
+     apply_render_scale},
     {"aspect", "Aspect Ratio", PS_SCREEN_VIDEO, PS_CHOICE, 5, {43, 169, 1610, 219, 0},
      {"4:3 (Original)", "16:9", "16:10", "21:9", "Window"}, 43, 0, 1, apply_aspect},
     {"hud_frame", "HUD Frame", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Centred (Original)", "Screen Edges"}, 0, 1, 1,

@@ -260,8 +260,12 @@ void setPass(const SinkPass& pass)
     hulk_gfx_sink_set_pass(&p);
 }
 
+static const SinkPresent* s_present;
+const SinkPresent* currentPresent() { return s_present; }
+
 void present(const SinkPresent& p)
 {
+    s_present = &p;
     Scene s = {};
     uint32_t samples = 1;
     hulk_gfx_sink_scene_handles(&s.frameBuffer, &s.colour, &s.depth, &samples);
@@ -274,6 +278,7 @@ void present(const SinkPresent& p)
         for (Pass* q : ordered())
             q->postScene(s, view);
     }
+    s_present = nullptr;
     hulk_gfx_sink_present(&p);
     s_sceneSeen = false;
     s_frameOpen = false;
