@@ -562,6 +562,27 @@ static void put_string(buf_t* out, const char* id, const char* text) {
     int l = snprintf(line, sizeof line, "%s\t%s\r\n", id, text);
     for (int k = 0; k < l && k < (int)sizeof line - 1; k++) put(out, (char[2]){line[k], 0}, 2);
 }
+/* the remastered moves' store text (traversal.c's keys; wtrav1) */
+static const struct { const char* id; const char* text; } k_move_strings[] = {
+    {"TBS_PORT_MV_CHARGE1", "Charge Sprint I"},
+    {"TBS_PORT_MV_CHARGE2", "Charge Sprint II"},
+    {"TBS_PORT_MV_CHARGE3", "Charge Sprint III"},
+    {"TBS_PORT_MV_CHARGE_COMBO", "Sprint and keep holding the trigger"},
+    {"TBS_PORT_MV_CHARGE1_DESC", "Keep holding the sprint trigger to build up speed, up to 30% faster. Let go and Hulk "
+                                 "keeps charging ahead until he hits something. Charged hits deal up to 3x damage."},
+    {"TBS_PORT_MV_CHARGE2_DESC", "Charge Sprint builds up to 50% more speed. Charged hits deal up to 5x damage and "
+                                 "send enemies flying further."},
+    {"TBS_PORT_MV_CHARGE3_DESC", "Charge Sprint builds up to 70% more speed. Charged hits deal up to 8x damage and "
+                                 "send enemies flying further still."},
+    {"TBS_PORT_MV_LEAP1", "Mega Leap I"},
+    {"TBS_PORT_MV_LEAP2", "Mega Leap II"},
+    {"TBS_PORT_MV_LEAP3", "Mega Leap III"},
+    {"TBS_PORT_MV_LEAP_COMBO", "Jump"},
+    {"TBS_PORT_MV_LEAP1_DESC", "Every jump goes 10% higher and further. Jump again just as you land to bounce higher, "
+                               "up to 2 bounces in a row."},
+    {"TBS_PORT_MV_LEAP2_DESC", "Every jump goes 20% higher and further. Chain up to 3 landing bounces."},
+    {"TBS_PORT_MV_LEAP3_DESC", "Every jump goes 30% higher and further. Chain up to 4 landing bounces."},
+};
 static int patch_strings(const char* s, uint32_t n, buf_t* out) {
     if (n < 2 || (uint8_t)s[0] != 0xff || (uint8_t)s[1] != 0xfe || (n & 1)) return 0;
     put(out, s, n);
@@ -570,6 +591,8 @@ static int patch_strings(const char* s, uint32_t n, buf_t* out) {
     for (unsigned i = 0; i < sizeof k_quit_strings / sizeof k_quit_strings[0]; i++)
         put_string(out, k_quit_strings[i].id, k_quit_strings[i].text);
     put_string(out, "TBS_PORT_PACK_STATUS", " ");   /* (a fixed placeholder: the text is set when Video Options opens) */
+    for (unsigned i = 0; i < sizeof k_move_strings / sizeof k_move_strings[0]; i++)
+        put_string(out, k_move_strings[i].id, k_move_strings[i].text);
     for (int i = 0; i < hulk_settings_count(); i++) {
         const port_setting* st = hulk_settings_at(i);
         char id[64];

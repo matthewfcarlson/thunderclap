@@ -198,8 +198,10 @@ static void update(void) {
 
 /* UpdateSimulation 0x00088c30 (CGame's world, thiscall (int* kind, dt)): the original, then the star's update */
 void ffgo_00088c30(uint32_t, uint32_t, void*, void*);
+void hulk_wasm_traversal_update(int kind, float dt);
 void ffh_hulk_app_update_sim(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     ffgo_00088c30(ecx, edx, st, rb);
+    hulk_wasm_traversal_update(ARG(0) ? (int)*(int32_t*)PTR(ARG(0)) : 0, ARGF(1));   /* traversal.c (wtrav1) */
     if (g_on) update();
 }
 

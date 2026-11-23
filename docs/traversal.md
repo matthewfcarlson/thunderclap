@@ -378,3 +378,110 @@ Size: 3–5 days for steps 1–4.
 - The text `fightChunk` syntax (`ScriptReader`): if it is easy to write, it is the better authoring format.
 - Room streaming headroom at 1.7× sprint and 60-unit leaps (free-run measurement).
 - Whether a charged sprint into the co-op partner registers as a hit.
+
+## 11. What was built (wtrav1, D242)
+
+The user's answers (D242, 2026-11-23): T1 both a settings row and store unlocks; T2 app hooks first, data later once
+the feel is right; T3 the charge builds gradually only while the trigger is held, up to a level-set maximum, and a
+release keeps the speed until a hit or another move; T4 the moves stay on in every mission; T5 a few +10% leap
+unlocks and a stronger bounce for a jump right at landing. Built as entry hooks in the wasm app
+(`src/platform/wasm/gfx/traversal.c`, `tools/wasm_port.py` GFX_APP_HOOKS), behind **Gameplay Options > Traversal
+Moves** (`remaster_moves`, remastered-only: faithful Off, remastered default On; per session).
+
+### 11.1 What the player gets
+
+| Move (store) | Cost | Effect |
+|---|---|---|
+| Charge Sprint I | 20,000 | sprint top speed ×1.3, charged hits up to ×3 damage, ×1.5 push-back |
+| Charge Sprint II (needs I) | 50,000 | ×1.5 speed, ×5 damage, ×2.0 push-back |
+| Charge Sprint III (needs II) | 100,000 | ×1.7 speed (34 u/s), ×8 damage, ×2.5 push-back |
+| Mega Leap I | 10,000 | every jump 10% higher and 10% longer (same air time); up to 2 chained bounces |
+| Mega Leap II (needs I) | 25,000 | 20%; up to 3 bounces |
+| Mega Leap III (needs II) | 60,000 | 30%; up to 4 bounces |
+| Landing bounce | free with the setting | 1 bounce without Mega Leap |
+
+Costs follow the shipped upgrade lines (Air Dash 12,000, Super Air Dash 25,000, Double Air Dash 60,000, Double Super
+Air Dash 150,000; Critical Pain 75,000): the third charge level is among the dearest moves. Smash points are the game's
+own (`xp`); the store, the "Acquired" state, the prerequisite dimming and the "Move purchased." dialog are the
+original's.
+
+**Charging sprint.** Sprint as before (stick + right trigger). While the trigger stays held the charge fills from 0 to
+1 over 3 s of game time; the sprint's target speed is `velocity × lerp(1, top, charge)` (top by level). Turning gets
+heavier with speed: the track's turn velocity and turn acceleration are scaled by `1 − 0.55 × (speed factor − 1) /
+0.7` (half the turn rate at 1.7×). Any of Hulk's collision hits while charged (the sprint's body volumes, or anything
+else he hits mid-sprint) deal `damage × lerp(1, damage top, charge)`, take at least `charge` as the force factor
+(forceMax side of the force lerp), and push small and large targets `lerp(1, push top, charge)` further (height by the
+square root). Releasing the trigger with charge ≥ 0.10 keeps the sprint at its speed and heading (a *coast*): the input
+block shows the trigger held and, with the stick centred, the last stick sample with the intention along his velocity.
+The coast ends on a hit (character or prop), on a wall (speed below 35% of the target for 4 sprint frames), when
+another move takes over the node (jump, attack, a wall run: sprint momentum carries onto the wall as in the original),
+or when the trigger is pressed again (charging resumes). Then the original rules apply.
+
+**Higher leaps.** `CJumpAction::vfunc_6` 0x13b90 computes a jump's launch speed `v`, gravity `g` and forward speed
+from the track and the jump charge; the hook scales all three by `k = 1 + 0.1 × level`: apex height ×k at the same
+air time, distance ×k.
+
+**Landing bounce.** What the original does: hulk.fig's landing bank has a branch (buttonUp+charge or buttonRelease,
+not in c10m24 / c10m27) that re-jumps straight out of the landing, and such a re-jump keeps some jump charge: in a
+measured chain of taps the launch speed went 21.6 → 26.8 → 31.7 → 33.0 (about +50%, capped). The remaster multiplies on
+top: a jump that starts within 0.25 s of touching down (the main actor's motion state leaving Air) is bounce n of a
+chain, ×(1 + 0.12 n) on height and forward speed (and at least 0.8 × the landing's horizontal speed); the chain grows
+to 1 + leap level and breaks on any later jump. Measured with Mega Leap III and taps at each landing: launch speed
+31.5, 43.2, 56.1, 63.5 (base 21.6 → 33.0), forward 26.7 → 38.1 u/s. Off in the two precision-landing challenges (c10m24, c10m27), as the
+original's own re-jump is.
+
+### 11.2 How it is wired
+
+| Hook | Address | Does |
+|---|---|---|
+| sprint begin | 0x00163ed0 | the controlled character's sprint: charge 0 |
+| sprint frame | 0x0015e250 | charge += dt / 3 while the trigger is down; turn fields scaled during the call; driver target speed (+0x8b0) scaled after |
+| sprint end | 0x0015c540 | coast and charge cleared |
+| controller input | 0x000fd0f0 | after the pad copy: the real trigger state; while coasting, trigger (button 5) held, stick 0 and intention replayed |
+| damage formula | 0x00013f20 | charged hits: damage, force factor, push-back params (+0xf8/+0x100/+0x110/+0x118 of the track, put back at the end of UpdateSimulation); ends a coast |
+| jump begin | 0x00013b90 | leap and bounce scaling of +0x28 (v), +0x2c (forward), +0x30 (g) |
+| store list | 0x000c21b0 | the moves set up before the computer interface's Buy Menu refresh (front end too) |
+| UpdateSimulation | 0x00088c30 (tutorial_skip.c's hook) | game clock, landings (motion state +0x140: 3 = Air), store upkeep, scaled tracks restored |
+
+**Store.** Slots 0x2c4–0x2c9 (constants.unlockables move_95..100; the shipped init.lua sets up 63 moves, none there).
+`um_SetupUnlockableMove`'s C side 0x92ef0 is called with our keys (`TBS_PORT_MV_*`, injected into str_*.txt by
+fe_options.c), the cost and a copy of a shipped move's picture name read from that move (Dashing Straight for the
+sprint levels, Air Dash for the leaps), so no game text is in the source. The store's rows are its order positions
+read as a dense prefix (the detail screen 0x000c2c20 takes row n as `ids[n]`), and init.lua assigns positions only
+as the story unlocks moves (`unlockable_move_fe_order_counter`), so ours are placed right after the shipped prefix
+every update and move along when a new shipped move takes their place. A move's `locked` byte (+8) also disables it
+in the fight script (`UnlockableCondition` 0x12f110 wants unlocked and bought), so ours are kept unlocked while the
+setting is on. Purchase state is the original's on-bit (save record +0xb8), so an old save reads ours as not bought
+and the original game ignores them. With the setting off nothing is set up and the store is the original's.
+
+**Determinism.** State in `hulk_game_state` (charge, coast, stick sample, landing clock, chain, scaled-track list,
+the set-up manager); all inputs are game state and the game's dt. Checks below.
+
+### 11.3 Challenges and the move set (T4)
+
+- No mission or challenge script locks a move: `um_SetUnlockableLocked` appears in 28 scripts (355 calls), all on
+  smart hints, jump markers, comic-book galleries, movies and cheats (location `common.fig` scenarios, c00m01, c01m01,
+  c02m04, c07m03, c08m00); init.lua unlocks moves as the story reaches them (and a debug "unlock all"). Bought moves
+  are never taken away; a *locked* move would be off in the fight script (the condition wants unlocked and bought).
+- Restrictions live in hulk.fig as conditions: `chapterMission` gates (parameters read as (2, chapter, 2, mission),
+  (I)): c10m24 and c10m27 (jump off a building and land in a target) turn off the landing re-jump, smash, throw and 2-handed prop attacks; the
+  other gates enable mission-specific prop moves (c01m02/04, c02m02, c03m02/03, c04m01/02, c06m01, c07m03, challenges
+  c10m01/02/30/35/38); and `varCompare stealth_truck` turns off the sprint and attacks while Hulk carries the stealth
+  truck.
+- Air dash levels: Air Dash, Super Air Dash, Double Air Dash, Double Super Air Dash are separate moves
+  (move_10/54/61/62) chained by dependencies; the fight nodes test them with `unlockable` conditions and count dashes
+  per jump in a fight variable (`air_dash`). No mission restricts them.
+- So the remaster moves stay on everywhere, except the landing bounce follows the original into the two precision-landing
+  challenges. The charging sprint is off wherever the original sprint is (stealth truck), since it rides on it.
+
+### 11.4 Checks
+
+- play3 to 60,000 frames, null renderer, candidate (setting off) vs control on one host: checkpoint records
+  byte-identical (prefix; the reference gate: no new divergence).
+- Two identical `HULK_INPUT` free runs with the moves on (sprint 4 s, release and coast, a chain of landing taps):
+  game hashes equal every 50 frames to 4,300; `HULK_ROLLTEST=2800:3700` across the charged sprint, coast and bounces:
+  identical.
+- Store: a Metal free run (new game, exit to the menu, Continue, Buy Menu) shows the six moves with prices and
+  prerequisites; Charge Sprint I bought ("Move purchased.", points −20,000), saved; a new run loading that save shows it
+  "Acquired" and plays it as level 1 (26 u/s coast); with the setting off the same save shows the original store.
+- Not done: a fight chunk (data route), the camera pull-back at speed, a co-op partner check.

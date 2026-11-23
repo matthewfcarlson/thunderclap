@@ -711,6 +711,17 @@ Edition: Off), or `tutorial_skip=0` in `HULK_SAVE_DIR/port_settings.txt`.
   (pin it on with `HULK_SETTINGS=remastered=1,tutorial_skip=1`), and netplay peers must share it. Off, nothing runs:
   the checkpoint records are the original's. `HULK_TSKIP_LOG=1` logs the placement and the skip, `=2` every 30 updates.
 
+### Traversal moves (wtrav1, D242)
+
+docs/traversal.md §11. Gameplay Options > Traversal Moves (`remaster_moves`; remastered-only, per session: it
+changes the simulation, so replays, `HULK_INPUT` runs and HULK_ROLLTEST pin it off and netplay peers must share it).
+On, `src/platform/wasm/gfx/traversal.c` adds the charging sprint and higher leaps as six moves in the game's own store
+(slots 0x2c4-0x2c9, bought with smash points, saved in the original's purchase bits) and a landing bounce, through
+entry hooks (sprint 0x163ed0 / 0x15e250 / 0x15c540, input 0xfd0f0, damage 0x13f20, jump 0x13b90, store list 0xc21b0,
+and tutorial_skip.c's UpdateSimulation hook). Off, every hook passes through and nothing is set up: play3's records are
+byte-identical to the app without it. Test knobs: `HULK_SETTINGS=remastered=1,remaster_moves=1`,
+`HULK_TRAV_FORCE=C,J` (levels as if bought), `HULK_TRAV_TEST_XP=N` (smash points), `HULK_TRAV_LOG=1..3`.
+
 ### Lighting and dynamic lights (wlight1)
 
 docs/lighting.md. Two Video Options rows (port_settings.c; faithful off, remastered on), one runner pass

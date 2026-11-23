@@ -829,7 +829,14 @@ GFX_DEVICE_ADDR = 0x0031ba60        # d3dCreateDevice (pure3d::InitPlatform 0x00
 GFX_APP_HOOKS = {0x000df9e0: "ffh_hulk_app_fe_callback", 0x000f8e70: "ffh_hulk_app_named_int",
                  0x000b5ad0: "ffh_hulk_app_fe_sync", 0x001c88f0: "ffh_hulk_app_world_render",
                  0x00088c30: "ffh_hulk_app_update_sim", 0x000df970: "ffh_hulk_app_fe_function",
-                 0x000e5710: "ffh_hulk_app_fe_key_screen", 0x000e6050: "ffh_hulk_app_fe_key_menu"}
+                 0x000e5710: "ffh_hulk_app_fe_key_screen", 0x000e6050: "ffh_hulk_app_fe_key_menu",
+                 # the remastered traversal moves (src/platform/wasm/gfx/traversal.c, wtrav1): the sprint's begin,
+                 # frame and end, the controller's input copy, the collision damage formula, a jump's begin,
+                 # the moves store's list
+                 0x00163ed0: "ffh_hulk_app_sprint_begin", 0x0015e250: "ffh_hulk_app_sprint_frame",
+                 0x0015c540: "ffh_hulk_app_sprint_end", 0x000fd0f0: "ffh_hulk_app_ctrl_agent",
+                 0x00013f20: "ffh_hulk_app_hit_damage", 0x00013b90: "ffh_hulk_app_jump_begin",
+                 0x000c21b0: "ffh_hulk_app_store_list"}
 _HOOKS = None
 
 

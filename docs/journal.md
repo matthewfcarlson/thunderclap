@@ -3461,3 +3461,22 @@ passes; output only (checkpoint records identical with every setting).
   game FMV -> FRONTEND -> PREGAME -> PRESSSTART while a run without keys stayed in the intro FMV; the Xbox Series X
   pad attached at 40.1 s), quit mid-stall exits in ~1 s with code 0; play3 60,000 null records identical to the
   control (job 111644: candidate 111642, control 111636, studio); `wasm_android.py build` links.
+
+## 2026-11-23 wtrav1: charging sprint, Mega Leap and the landing bounce in the store (D242; docs/traversal.md §11)
+
+- **Built as app hooks** behind Gameplay Options > Traversal Moves (`remaster_moves`, per session):
+  src/platform/wasm/gfx/traversal.c. Six store moves in spare slots 0x2c4..0x2c9: Charge Sprint I-III (20k/50k/100k
+  smash points; ×1.3/1.5/1.7 speed, ×3/5/8 damage at full charge) and Mega Leap I-III (10k/25k/60k; +10% per level).
+- **The store's rows are a dense prefix of its order list**: the detail screen 0x000c2c20 reads row n as order
+  position n, and init.lua assigns positions only as the story unlocks moves; a remaster move parked at position 94
+  showed in the list but could not be opened. Ours follow the unlocked prefix and move along when the story adds one.
+- **A move's locked byte (+8) also turns it off in the fight script** (`UnlockableCondition` 0x12f110: unlocked and
+  bought); no mission locks a move (all 355 `um_SetUnlockableLocked` calls are hints, markers, galleries, movies,
+  cheats). Restrictions are hulk.fig `chapterMission` gates (precision-landing challenges c10m24/c10m27: no landing re-jump, smash,
+  throw) and `stealth_truck`.
+- **CJumpAction ends near the apex**: `vfunc_7` 0x18d40 returns false as the arc turns down (FallAction takes over),
+  so "the jump action ended" is not a landing; the motion state (+0x140, 3 = Air) leaving Air is.
+- **The original's landing re-jump keeps jump charge**: tapping at each landing raised the launch speed 21.6 -> 33
+  (+50%, capped). The bounce multiplies on top within 0.25 s of touchdown.
+- **The computer interface's Buy Menu refresh calls the store list 0x000c21b0 from CFEManager.cpp** (another TU), so an
+  entry hook there sets the moves up in the front end (Continue Game) before any UpdateSimulation ran.
