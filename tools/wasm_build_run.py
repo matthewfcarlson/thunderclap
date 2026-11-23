@@ -118,11 +118,15 @@ def wasm_inputs(spec, summ, env):
     os.makedirs(os.path.join(WB, "winputs"), exist_ok=True)
     # (rev5) one unpacker at a time; a job holds a shared lock on its inputs while it builds from them, so pruning
     # (below, by another job) never removes a directory in use
+    # KEY.lock: shared while a job builds from the directory (pruning takes it exclusively, never waiting);
+    # KEY.unpack.lock: one unpacker at a time (rev5: a second job must not wait out the first one's tests)
     lk = open(os.path.join(WB, "winputs", key + ".lock"), "a+")
     fcntl.flock(lk, fcntl.LOCK_SH)
     if not os.path.exists(os.path.join(d, ".complete")):
-        fcntl.flock(lk, fcntl.LOCK_UN)
-        fcntl.flock(lk, fcntl.LOCK_EX)      # (only unpackers and brief checkers hold it while it is incomplete)
+        ul = open(os.path.join(WB, "winputs", key + ".unpack.lock"), "a+")
+        fcntl.flock(ul, fcntl.LOCK_EX)
+    else:
+        ul = None
     if not os.path.exists(os.path.join(d, ".complete")):
         tmp = d + ".tmp%d" % os.getpid()
         shutil.rmtree(tmp, ignore_errors=True)
@@ -134,10 +138,12 @@ def wasm_inputs(spec, summ, env):
         shutil.rmtree(tmp, ignore_errors=True)
         open(os.path.join(d, ".complete"), "w").close()
     os.utime(d)
-    fcntl.flock(lk, fcntl.LOCK_SH)      # (downgrade: others may read, nobody may remove)
-    WINPUT_LOCKS.append(lk)
+    if ul:
+        ul.close()
+    WINPUT_LOCKS.append(lk)             # (released once the build is done: the tests do not read the inputs)
     old = sorted((os.path.join(WB, "winputs", n) for n in os.listdir(os.path.join(WB, "winputs"))
                   if ".tmp" not in n and not n.endswith(".lock")), key=os.path.getmtime, reverse=True)
+    old = [p for p in old if os.path.basename(p) != key]
     for p in old[KEEP_WINPUTS:]:
         try:
             g = open(p + ".lock", "a+")
@@ -492,6 +498,8 @@ def main():
     if spec["target"] != "none":
         exes["cand"] = build(spec, summ, inputs)
         summ["build_wall_s"] = round(time.time() - t0, 1)
+        for f in WINPUT_LOCKS:
+            f.close()
     ok = True
     if spec.get("tests"):
         try:        # one image at a time from here: give the other slots back (jobq_run.py probe reads .jq-slots)

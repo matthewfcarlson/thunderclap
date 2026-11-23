@@ -395,7 +395,7 @@ $J $W hosts                       # what each wasm host holds
   link order, config but config/wasm-data-stubs.json, and tools/wasm_inputs, tree_tu, wine_link, clang_probe
   unchanged), else makes them in the job (`make`, ~11 min more on 8 slots). The host unpacks a tarball once
   (~/hulk-jobs/wasm/winputs/KEY, the 6 most recent kept) under a lock; a job holds a shared lock on the directory it
-  builds from, so no other job unpacks over it or prunes it.
+  builds from (released before the tests), so no other job prunes it; unpacking takes its own lock.
 - **On the host.** The job runs `wbrun/wasm_build_run.py` (tools/wasm_build_run.py, shipped with the job). The run
   directory's `build` becomes a directory of links to the host checkout's build/ with `third_party`, `functions.csv`,
   `ckpt` and `rp1` taken from the job's inputs, so nothing is written into the host's shared build/. The build
@@ -436,8 +436,8 @@ $J $W hosts                       # what each wasm host holds
   reported but not judged), so standalone play3 tests are for short runs: the port's current records diverge from
   the original's at 5,875 (camera; then particle 14,584, hulk 34,240, actors 34,260 to 60,000, in every build
   of 5992da211's tree, 11-22), and a longer run needs `--control` (ckpt_gate's verdict). Both runs of a pair must
-  reach the target frame (play3: the trace's last checkpoint; input: the last hash within EVERY of it) and exit 0, or
-  the comparison fails, whatever the common frames say. Results:
+  reach the target frame, or the comparison fails whatever the common frames say: play3 by the trace's last
+  checkpoint, input by its last hash (within EVERY of the target) and an exit status of 0. Results:
   wb-out/tests/NAME/{cand,ctl}/ (trace.txt.ckref, result.json, check.json, stdout.txt, hashes.txt; a trace over 4 MB
   keeps its last 256 KB as trace.txt.tail) and summary.json's `tests`; the job exits 5 when a test fails (its outputs
   still come back).
