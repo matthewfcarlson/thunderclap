@@ -663,6 +663,13 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   the draw's vertex constants by declaring `uniform vec4 u_vc[96]`; its helpers take varyings as arguments (bgfx hands
   varyings to `main` only). Remastered option rows each take the next Quality index (`rm_pass.h` k*): rebase before
   landing a new row.
+  Developer mode (wdev1): `developer=1` in port_settings.txt or `HULK_DEV=1` (read at launch) lists Gameplay Options
+  rows keyed `dev_*` (Force Charge Sprint / Mega Leap / Original Moves); outside it they are unlisted, their strings are
+  not added and they take their faithful value. Forces answer through hooks (0x12f110, 0x92940, 0x19e910), never game
+  memory; the save capture 0x8b560 reads every purchase bit through 0x92940, so a hook changing that answer passes the
+  real bit through during the capture. `HULK_DEV_TEST_FROM=N` (tests) starts Force Original Moves at frame N. Scripted
+  runs reach the option screens from the pause menu (START, Options = 3 downs, Gameplay Options = 4 downs): the main
+  menu's column switch ignored scripted d-pad/stick input.
   Build id (wver1): apps and APKs carry the short commit (`+dirty` for local builds with uncommitted host files or tools,
   `+N` for N queue overlay files): stdout `hulk-app: build <id>`, the window title, Info.plist, the APK's versionName and
   SetupActivity. `wasm_app.py build` writes it from HULK_BUILD_ID (wasm_build_run.py sets it) or git into
