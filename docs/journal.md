@@ -3122,3 +3122,17 @@ draws gives in-between frames with no tree change and no path back into the game
   (the scripted run makes 320x240 and 2 x 160x120 effect targets and one frame copy), so there is no resolution to
   raise; MSAA and the render resolution already apply to them.
 - **Pack disk cache**: <app dir>/cache/textures; first launch 3.1 s of decode + encode, next launch 0.14 s of reads.
+
+## 2026-11-22 wmodel1: model replacement feasibility (docs/model-replacement.md)
+
+- **Pre-lit placed props are baked in world space, one `mdl` key per placement** (vertex flags 0x2021/0x2022/0x2032):
+  the sandbag mesh `bunker_bunkerBagsShape` drew under 8 keys with identical topology and different positions. A
+  per-prop replacement needs an instance fitter (rigid fit to each placement). Dynamic props and vehicles (0x2011) are
+  in model space, one key per mesh (colour variants and damage states are separate meshes).
+- Census (tools/p3d.py over the extracted .p3d): rooms 1.18 M triangles in 784 files (at most 2,461 a file); 37
+  distinct skins of 2.2k-3.8k triangles; about 110 vehicle meshes of 100-500; about 770 props (median 45); 805 files
+  carry collision chunks, which a draw-time replacement never touches.
+- tools/mesh_remodel.py (`fit` parametric cylinder/box per part, `smooth` PN triangles with straight edges at hard
+  vertices, UVs from the original triangle underneath): the desert tutorial's 8-sided barrel group as 32-sided ribbed
+  drums looked clearly better with the original texture; PN smoothing of a hard-edged car barely shows. Free app runs
+  are not deterministic (real-time mixer): compare packs by ckref, not the game hash.
