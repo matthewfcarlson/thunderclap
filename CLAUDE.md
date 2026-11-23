@@ -545,6 +545,16 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   CPU/GPU and pacing lateness every N updates (free when off). Prim buffers upload once and draws are cheap; the main
   thread's costs are the module's game code (x87 helpers, ff_dispatch), bgfx Metal encoding and interp. Measure pacing
   jitter and CPU on an idle machine: under the lanes' load timers wake 1-2 ms late and A/B runs disagree.
+  Float drift both builds share (wasmq4): both clang builds use `-ffp-eval-method=double`, so a float expression is
+  already one double evaluation and a `hulk_freg` cast inside it changes nothing; look for a float *local* or argument
+  the original keeps in st (`float v` -> `hulk_freg v`, 0x0001b510) or a callee's rounded return. `asinf` is the one libm
+  name the binding map resolves to a game function (0x000189c0): call it by its own name with its hulk_freg declaration
+  (0x0009ffc0). Wine probes: HULK_TRACE_FUNCS/EXIT are link-time (`--env`), SPAN/FROM/MAX/WATCH/XDEREF run-time
+  (`--replay-env`); hot probes need `--replay-timeout` well above 300; heap addresses are stable within a lineage, so
+  watch an object found by one SPAN run absolutely (`HULK_TRACE_WATCH==ADDR`) in the next. A wasm entry hook misses
+  calls inside the defining TU: compile `extern "C" ffh_<name>` calls into a private snapshot copy, defined in
+  HULK_WASM_HOST_EXTRA. xemu field dumps of play3: build/wasmq4/scripts/submit_xemu.sh HOST TAG UNTIL DUMP (ships
+  hybrid/hooks.cpp and hybrid/exclude.txt as `--files`).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
