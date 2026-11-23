@@ -18,7 +18,7 @@
 namespace rm {
 
 // The Video Options rows of the runner's passes (port_settings.c; gfx_quality what = the index below)
-enum Quality : uint32_t { kMipmaps = 1, kAniso, kMsaa, kFarField, kDrawDistance, kQualityCount };
+enum Quality : uint32_t { kMipmaps = 1, kAniso, kMsaa, kFarField, kDrawDistance, kLighting, kDynLights, kQualityCount };
 struct Settings {
     int value[kQualityCount];
     int operator[](Quality q) const { return value[q]; }

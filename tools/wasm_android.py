@@ -162,6 +162,8 @@ def cmd_build(a):
     # the runner
     gen = os.path.join(OUT, "app-gen")
     wg.embed_shaders(gen, ["spirv", "essl"])        # the sink picks by renderer (bgfx_sink.cpp rendererProfile)
+    import rm_shaders
+    rm_shaders.build(gen, ("spirv", "essl"))        # the runner's own (run/app/shaders: per-pixel lighting)
     run = os.path.join(HOST, "run")
     cxx = CXX + ["-std=c++20", "-O2", "-g", "-fno-exceptions", "-fno-rtti", "-Wall", "-Wno-unused-parameter",
                  "-Wno-unused-private-field", "-Wno-deprecated-declarations", "-I" + os.path.join(SDLDIR, "pddi"),

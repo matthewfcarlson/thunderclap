@@ -140,6 +140,8 @@ def cmd_build(a):
         json.dump(stamp, f, indent=1)
     run([PY, os.path.join(tools, "wasm_gfx.py"), "compile", "--jobs", str(a.jobs)], e)
     run([PY, os.path.join(tools, "wasm_port.py"), "link"], e)
+    # the runner's own shaders (run/app/shaders: per-pixel lighting) beside the sink's, in aot --app's include dir
+    run([PY, os.path.join(tools, "rm_shaders.py"), os.path.join(out, "aot", "app-gen")], e)
     run([PY, os.path.join(tools, "wasm_port.py"), "aot", "--app", "--jobs", str(a.jobs)], e)
     print("app: %s" % os.path.join(out, "hulk-app"))
 

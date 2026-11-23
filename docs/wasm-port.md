@@ -604,6 +604,37 @@ core and the main thread is asleep ~89% of the time.
   are counted at the sink imports (an update's own draws), not at interp's re-submits; turning it on hashes every
   draw's constants (~1 us a draw).
 
+### Lighting and dynamic lights (wlight1)
+
+docs/lighting.md. Two Video Options rows (port_settings.c; faithful off, remastered on), one runner pass
+(run/app/lighting.cpp) with its own bgfx shaders (run/app/shaders, compiled by tools/rm_shaders.py into the app's
+include dir by `wasm_app.py build`, and for Android by `wasm_android.py`, spirv + essl; the binaries live in
+build/third_party/out/rm-shaders/<profile>; the queue's wasm hosts have no shaderc, so wasm_build_job.py ships this
+machine's out/rm-shaders/metal and an overlay that edits run/app/shaders needs `--shaders-ok` after a local
+`tools/rm_shaders.py`):
+- **Lighting: Per-Vertex (Original) / Per-Pixel** (`lighting`). Lit fixed-function draws (vertex program 0 with
+  LIGHTING, 6 two-sided: Hulk and the characters in play3) and the skin programs get a per-pixel program: the faithful
+  transform, then the same light model in the fragment shader, then the faithful combiner (`fs_vp_stage.sh` included,
+  one `fs_pxcmb_<hash>` per combiner key). The faithful shaders and the Wine image are untouched.
+- **Dynamic Lights: Off (Original) / Health Orbs** (`dyn_lights`). Each health orb (found by its pair of draws: sprite +
+  14-vertex mesh, additive, same texture) is a green point light (radius 8) on the opaque draws of the world's pass
+  near it, the baked world included (added to the vertex colour before the texture). Lights are kept in world space
+  (the frame's view from the static world draws' modelview) and applied from the next presented frame's view; only
+  draws whose prim buffer's bounding sphere meets a light take the per-pixel program.
+- Never changed: occlusion-query draws, 2D/orthographic views, blended draws (as receivers), refraction/proximity.
+- **Checks**: checkpoint records byte-identical for the 8,000-frame scripted run (HULK_INPUT) with both off and on;
+  play3 on Metal to 19,010 (the tutorial's and the city's orbs) off and on: records identical; play3 with `null` to
+  60,000: records identical to the control app; HULK_ROLLTEST identical with Metal (6500:7600, 60 fps, 3x). The game
+  hash differs between settings only through the options menu's own words, as for wr2's rows.
+- **Cost** (laptop, Metal, play3's city 4,000-31,000 frames with `HULK_LIGHT_AB=30`: the passes off and on in turns of
+  30 frames in the same run, so both see the same scenes and load): GPU 1.33 -> 1.44 ms a frame at 1x, 3.58 -> 3.96 ms
+  at 3x (1920x1440) with MSAA 4x + 16x + Mipmaps; render thread +0.02..0.07 ms. 30-90 draws a frame take a per-pixel
+  program (the lit characters and props, and the world draws near an orb). Android: the shaders build for spirv and
+  essl (not yet run on a device).
+- `HULK_LIGHT_LOG=1` (per-pixel draws and lights a frame), `HULK_LIGHT_AB=N` (the cost above), and for finding draws
+  `HULK_LIGHT_DUMP=a:b:file` (every draw of presented frames a..b, small prim buffers with content keys) and
+  `HULK_LIGHT_HIDE=ordinal,...` (hides a texture's draws).
+
 ### Movies (wmov1; hold to skip: D231)
 
 The game's Bink movies (the start-up logos, the attract loop, the cut-scenes) play with picture and sound in the app.

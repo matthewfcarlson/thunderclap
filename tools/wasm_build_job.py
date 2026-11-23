@@ -63,7 +63,7 @@ WB = "~/hulk-jobs/wasm"
 TARGETS = ("app", "aot")
 # overlay paths a build from shipped inputs would not see: what the wasm inputs are made from (INPUT_PATHS, below) and
 # the pddi shader sources (the Metal binaries are this machine's build/third_party/out/shaders/metal)
-SHADER_PREFIX = "src/platform/sdl/pddi/shaders/"
+SHADER_PREFIX = ("src/platform/sdl/pddi/shaders/", "src/platform/wasm/run/app/shaders/")   # (+ the runner's)
 SRC_DIRS = ["include", "src", "tools", "config"]
 KEEP_INPUTS = 4
 HASHCACHE = os.path.join(jobq.JOBS, "wb-hashcache.json")
@@ -89,6 +89,7 @@ def input_items():
              ("third_party/out/sdl-video", os.environ.get("HULK_APP_SDL") or tp("out/sdl-video")),
              ("third_party/out/host/lib", tp("out/host/lib")),
              ("third_party/out/shaders/metal", tp("out/shaders/metal")),
+             ("third_party/out/rm-shaders/metal", tp("out/rm-shaders/metal")),   # (the runner's: tools/rm_shaders.py)
              ("third_party/src/mingw-w64/mingw-w64-headers", tp("src/mingw-w64/mingw-w64-headers"))]
     items += [("third_party/src/%s/include" % n, tp("src", n, "include")) for n in ("bx", "bimg", "bgfx")]
     # (run/app/texpack.cpp includes bimg's stb_image by a path relative to bimg/include)
@@ -581,8 +582,8 @@ def cmd_submit(a):
     shaders = sorted(f for f in list(files) + dele if f.startswith(SHADER_PREFIX))
     if shaders and a.target == "app" and not a.shaders_ok:
         sys.exit("refused: the overlay changes pddi shader sources (%s ...), but the app embeds this machine's compiled "
-                 "Metal shaders (build/third_party/out/shaders/metal): compile them here first (tools/wine_gfx.py "
-                 "shaders, from the same sources) and pass --shaders-ok" % shaders[0])
+                 "Metal shaders (build/third_party/out/shaders/metal, out/rm-shaders/metal): compile them here first "
+                 "(tools/wine_gfx.py shaders; tools/rm_shaders.py for run/app/shaders) and pass --shaders-ok" % shaders[0])
     env = {}
     for e in a.env or []:
         k, _, v = e.partition("=")

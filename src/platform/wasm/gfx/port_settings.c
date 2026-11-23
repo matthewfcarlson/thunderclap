@@ -38,6 +38,8 @@ static void apply_mipmaps(int value) { hulk_wasm_quality_apply(1, value); }     
 static void apply_aniso(int value) { hulk_wasm_quality_apply(2, value); }
 static void apply_msaa(int value) { hulk_wasm_quality_apply(3, value); }
 static void apply_far_field(int value) { hulk_wasm_quality_apply(4, value); }
+static void apply_lighting(int value) { hulk_wasm_quality_apply(6, value); }
+static void apply_dyn_lights(int value) { hulk_wasm_quality_apply(7, value); }
 
 /* Render resolution values: 1..4 a multiple of the game's 640x480; 0 the window's (display's) pixels; 720 / 1080 /
  * 1440 / 2160 that height at the display's aspect (960x720 at 4:3 ...). Output only: the game sees 640x480 at every
@@ -61,7 +63,10 @@ static void apply_far_field(int value) { hulk_wasm_quality_apply(4, value); }
  * textures loaded after the change); anisotropic filtering 16 (bgfx's Metal renderer has one level: 16x); MSAA on the
  * scene target (samples; the occlusion queries' counts are scaled back). Far Field (experimental, off by default):
  * the rooms the game has not drawn, beyond the draw distance, drawn by the runner from the disc (run/app/farfield.cpp,
- * docs/far-field.md). */
+ * docs/far-field.md).
+ * Lighting, Dynamic Lights (wlight1; run/app/lighting.cpp, docs/lighting.md): the game's lights evaluated per pixel
+ * (1) instead of per vertex (0); health orbs as point lights (1) on the draws around them, the baked world included.
+ * Output only. */
 static port_setting k_settings[] = {
     {"remastered", "Remastered Edition", PS_SCREEN_GAMEPLAY, PS_ONOFF, 2, {0, 1}, {"Off", "On"},
      0, 1, 0, apply_remastered},
@@ -86,6 +91,10 @@ static port_setting k_settings[] = {
      {"Off (Original)", "MSAA 2x", "MSAA 4x", "MSAA 8x"}, 0, 4, 1, apply_msaa},
     {"far_field", "Far Field", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On (Experimental)"}, 0, 0, 1,
      apply_far_field},
+    {"lighting", "Lighting", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Per-Vertex (Original)", "Per-Pixel"}, 0, 1, 1,
+     apply_lighting},
+    {"dyn_lights", "Dynamic Lights", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "Health Orbs"}, 0, 1, 1,
+     apply_dyn_lights},
 };
 enum { N_SETTINGS = sizeof k_settings / sizeof k_settings[0] };
 

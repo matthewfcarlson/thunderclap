@@ -3254,3 +3254,22 @@ draws gives in-between frames with no tree change and no path back into the game
 - wasm_app.py's app-inputs.json now also covers src/platform/sdl/host/native_hooks.h (the replay hooks wasm_port
   places in the TUs they name at bind time): a hooks edit used to relink stale objects. Existing build dirs compile
   every TU once.
+
+## 2026-11-22 wlight1: per-pixel lighting and health-orb lights in the app (docs/lighting.md)
+
+- The user asked for per-pixel lighting and for health orbs to light the ground. Both are one runner pass
+  (run/app/lighting.cpp) with its own bgfx shaders (run/app/shaders, tools/rm_shaders.py): the faithful shaders and
+  the Wine image are unchanged. The per-pixel fragment shader includes the faithful combiner (`fs_vp_stage.sh`) with
+  its two vertex colours replaced by macros that light the pixel, so every combiner key keeps its exact combine.
+- play3 draws no skin-program draws in the frames dumped (tutorial, city): Hulk and the characters come through the
+  fixed-function path with two-sided lighting (vertex program 6), props through program 0 lit, the world unlit.
+- A health orb is a pair of additive draws (a 6-vertex camera-space sprite, then a 14-vertex mesh with the same
+  texture), twice a frame; the mesh's content key differs between locations, the pair's shape does not. The textures
+  are grey and the draws carry no colour: the light is the orbs' green. Found with two dev switches
+  (`HULK_LIGHT_DUMP`, `HULK_LIGHT_HIDE`): hiding one texture's draws at a shot frame names the effect in one run.
+- The world's draws are before the effects in a frame, so the lights go to world space (the frame's view is the
+  modelview of every static world draw: 115 identical at the city frame) and apply from the next frame. Lights only
+  touch draws whose prim buffer's bounding sphere reaches them: 180-220 per-pixel draws a frame became 30-90.
+- Tool lesson: editing tools/wasm_port.py in a workspace makes `wasm_app.py build` recompile every TU (the tool's
+  digest is in app-inputs.json); the shader step therefore lives in wasm_app.py (and wasm_android.py).
+
