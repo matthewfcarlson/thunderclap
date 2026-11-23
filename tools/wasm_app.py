@@ -3,7 +3,7 @@
 
   build/venv/bin/python tools/wasm_app.py sdl                      # SDL3 with video -> build/third_party/out/sdl-video
   build/venv/bin/python tools/wasm_app.py build [--jobs 2]         # the gfx module and hulk-app (HULK_WASM_DIR)
-  build/venv/bin/python tools/wasm_app.py bundle [--out build/Hulk.app] [--with-game PACK|ISO] [--with-texpack F]
+  build/venv/bin/python tools/wasm_app.py bundle --out build/<lane>/Hulk.app [--with-game PACK|ISO] [--with-texpack F]
 
 `build` runs, with HULK_WASM_GFX=1 in its own HULK_WASM_DIR (default build/wasm-app): `wasm_port.py compile`
 (every TU on a first build; afterwards only the two TUs the gfx hooks change, unless --all), `wasm_gfx.py compile`,
@@ -195,7 +195,7 @@ def main(argv=None):
     c.add_argument("--all", action="store_true", help="compile every TU (after an inputs change)")
     c = sp.add_parser("bundle")
     c.add_argument("--exe")
-    c.add_argument("--out", default=os.path.join(ROOT, "build/Hulk.app"))
+    c.add_argument("--out", required=True, help="build/<lane>/Hulk.app; build/Hulk.app is the user's and only the lead writes it")
     c.add_argument("--with-game", help="the player's disc pack (.hulkdisc) or .iso: Contents/Resources/game.*")
     c.add_argument("--with-texpack", help="a one-file texture pack (.hulkpack): Contents/Resources/")
     a = ap.parse_args(argv)

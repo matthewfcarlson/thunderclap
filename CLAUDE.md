@@ -617,6 +617,8 @@ the laptop takes only `wine-gfx` (graphics) jobs. Batches of equivalence checks:
 `equiv_batch.py`, `promote_dispatch.py` and `tests/equiv/regress.py`. At most 2 local processes for interactive debugging. Keep the laptop's disk at 20 GB free or more: a full disk stops every agent's
 shell and crashes the queue daemon, and a restart loses running jobs (11-20: 0x88020's two ~15 h proofs). Delete your own
 workspaces and fetched job outputs once landed.
+The user's products sit at the top of build/ (build/Hulk.app, build/hulk.apk, build/hulk-hd.hulkdisc) and only the lead
+writes them; lanes build, bundle and test in build/<lane>/ (`wasm_app.py bundle --out` is required).
 `tools/build_gc.py [--keep LANES] [--days N] [--yes]` trims finished lanes' folders from build/ (notes go to build/attic/):
 a folder a live file must reach is named there as `build/<name>` (CLAUDE.md, tools, tests, config, src), or it goes.
 Wine runs are `--needs wine`. xemu jobs always carry `-snapshot`. Full Wine builds go through `tools/wine_build_job.py`
