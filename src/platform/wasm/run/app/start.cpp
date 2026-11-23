@@ -37,6 +37,19 @@
 #endif
 
 #include "../disc.h"
+// The build's id (wver1): the short commit, "+dirty" (a local build with uncommitted host files) or "+N" (a queue
+// build with N overlay files), from the generated <build dir>/aot/app-gen/hulk_build_id.h (tools/wasm_app.py build,
+// wasm_android.py build). Host-only: printed at start, put in the window's title and the bundle's Info.plist / the
+// APK's versionName; it never reaches the module's memory.
+#if __has_include("hulk_build_id.h")
+#include "hulk_build_id.h"
+#endif
+#ifndef HULK_BUILD_ID
+#define HULK_BUILD_ID "unknown"
+#endif
+// (the tag lets tools/wasm_app.py bundle read the id from the executable itself)
+__attribute__((used)) static const char kBuildIdTag[] = "HULK_BUILD_ID=" HULK_BUILD_ID;
+extern "C" const char* hulk_app_build_id(void) { return kBuildIdTag + 14; }
 
 static const uint32_t kTitleId = 0x56550039;       // the certificate's title ID of The Incredible Hulk: UD
 
@@ -324,6 +337,8 @@ extern "C" void hulk_app_quit(int code)
 // headless build's run, for the replay check). Then the game, as above. Consumes `--choose-game` from argv.
 extern "C" void hulk_app_start(int* argc, char** argv)
 {
+    printf("hulk-app: build %s\n", HULK_BUILD_ID);
+    fflush(stdout);
     setenv("HULK_GFX_RENDERER", "metal", 0);
     bool choose = false;
     if (*argc > 1 && !strcmp(argv[1], "--choose-game")) {

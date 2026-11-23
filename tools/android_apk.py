@@ -27,6 +27,7 @@ import zipfile
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PLATFORM = "android-35"
 BUILD_TOOLS = "35.0.0"
+VERSION_NAME = None    # (tools/wasm_android.py: the manifest's versionName with the build's id; wver1)
 MIN_SDK = "29"         # (tools/wasm_android.py: 31, with its own manifest and activities in OUR)
 SDL_JAVA = os.path.join(ROOT, "build/third_party/src/SDL/android-project/app/src/main/java")
 OUR = os.path.join(ROOT, "src/platform/sdl/android")
@@ -82,7 +83,8 @@ def main():
     run([os.path.join(bt, "d8"), "--release", "--min-api", MIN_SDK, "--lib", jar, "--output", w] + classes)
     base = os.path.join(w, "base.apk")
     run([os.path.join(bt, "aapt2"), "link", "-I", jar, "--manifest", os.path.join(OUR, "AndroidManifest.xml"),
-         "--min-sdk-version", MIN_SDK, "--target-sdk-version", "35", "-o", base])
+         "--min-sdk-version", MIN_SDK, "--target-sdk-version", "35", "-o", base] +
+        (["--version-name", VERSION_NAME, "--replace-version"] if VERSION_NAME else []))
     libs = [a.libmain]
     ff = os.environ.get("HULK_ANDROID_FFMPEG")
     if ff:

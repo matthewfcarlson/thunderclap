@@ -290,6 +290,17 @@ public class SetupActivity extends Activity {
         quit.setText("Quit");
         quit.setOnClickListener(v -> finish());
         l.addView(quit);
+        TextView ver = new TextView(this);      // the build (wver1): versionName holds the commit it was built from
+        try {
+            ver.setText("Version " + getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
+        } catch (Exception e) {
+            ver.setText("");
+        }
+        ver.setTextColor(Color.GRAY);
+        ver.setTextSize(12);
+        ver.setGravity(Gravity.CENTER);
+        ver.setPadding(0, 32, 0, 0);
+        l.addView(ver);
         setContentView(l);
     }
 

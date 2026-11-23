@@ -716,6 +716,7 @@ void w2c_hulk_plat_display_rate(struct w2c_hulk*, u32 rate) { interp_set_rate((i
 void w2c_hulk_gfx_discontinuity(struct w2c_hulk*) { interp_discontinuity(); }
 
 // ------------------------------------------------------------------------------------------- the window
+extern "C" const char* hulk_app_build_id(void);     // start.cpp
 u32 w2c_hulk_plat_video_init(struct w2c_hulk*) { return (u32)hulk_platform_video_init(); }
 u32 w2c_hulk_plat_error(struct w2c_hulk*, u32 buf, u32 cap)
 {
@@ -733,10 +734,12 @@ static void onResize(int w, int h, void*)
 }
 u32 w2c_hulk_plat_create_window(struct w2c_hulk*, u32 title, u32 w, u32 h, u32 hidden, u32 resizable)
 {
-    // the front end names its window for the native builds ("... (native)"): the app keeps the game's own name
+    // the front end names its window for the native builds ("... (native)"): the app keeps the game's own name, with
+    // the build's id (start.cpp; wver1)
     (void)title;
-    s_window = hulk_platform_create_window("The Incredible Hulk: Ultimate Destruction", (int)w, (int)h, (int)hidden,
-                                           (int)resizable);
+    char name[128];
+    snprintf(name, sizeof name, "The Incredible Hulk: Ultimate Destruction (%s)", hulk_app_build_id());
+    s_window = hulk_platform_create_window(name, (int)w, (int)h, (int)hidden, (int)resizable);
     if (s_window)
         hulk_platform_set_resize_handler(onResize, 0);
 #if defined(__ANDROID__)

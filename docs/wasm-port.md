@@ -355,6 +355,20 @@ id=$($J $W test --name ME --exe CANDIDATE_JOB --control CONTROL_JOB --test play3
 - Metal: `--test-env HULK_GFX_RENDERER=metal --test-env HULK_GFX_HIDDEN=1` runs the app with Metal and a hidden
   window on mac2 and studio (over ssh); free play is paced, so such a run takes real time (30 frames/s).
 
+### The build's id (wver1)
+
+Every app and APK carries the short commit it was built from (7 hex digits; `+dirty` for a local build whose host files
+or tools, src/platform/wasm, src/platform/sdl and tools/, have uncommitted changes; `+N` for a queue build with N
+overlay files and deletions): `hulk-app: build 1a2b3c4` on stdout at start (logcat tag `hulk` on Android), the window
+title "The Incredible Hulk: Ultimate Destruction (1a2b3c4)", the bundle's Info.plist (CFBundleShortVersionString
+"0.1 (1a2b3c4)", CFBundleVersion "1a2b3c4": Finder's Get Info) and the APK's versionName ("0.2 (1a2b3c4)": Settings >
+Apps, and the setup screen's last line). `tools/wasm_app.py build` takes HULK_BUILD_ID (wasm_build_run.py sets it from
+the job's commit and overlay) or git, and writes it to `<dir>/aot/app-gen/hulk_build_id.h` (run/app/start.cpp) and
+`<dir>/build-id.txt`; `bundle` and `wasm_android.py apk` read it back from the executable's `HULK_BUILD_ID=` tag, and
+`wasm_android.py build` takes the module's (the hulk-app beside the hulk.wasm). Only the runner's objects depend on the
+header: a new id recompiles them (about 20 files), never a game TU (app-inputs.json does not hold it). The id is
+host-only: it never reaches module memory, so records and game hashes don't change with it.
+
 ### The frame-rate option (fps1, D224)
 
 The user's decision D224: 60 fps is a menu toggle in the game's own options, 30 (the original) by default.

@@ -408,6 +408,10 @@ def build(spec, summ, inputs):
     for k in ("HULK_WASM_SNAP", "HULK_WASM_BINDINGS", "HULK_WASM_DIR", "HULK_APP_SDL", "HULK_WASM_GFX"):
         env.pop(k, None)
     env.update(spec["env"])
+    # the build's id (wver1; tools/wasm_app.py build_id): the job's commit, "+N" for N overlay files and deletions
+    n = int(spec.get("overlay") or 0) + len(spec.get("deletions") or [])
+    env.setdefault("HULK_BUILD_ID", spec["commit"][:7] + ("+%d" % n if n else ""))
+    summ["build_id"] = env["HULK_BUILD_ID"]
     snap, bind = wasm_inputs(spec, summ, env)
     env["HULK_WASM_SNAP"], env["HULK_WASM_BINDINGS"] = snap, bind
     lock, lin = lock_lineage(spec["lineage"], summ)

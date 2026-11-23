@@ -162,6 +162,17 @@ def cmd_build(a):
                                                                                          " ".join(cmd))))))
     # the runner
     gen = os.path.join(OUT, "app-gen")
+    import wasm_app     # the build's id (wver1): the module's (the hulk-app beside it, or its build-id.txt), else this checkout's
+    bid = os.environ.get("HULK_BUILD_ID")
+    wd = os.path.dirname(wasm)
+    if not bid and os.path.exists(os.path.join(wd, "hulk-app")):
+        bid = wasm_app.exe_build_id(os.path.join(wd, "hulk-app"))
+    if not bid and os.path.exists(os.path.join(wd, wasm_app.BUILD_ID_TXT)):
+        bid = open(os.path.join(wd, wasm_app.BUILD_ID_TXT)).read().strip()
+    bid = bid or wasm_app.build_id()
+    if bid != wasm_app.build_id():
+        print("build: the module's build id %s; this checkout (the runner's sources) is %s" % (bid, wasm_app.build_id()))
+    wasm_app.write_build_id(gen, OUT, bid)
     wg.embed_shaders(gen, ["spirv", "essl"])        # the sink picks by renderer (bgfx_sink.cpp rendererProfile)
     import rm_shaders
     rm_shaders.build(gen, ("spirv", "essl"))        # the runner's own (run/app/shaders: per-pixel lighting)
@@ -223,6 +234,12 @@ def cmd_apk(a):
     import android_apk           # (its steps, with this app's manifest and activities, Android 12+)
     android_apk.OUR = os.path.join(HOST, "android")
     android_apk.MIN_SDK = str(API)
+    # versionName: the manifest's, with the build's id libmain.so carries (wver1; Settings > Apps shows it)
+    import re
+    import wasm_app
+    bid = wasm_app.exe_build_id(so) or "unknown"
+    base = re.search(r'android:versionName="([^"]*)"', open(os.path.join(HOST, "android/AndroidManifest.xml")).read())
+    android_apk.VERSION_NAME = "%s (%s)" % (base.group(1) if base else "0", bid)
     if a.ffmpeg:                    # (local tests only: FFmpeg's libraries in the APK; see the user's decision)
         os.environ["HULK_ANDROID_FFMPEG"] = FFMPEG
     else:
