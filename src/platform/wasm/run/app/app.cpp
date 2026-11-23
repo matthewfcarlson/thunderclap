@@ -23,6 +23,7 @@
 #include "gfx_wire.h"
 #include "interp.h"
 #include "texpack.h"
+#include "gfxstats.h"
 #include "rm_pass.h"
 
 using namespace hulk::pddi;
@@ -320,6 +321,7 @@ u32 w2c_hulk_gfx_target_height(struct w2c_hulk*) { return s_logH && hulk_gfx_sin
 void w2c_hulk_gfx_destroy_frame_targets(struct w2c_hulk*) { flush(); hulk_gfx_sink_destroy_frame_targets(); }
 u32 w2c_hulk_gfx_create_texture(struct w2c_hulk*, u32 vid, u32 desc)
 {
+    GS_SCOPE(kGsTextures);
     flush();
     Res* r = res(vid);
     if (!r)
@@ -333,16 +335,19 @@ u32 w2c_hulk_gfx_create_texture(struct w2c_hulk*, u32 vid, u32 desc)
 }
 u32 w2c_hulk_gfx_update_texture(struct w2c_hulk*, u32 vid, u32 level, u32 w, u32 h, u32 data, u32 pitch, u32 size)
 {
+    GS_SCOPE(kGsTextures);
     flush();
     Res* r = res(vid);
     if (!r || r->kind != kResTexture || r->id == kSinkNone)
         return 0;
+    gs_tex(0, size);
     if (texpack_tracks(vid))
         return texpack_update(vid, level, w, h, M(data), pitch, size);
     return hulk_gfx_sink_update_texture(r->id, level, w, h, M(data), pitch, size);
 }
 u32 w2c_hulk_gfx_update_vertex_buffer(struct w2c_hulk*, u32 vid, u32 data)
 {
+    GS_SCOPE(kGsBuffers);
     flush();
     Res* r = res(vid);
     if (!r)
@@ -359,6 +364,7 @@ u32 w2c_hulk_gfx_update_vertex_buffer(struct w2c_hulk*, u32 vid, u32 data)
     d.packedStride = w->packedStride;
     d.vertexFlags = w->vertexFlags;
     d.primKind = w->primKind;
+    gs_vb(vid, d.count);
     meshpack_vertices(vid, d);              // (model packs: meshpack.cpp)
     uint32_t was = r->id;
     r->id = hulk_gfx_sink_update_vertex_buffer(r->id, &d);
@@ -370,6 +376,7 @@ u32 w2c_hulk_gfx_update_vertex_buffer(struct w2c_hulk*, u32 vid, u32 data)
 }
 u32 w2c_hulk_gfx_update_index_buffer(struct w2c_hulk*, u32 vid, u32 idx, u32 n, u32 owner)
 {
+    GS_SCOPE(kGsBuffers);
     flush();
     Res* r = res(vid);
     if (!r)
@@ -377,6 +384,7 @@ u32 w2c_hulk_gfx_update_index_buffer(struct w2c_hulk*, u32 vid, u32 idx, u32 n, 
     if (r->kind != kResIndices)
         drop(vid);
     r->kind = kResIndices;
+    gs_ib(vid, n);
     meshpack_indices(vid, MT<const uint16_t>(idx), n);
     r->id = hulk_gfx_sink_update_index_buffer(r->id, MT<const uint16_t>(idx), n, owner);
     return r->id != kSinkNone;
@@ -428,11 +436,14 @@ u32 w2c_hulk_gfx_create_query(struct w2c_hulk*, u32 vid)
 }
 void w2c_hulk_gfx_destroy(struct w2c_hulk*, u32 vid)
 {
+    GS_SCOPE(kGsOther);
     flush();
     drop(vid);
 }
 u32 w2c_hulk_gfx_alloc_transient(struct w2c_hulk*, u32 count, u32 token, u32 staging)
 {
+    GS_SCOPE(kGsTransient);
+    gs_transient(count);
     flush();
     uint32_t tok = kSinkNone;
     if (interp_recording()) {          // (the stream keeps a copy: drawn later, from the sink's buffer then)
@@ -490,6 +501,7 @@ static void refreshSinkOwned()
 }
 void w2c_hulk_gfx_set_pass(struct w2c_hulk*, u32 p)
 {
+    GS_SCOPE(kGsPass);
     flush();
     SinkPass pass = *MT<const SinkPass>(p);
     bool scale = pass.target == kSinkTargetScene;
@@ -505,12 +517,14 @@ void w2c_hulk_gfx_set_pass(struct w2c_hulk*, u32 p)
     }
     if (pass.target != kSinkTargetScene)
         pass.target = hostFrameBuffer(pass.target);
+    gs_pass();
     if (interp_recording())
         return interp_pass(pass);
     rm::setPass(pass);
 }
 void w2c_hulk_gfx_copy_frame(struct w2c_hulk*, u32 pass, u32 dst)
 {
+    GS_SCOPE(kGsPass);
     flush();
     const SinkTarget* w = MT<const SinkTarget>(dst);
     SinkTarget t = {hostTexture(w->texture), hostFrameBuffer(w->frameBuffer)};
@@ -573,6 +587,7 @@ static void packet(const WDrawPacket* w, DrawPacket* p)
 }
 u32 w2c_hulk_gfx_prepare_pipeline(struct w2c_hulk*, u32 pk)
 {
+    GS_SCOPE(kGsDraw);
     flush();
     WDrawPacket* w = MT<WDrawPacket>(pk);
     DrawPacket p;
@@ -584,9 +599,11 @@ u32 w2c_hulk_gfx_prepare_pipeline(struct w2c_hulk*, u32 pk)
 }
 void w2c_hulk_gfx_submit_draw(struct w2c_hulk*, u32 pk)
 {
+    GS_SCOPE(kGsDraw);
     flush();
     DrawPacket p;
     packet(MT<const WDrawPacket>(pk), &p);
+    gs_draw(p);
     if (interp_recording())
         return interp_draw(p);
     rm::submitDraw(p);
@@ -598,16 +615,19 @@ void w2c_hulk_gfx_combiner_stats(struct w2c_hulk*, u32 a, u32 b, u32 c)
 u32 w2c_hulk_gfx_fx_resources(struct w2c_hulk*) { flush(); return hulk_gfx_sink_fx_resources(); }
 void w2c_hulk_gfx_fx_draw(struct w2c_hulk*, u32 p)
 {
+    GS_SCOPE(kGsDraw);
     flush();
     FxPacket fx = *MT<const FxPacket>(p);
     for (int i = 0; i < 4; i++)
         fx.texture[i] = hostTexture(fx.texture[i]);
+    gs_fx();
     if (interp_recording())
         return interp_fx(fx);
     hulk_gfx_sink_fx_draw(&fx);
 }
 u32 w2c_hulk_gfx_query_result(struct w2c_hulk*, u32 q, u32 pixels)
 {
+    GS_SCOPE(kGsOther);
     uint32_t id = hostId(q);
     if (id == kSinkNone)
         return kQueryPending;
@@ -623,6 +643,7 @@ u32 w2c_hulk_gfx_query_result(struct w2c_hulk*, u32 q, u32 pixels)
 }
 void w2c_hulk_gfx_present(struct w2c_hulk*, u32 p)
 {
+    GS_SCOPE(kGsPresent);
     flush();
     SinkPresent pr = *MT<const SinkPresent>(p);
     if ((pr.windowWidth != s_winW || pr.windowHeight != s_winH) && s_rrMode == 0)
@@ -637,6 +658,8 @@ void w2c_hulk_gfx_present(struct w2c_hulk*, u32 p)
 }
 void w2c_hulk_gfx_frame(struct w2c_hulk*)
 {
+    gs_frame_end();
+    GS_SCOPE(kGsFrame);
     flush();
     texpack_frame();
     if (!interp_frame()) {

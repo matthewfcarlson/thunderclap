@@ -22,6 +22,7 @@
 #include "pddi/bgfx_bridge.h"
 #include "interp.h"
 #include "rm_pass.h"
+#include "gfxstats.h"
 
 using namespace hulk::pddi;
 
@@ -539,14 +540,22 @@ int64_t nsNow()
 }
 void waitUntil(int64_t ns)
 {
+    int64_t spin = 0;
+    bool waited = false;
     for (;;) {
-        int64_t d = ns - nsNow();
-        if (d <= 0)
+        int64_t now = nsNow(), d = ns - now;
+        if (d <= 0) {
+            if (waited && gs_enabled())
+                gs_wait(-d, spin);          // (HULK_GFX_STATS: how late the wait woke, how long it yielded)
             return;
-        if (d > 2000000)
+        }
+        waited = true;
+        if (d > 2000000) {
             usleep((useconds_t)((d - 1000000) / 1000));
-        else
+        } else {
             sched_yield();
+            spin += nsNow() - now;
+        }
     }
 }
 

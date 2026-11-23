@@ -3181,3 +3181,18 @@ draws gives in-between frames with no tree change and no path back into the game
   load after a summary under heap pressure from a remastered setting (wider aspect or Far draw distance loading or
   keeping more) would hang the same way: sample the hung process and look for 0x8d320. (The texture pack and MSAA
   live in the runner, not the game heap.) wskip1's free run passes summary -> save -> continue on the current build.
+
+## 2026-11-22 wprof1: a profile of the macOS app (draw calls, uploads, pacing)
+
+- The user's hypotheses (no draw batching, vertex data re-uploaded) do not hold where it matters: prim buffers are
+  uploaded once at their first draw after a change (0-0.8 vertex buffer uploads an update in gameplay, ~8 KB; static
+  world geometry and skinned meshes never again), and 90-360 draws an update cost ~1-2 us each to encode on Metal.
+  Only 3-6 consecutive draws an update could merge; 20-130 differ only in their vertex constants (instancing).
+- The remastered defaults (1080p, 60 fps by interpolation, the pack) take ~3 ms an update unpaced: the game in the
+  module 43% of the main thread (x87 helpers 7.7%, ff_dispatch 4.6%), bgfx Metal encoding 25%, GPU wait 10%, interp
+  9%, bgfx Metal's per-frame transient MTLBuffer (newBufferWithBytes + blit) 4.6%. Paced at 60: ~15% of a core.
+- interp.cpp's pacing wait yields for the tail of each wait; timers wake 1-2 ms late under load. A mach_wait_until
+  version spun less but woke later on a loaded laptop (load ~35): kept as it is until measured idle (docs/wasm-port.md
+  "Profile").
+- A scripted `HULK_INPUT` run parses the script with sscanf every frame (host/frame.c; ~1% of a fast run): test-only.
+- `HULK_GFX_STATS=N` (run/app/gfxstats.cpp) logs the counts; docs/wasm-port.md "Profile (wprof1)".

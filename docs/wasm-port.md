@@ -542,6 +542,40 @@ faithful value off, remastered-only) and each a pass of the runner, so they carr
 - `HULK_RM_LOG=1`: the GPU and render-thread time a frame and the draw count every 300 frames, and each render target
   the game makes.
 
+### Profile (wprof1)
+
+Where the app's time goes (2026-11-22; a laptop, hidden Metal window, the scripted run plus first-mission movement;
+`sample` of the main thread and `HULK_GFX_STATS`). The app is far from any limit: the faithful build's gameplay
+update takes 1-2 ms unpaced (the presents are paced at 30), the remastered defaults' (1920x1080, 60 fps by
+interpolation, Far, the pack) about 3 ms for an update and its two presents. Paced at 60 the process uses ~15% of one
+core and the main thread is asleep ~89% of the time.
+
+- **Draws**: 90-360 an update in gameplay (30-62k primitives, 12 passes, 7 effect quads), 20-30 in the front end.
+  Consecutive draws that could merge (same program, state, textures, constants and source): 3-6 an update. Draws
+  differing only in their vertex constants (instancing candidates): 20-130. On Metal a draw costs ~1-2 us of encoding:
+  batching or instancing would save at most ~0.2 ms a present.
+- **Uploads**: prim buffers are made once, at their first draw after a change (bgfxPrimBuffer::prepare; static bgfx
+  buffers, dynamic once rewritten): 0-0.8 vertex buffer uploads an update in gameplay (~8 KB), none for static world
+  geometry or skinned meshes (skinning runs in the vertex program). Transient vertices (prim streams: text, HUD,
+  particles): ~5,000 an update (~400 KB at 80 bytes a SinkVertex). Textures: none in steady gameplay; a playing movie
+  uploads its frame (0.8-1.2 MB) each frame.
+- **Main thread, remastered, unpaced** (share of samples): game update and scene traversal in the module 43% (the x87
+  helpers 7.7%, ff_dispatch's indirect calls 4.6%, World::Render's subtree 12%), bgfx's Metal encoding 25%, waiting
+  for the GPU 10%, interp.cpp's own work 9% (copies of constants and transient vertices, matching), bgfx Metal's
+  transient buffer (a new MTLBuffer and a blit of the frame's transient vertices every bgfx frame) 4.6%, the mixer
+  3%, the pddi front end's own code 3%, the sink imports 2%. GPU 1.5-1.8 ms a frame at 1920x1080 (0.5-0.8 at 640x480).
+- **Pacing waits** (interp.cpp waitUntil: usleep to 1 ms before the deadline, then yields): the timers wake 1-2 ms late
+  under load; the yield loop costs 0.2-0.7 ms of CPU an update at 60 and up to 7-9 ms at 120 on a loaded machine.
+  A mach_wait_until variant cut the yielding to 0.1-0.5 ms but woke later (median 1.7 vs 1.0 ms at 60, load ~35):
+  not landed; measure on an idle machine and with the bundle's user-interactive QoS before changing it.
+- `HULK_GFX_STATS=N` (run/app/gfxstats.cpp; app runner only, nothing when unset) logs every N updates: wall time an
+  update and the time in the sink imports by kind, bgfx's CPU / GPU / wait times, draws (transient, indexed, queries,
+  bgfx's count), primitives, mergeable / constants-only neighbours and distinct buffer-draw groups, state changes,
+  passes, uniform bytes, transient vertices, buffer and texture uploads (and repeats of a vid within the window), bgfx's
+  buffer counts and texture / target memory, and the pacing waits (late p50 / p99 / max, yielding). Draws and uploads
+  are counted at the sink imports (an update's own draws), not at interp's re-submits; turning it on hashes every
+  draw's constants (~1 us a draw).
+
 ### Movies (wmov1; hold to skip: D231)
 
 The game's Bink movies (the start-up logos, the attract loop, the cut-scenes) play with picture and sound in the app.
