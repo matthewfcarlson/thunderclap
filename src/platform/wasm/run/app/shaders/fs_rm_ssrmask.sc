@@ -12,6 +12,7 @@ $input v_pxbase, v_pxspec, v_fog, v_texcoord0, v_texcoord1, v_texcoord2, v_texco
 // Output (RGBA16F): xy the normal (octahedral), z the strength (0: not reflective), w the Fresnel class + roughness / 2
 // (class 0 glass and stone F0 0.04, 1 wet ground, 2 metal-like; the composite's u_rmSsr4.zw / 0.5).
 #include <bgfx_shader.sh>
+#include "rm_grass.sh"
 
 SAMPLER2D(s_pddiTex0, 0);
 uniform vec4 u_pddiFrag[16];
@@ -71,11 +72,11 @@ void main()
         strength = u_rmSsrMat.z;
         cls = 1.0;
         n = f;                                      // (the ground: the flat face, a puddle)
-        // grass and leaves (green over red and blue, texture x baked colour) stay matt: no mirrored tree trunks
-        vec3 c = t.rgb * v_pxbase.rgb;
-        float green = smoothstep(0.01, 0.05, c.g - max(c.r, c.b));
-        strength *= 1.0 - 0.85 * green;
-        rough = mix(rough, 0.7, green);
+        // grass and leaves stay matte (wgrass1: no reflection at all): rm_grass.sh's test on the texture, and on the
+        // texture x baked colour (a night tint or a green vertex colour), whichever reads more as grass
+        float green = max(rmGrassiness(t.rgb), rmGrassiness(t.rgb * v_pxbase.rgb));
+        strength *= 1.0 - green;
+        rough = mix(rough, 1.0, green);
     }
     gl_FragColor = vec4(octEncode(n), strength, cls + min(saturate(rough), 0.99) * 0.5);
 }

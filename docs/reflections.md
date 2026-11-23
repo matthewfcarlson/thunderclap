@@ -19,7 +19,7 @@ normals, and only two materials that reflect at all, `layeredReflect` (buildings
 | surface | how it is found | strength | Fresnel F0 | roughness |
 |---|---|---|---|---|
 | wet ground: streets, pavements, roofs | a room draw (unlit fixed function, shader kind 1/2, modelview = the view) whose face is within ~32 degrees of level (world up from the view) | 1 at night, 0 by day | 0.15 | 0.1 (0.3 by day) |
-| grass and leaves on the ground | the same, where texture x baked colour is green over red and blue | 0.15 of the above | 0.15 | 0.7 |
+| grass and leaves on the ground | the same, where the texture (or texture x baked colour) reads as grass by shaders/rm_grass.sh (wgrass1: chromaticity, so dark night lawns and olive or brownish grass count; sand, dirt and asphalt do not) | 0 (matte) | | |
 | building glass | shader kind 2 (`layeredReflect`) where stage 0's alpha is 0 (the game's own glass mask, the one wlook0's Windows use) | 0.8 | 0.04 | 0.03 |
 | building facades | the same where the alpha is 1 | 0.2 | 0.04 | 0.4 |
 | environment-mapped objects | shader kind 3 (`environment`) | 0.8 | 0.5 | 0.06 |
@@ -102,7 +102,7 @@ if (rm::ssrResult(&r)) {    // traced this frame (from the composite, at the fra
 
 In the night city the streets, pavements and roofs read as wet: the lit windows of the buildings, the taxis and other
 cars, people, the street lamps and their halos, the Hulk and the glowing pickups are mirrored in them, blurred a little
-and strongest towards the distance (Fresnel), and grass stays matt. The windows of `layeredReflect`
+and strongest towards the distance (Fresnel), and grass stays matte (wgrass1: no reflection at all on lawns, also the dark night ones the first test missed). The windows of `layeredReflect`
 buildings (with Windows: Interiors, over the rooms behind them) pick up the street and the buildings across it, most
 at grazing angles; the facades between them only faintly. Steep views down from a roof show little (Fresnel is low
 head-on, as it should be), and the reflections end where the reflected thing leaves the screen. By day (the desert
