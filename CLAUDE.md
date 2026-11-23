@@ -625,6 +625,13 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   resubmitted with `hulk_gfx_sink_submit_draw` from a draw hook runs before the lighting pass's hook (order < 10).
   A queue submit from a private workspace can start the queue daemon from that workspace's tools when none runs: check
   `pgrep -fl "jobq.py daemon"` first (the lead restarts it from the main checkout).
+  Destruction (wdest0, docs/destruction.md): only smart props break (`CSPHulkPropInstance`+0x108 health, `FUN_001d6ec0`
+  damage, `FUN_001d7d50` transition 13 at 0); room geometry and collision never change (world hits are decals via
+  `FUN_001f6cd0` -> Lua `Damage_<type>_<material>`); prop damage is forgotten on room unload (`FUN_001e73b0`) and the
+  save holds none. Ground height is `FUN_00202560` / `FUN_00201f20` (cached at character +0x1EA8): wrap those for crater
+  collision and clear the caches. Remastered destruction or terrain state that affects play lives in `hulk_game_state` or
+  the arena, computed in the module and seeded from game state (never `math.random` or the game's RNG); visual-only
+  fracture and debris stay in the runner and are rebuilt after a restore.
   Build id (wver1): apps and APKs carry the short commit (`+dirty` for local builds with uncommitted host files or tools,
   `+N` for N queue overlay files): stdout `hulk-app: build <id>`, the window title, Info.plist, the APK's versionName and
   SetupActivity. `wasm_app.py build` writes it from HULK_BUILD_ID (wasm_build_run.py sets it) or git into
