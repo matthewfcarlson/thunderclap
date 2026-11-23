@@ -3153,3 +3153,31 @@ draws gives in-between frames with no tree change and no path back into the game
   (and1); `run-as` copies work on debug builds.
 - Emulator speed (swiftshader, laptop under load 35): ~260 frames/s headless, 5-20 frames/s rendered at 2400x1080;
   not representative of a device GPU.
+
+## 2026-11-22 whang1: the app's saves without a save folder; a hang after a mission summary (tabled)
+
+- **Save folder.** `hulk_app_start` (run/app/start.cpp) returned early when the game came from the command line
+  (argv, HULK_XBE, HULK_DATA_DIR) before it set HULK_SAVE_DIR, so xapi.c fell back to `build/wasm/save` under the
+  working directory: a played launch from the repo saved there, one through `open ... --args` (working directory /)
+  had no writable folder. With an unwritable folder play3 stalls at the level-1 summary (GS_PAUSE at 8718, never
+  POSTGAME): the game polls XFindFirstSaveGame and GetDiskFreeSpaceExA for a save that never succeeds. Now every
+  interactive run saves in `<app dir>/save` (an explicit HULK_SAVE_DIR still wins); a scripted or test run (HULK_INPUT,
+  HULK_KEY_SCRIPT, HULK_INPUT_SOURCE, HULK_CKPT, HULK_ROLLTEST, HULK_NO_UI) never defaults to it (run-local
+  `build/wasm/save` unless HULK_SAVE_DIR) and exits 2 on a HULK_SAVE_DIR inside ~/Library/Application Support/HulkUD
+  unless HULK_APP_DIR is set, so tests never touch the player's saves; the app prints where it saves, and xapi.c
+  warns once when the save folder can't be made.
+- **The reported hang (tabled by the user).** The user's session (launched from the repo, so its saves are in
+  build/wasm/save) got past level 1: four saves, one per mission summary (the folder is a hash of the save's name, the
+  mission; each save empties the previous folder): 19:15 (level 1, the folder play3 makes at 8718), 19:20, 19:25, and
+  "Need-To-Know" at 19:31 (complete). The hang came after that summary and its save. Ruled out with play3 (it passes
+  every summary to 60,000): every remastered setting pinned, null and Metal (aspect 4:3 and Window at 4:3), the texture
+  pack, lockstep I/O off. Not covered by play3: 16:9 (changes the simulation, D234), the free-play movie and audio
+  paths (off in replays; play3 is recorded with no-fmv, so no FMV ever plays in it). From a copy of the user's save
+  a free run (Metal hidden, the user's settings) loads into gameplay: Continue Game, the Church menu, Return to
+  Gameplay, "Press START" (A works too). Free runs can't follow play3's input: free play plays the level-start FMV and
+  an unskippable ~3,300-frame in-engine intro. Scripts and the way back in: build/whang1/RESUME.md.
+  First thing to check when it comes back (lead, from wskip1): the game's out-of-memory loop FUN_0008d320 spins
+  forever when the streaming code can't get a temp heap (wskip1 hit it by jumping c00m02's script state early); a
+  load after a summary under heap pressure from a remastered setting (wider aspect or Far draw distance loading or
+  keeping more) would hang the same way: sample the hung process and look for 0x8d320. (The texture pack and MSAA
+  live in the runner, not the game heap.) wskip1's free run passes summary -> save -> continue on the current build.

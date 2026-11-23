@@ -307,6 +307,15 @@ side holds (GPU objects, the window, the audio device) is derived from linear me
   `HULK_SAVE_DIR` inside ~/Library/Application Support/HulkUD exits 2 unless the test set `HULK_APP_DIR` (its own
   app folder). An explicit `HULK_SAVE_DIR` wins for interactive launches too. The app prints where it saves
   (`hulk-app: saves in ...`), and the host warns once when the save folder can't be made.
+- **Saves** (whang1): only an interactive launch (none of the variables below) saves in the player's folder,
+  `<app dir>/save`, also when the game is given on the command line (before, such a launch skipped it and saved in
+  `build/wasm/save` under the working directory: nowhere writable under `open`, and the game then waits at a mission's
+  summary for a save that never succeeds). A scripted, automated or test run (`HULK_INPUT`, `HULK_KEY_SCRIPT`,
+  `HULK_INPUT_SOURCE` (replays, `native_replay.py`), `HULK_CKPT`, `HULK_ROLLTEST`, `HULK_NO_UI`) never defaults to it:
+  it saves in `HULK_SAVE_DIR`, else the host's run-local `build/wasm/save` under its working directory, and a
+  `HULK_SAVE_DIR` inside ~/Library/Application Support/HulkUD exits 2 unless the test set `HULK_APP_DIR` (its own
+  app folder). An explicit `HULK_SAVE_DIR` wins for interactive launches too. The app prints where it saves
+  (`hulk-app: saves in ...`), and the host warns once when the save folder can't be made.
 - **Building from a clean state** (wapp2): inputs at the commit being built (`tools/wasm_inputs.py submit`, then
   `fetch ID`), then `HULK_WASM_SNAP=.../snap HULK_WASM_BINDINGS=.../bindings.json tools/wasm_app.py build --jobs 2`
   (every TU on a first build: about 8 minutes on 2 local jobs) and `wasm_app.py bundle`. The build directory records

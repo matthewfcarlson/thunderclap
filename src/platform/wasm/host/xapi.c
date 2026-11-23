@@ -76,6 +76,11 @@ int ff_host_path(const char* game, char* out, size_t cap) {
         snprintf(out, cap, "%s/%c", save_dir(), drive);
         hio_mkdir(save_dir());
         hio_mkdir(out);
+        static int warned;   /* whang1: a save folder that can't be made stalls the game at its next save */
+        if (!warned && hio_kind(out) != HIO_DIR) {
+            warned = 1;
+            fprintf(stderr, "hulk: the save folder %s can't be made: saving will fail (set HULK_SAVE_DIR)\n", out);
+        }
     } else return 0;
     const char* p = game + 2;
     char comp[256];

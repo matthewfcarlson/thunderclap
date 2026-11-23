@@ -18,10 +18,12 @@
 // The check reads the player's file at run time: an XBE header ("XBEH") whose certificate carries the game's title
 // ID, and rcfs.txt with every archive it lists. Nothing of the game is in this source but that ID.
 #include <dlfcn.h>
+#include <limits.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 #include <sys/stat.h>
 #include <unistd.h>
 
@@ -226,6 +228,42 @@ static bool chooseGame(char* dir, size_t len, const char* firstError)
     return chosen;
 }
 
+// A run that is not the player at the controls: test input, a replay, checkpoints, a rollback test, no UI (whang1)
+static bool scriptedRun()
+{
+    const char* e = getenv("HULK_NO_UI");
+    if (e && *e && strcmp(e, "0")) return true;
+    return getenv("HULK_INPUT") || getenv("HULK_KEY_SCRIPT") || getenv("HULK_INPUT_SOURCE") || getenv("HULK_CKPT") ||
+           getenv("HULK_ROLLTEST");
+}
+
+// PATH is in (or is) the player's default app folder, ~/Library/Application Support/HulkUD (whang1)
+static bool inPlayerFolder(const char* path)
+{
+    const char* home = getenv("HOME");
+    if (!home || !*home) return false;
+    char def[1100], a[PATH_MAX], b[PATH_MAX];
+    snprintf(def, sizeof def, "%s/Library/Application Support/HulkUD", home);
+    const char* d = realpath(def, a) ? a : def;
+    // the save folder may not exist yet: resolve its longest existing parent
+    char p[PATH_MAX];
+    snprintf(p, sizeof p, "%s", path);
+    const char* q = 0;
+    char rest[PATH_MAX] = "";
+    while (!(q = realpath(p, b))) {
+        char* slash = strrchr(p, '/');
+        if (!slash || slash == p) break;
+        char tmp[PATH_MAX];
+        snprintf(tmp, sizeof tmp, "%s%s", slash, rest);
+        snprintf(rest, sizeof rest, "%s", tmp);
+        *slash = 0;
+    }
+    char full[PATH_MAX * 2];
+    snprintf(full, sizeof full, "%s%s", q ? q : path, q ? rest : "");
+    size_t n = strlen(d);
+    return !strncasecmp(full, d, n) && (full[n] == 0 || full[n] == '/');
+}
+
 // HULK_GFX_RENDERER: metal (the app's default) | noop | null (the game's own d3d layer on the null device: the
 // headless build's run, for the replay check). Then the game, as above. Consumes `--choose-game` from argv.
 extern "C" void hulk_app_start(int* argc, char** argv)
@@ -237,6 +275,39 @@ extern "C" void hulk_app_start(int* argc, char** argv)
         for (int i = 1; i < *argc; i++) argv[i] = argv[i + 1];
         (*argc)--;
     }
+    char app[1024], path[1200];
+    const char* home = getenv("HOME");
+    if (getenv("HULK_APP_DIR") && *getenv("HULK_APP_DIR"))
+        snprintf(app, sizeof app, "%s", getenv("HULK_APP_DIR"));
+    else if (home)
+        snprintf(app, sizeof app, "%s/Library/Application Support/HulkUD", home);
+    else
+        app[0] = 0;
+    // The saves (whang1). Only an interactive launch (no script, test or replay variable) saves in the player's
+    // folder, <app dir>/save, also when the game comes from the command line. A scripted, automated or test run
+    // (HULK_INPUT, HULK_KEY_SCRIPT, HULK_INPUT_SOURCE, HULK_CKPT, HULK_ROLLTEST, HULK_NO_UI) never defaults to it:
+    // it keeps a run-local folder (HULK_SAVE_DIR, else build/wasm/save under the working directory), and a
+    // HULK_SAVE_DIR inside the player's default folder (~/Library/Application Support/HulkUD) is refused unless the
+    // test set HULK_APP_DIR. Before this, a game given on the command line skipped this, and a launch with `open`
+    // (working directory /) had no writable save folder: the game then waits at a mission's summary for a save that
+    // never succeeds.
+    if (scriptedRun()) {
+        const char* sd = getenv("HULK_SAVE_DIR");   // (unset: the host's default; not set here, so the module's
+        if (sd && *sd &&                           // environment and its C library's heap bytes stay as they were)
+            !(getenv("HULK_APP_DIR") && *getenv("HULK_APP_DIR")) && inPlayerFolder(sd)) {
+            fprintf(stderr, "hulk-app: a scripted run may not save in the player's folder (%s): set another "
+                            "HULK_SAVE_DIR, or HULK_APP_DIR for a test's own app folder\n", sd);
+            exit(2);
+        }
+    } else if (app[0]) {
+        mkdir(app, 0755);
+        snprintf(path, sizeof path, "%s/save", app);
+        mkdir(path, 0755);
+        setenv("HULK_SAVE_DIR", path, 0);
+    }
+    const char* saves = getenv("HULK_SAVE_DIR");
+    fprintf(stderr, "hulk-app: saves in %s\n", saves && *saves ? saves : "build/wasm/save (the working directory's)");
+
     if (*argc > 1 || getenv("HULK_XBE"))           // 1. the command line (the runner takes argv[1] first)
         return;
     const char* dataDir = getenv("HULK_DATA_DIR");
@@ -246,21 +317,10 @@ extern "C" void hulk_app_start(int* argc, char** argv)
         setenv("HULK_XBE", p, 1);
         return;
     }
-
-    char app[1024], path[1200];
-    const char* home = getenv("HOME");
-    if (getenv("HULK_APP_DIR") && *getenv("HULK_APP_DIR"))
-        snprintf(app, sizeof app, "%s", getenv("HULK_APP_DIR"));
-    else if (home)
-        snprintf(app, sizeof app, "%s/Library/Application Support/HulkUD", home);
-    else {
+    if (!app[0]) {
         fprintf(stderr, "hulk-app: no HOME: pass the game's default.xbe\n");
         exit(2);
     }
-    mkdir(app, 0755);
-    snprintf(path, sizeof path, "%s/save", app);
-    mkdir(path, 0755);
-    setenv("HULK_SAVE_DIR", path, 0);
     char remembered[1100];
     snprintf(path, sizeof path, "%s/game.txt", app);
     readRemembered(path, remembered, sizeof remembered);
