@@ -591,6 +591,12 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   bundle`) hold baked BC1/BC3/BGRA8 with mips. Packs, AV1 movies, .hulkpack files and bundles are derived content: build/
   only. Movies decode only with a real renderer outside replays: check movie changes with a Metal free run
   (`HULK_GFX_HIDDEN=1 HULK_MOVIE_LOG=1`), not play3.
+  A disc pack can carry a texture pack (`disc_pack.py build SRC OUT --texpack F.hulkpack`; a pack as SRC keeps its AV1
+  movies and texture packs); the app lists it whenever the game comes from that pack. The Android deliverable is a normal
+  APK plus one such .hulkdisc picked in SetupActivity (the picker grants only the picked file). Android FFmpeg plays AV1
+  (dav1d 1.5.1, BSD, static in libavcodec; Opus needs `--enable-swresample`; the build needs `build/venv/bin/pip install
+  meson pkgconf`). `native_replay.py run` reads isos/extracted unless `--data PACK` is given. The emulator's Vulkan is
+  llvmpipe (it has BC); bgfx decodes BC to BGRA8 where a device lacks it (Mali) (wapk1).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
