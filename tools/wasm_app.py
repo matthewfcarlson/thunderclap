@@ -105,6 +105,8 @@ def inputs_stamp(e):
             raise SystemExit("no %s: point HULK_WASM_SNAP / HULK_WASM_BINDINGS at tools/wasm_inputs.py's output" % p)
     return {"snap": _digest_tree(snap), "bindings": _digest_file(bind),
             "tools": {t: _digest_file(os.path.join(ROOT, "tools", t)) for t in ("wasm_port.py", "wasm_ir.py")},
+            # (wbuild1) the replay hooks wasm_port places at bind time in every TU they name
+            "hooks": _digest_file(os.path.join(ROOT, "src/platform/sdl/host/native_hooks.h")),
             "knobs": {k: e.get(k) for k in KNOBS}}
 
 

@@ -41,7 +41,7 @@ PIDF = os.path.join(JOBS, "daemon.pid")
 DLOG = os.path.join(JOBS, "daemon.log")
 HOSTS_STATE = os.path.join(JOBS, "hosts-state.json")
 BASE_PATHS = ["tools", "include", "tests", "config", "src"]   # (bink2) src too: tools read src/platform/sdl/crt/*.h; the hosts' own src snapshots were stale or missing
-NEEDS = ["any", "equiv", "msvc", "clang", "wine", "wine-gfx", "xemu", "linux-x64"]   # (linux-x64: x86-64 Linux hosts, native replays; flt1)
+NEEDS = ["any", "equiv", "msvc", "clang", "wine", "wine-gfx", "xemu", "linux-x64", "wasm"]   # (linux-x64: x86-64 Linux hosts, native replays; flt1; wasm: wasm/app builds, tools/wasm_build_job.py, wbuild1)
 TERMINAL = ("done", "failed", "gaveup", "cancelled")
 SSH = ["ssh", "-o", "ConnectTimeout=20", "-o", "ServerAliveInterval=20", "-o", "ServerAliveCountMax=3",
        "-o", "BatchMode=yes"]

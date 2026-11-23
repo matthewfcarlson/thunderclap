@@ -3234,3 +3234,23 @@ draws gives in-between frames with no tree change and no path back into the game
   hot probes (matrix functions) need `--replay-timeout` well above the 300 s default. A wasm entry hook does not see calls
   made inside the defining TU, even at -O0 (HULK_WASM_OPT_EXCLUDE): for those, compile `ffh_<name>` debug calls into a
   private snapshot copy, which link against the hook host file.
+
+## 2026-11-22: wasm builds and tests on the queue (wbuild1)
+
+- `tools/wasm_build_job.py` (host side `tools/wasm_build_run.py`) builds the headless hulk-aot or the app (and
+  Hulk.app) on mac2 / studio (new `wasm` cap) and runs play3 / rolltest / input tests there, alone or against a control
+  on the same host (docs/compute.md "Wasm builds and tests"). Cold builds take 80-100 s on 8 slots against 21-24 min
+  on the loaded laptop; a warm app rebuild 29 s; play3 to 60,000 frames 70 s.
+- The toolchain is the laptop's own Homebrew Emscripten copied to ~/hulk-jobs/wasm/tc and used `FROZEN_CACHE`, so the
+  C library in the module is the same bytes; records of the same commit built remotely and locally are byte-identical
+  (headless 2,500 frames, app with null 3,000). emcc's link of the standalone module still runs node
+  (`compiler.mjs --symbols-only`): the hosts take nodejs.org's own build (Homebrew's node links ~20 Homebrew dylibs).
+- Free-run game hashes depend on the run's directories (save / data paths are game state): the same executable run
+  twice in different directories differs from frame 310 (just after the START press); in the same directory it is
+  identical. The tests run every role in one directory.
+- The app also needs bimg's 3rdparty/stb (texpack.cpp includes stb_image by a path relative to bimg/include).
+- mac1 has no Command Line Tools (no xcrun, no SDK): it cannot build or link the runner; it stays without `wasm`.
+- A Metal device works over ssh on mac2 and studio with `HULK_GFX_HIDDEN=1` (both have a console login).
+- wasm_app.py's app-inputs.json now also covers src/platform/sdl/host/native_hooks.h (the replay hooks wasm_port
+  places in the TUs they name at bind time): a hooks edit used to relink stale objects. Existing build dirs compile
+  every TU once.

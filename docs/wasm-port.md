@@ -329,6 +329,31 @@ side holds (GPU objects, the window, the audio device) is derived from linear me
   call it with `ff_call`, never through a C function pointer (wapp2: the first window resize trapped with "Invalid
   call_indirect").
 
+### Build the app on the queue (wbuild1)
+
+Build and test on a queue host instead of this laptop: `tools/wasm_build_job.py` (docs/compute.md "Wasm builds and
+tests" has the details: sources, inputs, the host's toolchain and cache, timings).
+
+```sh
+J=build/venv/bin/python; W=tools/wasm_build_job.py
+id=$($J $W submit --name ME --target app --bundle --workspace build/ME/ws --test play3:2000)   # or --target aot
+$J $W wait $id && $J $W fetch $id --dest build/ME/app     # hulk-app, Hulk.app, tests/play3-2000/cand/...
+id=$($J $W test --name ME --exe CANDIDATE_JOB --control CONTROL_JOB --test play3:60000 --test rolltest:900:2500)
+```
+
+- The default build is HEAD's; ship host edits with `--workspace DIR` (a private workspace: its files that differ from
+  HEAD), `--files` or `--dirty`. Tree edits need `--inputs make` (the job makes the wasm inputs from its own sources;
+  otherwise it takes fetched `wasm_inputs.py` inputs of HEAD's tree).
+- The host's build directory is per lineage (NAME-TARGET) and keeps wasm_port's front-end IR and app-inputs.json, so
+  the second build of the same inputs relinks only (the hooked TUs for the app).
+- `--test play3:N` replays play3 (the app with `HULK_GFX_RENDERER=null`) and checks against build/ckpt/play3.ckref;
+  `rolltest:A:B` and `input:N[:EVERY]` are free runs with the START/A script (`--test-env HULK_INPUT=...`,
+  `HULK_SETTINGS=...`). `--control` runs the same tests on a second executable on the same host and compares (play3:
+  records against the control's, and the reference gate with the control's divergences allowed; input: game hashes
+  frame by frame, which only agree between builds whose module data is laid out alike, e.g. two app builds).
+- Metal: `--test-env HULK_GFX_RENDERER=metal --test-env HULK_GFX_HIDDEN=1` runs the app with Metal and a hidden
+  window on mac2 and studio (over ssh); free play is paced, so such a run takes real time (30 frames/s).
+
 ### The frame-rate option (fps1, D224)
 
 The user's decision D224: 60 fps is a menu toggle in the game's own options, 30 (the original) by default.

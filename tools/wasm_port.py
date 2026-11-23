@@ -1836,7 +1836,9 @@ def ffmpeg_flags():
     for p in (os.environ.get("HULK_FFMPEG_PREFIX"), "/opt/homebrew/opt/ffmpeg", "/usr/local/opt/ffmpeg"):
         if p and os.path.exists(os.path.join(p, "include/libavformat/avformat.h")):
             return ["-DHULK_HAVE_FFMPEG=1", "-I" + os.path.join(p, "include"),
-                    '-DHULK_FFMPEG_LIBDIR="%s"' % os.path.join(p, "lib")]
+                    # (wbuild1) HULK_FFMPEG_LIBDIR: where the app loads the libraries at run time, when it is built
+                    # elsewhere (a queue host: the headers come from the shipped inputs, the libraries are the player's)
+                    '-DHULK_FFMPEG_LIBDIR="%s"' % (os.environ.get("HULK_FFMPEG_LIBDIR") or os.path.join(p, "lib"))]
     print("aot --app: no FFmpeg headers (brew install ffmpeg, or HULK_FFMPEG_PREFIX): the app's movies play black")
     return []
 

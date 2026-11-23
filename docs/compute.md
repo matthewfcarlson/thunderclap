@@ -53,6 +53,7 @@ is appended as results arrive and addresses already in it are skipped (rerun to 
 | `wine` | mac2, mac1 (headless Wine replays; `wine64` in argv0 is expanded to the host's Whisky Wine: the app's copy on the laptop, `~/wine-whisky` on the Macs) |
 | `wine-gfx` | laptop only (a Wine run that draws through MoltenVK; see Wine replays) |
 | `xemu` | mac2 and the Mac Studio (`studio`), one at a time on each, never the laptop |
+| `wasm` | mac2 and studio (wasm builds and their tests: `tools/wasm_build_job.py`, "Wasm builds and tests" below) |
 
 Hosts and capabilities: `build/jobs/hosts.json` (untracked: it holds user and host names; created from
 `build/agent-tools/hosts.json` on first use; fields `slots`, `caps`, `pref` (lower is preferred), `path`, `xemu_max`,
@@ -361,6 +362,92 @@ $J $N sync | lineages   # inputs on the hosts (submit does it) | lineage workspa
 - **Generic queue fields (jq3).** `jobq.make_job(..., prep=ARGV, affinity=HOST, affinity_wait=S)`, and `jobq.py submit
   --affinity HOST --affinity-wait S`. `prep` runs on the laptop in the checkout before each attempt with `{host}` replaced;
   a non-zero exit is an infrastructure failure (requeued, `--attempts` applies).
+
+## Wasm builds and tests
+
+`tools/wasm_build_job.py` builds the wasm port (the headless `hulk-aot`, or the macOS app `hulk-app` and its
+`Hulk.app`) as one queue job on a remote Mac with the `wasm` capability, and runs tests on what it built (play3
+replays against the original's records, `HULK_ROLLTEST` round trips, scripted `HULK_INPUT` runs), alone or against a
+control executable on the same host. It takes the laptop's wasm builds (wasm_port.py compile of ~2,520 TUs, wasm2c,
+the app link) off the laptop (wbuild1, 11-22).
+
+```sh
+J=build/venv/bin/python; W=tools/wasm_build_job.py
+id=$($J $W submit --name ME --target app [--bundle] [--workspace DIR | --dirty | --files P ...] \
+     [--inputs auto|make|JOB|FILE.tgz|DIR] [--env HULK_WASM_OPT=O0 ...] [--test play3:2000 ...] [--control EXE|JOB])
+$J $W wait $id                    # the summary: steps and times, compile decision, test verdicts
+$J $W fetch $id [--dest build/ME/app]    # moves wb-out/ (hulk-app, Hulk.app, link.json, tests/...) there
+id=$($J $W test --name ME --exe JOB|PATH [--control JOB|PATH] --test play3:60000 --test rolltest:900:2500 \
+     --test input:8000:10 [--test-env HULK_SETTINGS=...])    # tests only: a candidate and its control on one host
+$J $W setup [--host H]            # toolchain and inputs onto the wasm hosts (prep does it at dispatch too)
+$J $W hosts                       # what each wasm host holds
+```
+
+- **Sources.** The base is `git archive HEAD`; by default nothing else travels (the build is HEAD's). `--workspace DIR`
+  ships what a private workspace changes against HEAD (and deletes what it lacks), `--dirty` this checkout's modified
+  and untracked files (other lanes' too), `--files` named paths. Host code and tools come from the job's sources; the
+  game's TUs from the wasm inputs.
+- **Wasm inputs.** `auto` (default) takes a fetched `tools/wasm_inputs.py` tarball (build/jobs/out/*/wasm-in.tgz) or
+  directory (build/wasm-inputs/C12) whose commit has HEAD's tree (include, src/game, src/engine, src/platform/xbox,
+  link order, config and the input tools unchanged), else makes them in the job (`make`, ~11 min more on 8 slots).
+  An overlay that touches the tree needs `--inputs make` (or `--tree-ok`): built from other inputs the edit would be
+  silently ignored, so submit refuses.
+- **On the host.** The job runs `wbrun/wasm_build_run.py` (tools/wasm_build_run.py, shipped with the job). The run
+  directory's `build` becomes a directory of links to the host checkout's build/ with `third_party`, `functions.csv`,
+  `ckpt` and `rp1` taken from the job's inputs, so nothing is written into the host's shared build/. The build
+  directory is the lineage `~/hulk-jobs/wasm/ws/LINEAGE/out` (default lineage NAME-TARGET; one job at a time, a flock;
+  the 8 most recently used kept): wasm_port's front-end IR is keyed by content and wasm_app's app-inputs.json stamp
+  (snapshot, binding map, wasm_port/wasm_ir, native_hooks.h, knobs) decides whether every TU compiles again (the
+  headless target uses the same stamp), so a rebuild with the same inputs only binds what it must and relinks.
+  Stale IR is pruned after each full compile. The lineage lock is released before the tests, which run on the
+  copy in wb-out with one slot (`.jq-slots`).
+- **Toolchain** (`~/hulk-jobs/wasm/tc/`): copies of the laptop's Homebrew Emscripten (its own LLVM, Binaryen and the
+  prebuilt system libraries, configured `FROZEN_CACHE`, so a module links the same C library bytes as a local build;
+  no node: the standalone module needs none) and wabt (wasm2c with its Homebrew libcrypto copied beside it, re-signed
+  ad hoc). The tree's front end is the host's LLVM (`~/llvm/bin`, the clang jobs' 22.1.8, the laptop's Homebrew
+  version), the runner and app are compiled by the Command Line Tools (`/usr/bin/clang`, `xcrun`), with
+  `MACOSX_DEPLOYMENT_TARGET=11.0` so a host on a newer macOS makes executables the laptop runs. `setup` copies the
+  toolchain once per host (the version is the directory's name: a new Homebrew version is copied again); `prep`
+  (run by the daemon at dispatch) checks it and the inputs.
+- **Inputs** (`~/hulk-jobs/wasm/inputs-STAMP`, by content hash, the newest 4 kept): build/functions.csv, SDL3 with
+  video, bgfx/bimg/bx and their headers, the Metal shader binaries, mingw-w64's headers (wasm_gfx), FFmpeg's headers
+  (the app loads the player's FFmpeg at run time from the submitter's prefix, `HULK_FFMPEG_LIBDIR`), and play3's
+  reference records (build/ckpt/play3.ckref, already on the hosts with the Wine inputs). The recording
+  (build/rp1/play3.hrp) travels with the job, as wine_build_job ships it. The extracted disc is the host's own
+  (`~/hulk-permute/isos/extracted`, put there for the Wine replays); nothing else from the game is copied.
+- **Tests** (`--test`, repeatable; `NAME=` prefixes a name): `play3:FRAMES` replays play3 with
+  tools/native_replay.py (the app with `HULK_GFX_RENDERER=null`) and checks the records against build/ckpt/play3.ckref;
+  `rolltest:A:B` a free run with `HULK_ROLLTEST=A:B` (and the START/A input script); `input:FRAMES[:EVERY]` a free run of
+  FRAMES frames with `HULK_HASH_EVERY` (default 10) and the START/A script (`--test-env HULK_INPUT=...` for another).
+  Every run gets its own save / title / user data and `HULK_APP_DIR` (never the host user's Application Support) and
+  `HULK_NO_UI=1`. With `--control`, each test runs on both executables on the same host, one after the other:
+  play3's candidate records are checked against the control's as the reference (first divergence per tag) and gated
+  against play3.ckref with the control's divergences allowed (ckpt_ref's gate), plus a byte comparison of the
+  records over the shorter run; `input` compares the game hashes frame by frame (first differing frame). With a
+  control the test's verdict is that comparison (the candidate may add no divergence the control lacks); alone, a
+  play3 run must match the reference to its target frame (records past it, the image stops a little late, are
+  reported but not judged). Results:
+  wb-out/tests/NAME/{cand,ctl}/ (trace.txt.ckref, result.json, check.json, stdout.txt, hashes.txt; a trace over 4 MB
+  keeps its last 256 KB as trace.txt.tail) and summary.json's `tests`; the job exits 5 when a test fails (its outputs
+  still come back).
+- **Hosts.** `wasm` is in mac2's and studio's caps (hosts.json). mac1 has no Command Line Tools (no `xcrun`, no SDK),
+  so it builds nothing; installing them there would make it a third wasm host.
+- **Timing.** (wbuild1, 11-22, HEAD 5992da211, 8 slots.) Cold (empty lineage): the headless build on mac2
+  80 s (compile 46 s, link 13 s, aot 21 s), the app with its bundle on studio 100 s. Warm (same inputs, a rebuild):
+  the app 29 s on mac2 (hooked TUs, gfx, link, aot from cached objects), the headless build 34 s (link + aot; its
+  compile is skipped). The laptop under its usual load (~60 on 8 cores, 2 jobs): 21 min headless (compile 630 s with
+  warm IR, link 113 s, aot 548 s), 24 min the app. Tests on mac2: play3 to 2,000-5,000 frames 2-5 s, to 60,000 70 s;
+  rolltest 900:2500 28 s; input:3000 28 s; a Metal run (paced, 30 frames/s) 600 frames 21 s. A host's first `setup`
+  copies ~1.1 GB of Emscripten over the laptop's link (18-25 min); later prep runs take seconds.
+- **Checked.** The headless build of the same commit and inputs from mac2 and from the laptop give byte-identical
+  play3 records (prefix of the shorter run, 2,500 frames, run locally); the app built on studio and the app built
+  locally likewise (3,000 frames, null renderer, run locally); on the hosts, apps built on mac2 and studio give
+  identical records to 60,000 frames, the same game hashes over a 3,000-frame `input` run and identical rolltests.
+  Free-run game hashes include the run's paths (save / data directories): the tests run every role in the same
+  directory, and two runs in different directories differ from the first input (frame 310).
+- **Metal.** A test run with `--test-env HULK_GFX_RENDERER=metal --test-env HULK_GFX_HIDDEN=1` creates a Metal device
+  over ssh on mac2 and studio (both have a console login; "bgfx Metal, 640x480"); two such runs of one executable give
+  the same game hashes. Pictures (`HULK_GFX_SHOT*`) are not looked at there: screenshots stay local.
 
 ## Adding a host
 
