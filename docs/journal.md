@@ -3597,3 +3597,13 @@ passes; output only (checkpoint records identical with every setting).
   Natural and Cinematic presets; Cinematic is the remastered default.
 - A toe written as y*y*(1-l)/(y-l) with l < 0 divides by zero where saturation pushed a channel to exactly l: single
   orange pixels on the Hulk. Clamp to 0 before any curve that divides.
+
+## 2026-11-23 wqgpu1: Metal app runs on the queue (docs/compute.md "Metal tests on the queue")
+
+- mac2 and studio have the queue user at the console, so a job over ssh gets the window server and the Metal device
+  directly (hidden window, screenshots, GPU timer queries); no `launchctl asuser` needed. M3 Max and M2 Ultra shots of
+  the same play3 frame differ by at most 1 in a channel on < 0.1% of pixels.
+- The `gpu` cap (gpu_max 1 per host) plus a host-side flock serialize Metal runs; CPU work on the host continues, so
+  timing there is approximate (compare within one job).
+- An app run by native_replay.py or free_run sits in a session of its own and outlived a cancelled job (wquit1's
+  111587 ran 17 h on mac2): wasm_build_run.py now kills the run directory's processes on SIGTERM.

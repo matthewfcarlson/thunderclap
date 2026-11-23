@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Shared job queue and scheduler: heavy compute spread over this machine and the remote Macs (docs/compute.md).
 
-  jobq.py submit --name AGENT [--needs equiv|msvc|clang|wine|xemu|any] [--files PATH|SRC=DEST ...] [--dirty]
+  jobq.py submit --name AGENT [--needs equiv|msvc|clang|wine|xemu|wasm|gpu|any] [--files PATH|SRC=DEST ...] [--dirty]
                  [--out PATH ...] [--limit S] [--slots N] [--attempts N] [--prio N] -- CMD...      prints the job id
   jobq.py submit-many FILE [same options]   FILE: jsonl ({"cmd": [...], "files": [...], "out": [...], ...}) or one
                                             shell command per line; prints one id per line
@@ -41,7 +41,7 @@ PIDF = os.path.join(JOBS, "daemon.pid")
 DLOG = os.path.join(JOBS, "daemon.log")
 HOSTS_STATE = os.path.join(JOBS, "hosts-state.json")
 BASE_PATHS = ["tools", "include", "tests", "config", "src"]   # (bink2) src too: tools read src/platform/sdl/crt/*.h; the hosts' own src snapshots were stale or missing
-NEEDS = ["any", "equiv", "msvc", "clang", "wine", "wine-gfx", "xemu", "linux-x64", "wasm"]   # (linux-x64: x86-64 Linux hosts, native replays; flt1; wasm: wasm/app builds, tools/wasm_build_job.py, wbuild1)
+NEEDS = ["any", "equiv", "msvc", "clang", "wine", "wine-gfx", "xemu", "linux-x64", "wasm", "gpu"]   # (linux-x64: x86-64 Linux hosts, native replays; flt1; wasm: wasm/app builds, tools/wasm_build_job.py, wbuild1; gpu: Metal app runs on a host's GPU, at most gpu_max (1) at a time per host, wqgpu1)
 TERMINAL = ("done", "failed", "gaveup", "cancelled")
 SSH = ["ssh", "-o", "ConnectTimeout=20", "-o", "ServerAliveInterval=20", "-o", "ServerAliveCountMax=3",
        "-o", "BatchMode=yes"]
@@ -530,6 +530,7 @@ class Host:
         self.slots_cfg = cfg.get("slots", 3 if self.local else 8)
         self.min_slots = 1 if self.local else 2
         self.xemu_max = cfg.get("xemu_max", 1) if "xemu" in self.caps else 0
+        self.gpu_max = cfg.get("gpu_max", 1) if "gpu" in self.caps else 0      # (wqgpu1) GPU jobs at a time
         self.take_any = cfg.get("any", True)         # false: only jobs that name one of its caps (a host without MSVC)
         self.dir = cfg.get("dir", "hulk-permute")
         self.paths = cfg.get("path", [])
@@ -540,6 +541,7 @@ class Host:
         self.cap = self.slots_cfg
         self.used = 0
         self.xemu_used = 0
+        self.gpu_used = 0
         self.load, self.ncpu = 0.0, 1
         self.lend_budget = 0
         self.fails = 0
@@ -637,6 +639,8 @@ class Host:
         if needs == "xemu" or "xemu" in job["cmd"].lower():
             if self.local or self.xemu_used >= self.xemu_max:
                 return False
+        if needs == "gpu" and self.gpu_used >= self.gpu_max:
+            return False
         if not capacity:
             return self.cap >= job["slots"] or (self.cap > 0 and (not self.local or needs == "wine-gfx"))
         if lend_only:                                         # held for a big job: only idle reserved slots are lent, and
@@ -900,6 +904,8 @@ class Daemon:
                 h.used -= self.cur.pop(jid, (h, job["slots"]))[1]
                 if job["needs"] == "xemu" or "xemu" in job["cmd"].lower():
                     h.xemu_used -= 1
+                if job["needs"] == "gpu":
+                    h.gpu_used -= 1
                 self.live.pop(jid, None)
 
     # --- main loop ---
@@ -962,6 +968,8 @@ class Daemon:
                 self.cur[job["id"]] = (h, job["slots"])
                 if job["needs"] == "xemu" or "xemu" in job["cmd"].lower():
                     h.xemu_used += 1
+                if job["needs"] == "gpu":
+                    h.gpu_used += 1
                 self.live[job["id"]] = threading.Event()
             running[r["name"]] = running.get(r["name"], 0) + job["slots"]
             threading.Thread(target=self.run_job, args=(h, job), daemon=True).start()
@@ -977,7 +985,7 @@ class Daemon:
         os.replace(tmp, HOSTS_STATE)
 
     def reload_caps(self):
-        """hosts.json edits to a known host's caps / xemu_max / slots / python take effect without a restart (running jobs
+        """hosts.json edits to a known host's caps / xemu_max / gpu_max / slots / python take effect without a restart (running jobs
         keep going), and a host added to hosts.json joins (it is connected on the next loop). Removing one needs a restart."""
         path = os.environ.get("JOBQ_HOSTS") or os.path.join(JOBS, "hosts.json")
         try:
@@ -1002,6 +1010,11 @@ class Daemon:
                 h.caps = set(cfg.get("caps", []))
                 h.xemu_max = cfg.get("xemu_max", 1) if "xemu" in h.caps else 0
                 log("%s: caps now %s" % (h.name, ",".join(sorted(h.caps))))
+            if cfg is not None:
+                gm = cfg.get("gpu_max", 1) if "gpu" in h.caps else 0
+                if gm != h.gpu_max:
+                    h.gpu_max = gm
+                    log("%s: gpu_max now %d" % (h.name, gm))
             if cfg is not None and cfg.get("any", True) != h.take_any:
                 h.take_any = cfg.get("any", True)
                 log("%s: needs=any jobs %s" % (h.name, "taken" if h.take_any else "refused"))

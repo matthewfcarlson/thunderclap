@@ -54,6 +54,7 @@ is appended as results arrive and addresses already in it are skipped (rerun to 
 | `wine-gfx` | laptop only (a Wine run that draws through MoltenVK; see Wine replays) |
 | `xemu` | mac2 and the Mac Studio (`studio`), one at a time on each, never the laptop |
 | `wasm` | mac2 and studio (wasm builds and their tests: `tools/wasm_build_job.py`, "Wasm builds and tests" below) |
+| `gpu` | mac2 and studio, one at a time on each (Metal app runs on the host's GPU: `wasm_build_job.py` metal tests, "Metal tests on the queue" below) |
 
 Hosts and capabilities: `build/jobs/hosts.json` (untracked: it holds user and host names; created from
 `build/agent-tools/hosts.json` on first use; fields `slots`, `caps`, `pref` (lower is preferred), `path`, `xemu_max`,
@@ -456,9 +457,73 @@ $J $W hosts                       # what each wasm host holds
   identical records to 60,000 frames, the same game hashes over a 3,000-frame `input` run and identical rolltests.
   Free-run game hashes include the run's paths (save / data directories): the tests run every role in the same
   directory, and two runs in different directories differ from the first input (frame 310).
-- **Metal.** A test run with `--test-env HULK_GFX_RENDERER=metal --test-env HULK_GFX_HIDDEN=1` creates a Metal device
-  over ssh on mac2 and studio (both have a console login; "bgfx Metal, 640x480"); two such runs of one executable give
-  the same game hashes. Pictures (`HULK_GFX_SHOT*`) are not looked at there: screenshots stay local.
+- **Metal.** The metal test kinds below run the app on the hosts' GPUs with screenshots and stats (wqgpu1).
+
+## Metal tests on the queue
+
+(wqgpu1, user 11-23: "the testing of features can be done elsewhere".) Real-GPU app runs (pictures, renderer
+options, GPU timing) go to mac2 (M3 Max, 40-core GPU) and studio (M2 Ultra, 76-core GPU) instead of the laptop's GPU.
+Both hosts have the queue user logged in at the console, so a job started over ssh reaches the window server and the
+Metal device directly (checked 11-23: "bgfx Metal, 640x480", screenshots, GPU timer queries; no `launchctl asuser` or
+LaunchAgent needed). The window is hidden (`HULK_GFX_HIDDEN=1`, plus `SDL_MAC_BACKGROUND_APP=1`: no Dock icon or focus
+change), so the hosts' displays are not disturbed.
+
+```sh
+J=build/venv/bin/python; W=tools/wasm_build_job.py
+# build the app and look at play3 frames 1500 and 4000 on a GPU (play3 replay, Metal, faithful settings)
+id=$($J $W submit --name ME --target app [--workspace DIR] --test metal:4100:1500,4000)
+# remastered options: pin settings (replays start from faithful values); HULK_* knobs go to every test of the job
+id=$($J $W test --name ME --exe JOB --test metal:8000:3000,7900 --test-env HULK_SETTINGS=remastered=1,shadows=2)
+# before/after on one host: both runs, the shots compared (shots-diff/), the records compared
+id=$($J $W test --name ME --exe NEWJOB --control OLDJOB --test metal:6000:2000,5900)
+# a scripted free run (HULK_INPUT; default START, A into the game) with shots, paced at 30 fps (1,500 frames ~50 s)
+id=$($J $W test --name ME --exe JOB --test metal-input:1500:1200 [--test-env HULK_INPUT=...])
+# a pass's cost: its A/B turns within one replay (the HULK_<PASS>_AB knob is required)
+id=$($J $W test --name ME --exe JOB --test metal-ab:6000 --test-env HULK_LIGHT_AB=30 \
+     --test-env HULK_SETTINGS=remastered=1,lighting=1)
+$J $W wait $id; $J $W fetch $id --dest build/ME/metal-$id
+```
+
+- **Kinds.** `metal:FRAMES[:SHOTS]` replays play3 (tools/native_replay.py, as `play3`); `metal-input:FRAMES[:SHOTS]`
+  is a free run as `input` (HULK_INPUT, HULK_FRAMES, HULK_HASH_EVERY=10); `metal-ab:FRAMES` is a play3 replay that
+  must be given a `HULK_<PASS>_AB=N` knob with `--test-env`. SHOTS are game frames for `HULK_GFX_SHOT_GAME` (comma
+  separated, at most 64, each at least 30 frames before FRAMES: the run stops about a second after its target and
+  bgfx writes a shot a frame or two late). The job sets `HULK_GFX_RENDERER=metal`, `HULK_GFX_HIDDEN=1`,
+  `HULK_GFX_SHOT_DIR`, its own `HULK_APP_DIR` / save / title / user data dirs in the run directory, and
+  `HULK_GFX_STATS=300` unless the test env sets it (0 turns the stats off). Any other `HULK_*` / `SDL_*` knob goes
+  through `--test-env` (`HULK_SETTINGS`, `HULK_GFX_WINDOW=1280x960` for bigger shots, `HULK_MOVIES=0`, ...); it applies
+  to every test of the job, so submit separate jobs for different knobs. Metal tests need the app (`--target app`, or
+  an `--exe` that is a hulk-app).
+- **Verdict.** A Metal run is ok when it used the Metal device, reached its target frame (or, `metal-input`, exited 0
+  with its hashes) and wrote every requested shot (`metal-ab`: and printed its pass's cost line). The records against
+  play3.ckref are reported (`vs_reference`), not judged: play3 alone shows the camera transient from 5,875. With
+  `--control` the pair is reported, not judged beyond both runs being ok: per shot `identical` or the mean / max channel
+  difference and the share of pixels off by more than 8, `records_identical` (replays), and for `metal-input` the game
+  hashes (with Metal they include host heap pointers, waud1, so a difference there is not by itself a bug).
+- **Outputs** (`fetch`): tests/NAME/{cand,ctl}/shots/game-N.png, stats.txt (the `gfxstats:` lines and every
+  `hulk-app: <pass> cost:` line), stdout.txt, trace.txt.ckref / check.json (replays), hashes.txt (free runs);
+  tests/NAME/shots-diff/diff-N.png (|cand - ctl| x4) with a control. summary.json's test entry carries `metal`,
+  `shots`, `shots_missing`, `stats` (the update-weighted mean wall / bgfx CPU / GPU / wait ms per update over the stats
+  windows), `ab` (each pass's last cost line), `gpu_wait_s`, `load` (the host's 1-minute load average before and after
+  the run) and `host_cpu` ("Apple M3 Max" / "Apple M2 Ultra").
+- **One GPU job at a time per host.** Metal jobs are `--needs gpu` (submit picks it when any test is a metal kind;
+  hosts.json caps `gpu` and `gpu_max`, default 1): the daemon dispatches at most `gpu_max` of them to a host at a time,
+  while the host's CPU work (equiv, builds, Wine replays) goes on. Every Metal run also holds ~/hulk-jobs/gpu.lock on
+  the host for its duration (the wait is `gpu_wait_s`), so runs never overlap even across a daemon without the cap
+  logic. A cancelled or timed-out job kills its images (wasm_build_run.py's SIGTERM handler): an app in its own session
+  used to outlive its job.
+- **Timing is approximate.** The GPU is exclusive, the CPU is not: a host may be running 15-20 slots of other work, so
+  wall and bgfx CPU times move with its load (reported per run), and GPU times move less. Compare costs as A/B turns
+  within one run (`metal-ab`) or as a candidate and control in one job on one host, never across hosts or jobs; for a
+  number to quote, pin the host and run when `jobq.py status` shows it idle. mac2's M3 Max and studio's M2 Ultra time
+  differently (play3 to 4,100, faithful: GPU 0.53 vs 0.30 ms per update, 11-23).
+- **Checked** (11-23, app 111790 at 761e91dfd): metal:4100:1500,4000 on mac2 (111793) and studio (111794) gave the
+  expected pictures; the two hosts' shots differ by at most 1 in a channel on 0.06% / 0.005% of pixels (GPU rounding);
+  a control pair of one executable on studio (111795) gave identical shots, records and hashes; a metal-ab run
+  (111796, `HULK_WINDOWS_AB=30`) reported its cost line; 111795 and 111796 submitted together to studio ran their Metal
+  runs one after the other (gpu_wait_s 9.9 and 5.1 s); a cancelled metal-input job (111797) left no process on mac2.
+- **The laptop** keeps its GPU for the player: lanes run Metal there only for a one-off look, never for test series or
+  timing.
 
 ## Adding a host
 

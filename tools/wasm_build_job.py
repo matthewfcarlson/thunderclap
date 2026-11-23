@@ -6,10 +6,20 @@ builds"; docs/wasm-port.md "Build the app on the queue").
   build/venv/bin/python tools/wasm_build_job.py submit --name ME --target app|aot [--bundle]
         [--inputs auto|make|JOB|FILE.tgz|DIR] [--workspace DIR | --dirty | --files PATH ...] [--env HULK_WASM_X=V ...]
         [--host mac2|studio] [--lineage L] [--slots 8] [--limit S] [--prio N] [--keep-wasm]      # prints the job id
+  build/venv/bin/python tools/wasm_build_job.py test --name ME --exe JOB|PATH [--control JOB|PATH] --test KIND:... \
+        [--test-env HULK_X=V ...] [--host H]      # tests only (play3, rolltest, input, metal, metal-input, metal-ab)
   build/venv/bin/python tools/wasm_build_job.py wait ID              # then: the summary (steps, wall times, host)
   build/venv/bin/python tools/wasm_build_job.py fetch ID [--dest build/ME/wasm-app]   # moves the artefacts there
   build/venv/bin/python tools/wasm_build_job.py setup [--host H ...]   # put the toolchain and inputs on the hosts
   build/venv/bin/python tools/wasm_build_job.py hosts                  # what each wasm host has (toolchain, inputs, lineages)
+
+Metal tests (wqgpu1; docs/compute.md "Metal tests on the queue"): the app on mac2's / studio's GPU (`--needs gpu`, one
+such job per host at a time), hidden window, screenshots, gfxstats and A/B cost lines returned for `fetch`:
+  ... submit --name ME --target app --test metal:4100:1500,4000          # play3 replay, shots of game frames 1500, 4000
+  ... test --name ME --exe NEW --control OLD --test metal:6000:2000,5900  # before/after shots (+ shots-diff/) on one host
+  ... test --name ME --exe JOB --test metal-input:1500:1200 [--test-env HULK_INPUT=...]   # scripted free run (30 fps)
+  ... test --name ME --exe JOB --test metal-ab:6000 --test-env HULK_LIGHT_AB=30 --test-env HULK_SETTINGS=remastered=1
+Timing on a shared host is approximate (the GPU is exclusive, the CPU is not): compare within one job on one host.
 
 Sources: the job's base is `git archive HEAD` (jobq's base tree). By default nothing else travels: the build is HEAD's.
 `--workspace DIR` ships the files of that private workspace that differ from HEAD (and deletes the ones it lacks),
@@ -476,6 +486,12 @@ def is_input_path(rel):
 
 
 TEST_KINDS = {"play3": 1, "rolltest": 2, "input": (1, 2)}
+# (wqgpu1) the app on the host's GPU: FRAMES[:SHOTS], SHOTS game frames for HULK_GFX_SHOT_GAME ("1000,2000"; at most 64)
+METAL_KINDS = ("metal", "metal-input", "metal-ab")
+SHOT_MAX = 64
+AB_KNOB = re.compile(r"^HULK_[A-Z0-9]+_AB$")
+TEST_USAGE = ("play3:FRAMES, rolltest:A:B, input:FRAMES[:EVERY], metal:FRAMES[:SHOTS], metal-input:FRAMES[:SHOTS] or "
+              "metal-ab:FRAMES (SHOTS: game frames, comma-separated)")
 TEST_ENV_OK = re.compile(r"^(HULK_[A-Z0-9_]+|SDL_[A-Z0-9_]+)$")
 FETCHED = os.path.join(jobq.JOBS, "wb-fetched.json")
 
@@ -493,10 +509,13 @@ def parse_tests(specs, test_env, timeout):
         name, _, body = sp.rpartition("=")
         f = body.split(":")
         kind, nums = f[0], f[1:]
+        if kind in METAL_KINDS:
+            out.append(parse_metal(sp, name, kind, nums, env, timeout, names))
+            continue
         want = TEST_KINDS.get(kind)
         if want is None or not all(x.isdigit() for x in nums) or len(nums) not in (
                 want if isinstance(want, tuple) else (want,)):
-            sys.exit("--test %s: play3:FRAMES, rolltest:A:B or input:FRAMES[:EVERY]" % sp)
+            sys.exit("--test %s: %s" % (sp, TEST_USAGE))
         nums = [int(x) for x in nums]
         t = {"kind": kind, "name": re.sub(r"[^A-Za-z0-9_.-]", "_", name or "-".join([kind] + f[1:])), "env": env,
              "timeout": timeout}
@@ -513,6 +532,39 @@ def parse_tests(specs, test_env, timeout):
         names.add(t["name"])
         out.append(t)
     return out
+
+
+def parse_metal(sp, name, kind, f, env, timeout, names):
+    """metal:FRAMES[:SHOTS] (a play3 replay), metal-input:FRAMES[:SHOTS] (a HULK_INPUT run), metal-ab:FRAMES (a play3
+    replay timing a pass's HULK_<PASS>_AB turns, which --test-env must name)."""
+    if not f or not f[0].isdigit() or len(f) > (1 if kind == "metal-ab" else 2):
+        sys.exit("--test %s: %s" % (sp, TEST_USAGE))
+    frames = int(f[0])
+    shots = []
+    if len(f) > 1 and f[1]:
+        if not re.fullmatch(r"\d+(,\d+)*", f[1]):
+            sys.exit("--test %s: SHOTS is a comma-separated list of game frames" % sp)
+        shots = sorted({int(x) for x in f[1].split(",")})
+        if len(shots) > SHOT_MAX:
+            sys.exit("--test %s: at most %d shots (HULK_GFX_SHOT_GAME)" % (sp, SHOT_MAX))
+        if shots[-1] > frames - 30:
+            # (the run stops about a second after its target frame, and bgfx writes a shot a frame or two late)
+            sys.exit("--test %s: shots must be at least 30 frames before FRAMES" % sp)
+    if kind == "metal-ab" and not any(AB_KNOB.match(k) and v not in ("", "0") for k, v in env.items()):
+        sys.exit("--test %s: name the pass to time with --test-env HULK_<PASS>_AB=N (HULK_LIGHT_AB, HULK_WINDOWS_AB, ...)"
+                 % sp)
+    if "HULK_GFX_SHOT_GAME" in env:
+        sys.exit("--test %s: give the shots in the test (metal:FRAMES:SHOTS), not HULK_GFX_SHOT_GAME" % sp)
+    t = {"kind": kind, "name": re.sub(r"[^A-Za-z0-9_.-]", "_", name or "-".join([kind] + [x.replace(",", "_") for x in f])),
+         "env": env, "timeout": timeout, "frames": frames, "shots": shots}
+    if t["name"] in names:
+        sys.exit("--test: two tests named %s (NAME=...)" % t["name"])
+    names.add(t["name"])
+    return t
+
+
+def gpu_hosts():
+    return [h["name"] for h in jobq.load_hosts() if not h.get("local") and "gpu" in h.get("caps", [])]
 
 
 def resolve_exe(x):
@@ -540,7 +592,7 @@ def submit_job(a, spec, ov, slots, limit, label):
     stamp = inputs_stamp()
     spec.update({"inputs_stamp": stamp, "toolchain": {k: v[0] for k, v in toolchain().items()}, "submitted_by": a.name,
                  "tests": parse_tests(a.test, a.test_env, a.test_timeout)})
-    if any(t["kind"] == "play3" for t in spec["tests"]):
+    if any(t["kind"] in ("play3", "metal", "metal-ab") for t in spec["tests"]):
         rec = os.path.join(ROOT, "build/rp1/play3.hrp")
         if not os.path.exists(rec) or "ckpt/play3.ckref" not in {d for d, _ in input_items()}:
             sys.exit("play3 tests need build/rp1/play3.hrp and build/ckpt/play3.ckref here")
@@ -560,8 +612,22 @@ def submit_job(a, spec, ov, slots, limit, label):
     os.unlink(tf.name)
     if a.host and a.host not in wasm_hosts():
         sys.exit("%s has no `wasm` capability (hosts.json; wasm hosts: %s)" % (a.host, ", ".join(wasm_hosts())))
+    # a job with a Metal test needs a host's GPU (`gpu`: mac2 and studio, which are wasm hosts too); the daemon runs at
+    # most gpu_max (1) such jobs per host at a time
+    needs = "gpu" if any(t["kind"] in METAL_KINDS for t in spec["tests"]) else "wasm"
+    if needs == "gpu":
+        if spec["target"] == "aot":
+            sys.exit("metal tests run the app: --target app")
+        for role, p in (spec.get("exes") or {}).items():
+            if os.path.basename(p) != "hulk-app":
+                sys.exit("metal tests run the app (hulk-app), not %s" % os.path.basename(p))
+        both = [h for h in gpu_hosts() if h in wasm_hosts()]
+        if not both:
+            sys.exit("no host has both the `gpu` and `wasm` capabilities (hosts.json)")
+        if a.host and a.host not in both:
+            sys.exit("%s has no `gpu` capability (hosts.json; GPU hosts: %s)" % (a.host, ", ".join(both)))
     prep = [sys.executable, os.path.abspath(__file__), "prep", "--host", "{host}", "--stamp", stamp]
-    job = jobq.make_job(a.name, ["python", "wbrun/wasm_build_run.py"], "wasm", store, ["wb-out"], limit, slots,
+    job = jobq.make_job(a.name, ["python", "wbrun/wasm_build_run.py"], needs, store, ["wb-out"], limit, slots,
                         a.attempts, a.prio, spec["commit"], jobq.BASE_PATHS, a.host, prep=prep)
     jid = jobq.submit_jobs([job])[0]
     print(jid)
@@ -710,7 +776,8 @@ def main():
     p.add_argument("--control", help="tests: also run this executable (path or wasm job id) and compare")
 
     def test_opts(q):
-        q.add_argument("--test", action="append", help="[NAME=]play3:FRAMES | rolltest:A:B | input:FRAMES[:EVERY]")
+        q.add_argument("--test", action="append", help="[NAME=]play3:FRAMES | rolltest:A:B | input:FRAMES[:EVERY] | "
+                       "metal:FRAMES[:SHOTS] | metal-input:FRAMES[:SHOTS] | metal-ab:FRAMES")
         q.add_argument("--test-env", action="append", help="HULK_*/SDL_* K=V for every test run")
         q.add_argument("--test-timeout", type=int, default=3600, help="seconds per test run")
     test_opts(p)

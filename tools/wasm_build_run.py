@@ -23,6 +23,13 @@ between jobs, so a rebuild with the same inputs compiles only what changed. The 
 
 Outputs: wb-out/{summary.json, hulk-aot | hulk-app (+ Hulk.app with bundle), hulk.wasm (spec keep_wasm), link.json,
 compile-summary.json}. Exit status: 0 done, 3 toolchain or inputs missing on the host, 4 a build step failed.
+
+Metal tests (wqgpu1; metal, metal-input, metal-ab): the app with the real Metal renderer, its window hidden, on the
+host's GPU (the queue user is logged in at the console, so a job started over ssh reaches the window server and the
+Metal device directly). One Metal run at a time per host: the daemon dispatches at most `gpu_max` (1) `gpu` jobs per
+host, and every Metal run also holds ~/hulk-jobs/gpu.lock (the wait is reported). Each role's directory keeps
+shots/game-N.png (HULK_GFX_SHOT_GAME), stats.txt (the gfxstats: and `... cost:` lines), stdout.txt and, for replays,
+trace.txt.ckref; with a control, shots-diff/ holds |cand - ctl| x4 images and the summary the per-shot differences.
 """
 import fcntl
 import hashlib
@@ -209,6 +216,130 @@ START_SCRIPT = "300-305:10,400-405:0/1,1000-1005:0/1"     # START, then A: throu
 HASH = re.compile(r"hulk: frame (\d+) game hash (0x[0-9a-f]+)")
 
 
+GPU_LOCK = os.path.expanduser("~/hulk-jobs/gpu.lock")
+METAL_KINDS = ("metal", "metal-ab", "metal-input")
+# a Metal run's defaults (a test's --test-env may change HULK_GFX_STATS; renderer, window and shot paths are the job's)
+METAL_ENV = {"HULK_GFX_RENDERER": "metal", "HULK_GFX_HIDDEN": "1", "SDL_MAC_BACKGROUND_APP": "1"}
+METAL_DEFAULTS = {"HULK_GFX_STATS": "300"}
+COST = re.compile(r"^hulk-app: (.+?) cost: (.*)$")
+STATS = re.compile(r"^gfxstats: (\d+) upd \| wall ([0-9.]+) ms/upd.*bgfx cpu ([0-9.]+) gpu ([0-9.]+) wait ([0-9.]+) ms")
+
+
+class gpu_lock:
+    """The host's GPU, one Metal run at a time (beside the daemon's gpu_max): (held, seconds waited)."""
+    def __init__(self):
+        os.makedirs(os.path.dirname(GPU_LOCK), exist_ok=True)
+        self.f = open(GPU_LOCK, "a+")
+        t = time.time()
+        try:
+            fcntl.flock(self.f, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except OSError:
+            log("the GPU is busy (another Metal run on this host): waiting")
+            fcntl.flock(self.f, fcntl.LOCK_EX)
+        self.wait_s = round(time.time() - t, 1)
+        self.f.seek(0)
+        self.f.truncate()
+        self.f.write("%s %d %s\n" % (os.environ.get("JOBQ_JOB"), os.getpid(), time.strftime("%H:%M:%S")))
+        self.f.flush()
+
+    def close(self):
+        self.f.close()
+
+
+def host_gpu():
+    r = subprocess.run(["sysctl", "-n", "machdep.cpu.brand_string"], capture_output=True, text=True)
+    return r.stdout.strip() or None
+
+
+def metal_env(t, out):
+    """The Metal run's environment additions: METAL_DEFAULTS < the test's env < METAL_ENV and the job's paths."""
+    os.makedirs(os.path.join(out, "shots"), exist_ok=True)
+    env = dict(METAL_DEFAULTS)
+    env.update(t.get("env", {}))
+    env.update(METAL_ENV)
+    env["HULK_GFX_SHOT_DIR"] = os.path.join(out, "shots")
+    if t.get("shots"):
+        env["HULK_GFX_SHOT_GAME"] = ",".join(str(x) for x in t["shots"])
+    else:
+        env.pop("HULK_GFX_SHOT_GAME", None)
+    return env
+
+
+def read_tga(p):
+    """(header, width, height, BGRA bytes) of an uncompressed 32-bit TGA (bgfx's screenshots), else None."""
+    try:
+        d = open(p, "rb").read()
+    except OSError:
+        return None
+    if len(d) < 18 or d[2] != 2 or d[16] != 32:
+        return None
+    w, h = d[12] | d[13] << 8, d[14] | d[15] << 8
+    px = d[18 + d[0]:18 + d[0] + w * h * 4]
+    return (d[:18 + d[0]], w, h, px) if len(px) == w * h * 4 else None
+
+
+def tga_diff(a, b, out_tga):
+    """Per-channel |a - b| over RGB: {mean, max, share of pixels off by more than 8}; writes the difference x4."""
+    A, B = read_tga(a), read_tga(b)
+    if not A or not B or A[1:3] != B[1:3]:
+        return {"error": "unreadable or different sizes"}
+    pa, pb = A[3], B[3]
+    if pa == pb:
+        return {"identical": True, "mean": 0.0, "max": 0, "px_over_8": 0.0}
+    d = bytearray(len(pa))
+    tot = mx = over = 0
+    for i in range(0, len(pa), 4):
+        e0, e1, e2 = abs(pa[i] - pb[i]), abs(pa[i + 1] - pb[i + 1]), abs(pa[i + 2] - pb[i + 2])
+        m = max(e0, e1, e2)
+        if m:
+            tot += e0 + e1 + e2
+            mx = max(mx, m)
+            over += m > 8
+            d[i], d[i + 1], d[i + 2] = min(255, e0 * 4), min(255, e1 * 4), min(255, e2 * 4)
+        d[i + 3] = 255
+    with open(out_tga, "wb") as f:
+        f.write(A[0] + bytes(d))
+    n = len(pa) // 4
+    return {"identical": False, "mean": round(tot / (3.0 * n), 4), "max": mx, "px_over_8": round(over / float(n), 5)}
+
+
+def to_png(d):
+    """Every .tga in D as .png (sips; the TGA kept only when the conversion fails)."""
+    for f in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+        if f.endswith(".tga"):
+            p = os.path.join(d, f)
+            r = subprocess.run(["sips", "-s", "format", "png", p, "--out", p[:-4] + ".png"], capture_output=True)
+            if r.returncode == 0 and os.path.exists(p[:-4] + ".png"):
+                os.remove(p)
+
+
+def metal_report(t, out, txt):
+    """What a Metal run left: renderer, shots, the gfxstats and A/B cost lines (also written to stats.txt)."""
+    lines = txt.splitlines()
+    keep = [l for l in lines if l.startswith("gfxstats:") or COST.match(l)]
+    with open(os.path.join(out, "stats.txt"), "w") as f:
+        f.write("\n".join(keep) + ("\n" if keep else ""))
+    got = sorted(int(f[5:-4]) for f in os.listdir(os.path.join(out, "shots")) if re.fullmatch(r"game-\d+\.tga", f))
+    want = t.get("shots") or []
+    r = {"metal": any("bgfx Metal" in l for l in lines), "shots": got, "shots_missing": [x for x in want if x not in got]}
+    st = [STATS.match(l) for l in lines]
+    st = [m for m in st if m]
+    if st:
+        # the mean over the stats windows (each HULK_GFX_STATS updates): wall, bgfx CPU and GPU ms per update
+        n = sum(int(m.group(1)) for m in st)
+        r["stats"] = {"windows": len(st), "updates": n,
+                      "ms_per_upd": {k: round(sum(int(m.group(1)) * float(m.group(i)) for m in st) / n, 3)
+                                     for k, i in (("wall", 2), ("bgfx_cpu", 3), ("gpu", 4), ("wait", 5))}}
+    costs = {}
+    for l in lines:
+        m = COST.match(l)
+        if m:
+            costs[m.group(1)] = m.group(2)        # (the last report of each pass: the longest average)
+    if costs:
+        r["ab"] = costs
+    return r
+
+
 def fresh(d):
     shutil.rmtree(d, ignore_errors=True)
     os.makedirs(d)
@@ -267,19 +398,28 @@ def first_line(rep):
 def test_play3(t, exes, base):
     res = {}
     ref = os.path.join(RUN, "build/ckpt/play3.ckref")
+    metal = t["kind"] in METAL_KINDS
     for role, exe in exes.items():
         # every role runs in the same directory (moved to ROLE afterwards): the save / data paths are game state
         out = fresh(os.path.join(base, "run"))
         argv = [PY, "tools/native_replay.py", "run", "--exe", exe, "--out", out, "--frames", str(t["frames"]),
                 "--timeout", str(t.get("timeout", 3600)), "--no-check"]
         extra = dict(t.get("env", {}), HULK_APP_DIR=fresh(os.path.join(out, "appdir")), HULK_NO_UI="1")
-        if os.path.basename(exe) == "hulk-app" and "HULK_GFX_RENDERER" not in t.get("env", {}):
+        if metal:
+            extra.update(metal_env(t, out))
+        elif os.path.basename(exe) == "hulk-app" and "HULK_GFX_RENDERER" not in t.get("env", {}):
             extra["HULK_GFX_RENDERER"] = "null"
         for k, v in extra.items():
             argv += ["--env", "%s=%s" % (k, v)]
         argv += ["--", os.path.join(RUN, "isos/extracted/default.xbe")]
+        gl = gpu_lock() if metal else None
+        load0 = os.getloadavg()[0]
         t0 = time.time()
         r = subprocess.run(argv, cwd=RUN, capture_output=True, text=True)
+        wall = round(time.time() - t0, 1)
+        load1 = os.getloadavg()[0]
+        if gl:
+            gl.close()
         rec = os.path.join(out, "trace.txt.ckref")
         rc, txt, rep = ckref_check(rec, ref, os.path.join(out, "check.json"), t["frames"])
         info = {}
@@ -291,8 +431,18 @@ def test_play3(t, exes, base):
         first = rep.get("first")
         lacks = (rep.get("frames") or {}).get("lacks")
         ok = rc == 0 or bool(first and first["frame"] > t["frames"] and not lacks)
-        res[role] = {"ok": ok, "run": r.stdout.strip().split("\n")[0][:300], "wall_s": round(time.time() - t0, 1),
+        res[role] = {"ok": ok, "run": (r.stdout.strip().split("\n")[0] or r.stderr.strip()[-300:])[:300], "wall_s": wall,
                      "last_frame": info.get("last_frame"), "vs_reference": first_line(rep)}
+        if metal:
+            # a Metal run is judged by what it ran (the Metal device, the target frame, every shot), not by the
+            # reference: play3 alone shows the known camera transient from ~5,875 (CLAUDE.md wbuild1)
+            so = open(os.path.join(out, "stdout.txt"), errors="replace").read() if os.path.exists(
+                os.path.join(out, "stdout.txt")) else ""
+            m = metal_report(t, out, so)
+            m.update(gpu_wait_s=gl.wait_s, load=[round(load0, 2), round(load1, 2)])
+            res[role].update(m)
+            res[role]["ok"] = bool(m["metal"] and (info.get("last_frame") or -1) >= t["frames"]
+                                   and not m["shots_missing"] and (t["kind"] != "metal-ab" or "ab" in m))
         # the records stay in wb-out; the full trace is big: keep its last lines
         tr = os.path.join(out, "trace.txt")
         if os.path.exists(tr) and os.path.getsize(tr) > (4 << 20):
@@ -303,7 +453,11 @@ def test_play3(t, exes, base):
                 f.write(tail)
             os.remove(tr)
         os.rename(out, os.path.join(base, role))
-    if "ctl" in exes:
+    if "ctl" in exes and metal:
+        same = filecmp_prefix(os.path.join(base, "cand/trace.txt.ckref"), os.path.join(base, "ctl/trace.txt.ckref"))
+        res["compare"] = dict(compare_shots(base), records_identical=same,
+                              ok=bool(res["cand"]["ok"] and res["ctl"]["ok"]))
+    elif "ctl" in exes:
         rc, txt, rep = ckref_check(os.path.join(base, "cand/trace.txt.ckref"), os.path.join(base, "ctl/trace.txt.ckref"),
                                    os.path.join(base, "cand-vs-ctl.json"))
         same = filecmp_prefix(os.path.join(base, "cand/trace.txt.ckref"), os.path.join(base, "ctl/trace.txt.ckref"))
@@ -315,6 +469,20 @@ def test_play3(t, exes, base):
                           "records_identical": same,
                           "vs_control": first_line(rep), "gate": (gate.get("gate") or {}).get("new_count")}
     return res
+
+
+def compare_shots(base):
+    """cand's shots against ctl's (the same game frames): {frame: difference} and base/shots-diff/diff-N.tga."""
+    dd = fresh(os.path.join(base, "shots-diff"))
+    a, b = os.path.join(base, "cand/shots"), os.path.join(base, "ctl/shots")
+    common = sorted(set(os.listdir(a)) & set(os.listdir(b))) if os.path.isdir(a) and os.path.isdir(b) else []
+    per = {}
+    for f in common:
+        if re.fullmatch(r"game-\d+\.tga", f):
+            d = tga_diff(os.path.join(a, f), os.path.join(b, f), os.path.join(dd, "diff-" + f[5:]))
+            per[f[5:-4]] = d
+    return {"shots_compared": len(per), "shots_identical": sum(1 for d in per.values() if d.get("identical")),
+            "shots": per}
 
 
 def filecmp_prefix(a, b):
@@ -338,7 +506,15 @@ def test_free(t, exes, base):
         else:
             extra.update({"HULK_FRAMES": str(t["frames"]), "HULK_HASH_EVERY": str(t.get("every", 10))})
         extra.update(t.get("env", {}))
+        metal = t["kind"] in METAL_KINDS
+        if metal:
+            extra.update(metal_env(t, out))
+        gl = gpu_lock() if metal else None
+        load0 = os.getloadavg()[0]
         rc, txt, wall = free_run(exe, out, extra, t.get("timeout", 3600))
+        load1 = os.getloadavg()[0]
+        if gl:
+            gl.close()
         r = {"rc": rc, "wall_s": wall}
         if t["kind"] == "rolltest":
             lines = [l for l in txt.splitlines() if l.startswith("rolltest:")]
@@ -354,6 +530,11 @@ def test_free(t, exes, base):
             r["ok"] = rc == 0 and bool(h) and h[-1][0] >= t["frames"] - every
             r["hashes"] = len(h)
             r["last"] = h[-1] if h else None
+            if metal:
+                m = metal_report(t, out, txt)
+                m.update(gpu_wait_s=gl.wait_s, load=[round(load0, 2), round(load1, 2)])
+                r.update(m)
+                r["ok"] = bool(r["ok"] and m["metal"] and not m["shots_missing"])
         res[role] = r
         os.rename(out, os.path.join(base, role))
     if "ctl" in exes and t["kind"] != "rolltest":
@@ -364,6 +545,11 @@ def test_free(t, exes, base):
         res["compare"] = {"ok": reached and not diff and res["cand"]["ok"] and res["ctl"]["ok"],
                           "common": len(common), "last_common": common[-1] if common else None,
                           "first_differing_frame": diff[0] if diff else None}
+        if t["kind"] in METAL_KINDS:
+            # (a before/after pair: the images may differ on purpose, the game state may not: with Metal the game
+            # hash holds pddi front-end pointers into the host heap, so hashes are reported, never judged)
+            res["compare"].update(compare_shots(base), ok=bool(res["cand"]["ok"] and res["ctl"]["ok"]),
+                                  hashes_note="Metal game hashes include host heap pointers (waud1)")
     return res
 
 
@@ -375,7 +561,11 @@ def run_tests(spec, exes, summ):
         t0 = time.time()
         base = fresh(os.path.join(out, t["name"]))
         log("test %s (%s) on %s" % (t["name"], t["kind"], ", ".join("%s=%s" % kv for kv in exes.items())))
-        r = test_play3(t, exes, base) if t["kind"] == "play3" else test_free(t, exes, base)
+        r = test_play3(t, exes, base) if t["kind"] in ("play3", "metal", "metal-ab") else test_free(t, exes, base)
+        if t["kind"] in METAL_KINDS:
+            for d in [os.path.join(base, role, "shots") for role in exes] + [os.path.join(base, "shots-diff")]:
+                to_png(d)
+            r["host_cpu"] = host_gpu()
         r["wall_s"] = round(time.time() - t0, 1)
         # with a control the verdict is the comparison (ckpt_gate's: the candidate may add no divergence the control
         # does not have; the roles' own checks against the reference are reported); a rolltest judges both runs
@@ -481,7 +671,19 @@ def build(spec, summ, inputs):
     return dst
 
 
+def on_term(sig, _frame):
+    """(wqgpu1) A cancelled or timed-out job gets SIGTERM on its process group, but the images run in sessions of
+    their own (free_run, native_replay.py run): kill every process started from this run directory first, or an app
+    outlives its job (and keeps the host's GPU; an orphan of a cancelled job ran 17 h on mac2, 11-23)."""
+    subprocess.run(["pkill", "-9", "-f", RUN + "/"], capture_output=True)
+    log("signal %d: the run's images killed" % sig)
+    sys.exit(128 + sig)
+
+
 def main():
+    import signal
+    signal.signal(signal.SIGTERM, on_term)
+    signal.signal(signal.SIGHUP, on_term)
     t0 = time.time()
     spec = json.load(open(os.path.join(RUN, "wbrun/spec.json")))
     summ = {"host": os.environ.get("JOBQ_HOST"), "job": os.environ.get("JOBQ_JOB"), "commit": spec["commit"],

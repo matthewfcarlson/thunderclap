@@ -74,6 +74,23 @@ class Choose(unittest.TestCase):
         self.lo.caps.add("xemu")
         self.assertIsNone(jobq.choose_host(job("xemu"), self.hs))
 
+    def test_gpu_one_job_per_host(self):
+        """wqgpu1: `gpu` jobs go only to hosts with the cap, at most gpu_max (default 1) at a time per host; other
+        jobs keep the host's slots."""
+        g1 = mkhost("g1", ["equiv", "wasm", "gpu"], 8)
+        g2 = mkhost("g2", ["equiv", "wasm", "gpu"], 8)
+        hs = [g1, g2, self.m1]
+        self.assertEqual((g1.gpu_max, self.m1.gpu_max), (1, 0))
+        self.assertIn(jobq.choose_host(job("gpu"), hs), (g1, g2))
+        g1.gpu_used = 1
+        self.assertIs(jobq.choose_host(job("gpu"), hs), g2)
+        g2.gpu_used = 1
+        self.assertIsNone(jobq.choose_host(job("gpu"), hs))
+        self.assertIsNotNone(jobq.choose_host(job("equiv"), [g1]))         # CPU work still goes to a busy GPU host
+        self.assertIsNotNone(jobq.choose_host(job("wasm"), [g1]))
+        g3 = jobq.Host({"name": "g3", "caps": ["gpu"], "gpu_max": 2, "routes": [["x"]]})
+        self.assertEqual(g3.gpu_max, 2)
+
     def test_tried_host_avoided(self):
         self.assertIs(jobq.choose_host(job("equiv", tried=["m2"]), self.hs), self.m1)
         self.assertIs(jobq.choose_host(job("equiv", tried=["m2", "m1"]), self.hs[:2]), self.m2)
