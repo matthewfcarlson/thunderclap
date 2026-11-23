@@ -555,6 +555,15 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   calls inside the defining TU: compile `extern "C" ffh_<name>` calls into a private snapshot copy, defined in
   HULK_WASM_HOST_EXTRA. xemu field dumps of play3: build/wasmq4/scripts/submit_xemu.sh HOST TAG UNTIL DUMP (ships
   hybrid/hooks.cpp and hybrid/exclude.txt as `--files`).
+  Renderer options are rm passes (run/app/rm_pass.h, wr2 D236): every runner sink call, direct or replayed by
+  interp.cpp, goes through `rm::setPass/present/submitDraw/packet`; a new option is a pass plus a port_settings row
+  applied through `gfx_quality(what, value)`, never a new import or a direct sink call; sink-side extras are app-only
+  under `HULK_SINK_OVERLAY` (D194 stays byte-identical). Under MSAA occlusion counts are per sample (`rm::sceneSamples`
+  divides); bgfx Metal has only 16x anisotropy; generated mips and pack replacements live in texpack.cpp, the original
+  kept for query draws. Far field (farfield.cpp, docs/far-field.md): the game's room buffers match rooms.rcf by vertex
+  position on a quarter-unit grid (prim groups split into buffers, low bits perturbed; downtown day/dusk/night share
+  geometry, so the location is voted). `wasm_app.py bundle` refuses paths outside its own checkout's build/. Never wait
+  with `until ! pgrep -f PAT` in a command containing PAT (it matches itself) (wr2).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
