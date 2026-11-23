@@ -3406,3 +3406,20 @@ passes; output only (checkpoint records identical with every setting).
   linearisation `B / max(d*C - A, eps)` clamps a denominator that is always negative for D3D depth (use min with -eps).
 - **Screenshots of two runs at one GameClock frame** can show different poses (HULK_GFX_SHOT_GAME takes the next
   present); compare stills by eye, not pixel diffs, when runs ran concurrently.
+
+## 2026-11-23 wdest0: how the game breaks things, and a plan for fracture and craters (docs/destruction.md)
+
+- **Only smart props break.** 1,206 StatePropData chunks (252 types; about 30 are buildings) carry authored states.
+  Health is `CSPHulkPropInstance`+0x108 and every damage source ends in `FUN_001d6ec0`. At health 0 `FUN_001d7d50`
+  fires transition 13 and refills hit points from the new state. A state swaps visible pieces and joint collision
+  volumes, can name a world collision object (sub-chunk 0x802000C, 179 uses: clean -> rubble), and turns
+  pre-modelled joints into rigid bodies. The StatePropData sub-chunks are decoded in destruction.md 1.3.
+- **Room geometry never breaks.** A room is one mesh plus one collision mesh (0x7000003 vertices, 0x7000006 faces
+  with material/unclimbable bits, 0x7000008 a 16-bit kd-tree). World hits only add decals (`CDecalQueue`, flood-fill
+  over collision triangles) and particles, via Lua `Damage_<type>_<material>` from `FUN_001f6cd0`.
+- **Landings scale nothing.** No code reads fall height or impact speed.
+- **Damage is forgotten on room unload.** `FUN_001e73b0` deletes non-persistent prop records; the save holds no world
+  damage.
+- **Ground queries go through `FUN_00202560` / `FUN_00201f20`.** Characters cache three ground results at +0x1EA8.
+  Wrapping these two queries is the cheapest way to give craters real collision; this is the recommended first
+  prototype (D1).
