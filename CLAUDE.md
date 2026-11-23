@@ -650,6 +650,12 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   store-list hook 0x000c21b0 (front end, before any UpdateSimulation). CJumpAction::vfunc_7 0x18d40 returns false near
   the apex (FallAction takes over); a landing is the motion state (+0x140, 3 = Air) leaving Air. Test knobs
   `HULK_TRAV_FORCE=C,J`, `HULK_TRAV_TEST_XP=N`, `HULK_TRAV_LOG=1..3`.
+  An orb is found by its mesh (prim buffer + texture) once a sprite + mesh pair was adjacent in either order: the game
+  sorts blended draws back to front, so the pair is adjacent only in some frames (wpol1; `HULK_LIGHT_TRACE=a:b` logs each
+  presented frame's orbs and lights). A runner pass's choice that depends on the presented frame goes in
+  `rm::Pass::late` (per presented draw), never in `packet`, which at 60/120 fps runs when the update is recorded. The
+  controller-stall banner (input.cpp, Core Text) shares bgfx_sink's single overlay slot with the movie skip ring; a third
+  overlay user needs the slot arbitrated in movie.c's `hulk_app_movie_overlay`.
   Build id (wver1): apps and APKs carry the short commit (`+dirty` for local builds with uncommitted host files or tools,
   `+N` for N queue overlay files): stdout `hulk-app: build <id>`, the window title, Info.plist, the APK's versionName and
   SetupActivity. `wasm_app.py build` writes it from HULK_BUILD_ID (wasm_build_run.py sets it) or git into
