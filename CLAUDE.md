@@ -597,6 +597,16 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   (dav1d 1.5.1, BSD, static in libavcodec; Opus needs `--enable-swresample`; the build needs `build/venv/bin/pip install
   meson pkgconf`). `native_replay.py run` reads isos/extracted unless `--data PACK` is given. The emulator's Vulkan is
   llvmpipe (it has BC); bgfx decodes BC to BGRA8 where a device lacks it (Mali) (wapk1).
+  Menus (wquit1): fe_real.txt holds at most 66 screens (the disc's 63, Video/Gameplay Options and one free); a 67th
+  crashes the parse at frame ~92. The menus are parsed again in play (play3 frame 26,654), where the game heap has almost
+  no margin: one more screen ran a later load into the out-of-memory spin 0x0008d320 (play3 hangs ~26,500). Add items to
+  existing screens, never screens, and test menu changes with play3 past 27,000. A screen shows 9 rows
+  (FEsubMenu_text1..9 / FEpause_text1..9); rows beyond get no item and no named int. Front-end functions (`OnSelect
+  function NAME`) are looked up by name at parse (0x000df970, hooked): fe_options.c answers `Port_*` names with host
+  handlers; a label's text setter 0x000f8500 shows a non-id string as written (host status text). Quit: the menu item,
+  the close button and Cmd+Q all go through gfx.c `hulk_app_request_quit` (it waits while a file is open for writing);
+  the runner's proc_exit calls start.cpp `hulk_app_quit`. The module's environment passes only `HULK_*` variables
+  (debug knobs need that prefix).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
