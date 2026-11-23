@@ -632,6 +632,12 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   collision and clear the caches. Remastered destruction or terrain state that affects play lives in `hulk_game_state` or
   the arena, computed in the module and seeded from game state (never `math.random` or the game's RNG); visual-only
   fracture and debris stay in the runner and are rebuilt after a restore.
+  Hulk's move tuning is fight-script data (`scripts/fight/hulk.fig`; wtrav0, docs/traversal.md): `fig0` records are an
+  8-byte tag hash (`v=v*0x1003f^c`, `FUN_002672f0`; branch names use the case-folding 0x267340), a size, and positional
+  parameters in each class's registration order; transitions name nodes by index in the chunk, so append, never reorder.
+  A remaster fight chunk is gated by not loading it (loaded but locked still allocates fight objects and moves the game
+  hash). A new unlockable move takes a spare `CUnlockableMove` slot (0x266-0x2c9, ~37 unused), so its purchase bit uses
+  the existing save format.
   Build id (wver1): apps and APKs carry the short commit (`+dirty` for local builds with uncommitted host files or tools,
   `+N` for N queue overlay files): stdout `hulk-app: build <id>`, the window title, Info.plist, the APK's versionName and
   SetupActivity. `wasm_app.py build` writes it from HULK_BUILD_ID (wasm_build_run.py sets it) or git into
