@@ -607,6 +607,11 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   the close button and Cmd+Q all go through gfx.c `hulk_app_request_quit` (it waits while a file is open for writing);
   the runner's proc_exit calls start.cpp `hulk_app_quit`. The module's environment passes only `HULK_*` variables
   (debug knobs need that prefix).
+  Build id (wver1): apps and APKs carry the short commit (`+dirty` for local builds with uncommitted host files or tools,
+  `+N` for N queue overlay files): stdout `hulk-app: build <id>`, the window title, Info.plist, the APK's versionName and
+  SetupActivity. `wasm_app.py build` writes it from HULK_BUILD_ID (wasm_build_run.py sets it) or git into
+  app-gen/hulk_build_id.h, so only the runner recompiles; bundle and apk read it from the binary's `HULK_BUILD_ID=` tag.
+  Host-only: never put it in module memory or menus.
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
