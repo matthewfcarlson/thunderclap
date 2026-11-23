@@ -75,5 +75,7 @@ void frame();                                      // after the sink's frame
 void appTargetsChanged();
 // the scene target's samples (an occlusion query's count is per sample)
 uint32_t sceneSamples();
+// the pass (SinkPass id) draws into the scene target (this frame's last setPass of that id)
+bool passIsScene(uint16_t pass);
 
 } // namespace rm

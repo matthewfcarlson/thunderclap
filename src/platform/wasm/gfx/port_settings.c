@@ -31,12 +31,13 @@ static void apply_fog(int value) { hulk_wasm_fog_apply(value); }
 static void apply_hud_edge(int value) { hulk_wasm_hud_edge_apply(value); }
 static void apply_draw_distance(int value) {
     hulk_wasm_draw_distance_apply(value);
-    hulk_wasm_quality_apply(5, value);            /* (the runner's passes see it too: rm_pass.h kDrawDistance) */
+    hulk_wasm_quality_apply(5, value);            /* (the far field starts beyond it: rm_pass.h kDrawDistance) */
 }
 static void apply_texture_pack(int value) { hulk_wasm_texture_pack_apply(value); }
 static void apply_mipmaps(int value) { hulk_wasm_quality_apply(1, value); }      /* (run/app/rm_pass.h Quality) */
 static void apply_aniso(int value) { hulk_wasm_quality_apply(2, value); }
 static void apply_msaa(int value) { hulk_wasm_quality_apply(3, value); }
+static void apply_far_field(int value) { hulk_wasm_quality_apply(4, value); }
 
 /* Render resolution values: 1..4 a multiple of the game's 640x480; 0 the window's (display's) pixels; 720 / 1080 /
  * 1440 / 2160 that height at the display's aspect (960x720 at 4:3 ...). Output only: the game sees 640x480 at every
@@ -58,7 +59,9 @@ static void apply_msaa(int value) { hulk_wasm_quality_apply(3, value); }
  * Mipmaps, Anisotropic Filtering, Anti-Aliasing (wr2, D236; run/app/rm_pass.cpp): the runner's picture options,
  * output only. Mipmaps 1: the textures the game gives fewer levels than the full chain get one made by the runner (from
  * textures loaded after the change); anisotropic filtering 16 (bgfx's Metal renderer has one level: 16x); MSAA on the
- * scene target (samples; the occlusion queries' counts are scaled back). */
+ * scene target (samples; the occlusion queries' counts are scaled back). Far Field (experimental, off by default):
+ * the rooms the game has not drawn, beyond the draw distance, drawn by the runner from the disc (run/app/farfield.cpp,
+ * docs/far-field.md). */
 static port_setting k_settings[] = {
     {"remastered", "Remastered Edition", PS_SCREEN_GAMEPLAY, PS_ONOFF, 2, {0, 1}, {"Off", "On"},
      0, 1, 0, apply_remastered},
@@ -81,6 +84,8 @@ static port_setting k_settings[] = {
      apply_aniso},
     {"msaa", "Anti-Aliasing", PS_SCREEN_VIDEO, PS_CHOICE, 4, {0, 2, 4, 8},
      {"Off (Original)", "MSAA 2x", "MSAA 4x", "MSAA 8x"}, 0, 4, 1, apply_msaa},
+    {"far_field", "Far Field", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On (Experimental)"}, 0, 0, 1,
+     apply_far_field},
 };
 enum { N_SETTINGS = sizeof k_settings / sizeof k_settings[0] };
 

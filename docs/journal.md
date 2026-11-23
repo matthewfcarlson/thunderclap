@@ -3196,3 +3196,17 @@ draws gives in-between frames with no tree change and no path back into the game
   "Profile").
 - A scripted `HULK_INPUT` run parses the script with sscanf every frame (host/frame.c; ~1% of a fast run): test-only.
 - `HULK_GFX_STATS=N` (run/app/gfxstats.cpp) logs the counts; docs/wasm-port.md "Profile (wprof1)".
+## 2026-11-22 wr2: the far-field prototype (D236 item 4; docs/far-field.md)
+- **Matching the game's room buffers to the disc's rooms** needs vertex positions, not prim groups: the game splits a
+  prim group into several prim buffers (33..139 vertices in downtown), the positions it hands the sink differ from
+  the file's in the last bits ((x, 4.8e-06, z) for (x, 0, z): a quarter-unit grid matches), and downtown day / dusk /
+  night (and the tutorial and the outskirts) share most geometry, so a position names several locations and the
+  location is decided by votes. Then ~1,600 of the game's downtown buffers are rooms' (~17% of its buffer draws).
+- **The game draws 2 to 8 rooms a frame** in downtown (the open measurement of remaster.md 3.3): the rest are
+  resident but culled, or not resident. The visible skyline beyond is the location's background drawables.
+- **Most room shaders live in the location's district files**, not in the room files (6,198 of 6,773 downtown prim
+  groups found no TEX until the districts were read for shaders too).
+- **A room draw's constants are the camera's** (rooms are in world space), so a far room drawn as a copy of the
+  frame's first world-pass room draw lands in place; the first room draw into the scene target is not always the
+  world's (another scene pass draws rooms for the map), hence "the scene pass with the most room draws last frame".
+- Cost as prototyped: one draw per prim group (~1,000-3,800 a frame in downtown); docs/far-field.md has the plan.

@@ -539,8 +539,11 @@ faithful value off, remastered-only) and each a pass of the runner, so they carr
 
   The render thread's time is unchanged (0.16 ms; 0.24 ms at 1x with all on). MSAA 8x stores and resolves 8 samples
   at every one of the game's views, so it is not the default.
+- **Far Field: Off / On (Experimental)** (`far_field`, off by default; prototype, docs/far-field.md): the rooms of
+  the location the game does not draw, beyond the draw distance, drawn by the runner straight from rooms.rcf /
+  districts.rcf (run/app/farfield.cpp; never registered with the game). Visible with Fog Reduced or Off.
 - `HULK_RM_LOG=1`: the GPU and render-thread time a frame and the draw count every 300 frames, and each render target
-  the game makes.
+  the game makes (and the far field's matching and draws).
 
 ### Profile (wprof1)
 
@@ -739,6 +742,10 @@ Gamepad only (the user, 11-22: handhelds with built-in controls, which SDL sees 
   through SDLControllerManager); lifecycle (pause / resume, the surface lost on home); performance on hardware.
 
 ## Status
+
+- 2026-11-22 (wr2, D236 item 4): **Far Field (experimental)**: a prototype of remaster.md 3.3 (4) as a runner pass
+  (docs/far-field.md): the game's room buffers are matched to the disc's rooms by vertex position, and the rooms it
+  does not draw beyond the draw distance are drawn from the disc. Off by default; records unchanged with it on.
 
 - 2026-11-22 (wand1): **the Android app** ("The Android app" above): the same module on arm64 Android 12+ through
   wasm2c and the NDK, bgfx Vulkan / GLES, a gamepad-driven disc chooser; play3 records byte-identical to the macOS app's.

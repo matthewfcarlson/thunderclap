@@ -88,8 +88,15 @@ void buffersDropped(uint32_t sinkBuffer)
         q->buffersDropped(sinkBuffer);
 }
 
+static uint8_t s_passScene[65536 / 8];
+bool passIsScene(uint16_t pass) { return s_passScene[pass >> 3] >> (pass & 7) & 1; }
+
 void setPass(const SinkPass& pass)
 {
+    if (pass.target == kSinkTargetScene)
+        s_passScene[pass.id >> 3] |= (uint8_t)(1 << (pass.id & 7));
+    else
+        s_passScene[pass.id >> 3] &= (uint8_t)~(1 << (pass.id & 7));
     if (pass.target == kSinkTargetScene && !s_sceneSeen) {
         s_sceneSeen = true;
         SinkPass p = pass;

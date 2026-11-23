@@ -820,8 +820,9 @@ static void diskInit()
         s_diskDir.clear();
         return;
     }
-    mkdirs(s_diskDir);
-    diskPrune(s_diskCap);
+    struct stat st;
+    if (!stat(s_diskDir.c_str(), &st))             // (made at the first write: no folder without a pack)
+        diskPrune(s_diskCap);
 }
 // the file of a replacement built from `path` (empty: no disk cache, or the image can't be read)
 static std::string diskPath(uint64_t key, const std::string& path, uint32_t format, AlphaMode am)
@@ -878,6 +879,8 @@ static std::shared_ptr<Encoded> diskRead(const std::string& file)
 }
 static void diskWrite(const std::string& file, const Encoded& e)
 {
+    static std::once_flag made;
+    std::call_once(made, [] { mkdirs(s_diskDir); });
     char tmp[32];
     snprintf(tmp, sizeof tmp, ".tmp%d-%p", (int)getpid(), (const void*)&e);
     std::string t = file + tmp;
