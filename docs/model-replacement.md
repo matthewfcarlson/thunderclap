@@ -264,3 +264,66 @@ treated as data, and each asset's own licence file is still checked before use.
 6. **Characters**: confirm the rule "no new character models from the project; only run-time enhancement of the
    player's own models, or the user's own original models".
    Recommendation: yes.
+
+## 6. Decisions and plan (user, 2026-11-22; to pick up later in the week)
+
+**Decided.**
+- **No global smoothing pass.** Smoothing everything gives odd results (hard-edged vehicles, architecture). Run-time
+  enhancement stays limited to targeted cases, if any.
+- **PBR materials:** packs can carry PBR maps beside each texture, and a tool estimates those maps from existing textures.
+- **Blender round trip:** export the game's models to Blender, redesign them, and import them back as a pack. Import must
+  work for props, including world-placed props whose placement is baked into the mesh.
+- Unchanged from section 5: no new character models from the project (only the player's own disc models or their own
+  original work); assets from other commercial games are never used; CC0 libraries only in user-installed packs, no
+  Sketchfab; nothing shared publicly before the employer check.
+
+**Work item 1: Blender round trip (props first).**
+1. *Export* (player's machine only): from a `HULK_PACK_DUMP` or straight from the player's `.p3d` files (`tools/p3d.py`)
+   to glTF 2.0 `.glb` (OBJ fallback). Recover the **canonical mesh plus per-placement rigid transforms** for world-baked
+   props: group placements of the same original mesh name across rooms and keys. Write UVs, vertex colours (baked
+   lighting) as a colour attribute, textures as PNGs named by `tex-` key, material slots named by key, and metadata as
+   custom properties (original mesh name, its `mdl` keys and placements, prim groups, skin info for later).
+2. *Blender side*: `tools/blender/hulk_io.py`, run with Blender's own binary (`--background --python`; Blender 4.4 is
+   installed under /Applications, not on PATH). It imports a dump into a scene organised as props / vehicles / world /
+   characters (view only), and exports edits as an app pack.
+3. *Import into the app* (extend `run/app/meshpack.cpp`):
+   - **Instance fitter:** one edited canonical prop replaces all of its placements, each through its recovered
+     transform, and the fit is checked by residual error.
+   - **Per-replacement materials:** a replacement can reference its own PNGs, not only the original's textures.
+   - Baked vertex colours are transferred from the original (nearest point or projection).
+   - A kd-tree or grid for nearest-vertex lookups on big replacements.
+   - Vehicles and dynamic props (model space, one key per mesh) work as they do today.
+   - Skinned characters stay out of scope (R5: skinning by joint name).
+4. *Proof:* round-trip a few props by script (move vertices, add geometry, swap a material for a new PNG) and install
+   them as a test pack in a private `HULK_APP_DIR`. Checkpoint records must stay identical with the pack on, compared
+   within one build.
+
+**Work item 2: PBR materials.**
+1. *Pack schema*, shared with the Blender exporter. Beside `tex-<key>.png` (the albedo):
+   - `tex-<key>_n.png`: tangent-space normal map (pick one convention, OpenGL or DirectX, and document it);
+   - `_r` roughness and `_m` metalness, or a packed ORM map;
+   - optional `_h` height and `_e` emissive (ties in with the dynamic glows);
+   - a small per-key material JSON for scalar overrides.
+
+   `texpack.cpp` loads the maps beside the albedo, through the same lazy decode, memory cache and disk cache.
+2. *Rendering:*
+   - Metallic-roughness BRDF in the per-pixel lighting pass (`run/app/lighting.cpp`, `docs/lighting.md`), using the game's
+     lights, the orb point lights and a simple ambient or environment term.
+   - Normal mapping, with tangents generated and cached per prim buffer where meshes have none.
+   - At default intensity it must still look like the same game; faithful mode is untouched.
+3. *Estimation tool:* `tools/pbr_estimate.py` (numpy/pillow are in build/venv).
+   - Normal from albedo luminance as height (Sobel, with a strength knob).
+   - Roughness from luminance, saturation and local variance, with per-material presets (metal, glass, concrete,
+     asphalt, foliage, ...).
+   - Metalness off by default, set by presets.
+   - AO from height.
+
+   It writes a NEW pack (the user's installed packs are inputs only). Generated maps are never committed.
+4. *Setting:* Video Options "Materials: Original / PBR / Estimated PBR".
+
+**Checks for both:** game state unchanged (checkpoint records; `HULK_ROLLTEST` with Metal; comparisons within one
+build); shaders build for Metal, Vulkan and GLES (Android); GPU cost measured at 1x and 3x; screenshots, dumps, exports
+and maps stay local.
+
+**Order:** PBR rendering builds on per-pixel lighting, so start item 2 once that pass has landed (lane wlight1). Item 1
+can start any time. The two must agree the material schema first.
