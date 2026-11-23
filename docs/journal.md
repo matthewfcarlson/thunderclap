@@ -3423,3 +3423,19 @@ passes; output only (checkpoint records identical with every setting).
 - **Ground queries go through `FUN_00202560` / `FUN_00201f20`.** Characters cache three ground results at +0x1EA8.
   Wrapping these two queries is the cheapest way to give craters real collision; this is the recommended first
   prototype (D1).
+
+## 2026-11-23 wtrav0: traversal research (docs/traversal.md)
+
+- **Hulk's movement is fight-script data.** Speeds, jump arcs, wall-run speeds and contact damage are track
+  parameters in `scripts/fight/hulk.fig` (1,389 nodes, 625 banks); the code holds formulas only. Sprint
+  (`locoSprint`) is a flat 20 units/s (run 10), held on the Free Look button (index 5, right trigger) with the stick.
+- **`fig0` is readable**: records are an 8-byte tag hash (`v = v*0x1003f ^ c`, `FUN_002672f0`; branch names use the
+  case-folding variant 0x267340), a payload size and positional parameters in each class's registration order;
+  transitions name targets by index in the chunk. A name dictionary from the XBE and the archives' strings resolves
+  most tags (build/wtrav0/scripts). The loader also takes a text `\r\nfightChunk` format (`ScriptReader`).
+- **Charge is general**: Char+0x1e58 (type at +0x1e5c) feeds the jump's lerps and the collision damage
+  `damage + (damageMax - damage) * charge` (0x13f20), so a charging sprint is mostly charge fill plus `damageMax`;
+  only the speed ramp (`LocomotionSprintAction::vfunc_5` 0x15e250) needs code.
+- **Unlockable moves**: 100 slots (0x266..0x2c9); `init.lua` sets up 63, so ~37 are free, and their purchase bits
+  already exist in the 0xbe8 save record. hulk.fig gates moves with the `unlockable` condition (93 uses, indices
+  614..759).
