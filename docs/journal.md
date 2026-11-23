@@ -3361,3 +3361,23 @@ draws gives in-between frames with no tree change and no path back into the game
   opens, so runs that never open it keep the same game memory whatever packs are installed.
 - The story menu's cursor ignored d-pad presses in its first ~half second after opening; scripted menu runs need
   generous gaps.
+
+## 2026-11-23 wmenu1: scrolling option screens; a D3D state overrun into the module's globals
+
+- **Scrolling** (D238). Video Options has 12 rows and nine places (FEsubMenu_text1..9 / FEpause_text1..9). The places
+  are now a window over the screen's rows: down on the last place shows the next row there, up on the first the row
+  before, and at the ends the cursor goes round with the window. Two entry hooks on the screens' key handlers
+  (FEScreenBase::vfunc_3 0x000e5710, FEMenuBase::vfunc_3 0x000e6050) move it before the game sees the key; a place is
+  relabelled with the TextSelector's own pieces (label and choice text entries re-pointed at string ids by 0x000f8500,
+  missing choices appended with its vfunc_19, count at +0x1d58, measured and refreshed). Named ints and handlers are
+  per place, not per setting: no screen, item or named int is added (wquit1's heap limit), and Far Field, Lighting and
+  Dynamic Lights now have items, front end and pause.
+- **Pausing crashed the headless app.** With HULK_GFX_RENDERER=null, changing any port setting in the pause menu, or
+  pausing at all with the remastered defaults, crashed (an indirect call through 1, or a later allocation through a
+  bad free-list word) at HEAD before this change too. A watchpoint on the handlers' vftable (lldb on hulk-app,
+  `hulk_run_memory() + address`) caught 0x00329da0 / 0x00329e50 writing it: their isolated TU defines the D3D
+  texture-stage words DAT_0039db50 / DAT_0039db58 as `int[32]` and writes `[stage * 32]`, so stages 1..3 ran past
+  them into the next globals of the wasm module's `hulk_game_state` section (the tree's globals and the host's
+  game-facing statics share it). The arrays now hold four stages (the block still MATCHes). The Metal app did not
+  crash in the same run (its globals layout or stage use differs), but any port global after those arrays was exposed.
+- The pause menu's options order is by locator, not by text: Options > Video Options is three downs from the top.

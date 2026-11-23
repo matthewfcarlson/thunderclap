@@ -17,7 +17,7 @@ enum { PS_SCREEN_VIDEO, PS_SCREEN_GAMEPLAY, PS_SCREENS };
 enum { PS_MAX_CHOICES = 12 };
 
 typedef struct port_setting {
-    const char* key;            /* the file's key; the menu's names derive from it (Port_<key>, port_<key>_selector) */
+    const char* key;            /* the file's key; the menu's string ids derive from it (TBS_PORT_<KEY>[_<choice>]) */
     const char* label;          /* the item's text (English; the port's own string) */
     int screen;                 /* PS_SCREEN_* */
     int kind;                   /* PS_* */

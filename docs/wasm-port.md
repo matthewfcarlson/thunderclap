@@ -431,16 +431,21 @@ most enhancements on; turning the edition off restores every faithful value (D23
 - **The menus** (src/platform/wasm/gfx/fe_options.c). The misc.rcf overlay (fps1: patched copies of the player's own
   frontend\fe_real.txt, fe_run.txt and str_*.txt appended to the archive, located by anchors at run time; the
   repository holds only what is inserted and our own English strings) now adds, in both the front end (fe_real) and
-  the pause menu (fe_run): one `AddNamedValueInt "Port_<key>" 0 "Port_<key>_Changed"` per setting (after
-  CameraInvertY's), two `AddTextButton` entries at the end of the "options" screen (front end: FEmain_left_item5/6
+  the pause menu (fe_run): one `AddNamedValueInt "Port_<screen>_<k>" 0 "Port_<screen>_<k>_Changed"` per item place
+  (after CameraInvertY's; wmenu1: places, not settings, see "Scrolling" below), two `AddTextButton` entries at the end of the "options" screen (front end: FEmain_left_item5/6
   with menu_item_5/6; pause menu: FEpause_text4/5 with the bars and slide_down4/5) going to the screens
   "port_video_options" and "port_gameplay_options", and those screens (inserted before "camera_options", built like
-  camera_options: a title and one `AddTextSelector` per setting of the screen, FEsubMenu_text<k> / FEpause_text<k>,
-  `TextSelection` of the choices' string ids TBS_PORT_<KEY>_<n>, `NamedValue "Port_<key>"`, name
-  "port_<key>_selector"). fps1's three entry hooks serve every setting: 0x000df9e0 (the int-callback lookup) returns a
-  host handler per setting (a two-word object: a vftable whose call slot is `ff_host_method(on_change)`, and the
-  setting's index), 0x000f8e70 (NamedValueInt's Create) starts each "Port_<key>" at its choice index and remembers the
-  objects, 0x000b5ad0 (the selectors' sync at front-end set-up and pause) sets each selector to its choice. The named
+  camera_options: a title and one `AddTextSelector` per place, FEsubMenu_text<k> / FEpause_text<k>, parsed showing
+  the setting of row k: `TextSelection` of the choices' string ids TBS_PORT_<KEY>_<n>, `NamedValue
+  "Port_<screen>_<k>"`, name "port_<screen>_<k>"). fps1's three entry hooks serve every place: 0x000df9e0 (the
+  int-callback lookup) returns a host handler per place (a two-word object: a vftable whose call slot is
+  `ff_host_method(on_change)`, and the place), 0x000f8e70 (NamedValueInt's Create) starts each named int at the
+  choice index of the setting its place shows and remembers the latest parse's object, 0x000b5ad0 (the selectors'
+  sync at front-end set-up and pause) shows each place's setting (the selector's choice written and the selector
+  refreshed). The pause menu's items crashed the headless app (HULK_GFX_RENDERER=null) when one changed, or on pausing
+  with the remastered defaults, since wopt1: 0x00329da0's isolated TU defined the D3D stage words DAT_0039db50 /
+  DAT_0039db58 as `int[32]` and wrote `[stage * 32]`, so stages 1..3 overran them into the next globals of the module's
+  `hulk_game_state` section, there the handlers' vftable (wmenu1: the arrays now hold four stages). The named
   ints and handlers are in `hulk_game_state`; the settings are host state. `HULK_FE_OPTIONS_LOG=1` logs the items and
   changes, `HULK_FE_OPTIONS_DUMP=DIR` writes the patched text files to a local directory (game text: never commit).
   Only one screen kind of item exists (a text selector over a named int); a real slider (AddHSlider) binds a
@@ -549,10 +554,20 @@ never sees a replacement, so checkpoint records and HULK_ROLLTEST are unchanged 
   (play3 at frame 26,654), and the game heap there has almost no margin: one more screen (a quit confirm in fe_real.txt,
   or a "Quit to Desktop" with its screen in fe_run.txt) ran a later level load out of memory, and play3 hung at
   ~26,500 in the out-of-memory spin 0x0008d320 (`sample` on the hung app shows 0x00266e00 -> 0x0008d320). Add items to
-  existing screens and test any menu change with play3 past frame 27,000. Video Options' nine places
-  (FEsubMenu_text1..9 / FEpause_text1..9, the only locators) are full: at 62e7c5c90 the table has 12 Video rows and
-  only the first nine have items (Far Field, Lighting and Dynamic Lights work from the file and `HULK_SETTINGS` only);
-  a row without an item gets no named int either (fe_options.c `shown`). MAXS (16) bounds the table (15 rows).
+  existing screens and test any menu change with play3 past frame 27,000. A screen has nine places
+  (FEsubMenu_text1..9 / FEpause_text1..9, the only locators); a screen with more rows scrolls (below).
+- **Scrolling** (wmenu1, D238). A screen's rows are the table's settings on it, in the table's order (add a row
+  where it should appear); its nine places show a window of them. Down on the last place with rows below moves the
+  window one row (the cursor stays; the places are relabelled), up on the first place likewise; at the ends the
+  cursor goes round to the other end and the window with it. Two entry hooks, the screens' key handlers 0x000e5710
+  (FEScreenBase) and 0x000e6050 (FEMenuBase), do it before the game's handling (key 4 down, 0 up; the focus at
+  +0x48): a place is relabelled with the selector's own pieces, its label and choice text entries re-pointed at the
+  setting's string ids by 0x000f8500 (no allocation for an id), missing choices appended with its vfunc_19 (a
+  TextSelector holds 128 in itself), the count at +0x1d58, then measured (slot 3) and refreshed (slot 0); the place's
+  named int and handler stand for whichever setting it shows. So scrolling adds no screen, no item and no named int
+  (Video Options: 12 rows, 9 selectors, 9 named ints). The window (`g_top`) is game-facing state (`hulk_game_state`).
+  Checks: HULK_INPUT runs through Video Options front end and pause (every row reached and changed, the file
+  written), play3 to 60,000 records identical to the control.
 
 ### Quitting the app (wquit1)
 

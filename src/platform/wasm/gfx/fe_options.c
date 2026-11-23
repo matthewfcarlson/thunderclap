@@ -2,24 +2,24 @@
  * HULK_WASM_GFX=1 builds only).
  *
  * Options gets two more entries, "Video Options" and "Gameplay Options", in the front end and in the pause menu; each
- * opens a screen with one item per setting of port_settings.c's table on that screen (a text selector bound to a named
- * int). The menus are game data (misc.rcf's frontend\fe_real.txt and fe_run.txt, the English strings in
+ * opens a screen listing the settings of port_settings.c's table on that screen in its nine item places (a text
+ * selector bound to a named int each); a screen with more settings scrolls (wmenu1, below). The menus are game data (misc.rcf's frontend\fe_real.txt and fe_run.txt, the English strings in
  * frontend\lang\str_*.txt): nothing of them is in the repository. When the game opens misc.rcf the host serves it with
  * those files patched (an overlay: the archive's directory names the patched copies, appended after its end; every
  * other byte is the disc's), so the parser builds our screens like its own. The text below holds only what we insert
  * and our own strings; the game's text is located by anchors at run time:
  *
- *   AddNamedValueInt "Port_<key>" 0 "Port_<key>_Changed"               (after CameraInvertY's)
+ *   AddNamedValueInt "Port_<screen>_<k>" 0 "Port_<screen>_<k>_Changed"   (after CameraInvertY's)
  *   AddTextButton "FEmain_left_item5" / "FEpause_text4" ... gotoscreen "port_video_options"   (in "options")
- *   AddScreen "port_video_options" { ... AddTextSelector "FEsubMenu_text<k>" / "FEpause_text<k>" { ... NamedValue
- *       "Port_<key>" ... } }                                            (before "camera_options")
+ *   AddScreen "port_video_options" { ... AddTextSelector "FEsubMenu_text<k>" / "FEpause_text<k>" { name
+ *       "port_<screen>_<k>" ... NamedValue "Port_<screen>_<k>" ... } }  (before "camera_options")
  *
  * Three entry hooks (tools/wasm_port.py GFX_APP_HOOKS) connect the items to the settings:
- * - 0x000df9e0, the front end's lookup of an int callback by name: "Port_<key>_Changed" is a handler object of the
- *   host's (a vftable whose call slot is a host method, ff_host_method; the object's second word is the setting's
- *   index), which NamedValueInt::vfunc_1 0x000f8dd0 calls with the value when the selector changes it;
- * - 0x000f8e70, NamedValueInt's Create(name, default, callback): "Port_<key>" starts at the setting's choice index,
- *   and the host remembers the objects (one per front-end slot) to keep them showing the same value;
+ * - 0x000df9e0, the front end's lookup of an int callback by name: "Port_<screen>_<k>_Changed" is a handler object of
+ *   the host's (a vftable whose call slot is a host method, ff_host_method; the object's second word is the place),
+ *   which NamedValueInt::vfunc_1 0x000f8dd0 calls with the value when the selector changes it;
+ * - 0x000f8e70, NamedValueInt's Create(name, default, callback): "Port_<screen>_<k>" starts at the choice index of the
+ *   setting its place shows, and the host remembers the latest parse's object to keep it showing it;
  * - 0x000b5ad0, which sets the camera selectors from the stored flags (the front end's set-up 0x000c3ea0 and the pause
  *   menu's 0x000bcf40): a selector shows its first choice until the game's code sets it, so the hook sets ours to the
  *   settings the same way (vfunc_25, the choice's index = the named int's value).
@@ -38,9 +38,15 @@
  *
  * Screens and heap are scarce: the front end's parser holds at most 66 screens of fe_real.txt (the disc has 63; a
  * 67th crashes the parse with a call through null at frame ~92), and the menus' text is parsed again in play (play3
- * at frame 26,654), where one more screen ran a later level load out of game heap (wquit1). Add items to existing
- * screens, and test a menu change with play3 past frame 27,000 (Video Options' nine places, FEsubMenu_text1..9, are
- * all the locators there are).
+ * at frame 26,654), where one more screen ran a later level load out of game heap (wquit1). Add rows to existing
+ * screens, and test a menu change with play3 past frame 27,000.
+ *
+ * Scrolling (wmenu1, D238): a screen has nine places (FEsubMenu_text1..9 / FEpause_text1..9, all the locators there
+ * are), and a screen with more rows shows a window of nine of them. Two more entry hooks, the screens' key handlers
+ * 0x000e5710 / 0x000e6050, move it: down on the last place shows the next row there (the places are relabelled with the
+ * selectors' own text setters and choice list, show_place), up on the first the row before; at the ends the cursor goes
+ * round to the other end and the window with it. The window is game-facing state (g_top), the places' objects are the
+ * nine the screen always had: scrolling adds no screen, no item and no named int.
  *
  * The named ints hold choice indices; the settings hold values (port_settings.h). With the remastered-edition switch
  * off a remastered-only item shows its faithful choice and turns back to it when changed. HULK_FE_OPTIONS=0 serves the
@@ -57,11 +63,12 @@
 #include "port_settings.h"
 
 
-/* Game-facing state of this host file (the game objects and the handlers the game holds) lives in the tree's
- * snapshotted section (tools/wasm_port.py GAME_STATE_SECTION), so a restore puts back the menus' objects with the
- * game (wroll1). The settings are host state (port_settings.c). */
+/* Game-facing state of this host file (the game objects and the handlers the game holds, the screens' scroll
+ * positions) lives in the tree's snapshotted section (tools/wasm_port.py GAME_STATE_SECTION), so a restore puts back
+ * the menus' objects with the game (wroll1). The settings are host state (port_settings.c). */
 #define GAME_STATE __attribute__((section("hulk_game_state")))
-enum { MAXS = 16, SLOTS = 4 };
+/* PLACES: a screen's item places (FEsubMenu_text1..9 / FEpause_text1..9); ROWS: settings on one screen at most */
+enum { PLACES = 9, NPLACE = PS_SCREENS * PLACES, ROWS = 64 };
 
 static int log_on(void) {
     static int on = -1;
@@ -69,10 +76,41 @@ static int log_on(void) {
     return on;
 }
 
+/* the screens and their entries in Options (key: the places' names) */
+static const struct { const char* screen; const char* key; const char* id; const char* label; } k_screens[PS_SCREENS] = {
+    {"port_video_options", "video", "TBS_PORT_VIDEO_OPTIONS", "Video Options"},
+    {"port_gameplay_options", "gameplay", "TBS_PORT_GAMEPLAY_OPTIONS", "Gameplay Options"},
+};
+
+/* ------------------------------------------------------------------------------------------- rows and places */
+/* A screen's rows are the settings of port_settings.c's table on it, in the table's order. It shows them in its nine
+ * places as a window (wmenu1, D238): place k shows row top + k. The places are the game's objects (a text selector
+ * and its named int each), parsed once; the window moves by relabelling them (show_place), so a screen with more rows
+ * than places costs no more game objects than one with nine. */
+static int rows_of(int sc, int* out) {
+    int n = 0;
+    for (int i = 0; i < hulk_settings_count() && n < ROWS; i++)
+        if (hulk_settings_at(i)->screen == sc) out[n++] = i;
+    return n;
+}
+static int places_of(int sc) {
+    int r[ROWS], n = rows_of(sc, r);
+    return n < PLACES ? n : PLACES;
+}
+GAME_STATE static int32_t g_top[PS_SCREENS];       /* each screen's first shown row */
+static int top_of(int sc) {
+    int r[ROWS], n = rows_of(sc, r), t = g_top[sc];
+    return t < 0 ? 0 : t > n - PLACES ? (n > PLACES ? n - PLACES : 0) : t;
+}
+/* the setting place p shows (-1: no such place) */
+static int place_setting(int p) {
+    int sc = p / PLACES, k = p % PLACES, r[ROWS], n = rows_of(sc, r);
+    return k < (n < PLACES ? n : PLACES) ? r[top_of(sc) + k] : -1;
+}
 /* ------------------------------------------------------------------------------------------- names */
-static void nv_name(int i, char* out, size_t cap) { snprintf(out, cap, "Port_%s", hulk_settings_at(i)->key); }
-static void cb_name(int i, char* out, size_t cap) { snprintf(out, cap, "Port_%s_Changed", hulk_settings_at(i)->key); }
-static void sel_name(int i, char* out, size_t cap) { snprintf(out, cap, "port_%s_selector", hulk_settings_at(i)->key); }
+static void nv_name(int p, char* out, size_t cap) { snprintf(out, cap, "Port_%s_%d", k_screens[p / PLACES].key, p % PLACES + 1); }
+static void cb_name(int p, char* out, size_t cap) { snprintf(out, cap, "Port_%s_%d_Changed", k_screens[p / PLACES].key, p % PLACES + 1); }
+static void sel_name(int p, char* out, size_t cap) { snprintf(out, cap, "port_%s_%d", k_screens[p / PLACES].key, p % PLACES + 1); }
 static void str_id(int i, int choice, char* out, size_t cap) {      /* TBS_PORT_<KEY> / TBS_PORT_<KEY>_<choice> */
     int n = snprintf(out, cap, "TBS_PORT_%s", hulk_settings_at(i)->key);
     if (choice >= 0) snprintf(out + n, cap - (size_t)n, "_%d", choice);
@@ -85,13 +123,23 @@ static void str_id(int i, int choice, char* out, size_t cap) {      /* TBS_PORT_
 #define NV_NAME_OFF 0x18
 #define NV_VALUE 0x40
 #define NV_PENDING 0x44
-GAME_STATE static uint32_t g_nv[MAXS][SLOTS], g_nv_vft;     /* each setting's named ints (one per front-end slot) */
-GAME_STATE static uint32_t g_handler[MAXS][2], g_handler_vft[4];
+/* TextSelector (src/game/global/TextSelector*.cpp): its label's text entry at +0x18 (every FEObject's), the shown
+ * choice at +0x154, the choices' entries at +0x158 (0x38 bytes each; a text entry first) and their count at +0x1d58 */
+#define SEL_LABEL 0x18
+#define SEL_INDEX 0x154
+#define SEL_ITEMS 0x158
+#define SEL_ITEM_SIZE 0x38
+#define SEL_COUNT 0x1d58
+/* Each place's named int: only the one of the latest parse of the menus' text (an earlier parse's objects go with its
+ * menus, the front end's when the game starts, and a write into one would land in freed game heap). */
+GAME_STATE static uint32_t g_nv[NPLACE], g_nv_vft;
+GAME_STATE static uint32_t g_handler[NPLACE][2], g_handler_vft[4];
+GAME_STATE static uint32_t g_sel[NPLACE];       /* each place's selector when last shown (the key hook's filter) */
 
-static int nv_is(uint32_t p, int i) {
+static int nv_is(uint32_t a, int p) {
     char name[64];
-    nv_name(i, name, sizeof name);
-    return p && *(uint32_t*)PTR(p) == g_nv_vft && !strncmp((const char*)PTR(p + NV_NAME_OFF), name, 0x28);
+    nv_name(p, name, sizeof name);
+    return a && *(uint32_t*)PTR(a) == g_nv_vft && !strncmp((const char*)PTR(a + NV_NAME_OFF), name, 0x28);
 }
 
 /* the choice an item shows: the faithful one while the setting is locked */
@@ -100,29 +148,66 @@ static int shown_index(int i) {
     return hulk_setting_index(s, hulk_setting_locked(i) ? s->faithful : hulk_setting_user(i));
 }
 
-static int g_busy;
-/* the item's selector on the screen now (0x000b5ad0's way: the control by name 0x000fc260, dynamic_cast 0x00344e74
- * to the selector, its vfunc_25 sets the choice) */
-static void selector_show(int i) {
+/* place p's selector (0x000b5ad0's way: the control by name 0x000fc260, dynamic_cast 0x00344e74 to the selector) */
+static uint32_t selector_of(int p) {
     char sel[64];
-    sel_name(i, sel, sizeof sel);
+    sel_name(p, sel, sizeof sel);
     uint32_t c = ff_call(0x000fc260u, 1, (uint32_t)(uintptr_t)sel);
-    uint32_t s = c ? ff_call(0x00344e74u, 5, c, 0, 0x0049dba4u, 0x0049dbbcu, 0) : 0;
-    if (s) ff_call_this(((uint32_t*)PTR(*(uint32_t*)PTR(s)))[25], s, 1, (uint32_t)shown_index(i));
+    return c ? ff_call(0x00344e74u, 5, c, 0, 0x0049dba4u, 0x0049dbbcu, 0) : 0;
 }
-/* every named int of setting i shows its choice; `screen`: the selector too */
-static void refresh(int i, int screen) {
+
+static int g_busy;
+GAME_STATE static int32_t g_shown[NPLACE];      /* the setting each place's selector shows (its parsed row after a parse) */
+/* Place p shows its setting: its named int holds the choice; `screen`: the selector too (its shown choice written and
+ * the selector refreshed, slot 0; not vfunc_25, which would commit the named int again: its callback and receivers).
+ * When the window has moved since, the selector is relabelled first: its label and choices
+ * re-pointed at the setting's string ids with the text entries' setter 0x000f8500 (which allocates nothing for an id),
+ * choices it lacks appended with its own vfunc_19 (a copy of its first; a selector holds 128 in itself, no heap), the
+ * count written, then measured (slot 3) and refreshed (slot 0) as the game does after a text change. Runs that never
+ * scroll (replays) only ever take the vfunc_25 path. */
+static void show_place(int p, int screen) {
+    int i = place_setting(p);
+    if (i < 0) return;
     uint32_t k = (uint32_t)shown_index(i);
-    for (int j = 0; j < SLOTS; j++)
-        if (nv_is(g_nv[i][j], i)) {
-            *(uint32_t*)PTR(g_nv[i][j] + NV_VALUE) = k;
-            *(uint32_t*)PTR(g_nv[i][j] + NV_PENDING) = k;
-        }
-    if (screen && !g_busy) {
-        g_busy = 1;
-        selector_show(i);
-        g_busy = 0;
+    if (nv_is(g_nv[p], p)) {
+        *(uint32_t*)PTR(g_nv[p] + NV_VALUE) = k;
+        *(uint32_t*)PTR(g_nv[p] + NV_PENDING) = k;
     }
+    if (!screen || g_busy) return;
+    g_busy = 1;
+    uint32_t s = selector_of(p);
+    g_sel[p] = s;
+    if (s) {
+        uint32_t* vft = (uint32_t*)PTR(*(uint32_t*)PTR(s));
+        if (g_shown[p] != i) {
+            const port_setting* st = hulk_settings_at(i);
+            int n = st->n < 128 ? st->n : 128;
+            uint32_t mgr = ff_call(0x000fc1b0u, 0);
+            char id[64];
+            str_id(i, -1, id, sizeof id);
+            ff_call_this(0x000f8500u, s + SEL_LABEL, 3, (uint32_t)(uintptr_t)id, mgr, 1);
+            while (*(int32_t*)PTR(s + SEL_COUNT) < n)
+                ff_call_this(vft[19], s, 3, s + SEL_ITEMS, 0, 0);
+            for (int c = 0; c < n; c++) {
+                str_id(i, c, id, sizeof id);
+                ff_call_this(0x000f8500u, s + SEL_ITEMS + (uint32_t)c * SEL_ITEM_SIZE, 3, (uint32_t)(uintptr_t)id, mgr, 1);
+            }
+            *(uint32_t*)PTR(s + SEL_COUNT) = (uint32_t)n;
+            if (*(uint32_t*)PTR(s + SEL_INDEX) >= (uint32_t)n) *(uint32_t*)PTR(s + SEL_INDEX) = 0;
+            ff_call_this(vft[3], s, 0);
+            ff_call_this(vft[0], s, 0);
+            g_shown[p] = i;
+            if (log_on()) fprintf(stderr, "hulk: frame %u: place %s %d shows %s\n", SIM->frame, k_screens[p / PLACES].key, p % PLACES + 1, st->key);
+        }
+        if (*(uint32_t*)PTR(s + SEL_INDEX) != k) {
+            *(uint32_t*)PTR(s + SEL_INDEX) = k;
+            ff_call_this(vft[0], s, 0);
+        }
+    }
+    g_busy = 0;
+}
+static void show_all(void) {
+    for (int p = 0; p < NPLACE; p++) show_place(p, 1);
 }
 
 /* the Packs screen's status lines: the runner's text into the labels (a label's TextEntry at +0x18, 0x000f8500 with the
@@ -143,22 +228,21 @@ static void pack_status_show(void) {
     }
 }
 
-/* the handlers' call slot: (this, choice index) */
+/* the handlers' call slot: (this, choice index); the handler's second word is its place */
 static void on_change(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     (void)edx, (void)rb;
     if (g_busy) return;
-    int i = (int)*(uint32_t*)PTR(ecx + 4);
-    const port_setting* s = hulk_settings_at(i);
+    int p = (int)*(uint32_t*)PTR(ecx + 4), i = place_setting(p);
+    const port_setting* s = i >= 0 ? hulk_settings_at(i) : 0;
     if (!s) return;
     uint32_t k = ARG(0);
-    if (log_on()) fprintf(stderr, "hulk: frame %u: Port_%s_Changed -> %u\n", SIM->frame, s->key, k);
+    if (log_on()) fprintf(stderr, "hulk: frame %u: place %s %d (%s) -> %u\n", SIM->frame, k_screens[p / PLACES].key, p % PLACES + 1, s->key, k);
     int locked = hulk_setting_locked(i);
     if (!locked && k < (uint32_t)s->n) hulk_setting_choose(i, s->values[k]);
     if (i == 0) {                       /* the edition switch: every item shows what it now stands for */
-        for (int j = 1; j < hulk_settings_count(); j++) refresh(j, 1);
-        refresh(0, 0);
+        for (int q = 0; q < NPLACE; q++) show_place(q, q != p);
     } else {
-        refresh(i, locked);             /* a locked item turns back to its faithful choice */
+        show_place(p, locked);          /* a locked item turns back to its faithful choice */
     }
     if (!strcmp(s->key, "texture_pack")) pack_status_show();
 }
@@ -167,15 +251,15 @@ void ffgo_000df9e0(uint32_t, uint32_t, void*, void*);   /* the game's int-callba
 void ffh_hulk_app_fe_callback(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     const char* name = ARG(0) ? (const char*)PTR(ARG(0)) : 0;
     if (name && !strncmp(name, "Port_", 5)) {
-        for (int i = 0; i < hulk_settings_count() && i < MAXS; i++) {
+        for (int p = 0; p < NPLACE; p++) {
             char cb[64];
-            cb_name(i, cb, sizeof cb);
-            if (strcmp(name, cb)) continue;
+            cb_name(p, cb, sizeof cb);
+            if (strcmp(name, cb) || place_setting(p) < 0) continue;
             if (!g_handler_vft[0])
                 for (int k = 0; k < 4; k++) g_handler_vft[k] = ff_host_method(on_change);
-            g_handler[i][0] = (uint32_t)(uintptr_t)g_handler_vft;
-            g_handler[i][1] = (uint32_t)i;
-            RET((uint32_t)(uintptr_t)g_handler[i]);
+            g_handler[p][0] = (uint32_t)(uintptr_t)g_handler_vft;
+            g_handler[p][1] = (uint32_t)p;
+            RET((uint32_t)(uintptr_t)g_handler[p]);
             return;
         }
     }
@@ -187,30 +271,74 @@ void ffh_hulk_app_named_int(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     const char* name = ARG(0) ? (const char*)PTR(ARG(0)) : 0;
     int ours = -1;
     if (name && !strncmp(name, "Port_", 5))
-        for (int i = 0; i < hulk_settings_count() && i < MAXS; i++) {
+        for (int p = 0; p < NPLACE; p++) {
             char nv[64];
-            nv_name(i, nv, sizeof nv);
-            if (!strcmp(name, nv)) ours = i;
+            nv_name(p, nv, sizeof nv);
+            if (!strcmp(name, nv) && place_setting(p) >= 0) ours = p;
         }
-    if (ours >= 0) ARG(1) = (uint32_t)shown_index(ours);
+    if (ours >= 0) ARG(1) = (uint32_t)shown_index(place_setting(ours));
     ffgo_000f8e70(ecx, edx, st, rb);
-    uint32_t p = (uint32_t)*(uint64_t*)rb;
-    if (ours >= 0 && p) {
-        g_nv_vft = *(uint32_t*)PTR(p);
-        int k = 0;
-        while (k < SLOTS - 1 && nv_is(g_nv[ours][k], ours) && g_nv[ours][k] != p) k++;
-        g_nv[ours][k] = p;
-        if (log_on()) fprintf(stderr, "hulk: frame %u: %s at 0x%08x = %u\n", SIM->frame, name, p, ARG(1));
+    uint32_t a = (uint32_t)*(uint64_t*)rb;
+    if (ours >= 0 && a) {
+        g_nv_vft = *(uint32_t*)PTR(a);
+        g_nv[ours] = a;
+        int r[ROWS];
+        rows_of(ours / PLACES, r);
+        g_shown[ours] = r[ours % PLACES];       /* (a parse: the place's new selector shows its parsed row) */
+        if (log_on()) fprintf(stderr, "hulk: frame %u: %s at 0x%08x = %u\n", SIM->frame, name, a, ARG(1));
     }
 }
 
 void ffgo_000b5ad0(uint32_t, uint32_t, void*, void*);   /* the camera selectors' sync (the hook's original) */
 void ffh_hulk_app_fe_sync(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     ffgo_000b5ad0(ecx, edx, st, rb);
-    g_busy = 1;
-    for (int i = 0; i < hulk_settings_count() && i < MAXS; i++) selector_show(i);
-    g_busy = 0;
+    show_all();
 }
+
+/* Scrolling (wmenu1): the screens' key handlers (FEScreenBase::vfunc_3 0x000e5710, FEMenuBase::vfunc_3 0x000e6050;
+ * key 4 down, 0 up; the focused layout at +0x48, the screen's active flag at +0xab8). Down on a screen's last place
+ * with rows below the window moves the window one row (the cursor stays, the places are relabelled, and the place is
+ * focused again through the screen's slot 52 as the game does when nothing else can take the focus); up on the first
+ * place with rows above, likewise. At the ends the game moves the cursor round (last place -> first, first -> last)
+ * and the window follows it to the top / the bottom. Any other key or screen goes to the game untouched: the hook
+ * reads only the focus before it compares it with the places' selectors. */
+static int focus_is(uint32_t focus, uint32_t sel) {
+    if (!focus || !sel) return 0;
+    if (focus == sel) return 1;
+    for (int w = 1; w < 0x48 / 4; w++)          /* (a layout holding the control: SingleLayout is 0x48 bytes) */
+        if (*(uint32_t*)PTR(focus + 4 * (uint32_t)w) == sel) return 1;
+    return 0;
+}
+static void fe_key(uint32_t ecx, uint32_t edx, void* st, void* rb, ffg_t original) {
+    uint32_t key = ARG(0), focus = (key == 0 || key == 4) && *(uint8_t*)PTR(ecx + 0xab8) ? *(uint32_t*)PTR(ecx + 0x48) : 0;
+    int wrap = -1, wrap_top = 0;
+    for (int sc = 0; focus && sc < PS_SCREENS; sc++) {
+        int r[ROWS], n = rows_of(sc, r);
+        if (n <= PLACES) continue;
+        int p = sc * PLACES + (key == 4 ? PLACES - 1 : 0), t = top_of(sc), last = n - PLACES;
+        if (!focus_is(focus, g_sel[p]) || selector_of(p) != g_sel[p]) continue;
+        if (key == 4 ? t < last : t > 0) {
+            g_top[sc] = key == 4 ? t + 1 : t - 1;
+            if (log_on()) fprintf(stderr, "hulk: frame %u: %s rows %d..%d\n", SIM->frame, k_screens[sc].key, g_top[sc] + 1, g_top[sc] + PLACES);
+            for (int k = 0; k < PLACES; k++) show_place(sc * PLACES + k, 1);
+            ff_call_this(((uint32_t*)PTR(*(uint32_t*)PTR(ecx)))[52], ecx, 2, focus, key == 4 ? 2 : 1);
+            RET(1);
+            return;
+        }
+        wrap = sc;
+        wrap_top = key == 4 ? 0 : last;
+    }
+    original(ecx, edx, st, rb);
+    if (wrap >= 0 && *(uint32_t*)PTR(ecx + 0x48) != focus) {
+        g_top[wrap] = wrap_top;
+        if (log_on()) fprintf(stderr, "hulk: frame %u: %s rows %d..%d (round)\n", SIM->frame, k_screens[wrap].key, wrap_top + 1, wrap_top + PLACES);
+        for (int k = 0; k < PLACES; k++) show_place(wrap * PLACES + k, 1);
+    }
+}
+void ffgo_000e5710(uint32_t, uint32_t, void*, void*);   /* FEScreenBase::vfunc_3 (the hook's original) */
+void ffgo_000e6050(uint32_t, uint32_t, void*, void*);   /* FEMenuBase::vfunc_3 (the hook's original) */
+void ffh_hulk_app_fe_key_screen(uint32_t ecx, uint32_t edx, void* st, void* rb) { fe_key(ecx, edx, st, rb, ffgo_000e5710); }
+void ffh_hulk_app_fe_key_menu(uint32_t ecx, uint32_t edx, void* st, void* rb) { fe_key(ecx, edx, st, rb, ffgo_000e6050); }
 
 /* the Quit item's function: (this, argument count, arguments) -> 0, as the game's front-end functions return */
 void hulk_app_request_quit(const char* why);    /* gfx.c */
@@ -282,12 +410,6 @@ static const char* line_start(const char* s, const char* p) {
     return p;
 }
 
-/* the screens and their entries in Options */
-static const struct { const char* screen; const char* id; const char* label; } k_screens[PS_SCREENS] = {
-    {"port_video_options", "TBS_PORT_VIDEO_OPTIONS", "Video Options"},
-    {"port_gameplay_options", "TBS_PORT_GAMEPLAY_OPTIONS", "Gameplay Options"},
-};
-
 /* the screen with the Texture Pack item: it ends with the packs' status lines */
 static int pack_screen(void) {
     const port_setting* s = hulk_settings_at(hulk_settings_find("texture_pack"));
@@ -297,22 +419,15 @@ static int pack_screen(void) {
 /* The inserted text: `pause` 0 for fe_real.txt (the front end: FEmain_left_item<n> entries, FEsubMenu_text<k> items),
  * 1 for fe_run.txt (the pause menu: FEpause_text<n>, its bars and slide animations) */
 #define CRLF "\r\n"
-/* A screen has nine places (FEsubMenu_text1..9 / FEpause_text1..9): a setting past them has no item, and no named int
- * either. Each named int is game heap the pause menu's text holds through gameplay, and that heap is short: play3's
- * re-parse of the menus at frame 26,654 already fails to create the last ones at 06503c904, and one more allocation
- * there ran a later load out of memory (the 0x0008d320 spin) (wquit1). */
-static int shown(int i) {
-    const port_setting* s = hulk_settings_at(i);
-    int k = 0;
-    for (int j = 0; j < i; j++) k += hulk_settings_at(j)->screen == s->screen;
-    return i < MAXS && k < 9;
-}
+/* One named int per place (not per setting): each is game heap the pause menu's text holds through gameplay, and that
+ * heap is short: play3's re-parse of the menus at frame 26,654 runs near its end, and one more screen there ran a
+ * later load out of memory (the 0x0008d320 spin) (wquit1). */
 static void gen_values(buf_t* b) {
-    for (int i = 0; i < hulk_settings_count() && i < MAXS; i++) {
-        if (!shown(i)) continue;
+    for (int p = 0; p < NPLACE; p++) {
+        if (place_setting(p) < 0) continue;
         char nv[64], cb[64];
-        nv_name(i, nv, sizeof nv);
-        cb_name(i, cb, sizeof cb);
+        nv_name(p, nv, sizeof nv);
+        cb_name(p, cb, sizeof cb);
         printf_(b, "AddNamedValueInt \"%s\" 0 \"%s\"" CRLF, nv, cb);
     }
 }
@@ -334,6 +449,7 @@ static void gen_entries(buf_t* b, int pause) {
         puts_(b, "    }" CRLF CRLF);
     }
 }
+/* Each place is parsed showing the row it shows at the top of the list (show_place relabels it when the window moves). */
 static void gen_screens(buf_t* b, int pause) {
     for (int sc = 0; sc < PS_SCREENS; sc++) {
         printf_(b, "AddScreen \"%s\"" CRLF "{" CRLF "    $MACRO_INSERT typicalScreenSetup" CRLF CRLF
@@ -341,14 +457,14 @@ static void gen_screens(buf_t* b, int pause) {
                    "        $MACRO_INSERT FormatTitleText" CRLF CRLF "        TransitionAnimEnter \"fadein\"" CRLF
                    "        TransitionAnimExit  \"fadeout\"" CRLF "    }" CRLF CRLF,
                 k_screens[sc].screen, pause ? "FEpause_title" : "FEsubMenu_title", k_screens[sc].id);
-        int k = 0;
-        for (int i = 0; i < hulk_settings_count() && i < MAXS; i++) {
+        int r[ROWS], places = places_of(sc);
+        rows_of(sc, r);
+        for (int k = 1; k <= places; k++) {
+            int p = sc * PLACES + k - 1, i = r[k - 1];
             const port_setting* s = hulk_settings_at(i);
-            if (s->screen != sc || !shown(i)) continue;
-            k++;
             char nv[64], sel[64], id[64];
-            nv_name(i, nv, sizeof nv);
-            sel_name(i, sel, sizeof sel);
+            nv_name(p, nv, sizeof nv);
+            sel_name(p, sel, sizeof sel);
             str_id(i, -1, id, sizeof id);
             printf_(b, "    AddTextSelector \"%s%d\"" CRLF "    {" CRLF "        text \"%s\" 1" CRLF CRLF
                        "        name \"%s\"" CRLF "        TextSelection \"\"",
@@ -369,14 +485,15 @@ static void gen_screens(buf_t* b, int pause) {
                 printf_(b, "        $MACRO_INSERT menu_item_%d" CRLF, k);
             puts_(b, "    }" CRLF CRLF);
         }
-        for (int l = 0; !pause && sc == pack_screen() && l < 2 && k + 1 + l <= 9; l++)    /* the packs' status (read-only) */
+        for (int l = 0; !pause && sc == pack_screen() && l < 2 && places + 1 + l <= PLACES; l++)    /* the packs' status (read-only) */
             printf_(b, "    AddLabel \"%s%d\"" CRLF "    {" CRLF "        text \"TBS_PORT_PACK_STATUS\" 1" CRLF
                        "        name \"port_pack_status%s\"" CRLF "        $MACRO_INSERT FormatText" CRLF "        halign center" CRLF
                        "    }" CRLF CRLF,
-                    pause ? "FEpause_text" : "FEsubMenu_text", k + 1 + l, l ? "2" : "");
+                    pause ? "FEpause_text" : "FEsubMenu_text", places + 1 + l, l ? "2" : "");
         puts_(b, "    $MACRO_INSERT SetupControlButtonLabel" CRLF "}" CRLF CRLF);
     }
 }
+
 
 /* the Quit item (the front end's Story Mode column, fe_real.txt only): it quits at once (Port_Quit). A confirm screen
  * cost too much: the front end's text is parsed again in play (play3 at frame 26,654), and one more screen there (or
@@ -453,7 +570,7 @@ static int patch_strings(const char* s, uint32_t n, buf_t* out) {
     for (unsigned i = 0; i < sizeof k_quit_strings / sizeof k_quit_strings[0]; i++)
         put_string(out, k_quit_strings[i].id, k_quit_strings[i].text);
     put_string(out, "TBS_PORT_PACK_STATUS", " ");   /* (a fixed placeholder: the text is set when Video Options opens) */
-    for (int i = 0; i < hulk_settings_count() && i < MAXS; i++) {
+    for (int i = 0; i < hulk_settings_count(); i++) {
         const port_setting* st = hulk_settings_at(i);
         char id[64];
         str_id(i, -1, id, sizeof id);
