@@ -25,6 +25,7 @@ enum Quality : uint32_t {
     kReflections,                         // wssr1 (docs/reflections.md): 0 off, 1 low, 2 high
     kNightLights,                         // wlook2 (docs/night.md): 0 off, 1 the city's lamps and glows light the world
     kAtmosphere,                          // wlook2 (docs/night.md): 0 the game's sky and fog, 1 enhanced
+    kGrade,                               // wlook1 (docs/look.md "Colour grade"): 0 original, 1 natural, 2 cinematic
     kQualityCount
 };
 struct Settings {

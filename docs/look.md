@@ -309,3 +309,42 @@ chooses a room per window, not per texture tile:
 | L2 | Windows: Interiors as a remastered default | on / off (experimental) | on: renderer-only, cheap, and it keeps the game's lit-window pattern |
 | L3 | The next passes, in order | outlines + grade LUT (C's identity), emissive night lights, sky/atmosphere, a window-mask pack for `simple`/`layered` buildings, volumetrics | outlines + LUT first (smallest cost, biggest change), then emissive night |
 | L4 | Shadow acne on the desert ground (section 1) | fix in shadows.cpp now / later | now (a slope-scaled bias for the world row; separate from this lane) |
+
+## 7. Colour grade (wlook1; Video Options > Colour Grade: Original / Natural / Cinematic)
+
+The user (11-23, D243 L1/L3): a hybrid look with the open-world superhero city games as the reference: a grounded,
+glossy, dense modern city with strong night lighting, atmosphere and colour grading (no ink outlines by default). The
+grade is the step that sets that mood on the whole picture.
+
+- **Where.** On the scene before the game's own effects, bloom, fader and HUD (the HUD, menus and movies are never
+  graded), inside HDR's tone-map pass (fs_rm_tonemap.sc includes fs_rm_grade.sh; run/app/grade.cpp only sets the
+  constants): no pass, copy or target of its own, within the frame budget (16 ms at 60 fps). A first version graded in
+  a pass of its own when HDR was off: that cost +1.3 ms GPU at 1280x960 MSAA 4x (a full-size copy and quad), so with
+  HDR off nothing is graded. A frame with no effects (the front end) is not graded. Original draws nothing (the
+  faithful edition is untouched).
+- **What** (display-referred, parametric; fs_rm_grade.sh): exposure; contrast as an S around a pivot that keeps 0 and
+  1; split toning (a tint of luminance 1 in the shadows and another in the highlights); saturation plus vibrance (more
+  where the colour is weak, so the Hulk's green and skin barely move); a toe (deeper blacks, 0 and 1 kept); a soft
+  vignette. HDR light above 1 passes through untouched.
+- **Time of day.** From the rooms' fog colour (as the reflections' night test): luminance 0.12-0.35 blends a night
+  look into the day look (downtown night 0.087 is full night, the desert's 0.50 full day).
+- **Presets.**
+
+| preset | contrast | saturation / vibrance | shadows | highlights | vignette | toe |
+|---|---|---|---|---|---|---|
+| Natural, day | 1.06 | 1.05 / 0.10 | barely cool | barely warm | 0 | 0 |
+| Natural, night | 1.08 | 1.06 / 0.12 | cool | warm | 0 | 0 |
+| Cinematic, day | 1.18 | 1.07 / 0.30 | teal-blue | warm | 0.16 | 0.012 |
+| Cinematic, night | 1.18 | 1.10 / 0.28 | blue-teal | sodium amber | 0.22 | 0.010 (exposure 1.08) |
+
+  Cinematic is the remastered default: the night city gets cool shadows and warm lit windows and street lights (the
+  classic complementary split of night photography of cities), firmer contrast and a gentle vignette; the desert by day
+  gets a warmer, punchier look without crushing its sky.
+- Knobs: `HULK_GRADE=contrast,saturation,vibrance,vignette,tints,night` scales the preset (1 each; night < 0 takes the
+  fog's estimate, 0..1 forces it); `HULK_GRADE_LOG=1` (the fog, the night estimate, frames graded); `HULK_GRADE_AB=N`.
+- Cost: a few dozen ALU operations a pixel in a pass that runs anyway. A/B turns of 30 frames within one run (play3 to
+  28,100, 1280x960, MSAA 4x, every remastered option on, 12,420 frames a side): +0.26 ms GPU over the run, +0.59 ms in
+  the night city (14,400-27,600), render thread unchanged; the laptop was shared with other lanes' replays (50 ms
+  frames instead of ~10 ms), so these are upper bounds at the level of the noise. The first version's own pass with
+  HDR off cost +1.3 ms (removed).
+- Pictures: build/wlook1/png/grade-*.png (Original / Natural / Cinematic at game frames 12,000, 19,000 and 25,000).

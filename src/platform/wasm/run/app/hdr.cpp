@@ -11,6 +11,7 @@
 
 #include <bgfx/bgfx.h>
 
+#include "grade.h"
 #include "pddi/bgfx_bridge.h"
 #include "rm_pass.h"
 #include "rm_post.h"
@@ -130,7 +131,12 @@ class HdrPass final : public rm::Pass {
         if (glow)
             rm::texture(1, m_a.tex, lin);
         rm::uniform("u_rmPost0", t);
+        static const float kNoGrade[4][4] = {};
+        const float* g = rm::gradeConstants();              // (wlook1: the colour grade in the same pass)
+        rm::uniform("u_rmGrade", g ? g : &kNoGrade[0][0], 4);
         rm::quad(v[k], tone, write);
+        if (g)
+            rm::gradeDoneInToneMap();
         m_mapped++;
     }
     // HULK_HDR_AB=N: HDR's views off and on in turns of N presented frames (the scene stays half float), bgfx's GPU

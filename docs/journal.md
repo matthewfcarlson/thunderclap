@@ -3588,3 +3588,12 @@ passes; output only (checkpoint records identical with every setting).
   venetian blinds average their slats below a pixel (the moire of the mid-distance towers).
 - The frame is snapped on walls (vertical = the world's up, the normal horizontal): only the bay's size comes from
   derivatives.
+
+## 2026-11-23 wlook1: the colour grade (D243 L1/L3; docs/look.md section 7)
+
+- A parametric grade (contrast S with fixed ends, split toning of luminance 1, saturation + vibrance, a toe, a
+  vignette) before the game's effects and HUD, inside HDR's tone-map pass (no pass of its own: a first version's own
+  pass with HDR off cost +1.3 ms, and the frame budget is 16 ms at 60 fps); day/night from the rooms' fog luminance.
+  Natural and Cinematic presets; Cinematic is the remastered default.
+- A toe written as y*y*(1-l)/(y-l) with l < 0 divides by zero where saturation pushed a channel to exactly l: single
+  orange pixels on the Hulk. Clamp to 0 before any curve that divides.

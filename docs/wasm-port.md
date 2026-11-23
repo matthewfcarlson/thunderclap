@@ -832,6 +832,14 @@ from below by the city, stars, a moon at the key light) and, after ambient occlu
 aerial perspective and the lamps' in-scattering from the scene's depth (fs_rm_atmos.sc). The Fog row scales the added
 fog. Output only: play3's records identical.
 
+### Colour grade (wlook1)
+
+docs/look.md section 7. Video Options > Colour Grade: Original / Natural / Cinematic (`grade`; faithful Original,
+remastered Cinematic; rm::kGrade): run/app/grade.cpp, shaders/fs_rm_grade.sh. A parametric grade (contrast, split
+toning, saturation with vibrance, a toe, a vignette) of the scene before the game's effects and the HUD, by the
+location's time of day (the rooms' fog); inside HDR's tone map (no pass of its own; with HDR off nothing is graded). Output only:
+play3's records identical.
+
 ### Movies (wmov1; hold to skip: D231)
 
 The game's Bink movies (the start-up logos, the attract loop, the cut-scenes) play with picture and sound in the app.
