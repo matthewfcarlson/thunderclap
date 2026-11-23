@@ -6,7 +6,8 @@
   build_gc.py --keep wmenu1,foo    # also keep these (live lanes)
 
 An entry of build/ (folder or file) stays when any of these holds:
-  - it is infrastructure (INFRA below: toolchains, caches, the queue, inputs, deliverables);
+  - it is infrastructure (INFRA below: toolchains, caches, the queue, inputs, and the products at the top of
+    build/: Hulk.app, hulk.apk, hulk-hd.hulkdisc);
   - a live file names it as build/<name>: CLAUDE.md, tools/, tests/, config/, src/, .gitignore,
     build/lead/rules.md or the lead's Claude memory folder (docs/ and the journal are history and don't count);
   - something inside changed in the last --days days (default 3);
@@ -24,7 +25,7 @@ ATTIC = os.path.join(BUILD, "attic")
 MEMORY = os.path.join(os.path.expanduser("~/.claude/projects"), ROOT.replace(os.sep, "-"), "memory")
 
 INFRA = {
-    "attic", "deliver", "lead", "app", "android", "compilers", "venv", "ghidra", "jobs", "tree-cache", "tree",
+    "attic", "lead", "app", "Hulk.app", "hulk.apk", "hulk-hd.hulkdisc", "android", "compilers", "venv", "ghidra", "jobs", "tree-cache", "tree",
     "third_party", "data", "rcf", "replays", "xemu", "wasm", "wasm-app", "wasm-inputs", "clang-probe",
     "native", "hybrid", "tools", "external", "shaders", "farm", "texpack", "lua", "p3d", "ckpt", "traces",
     "agent-tools", "rn1", "elf1", "soft-intrinsics", "xtu", "equiv", "port",

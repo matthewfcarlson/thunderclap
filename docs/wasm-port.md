@@ -280,7 +280,7 @@ side holds (GPU objects, the window, the audio device) is derived from linear me
   to real time.
 - **Build.** `tools/wasm_app.py sdl` (SDL3 with video, build/third_party/out/sdl-video), `wasm_app.py build`
   (`HULK_WASM_GFX=1` in its own `HULK_WASM_DIR`, default build/wasm-app: `wasm_port.py compile`, `wasm_gfx.py
-  compile`, `wasm_port.py link`, `aot --app`), `wasm_app.py bundle` (build/app/Hulk.app: not signed or notarised;
+  compile`, `wasm_port.py link`, `aot --app`), `wasm_app.py bundle` (build/Hulk.app: not signed or notarised;
   nothing built from the game is published or committed). Saves go to ~/Library/Application Support/HulkUD/save;
   where the game is: "First launch" below. Input: SDL3 gamepads and the keyboard as pad 0, merged when a gamepad is
   there (docs/native-play.md's map; `HULK_KEY_SCRIPT` holds keys for unattended runs).
