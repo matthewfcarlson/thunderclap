@@ -670,6 +670,12 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   real bit through during the capture. `HULK_DEV_TEST_FROM=N` (tests) starts Force Original Moves at frame N. Scripted
   runs reach the option screens from the pause menu (START, Options = 3 downs, Gameplay Options = 4 downs): the main
   menu's column switch ignored scripted d-pad/stick input.
+  Reflections (wssr1, docs/reflections.md): run/app/ssr.cpp redraws the world pass's opaque draws (additive glows as depth
+  only) from a draw hook into its own G-buffer (RGBA16F + D32F) and traces at the frame's first effect, before HDR's
+  views; a pass resubmitting draws from a draw hook runs before lighting (order < 10). Wet ground is a room face up in
+  world space (world up = the room modelview's second column); night is rooms' fog luminance < 0.15 (downtown night
+  0.087); layeredReflect glass is stage 0's alpha-0 texels. Window decals draw before the trace and get SSR from its
+  composite; later passes read `rm::ssrResult` (ssr.h).
   Build id (wver1): apps and APKs carry the short commit (`+dirty` for local builds with uncommitted host files or tools,
   `+N` for N queue overlay files): stdout `hulk-app: build <id>`, the window title, Info.plist, the APK's versionName and
   SetupActivity. `wasm_app.py build` writes it from HULK_BUILD_ID (wasm_build_run.py sets it) or git into
