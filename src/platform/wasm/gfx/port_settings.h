@@ -13,11 +13,13 @@
 #define HULK_PORT_SETTINGS_H
 
 enum { PS_CHOICE, PS_ONOFF, PS_SLIDER };          /* how the item shows (a slider: an ordered choice of numbers) */
-enum { PS_SCREEN_VIDEO, PS_SCREEN_GAMEPLAY, PS_SCREENS };
+enum { PS_SCREEN_VIDEO, PS_SCREEN_GAMEPLAY, PS_SCREENS, PS_SCREEN_NONE = -1 };   /* NONE: in the file only */
 enum { PS_MAX_CHOICES = 12 };
 
 typedef struct port_setting {
-    const char* key;            /* the file's key; the menu's string ids derive from it (TBS_PORT_<KEY>[_<choice>]) */
+    const char* key;            /* the file's key; the menu's string ids derive from it (TBS_PORT_<KEY>[_<choice>]);
+                                   "dev_<name>": a developer row (wdev1), listed and in effect only in developer mode,
+                                   else its faithful value */
     const char* label;          /* the item's text (English; the port's own string) */
     int screen;                 /* PS_SCREEN_* */
     int kind;                   /* PS_* */
@@ -40,6 +42,9 @@ const port_setting* hulk_settings_at(int i);
 int hulk_settings_find(const char* key);          /* the index, or -1 */
 int hulk_setting_index(const port_setting* s, int value);   /* the choice index of a value (0 when not listed) */
 int hulk_setting_locked(int i);                   /* 1: the item shows its faithful value and refuses changes */
+int hulk_setting_listed(int i);                   /* 1: setting i has a menu item (its screen; developer rows only in
+                                                     developer mode) */
+int hulk_developer_mode(void);                    /* developer=1 in the file or HULK_DEV=1 (wdev1) */
 void hulk_settings_load(void);                    /* once; every accessor calls it */
 
 #endif

@@ -485,3 +485,10 @@ the set-up manager); all inputs are game state and the game's dt. Checks below.
   prerequisites; Charge Sprint I bought ("Move purchased.", points −20,000), saved; a new run loading that save shows it
   "Acquired" and plays it as level 1 (26 u/s coast); with the setting off the same save shows the original store.
 - Not done: a fight chunk (data route), the camera pull-back at speed, a co-op partner check.
+
+### 11.5 Developer forces (wdev1)
+
+For testing without buying: developer mode (`developer=1` in port_settings.txt or `HULK_DEV=1`) lists Force Charge
+Sprint, Force Mega Leap (Off / I-III) and Force Original Moves (Off / All Bought) at the end of Gameplay Options;
+docs/wasm-port.md "Developer options". Hooks answer the purchase reads (0x12f110, 0x92940, 0x19e910); the save's
+capture 0x8b560 sees the real bits.

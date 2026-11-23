@@ -22,6 +22,9 @@ void hulk_wasm_draw_distance_apply(int value);                          /* draw_
 void hulk_wasm_texture_pack_apply(int value);                           /* gfx.c: the runner's texture pack (wpack1) */
 void hulk_wasm_tutorial_skip_apply(int value);                          /* tutorial_skip.c: the star (wskip1) */
 void hulk_wasm_traversal_apply(int value);                              /* traversal.c: the remaster moves (wtrav1) */
+void hulk_wasm_traversal_force_charge(int value);                       /* traversal.c: developer forces (wdev1) */
+void hulk_wasm_traversal_force_leap(int value);
+void hulk_wasm_traversal_force_moves(int value);
 uint32_t hulk_wasm_texture_pack_list(char* buf, uint32_t cap);          /* gfx.c: the installed packs' names */
 void hulk_wasm_quality_apply(int what, int value);                      /* gfx.c: the runner's passes (wr2) */
 
@@ -48,6 +51,7 @@ static void apply_shadows(int value) { hulk_wasm_quality_apply(10, value); }
 static void apply_windows(int value) { hulk_wasm_quality_apply(11, value); }
 static void apply_tutorial_skip(int value) { hulk_wasm_tutorial_skip_apply(value); }
 static void apply_traversal(int value) { hulk_wasm_traversal_apply(value); }
+static void apply_developer(int value);
 
 /* Render resolution values: 1..4 a multiple of the game's 640x480; 0 the window's (display's) pixels; 720 / 1080 /
  * 1440 / 2160 that height at the display's aspect (960x720 at 4:3 ...). Output only: the game sees 640x480 at every
@@ -88,7 +92,15 @@ static void apply_traversal(int value) { hulk_wasm_traversal_apply(value); }
  * is per session: replays and tests pin it off, netplay peers must share it.
  * Traversal moves (wtrav1, D242): the remastered moves (traversal.c): the charging sprint and higher leaps bought in
  * the moves store (their store entries exist only with it on) and the landing bounce. It changes the simulation, so it
- * is per session: replays and tests pin it off, netplay peers must share it. */
+ * is per session: replays and tests pin it off, netplay peers must share it.
+ * Developer rows (wdev1): `developer=1` in the file (no menu item) or HULK_DEV=1 turns developer mode on; its rows
+ * (keys `dev_*`) are listed after the other Gameplay Options and take effect only in that mode, else their
+ * faithful value (Off). They force purchases for testing without buying them: Force Charge Sprint / Force Mega Leap
+ * (the traversal levels as if bought; with Traversal Moves on) and Force Original Moves (every shipped store move
+ * counts as unlocked and bought). Nothing is written to the game: traversal.c answers through hooks, and the save
+ * keeps only real purchases. They are kept in the file like any setting (still set at the next launch while
+ * developer mode stays on). They change the simulation, so they are per session: replays and tests pin them off,
+ * netplay peers must share them. Developer mode is read at launch (the menus' places are parsed once). */
 static port_setting k_settings[] = {
     {"remastered", "Remastered Edition", PS_SCREEN_GAMEPLAY, PS_ONOFF, 2, {0, 1}, {"Off", "On"},
      0, 1, 0, apply_remastered},
@@ -126,10 +138,18 @@ static port_setting k_settings[] = {
      apply_tutorial_skip},
     {"remaster_moves", "Traversal Moves", PS_SCREEN_GAMEPLAY, PS_ONOFF, 2, {0, 1}, {"Off", "On"}, 0, 1, 1,
      apply_traversal},
+    {"developer", "Developer Mode", PS_SCREEN_NONE, PS_ONOFF, 2, {0, 1}, {"Off", "On"}, 0, 0, 0, apply_developer},
+    {"dev_charge", "Force Charge Sprint", PS_SCREEN_GAMEPLAY, PS_CHOICE, 4, {0, 1, 2, 3}, {"Off", "I", "II", "III"},
+     0, 0, 0, hulk_wasm_traversal_force_charge},
+    {"dev_leap", "Force Mega Leap", PS_SCREEN_GAMEPLAY, PS_CHOICE, 4, {0, 1, 2, 3}, {"Off", "I", "II", "III"},
+     0, 0, 0, hulk_wasm_traversal_force_leap},
+    {"dev_moves", "Force Original Moves", PS_SCREEN_GAMEPLAY, PS_CHOICE, 2, {0, 1}, {"Off", "All Bought"},
+     0, 0, 0, hulk_wasm_traversal_force_moves},
 };
 enum { N_SETTINGS = sizeof k_settings / sizeof k_settings[0] };
 
 static int g_loaded, g_pinned, g_user[N_SETTINGS];
+static int g_dev_env;               /* HULK_DEV=1 (never saved) */
 
 int hulk_remastered_build(void) { return 1; }
 int hulk_settings_count(void) { return N_SETTINGS; }
@@ -187,10 +207,20 @@ static void save(void) {
     hio_close(f);
 }
 
+static int is_developer(const port_setting* s) { return !strncmp(s->key, "dev_", 4); }
+int hulk_developer_mode(void) {
+    hulk_settings_load();
+    int i = hulk_settings_find("developer");
+    return g_dev_env || (i >= 0 && g_user[i]);
+}
 int hulk_setting_locked(int i) {
     hulk_settings_load();
     const port_setting* s = hulk_settings_at(i);
-    return s && s->remastered_only && !g_user[0];
+    return s && ((s->remastered_only && !g_user[0]) || (is_developer(s) && !hulk_developer_mode()));
+}
+int hulk_setting_listed(int i) {
+    const port_setting* s = hulk_settings_at(i);
+    return s && s->screen >= 0 && s->screen < PS_SCREENS && (!is_developer(s) || hulk_developer_mode());
 }
 int hulk_remastered(void) {
     hulk_settings_load();
@@ -212,6 +242,11 @@ static void apply_all(void) {
         if (k_settings[i].apply) k_settings[i].apply(effective(i));
 }
 static void apply_remastered(int value) { (void)value; apply_all(); }
+static void apply_developer(int value) {        /* the developer rows take effect or go back to faithful */
+    (void)value;
+    for (int i = 0; i < N_SETTINGS; i++)
+        if (is_developer(&k_settings[i]) && k_settings[i].apply) k_settings[i].apply(effective(i));
+}
 
 /* The texture_pack row's choices: Off and each pack the runner found (names shown as ASCII letters, digits and simple
  * punctuation, at most 24 characters) */
@@ -272,16 +307,18 @@ void hulk_settings_load(void) {
             }
         }
     }
+    const char* dev = getenv("HULK_DEV");
+    g_dev_env = dev && *dev == '1' && !ff_replay_active();
     const char* e = getenv("HULK_SETTINGS");
     if (e && *e) {
         g_pinned = 1;                   /* pinned values are never saved */
         parse(e);
     }
-    char line[512];
+    char line[1024];
     int n = 0;
     for (int i = 0; i < N_SETTINGS && n < (int)sizeof line - 40; i++)
         n += snprintf(line + n, sizeof line - (size_t)n, " %s=%d", k_settings[i].key, effective(i));
-    fprintf(stderr, "hulk: settings%s%s\n", line, g_pinned ? " (pinned)" : "");
+    fprintf(stderr, "hulk: settings%s%s%s\n", line, g_pinned ? " (pinned)" : "", g_dev_env ? " (HULK_DEV)" : "");
     apply_all();
 }
 

@@ -41,7 +41,18 @@
  *
  * HULK_TRAV_LOG=1 logs the store set-up, charges, coasts, hits and bounces (2: the unlockable moves table, 3: every
  * sprint frame). HULK_TRAV_FORCE=C,J (tests) treats charge level C and leap level J as bought; HULK_TRAV_TEST_XP=N
- * (tests) gives N smash points when the moves are set up. */
+ * (tests) gives N smash points when the moves are set up.
+ *
+ * Developer forces (wdev1; port_settings.c's developer rows, developer mode only): Force Charge Sprint / Force Mega
+ * Leap set the level the hooks above use (as HULK_TRAV_FORCE does; the store still shows the real purchases), and
+ * Force Original Moves makes every shipped store move (slots 0x266..MOVE_BASE-1 with a name) count as unlocked and
+ * bought where the game asks: the fight script's `unlockable` condition (UnlockableCondition::vfunc_6 0x0012f110,
+ * answered by the hook), the C++ readers of a move's purchase (0x00092940: health upgrades 0x401a0 and the health bar
+ * 0xd2c30; answered by the hook except while the save is captured, 0x0008b560, which reads every bit through it) and
+ * the missile deflection (ProjectileMissile::vfunc_4 0x0019e910 reads move 0x2b9's bytes itself: they are set for the
+ * call and put back after it). No purchase bit, locked bit or smash point is changed, so a save made with the forces on
+ * holds only real purchases; Lua (um_* through 0x00092de0, inside the defining TU, which no entry hook sees) and the
+ * store's own screens see the real state. HULK_DEV_TEST_FROM=N (tests) starts Force Original Moves at frame N. */
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -95,6 +106,8 @@ static const int k_picture_from[N_MOVES] = {0x267, 0x267, 0x267, 0x26f, 0x26f, 0
 
 static int g_on;
 static int g_force_charge = -1, g_force_leap = -1;
+static int g_dev_charge, g_dev_leap, g_dev_moves;   /* developer forces (wdev1): 0 off */
+static int g_saving;                                 /* inside the save's capture 0x0008b560 */
 static int log_level(void) {
     static int l = -1;
     if (l < 0) l = getenv("HULK_TRAV_LOG") ? atoi(getenv("HULK_TRAV_LOG")) : 0;
@@ -136,6 +149,10 @@ void hulk_wasm_traversal_apply(int value) {
     }
 }
 
+void hulk_wasm_traversal_force_charge(int value) { g_dev_charge = value > 0 && value <= 3 ? value : 0; }
+void hulk_wasm_traversal_force_leap(int value) { g_dev_leap = value > 0 && value <= 3 ? value : 0; }
+void hulk_wasm_traversal_force_moves(int value) { g_dev_moves = value != 0; }
+
 static uint32_t rd(uint32_t a) { return a ? *(uint32_t*)PTR(a) : 0; }
 static float rf(uint32_t a) { return *(float*)PTR(a); }
 static void wf(uint32_t a, float v) { *(float*)PTR(a) = v; }
@@ -172,8 +189,8 @@ static int level_of(int first, int forced) {
     while (l < 3 && bought(mgr, first + l)) l++;
     return l;
 }
-static int charge_level(void) { return level_of(M_CHARGE1, g_force_charge); }
-static int leap_level(void) { return level_of(M_LEAP1, g_force_leap); }
+static int charge_level(void) { return level_of(M_CHARGE1, g_dev_charge ? g_dev_charge : g_force_charge); }
+static int leap_level(void) { return level_of(M_LEAP1, g_dev_leap ? g_dev_leap : g_force_leap); }
 
 static void end_charge(const char* why) {
     if (g_tv.ch && log_level())
@@ -515,4 +532,100 @@ void hulk_wasm_traversal_update(int kind, float dt) {
     g_tv.motion_ch = ch;
     g_tv.motion = m;
     g_tv.motion_speed = hspeed(ch);
+}
+
+/* ---------------------------------------------------------------------------------------------- developer forces */
+/* Force Original Moves (wdev1): a shipped store move: an index of the moves' range below ours, set up (a name key) and a
+ * CUnlockableMove (dynamic_cast 0x00344e74 CUnlockable 0x0049dab8 -> CUnlockableMove 0x0049db1c, as the readers do) */
+#define FIRST_MOVE 0x266
+static int forced_move(uint32_t mgr, uint32_t index) {
+    static int from = -1;               /* HULK_DEV_TEST_FROM=N (tests): no force before frame N (a replay stays in step) */
+    if (from < 0) from = getenv("HULK_DEV_TEST_FROM") ? atoi(getenv("HULK_DEV_TEST_FROM")) : 0;
+    if (!g_dev_moves || !mgr || index < FIRST_MOVE || index >= MOVE_BASE || SIM->frame < (uint32_t)from) return 0;
+    uint32_t it = rd(mgr + 4u * index);
+    if (!it || !(rd(it + 0x10) | rd(it + 0x14))) return 0;
+    return ff_call(0x00344e74u, 5, it, 0, 0x0049dab8u, 0x0049db1cu, 0) != 0;
+}
+
+/* the fight script's `unlockable` condition (this +0xc the index, +0x10 the locked value it wants; true when the move's
+ * locked byte is that and its purchase the opposite): a forced move is unlocked and bought */
+void ffgo_0012f110(uint32_t, uint32_t, void*, void*);
+void ffh_hulk_app_unlock_cond(uint32_t ecx, uint32_t edx, void* st, void* rb) {
+    uint32_t id = rd(ecx + 0xc);
+    if (g_dev_moves && forced_move(unlocks(), id)) {
+        int want = *(uint8_t*)PTR(ecx + 0x10) == 0;
+        if (log_level()) {                       /* (the first time a forced answer differs from the real one, per move) */
+            static uint8_t seen[MOVE_BASE - FIRST_MOVE];
+            ffgo_0012f110(ecx, edx, st, rb);
+            int real = *(uint8_t*)rb != 0;
+            if (real != want && !seen[id - FIRST_MOVE]) {
+                seen[id - FIRST_MOVE] = 1;
+                fprintf(stderr, "hulk: traversal: frame %u: forced move 0x%x: unlockable condition %d (real %d)\n",
+                        SIM->frame, id, want, real);
+            }
+        }
+        RET(want);
+        return;
+    }
+    ffgo_0012f110(ecx, edx, st, rb);
+}
+
+/* the manager's on/purchased read (index): a forced move reads bought, except for the save's capture */
+void ffgo_00092940(uint32_t, uint32_t, void*, void*);
+void ffh_hulk_app_unlock_on(uint32_t ecx, uint32_t edx, void* st, void* rb) {
+    if (g_dev_moves && !g_saving && forced_move(ecx, ARG(0))) {
+        static uint8_t seen[MOVE_BASE - FIRST_MOVE];
+        uint32_t id = ARG(0);
+        if (log_level() && !seen[id - FIRST_MOVE] && !*(uint8_t*)PTR(rd(ecx + 4 * id) + 0x20)) {
+            seen[id - FIRST_MOVE] = 1;
+            fprintf(stderr, "hulk: traversal: frame %u: forced move 0x%x: purchase read 1 (real 0)\n", SIM->frame, id);
+        }
+        RET(1);
+        return;
+    }
+    ffgo_00092940(ecx, edx, st, rb);
+}
+
+/* the save's capture (CGameFlowManager: the slot record from the managers, then written, (a1, slot, game)): the real
+ * bits. With the forces on, the record's purchase bits (+0xb8, one per index) are checked against the moves' own
+ * purchase bytes (+0x20) afterwards (HULK_TRAV_LOG=1). */
+void ffgo_0008b560(uint32_t, uint32_t, void*, void*);
+void ffh_hulk_app_save_capture(uint32_t ecx, uint32_t edx, void* st, void* rb) {
+    uint32_t slot = ARG(1);
+    g_saving++;
+    ffgo_0008b560(ecx, edx, st, rb);
+    g_saving--;
+    uint32_t mgr = g_dev_moves && log_level() ? unlocks() : 0, rec = rd(ecx + 0xac8);
+    if (!mgr || !rec || slot > 8) return;
+    rec += slot * 0xbe8u;
+    int forced = 0, bought_n = 0, bad = 0;
+    for (uint32_t i = FIRST_MOVE; i < MOVE_BASE; i++) {
+        if (!forced_move(mgr, i)) continue;
+        int bit = (rd(rec + 0xb8 + 4 * (i / 32)) >> (i % 32)) & 1, real = *(uint8_t*)PTR(rd(mgr + 4 * i) + 0x20) != 0;
+        forced++;
+        bought_n += real;
+        bad += bit != real;
+    }
+    fprintf(stderr, "hulk: traversal: frame %u: save captured (slot %u): %d forced moves, %d really bought, %d bits differ "
+            "from the real purchases\n", SIM->frame, slot, forced, bought_n, bad);
+}
+
+/* the missile's update: the player's deflection reads move 0x2b9's locked (+8) and purchased (+0x20) bytes itself */
+#define MOVE_DEFLECT 0x2b9
+void ffgo_0019e910(uint32_t, uint32_t, void*, void*);
+void ffh_hulk_app_missile(uint32_t ecx, uint32_t edx, void* st, void* rb) {
+    uint32_t mgr = g_dev_moves ? unlocks() : 0;
+    uint32_t it = forced_move(mgr, MOVE_DEFLECT) ? rd(mgr + 4u * MOVE_DEFLECT) : 0;
+    if (!it) {
+        ffgo_0019e910(ecx, edx, st, rb);
+        return;
+    }
+    uint8_t* locked = (uint8_t*)PTR(it + 8);
+    uint8_t* on = (uint8_t*)PTR(it + 0x20);
+    uint8_t l0 = *locked, o0 = *on;
+    *locked = 0;
+    *on = 1;
+    ffgo_0019e910(ecx, edx, st, rb);
+    *locked = l0;
+    *on = o0;
 }

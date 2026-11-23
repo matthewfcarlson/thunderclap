@@ -734,6 +734,30 @@ and tutorial_skip.c's UpdateSimulation hook). Off, every hook passes through and
 byte-identical to the app without it. Test knobs: `HULK_SETTINGS=remastered=1,remaster_moves=1`,
 `HULK_TRAV_FORCE=C,J` (levels as if bought), `HULK_TRAV_TEST_XP=N` (smash points), `HULK_TRAV_LOG=1..3`.
 
+### Developer options (wdev1)
+
+Developer mode: `developer=1` in `<save dir>/port_settings.txt` (a key with no menu item; the app keeps it when it
+rewrites the file) or `HULK_DEV=1` in the environment (never saved; ignored in replays). It is read at launch: the
+menus' item places are parsed once, so it takes a restart. In developer mode Gameplay Options lists three more rows
+after Traversal Moves (port_settings.c keys `dev_*`; outside developer mode they are hidden, their strings are not
+added and they take their faithful value, Off):
+- **Force Charge Sprint: Off / I / II / III** and **Force Mega Leap: Off / I / II / III** (`dev_charge`, `dev_leap`):
+  the traversal level the hooks use, as if bought (`HULK_TRAV_FORCE`'s path); they need Traversal Moves On. The store
+  still shows the real purchases.
+- **Force Original Moves: Off / All Bought** (`dev_moves`): every shipped store move (slots 0x266-0x2c3 with a name)
+  counts as unlocked and bought: the fight script's `unlockable` condition (0x12f110, answered by an entry hook; air
+  dash levels, combos), the C++ purchase reads through 0x92940 (the health upgrades 0x401a0 and the health bar
+  0xd2c30) and the missile deflection (0x19e910 reads move 0x2b9's bytes itself: set for the call and put back).
+Nothing is written: no purchase bit, locked byte or smash point changes. The save's capture 0x8b560 reads every
+purchase bit through 0x92940, so the hook answers the real bit while it runs (traversal.c `g_saving`). Checked: a
+play3 replay with Force Original Moves on from frame 8,600 (`HULK_DEV_TEST_FROM`, a test knob) writes its 8,793 save
+byte-identical to the save of a replay without it (63 forced moves, 0 bits differ); the same replay with the guard
+removed wrote 63 forced bits (32 bytes differ). Lua (`um_*`, through 0x92de0 inside the defining TU, which no entry
+hook sees) and the store's screens see the real state. The rows are kept in port_settings.txt like any setting, so
+they stay set across launches while developer mode stays on; they change the simulation, so they are per session
+(replays, `HULK_INPUT` and HULK_ROLLTEST start from Off; netplay peers must share them). No smash-points row: the
+store spends the real `xp` stat, which the save keeps, so a boost cannot be made temporary without a sidecar.
+
 ### Lighting and dynamic lights (wlight1)
 
 docs/lighting.md. Two Video Options rows (port_settings.c; faithful off, remastered on), one runner pass

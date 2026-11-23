@@ -83,14 +83,15 @@ static const struct { const char* screen; const char* key; const char* id; const
 };
 
 /* ------------------------------------------------------------------------------------------- rows and places */
-/* A screen's rows are the settings of port_settings.c's table on it, in the table's order. It shows them in its nine
+/* A screen's rows are the settings of port_settings.c's table on it, in the table's order (developer rows only in
+ * developer mode, read at launch: wdev1). It shows them in its nine
  * places as a window (wmenu1, D238): place k shows row top + k. The places are the game's objects (a text selector
  * and its named int each), parsed once; the window moves by relabelling them (show_place), so a screen with more rows
  * than places costs no more game objects than one with nine. */
 static int rows_of(int sc, int* out) {
     int n = 0;
     for (int i = 0; i < hulk_settings_count() && n < ROWS; i++)
-        if (hulk_settings_at(i)->screen == sc) out[n++] = i;
+        if (hulk_settings_at(i)->screen == sc && hulk_setting_listed(i)) out[n++] = i;
     return n;
 }
 static int places_of(int sc) {
@@ -595,6 +596,7 @@ static int patch_strings(const char* s, uint32_t n, buf_t* out) {
         put_string(out, k_move_strings[i].id, k_move_strings[i].text);
     for (int i = 0; i < hulk_settings_count(); i++) {
         const port_setting* st = hulk_settings_at(i);
+        if (!hulk_setting_listed(i)) continue;      /* (the developer rows' text only in developer mode, wdev1) */
         char id[64];
         str_id(i, -1, id, sizeof id);
         put_string(out, id, st->label);
