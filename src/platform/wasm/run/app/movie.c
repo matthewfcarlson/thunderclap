@@ -79,7 +79,12 @@ static void* ff_lib(const char* name, int major) {
     const char* dirs[] = {getenv("HULK_FFMPEG_DIR"), HULK_FFMPEG_LIBDIR, "/opt/homebrew/lib", "/usr/local/lib"};
     for (unsigned i = 0; i < sizeof dirs / sizeof dirs[0]; i++) {
         if (!dirs[i] || !*dirs[i]) continue;
+#if defined(__APPLE__)
         snprintf(path, sizeof path, "%s/lib%s.%d.dylib", dirs[i], name, major);
+#else   /* (Android: FFmpeg's android target gives plain sonames; HULK_FFMPEG_DIR from GameActivity: wand1) */
+        snprintf(path, sizeof path, "%s/lib%s.so", dirs[i], name);
+        (void)major;
+#endif
         void* h = dlopen(path, RTLD_NOW | RTLD_LOCAL);
         if (h) return h;
     }

@@ -298,6 +298,15 @@ side holds (GPU objects, the window, the audio device) is derived from linear me
   `<app dir>` is `HULK_APP_DIR`, default ~/Library/Application Support/HulkUD (tests use their own). Runs that must not
   prompt never show the chooser: anything given on the command line, and with no game found `HULK_NO_UI=1` or a scripted
   run (`HULK_INPUT`, `HULK_KEY_SCRIPT`, `HULK_INPUT_SOURCE`, `HULK_CKPT`) exits 2 with the reason.
+- **Saves** (whang1): only an interactive launch (none of the variables below) saves in the player's folder,
+  `<app dir>/save`, also when the game is given on the command line (before, such a launch skipped it and saved in
+  `build/wasm/save` under the working directory: nowhere writable under `open`, and the game then waits at a mission's
+  summary for a save that never succeeds). A scripted, automated or test run (`HULK_INPUT`, `HULK_KEY_SCRIPT`,
+  `HULK_INPUT_SOURCE` (replays, `native_replay.py`), `HULK_CKPT`, `HULK_ROLLTEST`, `HULK_NO_UI`) never defaults to it:
+  it saves in `HULK_SAVE_DIR`, else the host's run-local `build/wasm/save` under its working directory, and a
+  `HULK_SAVE_DIR` inside ~/Library/Application Support/HulkUD exits 2 unless the test set `HULK_APP_DIR` (its own
+  app folder). An explicit `HULK_SAVE_DIR` wins for interactive launches too. The app prints where it saves
+  (`hulk-app: saves in ...`), and the host warns once when the save folder can't be made.
 - **Building from a clean state** (wapp2): inputs at the commit being built (`tools/wasm_inputs.py submit`, then
   `fetch ID`), then `HULK_WASM_SNAP=.../snap HULK_WASM_BINDINGS=.../bindings.json tools/wasm_app.py build --jobs 2`
   (every TU on a first build: about 8 minutes on 2 local jobs) and `wasm_app.py bundle`. The build directory records
@@ -635,8 +644,61 @@ display's refresh by drawing the last simulated frame again with its transforms 
   words that depend on it.
 - **Audio**: waud1's model advances by the virtual clock, which follows the fixed simulation step: unchanged.
 
+## The Android app (wand1)
+
+The macOS app's module and runner on arm64 Android handhelds (Android 12+, API 31, arm64-v8a): the same hulk.wasm, run
+through wasm2c and compiled by the NDK, with SDL3's Android layer and bgfx on Vulkan (OpenGL ES 3 as the fallback).
+Gamepad only (the user, 11-22: handhelds with built-in controls, which SDL sees as a gamepad; no touch controls).
+
+- **Build** (`tools/wasm_android.py`; the NDK, SDK and AVD under build/android, `. build/android/env.sh`):
+  `wasm_android.py bgfx` (bx/bimg/bgfx for android-arm64 with the Vulkan and GLES renderers,
+  build/third_party/out/android-arm64), `wasm_android.py build --wasm-dir <a wasm_app.py build dir>` (wasm2c of its
+  hulk.wasm into build/wand1/android/aot, the C at the macOS app's flags `-O2 -fno-strict-aliasing`, the runner with
+  native.c's `main` as `SDL_main`, run/android/log.c, SDL3 from `tools/native_android_sdl.py --config app`; one
+  `libmain.so`), `wasm_android.py apk [--ffmpeg]` (tools/android_apk.py's javac / d8 / aapt2 / zipalign / apksigner with
+  src/platform/wasm/android's manifest and activities; debug key; never published). Objects are cached by content: a
+  host-only change relinks in about 30 s. The wasm module comes from `tools/wasm_app.py build` (HULK_WASM_GFX=1).
+- **Activities.** `SetupActivity` (launcher) finds the game: a `HULK_DATA_DIR` extra; `<files>/disc`; the external
+  files dir's `disc` (Android/data/org.thunderclap.hulkud/files/disc) when readable; else a chooser driven by the
+  gamepad (D-pad to move, A to choose, B to go back): "Choose the disc folder" opens the system folder picker (Storage
+  Access Framework, `ACTION_OPEN_DOCUMENT_TREE`). The folder is checked as start.cpp checks a disc (an XBE whose
+  certificate carries the title ID, every archive rcfs.txt lists), then copied into `<files>/disc` (the game opens files
+  by path; a SAF folder gives only content URIs): about 2.3 GB, with a free-space check and a progress line. Later
+  launches start the game directly. `GameActivity` is SDL3's `SDLActivity`; it sets HULK_DATA_DIR, HULK_SAVE_DIR /
+  TDATA / UDATA (`<files>/save` ...), HULK_APP_DIR (`<files>`: `mods/` for texture and model packs; port_settings.txt is in the save dir),
+  HULK_GFX_RENDERER (`vulkan`; `gles`; `null` for the headless build's run), HULK_FFMPEG_DIR, HULK_LOG_FILE
+  (`<files>/log.txt`; stdout and stderr also go to logcat, tag `hulk`) and SDL_ORIENTATIONS (landscape), then any
+  `HULK_*` / `SDL_*` string extra of the intent (SetupActivity passes them on), so scripted runs use `am start --es`.
+- **Movies.** run/app/movie.c is built against the Android FFmpeg headers (`tools/wine_ffmpeg.py build --target
+  android-arm64`: Bink decoders and demuxer only, LGPL 2.1+) and loads `libavutil.so` / `libavcodec.so` /
+  `libavformat.so` at run time from HULK_FFMPEG_DIR: `<files>/ffmpeg` when the player put them there, else the APK's
+  lib dir (`apk --ffmpeg` bundles them for local tests). Without them the movies play black and can be skipped as on
+  macOS. Whether a distributed APK may carry FFmpeg is the user's decision (LGPL dynamic linking).
+- **Window.** The window is fullscreen from the start (platform_events.cpp under `__ANDROID__`) and no resize event
+  follows, so app.cpp takes its pixel size at creation as a resize and holds it until the sink is up (the display drops
+  a resize before that): the frame is then placed by the aspect setting instead of stretched. bgfx takes SDL's
+  `ANativeWindow` (`SDL_PROP_WINDOW_ANDROID_WINDOW_POINTER`). Checked on the emulator: the front end and gameplay with
+  Vulkan and with OpenGL ES 3.0 (`HULK_GFX_RENDERER=gles`), the movies with `apk --ffmpeg`, the chooser and SAF copy.
+- **Determinism across platforms.** play3 with `HULK_GFX_RENDERER=null` in the APK on the arm64 emulator writes
+  checkpoint records byte-identical to the macOS app's from the same hulk.wasm (two modules: 60,243 and 60,244 frames in
+  common, 0 differ; the
+  macOS file is a byte prefix of the Android one). With Vulkan rendering the records are the same too (the renderer
+  does not reach game state). The emulator reaches ~260 frames/s headless (not representative of a device).
+- **Replays on the emulator**: `sh tests/android/wasm_apk_replay.sh OUT FRAMES [renderer]`: the
+  disc in `<files>/disc` and the recording in `<files>/play3.hrp` (`adb push` to /data/local/tmp, then `adb shell
+  run-as org.thunderclap.hulkud cp ...`: files adb writes into the external dir belong to the shell, and1's finding).
+- **A real device** (USB debugging on): `adb install -r build/wand1/android/hulk.apk`, launch "Hulk UD", choose the
+  extracted disc folder with the gamepad (copy the disc to the device's storage first, e.g. Download/HulkDisc), or for a
+  debug build `adb push <disc>/. /data/local/tmp/hulk-data/` then `adb shell run-as org.thunderclap.hulkud sh -c 'mkdir
+  -p files/disc && cp -r /data/local/tmp/hulk-data/. files/disc/'` and `adb shell rm -rf /data/local/tmp/hulk-data`.
+  Logs: `adb logcat -s hulk SDL`, or `adb exec-out run-as org.thunderclap.hulkud cat files/log.txt`.
+- **Open**: the gamepad path is untested (the emulator has no gamepad device; SDL maps a handheld's built-in controls
+  through SDLControllerManager); lifecycle (pause / resume, the surface lost on home); performance on hardware.
+
 ## Status
 
+- 2026-11-22 (wand1): **the Android app** ("The Android app" above): the same module on arm64 Android 12+ through
+  wasm2c and the NDK, bgfx Vulkan / GLES, a gamepad-driven disc chooser; play3 records byte-identical to the macOS app's.
 - 2026-11-22 (wr2, D236): **Mipmaps, Anisotropic Filtering, Anti-Aliasing** (Video Options) and the runner's pass
   interface ("Renderer options and the runner's passes" above); the texture packs' disk cache. Remastered defaults:
   Full, 16x, MSAA 4x. Checkpoint records unchanged with every option on; play3 with `null` identical to the control.

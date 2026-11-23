@@ -98,6 +98,10 @@ int32_t hulk_gfx_renderer(const char* r)
         return bgfx::RendererType::Vulkan;
     if (!strcmp(r, "gl"))
         return bgfx::RendererType::OpenGL;
+#if defined(__ANDROID__)
+    if (!strcmp(r, "gles"))         // (the Android app's fallback: wand1)
+        return bgfx::RendererType::OpenGLES;
+#endif
     if (!strcmp(r, "noop"))
         return bgfx::RendererType::Noop;
     if (!strcmp(r, "d3d11"))

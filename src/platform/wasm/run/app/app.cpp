@@ -715,6 +715,14 @@ u32 w2c_hulk_plat_create_window(struct w2c_hulk*, u32 title, u32 w, u32 h, u32 h
                                            (int)resizable);
     if (s_window)
         hulk_platform_set_resize_handler(onResize, 0);
+#if defined(__ANDROID__)
+    // (Android: the window is the whole screen from the start and no resize event follows: its pixel size is reported
+    // as a resize once the sink is up (plat_resized), so the frame is placed by the aspect setting, not stretched; wand1)
+    int pw = 0, ph = 0;
+    if (s_window && SDL_GetWindowSizeInPixels((SDL_Window*)s_window, &pw, &ph) && pw > 0 && ph > 0 &&
+        (pw != (int)w || ph != (int)h))
+        onResize(pw, ph, 0);
+#endif
     interp_set_window(s_window);
     return s_window != nullptr;
 }
@@ -727,6 +735,10 @@ u32 w2c_hulk_plat_resized(struct w2c_hulk*, u32 w, u32 h)
 {
     if (!s_resized)
         return 0;
+#if defined(__ANDROID__)
+    if (!hulk_gfx_sink_up())        // (the display drops a resize before its sink is up: keep it pending)
+        return 0;
+#endif
     s_resized = 0;
     memcpy(M(w), &s_resizeW, 4);
     memcpy(M(h), &s_resizeH, 4);

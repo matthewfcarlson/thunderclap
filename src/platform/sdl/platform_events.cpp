@@ -97,6 +97,9 @@ void* hulk_platform_create_window(const char* title, int width, int height, int 
     if (!a || !s_videoRefs)
         return 0;
     SDL_WindowFlags flags = 0;
+#if defined(__ANDROID__)
+    flags |= SDL_WINDOW_FULLSCREEN;     // (the Android app: the whole screen, no system bars; wand1)
+#endif
     if (hidden)
         flags |= SDL_WINDOW_HIDDEN;
     if (resizable)
@@ -126,6 +129,8 @@ int hulk_platform_native_handles(void* window, void** nwh, void** ndt, int* wayl
     *nwh = a->SDL_GetPointerProperty(p, SDL_PROP_WINDOW_WIN32_HWND_POINTER, 0);
 #elif defined(__APPLE__)
     *nwh = a->SDL_GetPointerProperty(p, SDL_PROP_WINDOW_COCOA_WINDOW_POINTER, 0);       // bgfx makes the CAMetalLayer
+#elif defined(__ANDROID__)
+    *nwh = a->SDL_GetPointerProperty(p, SDL_PROP_WINDOW_ANDROID_WINDOW_POINTER, 0);     // the ANativeWindow (wand1)
 #else
     const char* drv = a->SDL_GetCurrentVideoDriver();
     if (drv && !strcmp(drv, "wayland")) {

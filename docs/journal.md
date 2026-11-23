@@ -3136,3 +3136,20 @@ draws gives in-between frames with no tree change and no path back into the game
   vertices, UVs from the original triangle underneath): the desert tutorial's 8-sided barrel group as 32-sided ribbed
   drums looked clearly better with the original texture; PN smoothing of a hard-edged car barely shows. Free app runs
   are not deterministic (real-time mixer): compare packs by ckref, not the game hash.
+
+## 2026-11-22 wand1: the wasm2c app on Android
+
+- **Cross-platform determinism holds.** The same hulk.wasm run through wasm2c and compiled by Apple clang (macOS app)
+  and by the NDK clang 21 (arm64 Android 12+, APK in the emulator) writes byte-identical play3 checkpoint records
+  (`HULK_GFX_RENDERER=null`; two modules, 60,243 and 60,244 frames in common, 0 differ; the macOS .ckref is a byte prefix of the Android one).
+  Both use the C compilers' defaults (`-O2 -fno-strict-aliasing`, FP contraction left at the default): wasm2c emits
+  one float operation a statement, so nothing fuses. A Vulkan-rendered replay gives the same records: the renderer
+  does not reach game state. This is the property co-op lockstep needs between macOS and Android peers.
+- Android windows created SDL_WINDOW_FULLSCREEN never send a pixel-size event: the runner must report the size
+  itself, and only once the pddi display is up (bgfxDisplay::hostResize returns before initialisation and the pending
+  flag was lost).
+- Storage Access Framework folders give content URIs, not paths, and the game opens files by path: the chooser copies
+  the disc (2.2 GB) into the app's files dir. adb-written files in Android/data/<pkg> stay unreadable to the app
+  (and1); `run-as` copies work on debug builds.
+- Emulator speed (swiftshader, laptop under load 35): ~260 frames/s headless, 5-20 frames/s rendered at 2400x1080;
+  not representative of a device GPU.

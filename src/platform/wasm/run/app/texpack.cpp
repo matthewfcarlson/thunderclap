@@ -40,6 +40,9 @@
 
 #include "pddi/bgfx_bridge.h"
 #include "interp.h"
+#if !defined(__APPLE__)
+#define st_mtimespec st_mtim     // (Linux / Android name of the same timespec: wand1)
+#endif
 
 #define STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_STATIC
