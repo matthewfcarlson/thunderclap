@@ -600,13 +600,20 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   Menus (wquit1): fe_real.txt holds at most 66 screens (the disc's 63, Video/Gameplay Options and one free); a 67th
   crashes the parse at frame ~92. The menus are parsed again in play (play3 frame 26,654), where the game heap has almost
   no margin: one more screen ran a later load into the out-of-memory spin 0x0008d320 (play3 hangs ~26,500). Add items to
-  existing screens, never screens, and test menu changes with play3 past 27,000. A screen shows 9 rows
-  (FEsubMenu_text1..9 / FEpause_text1..9); rows beyond get no item and no named int. Front-end functions (`OnSelect
+  existing screens, never screens, and test menu changes with play3 past 27,000. A screen shows 9 places
+  (FEsubMenu_text1..9 / FEpause_text1..9) as a scrolling window over its port_settings rows, in table order (wmenu1, D238:
+  hooks 0x000e5710 / 0x000e6050; places relabelled through the selector's own 0x000f8500 / vfunc_19); named ints and
+  handlers are per place, so adding a row adds no game object. Front-end functions (`OnSelect
   function NAME`) are looked up by name at parse (0x000df970, hooked): fe_options.c answers `Port_*` names with host
   handlers; a label's text setter 0x000f8500 shows a non-id string as written (host status text). Quit: the menu item,
   the close button and Cmd+Q all go through gfx.c `hulk_app_request_quit` (it waits while a file is open for writing);
   the runner's proc_exit calls start.cpp `hulk_app_quit`. The module's environment passes only `HULK_*` variables
   (debug knobs need that prefix).
+  A tree TU's own data definitions are module globals in the wasm build's `hulk_game_state`, next to host statics: one
+  too small for its writes overruns them (wmenu1: 0x329da0's `DAT_0039db50[32]` written at `[stage*32]` overwrote
+  fe_options' handlers and the headless app crashed on pausing). Find such writers with an lldb watchpoint at
+  `hulk_run_memory()` + address. Scripted menu runs: the app with `HULK_MOVIES=0` follows the null renderer's frame
+  timing, so the same HULK_INPUT works for Metal screenshots.
   Build id (wver1): apps and APKs carry the short commit (`+dirty` for local builds with uncommitted host files or tools,
   `+N` for N queue overlay files): stdout `hulk-app: build <id>`, the window title, Info.plist, the APK's versionName and
   SetupActivity. `wasm_app.py build` writes it from HULK_BUILD_ID (wasm_build_run.py sets it) or git into
