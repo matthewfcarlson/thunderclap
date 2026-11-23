@@ -19,6 +19,8 @@ void hulk_wasm_aspect_apply(int value);                                 /* gfx.c
 void hulk_wasm_hud_edge_apply(int value);                               /* gfx.c: the HUD frame at the edges */
 void hulk_wasm_fog_apply(int value);                                    /* gfx.c: the runner's fog override */
 void hulk_wasm_draw_distance_apply(int value);                          /* draw_distance.c: World::Render's fade */
+void hulk_wasm_texture_pack_apply(int value);                           /* gfx.c: the runner's texture pack (wpack1) */
+uint32_t hulk_wasm_texture_pack_list(char* buf, uint32_t cap);          /* gfx.c: the installed packs' names */
 
 static void apply_remastered(int value);
 static void apply_frame_rate(int value) { hulk_wasm_frame_rate_apply(value); }
@@ -27,6 +29,7 @@ static void apply_aspect(int value) { hulk_wasm_aspect_apply(value); }
 static void apply_fog(int value) { hulk_wasm_fog_apply(value); }
 static void apply_hud_edge(int value) { hulk_wasm_hud_edge_apply(value); }
 static void apply_draw_distance(int value) { hulk_wasm_draw_distance_apply(value); }
+static void apply_texture_pack(int value) { hulk_wasm_texture_pack_apply(value); }
 
 /* Render resolution values: 1..4 a multiple of the game's 640x480; 0 the window's (display's) pixels; 720 / 1080 /
  * 1440 / 2160 that height at the display's aspect (960x720 at 4:3 ...). Output only: the game sees 640x480 at every
@@ -40,8 +43,12 @@ static void apply_draw_distance(int value) { hulk_wasm_draw_distance_apply(value
  * HUD frame (wvid1): at an aspect wider than 4:3 the HUD's corner brackets (four fixed models drawn for a 4:3 frame)
  * stay in the middle (0, the original's 16:9) or move out to the picture's edges (1); the game lays out the rest.
  * Draw distance (wvid1): World::Render's room fade start (0x4c53bc; band 0x4c53c4 scaled with it) while it runs,
- * render-only; 270 is the original's. Fog: 0 the game's, 1 reduced (planes x2.5), 2 off (the runner's packets). */
-static const port_setting k_settings[] = {
+ * render-only; 270 is the original's. Fog: 0 the game's, 1 reduced (planes x2.5), 2 off (the runner's packets).
+ * Texture pack (wpack1): 0 off, else an installed pack (<app dir>/mods/<pack>/, run/app/texpack.cpp) named by the
+ * FNV-1a hash of its folder name (31 bits, never 0), so the file keeps the choice when packs are added or removed; the
+ * choices are filled from the runner's list at load (fill_texture_packs); the remastered default is the first pack.
+ * Output only (the runner replaces textures at upload). */
+static port_setting k_settings[] = {
     {"remastered", "Remastered Edition", PS_SCREEN_GAMEPLAY, PS_ONOFF, 2, {0, 1}, {"Off", "On"},
      0, 1, 0, apply_remastered},
     {"frame_rate", "Frame Rate", PS_SCREEN_VIDEO, PS_CHOICE, 4, {30, 60, 120, 0},
@@ -57,6 +64,7 @@ static const port_setting k_settings[] = {
     {"draw_distance", "Draw Distance", PS_SCREEN_VIDEO, PS_CHOICE, 3, {270, 400, 700},
      {"Original", "Far", "Very Far"}, 270, 400, 1, apply_draw_distance},
     {"fog", "Fog", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"On (Original)", "Reduced", "Off"}, 0, 1, 1, apply_fog},
+    {"texture_pack", "Texture Pack", PS_SCREEN_VIDEO, PS_CHOICE, 1, {0}, {"Off"}, 0, 0, 1, apply_texture_pack},
 };
 enum { N_SETTINGS = sizeof k_settings / sizeof k_settings[0] };
 
@@ -144,11 +152,46 @@ static void apply_all(void) {
 }
 static void apply_remastered(int value) { (void)value; apply_all(); }
 
+/* The texture_pack row's choices: Off and each pack the runner found (names shown as ASCII letters, digits and simple
+ * punctuation, at most 24 characters) */
+static char g_pack_names[PS_MAX_CHOICES][28];
+static void fill_texture_packs(void) {
+    int i = hulk_settings_find("texture_pack");
+    if (i < 0) return;
+    port_setting* s = &k_settings[i];
+    char buf[1024];
+    uint32_t count = hulk_wasm_texture_pack_list(buf, sizeof buf);
+    const char* p = buf;
+    s->n = 1;
+    for (uint32_t k = 0; k < count && s->n < PS_MAX_CHOICES && *p; k++) {
+        const char* e = strchr(p, '\n');
+        if (!e) break;
+        uint32_t h = 2166136261u;                 /* (texpack_name_hash: FNV-1a of the folder name) */
+        for (const char* q = p; q < e; q++) h = (h ^ (uint8_t)*q) * 16777619u;
+        h &= 0x7fffffff;
+        char* o = g_pack_names[s->n];
+        int n = 0;
+        for (const char* q = p; q < e && n < 24; q++) {
+            char c = *q;
+            int ok = (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') || c == ' ' ||
+                     c == '-' || c == '.' || c == '(' || c == ')' || c == '\'' || c == '!' || c == '&';
+            o[n++] = ok ? c : c == '_' ? ' ' : '?';
+        }
+        o[n] = 0;
+        s->values[s->n] = h ? (int)h : 1;
+        s->names[s->n] = o;
+        s->n++;
+        p = e + 1;
+    }
+    s->remastered = s->n > 1 ? s->values[1] : 0;
+}
+
 /* Runs that test or replay start from the faithful values and leave the file alone: a recording (its clock decides),
  * HULK_INPUT (scripted determinism runs) and HULK_ROLLTEST. HULK_SETTINGS pins values in any run. */
 void hulk_settings_load(void) {
     if (g_loaded) return;
     g_loaded = 1;
+    fill_texture_packs();
     const char* in = getenv("HULK_INPUT");
     const char* roll = getenv("HULK_ROLLTEST");
     const char* file = getenv("HULK_SETTINGS_FILE");      /* 1: a scripted run reads and writes the file (tests) */

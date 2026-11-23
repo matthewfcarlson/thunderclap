@@ -19,6 +19,8 @@ mod only: never bundled, mirrored, or linked from a release or the repo without 
 python3 -I tools/texpack_convert.py map  <gc.ciso> <pack dir> isos/extracted     # -> build/texpack/map.json
 python3 -I tools/texpack_convert.py convert <gc.ciso> <pack dir> isos/extracted  # -> build/texpack/out/<key>.png
 python3 -I tools/texpack_convert.py names <gc.ciso>                              # Dolphin name of every GC texture
+python3 -I tools/texpack_convert.py pack <pack dir> isos/extracted --name NAME   # -> <mods>/NAME/ (the app's pack)
+python3 -I tools/texpack_convert.py keys isos/extracted <dump>/keys.txt           # sink keys vs a HULK_PACK_DUMP list
 python3 tools/gc_disc.py list <gc.ciso>
 ```
 
@@ -106,8 +108,21 @@ sizes or formats in different GC files); the converter keeps the larger image.
 
 ## Key scheme for the port
 
-`mods/textures/<key>.png`, where **key = XXH64 (seed 0) of the Xbox texture's mip-0 ImageData payload**
-(the DDS/PNG file bytes after ImageData's u32 size), as 16 lowercase hex digits.
+The app (and any renderer of the port) keys a texture by **what its draw sink receives at upload**
+([remaster.md 2.7](remaster.md), option A of D9; wpack1):
+
+`tex-<key>`, **key = XXH64 (seed 0) of le32 format, le32 width, le32 height and the level-0 bytes**, 16 lowercase hex
+digits. Format is the sink's (draw_sink.h `SinkTextureFormat`): 0 BGRA8 (A8R8G8B8 in memory), 1 BC1, 2 BC2, 3 BC3.
+
+- A **DDS** payload reaches the sink as its blocks as stored (DXT1 -> BC1, DXT3 -> BC2, DXT5 -> BC3): the key is
+  computed from the ImageData payload directly (`texpack_convert.py` `sink_upload`).
+- A **PNG** payload is decoded by the game into the 32-bit layout the lock describes, **rows flipped** (bottom row
+  first), exactly as the GameCube loader does. Settled by experiment (wpack1): of the textures a session uploaded
+  (624 keys over 8,000 frames of start-up, menus and the first mission), 574 DDS payloads match as stored, 42 PNG
+  payloads match with rows flipped and none as stored; the other 8 are run-time textures. So on both consoles every
+  texture is uploaded bottom row first.
+- The `map.json` / `out/<payload key>.png` files of `map` / `convert` keep the older payload key (the mip-0 ImageData
+  bytes): it is what links a pack file to an Xbox texture; `pack` turns it into the sink key.
 
 Why a content hash and not `p3d path + texture name`:
 - Texture names are not unique (`waterOS.bmp.0`, the same name with different contents in different
@@ -115,28 +130,95 @@ Why a content hash and not `p3d path + texture name`:
   keys), so the path scheme would need duplicates and still be ambiguous.
 - It works for any load path (loose-file overrides, new levels, `mods/` overlays) without the renderer
   knowing which file a texture came from, the same model Dolphin and PCSX2 packs use.
-- The bytes are already in hand in the Image loader; hashing them is cheap and stable across renderer
-  changes (unlike hashing decoded or GPU-converted pixels).
+- Hashing at the sink needs no hook in the game: the renderer sees every upload (and the game never sees the
+  replacement).
 - If a mod replaces the texture data itself, the key changes, so an HD replacement never lands on art it
   wasn't made for.
 
-**Orientation**: replacement PNGs are in **upload order, bottom row first**, as the DDS payloads store
-them and as Dolphin dumps them, so the converter copies pack PNGs unchanged. For Xbox textures whose
-payload is a PNG this assumes the Xbox loader flips PNGs as the GC one does (proven on GC by the hashes;
-the thumbnail check agrees, but the Xbox image loader's PNG path has not been read yet).
+**Orientation**: replacement PNGs are in **upload order** (the first row of the file is the first row uploaded, i.e.
+the bottom of the art as authored), as the DDS payloads store them and as Dolphin dumps them, so `pack` hard-links
+the Dolphin pack's PNGs unchanged. `HULK_PACK_DUMP` writes the same order.
 
 `map.json` keeps, per pack file: status, the GC texture(s) (rcf, p3d, texture, size, format, mips) and
 the Xbox target(s) (key, rcf, p3d, texture, payload type, match kind, similarity).
 
-## Loading packs in the native renderer
+## Override packs in the app (wpack1)
 
-1. At startup, index `mods/textures/*.png` (and subfolders) by the 16-hex-digit file name; ignore other files.
-2. When the Image loader creates a texture, hash mip 0's ImageData payload with XXH64 and look it up.
-3. On a hit, decode the PNG (upload order, any size, RGBA) and use it in place of the original, generating
-   mips if the original had them; UVs are normalized, so a 4x upscale needs no other change. Keep the
-   original's sampler state (wrap, filter) and treat alpha as the original format's alpha usage.
-4. Optionally a `dump` mode writing `<key>.png` for every texture loaded, so modders can make new packs
-   directly against the Xbox data.
+```
+<mods>/<pack>/pack.json                  name, kinds, count (informative)
+<mods>/<pack>/textures/tex-<key>.png     any size, RGBA/RGB/palettized PNG, upload order
+<mods>/<pack>/textures/index.txt         optional: "tex-<key> <file>" lines (read instead of listing the folder)
+<mods>/<pack>/models/mdl-<key>.obj       model overrides (below)
+```
 
-For a Dolphin pack, players run `texpack_convert.py convert` once against their own disc and pack and
-copy `build/texpack/out/` into `mods/textures/`.
+`<mods>` is `HULK_MODS_DIR`, else `<app dir>/mods` (`~/Library/Application Support/HulkUD/mods`). Every folder of
+`<mods>` with textures or models is a pack (at most 11). **Video Options > Texture Pack: Off / <pack folder names>**
+(port_settings.c `texture_pack`, remastered-only; the remastered default is the first pack in name order, Off when
+none is installed). The value saved is the FNV-1a hash of the folder name, so the choice survives packs being added.
+`HULK_TEXPACK=0` ignores packs; replays and tests start with it Off like every remastered setting (pin it with
+`HULK_SETTINGS=remastered=1,texture_pack=<hash>`).
+
+How it works (run/app/texpack.cpp, all in the runner):
+- At start the packs are indexed by file name (no image opened): 0.7 ms for the 2,308-file pack.
+- At each level-0 upload the runner hashes the level and looks the key up. On a hit the replacement is made in the
+  sink beside the original and put in the vid's place; the original stays alive and keeps receiving the module's
+  levels, so a pack switched off or changed in the menu goes back at once, and a draw that counts for an occlusion
+  query samples the original (the pixel counts the game reads never depend on a pack).
+- Decoding is lazy and off the runner's thread: the first upload of a key queues a job (stb_image, bimg's copy), the
+  original is drawn until it is done (usually the next frame), then it is swapped in between frames. The replacement
+  takes the original's format family with a full mip chain made by the runner (box filter): DXT1 -> BC1 (opaque when
+  the original never uses 3-colour transparent texels, else 1-bit alpha), DXT3/DXT5 -> BC3, 32-bit -> BGRA8; a size
+  that is not a multiple of 4 stays BGRA8. The sampler state comes from the draw, so wrap / clamp / filtering and
+  alpha test and blend are the original's. Never replaced: linear textures (pddi formats 11/12: movie frames) and
+  render targets.
+- Encoded replacements stay in a CPU cache (`HULK_TEXPACK_CACHE_MB`, default 384, least recently used dropped), so a
+  rollback restore or a reload of the same level swaps them in without decoding.
+- Knobs: `HULK_TEXPACK_LOG=1` (index, each decode, a summary every 5 s), `HULK_TEXPACK_THREADS`, `HULK_TEXPACK_MAX`
+  (largest side kept, default 4096: larger images skip their top levels), `HULK_TEXPACK_RAW=1` (BGRA8, no BC
+  encoding).
+
+Measured with the converted Dolphin pack (laptop, Metal, the 8,000-frame scripted run: start-up, menus, the first
+mission's start): 381 swaps of 363 distinct replacements, 2.6 s of decode + encode spread over the worker threads
+(about 7 ms a texture, none on the runner's thread), 68 MB of encoded replacements in the CPU cache and 41.5 MB on the
+GPU; frame rate unchanged (56 vs 52 frames/s unpaced). Checks: checkpoint records (`HULK_CKREF`) byte-identical to the
+same run without a pack; `HULK_ROLLTEST` identical with the pack on at 6500:7600 (gameplay) and 1200:2500 (front end).
+
+### Making a pack
+
+1. `HULK_PACK_DUMP=<folder>` (any run of the app) writes `<folder>/keys.txt` (one line per key the session uploaded
+   or drew: `tex-<key> format width height mips pddi_format ordinal replaced`, and `mdl-<key> flags prim vertices
+   indices draw_count`), `<folder>/textures/tex-<key>.png` (level 0 decoded, upload order) and
+   `<folder>/models/mdl-<key>.obj`. `HULK_PACK_DUMP=<file>.txt` writes only the list. Everything dumped is the
+   player's own game data: keep it on their machine, never share or commit it.
+2. Paint over a dumped PNG at any size (keep the row order: open, edit, save) and save it as
+   `<mods>/<pack>/textures/tex-<key>.png`. Pick the pack in Video Options > Texture Pack.
+3. From a Dolphin pack: `map`, then `texpack_convert.py pack <pack dir> isos/extracted --name NAME` writes
+   `<mods>/NAME/textures/` (hard links to the pack's files, index.txt, pack.json); `keys <xbox dir> keys.txt` checks
+   the converter's keys against a dump.
+
+### Models (the minimal version)
+
+`<mods>/<pack>/models/mdl-<key>.obj` replaces one prim buffer's geometry at its draws (run/app/meshpack.cpp).
+Key: XXH64 of le32 vertex flags, le32 prim kind, le32 vertex count and the vertices in the game's packed layout
+(`SinkVertexData::packed`), remaster.md 2.7's `mdl`. The draw keeps its transform, shader, textures, render state
+and (skinned groups) bone matrices; only the vertex and index buffers are the replacement's. Not replaced: prim
+streams (particles, billboards) and draws an occlusion query counts.
+
+- **Format**: Wavefront OBJ (`v`, `vt`, `vn`, `f`; polygons are fanned; at most 65,535 vertices), in the original's
+  model space as the dump writes it: z negated and the winding reversed (so it reads right-handed in a modelling
+  tool), `vt` v = 1 - the game's v (the dumped PNG then lies the right way up). Position, the first UV set and the
+  normal come from the OBJ; every other attribute (vertex colours, which carry the world's baked lighting; the second
+  UV set of `layered` shaders; skin weights and palette indices) is taken from the original vertex nearest each new
+  vertex.
+- **Static meshes** (props, rooms, HUD models) work as they are: keep the replacement over the original's surface
+  and its baked lighting follows.
+- **Skinned meshes** work within one prim group: each new vertex follows the bones of its nearest original vertex,
+  with the draw's own palette (at most 25 bones), so a replacement must stay inside the volume its group covers. The
+  full plan (remaster.md 4, R5: glTF skinned by joint name from the `.p3d` Skeleton/MatrixPalette, a manifest
+  replacing a whole character's groups, suppressing groups) needs the offline joint-name map and the instance tags.
+- Checked: a test pack scaling every skinned group of the first mission by 1.3 and dropping half the HUD models'
+  triangles drew as expected; checkpoint records byte-identical to the run without it. Collision, animation and the
+  shadow volumes stay the game's (shadows are separate meshes: replace their keys too).
+
+For a Dolphin pack, players run `texpack_convert.py map`, then `pack`, against their own disc and pack; nothing is
+bundled.

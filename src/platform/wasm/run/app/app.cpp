@@ -22,6 +22,7 @@
 #include "platform_events.h"
 #include "gfx_wire.h"
 #include "interp.h"
+#include "texpack.h"
 
 using namespace hulk::pddi;
 
@@ -116,12 +117,15 @@ static void drop(uint32_t vid)
     switch (r->kind) {
     // (interp_destroy: now, or once no recorded stream can still draw it)
     case kResTexture:
+        texpack_dropped(vid);
         interp_destroy(1, r->id, 0);
         break;
     case kResVertices:
+        meshpack_dropped(vid);
         interp_destroy(2, r->id, kSinkNone);
         break;
     case kResIndices:
+        meshpack_dropped(vid);
         interp_destroy(2, kSinkNone, r->id);
         break;
     case kResRenderTarget:
@@ -312,6 +316,8 @@ u32 w2c_hulk_gfx_create_texture(struct w2c_hulk*, u32 vid, u32 desc)
     drop(vid);
     r->kind = kResTexture;
     r->id = hulk_gfx_sink_create_texture(MT<SinkTextureDesc>(desc));
+    if (r->id != kSinkNone)
+        texpack_created(vid, &r->id, *MT<SinkTextureDesc>(desc));     // (texture packs: texpack.cpp)
     return r->id != kSinkNone;
 }
 u32 w2c_hulk_gfx_update_texture(struct w2c_hulk*, u32 vid, u32 level, u32 w, u32 h, u32 data, u32 pitch, u32 size)
@@ -320,6 +326,8 @@ u32 w2c_hulk_gfx_update_texture(struct w2c_hulk*, u32 vid, u32 level, u32 w, u32
     Res* r = res(vid);
     if (!r || r->kind != kResTexture || r->id == kSinkNone)
         return 0;
+    if (texpack_tracks(vid))
+        return texpack_update(vid, level, w, h, M(data), pitch, size);
     return hulk_gfx_sink_update_texture(r->id, level, w, h, M(data), pitch, size);
 }
 u32 w2c_hulk_gfx_update_vertex_buffer(struct w2c_hulk*, u32 vid, u32 data)
@@ -340,6 +348,7 @@ u32 w2c_hulk_gfx_update_vertex_buffer(struct w2c_hulk*, u32 vid, u32 data)
     d.packedStride = w->packedStride;
     d.vertexFlags = w->vertexFlags;
     d.primKind = w->primKind;
+    meshpack_vertices(vid, d);              // (model packs: meshpack.cpp)
     r->id = hulk_gfx_sink_update_vertex_buffer(r->id, &d);
     return r->id != kSinkNone;
 }
@@ -352,6 +361,7 @@ u32 w2c_hulk_gfx_update_index_buffer(struct w2c_hulk*, u32 vid, u32 idx, u32 n, 
     if (r->kind != kResIndices)
         drop(vid);
     r->kind = kResIndices;
+    meshpack_indices(vid, MT<const uint16_t>(idx), n);
     r->id = hulk_gfx_sink_update_index_buffer(r->id, MT<const uint16_t>(idx), n, owner);
     return r->id != kSinkNone;
 }
@@ -517,8 +527,11 @@ static void packet(const WDrawPacket* w, DrawPacket* p)
     p->vertexConstantCount = w->vertexConstantCount;
     memcpy(p->frag, w->frag, sizeof p->frag);
     memcpy(p->stage, w->stage, sizeof p->stage);
-    for (int i = 0; i < 4; i++)
-        p->stage[i].texture = hostTexture(p->stage[i].texture);
+    for (int i = 0; i < 4; i++) {
+        p->stage[i].texture = hostTexture(w->stage[i].texture);
+        if (w->query != kSinkNone)          // (texture packs: a draw the game counts pixels of keeps the original)
+            p->stage[i].texture = texpack_query_texture(w->stage[i].texture, p->stage[i].texture);
+    }
     p->state = w->state;
     p->count = w->count;
     p->vertexCount = w->vertexCount;
@@ -538,6 +551,7 @@ static void packet(const WDrawPacket* w, DrawPacket* p)
     p->lighting = w->lighting;
     p->fog = w->fog;
     fogOverride(p);
+    meshpack_draw(w->vertexBuffer, w->indexBuffer, w->query != kSinkNone, p);   // (model packs)
 }
 u32 w2c_hulk_gfx_prepare_pipeline(struct w2c_hulk*, u32 pk)
 {
@@ -604,6 +618,7 @@ void w2c_hulk_gfx_present(struct w2c_hulk*, u32 p)
 void w2c_hulk_gfx_frame(struct w2c_hulk*)
 {
     flush();
+    texpack_frame();
     if (!interp_frame()) {
         hulk_gfx_sink_frame();
         if (s_rrPending)                    // (a recorded update: after interp_pace has drawn it)
@@ -638,6 +653,9 @@ static void fogOverride(DrawPacket* p)
         p->frag[2][1] *= 2.5f;
     }
 }
+// the Texture Pack setting (port_settings.c texture_pack; texpack.cpp): the installed packs, the chosen one
+u32 w2c_hulk_gfx_texpack_list(struct w2c_hulk*, u32 buf, u32 cap) { return texpack_list((char*)M(buf), cap); }
+void w2c_hulk_gfx_texpack(struct w2c_hulk*, u32 value) { texpack_select(value); }
 void w2c_hulk_gfx_request_screenshot(struct w2c_hulk*, u32 path)
 {
     hulk_gfx_sink_request_screenshot((const char*)M(path));

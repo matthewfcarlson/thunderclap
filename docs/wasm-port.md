@@ -362,8 +362,9 @@ most enhancements on; turning the edition off restores every faithful value (D23
   player's own values stay in the file and come back when the switch is turned on.
 - **Defaults** (D233, when the file has no value): the edition on; Frame Rate 60 FPS (every display has it; 120 and
   Display are one selection away); Render Resolution Window (the window's own pixels); Aspect Ratio Window, HUD
-  Frame Screen Edges, Draw Distance Far, Fog Reduced (wvid1, below). Faithful: Frame Rate 30, Render Resolution
-  Original (640x480), Aspect Ratio 4:3, HUD Frame Centred, Draw Distance Original, Fog On.
+  Frame Screen Edges, Draw Distance Far, Fog Reduced (wvid1, below), Texture Pack the first installed pack (wpack1).
+  Faithful: Frame Rate 30, Render Resolution Original (640x480), Aspect Ratio 4:3, HUD Frame Centred, Draw Distance
+  Original, Fog On, Texture Pack Off.
 - **The file** is `HULK_SAVE_DIR/port_settings.txt` (`key=value` lines; fps1's `frame_rate=60` file reads as it is),
   next to the game's saves, written at every change. Runs that test or replay never read or write it and start from
   the faithful values: a recording, a `HULK_INPUT` run and `HULK_ROLLTEST` (`HULK_SETTINGS_FILE=1` makes a `HULK_INPUT`
@@ -466,6 +467,13 @@ Video Options has four more rows (port_settings.c): Aspect Ratio, HUD Frame, Dra
   Measured with Fog Off and HUD Frame Screen Edges at 4:3 against the faithful values (7,300 frames, one build): the
   checkpoint records identical, and the game state differs only in the five words of the two items' menu objects
   (their named ints' choice indices), as the frame-rate item's do.
+
+### Texture and model packs (wpack1)
+
+Video Options > Texture Pack: Off / each pack folder under `<app dir>/mods` (remastered default: the first one). The
+runner replaces textures at upload and prim buffers at their draws (run/app/texpack.cpp, meshpack.cpp); the module
+never sees a replacement, so checkpoint records and HULK_ROLLTEST are unchanged with a pack on. Keys, the pack layout,
+`HULK_PACK_DUMP` and the Dolphin converter: [texture-packs.md](texture-packs.md) "Override packs in the app".
 
 ### Movies (wmov1; hold to skip: D231)
 

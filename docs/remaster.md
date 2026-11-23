@@ -268,17 +268,21 @@ mods/<pack>/models/mdl-<xxh64>.glb      replacement mesh(es) for one prim buffer
 
   | kind | hashed bytes | notes |
   |---|---|---|
-  | `tex` | the mip-0 ImageData payload (DDS/PNG bytes), as in [texture-packs.md](texture-packs.md) | The backend receives only the locked surface. Either (A) redefine the key as (format, width, height, mip-0 surface bytes) and update `tools/texpack_convert.py`, or (B) keep the payload key and pass it to the backend with a tag at the image loader. graphics-backend.md section 5 recommends A. **Decision D9.** |
+  | `tex` | (le32 sink format, le32 width, le32 height, the level-0 bytes the sink receives) | option A of D9, implemented in the app (wpack1, [texture-packs.md](texture-packs.md) "Key scheme"); `tools/texpack_convert.py` computes it from the Xbox payload (DDS blocks as stored; PNGs decoded to BGRA8, rows flipped as the game's loader does) |
   | `mat` | (pddi shader kind, the `tex` keys of stages TEX/TTEX/REFL, blend mode, alpha test, two-sided) | most materials are identified by their base texture. A pack may also give `mat` files keyed by the base `tex` key alone (lower priority), so one PBR set covers every material using that texture |
-  | `mdl` | (vertex flags, vertex count, the vertex bytes in the prim buffer's packed layout, index bytes, prim type) | stable across loads. The same mesh repeated in several rooms has one key, as textures do. Skinned groups: one key per prim group (palette split), and a model manifest can replace a whole character by listing its group keys |
+  | `mdl` | (le32 vertex flags, le32 prim kind, le32 vertex count, the vertex bytes in the prim buffer's packed layout); indices are not part of it (they arrive in another buffer; a buffer is always drawn whole) | stable across loads. The same mesh repeated in several rooms has one key, as textures do. Skinned groups: one key per prim group (palette split), and a model manifest can replace a whole character by listing its group keys |
 
 - **Lookup.** At start-up, index every pack by key (no file opened until needed). Resolve priority by pack order, so
   a later pack overrides an earlier one. Load at first use on a worker thread and fall back to the original until it
   is ready. GPU caches (BC7-compressed HD textures, generated mips) go under the user cache directory, keyed by
   (key, source file hash).
-- **Dump mode** (`HULK_RM_DUMP=tex,mat,mdl`) writes each key the first time it is seen, with a preview: a PNG; a JSON
+- **Dump mode** (`HULK_RM_DUMP=tex,mat,mdl`; the app has `HULK_PACK_DUMP` for tex and mdl) writes each key the first time it is seen, with a preview: a PNG; a JSON
   of the original material; a glTF of the original prim buffer with joint names from the offline pack tool. Modders
   can then work from the Xbox data directly.
+- **Implemented (wpack1, the app):** `tex` and a minimal `mdl` (OBJ, attributes by nearest original vertex) in
+  run/app/texpack.cpp and meshpack.cpp, the Video Options row Texture Pack, `HULK_PACK_DUMP`; packs under
+  `<app dir>/mods/<pack>/textures|models` ([texture-packs.md](texture-packs.md) "Override packs in the app"). Not yet:
+  `mat`, glTF, a disk cache of encoded textures, priority across several packs (one pack at a time).
 - **Never shipped.** Packs are made from the player's own files or by the community. The repo commits neither packs
   nor tools that embed game data. The pack tools (`tools/rmpack_*.py`, future) run on the player's machine, like
   `texpack_convert.py`.
@@ -619,7 +623,7 @@ Notes:
 | D6 | Draw distance beyond the game's resident rooms | the far-field layer (renderer-only rooms from the extracted data) / stop at what the game loads | far field, with the "intact city at distance" caveat |
 | D7 | Aspect/FOV coupling | accept it (as the normal build does) / a logic-aspect pin for tests | accept for play; pin as a test-mode knob only |
 | D8 | Minimum hardware for RT | M3+ and RDNA2+/NVIDIA only / also M1/M2 (Metal ray tracing without hardware acceleration) / the Deck | M3+ and desktop; the Deck gets RT shadows at most; M1/M2 get SSR and cascades |
-| D9 | Texture key | (A) backend-side key, update `texpack_convert.py` / (B) the payload key with an image-loader tag | A (no game edit) |
+| D9 | Texture key | (A) backend-side key, update `texpack_convert.py` / (B) the payload key with an image-loader tag | A (no game edit); implemented in the app (wpack1) |
 | D10 | World look under PBR | keep the baked lighting (PBR specular, sun shadows, AO on top) / relight the world (needs de-lit albedo packs, GI) | keep baked by default; relighting as an `rt_gi` toggle |
 | D11 | Who makes PBR and model content | community packs only / project-authored tools (dump, conversion) without content | tools only; content is user-installed |
 | D12 | Upscalers | FSR 2/3 (MIT, licence unverified) on both / MetalFX on macOS / none | FSR on the Deck, MetalFX on macOS |

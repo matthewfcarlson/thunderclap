@@ -3058,3 +3058,23 @@ draws gives in-between frames with no tree change and no path back into the game
   call returns. A locked screen leaves the alert up with no way to click it from a shell (System Events sees no
   windows; screencapture fails): the flow was driven through start.cpp with SDL's entry points mocked (9 cases), and
   the real alert seen in `sample` (NSAlert runModal).
+
+## 2026-11-22 wpack1: texture and model override packs in the app
+
+- **Keys at the sink (D9 option A).** `tex-<XXH64(le32 format, le32 width, le32 height, level-0 bytes)>` over what the
+  app's draw sink receives; tools/texpack_convert.py computes it from the Xbox ImageData payload. No hook in the game.
+- **The PNG row question is settled: the Xbox loader flips PNGs like the GameCube one.** A session's dump (8,000
+  frames: start-up, menus, the first mission's start) uploaded 624 keys: 574 DDS payloads match their blocks as
+  stored, 42 PNG payloads match decoded with rows flipped, none as stored; 8 are run-time textures. Every texture is
+  uploaded bottom row first, so Dolphin pack PNGs (GX order) are used unchanged.
+- **The user's Dolphin pack as an app pack**: `texpack_convert.py pack` wrote 2,308 textures (hard links to the
+  pack's files, no extra disk) into the user's Application Support mods folder. In the scripted run 381 swaps of 363
+  replacements, 2.6 s of decode + BC encode on worker threads, 68 MB CPU cache, 41.5 MB on the GPU, index 0.7 ms;
+  checkpoint records identical to the run without the pack, HULK_ROLLTEST identical with it (6500:7600, 1200:2500).
+- **Replacement beside the original, never instead of it.** The original texture stays alive and complete, so the
+  menu can switch packs live, and draws counted by an occlusion query keep sampling it (the game reads their pixel
+  counts; an alpha-tested HD replacement could change them).
+- **Models, minimal**: `mdl-<key>.obj` per prim buffer (key over the packed vertices), attributes the OBJ lacks
+  (vertex colours = baked world lighting, UV set 2, skin weights) taken from the nearest original vertex. A test pack
+  that scaled the first mission's skinned groups by 1.3 and dropped half the HUD models' triangles drew as expected;
+  records identical. Skinned replacement by joint name (remaster.md R5) is the documented next step.

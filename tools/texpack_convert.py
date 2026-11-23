@@ -4,6 +4,9 @@
   texpack_convert.py names <gc.ciso>                     # Dolphin names of every GC texture
   texpack_convert.py map <gc.ciso> <pack dir> <xbox dir> [-o build/texpack/map.json]
   texpack_convert.py convert <gc.ciso> <pack dir> <xbox dir> [-o build/texpack/out]
+  texpack_convert.py keys <xbox dir> <keys.txt>          # check the app's sink keys against a HULK_PACK_DUMP list
+  texpack_convert.py pack <pack dir> <xbox dir> --name NAME [--map build/texpack/map.json] [--mods DIR]
+                                                         # -> <mods>/NAME/textures/tex-<sink key>.png (the app)
 
 <pack dir> is the folder of tex1_*.png files; <xbox dir> holds the Xbox RCFs
 (isos/extracted). Everything runs from the user's own files; nothing here is
@@ -422,6 +425,138 @@ def cmd_map(a):
     print(f"wrote {a.out}")
 
 
+def best_files(m, include_image=False):
+    """{Xbox payload key: (pack file, candidates)} from a map: the largest pack image, then the closest thumbnail."""
+    best = {}
+    for f, e in m["entries"].items():
+        mm = PACK_RX.match(f)
+        area = int(mm[1]) * int(mm[2])
+        for x in e.get("xbox", ()):
+            if x["match"] == "image" and not include_image:
+                continue
+            rank = (-area, x["sim"] if x["sim"] is not None else 1e9, f)
+            if x["key"] not in best or rank < best[x["key"]][0]:
+                best[x["key"]] = (rank, f, best.get(x["key"], (None, None, 0))[2] + 1)
+            else:
+                best[x["key"]] = best[x["key"]][:2] + (best[x["key"]][2] + 1,)
+    return {k: (f, n) for k, (_, f, n) in best.items()}
+
+
+# ---- the app's keys (docs/texture-packs.md "Override packs in the app") ----------------------
+#
+# The app keys a texture by what its draw sink receives at upload (docs/remaster.md 2.7, option A): XXH64 (seed 0)
+# of le32 format, le32 width, le32 height and the level-0 bytes, format 0 BGRA8 (A8R8G8B8 in memory), 1 BC1, 2 BC2,
+# 3 BC3. A DDS payload's level 0 arrives as its blocks as stored; a PNG payload arrives decoded to BGRA8, rows in the
+# order PNG_ROWS_FLIPPED says (checked against a HULK_PACK_DUMP list with `keys`).
+SINK_BGRA8, SINK_BC1, SINK_BC2, SINK_BC3 = 0, 1, 2, 3
+PNG_ROWS_FLIPPED = True     # (`keys` reports which order the dump confirms)
+
+
+def sink_upload(blob, png_flipped=PNG_ROWS_FLIPPED):
+    """(format, width, height, level-0 bytes) the sink receives for an ImageData payload, or None."""
+    if blob[:4] == b"DDS ":
+        h, w = struct.unpack_from("<II", blob, 12)
+        fmt = {b"DXT1": SINK_BC1, b"DXT2": SINK_BC2, b"DXT3": SINK_BC2, b"DXT4": SINK_BC3,
+               b"DXT5": SINK_BC3}.get(bytes(blob[0x54:0x58]))
+        if fmt is None:
+            return None
+        bs = 8 if fmt == SINK_BC1 else 16
+        n = max(1, (w + 3) // 4) * max(1, (h + 3) // 4) * bs
+        return fmt, w, h, bytes(blob[128:128 + n])
+    if blob[:4] == b"\x89PNG":
+        rgba = np.array(Image.open(io.BytesIO(blob)).convert("RGBA"), np.uint8)
+        if png_flipped:
+            rgba = rgba[::-1]
+        h, w = rgba.shape[:2]
+        return SINK_BGRA8, w, h, np.ascontiguousarray(rgba[..., [2, 1, 0, 3]]).tobytes()
+    return None
+
+
+def sink_key(fmt, w, h, data):
+    return f"{xxh64(struct.pack('<III', fmt, w, h) + data):016x}"
+
+
+def cmd_keys(a):
+    """How many Xbox textures' sink keys a session's HULK_PACK_DUMP list holds, by payload kind and PNG row order."""
+    dumped = set()
+    for line in open(a.dump):
+        if line.startswith("tex-"):
+            dumped.add(line[4:20])
+    stats = collections.Counter()
+    seen = set()
+    for _a, _path, _tn, blob in xbox_textures(a.xbox):
+        pk = xbox_key(blob)
+        if pk in seen:
+            continue
+        seen.add(pk)
+        kind = "DDS" if blob[:4] == b"DDS " else "PNG"
+        variants = (True,) if kind == "DDS" else (True, False)
+        hit = None
+        for v in variants:
+            u = sink_upload(blob, v)
+            if u and sink_key(*u) in dumped:
+                hit = v
+                break
+        stats[(kind, {None: "not seen", True: "seen" if kind == "DDS" else "seen, rows flipped",
+                      False: "seen, rows as stored"}[hit])] += 1
+    print(f"{len(dumped)} keys in {a.dump}")
+    for (kind, how), n in sorted(stats.items()):
+        print(f"  {kind:4s} {how:22s} {n}")
+
+
+def cmd_pack(a):
+    """The app's override pack from a Dolphin pack: <mods>/<name>/textures/tex-<sink key>.png (hard links to the
+    pack's files where the orientation agrees, else flipped copies), index.txt and pack.json."""
+    m = json.load(open(a.map))
+    best = best_files(m, a.include_image)
+    out = os.path.join(os.path.expanduser(a.mods), a.name)
+    tex = os.path.join(out, "textures")
+    os.makedirs(tex, exist_ok=True)
+    flipped_png = a.png_rows == "flipped"
+    keys, done = {}, set()
+    for _a, _path, _tn, blob in xbox_textures(a.xbox):
+        pk = xbox_key(blob)
+        if pk not in best or pk in done:
+            continue
+        done.add(pk)
+        u = sink_upload(blob, flipped_png)
+        if u is None:
+            continue
+        sk = sink_key(*u)
+        f, _n = best[pk]
+        mm = PACK_RX.match(f)
+        area = int(mm[1]) * int(mm[2])
+        # Pack images are in GX upload order (bottom row first, as DDS payloads store them and the GC loader flips
+        # PNGs). A PNG payload whose rows reach the sink as stored needs the pack image flipped back.
+        flip = blob[:4] == b"\x89PNG" and not flipped_png
+        if sk not in keys or area > keys[sk][2]:
+            keys[sk] = (f, flip, area)
+    for name in os.listdir(tex):            # (a previous run's files)
+        if name.endswith(".png") or name == "index.txt":
+            os.remove(os.path.join(tex, name))
+    linked = copied = 0
+    with open(os.path.join(tex, "index.txt"), "w") as idx:
+        for sk, (f, flip, _area) in sorted(keys.items()):
+            dst = os.path.join(tex, f"tex-{sk}.png")
+            src = os.path.join(a.pack, f)
+            if flip:
+                with Image.open(src) as im:
+                    im.transpose(Image.FLIP_TOP_BOTTOM).save(dst)
+                copied += 1
+            else:
+                try:
+                    os.link(src, dst)
+                    linked += 1
+                except OSError:
+                    shutil.copyfile(src, dst)
+                    copied += 1
+            idx.write(f"tex-{sk} tex-{sk}.png\n")
+    with open(os.path.join(out, "pack.json"), "w") as fh:
+        json.dump(dict(name=a.name, kinds=["tex"], textures=len(keys), source="texpack_convert.py pack (a Dolphin pack)",
+                       png_rows=a.png_rows), fh, indent=1)
+    print(f"wrote {len(keys)} textures to {tex} ({linked} hard links, {copied} copies)")
+
+
 def cmd_convert(a):
     if a.map and os.path.exists(a.map):
         m = json.load(open(a.map))
@@ -463,8 +598,18 @@ def main():
                                        help="reuse a map.json from `map` (rebuilt if missing)")
     sp.choices["convert"].add_argument("--include-image", action="store_true",
                                        help="also write textures matched only by image similarity")
+    p = sp.add_parser("keys")
+    p.add_argument("xbox"); p.add_argument("dump", help="a HULK_PACK_DUMP keys list (keys.txt)")
+    p = sp.add_parser("pack")
+    p.add_argument("pack"); p.add_argument("xbox")
+    p.add_argument("--name", required=True, help="the pack's folder name (the app's Texture Pack setting shows it)")
+    p.add_argument("--map", default="build/texpack/map.json")
+    p.add_argument("--mods", default="~/Library/Application Support/HulkUD/mods")
+    p.add_argument("--png-rows", choices=("flipped", "stored"), default="flipped" if PNG_ROWS_FLIPPED else "stored",
+                   help="the row order PNG payloads reach the sink in (`keys` checks it)")
+    p.add_argument("--include-image", action="store_true")
     a = ap.parse_args()
-    {"names": cmd_names, "map": cmd_map, "convert": cmd_convert}[a.cmd](a)
+    {"names": cmd_names, "map": cmd_map, "convert": cmd_convert, "keys": cmd_keys, "pack": cmd_pack}[a.cmd](a)
 
 
 if __name__ == "__main__":
