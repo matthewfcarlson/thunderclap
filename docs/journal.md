@@ -3501,3 +3501,17 @@ passes; output only (checkpoint records identical with every setting).
   to input.cpp when no ring is up), text by Core Text (AppKit already links it), never module memory or a modal
   dialog. It goes when the gamepad init completes or on Delete (`HULK_KEY_SCRIPT=80-90:Backspace` in tests).
   Free runs with `HULK_PAD_INIT_DELAY=8` / `=60`: up at 3 s, cleared at 8.0 s, dismissed by the key at 8.0 s.
+
+## 2026-11-23 wlook0: the look survey and window interiors (docs/look.md)
+- The game's building glass is data, not guesswork: every layeredReflect draw combines `diffuse x facade`, then adds
+  stages 1 and 2 times (1 - facade alpha), and the facade's alpha is 0 exactly on the window panes. Stage 1/2 are not
+  both reflections: the one with mapped coordinates (second UV set) holds the night city's lit-office pattern, the
+  texgen'd one the sphere map. So interiors need no mask pack for these buildings, and they keep the original's lit
+  windows. The desert tutorial's buildings are `simple`/`layered` with windows painted into opaque textures.
+- Interior mapping as a decal pass: the building draw again right after itself (vs_px_ff with the depth pulled 4e-6 w
+  towards the camera, less-equal, blended by the mask), submitted from the next rm hook into the draw's own view;
+  tangent frame from screen-space derivatives (the world has no normals). +0.6 ms GPU in the city on the laptop.
+- The free run from the user's save reaches the Church hub; scripted inputs never got the Hulk through the city beam,
+  so the survey's city shots are play3's night city only.
+- Shadows High shows acne on the desert ground at a low sun (play3 frame 12,000).
+

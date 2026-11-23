@@ -21,6 +21,7 @@ namespace rm {
 enum Quality : uint32_t {
     kMipmaps = 1, kAniso, kMsaa, kFarField, kDrawDistance, kLighting, kDynLights,
     kHdr, kAo, kShadows,                  // wr3a (docs/hdr-shadows.md): 0 off; shadows 1 low, 2 high
+    kWindows,                             // wlook0 (docs/look.md): 0 the game's glass, 1 interiors
     kQualityCount
 };
 struct Settings {

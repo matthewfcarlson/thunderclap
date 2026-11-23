@@ -649,6 +649,14 @@ faithful value off, remastered-only) and each a pass of the runner, so they carr
 - `HULK_RM_LOG=1`: the GPU and render-thread time a frame and the draw count every 300 frames, and each render target
   the game makes (and the far field's matching and draws).
 
+### Window interiors (wlook0)
+
+docs/look.md section 5. Video Options > Windows: Original / Interiors (`windows`; faithful 0, remastered 1;
+rm::kWindows): run/app/windows.cpp draws each layeredReflect building draw again as a decal over itself
+(shaders/vs_rm_window.sc, fs_rm_window.sc) showing a procedural room behind every pane: the facade's alpha is 0 on the
+glass, stage 1/2's mapped layer is the game's night window lights (lamps follow it), its texgen'd layer the sphere map
+(over the room by Fresnel). Output only: play3's records identical with it on and off.
+
 ### Profile (wprof1)
 
 Where the app's time goes (2026-11-22; a laptop, hidden Metal window, the scripted run plus first-mission movement;

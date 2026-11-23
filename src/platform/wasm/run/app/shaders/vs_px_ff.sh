@@ -61,6 +61,9 @@ void main()
     v_texcoord1 = texgen(1, view.xyz, n, a_texcoord0, a_texcoord1, a_texcoord2, a_texcoord3);
     v_texcoord2 = texgen(2, view.xyz, n, a_texcoord0, a_texcoord1, a_texcoord2, a_texcoord3);
     v_texcoord3 = texgen(3, view.xyz, n, a_texcoord0, a_texcoord1, a_texcoord2, a_texcoord3);
+#ifdef PX_DECAL
+    gl_Position.z -= 4.0e-6 * gl_Position.w;   // (wlook0: a decal over the draw it repeats: wins the depth test)
+#endif
 #ifdef PX_CAST
     gl_Position = vec4(dot(vec4(view.xyz, 1.0), u_rmCast[0]), dot(vec4(view.xyz, 1.0), u_rmCast[1]),
                        dot(vec4(view.xyz, 1.0), u_rmCast[2]), 1.0);   // (wr3a: a shadow caster, the sun's view)
