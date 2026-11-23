@@ -583,6 +583,14 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   z-write off (context slots 62/63). A new settings row changes the game hash from frame 10, so `wasm_build_job.py test
   --test input` pairs fail on it: compare checkpoint records. Build a control of HEAD with wasm_build_job: build/wasm-app
   holds whatever another lane built last.
+  Disc sources (wpkg1, D237): run/disc.c reads the folder, an .iso (trimmed, or Redump's partition at 0x18300000) or a
+  disc pack (tools/disc_pack.py, .hulkdisc: 256 KiB zstd chunks plus an index), each named as a folder
+  (`<image>/default.xbe`); every runner reader of the disc goes through hdisc_*, never open/fopen (`HULK_DISC_TRACE=1`
+  logs reads). Optional AV1 movies (tools/disc_av1.py) keep each .rmv's first 64 KiB (the game reads 1 KiB); Android's
+  FFmpeg build is Bink-only, so AV1 packs play black there. One-file texture packs (.hulkpack, `texpack_convert.py
+  bundle`) hold baked BC1/BC3/BGRA8 with mips. Packs, AV1 movies, .hulkpack files and bundles are derived content: build/
+  only. Movies decode only with a real renderer outside replays: check movie changes with a Metal free run
+  (`HULK_GFX_HIDDEN=1 HULK_MOVIE_LOG=1`), not play3.
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
