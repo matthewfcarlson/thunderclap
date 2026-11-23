@@ -614,6 +614,17 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   fe_options' handlers and the headless app crashed on pausing). Find such writers with an lldb watchpoint at
   `hulk_run_memory()` + address. Scripted menu runs: the app with `HULK_MOVIES=0` follows the null renderer's frame
   timing, so the same HULK_INPUT works for Metal screenshots.
+  HDR / Ambient Occlusion / Shadows (wr3a, D239, docs/hdr-shadows.md): run/app/hdr.cpp, ao.cpp and shadows.cpp draw
+  between the game's passes. While a pass's `midFrame()` is true, rm renumbers the game's pass ids in submission order
+  with the runner's views among them (`rm::newView`, `viewsBefore`, `viewsHere`, `splitPass`); every sink call naming a
+  pass, `rm::copyFrame` and `rm::fxDraw` included, goes through rm. A pass comparing a draw's pass with an earlier one
+  uses `rm::currentGamePass()`, never `p.pass` (it changes when a pass is split). Runner passes needing the world
+  projection take it from a room draw (shader kind 1/2, unlit, opaque), never the frame's first draw (the sky, with its
+  own near/far); D3D depth linearises as `(c6.w - d*c7.w) / min(d*c7.z - c6.z, -eps)`. The shadows' sun is the game's
+  key light (the strongest directional `SinkLight`, through the inverse view; constant per location in play3). A caster
+  resubmitted with `hulk_gfx_sink_submit_draw` from a draw hook runs before the lighting pass's hook (order < 10).
+  A queue submit from a private workspace can start the queue daemon from that workspace's tools when none runs: check
+  `pgrep -fl "jobq.py daemon"` first (the lead restarts it from the main checkout).
   Build id (wver1): apps and APKs carry the short commit (`+dirty` for local builds with uncommitted host files or tools,
   `+N` for N queue overlay files): stdout `hulk-app: build <id>`, the window title, Info.plist, the APK's versionName and
   SetupActivity. `wasm_app.py build` writes it from HULK_BUILD_ID (wasm_build_run.py sets it) or git into
