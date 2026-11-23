@@ -20,6 +20,15 @@ void gs_fx();
 void gs_wait(int64_t lateNs, int64_t spinNs);   // a pacing wait: how late it woke, how long it yielded
 void gs_frame_end();     // after the update's frame end
 
+// wperf1 (docs/performance.md): the runner's CPU split apart from the import categories (hooks: time in the rm passes'
+// hooks, their own encoding included; submit: the game's draws into the sink from rm; bgfxFrame: bgfx::frame, the
+// render thread's work in this single-threaded build; interp: an interpolated update's replays, waits excluded).
+// (bgfx's per-view GPU timers, BGFX_DEBUG_PROFILER, give unusable numbers on Metal here: per-pass GPU costs are measured
+// by each pass's A/B turns instead, HULK_<PASS>_AB=N)
+enum GxCat { kGxHooks, kGxSubmit, kGxBgfxFrame, kGxInterp, kGxCats };
+void gs_extra(int cat, uint64_t t0);
+void gs_sink_frame();      // hulk_gfx_sink_frame timed (kGxBgfxFrame) and counted
+
 struct GsScope {
     int cat;
     uint64_t t0;

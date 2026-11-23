@@ -16,6 +16,7 @@
 #include "pddi/bgfx_bridge.h"
 #include "rm_post.h"
 #include "texpack.h"
+#include "gfxstats.h"
 
 using namespace hulk::pddi;
 
@@ -54,6 +55,22 @@ Registrar::Registrar(Pass* p)
 
 const Settings& settings() { return s_settings; }
 
+// wperf1 (HULK_GFX_STATS, docs/performance.md): the time in the passes' hooks (the runner's own encoding), apart from
+// the sink's
+namespace {
+struct HookTimer {
+    uint64_t t0;
+    HookTimer() : t0(gs_enabled() ? gs_now() : 0) {}
+    ~HookTimer() { if (t0) gs_extra(kGxHooks, t0); }
+};
+} // namespace
+#define RM_EACH(call)              \
+    do {                           \
+        HookTimer ht_;             \
+        for (Pass* q_ : ordered()) \
+            q_->call;              \
+    } while (0)
+
 static uint8_t s_forced[kQualityCount];
 static bool s_forcing;
 void setQuality(uint32_t what, int32_t value)
@@ -61,14 +78,12 @@ void setQuality(uint32_t what, int32_t value)
     if (what == 0 || what >= kQualityCount || s_settings.value[what] == value || (s_forced[what] && !s_forcing))
         return;
     s_settings.value[what] = value;
-    for (Pass* p : ordered())
-        p->settingsChanged(s_settings);
+    RM_EACH(settingsChanged(s_settings));
 }
 
 void packet(DrawPacket& p)
 {
-    for (Pass* q : ordered())
-        q->packet(p);
+    RM_EACH(packet(p));
 }
 
 // ---- mid-frame views (wr3a): the game's pass ids renumbered in submission order, the runner's views among them
@@ -177,12 +192,15 @@ void submitDraw(const DrawPacket& p)
     s_stencilDraws += p.state.stencil != 0, s_allDraws++;
     DrawPacket q = p;
     q.pass = sinkView(p.pass);
-    for (Pass* r : ordered())
-        r->late(q);
-    for (Pass* r : ordered())
-        r->draw(q);
+    RM_EACH(late(q));
+    RM_EACH(draw(q));
     q.pass = sinkView(p.pass);          // (a pass may have split the game's pass: rm::viewsHere)
-    hulk_gfx_sink_submit_draw(&q);
+    {
+        uint64_t t0 = gs_enabled() ? gs_now() : 0;
+        hulk_gfx_sink_submit_draw(&q);
+        if (t0)
+            gs_extra(kGxSubmit, t0);
+    }
     if (p.transient != kSinkNone)
         s_tVerts = nullptr, s_tCount = 0;   // (one draw's)
 }
@@ -190,8 +208,7 @@ void submitDraw(const DrawPacket& p)
 void copyFrame(uint16_t pass, const SinkTarget& dst)
 {
     beginFrame();
-    for (Pass* r : ordered())
-        r->copy(pass, dst);
+    RM_EACH(copy(pass, dst));
     SinkTarget t = dst;
     hulk_gfx_sink_copy_frame(sinkView(pass), &t);
 }
@@ -199,8 +216,7 @@ void copyFrame(uint16_t pass, const SinkTarget& dst)
 void fxDraw(const FxPacket& p)
 {
     beginFrame();
-    for (Pass* r : ordered())
-        r->fx(p);
+    RM_EACH(fx(p));
     FxPacket q = p;
     q.pass = sinkView(p.pass);
     hulk_gfx_sink_fx_draw(&q);
@@ -208,14 +224,12 @@ void fxDraw(const FxPacket& p)
 
 void vertices(uint32_t sinkBuffer, const SinkVertexData& d)
 {
-    for (Pass* q : ordered())
-        q->vertices(sinkBuffer, d);
+    RM_EACH(vertices(sinkBuffer, d));
 }
 
 void buffersDropped(uint32_t sinkBuffer)
 {
-    for (Pass* q : ordered())
-        q->buffersDropped(sinkBuffer);
+    RM_EACH(buffersDropped(sinkBuffer));
 }
 
 static uint8_t s_passScene[65536 / 8];
@@ -236,15 +250,13 @@ void setPass(const SinkPass& pass)
     SinkPass p = pass;
     if (pass.target == kSinkTargetScene && !s_sceneSeen) {
         s_sceneSeen = true;
-        for (Pass* q : ordered())
-            q->sceneBegin(p);           // (a pass may take views before the scene's: rm::newView)
+        RM_EACH(sceneBegin(p));         // (a pass may take views before the scene's: rm::newView)
     }
     s_curGame = pass.id;
     p.id = sinkView(pass.id);
     s_curSink = p;
     markScene(p);
-    for (Pass* q : ordered())
-        q->passSet(pass.id, p);
+    RM_EACH(passSet(pass.id, p));
     hulk_gfx_sink_set_pass(&p);
 }
 
@@ -257,9 +269,11 @@ void present(const SinkPresent& p)
     s.width = hulk_gfx_sink_target_width();
     s.height = hulk_gfx_sink_target_height();
     uint16_t view = kFirstView;
-    if (s.frameBuffer != kSinkNone)
+    if (s.frameBuffer != kSinkNone) {
+        HookTimer ht;
         for (Pass* q : ordered())
             q->postScene(s, view);
+    }
     hulk_gfx_sink_present(&p);
     s_sceneSeen = false;
     s_frameOpen = false;
@@ -322,8 +336,7 @@ void frame()
 {
     forceLog();
     costLog();
-    for (Pass* q : ordered())
-        q->frame();
+    RM_EACH(frame());
 }
 
 uint32_t sceneSamples()

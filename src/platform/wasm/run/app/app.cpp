@@ -668,7 +668,7 @@ void w2c_hulk_gfx_frame(struct w2c_hulk*)
     flush();
     texpack_frame();
     if (!interp_frame()) {
-        hulk_gfx_sink_frame();
+        gs_sink_frame();
         rm::frame();
         if (s_rrPending)                    // (a recorded update: after interp_pace has drawn it)
             rrRemake();

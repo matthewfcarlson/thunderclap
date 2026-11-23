@@ -8,6 +8,7 @@
 #include <time.h>
 #include <bgfx/bgfx.h>
 #include "gfxstats.h"
+#include "pddi/bgfx_bridge.h"
 
 using namespace hulk::pddi;
 
@@ -25,6 +26,7 @@ struct Acc {
     uint64_t bgTexMem, bgRtMem;
     uint32_t w, h;
     uint64_t waits, lateNs, lateMax, spinNs, lateHist[256];
+    uint64_t xns[kGxCats], bgFrames;
 } A;
 
 struct Last {
@@ -166,6 +168,16 @@ void gs_wait(int64_t late, int64_t spin)
 }
 void gs_pass() { if (on()) A.passes++; }
 void gs_fx() { if (on()) A.fx++; }
+void gs_extra(int cat, uint64_t t0) { A.xns[cat] += gs_now() - t0; }
+void gs_sink_frame()
+{
+    uint64_t t0 = on() ? gs_now() : 0;
+    hulk_gfx_sink_frame();
+    if (t0) {
+        gs_extra(kGxBgfxFrame, t0);
+        A.bgFrames++;
+    }
+}
 
 void gs_frame_end()
 {
@@ -221,6 +233,12 @@ void gs_frame_end()
             A.tVerts / f, A.tVerts * sizeof(SinkVertex) / f / 1024, A.bgTvb / f / 1024, A.vb / f, A.vbBytes / f / 1024,
             A.vbRe / f, A.ib / f, A.ibBytes / f / 1024, A.ibRe / f, A.texC / f, A.texU / f, A.texBytes / f / 1024,
             A.bgVb / f, A.bgDynVb / f, A.bgTexMem / 1048576.0, A.bgRtMem / 1048576.0, A.w, A.h);
+    {
+        double pf = A.bgFrames ? (double)A.bgFrames : f;
+        fprintf(stderr, "gfxstats:   runner cpu ms/upd: hooks %.3f submit %.3f bgfx-frame %.3f interp %.3f | %.2f bgfx "
+                "frames/upd (%.3f ms bgfx-frame each)\n", A.xns[kGxHooks] * ms, A.xns[kGxSubmit] * ms,
+                A.xns[kGxBgfxFrame] * ms, A.xns[kGxInterp] * ms, pf / f, A.xns[kGxBgfxFrame] * 1e-6 / pf);
+    }
     if (A.waits) {
         uint64_t k = 0, p50 = 0, p99 = 0;
         for (int i = 0; i < 256; i++) {
