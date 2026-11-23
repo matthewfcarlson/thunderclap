@@ -638,6 +638,11 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   A remaster fight chunk is gated by not loading it (loaded but locked still allocates fight objects and moves the game
   hash). A new unlockable move takes a spare `CUnlockableMove` slot (0x266-0x2c9, ~37 unused), so its purchase bit uses
   the existing save format.
+  On macOS the app's SDL gamepads live on a "hulk-pad" thread (run/app/input.cpp, wpad1): SDL_InitJoysticks holds the
+  joystick lock across the drivers' inits, and HIDAPI's IOHIDManager can block forever in IOServiceOpen when
+  gamecontrollerd is deadlocked (Chrome's gamepad polling); the main thread's event pump (unless
+  SDL_HINT_AUTO_UPDATE_JOYSTICKS=0), SDL_Quit and SDL's MFi connect observers all wait on that lock. Never call an SDL
+  joystick/gamepad function on the main thread; read the pad thread's snapshot. `HULK_PAD_INIT_DELAY=S` simulates the stall.
   Build id (wver1): apps and APKs carry the short commit (`+dirty` for local builds with uncommitted host files or tools,
   `+N` for N queue overlay files): stdout `hulk-app: build <id>`, the window title, Info.plist, the APK's versionName and
   SetupActivity. `wasm_app.py build` writes it from HULK_BUILD_ID (wasm_build_run.py sets it) or git into
