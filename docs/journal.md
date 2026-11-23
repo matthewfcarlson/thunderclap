@@ -3515,3 +3515,24 @@ passes; output only (checkpoint records identical with every setting).
   so the survey's city shots are play3's night city only.
 - Shadows High shows acne on the desert ground at a low sun (play3 frame 12,000).
 
+
+## 2026-11-23 wssr1: screen-space reflections (Video Options > Reflections; docs/reflections.md)
+
+- **A G-buffer of the runner's, not the scene's depth.** The world pass's opaque draws are drawn a second time (the
+  faithful vertex transform, the lighting pass's vs_px_ff / vs_px_skin) into an RGBA16F + D32F target with depth,
+  normal and a per-draw reflectance; the world's additive glows go in as depth where bright, so rays find lamp halos,
+  orbs and fire, and a glow in front of a wet street is not overdrawn. Resubmitting from a draw hook must run before
+  the lighting pass's hook (order < 10): it binds the draw's textures, which the extra submit would consume.
+- **What reflects, from the packet alone**: rooms' up-facing faces (world up from the view: rooms' modelview is the
+  view) are wet ground at night (fog luminance: downtown night 0.087, the desert 0.50); shader kind 2
+  (`layeredReflect`) is glass where stage 0's alpha is 0 (the glass mask wlook0's Windows use), kind 3
+  (`environment`) metal-like; grass (texture x baked colour green over red and blue) stays matt (unclassified, it
+  mirrored tree trunks).
+- **A coarse march skips thin surfaces**: Low (24 steps) first showed almost no street reflections; a hit now also
+  counts when the ray went behind the depth by less than its own last step (capped at a quarter of the depth).
+- **Trace at the frame's first effect** (the HDR tone map's point, before its views): the scene copy then holds the
+  translucent draws, so glows and effects are reflected. Fresnel makes steep views (down from a roof) show little;
+  street-level views in the night city show the lit windows, cars, lamps and the Hulk in the street.
+- Checks: play3 60,000 null records identical (test 111711: candidate 111708, control 111709, mac2); Metal Off/High
+  records identical to 30,100; cost High +3.0 ms GPU, Low +1.9 ms at 1280x960 MSAA 4x (A/B turns, loaded laptop);
+  `wasm_android.py build` links.

@@ -807,6 +807,16 @@ passes: while one is on, rm renumbers the game's passes in submission order with
   shadows; the game's stencil-shadow quad is hidden.
 - Output only: checkpoint records identical with every setting; the pddi units compile byte-identical (D194).
 
+### Reflections (wssr1)
+
+docs/reflections.md. A Video Options row (port_settings.c `reflections` Off/Low/High; faithful off, remastered High),
+run/app/ssr.cpp: screen-space reflections. The world pass's opaque draws (and its additive glows, as depth) are drawn
+again into a G-buffer of the runner's (depth, normal, reflectance per draw: wet ground at night, `layeredReflect`
+buildings, `environment` objects); at the frame's first effect (before HDR's tone map) each reflective pixel's
+mirrored ray is marched across that depth (Low half size, High full size) and the hit's scene colour blended over the
+surface by Fresnel; where no ray hits, the game's own REFL / sphere-map surface stays. Other passes read the result
+through run/app/ssr.h (docs/reflections.md "SSR interface"). Output only: play3's records identical.
+
 ### Movies (wmov1; hold to skip: D231)
 
 The game's Bink movies (the start-up logos, the attract loop, the cut-scenes) play with picture and sound in the app.

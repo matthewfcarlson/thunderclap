@@ -132,3 +132,8 @@ without MSAA every pass costs a fraction of this.
 - OpenGL (origin bottom-left) is handled in the shadow and quad maths but untested; Android Vulkan builds the shaders
   (spirv, essl) and has not run on a device.
 - Night locations: the key light is the moon's or a street rig's; a pack or a per-location value can override the sun.
+
+## SSR interface
+
+Screen-space reflections (wssr1, run/app/ssr.cpp) are a fourth pass of this kind; another pass (the interior-mapped
+windows) reads its reflection and G-buffer through run/app/ssr.h `rm::ssrResult`: docs/reflections.md "SSR interface".

@@ -49,6 +49,7 @@ static void apply_hdr(int value) { hulk_wasm_quality_apply(8, value); }
 static void apply_ao(int value) { hulk_wasm_quality_apply(9, value); }
 static void apply_shadows(int value) { hulk_wasm_quality_apply(10, value); }
 static void apply_windows(int value) { hulk_wasm_quality_apply(11, value); }
+static void apply_reflections(int value) { hulk_wasm_quality_apply(12, value); }
 static void apply_tutorial_skip(int value) { hulk_wasm_tutorial_skip_apply(value); }
 static void apply_traversal(int value) { hulk_wasm_traversal_apply(value); }
 static void apply_developer(int value);
@@ -87,6 +88,9 @@ static void apply_developer(int value);
  * behind it (1: a procedural room per window bay, ray-cast in the fragment shader, lit by day or by a lamp where the
  * game paints the pane lit, the game's reflection over it by Fresnel) instead of the game's painted glass (0). Output
  * only.
+ * Reflections (wssr1; run/app/ssr.cpp, docs/reflections.md): screen-space reflections on wet ground (strongest at
+ * night), building glass and environment-mapped objects, over the game's own reflection maps (1 half size, 2 full
+ * size). Output only.
  * Tutorial skip (wskip1): a star behind the Hulk's start in the two tutorial missions (c00m01, c00m02) ends the mission
  * through its own success path when he walks into it (tutorial_skip.c). It changes the game (the mission ends), so it
  * is per session: replays and tests pin it off, netplay peers must share it.
@@ -134,6 +138,8 @@ static port_setting k_settings[] = {
     {"shadows", "Shadows", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"Original", "Low", "High"}, 0, 2, 1,
      apply_shadows},
     {"windows", "Windows", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Original", "Interiors"}, 0, 1, 1, apply_windows},
+    {"reflections", "Reflections", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"Off (Original)", "Low", "High"}, 0, 2,
+     1, apply_reflections},
     {"tutorial_skip", "Tutorial Skip", PS_SCREEN_GAMEPLAY, PS_ONOFF, 2, {0, 1}, {"Off", "On"}, 0, 1, 1,
      apply_tutorial_skip},
     {"remaster_moves", "Traversal Moves", PS_SCREEN_GAMEPLAY, PS_ONOFF, 2, {0, 1}, {"Off", "On"}, 0, 1, 1,
