@@ -573,6 +573,16 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   shaderc, so after editing run/app/shaders run it locally and submit with `--shaders-ok`. Editing tools/wasm_port.py
   recompiles every TU of an app build (its digest is in app-inputs.json): put app-only steps in wasm_app.py. Measure a
   pass's cost as A/B turns within one run (`HULK_LIGHT_AB=N`), never as separate runs under load.
+  Tutorial Skip (wskip1, tutorial_skip.c): a star behind the Hulk in c00m01/c00m02 ends the mission through the game's
+  own bindings (our one-line Lua via `sh_DoString` 0x001d3f00, from an entry hook on UpdateSimulation 0x00088c30); setting
+  only a mission's progress or script state does nothing or worse (c00m02's intro spun in the out-of-memory loop
+  FUN_0008d320: a stack ending there is the game's own allocation failure). "In play" means controller slot >= 0, game
+  camera active, no letterbox and the logic view within 14 units: intros hand the Hulk a controller early. Host code can
+  draw in world space through the game's pddi after World::Render (context *(0x52c2a8) slots 30/31 begin/end prims,
+  FUN_0008ef00 next vertex; device *(0x52c2a0) slot 11 a simple shader, shader slot 6 BLMD/LIT/2SID); draw glow with
+  z-write off (context slots 62/63). A new settings row changes the game hash from frame 10, so `wasm_build_job.py test
+  --test input` pairs fail on it: compare checkpoint records. Build a control of HEAD with wasm_build_job: build/wasm-app
+  holds whatever another lane built last.
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
