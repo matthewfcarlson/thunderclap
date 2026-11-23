@@ -3102,3 +3102,23 @@ draws gives in-between frames with no tree change and no path back into the game
   fpatan) on all 8,281 arguments of one frame, while softx87's asin (unrounded root) differs on 1,354; Wine's acos is
   musl's (0 of 15,764 differ). Switching wasm's asin to the PC-53 root, or acos to musl/libm, changed no play3 record
   in 60,000 frames, so nothing changed there.
+
+## 2026-11-22 wr2: R2 cheap wins in the app as runner passes (D236: mipmaps, anisotropic, MSAA, pack disk cache)
+- **The runner's pass interface** (run/app/rm_pass.h, remaster.md 5.3 in its R2 form): passes register themselves and
+  see the settings (one `gfx_quality` import), every draw packet, draw submissions, prim-buffer writes, the scene
+  target's first pass and the end of the game's frame; app.cpp and interp.cpp's replays reach the sink only through it.
+  wvid1's fog override moved into it unchanged.
+- **55% of the game's textures have no mips** (347 of 624 the scripted run uploads: DXT1 64x64/128x128 world
+  textures); others have partial chains. Full chains made by the runner from the game's own levels: 25 ms of encoding
+  for the run. bgfx's Metal renderer has a single anisotropy level (16x, a reset flag), so the option is Off / 16x.
+- **MSAA on the scene target works through bgfx as is**: its Metal views store and resolve (StoreAndMultisampleResolve),
+  blits read the resolved texture, so the frame copies, the effects' targets and the present are unchanged. Occlusion
+  queries count samples; the runner divides. 8x costs 3.7x the GPU time of 4x at 1920x1440 (every game view stores 8
+  samples).
+- **Game state:** checkpoint records byte-identical with every option on; a HULK_GAMEDUMP at frame 8,000 differs from
+  the same run with the options off in 6 words, all three options' menu values (a setting's value is a menu
+  NamedValueInt). play3 with null: records identical to the control app.
+- **Shadows** are stencil volumes (about 5 stencil draws a frame in gameplay); the game makes no shadow render target
+  (the scripted run makes 320x240 and 2 x 160x120 effect targets and one frame copy), so there is no resolution to
+  raise; MSAA and the render resolution already apply to them.
+- **Pack disk cache**: <app dir>/cache/textures; first launch 3.1 s of decode + encode, next launch 0.14 s of reads.

@@ -21,6 +21,7 @@ void hulk_wasm_fog_apply(int value);                                    /* gfx.c
 void hulk_wasm_draw_distance_apply(int value);                          /* draw_distance.c: World::Render's fade */
 void hulk_wasm_texture_pack_apply(int value);                           /* gfx.c: the runner's texture pack (wpack1) */
 uint32_t hulk_wasm_texture_pack_list(char* buf, uint32_t cap);          /* gfx.c: the installed packs' names */
+void hulk_wasm_quality_apply(int what, int value);                      /* gfx.c: the runner's passes (wr2) */
 
 static void apply_remastered(int value);
 static void apply_frame_rate(int value) { hulk_wasm_frame_rate_apply(value); }
@@ -28,8 +29,14 @@ static void apply_render_res(int value) { hulk_wasm_render_res_apply(value); }
 static void apply_aspect(int value) { hulk_wasm_aspect_apply(value); }
 static void apply_fog(int value) { hulk_wasm_fog_apply(value); }
 static void apply_hud_edge(int value) { hulk_wasm_hud_edge_apply(value); }
-static void apply_draw_distance(int value) { hulk_wasm_draw_distance_apply(value); }
+static void apply_draw_distance(int value) {
+    hulk_wasm_draw_distance_apply(value);
+    hulk_wasm_quality_apply(5, value);            /* (the runner's passes see it too: rm_pass.h kDrawDistance) */
+}
 static void apply_texture_pack(int value) { hulk_wasm_texture_pack_apply(value); }
+static void apply_mipmaps(int value) { hulk_wasm_quality_apply(1, value); }      /* (run/app/rm_pass.h Quality) */
+static void apply_aniso(int value) { hulk_wasm_quality_apply(2, value); }
+static void apply_msaa(int value) { hulk_wasm_quality_apply(3, value); }
 
 /* Render resolution values: 1..4 a multiple of the game's 640x480; 0 the window's (display's) pixels; 720 / 1080 /
  * 1440 / 2160 that height at the display's aspect (960x720 at 4:3 ...). Output only: the game sees 640x480 at every
@@ -47,7 +54,11 @@ static void apply_texture_pack(int value) { hulk_wasm_texture_pack_apply(value);
  * Texture pack (wpack1): 0 off, else an installed pack (<app dir>/mods/<pack>/, run/app/texpack.cpp) named by the
  * FNV-1a hash of its folder name (31 bits, never 0), so the file keeps the choice when packs are added or removed; the
  * choices are filled from the runner's list at load (fill_texture_packs); the remastered default is the first pack.
- * Output only (the runner replaces textures at upload). */
+ * Output only (the runner replaces textures at upload).
+ * Mipmaps, Anisotropic Filtering, Anti-Aliasing (wr2, D236; run/app/rm_pass.cpp): the runner's picture options,
+ * output only. Mipmaps 1: the textures the game gives fewer levels than the full chain get one made by the runner (from
+ * textures loaded after the change); anisotropic filtering 16 (bgfx's Metal renderer has one level: 16x); MSAA on the
+ * scene target (samples; the occlusion queries' counts are scaled back). */
 static port_setting k_settings[] = {
     {"remastered", "Remastered Edition", PS_SCREEN_GAMEPLAY, PS_ONOFF, 2, {0, 1}, {"Off", "On"},
      0, 1, 0, apply_remastered},
@@ -65,6 +76,11 @@ static port_setting k_settings[] = {
      {"Original", "Far", "Very Far"}, 270, 400, 1, apply_draw_distance},
     {"fog", "Fog", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"On (Original)", "Reduced", "Off"}, 0, 1, 1, apply_fog},
     {"texture_pack", "Texture Pack", PS_SCREEN_VIDEO, PS_CHOICE, 1, {0}, {"Off"}, 0, 0, 1, apply_texture_pack},
+    {"mipmaps", "Mipmaps", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Original", "Full"}, 0, 1, 1, apply_mipmaps},
+    {"aniso", "Anisotropic Filtering", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 16}, {"Off (Original)", "16x"}, 0, 16, 1,
+     apply_aniso},
+    {"msaa", "Anti-Aliasing", PS_SCREEN_VIDEO, PS_CHOICE, 4, {0, 2, 4, 8},
+     {"Off (Original)", "MSAA 2x", "MSAA 4x", "MSAA 8x"}, 0, 4, 1, apply_msaa},
 };
 enum { N_SETTINGS = sizeof k_settings / sizeof k_settings[0] };
 
@@ -216,9 +232,9 @@ void hulk_settings_load(void) {
         g_pinned = 1;                   /* pinned values are never saved */
         parse(e);
     }
-    char line[256];
+    char line[512];
     int n = 0;
-    for (int i = 0; i < N_SETTINGS; i++)
+    for (int i = 0; i < N_SETTINGS && n < (int)sizeof line - 40; i++)
         n += snprintf(line + n, sizeof line - (size_t)n, " %s=%d", k_settings[i].key, effective(i));
     fprintf(stderr, "hulk: settings%s%s\n", line, g_pinned ? " (pinned)" : "");
     apply_all();

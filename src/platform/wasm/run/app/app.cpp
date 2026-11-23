@@ -23,6 +23,7 @@
 #include "gfx_wire.h"
 #include "interp.h"
 #include "texpack.h"
+#include "rm_pass.h"
 
 using namespace hulk::pddi;
 
@@ -122,6 +123,7 @@ static void drop(uint32_t vid)
         break;
     case kResVertices:
         meshpack_dropped(vid);
+        rm::buffersDropped(r->id);
         interp_destroy(2, r->id, kSinkNone);
         break;
     case kResIndices:
@@ -175,7 +177,7 @@ static uint32_t hostFrameBuffer(uint32_t vid)
 // size they read (target_width/height) is that one. Here the scene target, the sink's frame copy and front buffer and
 // the copy targets of the frame's size are made at the render size; a pass into one of them has its viewport scaled;
 // an occlusion query's pixel count is scaled back. Render targets (the effects' smaller targets) keep their sizes.
-static int s_rrMode = 1, s_rrPending;
+static int s_rrMode = 1, s_rrPending, s_rrForce;     // (force: the scene target again at the same size: MSAA)
 static uint32_t s_logW, s_logH, s_physW, s_physH, s_winW, s_winH;
 // the display's aspect (gfx_display_aspect: the aspect-ratio setting, wvid1 D234; 4:3 the frame's own): the scene
 // target takes that shape (the game's 640x480 frame drawn anamorphically, as on an Xbox 16:9 mode) and the module's
@@ -226,7 +228,9 @@ static void rrRemake()
         return;
     uint32_t w, h;
     rrSize(&w, &h);
-    if (w == s_physW && h == s_physH)
+    bool force = s_rrForce;
+    s_rrForce = 0;
+    if (w == s_physW && h == s_physH && !force)
         return;
     if (!hulk_gfx_sink_frame_targets(w, h)) {
         fprintf(stderr, "hulk-app: render resolution %ux%u refused: %ux%u\n", w, h, s_logW, s_logH);
@@ -245,6 +249,13 @@ static void rrRemake()
     }
     refreshSinkOwned();
     fprintf(stderr, "hulk-app: render resolution %ux%u (the game's frame %ux%u)\n", w, h, s_logW, s_logH);
+}
+
+// (rm_pass.h) the scene target is made again between frames (MSAA changed)
+void rm::appTargetsChanged()
+{
+    s_rrPending = 1;
+    s_rrForce = 1;
 }
 
 extern "C" {
@@ -349,7 +360,12 @@ u32 w2c_hulk_gfx_update_vertex_buffer(struct w2c_hulk*, u32 vid, u32 data)
     d.vertexFlags = w->vertexFlags;
     d.primKind = w->primKind;
     meshpack_vertices(vid, d);              // (model packs: meshpack.cpp)
+    uint32_t was = r->id;
     r->id = hulk_gfx_sink_update_vertex_buffer(r->id, &d);
+    if (was != kSinkNone && was != r->id)
+        rm::buffersDropped(was);
+    if (r->id != kSinkNone)
+        rm::vertices(r->id, d);                 // (the runner's passes: the far field's room match)
     return r->id != kSinkNone;
 }
 u32 w2c_hulk_gfx_update_index_buffer(struct w2c_hulk*, u32 vid, u32 idx, u32 n, u32 owner)
@@ -375,6 +391,9 @@ u32 w2c_hulk_gfx_create_target(struct w2c_hulk*, u32 vid, u32 fb, u32 w, u32 h, 
     drop(fb);
     SinkTarget t;
     bool scaled = !render && w == s_logW && h == s_logH;      // a copy of the frame: at the render size
+    static int s_tlog = getenv("HULK_RM_LOG") ? atoi(getenv("HULK_RM_LOG")) : 0;
+    if (s_tlog)
+        fprintf(stderr, "hulk-app: target vid %u %ux%u %s\n", vid, w, h, render ? "render" : "copy");
     if (render)
         hulk_gfx_sink_create_render_target(w, h, &t);
     else
@@ -488,7 +507,7 @@ void w2c_hulk_gfx_set_pass(struct w2c_hulk*, u32 p)
         pass.target = hostFrameBuffer(pass.target);
     if (interp_recording())
         return interp_pass(pass);
-    hulk_gfx_sink_set_pass(&pass);
+    rm::setPass(pass);
 }
 void w2c_hulk_gfx_copy_frame(struct w2c_hulk*, u32 pass, u32 dst)
 {
@@ -503,7 +522,6 @@ u32 w2c_hulk_gfx_draw_resources(struct w2c_hulk*) { flush(); return hulk_gfx_sin
 u32 w2c_hulk_gfx_has_vertex_program(struct w2c_hulk*, u32 vp) { return hulk_gfx_sink_has_vertex_program(vp); }
 
 // a draw packet with host pointers (the out fields of preparePipeline go back)
-static void fogOverride(DrawPacket* p);
 static void packet(const WDrawPacket* w, DrawPacket* p)
 {
     p->frame = w->frame;
@@ -550,7 +568,7 @@ static void packet(const WDrawPacket* w, DrawPacket* p)
     p->ambient = w->ambient;
     p->lighting = w->lighting;
     p->fog = w->fog;
-    fogOverride(p);
+    rm::packet(*p);                                                             // (the runner's passes: fog, ...)
     meshpack_draw(w->vertexBuffer, w->indexBuffer, w->query != kSinkNone, p);   // (model packs)
 }
 u32 w2c_hulk_gfx_prepare_pipeline(struct w2c_hulk*, u32 pk)
@@ -571,7 +589,7 @@ void w2c_hulk_gfx_submit_draw(struct w2c_hulk*, u32 pk)
     packet(MT<const WDrawPacket>(pk), &p);
     if (interp_recording())
         return interp_draw(p);
-    hulk_gfx_sink_submit_draw(&p);
+    rm::submitDraw(p);
 }
 void w2c_hulk_gfx_combiner_stats(struct w2c_hulk*, u32 a, u32 b, u32 c)
 {
@@ -594,6 +612,8 @@ u32 w2c_hulk_gfx_query_result(struct w2c_hulk*, u32 q, u32 pixels)
     if (id == kSinkNone)
         return kQueryPending;
     u32 st = hulk_gfx_sink_query_result(id, MT<int32_t>(pixels));
+    if (uint32_t n = rm::sceneSamples(); n > 1 && pixels)          // (MSAA: the count is of samples)
+        *MT<int32_t>(pixels) = (int32_t)(((uint32_t)*MT<int32_t>(pixels) + n / 2) / n);
     if (rrScaled() && pixels) {             // the count at the frame's size, as the game's Xbox would give it
         int32_t* n = MT<int32_t>(pixels);
         uint64_t den = (uint64_t)s_physW * s_physH;
@@ -613,7 +633,7 @@ void w2c_hulk_gfx_present(struct w2c_hulk*, u32 p)
     if (interp_recording())
         return interp_present(pr);          // (drawn by interp_pace, with the ring after each present's stream)
     hulk_app_movie_overlay(pr.windowWidth, pr.windowHeight);     // (run/app/movie.c: the hold-to-skip ring)
-    hulk_gfx_sink_present(&pr);
+    rm::present(pr);
 }
 void w2c_hulk_gfx_frame(struct w2c_hulk*)
 {
@@ -621,6 +641,7 @@ void w2c_hulk_gfx_frame(struct w2c_hulk*)
     texpack_frame();
     if (!interp_frame()) {
         hulk_gfx_sink_frame();
+        rm::frame();
         if (s_rrPending)                    // (a recorded update: after interp_pace has drawn it)
             rrRemake();
     }
@@ -640,19 +661,11 @@ void w2c_hulk_gfx_display_aspect(struct w2c_hulk*, u32 num, u32 den)
     s_rrPending = 1;
     fprintf(stderr, "hulk-app: display aspect %u:%u\n", num, den);
 }
-// the fog setting (wvid1): 0 the game's, 1 reduced (the planes x2.5), 2 off. Output only: the packets the sink draws
-static int s_fog;
-void w2c_hulk_gfx_fog(struct w2c_hulk*, u32 value) { s_fog = (int)value; }
-static void fogOverride(DrawPacket* p)
-{
-    if (s_fog == 2) {
-        p->fog = 0;
-        p->frag[1][3] = 0.0f;
-    } else if (s_fog == 1 && p->fog) {
-        p->frag[2][0] *= 2.5f;
-        p->frag[2][1] *= 2.5f;
-    }
-}
+// the fog setting (wvid1): 0 the game's, 1 reduced (the planes x2.5), 2 off. Output only: rm_pass.cpp's fog pass
+void rm_set_fog(int value);
+void w2c_hulk_gfx_fog(struct w2c_hulk*, u32 value) { rm_set_fog((int)value); }
+// the runner's picture options (wr2: port_settings.c rows that are rm passes; rm_pass.h Quality)
+void w2c_hulk_gfx_quality(struct w2c_hulk*, u32 what, u32 value) { rm::setQuality(what, (int32_t)value); }
 // the Texture Pack setting (port_settings.c texture_pack; texpack.cpp): the installed packs, the chosen one
 u32 w2c_hulk_gfx_texpack_list(struct w2c_hulk*, u32 buf, u32 cap) { return texpack_list((char*)M(buf), cap); }
 void w2c_hulk_gfx_texpack(struct w2c_hulk*, u32 value) { texpack_select(value); }

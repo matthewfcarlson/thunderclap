@@ -68,6 +68,7 @@ GI(gfx_context_destroyed) void gi_context_destroyed(void);
 GI(gfx_render_res) void gi_render_res(int32_t value);
 GI(gfx_display_aspect) void gi_display_aspect(uint32_t num, uint32_t den);
 GI(gfx_fog) void gi_fog(int32_t value);
+GI(gfx_quality) void gi_quality(uint32_t what, int32_t value);
 GI(gfx_texpack_list) uint32_t gi_texpack_list(char* buf, uint32_t cap);
 GI(gfx_texpack) void gi_texpack(uint32_t value);
 GI(plat_video_init) int32_t gi_video_init(void);
@@ -456,6 +457,9 @@ void hulk_wasm_render_res_apply(int value) { gi_render_res(value); }
 void hulk_gfx_sink_context_destroyed(void) { gi_context_destroyed(); }
 /* the fog setting (port_settings.c, wvid1): the runner's packets (0 the game's fog, 1 reduced, 2 off); output only */
 void hulk_wasm_fog_apply(int value) { gi_fog(value); }
+/* the runner's picture options (port_settings.c rows that are run/app/rm_pass.cpp passes; wr2): mipmaps, anisotropic
+ * filtering, MSAA, ... as rm::Quality numbers them. Output only */
+void hulk_wasm_quality_apply(int what, int value) { gi_quality((uint32_t)what, value); }
 
 /* The texture-pack setting (port_settings.c texture_pack, wpack1): the runner lists the installed packs and replaces
  * textures at upload (run/app/texpack.cpp); nothing in the module changes. */

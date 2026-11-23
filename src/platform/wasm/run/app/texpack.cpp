@@ -20,11 +20,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <sys/time.h>
 #include <time.h>
+#include <unistd.h>
 
 #include <math.h>
 
 #include <algorithm>
+#include <atomic>
 #include <condition_variable>
 #include <deque>
 #include <memory>
@@ -163,17 +166,23 @@ static void scanDir(Pack& p, const std::string& dir, int depth)
     }
     closedir(d);
 }
+static std::string appDir()
+{
+    const char* a = getenv("HULK_APP_DIR");
+    if (a && *a)
+        return a;
+    const char* home = getenv("HOME");
+    return home ? std::string(home) + "/Library/Application Support/HulkUD" : std::string();
+}
 static std::string modsDir()
 {
     const char* m = getenv("HULK_MODS_DIR");
     if (m && *m)
         return m;
-    const char* a = getenv("HULK_APP_DIR");
-    if (a && *a)
-        return std::string(a) + "/mods";
-    const char* home = getenv("HOME");
-    return home ? std::string(home) + "/Library/Application Support/HulkUD/mods" : std::string();
+    std::string a = appDir();
+    return a.empty() ? a : a + "/mods";
 }
+static void diskInit();
 // <pack>/textures/index.txt (texpack_convert.py writes it: "<key> <file>" lines, the file relative to textures/) is
 // read instead of listing the folder when present
 static bool readIndex(Pack& p, const std::string& tex)
@@ -226,6 +235,7 @@ static void scan()
     }
     if (getenv("HULK_TEXPACK") && !strcmp(getenv("HULK_TEXPACK"), "0"))
         return;
+    diskInit();
     double t0 = nowMs();
     std::string mods = modsDir();
     DIR* d = mods.empty() ? nullptr : opendir(mods.c_str());
@@ -588,6 +598,63 @@ struct Encoded {
     std::vector<uint8_t> data;
     size_t bytes() const { return data.size(); }
 };
+// one level of `e` (its format) from an image
+static void encodeLevel(Encoded& e, const std::vector<RGBA>& img, uint32_t cw, uint32_t ch, AlphaMode am)
+{
+    uint32_t pitch, sz, bs = e.format == kSinkBC1 ? 8 : 16;
+    if (e.format == kSinkBGRA8)
+        pitch = cw * 4, sz = pitch * ch;
+    else
+        pitch = ((cw + 3) / 4) * bs, sz = pitch * ((ch + 3) / 4);
+    size_t off = e.data.size();
+    e.data.resize(off + sz);
+    uint8_t* d = e.data.data() + off;
+    if (e.format == kSinkBGRA8) {
+        for (size_t i = 0; i < (size_t)cw * ch; i++)
+            d[4 * i] = img[i].b, d[4 * i + 1] = img[i].g, d[4 * i + 2] = img[i].r, d[4 * i + 3] = img[i].a;
+    } else {
+        for (uint32_t by = 0; by < (ch + 3) / 4; by++)
+            for (uint32_t bx = 0; bx < (cw + 3) / 4; bx++) {
+                RGBA b[16];
+                gatherBlock(img.data(), cw, ch, bx, by, b);
+                uint8_t* o = d + (size_t)by * pitch + bx * bs;
+                if (e.format == kSinkBC3) {
+                    alphaBlock(b, o), colorBlock(b, false, false, o + 8);
+                } else if (e.format == kSinkBC2) {            // (generated mips of a DXT3 original: explicit alpha)
+                    memset(o, 0, 8);
+                    for (int i = 0; i < 16; i++)
+                        o[i / 2] |= (uint8_t)(((b[i].a * 15 + 127) / 255) << (4 * (i & 1)));
+                    colorBlock(b, false, false, o + 8);
+                } else {
+                    colorBlock(b, am == kAlphaPunch, true, o);
+                }
+            }
+    }
+    e.offset.push_back((uint32_t)off), e.size.push_back(sz), e.pitch.push_back(pitch);
+    e.lw.push_back(cw), e.lh.push_back(ch);
+}
+// the next level: a 2x2 box filter (odd sizes clamp)
+static void halve(std::vector<RGBA>& img, uint32_t& cw, uint32_t& ch, AlphaMode am)
+{
+    uint32_t nw = cw > 1 ? cw / 2 : 1, nh = ch > 1 ? ch / 2 : 1;
+    std::vector<RGBA> next((size_t)nw * nh);
+    for (uint32_t y = 0; y < nh; y++)
+        for (uint32_t x = 0; x < nw; x++) {
+            uint32_t x0 = cw > 1 ? 2 * x : x, y0 = ch > 1 ? 2 * y : y;
+            uint32_t x1 = cw > 1 ? x0 + 1 : x0, y1 = ch > 1 ? y0 + 1 : y0;
+            const RGBA* s[4] = {&img[(size_t)y0 * cw + x0], &img[(size_t)y0 * cw + x1], &img[(size_t)y1 * cw + x0],
+                                &img[(size_t)y1 * cw + x1]};
+            int r = 0, g = 0, b = 0, a = 0;
+            for (auto* q : s)
+                r += q->r, g += q->g, b += q->b, a += q->a;
+            RGBA o{(uint8_t)((r + 2) / 4), (uint8_t)((g + 2) / 4), (uint8_t)((b + 2) / 4), (uint8_t)((a + 2) / 4)};
+            if (am == kAlphaPunch)
+                o.a = o.a >= 128 ? 255 : 0;
+            next[(size_t)y * nw + x] = o;
+        }
+    img.swap(next);
+    cw = nw, ch = nh;
+}
 // decode `path`, make the mips, encode in the original's family. nullptr: unreadable
 static std::shared_ptr<Encoded> build(const std::string& path, uint32_t origFormat, AlphaMode am)
 {
@@ -609,58 +676,58 @@ static std::shared_ptr<Encoded> build(const std::string& path, uint32_t origForm
     bool first = true;
     while (true) {
         if (!first || (cw <= (uint32_t)maxDim && ch <= (uint32_t)maxDim)) {
-            uint32_t pitch, sz;
-            if (e->format == kSinkBGRA8) {
-                pitch = cw * 4, sz = pitch * ch;
-            } else {
-                uint32_t bs = e->format == kSinkBC1 ? 8 : 16;
-                pitch = ((cw + 3) / 4) * bs, sz = pitch * ((ch + 3) / 4);
-            }
-            size_t off = e->data.size();
-            e->data.resize(off + sz);
-            uint8_t* d = e->data.data() + off;
-            if (e->format == kSinkBGRA8) {
-                for (size_t i = 0; i < (size_t)cw * ch; i++)
-                    d[4 * i] = img[i].b, d[4 * i + 1] = img[i].g, d[4 * i + 2] = img[i].r, d[4 * i + 3] = img[i].a;
-            } else {
-                uint32_t bs = e->format == kSinkBC1 ? 8 : 16;
-                for (uint32_t by = 0; by < (ch + 3) / 4; by++)
-                    for (uint32_t bx = 0; bx < (cw + 3) / 4; bx++) {
-                        RGBA b[16];
-                        gatherBlock(img.data(), cw, ch, bx, by, b);
-                        uint8_t* o = d + (size_t)by * pitch + bx * bs;
-                        if (e->format == kSinkBC3)
-                            alphaBlock(b, o), colorBlock(b, false, false, o + 8);
-                        else
-                            colorBlock(b, am == kAlphaPunch, true, o);
-                    }
-            }
-            e->offset.push_back((uint32_t)off), e->size.push_back(sz), e->pitch.push_back(pitch);
-            e->lw.push_back(cw), e->lh.push_back(ch);
+            encodeLevel(*e, img, cw, ch, am);
             if (first)
                 e->w = cw, e->h = ch, first = false;
         }
         if (cw == 1 && ch == 1)
             break;
-        // the next level: a 2x2 box filter (odd sizes clamp)
-        uint32_t nw = cw > 1 ? cw / 2 : 1, nh = ch > 1 ? ch / 2 : 1;
-        std::vector<RGBA> next((size_t)nw * nh);
-        for (uint32_t y = 0; y < nh; y++)
-            for (uint32_t x = 0; x < nw; x++) {
-                uint32_t x0 = cw > 1 ? 2 * x : x, y0 = ch > 1 ? 2 * y : y;
-                uint32_t x1 = cw > 1 ? x0 + 1 : x0, y1 = ch > 1 ? y0 + 1 : y0;
-                const RGBA* s[4] = {&img[(size_t)y0 * cw + x0], &img[(size_t)y0 * cw + x1], &img[(size_t)y1 * cw + x0],
-                                    &img[(size_t)y1 * cw + x1]};
-                int r = 0, g = 0, b = 0, a = 0;
-                for (auto* q : s)
-                    r += q->r, g += q->g, b += q->b, a += q->a;
-                RGBA o{(uint8_t)((r + 2) / 4), (uint8_t)((g + 2) / 4), (uint8_t)((b + 2) / 4), (uint8_t)((a + 2) / 4)};
-                if (am == kAlphaPunch)
-                    o.a = o.a >= 128 ? 255 : 0;
-                next[(size_t)y * nw + x] = o;
-            }
-        img.swap(next);
-        cw = nw, ch = nh;
+        halve(img, cw, ch, am);
+    }
+    e->levels = (uint32_t)e->offset.size();
+    return e;
+}
+
+// ------------------------------------------------------------------------------------------- generated mip chains
+// (wr2; Video Options > Mipmaps) A game texture with fewer levels than the full chain (55% of the textures the
+// scripted run uploads have only the top level: DXT1 64x64 and 128x128 world textures) is drawn from a replacement
+// with the full chain: the game's own levels as they are (its bytes), then each further level a box filter of the one
+// above, encoded in the original's format (BC2 keeps explicit alpha). Made like a pack's replacement (worker threads,
+// swapped in between frames, the original kept for occlusion-query draws and for the setting turned off).
+static int s_mipgen;                       // the setting: 0 the game's levels, 1 full chains
+static bool s_mipgenEver;                  // (tracking starts once it is on: textures uploaded before keep theirs)
+static unsigned s_mipSwaps;
+static uint32_t fullLevels(uint32_t w, uint32_t h)
+{
+    uint32_t n = 1;
+    while (w > 1 || h > 1)
+        w = w > 1 ? w / 2 : 1, h = h > 1 ? h / 2 : 1, n++;
+    return n;
+}
+struct MipSrc {                            // the game's levels of a texture, as uploaded
+    uint32_t format, w, h, levels;
+    AlphaMode am;
+    std::vector<uint32_t> offset, size, pitch, lw, lh;
+    std::vector<uint8_t> data;
+};
+static uint64_t mipKey(uint64_t key) { return (key ^ 0x6d69706d61707321ull) * P1 + 1; }    // ("mipmaps!")
+static std::shared_ptr<Encoded> buildMips(const MipSrc& m)
+{
+    auto e = std::make_shared<Encoded>();
+    e->format = m.format, e->w = m.w, e->h = m.h;
+    for (uint32_t l = 0; l < m.levels; l++) {
+        e->offset.push_back((uint32_t)e->data.size()), e->size.push_back(m.size[l]), e->pitch.push_back(m.pitch[l]);
+        e->lw.push_back(m.lw[l]), e->lh.push_back(m.lh[l]);
+        e->data.insert(e->data.end(), m.data.begin() + m.offset[l], m.data.begin() + m.offset[l] + m.size[l]);
+    }
+    uint32_t last = m.levels - 1, cw = m.lw[last], ch = m.lh[last];
+    std::vector<RGBA> img = decodeLevel(m.format, cw, ch, m.data.data() + m.offset[last]);
+    if (m.am != kAlphaFull)
+        for (auto& p : img)
+            p.a = m.am == kAlphaOpaque ? 255 : p.a >= 128 ? 255 : 0;
+    while (cw > 1 || ch > 1) {
+        halve(img, cw, ch, m.am);
+        encodeLevel(*e, img, cw, ch, m.am);
     }
     e->levels = (uint32_t)e->offset.size();
     return e;
@@ -690,12 +757,155 @@ static void cachePut(uint64_t key, std::shared_ptr<Encoded> e)
     }
 }
 
+// ------------------------------------------------------------------------------------------- the disk cache
+// (wr2) Encoded replacements kept between launches, so a pack's first decode is paid once: <app dir>/cache/textures/
+// (HULK_TEXPACK_DISK_DIR), one file a replacement named by its key and a hash of what it was built from (the image's
+// path, size and modification time, the original's format and alpha use, HULK_TEXPACK_MAX / _RAW, the layout's
+// version), so an edited or replaced image is built again and its old file ages out. Capped at HULK_TEXPACK_DISK_MB
+// (default 2048; 0: no disk cache): over the cap the least recently used files (by modification time, refreshed on
+// each hit) are deleted down to 90%. Only the player's own machine holds it (built from their pack).
+enum : uint32_t { kDiskMagic = 0x43585448u /* "HTXC" */, kDiskVersion = 1 };
+static std::string s_diskDir;
+static int64_t s_diskCap;
+static std::atomic<int64_t> s_diskBytes{0};
+static std::atomic<unsigned> s_diskHits{0}, s_diskWrites{0};
+static std::mutex s_diskMu;
+static void mkdirs(const std::string& path)
+{
+    for (size_t i = 1; i <= path.size(); i++)
+        if (i == path.size() || path[i] == '/')
+            mkdir(path.substr(0, i).c_str(), 0755);
+}
+static void diskPrune(int64_t target)
+{
+    std::lock_guard<std::mutex> l(s_diskMu);
+    struct F { std::string path; int64_t size; double mtime; };
+    std::vector<F> files;
+    int64_t total = 0;
+    if (DIR* d = opendir(s_diskDir.c_str())) {
+        while (struct dirent* e = readdir(d)) {
+            size_t n = strlen(e->d_name);
+            if (n < 5 || strcmp(e->d_name + n - 4, ".bin"))
+                continue;
+            std::string path = s_diskDir + "/" + e->d_name;
+            struct stat st;
+            if (stat(path.c_str(), &st))
+                continue;
+            files.push_back(F{path, (int64_t)st.st_size, st.st_mtimespec.tv_sec + st.st_mtimespec.tv_nsec / 1e9});
+            total += st.st_size;
+        }
+        closedir(d);
+    }
+    if (total > target) {
+        std::sort(files.begin(), files.end(), [](const F& a, const F& b) { return a.mtime < b.mtime; });
+        for (const F& f : files) {
+            if (total <= target)
+                break;
+            if (!unlink(f.path.c_str()))
+                total -= f.size;
+        }
+    }
+    s_diskBytes = total;
+}
+static void diskInit()
+{
+    const char* mb = getenv("HULK_TEXPACK_DISK_MB");
+    s_diskCap = (int64_t)(mb && *mb ? atoll(mb) : 2048) << 20;
+    const char* dir = getenv("HULK_TEXPACK_DISK_DIR");
+    s_diskDir = dir && *dir ? std::string(dir) : appDir().empty() ? std::string() : appDir() + "/cache/textures";
+    if (s_diskCap <= 0 || s_diskDir.empty()) {
+        s_diskDir.clear();
+        return;
+    }
+    mkdirs(s_diskDir);
+    diskPrune(s_diskCap);
+}
+// the file of a replacement built from `path` (empty: no disk cache, or the image can't be read)
+static std::string diskPath(uint64_t key, const std::string& path, uint32_t format, AlphaMode am)
+{
+    struct stat st;
+    if (s_diskDir.empty() || stat(path.c_str(), &st))
+        return std::string();
+    static int maxDim = getenv("HULK_TEXPACK_MAX") ? atoi(getenv("HULK_TEXPACK_MAX")) : 4096;
+    bool raw = getenv("HULK_TEXPACK_RAW") && *getenv("HULK_TEXPACK_RAW") == '1';
+    char meta[64];
+    int n = snprintf(meta, sizeof meta, "|%lld|%lld|%09ld|%u|%u|%d|%d|%u", (long long)st.st_size,
+                     (long long)st.st_mtimespec.tv_sec, (long)st.st_mtimespec.tv_nsec, format, (unsigned)am, maxDim,
+                     raw ? 1 : 0, (unsigned)kDiskVersion);
+    std::string id = path + std::string(meta, (size_t)n);
+    char fn[64];
+    snprintf(fn, sizeof fn, "/tex-%016llx-%016llx.bin", (unsigned long long)key,
+             (unsigned long long)xxh64((const uint8_t*)id.data(), id.size()));
+    return s_diskDir + fn;
+}
+static std::shared_ptr<Encoded> diskRead(const std::string& file)
+{
+    FILE* f = fopen(file.c_str(), "rb");
+    if (!f)
+        return nullptr;
+    auto e = std::make_shared<Encoded>();
+    uint32_t hd[6];
+    bool ok = fread(hd, sizeof hd, 1, f) == 1 && hd[0] == kDiskMagic && hd[1] == kDiskVersion && hd[5] >= 1 &&
+              hd[5] <= 16 && hd[2] <= kSinkBC3;
+    if (ok) {
+        e->format = hd[2], e->w = hd[3], e->h = hd[4], e->levels = hd[5];
+        size_t total = 0;
+        for (uint32_t l = 0; ok && l < e->levels; l++) {
+            uint32_t lv[4];                         // width, height, pitch, size
+            ok = fread(lv, sizeof lv, 1, f) == 1 && lv[3] <= (256u << 20);
+            if (ok) {
+                e->lw.push_back(lv[0]), e->lh.push_back(lv[1]), e->pitch.push_back(lv[2]), e->size.push_back(lv[3]);
+                e->offset.push_back((uint32_t)total);
+                total += lv[3];
+            }
+        }
+        if (ok) {
+            e->data.resize(total);
+            ok = fread(e->data.data(), 1, total, f) == total && fgetc(f) == EOF;
+        }
+    }
+    fclose(f);
+    if (!ok) {
+        unlink(file.c_str());                       // (a damaged or foreign file: built again)
+        return nullptr;
+    }
+    utimes(file.c_str(), nullptr);                  // (recently used)
+    s_diskHits++;
+    return e;
+}
+static void diskWrite(const std::string& file, const Encoded& e)
+{
+    char tmp[32];
+    snprintf(tmp, sizeof tmp, ".tmp%d-%p", (int)getpid(), (const void*)&e);
+    std::string t = file + tmp;
+    FILE* f = fopen(t.c_str(), "wb");
+    if (!f)
+        return;
+    uint32_t hd[6] = {kDiskMagic, kDiskVersion, e.format, e.w, e.h, e.levels};
+    bool ok = fwrite(hd, sizeof hd, 1, f) == 1;
+    for (uint32_t l = 0; ok && l < e.levels; l++) {
+        uint32_t lv[4] = {e.lw[l], e.lh[l], e.pitch[l], e.size[l]};
+        ok = fwrite(lv, sizeof lv, 1, f) == 1;
+    }
+    ok = ok && fwrite(e.data.data(), 1, e.data.size(), f) == e.data.size();
+    ok = fclose(f) == 0 && ok;
+    if (!ok || rename(t.c_str(), file.c_str())) {    // (whole files only: a crash leaves a .tmp, never a short .bin)
+        unlink(t.c_str());
+        return;
+    }
+    s_diskWrites++;
+    int64_t sz = (int64_t)(sizeof hd + 16 * e.levels + e.data.size());
+    if ((s_diskBytes += sz) > s_diskCap)
+        diskPrune(s_diskCap * 9 / 10);
+}
+
 // workers: decode + encode off the runner's thread
 struct Job {
     uint64_t key;
     std::string path;
     uint32_t format;
     AlphaMode am;
+    std::shared_ptr<const MipSrc> mips;        // a generated chain (path empty)
 };
 struct Done {
     uint64_t key;
@@ -719,13 +929,22 @@ static void worker()
             s_jobs.pop_front();
         }
         double t0 = nowMs();
-        auto e = build(j.path, j.format, j.am);
+        std::string file = j.mips ? std::string() : diskPath(j.key, j.path, j.format, j.am);
+        auto e = file.empty() ? nullptr : diskRead(file);
+        if (j.mips) {
+            e = buildMips(*j.mips);
+        } else if (!e) {
+            e = build(j.path, j.format, j.am);
+            if (e && !file.empty())
+                diskWrite(file, *e);
+        }
         double ms = nowMs() - t0;
         std::lock_guard<std::mutex> l(s_mu);
         s_done.push_back(Done{j.key, e, ms});
     }
 }
-static void enqueue(uint64_t key, const std::string& path, uint32_t format, AlphaMode am)
+static void enqueue(uint64_t key, const std::string& path, uint32_t format, AlphaMode am,
+                    std::shared_ptr<const MipSrc> mips = nullptr)
 {
     if (!s_workers) {
         s_workers = true;
@@ -738,7 +957,7 @@ static void enqueue(uint64_t key, const std::string& path, uint32_t format, Alph
     std::lock_guard<std::mutex> l(s_mu);
     if (!s_inFlight.insert(key).second)
         return;
-    s_jobs.push_back(Job{key, path, format, am});
+    s_jobs.push_back(Job{key, path, format, am, std::move(mips)});
     s_cv.notify_one();
 }
 
@@ -757,6 +976,11 @@ struct Tex {
     SinkTextureDesc desc;
     uint64_t key, shown;              // the level-0 key; the key whose replacement is shown
     size_t replBytes;
+    // generated mips (a texture with fewer levels than the full chain): its levels as uploaded, once all are in
+    bool mipNeed, dynamic;
+    uint8_t reuploads;
+    uint32_t mipHave;                 // levels received (bit per level) since the last level 0
+    std::shared_ptr<MipSrc> mipSrc;
 };
 enum { kMaxVids = 16384 };
 static Tex* s_tex;
@@ -767,7 +991,7 @@ static size_t s_replBytes;
 static unsigned s_hits, s_misses, s_swaps;
 static double s_buildMs;
 
-static bool tracking() { return s_anyPack || s_dumpOn; }
+static bool tracking() { return s_anyPack || s_dumpOn || s_mipgenEver; }
 static const std::string* lookup(uint64_t key)
 {
     if (s_sel < 0 || s_sel >= (int)s_packs.size())
@@ -810,14 +1034,17 @@ static void swapIn(Tex& t, uint64_t key, const Encoded& e)
 static void settle(Tex& t)
 {
     const std::string* path = t.keyed ? lookup(t.key) : nullptr;
-    if (!path) {
+    bool mips = !path && t.keyed && s_mipgen && t.mipNeed && !t.dynamic && t.mipSrc &&
+                t.mipHave == (1u << t.mipSrc->levels) - 1;
+    if (!path && !mips) {
         dropRepl(t);
         t.state = kOriginal;
         return;
     }
-    if (t.state == kReplaced && t.shown == t.key)
+    uint64_t want = mips ? mipKey(t.key) : t.key;
+    if (t.state == kReplaced && t.shown == want)
         return;
-    auto it = s_cache.find(t.key);
+    auto it = s_cache.find(want);
     if (it != s_cache.end()) {
         if (!it->second.enc) {                     // (unreadable: the original stays)
             dropRepl(t);
@@ -825,14 +1052,36 @@ static void settle(Tex& t)
             return;
         }
         it->second.used = ++s_tick;
-        swapIn(t, t.key, *it->second.enc);
+        swapIn(t, want, *it->second.enc);
         s_hits++;
+        s_mipSwaps += mips;
         return;
     }
     dropRepl(t);
     t.state = kPending;
-    enqueue(t.key, *path, t.desc.format, t.am);
+    if (mips)
+        enqueue(want, std::string(), t.desc.format, t.am, t.mipSrc);
+    else
+        enqueue(want, *path, t.desc.format, t.am);
     s_misses++;
+}
+
+// a level the game uploads, kept for its generated chain (level 0 starts a new set)
+static void mipCapture(Tex& t, uint32_t level, uint32_t w, uint32_t h, const void* data, uint32_t pitch, uint32_t size)
+{
+    if (level == 0 || !t.mipSrc) {
+        auto m = std::make_shared<MipSrc>();        // (a new one: a job may still read the last)
+        uint32_t n = t.desc.mips + 1;
+        m->format = t.desc.format, m->w = w, m->h = h, m->levels = n, m->am = t.am;
+        m->offset.assign(n, 0), m->size.assign(n, 0), m->pitch.assign(n, 0), m->lw.assign(n, 0), m->lh.assign(n, 0);
+        t.mipSrc = m;
+        t.mipHave = 0;
+    }
+    MipSrc& m = *t.mipSrc;
+    m.offset[level] = (uint32_t)m.data.size(), m.size[level] = size, m.pitch[level] = pitch;
+    m.lw[level] = w, m.lh[level] = h;
+    m.data.insert(m.data.end(), (const uint8_t*)data, (const uint8_t*)data + size);
+    t.mipHave |= 1u << level;
 }
 
 void texpack_created(uint32_t vid, uint32_t* slot, const SinkTextureDesc& desc)
@@ -856,6 +1105,7 @@ void texpack_created(uint32_t vid, uint32_t* slot, const SinkTextureDesc& desc)
     t.repl = kSinkNone;
     t.desc = desc;
     t.state = kOriginal;
+    t.mipNeed = desc.mips + 1 < fullLevels(desc.width, desc.height) && desc.mips < 15;
     if (!s_listed[vid]) {
         s_listed[vid] = true;
         s_live.push_back(vid);
@@ -890,9 +1140,19 @@ bool texpack_update(uint32_t vid, uint32_t level, uint32_t w, uint32_t h, const 
         return false;                              // (app.cpp asks texpack_tracks first)
     Tex* t = &s_tex[vid];
     bool ok = hulk_gfx_sink_update_texture(t->orig, level, w, h, data, pitch, size);
-    if (level != 0)
+    if (t->mipNeed && s_mipgenEver && !t->dynamic && level <= t->desc.mips)
+        mipCapture(*t, level, w, h, data, pitch, size);
+    if (level != 0) {
+        if (t->mipSrc && t->mipHave == (1u << t->mipSrc->levels) - 1 && t->keyed)
+            settle(*t);                            // (the game's last level: the chain can be made)
         return ok;
-    t->key = textureKey(t->desc.format, w, h, data, size);
+    }
+    uint64_t key = textureKey(t->desc.format, w, h, data, size);
+    if (t->keyed && key != t->key && ++t->reuploads > 2) {
+        t->dynamic = true;                         // (rewritten again and again: no generated mips)
+        t->mipSrc.reset();
+    }
+    t->key = key;
     t->keyed = true;
     t->am = kAlphaFull;
     if (t->desc.format == kSinkBC1) {           // the original's alpha use: opaque, or 1-bit (3-colour blocks)
@@ -911,6 +1171,8 @@ bool texpack_update(uint32_t vid, uint32_t level, uint32_t w, uint32_t h, const 
             }
         }
     }
+    if (t->mipSrc)
+        t->mipSrc->am = t->am;
     if (s_dumpOn && s_dumped.insert(t->key).second) {
         const std::string* path = lookup(t->key);
         if (s_dumpList) {
@@ -961,7 +1223,8 @@ void texpack_frame()
             continue;
         }
         s_live[o++] = vid;
-        if (t.keyed && (s_reselect || (t.state == kPending && s_cache.count(t.key))))
+        bool ready = t.state == kPending && (s_cache.count(t.key) || s_cache.count(mipKey(t.key)));
+        if (t.keyed && (s_reselect || ready))
             settle(t);
     }
     s_live.resize(o);
@@ -975,9 +1238,22 @@ void texpack_frame()
             pend = s_jobs.size() + s_inFlight.size();
         }
         fprintf(stderr, "hulk-app: texpack: %zu tracked, %u swaps (%u from the cache, %u decoded), %zu queued; cache "
-                "%.1f MB, replacements shown %.1f MB, decode+encode %.0f ms total\n", s_live.size(), s_swaps, s_hits,
-                s_misses, pend, s_cacheBytes / 1048576.0, s_replBytes / 1048576.0, s_buildMs);
+                "%.1f MB, replacements shown %.1f MB, decode+encode %.0f ms total; disk cache %u read, %u written, %.1f MB; "
+                "%u generated chains\n", s_live.size(), s_swaps, s_hits, s_misses, pend, s_cacheBytes / 1048576.0,
+                s_replBytes / 1048576.0, s_buildMs, s_diskHits.load(), s_diskWrites.load(),
+                s_diskBytes.load() / 1048576.0, s_mipSwaps);
     }
+}
+
+void texpack_mipmaps(int value)
+{
+    value = value ? 1 : 0;
+    if (value == s_mipgen)
+        return;
+    s_mipgen = value;
+    s_mipgenEver |= value != 0;
+    s_reselect = true;
+    fprintf(stderr, "hulk-app: mipmaps: %s\n", value ? "full chains" : "the game's levels");
 }
 
 void texpack_select(uint32_t value)

@@ -21,6 +21,7 @@
 
 #include "pddi/bgfx_bridge.h"
 #include "interp.h"
+#include "rm_pass.h"
 
 using namespace hulk::pddi;
 
@@ -423,7 +424,7 @@ void drawStream(const Stream& s, const Stream* prev, float t, bool last)
     for (const Op& op : s.ops) {
         switch (op.kind) {
         case kOpPass:
-            hulk_gfx_sink_set_pass(&s.passes[op.index]);
+            rm::setPass(s.passes[op.index]);
             break;
         case kOpCopy:
             hulk_gfx_sink_copy_frame(s.copies[op.index].pass, &s.copies[op.index].t);
@@ -436,7 +437,7 @@ void drawStream(const Stream& s, const Stream* prev, float t, bool last)
             if (!last)
                 p.keepFrontBuffer = 0;
             hulk_app_movie_overlay(p.windowWidth, p.windowHeight);
-            hulk_gfx_sink_present(&p);
+            rm::present(p);
             break;
         }
         case kOpDraw: {
@@ -479,7 +480,7 @@ void drawStream(const Stream& s, const Stream* prev, float t, bool last)
                 memcpy(v, &s.verts[d.t0], (size_t)d.nt * sizeof(SinkVertex));
                 p.transient = tok;
             }
-            hulk_gfx_sink_submit_draw(&p);
+            rm::submitDraw(p);
             break;
         }
         }
@@ -756,6 +757,7 @@ void interp_pace(uint32_t fields)
             }
             shotMaybe(k);
             hulk_gfx_sink_frame();
+            rm::frame();
             s_st.drawMs += nowMs() - a;
             if (s_log) {                            // (the GPU's time for a frame, as bgfx last measured it)
                 const bgfx::Stats* st = bgfx::getStats();

@@ -475,6 +475,55 @@ runner replaces textures at upload and prim buffers at their draws (run/app/texp
 never sees a replacement, so checkpoint records and HULK_ROLLTEST are unchanged with a pack on. Keys, the pack layout,
 `HULK_PACK_DUMP` and the Dolphin converter: [texture-packs.md](texture-packs.md) "Override packs in the app".
 
+### Renderer options and the runner's passes (wr2, D236)
+
+R2's cheap wins (docs/remaster.md section 6) on today's bgfx path, each a Video Options row (port_settings.c;
+faithful value off, remastered-only) and each a pass of the runner, so they carry over to R1's own RHI:
+- **The pass interface** (run/app/rm_pass.h, remaster.md 5.3 in its R2 form). A pass registers itself
+  (`HULK_RM_REGISTER_PASS`, no central list) and sees the runner's settings (`gfx_quality(what, value)`, one import for
+  every row), each game draw packet as the runner hands it on (`packet`, both prepare_pipeline and submit), the frame's
+  first pass into the scene target (`sceneBegin`) and the end of the game's frame before the present (`postScene`:
+  views 251..253 into the scene target, the post-processing point). Every sink call of the runner, direct or replayed
+  by interp.cpp at 60/120 fps, goes through rm::setPass / rm::present / rm::packet, so a pass works at every display
+  rate. wvid1's fog override is now a pass (FogPass).
+- **Mipmaps: Original / Full** (`mipmaps`, remastered 1). The game gives 55% of the textures of the scripted run only
+  their top level (DXT1 64x64 and 128x128 world textures) and some a partial chain; a texture with fewer levels than
+  the full chain is drawn from a replacement with the full chain: the game's own levels byte for byte, then box-filtered
+  levels encoded in the original's format (BC1 keeps its 1-bit alpha use, BC2 its explicit alpha). Made like a pack's
+  replacement (texpack.cpp: worker threads, swapped in between frames; the original stays for occlusion-query draws and
+  for the setting turned off). It applies to textures uploaded while the runner tracks them (from the first time the
+  setting is on: the remastered default at start). A texture rewritten more than twice with new contents (a dynamic
+  one) keeps the game's levels. Cost: 25 ms of encoding for the whole scripted run (1,056 chains), 4 MB on the GPU.
+- **Anisotropic Filtering: Off / 16x** (`aniso`, remastered 16). Every stage the game samples linearly gets
+  anisotropic minification. bgfx's Metal renderer has one level (BGFX_RESET_MAXANISOTROPY: 16), so there is no 4x/8x.
+- **Anti-Aliasing: Off / MSAA 2x / 4x / 8x** (`msaa`, remastered 4). The scene target (colour and depth-stencil) is
+  multisampled; bgfx resolves it at the end of each view (StoreAndMultisampleResolve), so the frame copies (blits read
+  the resolved texture), the effects' render targets (single-sampled, unchanged), the front buffer and the present
+  work as before. Changing it makes the scene target again between frames (app.cpp's render-size path). An occlusion
+  query counts samples under MSAA: the runner divides by the samples before the render-size scaling.
+- The sink's part is app-only (bgfx_sink.cpp under HULK_SINK_OVERLAY: `hulk_gfx_sink_quality`,
+  `hulk_gfx_sink_scene_handles`), so the Wine and native images are unchanged (D194: the 15 pddi units byte-identical).
+- **Checks.** Checkpoint records byte-identical for the 8,000-frame scripted run (HULK_INPUT) with every option off and
+  on, and to the control app. The game hash differs between settings only through the options menu's own words (each
+  setting's value is a menu NamedValueInt) and the occlusion counts a flare reads (render-only, remaster.md 3.1).
+  HULK_ROLLTEST identical with Metal and every option on. play3 with `null`: records identical to the control app.
+- **Shadows** (item 3 of D236): the game makes no shadow render target. The scripted run's render targets are the
+  effects' 320x240 and two 160x120 (the blur chain) and one 640x480 copy; the character shadows are stencil draws
+  (about 5 a frame in gameplay: remaster.md 2.5's ShadowSkin / ShadowMeshBuffer volumes), which are already drawn at
+  the render resolution and are antialiased by MSAA (the stencil is multisampled with the depth). Nothing to raise
+  runner-side; soft or mapped shadows are R3 (shadow maps replacing those draws).
+- **Cost** (laptop, Metal, the scripted run's last 1,800 gameplay frames, GPU time a frame from bgfx's timer):
+
+  | render size | all off | Mipmaps + 16x + MSAA 4x | MSAA 4x only | MSAA 8x only |
+  |---|---|---|---|---|
+  | 1x (640x480) | 0.79 ms | 0.99 ms | | |
+  | 3x (1920x1440) | 2.13 ms | 3.23 ms | 2.91 ms | 7.79 ms |
+
+  The render thread's time is unchanged (0.16 ms; 0.24 ms at 1x with all on). MSAA 8x stores and resolves 8 samples
+  at every one of the game's views, so it is not the default.
+- `HULK_RM_LOG=1`: the GPU and render-thread time a frame and the draw count every 300 frames, and each render target
+  the game makes.
+
 ### Movies (wmov1; hold to skip: D231)
 
 The game's Bink movies (the start-up logos, the attract loop, the cut-scenes) play with picture and sound in the app.
@@ -587,6 +636,10 @@ display's refresh by drawing the last simulated frame again with its transforms 
 - **Audio**: waud1's model advances by the virtual clock, which follows the fixed simulation step: unchanged.
 
 ## Status
+
+- 2026-11-22 (wr2, D236): **Mipmaps, Anisotropic Filtering, Anti-Aliasing** (Video Options) and the runner's pass
+  interface ("Renderer options and the runner's passes" above); the texture packs' disk cache. Remastered defaults:
+  Full, 16x, MSAA 4x. Checkpoint records unchanged with every option on; play3 with `null` identical to the control.
 
 - 2026-11-22 (wvid1, D234/D235): **Aspect Ratio, HUD Frame, Draw Distance, Fog** (Video Options; "Aspect ratio, HUD
   frame, draw distance and fog" above). 16:9 is the game's own widescreen and changes the simulation from ~1,000

@@ -226,6 +226,23 @@ static uint64_t stateWord(const SinkRenderState& s, uint32_t* stencil)
     return st;
 }
 
+#if HULK_SINK_OVERLAY
+// The app's picture quality (wr2; docs/wasm-port.md "Renderer options"): anisotropic filtering of the game's textures
+// and MSAA on the scene target, set by the runner (hulk_gfx_sink_quality). Output only; only the app's runner builds
+// this (HULK_SINK_OVERLAY), so the Wine and native images are unchanged.
+static struct {
+    uint32_t aniso;         // 1: anisotropic minification where the stage filters linearly
+    uint32_t msaa;          // scene target samples (1, 2, 4, 8)
+    uint32_t msaaMade;      // the samples the scene target was made with
+    uint32_t width, height; // the back buffer (for the reset)
+} s_quality = {0, 1, 1, 0, 0};
+static uint64_t msaaFlags(uint32_t n)
+{
+    return n >= 8 ? BGFX_TEXTURE_RT_MSAA_X8 : n >= 4 ? BGFX_TEXTURE_RT_MSAA_X4 : n >= 2 ? BGFX_TEXTURE_RT_MSAA_X2
+                                                                                       : BGFX_TEXTURE_RT;
+}
+#endif
+
 static uint32_t samplerFlags(const SinkStage& s)
 {
     uint32_t flags = 0;
@@ -241,6 +258,10 @@ static uint32_t samplerFlags(const SinkStage& s)
         flags |= BGFX_SAMPLER_MAG_POINT;
     if (s.mipPoint)
         flags |= BGFX_SAMPLER_MIP_POINT;
+#if HULK_SINK_OVERLAY
+    if (s_quality.aniso && !s.minPoint && !s.linear && !s.fromTarget)
+        flags |= BGFX_SAMPLER_MIN_ANISOTROPIC;
+#endif
     return flags;
 }
 
@@ -298,6 +319,12 @@ class BgfxSink final : public DrawSink {
     void copyQuad(uint16_t view, unsigned srcTex, unsigned dstFb, unsigned w, unsigned h);
 #if HULK_SINK_OVERLAY
     void drawOverlay(uint16_t view, unsigned ww, unsigned wh);
+  public:
+    void sceneHandles(uint32_t* fb, uint32_t* colour, uint32_t* depth)
+    {
+        *fb = m_sceneFb, *colour = m_sceneColour, *depth = m_sceneDepth;
+    }
+  private:
 #endif
     enum { kPresentView = 255 };
 
@@ -356,6 +383,10 @@ bool BgfxSink::init(const SinkInit& in)
     init.swapChain.width = in.width;
     init.swapChain.height = in.height;
     init.reset = BGFX_RESET_VSYNC;
+#if HULK_SINK_OVERLAY
+    init.reset |= BGFX_RESET_MAXANISOTROPY;       // (the samplers that ask for it: s_quality.aniso)
+    s_quality.width = in.width, s_quality.height = in.height;
+#endif
     if (!bgfx::init(init)) {
         logf("pddi: bgfx::init failed\n");
         return false;
@@ -396,7 +427,12 @@ void BgfxSink::resizeBackBuffer(uint32_t width, uint32_t height)
     bgfx::SwapChain sc;
     sc.width = width;
     sc.height = height;
+#if HULK_SINK_OVERLAY
+    s_quality.width = width, s_quality.height = height;
+    bgfx::reset(BGFX_RESET_VSYNC | BGFX_RESET_MAXANISOTROPY, &sc);
+#else
     bgfx::reset(BGFX_RESET_VSYNC, &sc);
+#endif
 }
 
 // ---- the scene target, the copy texture, the present pass (G4; see bgfx_pddi.h)
@@ -498,10 +534,19 @@ bool BgfxSink::frameTargets(uint32_t width, uint32_t height)
     }
     if (m_presentProgram == kNone)
         return m_offscreen = false;
+#if HULK_SINK_OVERLAY
+    if (m_sceneFb != kNone && m_targetWidth == width && m_targetHeight == height &&
+        s_quality.msaaMade == s_quality.msaa)
+        return m_offscreen = true;
+    const uint64_t msaa = msaaFlags(s_quality.msaa);
+    s_quality.msaaMade = s_quality.msaa;
+#else
     if (m_sceneFb != kNone && m_targetWidth == width && m_targetHeight == height)
         return m_offscreen = true;
+    const uint64_t msaa = BGFX_TEXTURE_RT;
+#endif
     destroyFrameTargets();
-    const uint64_t rt = BGFX_TEXTURE_RT | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT;
+    const uint64_t rt = msaa | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT;
     bgfx::TextureHandle colour = bgfx::createTexture2D((uint16_t)width, (uint16_t)height, false, 1,
                                                        bgfx::TextureFormat::BGRA8, rt);
     // depth + stencil: D24S8 where the renderer can render to it, else 32-bit float depth + stencil (MoltenVK and
@@ -511,7 +556,7 @@ bool BgfxSink::frameTargets(uint32_t width, uint32_t height)
     if (caps && !(caps->formats[bgfx::TextureFormat::D24S8] & BGFX_CAPS_FORMAT_TEXTURE_FRAMEBUFFER))
         depthFormat = bgfx::TextureFormat::D32FS8;
     bgfx::TextureHandle depth = bgfx::createTexture2D((uint16_t)width, (uint16_t)height, false, 1, depthFormat,
-                                                      BGFX_TEXTURE_RT_WRITE_ONLY);
+                                                      BGFX_TEXTURE_RT_WRITE_ONLY | (msaa == BGFX_TEXTURE_RT ? 0 : msaa));
     bgfx::TextureHandle both[2] = {colour, depth};
     bgfx::FrameBufferHandle fb = bgfx::createFrameBuffer(2, both, true);
     if (!bgfx::isValid(fb)) {
@@ -622,6 +667,21 @@ static struct {
     int x, y;
     unsigned tex;
 } s_overlay = {0, 0, 0, 0, 0, 0, 0, 0, 0, kNone};
+
+// the picture quality (s_quality): returns 1 when the scene target must be made again (frameTargets) for the MSAA
+extern "C" uint32_t hulk_gfx_sink_quality(uint32_t aniso, uint32_t msaa)
+{
+    s_quality.aniso = aniso ? 1 : 0;
+    s_quality.msaa = msaa >= 8 ? 8 : msaa >= 4 ? 4 : msaa >= 2 ? 2 : 1;
+    return s_quality.msaa != s_quality.msaaMade;
+}
+// the scene target's frame buffer and textures (the runner's own passes draw into it before the present)
+extern "C" void hulk_gfx_sink_scene_handles(uint32_t* fb, uint32_t* colour, uint32_t* depth, uint32_t* samples)
+{
+    BgfxSink* k = (BgfxSink*)bgfxSink();
+    k->sceneHandles(fb, colour, depth);
+    *samples = s_quality.msaaMade;
+}
 
 extern "C" void hulk_gfx_sink_overlay(const void* bgra, unsigned w, unsigned h, int x, int y, unsigned version)
 {

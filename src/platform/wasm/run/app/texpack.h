@@ -15,6 +15,7 @@ void texpack_frame();                            // between frames: finished dec
 // the Texture Pack setting (port_settings.c texture_pack): the installed packs' names, newline-separated
 uint32_t texpack_list(char* out, uint32_t cap);
 void texpack_select(uint32_t value);             // 0: off, else the pack whose name hash is `value`
+void texpack_mipmaps(int value);                 // the Mipmaps setting: 1 full chains for textures that lack them
 uint32_t texpack_name_hash(const char* name);    // (the setting's value for a pack: FNV-1a, 31 bits, never 0)
 bool texpack_tracks(uint32_t vid);               // texpack_update uploads this vid's levels (else app.cpp does)
 // a draw that counts for an occlusion query samples the original (the game reads the pixel count): the sink id to use

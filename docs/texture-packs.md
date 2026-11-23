@@ -173,9 +173,14 @@ How it works (run/app/texpack.cpp, all in the runner):
   render targets.
 - Encoded replacements stay in a CPU cache (`HULK_TEXPACK_CACHE_MB`, default 384, least recently used dropped), so a
   rollback restore or a reload of the same level swaps them in without decoding.
-- Knobs: `HULK_TEXPACK_LOG=1` (index, each decode, a summary every 5 s), `HULK_TEXPACK_THREADS`, `HULK_TEXPACK_MAX`
-  (largest side kept, default 4096: larger images skip their top levels), `HULK_TEXPACK_RAW=1` (BGRA8, no BC
-  encoding).
+- Encoded replacements are also kept on disk (wr2): `<app dir>/cache/textures/tex-<key>-<hash>.bin`, the hash over the
+  image's path, size and modification time, the original's format and alpha use and the encoder's knobs (an edited
+  image is built again). The disk cache is capped at `HULK_TEXPACK_DISK_MB` (default 2048; 0 turns it off; least
+  recently used files go first, down to 90%); `HULK_TEXPACK_DISK_DIR` moves it. With the Dolphin pack the scripted
+  run's decode + encode went from 3.1 s (first launch: 324 files, 68 MB written) to 0.14 s of reading (the next).
+- Knobs: `HULK_TEXPACK_LOG=1` (index, each decode, a summary every 5 s with the disk cache's reads and writes),
+  `HULK_TEXPACK_THREADS`, `HULK_TEXPACK_MAX` (largest side kept, default 4096: larger images skip their top levels),
+  `HULK_TEXPACK_RAW=1` (BGRA8, no BC encoding).
 
 Measured with the converted Dolphin pack (laptop, Metal, the 8,000-frame scripted run: start-up, menus, the first
 mission's start): 381 swaps of 363 distinct replacements, 2.6 s of decode + encode spread over the worker threads
