@@ -536,6 +536,11 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   macOS and Android play3 null records are byte-identical (60,244 frames; tests/android/wasm_apk_replay.sh): a change
   that breaks this breaks co-op. A fullscreen Android window sends no size event: the runner reports it once the
   renderer is up. Ask the lead when sync_main.py refuses; never fast-forward the shared checkout by hand.
+  Saves: only an interactive launch saves in `<app dir>/save` (also with the game on the command line); scripted or
+  test runs (`HULK_INPUT`/`KEY_SCRIPT`/`INPUT_SOURCE`/`CKPT`/`ROLLTEST`/`NO_UI`) use `HULK_SAVE_DIR` or the run-local
+  build/wasm/save and exit 2 on a `HULK_SAVE_DIR` inside the player's folder unless `HULK_APP_DIR` is set. A game with no
+  writable save folder stalls at a mission summary. play3 is recorded with no-fmv and skip-intro, so a free run can't
+  follow its input; reach later points from a saved game (build/whang1/scripts/ufree.sh) (whang1).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
