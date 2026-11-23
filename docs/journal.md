@@ -3439,3 +3439,25 @@ passes; output only (checkpoint records identical with every setting).
 - **Unlockable moves**: 100 slots (0x266..0x2c9); `init.lua` sets up 63, so ~37 are free, and their purchase bits
   already exist in the 0xbe8 save record. hulk.fig gates moves with the `unlockable` condition (93 uses, indices
   614..759).
+
+## 2026-11-23 wpad1: the app no longer hangs when macOS's game controller service does
+
+- **The hang**: the app's first pad poll (`hulk_wasm_gfx_frame_end -> hulk_app_pad -> hulk_input_init`) ran
+  `SDL_InitSubSystem(SDL_INIT_GAMEPAD)` on the main thread; HIDAPI's init (`IOHIDManagerSetDeviceMatching(NULL)`)
+  creates every HID device, and `IOHIDDeviceCreate` of the AppleSyntheticGameController blocked forever in
+  `IOServiceOpen` while gamecontrollerd was deadlocked with Chrome's "Gamepad polling thread".
+- **SDL's joystick lock is the trap**: `SDL_InitJoysticks` sets `SDL_joysticks_initialized` and holds the joystick
+  lock across the drivers' inits. Moving only the init to a thread is not enough: the main thread's event pump
+  (`SDL_UpdateJoysticks`, unless `SDL_HINT_AUTO_UPDATE_JOYSTICKS=0`), `SDL_Quit` and GameController's connect
+  notifications (SDL's MFi observers use `queue:nil` and run on the main thread, `SDL_LockJoysticks` inside) all wait
+  on it. A first test that held the lock after a fast init froze the game at frame 4 for the whole stall, in the
+  MFi observer (`__IOS_JoystickInit_block_invoke`).
+- **Fix** (run/app/input.cpp, macOS only): a "hulk-pad" thread first makes HIDAPI's IOHIDManager call itself, outside
+  SDL (a stall stays there, holding nothing of SDL's), then owns SDL's gamepads (init, hot-plug, reads, rumble) and
+  publishes a snapshot the main thread reads under a mutex. The keyboard stays pad 0 until a gamepad attaches;
+  after 3 s pending, one log line and a window-title notice. hulk_app_quit skips `SDL_Quit` only while the thread is
+  inside SDL (`hulk_app_pad_stop`). Android keeps the main-thread path. `HULK_PAD_INIT_DELAY=S` (tests) sleeps in
+  the probe. Checks: Metal free runs with a 40 s simulated stall (30 fps throughout; the keyboard script took the
+  game FMV -> FRONTEND -> PREGAME -> PRESSSTART while a run without keys stayed in the intro FMV; the Xbox Series X
+  pad attached at 40.1 s), quit mid-stall exits in ~1 s with code 0; play3 60,000 null records identical to the
+  control (job 111644: candidate 111642, control 111636, studio); `wasm_android.py build` links.

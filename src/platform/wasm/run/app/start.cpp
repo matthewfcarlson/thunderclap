@@ -320,6 +320,7 @@ static bool inPlayerFolder(const char* path)
 // before the process exits with the game's code.
 extern "C" void hulk_app_movie_quit(void);     // run/app/movie.c
 extern "C" void hulk_app_audio_quit(void);     // run/app/audio.cpp
+extern "C" int hulk_app_pad_stop(unsigned wait_ms);     // run/app/input.cpp
 extern "C" void hulk_app_quit(int code)
 {
     static bool once;
@@ -328,7 +329,10 @@ extern "C" void hulk_app_quit(int code)
     once = true;
     hulk_app_movie_quit();
     hulk_app_audio_quit();
-    SDL_Quit();
+    // a controller thread stuck in SDL's gamepad init holds SDL's joystick lock, which SDL_Quit would wait on forever
+    // (wpad1): then the process exit ends SDL instead
+    if (hulk_app_pad_stop(300))
+        SDL_Quit();
     fprintf(stderr, "hulk-app: quit (exit code %d)\n", code);
     fflush(stderr);
 }

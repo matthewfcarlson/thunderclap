@@ -283,7 +283,16 @@ side holds (GPU objects, the window, the audio device) is derived from linear me
   compile`, `wasm_port.py link`, `aot --app`), `wasm_app.py bundle` (`--out build/<lane>/Hulk.app`; build/Hulk.app is the user's; not signed or notarised;
   nothing built from the game is published or committed). Saves go to ~/Library/Application Support/HulkUD/save;
   where the game is: "First launch" below. Input: SDL3 gamepads and the keyboard as pad 0, merged when a gamepad is
-  there (docs/native-play.md's map; `HULK_KEY_SCRIPT` holds keys for unattended runs).
+  there (docs/native-play.md's map; `HULK_KEY_SCRIPT` holds keys for unattended runs). On macOS SDL's gamepad
+  subsystem lives on its own thread (wpad1, run/app/input.cpp): HIDAPI's init creates every HID device and blocks
+  forever in IOServiceOpen while gamecontrollerd is deadlocked (seen with Chrome's gamepad polling), and SDL holds its
+  joystick lock meanwhile, which the main thread's event pump, SDL_Quit and GameController's connect notifications
+  (SDL's MFi observers run on the main thread) all take. The pad thread first makes the same IOHIDManager call
+  outside SDL (the probe), so a stall holds nothing of SDL's; the main thread reads the pad thread's snapshot, never
+  calls an SDL joystick function (`SDL_HINT_AUTO_UPDATE_JOYSTICKS=0`), keeps the keyboard as pad 0, and after 3 s
+  logs and titles the window "controllers unavailable"; a pad attaches when the probe returns. Quitting skips
+  `SDL_Quit` only while the thread is inside SDL. `HULK_PAD_INIT_DELAY=S` (tests) sleeps S seconds in the probe.
+  Android keeps the main-thread path.
 - **First launch** (wui1; run/app/start.cpp). The game is the player's own extracted disc (default.xbe and the .rcf
   archives). In order: the command line (`hulk-app <disc>/default.xbe` or `HULK_XBE`, with `HULK_DATA_DIR`, default
   the XBE's folder; `HULK_DATA_DIR` alone means its default.xbe); the remembered choice (`<app dir>/game.txt`, one
