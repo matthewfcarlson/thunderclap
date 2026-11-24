@@ -48,7 +48,8 @@ during a session are fine too: the presses are recorded and replay the same.
    (play3, then your earlier sessions) in a hidden window as fast as it runs (play3 to its end, GameClock frame 56,564
    where its last input takes effect: ~70 s headless on mac2, a few minutes with Metal), keeps
    the game's state there (`snapshots/<build>/<frame>.snap`, with the save folders as they were), and exits. Then it
-   starts again in a window from that state. Later sessions of the same build start from the last session's own
+   starts again in a window from that state. While it catches up, `record` prints `frame X of Y (N%, ~M s left)`
+   every 5 seconds (Y: play3's end plus the earlier sessions; X from the replay's trace). Later sessions of the same build start from the last session's own
    snapshot within a second. Another build (a new app) makes its own snapshot the first time.
 2. **Playing.** The window is the normal app: paced, sound on, your controller and the keyboard as pad 0. The game
    still runs under replay rules: the recording's virtual clock, the sound code's own generators, lockstep loading, the

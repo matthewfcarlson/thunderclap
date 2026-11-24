@@ -32,6 +32,7 @@ import glob
 import hashlib
 import json
 import os
+import re
 import shutil
 import struct
 import subprocess
@@ -46,6 +47,7 @@ DS_LIVE_WORK = 533
 # simulation rows that a playthrough may not set (port_settings.c changes_game): every session and replay must agree
 SIM_KEYS = {"aspect", "hud_frame", "draw_distance", "tutorial_skip", "remaster_moves", "developer"}
 STATE_DIRS = ("save", "tdata", "udata")
+PROGRESS_EVERY = 5.0       # seconds between the catch-up's progress lines
 PLAYER_DIR = os.path.expanduser("~/Library/Application Support/HulkUD")
 
 
@@ -371,14 +373,68 @@ def app_env(a, pt, run_dir, extra):
     return env
 
 
-def run_app(exe, env, run_dir, args, show=False, timeout=None):
+PLAY3_END = 56564          # play3's hand-off: the GameClock frame where its last input takes effect (wplay4)
+FRAME_LINE = re.compile(rb"ckpt frame (\d+) |hulk: frame (\d+) \(")
+
+
+def last_frame(trace, so):
+    """the run's latest GameClock frame: the trace's last "ckpt frame N" (every frame with HULK_CKPT_ALL), else the
+    last "hulk: frame N (...)" report in stdout.txt (presents: within a fraction of a percent of frames)"""
+    for path in (trace, so):
+        try:
+            with open(path, "rb") as f:
+                f.seek(0, 2)
+                f.seek(max(0, f.tell() - 8192))
+                hits = FRAME_LINE.findall(f.read())
+        except OSError:
+            continue
+        if hits:
+            a, b = hits[-1]
+            return int(a or b)
+    return None
+
+
+def catchup_target(pt):
+    """the frame the hidden replay to the start runs to: the end of the last segment, or play3's end"""
+    if pt["segments"]:
+        return pt["segments"][-1]["end"]["frame"]
+    return PLAY3_END if pt.get("base") == "play3" else None
+
+
+def run_app(exe, env, run_dir, args, show=False, timeout=None, progress=None):
+    """PROGRESS = the target frame: every few seconds "frame X of Y (N%, ~M s left)" while the app runs"""
     so = os.path.join(run_dir, "stdout.txt")
+    trace = env.get("HULK_TRACE_FILE", os.path.join(run_dir, "trace.txt"))
     t0 = time.time()
     with open(so, "wb") as f:
         p = subprocess.Popen([exe] + args, cwd=run_dir, env=env, stdout=f, stderr=subprocess.STDOUT,
                              start_new_session=True)
         try:
-            rc = p.wait(timeout=timeout)
+            if progress:
+                hist, next_t = [], time.time() + PROGRESS_EVERY
+                while True:
+                    try:
+                        rc = p.wait(timeout=1.0)
+                        break
+                    except subprocess.TimeoutExpired:
+                        pass
+                    if timeout and time.time() - t0 > timeout:
+                        raise subprocess.TimeoutExpired(exe, timeout)
+                    if time.time() < next_t:
+                        continue
+                    next_t = time.time() + PROGRESS_EVERY
+                    fr = last_frame(trace, so)
+                    if fr is None:
+                        continue
+                    hist = (hist + [(time.time(), fr)])[-6:]      # (the rate over the last ~30 s)
+                    left = ""
+                    if len(hist) > 1 and hist[-1][1] > hist[0][1]:
+                        rate = (hist[-1][1] - hist[0][1]) / (hist[-1][0] - hist[0][0])
+                        left = ", ~%d s left" % max(0, (progress - fr) / rate)
+                    print("playthrough: frame %d of %d (%d%%%s)" % (fr, progress, min(100, 100 * fr // max(1, progress)),
+                                                                   left), flush=True)
+            else:
+                rc = p.wait(timeout=timeout)
         except subprocess.TimeoutExpired:
             p.kill()
             rc = p.wait()
@@ -428,7 +484,8 @@ def prepare(a, pt, exe, key, base):
     print("playthrough: replaying %s to its end for this build (hidden window, a few minutes) ..." % (
         pt["name"] if pt["segments"] else pt["base"]))
     rc, lines, wall = run_app(exe, env, prep, [os.path.join(absr(a.data), "default.xbe")], show=True,
-                              timeout=a.prep_timeout)
+                              timeout=a.prep_timeout,
+                              progress=a.from_frame if a.from_frame and not pt["segments"] else catchup_target(pt))
     hand = [l for l in lines if "handoff snapshot at present" in l]
     if rc != 0 or not hand or not os.path.exists(tmp):
         die("the replay to the end failed (exit %d; %s/stdout.txt)" % (rc, prep))
