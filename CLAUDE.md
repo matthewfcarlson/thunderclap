@@ -726,6 +726,14 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   player's device set their own HULK_APP_DIR/HULK_SAVE_DIR and leave the player's folder alone; with the screen off
   (DPMS) KWin throttles presentation to ~20 Hz and never maps X11 windows: measure speed and test X11/Game Mode with
   the screen on.
+  Vulkan has no unbound-texture default: a sampler a program declares and a draw leaves unbound reads garbage (Metal
+  reads zeros), and on RADV can page-fault into VK_ERROR_DEVICE_LOST. A pass submitting a copy of a draw rebinds its
+  textures (bgfx drops texture bindings at each submit, uniforms stay; `rm::lightingRebind`). Check runner changes with
+  Khronos validation on Linux (`VK_INSTANCE_LAYERS=VK_LAYER_KHRONOS_validation`). bgfx's vertex/index buffer and texture
+  handles are 4,096 each and shared with the game (peak ~1,000): a runner pass making many buffers budgets them
+  (farfield.cpp keeps 1,536 for the game; exhausting them silently dropped the city's ground, cars and HUD). On the
+  device `gamescope --backend headless -W 1920 -H 1080 -- <cmd>` gives Game Mode's environment without the screen. A
+  Linux renderer change is verified with a city scene showing HUD, minimap, cars and enemies, never a quiet scene (wlinux2).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
