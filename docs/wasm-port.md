@@ -1113,6 +1113,46 @@ Gamepad only (the user, 11-22: handhelds with built-in controls, which SDL sees 
 - **Open**: the gamepad path is untested (the emulator has no gamepad device; SDL maps a handheld's built-in controls
   through SDLControllerManager); lifecycle (pause / resume, the surface lost on home); performance on hardware.
 
+## The Linux app (wlinux1)
+
+The macOS app's module and runner on x86-64 Linux (SteamOS and Fedora-based handhelds such as Bazzite): the same
+hulk.wasm through wasm2c, compiled by clang for x86-64, with SDL3 (static; X11 and Wayland video, PipeWire /
+PulseAudio / ALSA audio, udev / HIDAPI gamepads, every back end's library loaded at run time) and bgfx on Vulkan. One
+folder holds everything: the binary needs only libc and libm (libstdc++ and libgcc are static; glibc 2.38 or newer).
+
+- **Build** (`tools/wasm_linux.py`). On the Mac: `prep --wasm-dir <a wasm_app.py build dir, or a wasm_build_job's
+  fetched app with hulk.wasm>` (wasm2c into <out>/aot, the sink's and the runner's SPIR-V shaders and the build id into
+  <out>/app-gen, wasm2c's runtime and FFmpeg 8's headers beside them), then `pack` (<out>/linux-src.tar.gz, ~32 MB:
+  those plus src/platform/wasm, src/platform/sdl, bx / bimg / bgfx / SDL / zstd sources and the tools, paths relative
+  to the repository). On the Linux host, in a container (no packages in the host OS; Debian trixie-slim with podman,
+  about 1 GB with `clang lld g++ cmake ninja-build python3 pkg-config` and the -dev packages of X11 (x11, xext,
+  xrandr, xcursor, xi, xss, xfixes, xtst, xkbcommon), Wayland (wayland, wayland-protocols, libdecor-0), PulseAudio,
+  PipeWire, ALSA, udev, D-Bus, Vulkan, EGL / GL / GLES), unpack it at a root and run `python3 tools/wasm_linux.py sdl`,
+  `bgfx`, `build --jobs N` (<out>/hulk-app; a few minutes on 12 jobs of a Ryzen Z2 Extreme), then on the host
+  `bundle --out ~/Games/HulkUD --with-game <the player's .hulkdisc>` (hulk-app, lib/, resources/game.hulkdisc as a hard
+  link where it can be, hulk.sh, hulkud.desktop for ~/.local/share/applications). Objects are cached by content and
+  flags. <out> is HULK_LINUX_OUT (default build/wlinux1/linux).
+- **Start-up** (run/app/start.cpp): the bundled game is `<the executable's folder>/resources/game.hulkdisc` (or
+  game.iso); `<app dir>` is `$XDG_DATA_HOME/HulkUD`, else `~/.local/share/HulkUD` (saves in `<app dir>/save`, texture
+  packs in `<app dir>/mods`); the renderer defaults to `vulkan`. The first-launch chooser is SDL's message box and file
+  dialog (the desktop portal over D-Bus, or zenity).
+- **Movies.** movie.c is built against FFmpeg 8's headers and loads `libavutil.so.60`, `libavcodec.so.62` and
+  `libavformat.so.62` by soname: the bundle's lib/ first (RUNPATH `$ORIGIN/lib`; `bundle --ffmpeg-from DIR` copies a
+  set there), then the system's (Bazzite's full FFmpeg 8.1 has Bink, dav1d and Opus, so an AV1 disc pack plays).
+  Without them the movies play black and can be skipped.
+- **Steam.** Desktop Mode: the .desktop entry. Game Mode: add hulk.sh as a non-Steam game (Steam > Games > Add a
+  Non-Steam Game, Browse to `~/Games/HulkUD/hulk.sh`); gamescope gives it X11 (XWayland), the built-in controls are
+  SDL gamepad 0. The game window's close and Steam's exit go through the app's quit.
+- **Determinism.** play3 with the null renderer (`HULK_GFX_RENDERER=null`, as tests/android/wasm_apk_replay.sh) on a
+  Z2 Extreme: every checkpoint tag identical to the macOS app's run of the same hulk.wasm over the 62,003 common frames
+  (native_replay.py check --strict, the Mac run as the reference; module 6b1b2ea); the whole replay takes ~113 s.
+  `tools/native_replay.py run --exe <out>/hulk-app --data <pack> --rec play3.hrp --env HULK_GFX_RENDERER=null` runs it
+  with plain python3 on the device.
+- **Tests on a player's device** set their own HULK_APP_DIR and HULK_SAVE_DIR (a copy of the save), as on the Mac. A
+  run from ssh into the desktop session needs `WAYLAND_DISPLAY=wayland-0 XDG_RUNTIME_DIR=/run/user/<uid>`; with the
+  screen off (DPMS) KWin throttles presentation to ~20 updates a second and never maps an X11 window (SDL's
+  `X11_ShowWindow` waits for MapNotify forever): measure speed and test X11 with the screen on.
+
 ## Status
 
 - 2026-11-22 (wr2, D236 item 4): **Far Field (experimental)**: a prototype of remaster.md 3.3 (4) as a runner pass

@@ -7,6 +7,7 @@
 // update's transforms and this one's. Nothing here writes the module's memory: the game state is the same at any
 // display rate.
 #include <math.h>
+#include <sched.h>     // (sched_yield: glibc does not bring it in with the others; wlinux1)
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>

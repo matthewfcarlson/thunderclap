@@ -134,6 +134,7 @@ static uint64_t textureKey(uint32_t format, uint32_t w, uint32_t h, const void* 
 
 // ------------------------------------------------------------------------------------------- packs
 extern "C" const char* hulk_app_resources_dir(void);    // start.cpp
+extern "C" const char* hulk_app_default_dir(void);      // start.cpp (the platform's default app folder)
 struct Pack {
     bool file = false;                                   // a .hulkpack (dir is the file; read through run/disc.h)
     std::string name, dir;
@@ -195,8 +196,7 @@ static std::string appDir()
     const char* a = getenv("HULK_APP_DIR");
     if (a && *a)
         return a;
-    const char* home = getenv("HOME");
-    return home ? std::string(home) + "/Library/Application Support/HulkUD" : std::string();
+    return hulk_app_default_dir();      // (start.cpp: the platform's default folder)
 }
 static std::string modsDir()
 {

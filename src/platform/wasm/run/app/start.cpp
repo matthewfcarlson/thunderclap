@@ -14,7 +14,9 @@
 //      remembered in game.txt; a bad one says why and asks again.
 // `--choose-game` as the first argument, or holding Option at launch, goes to the chooser even when a game is
 // remembered (`open Hulk.app --args --choose-game`). <app dir> is HULK_APP_DIR, default
-// ~/Library/Application Support/HulkUD; saves go to <app dir>/save unless HULK_SAVE_DIR says otherwise.
+// ~/Library/Application Support/HulkUD (Linux: $XDG_DATA_HOME/HulkUD, else ~/.local/share/HulkUD; wlinux1); saves go
+// to <app dir>/save unless HULK_SAVE_DIR says otherwise. On Linux the bundled game of step 2 is <the executable's
+// folder>/resources/game.hulkdisc (tools/wasm_linux.py bundle).
 // Runs that must not prompt (HULK_NO_UI=1, or a scripted run: HULK_INPUT / HULK_KEY_SCRIPT /
 // HULK_INPUT_SOURCE / HULK_CKPT) exit with
 // the reason instead of showing the chooser.
@@ -81,7 +83,29 @@ static const char* endsWith(const char* s, const char* suf)
     return n >= m && !strcasecmp(s + n - m, suf) ? s + n - m : nullptr;
 }
 
-// The app bundle's Contents/Resources (macOS: the executable's ../Resources), or null outside a bundle
+// The player's default app folder (empty without HOME): macOS ~/Library/Application Support/HulkUD; Linux (wlinux1)
+// $XDG_DATA_HOME/HulkUD, else ~/.local/share/HulkUD. HULK_APP_DIR, when set, is used instead by the callers.
+extern "C" const char* hulk_app_default_dir(void)
+{
+    static char dir[1100];
+    static int done;
+    if (done++) return dir;
+    const char* home = getenv("HOME");
+#if defined(__linux__) && !defined(__ANDROID__)
+    const char* xdg = getenv("XDG_DATA_HOME");
+    if (xdg && *xdg == '/')
+        snprintf(dir, sizeof dir, "%s/HulkUD", xdg);
+    else if (home && *home)
+        snprintf(dir, sizeof dir, "%s/.local/share/HulkUD", home);
+#else
+    if (home && *home)
+        snprintf(dir, sizeof dir, "%s/Library/Application Support/HulkUD", home);
+#endif
+    return dir;
+}
+
+// The app bundle's Contents/Resources (macOS: the executable's ../Resources; Linux: the executable's resources/
+// folder, tools/wasm_linux.py bundle), or null outside a bundle
 extern "C" const char* hulk_app_resources_dir(void)
 {
     static char dir[PATH_MAX];
@@ -96,6 +120,17 @@ extern "C" const char* hulk_app_resources_dir(void)
             *slash = 0;
             char r[PATH_MAX + 16];
             snprintf(r, sizeof r, "%s/../Resources", real);
+            if (isDir(r) && realpath(r, dir)) return dir;
+        }
+    }
+#elif defined(__linux__) && !defined(__ANDROID__)
+    char real[PATH_MAX];
+    if (realpath("/proc/self/exe", real)) {
+        char* slash = strrchr(real, '/');
+        if (slash) {
+            *slash = 0;
+            char r[PATH_MAX + 16];
+            snprintf(r, sizeof r, "%s/resources", real);
             if (isDir(r) && realpath(r, dir)) return dir;
         }
     }
@@ -289,13 +324,12 @@ static bool scriptedRun()
            getenv("HULK_ROLLTEST") || getenv("HULK_RECORD_BASE");      // (a playthrough session: tools/playthrough.py)
 }
 
-// PATH is in (or is) the player's default app folder, ~/Library/Application Support/HulkUD (whang1)
+// PATH is in (or is) the player's default app folder, hulk_app_default_dir() (whang1)
 static bool inPlayerFolder(const char* path)
 {
-    const char* home = getenv("HOME");
-    if (!home || !*home) return false;
+    if (!hulk_app_default_dir()[0]) return false;
     char def[1100], a[PATH_MAX], b[PATH_MAX];
-    snprintf(def, sizeof def, "%s/Library/Application Support/HulkUD", home);
+    snprintf(def, sizeof def, "%s", hulk_app_default_dir());
     const char* d = realpath(def, a) ? a : def;
     // the save folder may not exist yet: resolve its longest existing parent
     char p[PATH_MAX];
@@ -338,13 +372,17 @@ extern "C" void hulk_app_quit(int code)
     fflush(stderr);
 }
 
-// HULK_GFX_RENDERER: metal (the app's default) | noop | null (the game's own d3d layer on the null device: the
+// HULK_GFX_RENDERER: metal (the macOS app's default; vulkan on Linux) | noop | null (the game's own d3d layer on the null device: the
 // headless build's run, for the replay check). Then the game, as above. Consumes `--choose-game` from argv.
 extern "C" void hulk_app_start(int* argc, char** argv)
 {
     printf("hulk-app: build %s\n", HULK_BUILD_ID);
     fflush(stdout);
+#if defined(__APPLE__)
     setenv("HULK_GFX_RENDERER", "metal", 0);
+#else
+    setenv("HULK_GFX_RENDERER", "vulkan", 0);    // (Linux: bgfx's Vulkan; wlinux1)
+#endif
     bool choose = false;
     if (*argc > 1 && !strcmp(argv[1], "--choose-game")) {
         choose = true;
@@ -352,11 +390,10 @@ extern "C" void hulk_app_start(int* argc, char** argv)
         (*argc)--;
     }
     char app[1024], path[1200];
-    const char* home = getenv("HOME");
     if (getenv("HULK_APP_DIR") && *getenv("HULK_APP_DIR"))
         snprintf(app, sizeof app, "%s", getenv("HULK_APP_DIR"));
-    else if (home)
-        snprintf(app, sizeof app, "%s/Library/Application Support/HulkUD", home);
+    else if (hulk_app_default_dir()[0])
+        snprintf(app, sizeof app, "%s", hulk_app_default_dir());
     else
         app[0] = 0;
     // The saves (whang1). Only an interactive launch (no script, test or replay variable) saves in the player's

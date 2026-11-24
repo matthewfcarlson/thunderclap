@@ -82,14 +82,23 @@ static void* ff_lib(const char* name, int major) {
         if (!dirs[i] || !*dirs[i]) continue;
 #if defined(__APPLE__)
         snprintf(path, sizeof path, "%s/lib%s.%d.dylib", dirs[i], name, major);
-#else   /* (Android: FFmpeg's android target gives plain sonames; HULK_FFMPEG_DIR from GameActivity: wand1) */
+#elif defined(__ANDROID__)   /* (FFmpeg's android target gives plain sonames; HULK_FFMPEG_DIR from GameActivity: wand1) */
         snprintf(path, sizeof path, "%s/lib%s.so", dirs[i], name);
         (void)major;
+#else   /* (Linux: the versioned soname; wlinux1) */
+        snprintf(path, sizeof path, "%s/lib%s.so.%d", dirs[i], name, major);
 #endif
         void* h = dlopen(path, RTLD_NOW | RTLD_LOCAL);
         if (h) return h;
     }
+#if defined(__linux__) && !defined(__ANDROID__)
+    /* (wlinux1) the soname alone: the runner's RUNPATH ($ORIGIN/lib, a bundle's own copies), then the system's
+       libraries (a distribution's FFmpeg of the same major versions) */
+    snprintf(path, sizeof path, "lib%s.so.%d", name, major);
+    return dlopen(path, RTLD_NOW | RTLD_LOCAL);
+#else
     return 0;
+#endif
 }
 
 /* 1: the decoder is there */
