@@ -616,6 +616,11 @@ def submit_job(a, spec, ov, slots, limit, label):
             hrp, ref = playthrough_files(t["rec"])
             ov["wbrun/%s.hrp" % t["rec"]] = hrp
             ov["wbrun/%s.self.ckref" % t["rec"]] = ref
+            seed = os.path.join(os.path.dirname(hrp), "seed", "save")      # (a playthrough from a save: the save)
+            for dp, _, fs in os.walk(seed):
+                for f in fs:
+                    q = os.path.join(dp, f)
+                    ov["wbrun/%s.seed/%s" % (t["rec"], os.path.relpath(q, seed))] = q
     for role, x in (("ctl", getattr(a, "control", None)), ("cand", getattr(a, "exe", None))):
         if x:
             p = resolve_exe(x)

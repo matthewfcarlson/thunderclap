@@ -83,9 +83,10 @@ def scan(trace, pos, st):
 STATE_DIRS = ("save", "tdata", "udata")
 
 
-def fresh_state_dirs(out):
+def fresh_state_dirs(out, seed=None):
     """Empty the run's game-written directories (saves, title and user data): a save left by an earlier run in the
-    same --out sends the game down another path (the wasm lane's stop at frame 465 instead of ~8700, wasm11)."""
+    same --out sends the game down another path (the wasm lane's stop at frame 465 instead of ~8700, wasm11). A
+    recording that starts from a save (a playthrough's seed: tools/playthrough.py --from-save) gets that save."""
     import shutil
     for sub in STATE_DIRS:
         d = os.path.join(out, sub)
@@ -95,6 +96,15 @@ def fresh_state_dirs(out):
             else:
                 os.remove(d)
         os.makedirs(d)
+    if seed:
+        os.rmdir(os.path.join(out, "save"))
+        shutil.copytree(seed, os.path.join(out, "save"))
+
+
+def seed_of(rec):
+    """a playthrough recording's seed save (NAME/seed/save beside NAME.hrp), or None"""
+    d = os.path.join(os.path.dirname(rec), "seed", "save")
+    return d if rec.endswith(".hrp") and os.path.isdir(d) else None
 
 
 def cmd_run(a):
@@ -103,7 +113,10 @@ def cmd_run(a):
     rec, ref = recording(a.rec)
     if not os.path.exists(rec):
         sys.exit("no recording " + rec)
-    fresh_state_dirs(out)
+    seed = a.save_seed or seed_of(rec)
+    if seed:
+        print("run: starts from the save in %s" % seed)
+    fresh_state_dirs(out, seed)
     trace = os.path.join(out, "trace.txt")
     for p in (trace, trace + ".ckref"):
         if os.path.exists(p):
@@ -240,6 +253,7 @@ def main():
     r.add_argument("--out", required=True)
     r.add_argument("--rec", default="play3", help="play3, a playthrough's name (tools/playthrough.py) or a .hrp path")
     r.add_argument("--frames", type=int, help="stop once the checkpoint of this frame is in the trace")
+    r.add_argument("--save-seed", help="the game's save folder to start from (T, U, Z; default: a playthrough's seed)")
     r.add_argument("--data", default=os.path.join(ROOT, "isos/extracted"))
     r.add_argument("--hang", type=int, default=120, help="HULK_HANG: seconds without progress before the image ends")
     r.add_argument("--timeout", type=int, default=7200)

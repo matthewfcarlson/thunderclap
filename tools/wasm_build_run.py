@@ -408,6 +408,8 @@ def test_play3(t, exes, base):
                 "--timeout", str(t.get("timeout", 3600)), "--no-check"]
         if t.get("rec"):
             argv += ["--rec", os.path.join(RUN, "wbrun", t["rec"] + ".hrp")]
+            if os.path.isdir(os.path.join(RUN, "wbrun", t["rec"] + ".seed")):
+                argv += ["--save-seed", os.path.join(RUN, "wbrun", t["rec"] + ".seed")]
         extra = dict(t.get("env", {}), HULK_APP_DIR=fresh(os.path.join(out, "appdir")), HULK_NO_UI="1")
         if metal:
             extra.update(metal_env(t, out))

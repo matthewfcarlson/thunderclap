@@ -217,6 +217,9 @@ static u64 g_dt_us = 33333ull;
 static int g_vflags = -1;
 static u64 g_vt, g_vextra;
 static u32 g_vmain, g_vframe;
+static u32 g_pt_clock, g_vreads;          // (playthroughs: the stall rule's switch, main-thread reads this update)
+static const u32 kStallReads = 20000;
+static const u64 kStallStepUs = 1000ull;
 static unsigned vclock_flags(void) {
     if (g_vflags < 0) {
         unsigned f = 0;
@@ -247,6 +250,15 @@ extern "C" int ff_replay_qpc(u64* ticks) {
     }
     if (SIM->cur_thread == g_vmain && g_vframe == 0)
         g_vt += kPreStepUs;
+    else if (g_pt_clock && SIM->cur_thread == g_vmain && ++g_vreads > kStallReads) {
+        // a playthrough's segments (wplay4): the main thread waiting on the clock between updates (a save's or load's
+        // minimum message time) sees it move on 1 ms a read past the first kStallReads; the next update takes the
+        // time from there (g_vextra). Replays of play3 never get here: their clock stands still between updates.
+        if (g_vreads == kStallReads + 1)
+            log_line("playthrough: the clock moves on in a wait at frame %u", g_frame_no);
+        g_vt += kStallStepUs;
+        g_vextra += kStallStepUs;
+    }
     *ticks = g_vt * 733ull + g_vt / 3ull;
     return 1;
 }
@@ -295,6 +307,7 @@ FFH(hulk_clock_tick) {
             t = g_vt + 1;
     }
     g_vextra = 0;
+    g_vreads = 0;
     if (f & HULK_RF_VCLOCK)
         g_vt = t;
     RET64(t);
@@ -678,6 +691,7 @@ static void ds_live(void) {
     if (g_rec.ds_switched)
         return;
     g_rec.ds_switched = 1;
+    g_pt_clock = 1;
     SIM->ds_clock = g_ds_live_work;    // (dsound_null.c: a value above 1 is the frames a DoWork)
 }
 static void go_live(void) {
@@ -793,7 +807,7 @@ struct ReplayBlob {
     uint8_t last[4][18];
     u64 dt_us, vt, vextra;
     int vflags;
-    u32 vmain, vframe, logged, bad;
+    u32 vmain, vframe, logged, bad, pt_clock, vreads;
     unsigned rp_pos, rp_polls, rp_frame, rp_last_frame, rp_frozen, rp_rumbles;
     int rp_press_start_ok, rp_frame_seen;
     unsigned ck_interval;
@@ -809,7 +823,7 @@ extern "C" uint32_t ff_replay_blob(void* buf, int restore) {
         memcpy(b.packet, g_packet, sizeof g_packet);
         memcpy(b.last, g_last, sizeof g_last);
         b.dt_us = g_dt_us, b.vt = g_vt, b.vextra = g_vextra, b.vflags = g_vflags, b.vmain = g_vmain;
-        b.vframe = g_vframe, b.logged = logged, b.bad = bad;
+        b.vframe = g_vframe, b.logged = logged, b.bad = bad, b.pt_clock = g_pt_clock, b.vreads = g_vreads;
         b.rp_pos = g_rp.pos, b.rp_polls = g_rp.polls, b.rp_frame = g_rp.frame, b.rp_last_frame = g_rp.last_frame;
         b.rp_frozen = g_rp.frozen, b.rp_rumbles = g_rp.rumbles, b.rp_press_start_ok = g_rp.press_start_ok;
         b.rp_frame_seen = g_rp.frame_seen;
@@ -823,7 +837,7 @@ extern "C" uint32_t ff_replay_blob(void* buf, int restore) {
         memcpy(g_packet, b.packet, sizeof g_packet);
         memcpy(g_last, b.last, sizeof g_last);
         g_dt_us = b.dt_us, g_vt = b.vt, g_vextra = b.vextra, g_vflags = b.vflags, g_vmain = b.vmain;
-        g_vframe = b.vframe, logged = b.logged, bad = b.bad;
+        g_vframe = b.vframe, logged = b.logged, bad = b.bad, g_pt_clock = b.pt_clock, g_vreads = b.vreads;
         g_rp.pos = b.rp_pos, g_rp.polls = b.rp_polls, g_rp.frame = b.rp_frame, g_rp.last_frame = b.rp_last_frame;
         g_rp.frozen = b.rp_frozen, g_rp.rumbles = b.rp_rumbles, g_rp.press_start_ok = b.rp_press_start_ok;
         g_rp.frame_seen = b.rp_frame_seen;

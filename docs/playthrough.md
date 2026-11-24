@@ -21,6 +21,22 @@ $P tools/playthrough.py check --name play4 RUN.ckref            # a run's record
 $P tools/wasm_build_job.py submit --name ME --target aot --test play4:N [--control JOB]   # on the queue
 ```
 
+Starting from a game save (v2):
+
+```sh
+cp -R "$HOME/Library/Application Support/HulkUD/save" build/playthrough/mysave     # a copy of your save folder
+$P tools/playthrough.py record --name day1 --from-save build/playthrough/mysave [--parent play4]
+#   the game boots with that save (load it from the main menu: Load Game); the session records from boot
+$P tools/playthrough.py record --name day1                      # later sessions continue day1 as above
+```
+
+A save-start playthrough is its own recording: it keeps a copy of the save (`seed/save`: the game's T, U and Z
+drives; port_settings.txt is not taken) and the inputs from boot, so it replays from that save on any build
+(`native_replay.py run --rec day1` seeds the run's save folder from it; `wasm_build_job --test day1:N` ships it).
+Its recording (`boot.hrp`) has play3's header (the virtual clock and generators, skip-intro, no-fmv) and no inputs of
+its own: the player has the pad from the first frame end. `--parent` only notes where the save came from. `--from-save`
+copies the folder you name and never writes to it.
+
 `record` options: `--settings remastered=1,frame_rate=60,...` sets renderer-only settings for every session of the
 playthrough (given at the first session; the rows that change the game, aspect / HUD frame / draw distance / tutorial
 skip / traversal moves / developer, are refused). Renderer options you change in the game's own Video Options menu
@@ -52,6 +68,11 @@ during a session are fine too: the presses are recorded and replay the same.
   advances them 533 a DoWork (the game calls DoWork 3.01 times an update: 1,600 frames, real time at 30 updates a
   second), recorded in the recording's SEG1 trailer so replays do the same. Sounds a session hears follow the
   model; the mixer only listens.
+- **The clock in waits:** the recording's virtual clock moves only at GameClock updates. In a playthrough's own
+  segments (never in play3's part), the main thread reading the clock more than 20,000 times without an update (the
+  game's minimum-time wait while it loads a save) sees it move on 1 ms a read; the next update goes on from there.
+  Without it, Load Game froze the game at GS_PREGAME (sessions on build 0908293 must not load a save). It applies only
+  where a session would otherwise hang, so segments recorded before it replay the same.
 - **Saves** go to the session's own save folder, seeded from the snapshot's (play3's run-local saves to start with);
   the save files are part of each snapshot. Your own saves in the player's folder are never touched or read.
 - **Settings:** every session and replay of a playthrough uses the same `--settings`; the menus refuse the rows that
@@ -99,8 +120,8 @@ play3 covers the desert tutorial (c00m01, `desert_tutorial_dusk`, lit like day),
 frames ~15,000-28,000) and a third mission from ~33,600 to its end (56,575). The first story missions and the Church hub
 are all night. The day and dusk city come with later story missions (and the c10 side missions); which mission first
 uses `downtown_day` is in init.lua's table, not in the repo, so: **play on through the story**, taking the next story
-mission each time; the city's look changes with the mission. If you have a save further on in the story, a session
-from that save (v2's `--from-save`, below) is the fastest way there.
+mission each time; the city's look changes with the mission. If you have a save further on in the story, a playthrough
+from that save (`--from-save`, above) is the fastest way there.
 
 ## Tests (wplay4)
 
@@ -110,5 +131,7 @@ from that save (v2's `--from-save`, below) is the fastest way there.
   from frame 0: records identical to the sessions', every tag (`playthrough.py replay`). DoWorks per update: 3.000.
 - Metal (the app, hidden window, laptop): two scripted sessions recorded under Metal (the first from a Metal snapshot
   handed off inside play3, the second from the first's snapshot), replayed headless on `hulk-aot`: identical.
+- From a save, headless (queue job 111863): a save made by play3 to frame 20,000, a scripted session from boot that
+  loads it (GS_PREGAME -> GS_GAME), a second session from its snapshot, the replay from boot with the save: identical.
 - play3 itself: candidate vs control to 60,000, records identical: hulk-aot (wasm_build_job test 111814) and the app
   with the null renderer (111815).

@@ -295,12 +295,47 @@ def check_not_player(p):
         die("%s is the player's own folder: playthroughs keep their saves under build/playthrough" % p)
 
 
-def fresh_dirs(root):
+def fresh_dirs(root, pt=None):
+    """empty save folders, or a save-start playthrough's seed save (its T, U, Z drives) in save/"""
     for sub in STATE_DIRS:
         p = os.path.join(root, sub)
         if os.path.isdir(p):
             shutil.rmtree(p)
         os.makedirs(p)
+    seed = seed_dir(pt) if pt else None
+    if seed:
+        shutil.rmtree(os.path.join(root, "save"))
+        shutil.copytree(seed, os.path.join(root, "save"))
+
+
+def seed_dir(pt):
+    d = os.path.join(pdir(pt["name"]), "seed", "save")
+    return d if pt.get("base") == "save" and os.path.isdir(d) else None
+
+
+def make_boot_hrp(path, like):
+    """a recording with no play of its own, for a playthrough that starts from a save: play3's header (its flags:
+    the virtual clock and generators; its tweaks: skip-intro, no-fmv; its seed) and one idle entry at poll 0, so the
+    hand-off is the first frame end"""
+    h = read_hrp(like)["hdr"]
+    out = HDR.pack(b"HRP1", h[1], h[2], h[3], h[4], h[5], h[6], h[7], 1, 0) + bytes(24) + b"PRN1" + struct.pack("<I", 0)
+    open(path, "wb").write(out)
+
+
+def import_save(src, dst):
+    """the game's drives (T, U, Z) of a save folder (an app folder's save/, or a folder holding U/) into dst"""
+    src = os.path.abspath(os.path.expanduser(src))
+    if os.path.isdir(os.path.join(src, "save", "U")):
+        src = os.path.join(src, "save")
+    if not os.path.isdir(os.path.join(src, "U")):
+        die("--from-save %s: no U folder (give the app folder's save/, which holds T, U and Z)" % src)
+    if os.path.exists(dst):
+        shutil.rmtree(dst)
+    os.makedirs(dst)
+    for drive in ("T", "U", "Z"):
+        if os.path.isdir(os.path.join(src, drive)):
+            shutil.copytree(os.path.join(src, drive), os.path.join(dst, drive))      # (read only: copied, never moved)
+    return src
 
 
 def copy_dirs(src, dst):
@@ -380,7 +415,7 @@ def prepare(a, pt, exe, key, base):
     sd, _ = snapshots(pt, key)
     prep = os.path.join(sd, "prep")
     os.makedirs(prep, exist_ok=True)
-    fresh_dirs(prep)
+    fresh_dirs(prep, pt)
     for p in glob.glob(os.path.join(prep, "trace.txt*")):
         os.remove(p)
     tmp = os.path.join(prep, "handoff.snap")
@@ -412,6 +447,17 @@ def prepare(a, pt, exe, key, base):
 
 def cmd_record(a):
     pt = load(a.name, create=True, base=a.base)
+    if a.from_save:
+        if pt["segments"]:
+            die("%s already has segments: a save starts a new playthrough (another --name)" % a.name)
+        d = pdir(a.name)
+        os.makedirs(d, exist_ok=True)
+        src = import_save(a.from_save, os.path.join(d, "seed", "save"))
+        make_boot_hrp(os.path.join(d, "boot.hrp"), absr(BASES.get(a.base, (a.base,))[0]))   # (--base: its header)
+        pt.update(base="save", base_hrp=os.path.join(d, "boot.hrp"), base_ref=None, save_from=src,
+                  parent=a.parent, note="starts from a save: the game boots with it, the inputs run from boot")
+        print("playthrough: %s starts from the save in %s (copied to %s/seed/save); load it from the game's menu" % (
+            a.name, src, d))
     if a.settings is not None:
         keys = {kv.partition("=")[0] for kv in a.settings.split(",") if kv}
         bad = keys & SIM_KEYS or {k for k in keys if k.startswith("dev_")}
@@ -428,7 +474,7 @@ def cmd_record(a):
     end = playthrough_end(pt)
     sd, snaps = snapshots(pt, key)
     snap = None
-    if not a.no_snapshot:
+    if not a.no_snapshot and not (pt["base"] == "save" and not pt["segments"]):   # (a save start boots)
         if end is not None and end in snaps:
             snap = snaps[end]
         elif end is None and snaps and not a.from_frame:
@@ -444,7 +490,7 @@ def cmd_record(a):
     if snap:
         copy_dirs(os.path.join(sd, str(present)), seg_dir)
     else:
-        fresh_dirs(seg_dir)
+        fresh_dirs(seg_dir, pt)
     extra = {"HULK_RECORD_BASE": base, "HULK_RECORD": os.path.join(seg_dir, "seg")}
     if snap:
         extra["HULK_RESTORE"] = snap
@@ -529,7 +575,7 @@ def cmd_replay(a):
     out = os.path.abspath(a.out or os.path.join(pdir(a.name), "runs", "replay"))
     exe = find_exe(a)
     cmd = [sys.executable, os.path.join(ROOT, "tools/native_replay.py"), "run", "--exe", exe, "--out", out,
-           "--rec", a.name, "--frames", str(frames), "--no-check"]
+           "--rec", a.name, "--frames", str(frames), "--no-check"]     # (a save start's seed: native_replay finds it)
     for kv in ["HULK_GFX_RENDERER=" + a.renderer] + (["HULK_SETTINGS=" + pt["settings"]] if pt.get("settings")
                                                       else []) + (a.env or []):
         cmd += ["--env", kv]
@@ -573,6 +619,9 @@ def main():
     r = sp.add_parser("record", help="play on from the playthrough's end (or play3's), recording")
     common(r)
     r.add_argument("--base", default="play3", help="a new playthrough's base recording (default play3)")
+    r.add_argument("--from-save", help="start a new playthrough from a game save: an app folder's save/ (T, U, Z); "
+                                       "it is copied, and the recording holds it and the inputs from boot")
+    r.add_argument("--parent", help="(with --from-save) the playthrough this save came from, as a note")
     r.add_argument("--settings", help="renderer settings for every session of the playthrough (HULK_SETTINGS "
                                       "syntax; set once, at the first session)")
     r.add_argument("--renderer", default="metal")
