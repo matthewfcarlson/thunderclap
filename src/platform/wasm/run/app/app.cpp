@@ -9,6 +9,7 @@
 // buffer of its own; they are copied into bgfx's buffer before the next sink call.
 #include <stddef.h>
 #include <stdint.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -187,7 +188,7 @@ static uint32_t s_logW, s_logH, s_physW, s_physH, s_winW, s_winH;
 // target takes that shape (the game's 640x480 frame drawn anamorphically, as on an Xbox 16:9 mode) and the module's
 // present rectangle (bgfx_display.cpp presentRect) is the same rectangle of the window
 static uint32_t s_aspN = 4, s_aspD = 3;
-static int s_rrScale = 100;             // (wperf1: percent of the render size; rm::setRenderScale)
+static int s_rrScale = 100;             // (wperf1: percent of the render size, 0 auto; rm::setRenderScale)
 static void rrSize(uint32_t* pw, uint32_t* ph)
 {
     uint32_t lw = s_logW, lh = s_logH, w = lw, h = lh;
@@ -212,9 +213,19 @@ static void rrSize(uint32_t* pw, uint32_t* ph)
         h = (uint32_t)s_rrMode;
         w = (uint32_t)(((uint64_t)h * an + ad / 2) / ad);
     }
-    if (s_rrScale > 0 && s_rrScale < 100) {     // (wperf1: the Render Scale row; the upscaler makes up the rest)
-        w = (uint32_t)(((uint64_t)w * (uint32_t)s_rrScale + 50) / 100);
-        h = (uint32_t)(((uint64_t)h * (uint32_t)s_rrScale + 50) / 100);
+    // (wperf1: the Render Scale row; the upscaler makes up the rest. 0, Auto: the largest scale, 50% at least, that
+    // keeps the scene within kAutoPixels, the default window's 1280x960 on a Retina display, which the remastered
+    // defaults draw at 60 fps with room on an M3 Air: docs/performance.md)
+    int scale = s_rrScale;
+    if (scale == 0) {
+        const double kAutoPixels = 1280.0 * 960.0;
+        double k = (double)w * h > kAutoPixels ? sqrt(kAutoPixels / ((double)w * h)) : 1.0;
+        scale = (int)(k * 100.0);
+        scale = scale < 50 ? 50 : scale > 100 ? 100 : scale;
+    }
+    if (scale > 0 && scale < 100) {
+        w = (uint32_t)(((uint64_t)w * (uint32_t)scale + 50) / 100);
+        h = (uint32_t)(((uint64_t)h * (uint32_t)scale + 50) / 100);
     }
     const uint32_t kMax = 8192;
     if (w > kMax || h > kMax) {

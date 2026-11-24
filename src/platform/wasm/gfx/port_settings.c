@@ -111,7 +111,8 @@ static void apply_developer(int value);
  * Anti-Aliasing's TAA (wperf1; run/app/taa.cpp, docs/performance.md): value 1, the scene single-sampled, its draws
  * jittered and resolved against a reprojected history before the game's effects. Output only.
  * Upscaler, Render Scale (wperf1; run/app/upscale.cpp, docs/performance.md): the scene drawn at a share of the
- * render resolution (100% .. 50%: FSR's Ultra Quality 1.3x, Quality 1.5x, Balanced 1.7x, Performance 2x) and brought
+ * render resolution (100% .. 50%: FSR's Ultra Quality 1.3x, Quality 1.5x, Balanced 1.7x, Performance 2x; 0, Auto,
+ * the largest share within 1280x960 pixels, at least 50%: app.cpp rrSize) and brought
  * to the present size by the upscaler: Off the bilinear stretch as before, FSR 1 (AMD's EASU + RCAS, MIT), Auto the
  * platform's best (FSR 1 today). Output only (the game sees 640x480 at every scale).
  * Grass (wgrass1; run/app/grass.cpp, docs/grass.md): blades on the game's grass ground, instanced clumps in world space
@@ -142,8 +143,8 @@ static port_setting k_settings[] = {
      1, 0, 1, apply_render_res},
     {"upscaler", "Upscaler", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"Off (Original)", "Auto", "FSR 1"}, 0, 1, 1,
      apply_upscaler},
-    {"render_scale", "Render Scale", PS_SCREEN_VIDEO, PS_CHOICE, 5, {100, 77, 67, 59, 50},
-     {"Native", "Ultra Quality (77)", "Quality (67)", "Balanced (59)", "Performance (50)"}, 100, 100, 1,
+    {"render_scale", "Render Scale", PS_SCREEN_VIDEO, PS_CHOICE, 6, {100, 0, 77, 67, 59, 50},
+     {"Native", "Auto", "Ultra Quality (77)", "Quality (67)", "Balanced (59)", "Performance (50)"}, 100, 0, 1,
      apply_render_scale},
     {"aspect", "Aspect Ratio", PS_SCREEN_VIDEO, PS_CHOICE, 5, {43, 169, 1610, 219, 0},
      {"4:3 (Original)", "16:9", "16:10", "21:9", "Window"}, 43, 0, 1, apply_aspect},
@@ -157,7 +158,7 @@ static port_setting k_settings[] = {
     {"aniso", "Anisotropic Filtering", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 16}, {"Off (Original)", "16x"}, 0, 16, 1,
      apply_aniso},
     {"msaa", "Anti-Aliasing", PS_SCREEN_VIDEO, PS_CHOICE, 5, {0, 2, 4, 8, 1},
-     {"Off (Original)", "MSAA 2x", "MSAA 4x", "MSAA 8x", "TAA"}, 0, 4, 1, apply_msaa},
+     {"Off (Original)", "MSAA 2x", "MSAA 4x", "MSAA 8x", "TAA"}, 0, 1, 1, apply_msaa},
     {"far_field", "Far Field", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On (Experimental)"}, 0, 0, 1,
      apply_far_field},
     {"lighting", "Lighting", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Per-Vertex (Original)", "Per-Pixel"}, 0, 1, 1,
@@ -169,7 +170,7 @@ static port_setting k_settings[] = {
     {"shadows", "Shadows", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"Original", "Low", "High"}, 0, 2, 1,
      apply_shadows},
     {"windows", "Windows", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Original", "Interiors"}, 0, 1, 1, apply_windows},
-    {"reflections", "Reflections", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"Off (Original)", "Low", "High"}, 0, 2,
+    {"reflections", "Reflections", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"Off (Original)", "Low", "High"}, 0, 1,
      1, apply_reflections},
     {"night_lights", "Night Lights", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 1, 1,
      apply_night_lights},

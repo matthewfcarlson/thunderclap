@@ -8,7 +8,7 @@ checkpoint records are the same with any setting.
 
 | row | values (faithful first) | remastered default |
 |---|---|---|
-| `reflections` Reflections | Off (Original), Low, High | High |
+| `reflections` Reflections | Off (Original), Low, High | Low (High until wperf1: docs/performance.md, Low costs ~0.9 ms, High ~1.6) |
 
 ## What reflects
 

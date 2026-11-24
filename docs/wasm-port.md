@@ -625,7 +625,8 @@ faithful value off, remastered-only) and each a pass of the runner, so they carr
   one) keeps the game's levels. Cost: 25 ms of encoding for the whole scripted run (1,056 chains), 4 MB on the GPU.
 - **Anisotropic Filtering: Off / 16x** (`aniso`, remastered 16). Every stage the game samples linearly gets
   anisotropic minification. bgfx's Metal renderer has one level (BGFX_RESET_MAXANISOTROPY: 16), so there is no 4x/8x.
-- **Anti-Aliasing: Off / MSAA 2x / 4x / 8x** (`msaa`, remastered 4). The scene target (colour and depth-stencil) is
+- **Anti-Aliasing: Off / MSAA 2x / 4x / 8x / TAA** (`msaa`; remastered TAA, value 1, since wperf1: run/app/taa.cpp and
+  docs/performance.md; MSAA 4x was the default before and costs ~4 ms of the frame on the half-float scene). The scene target (colour and depth-stencil) is
   multisampled; bgfx resolves it at the end of each view (StoreAndMultisampleResolve), so the frame copies (blits read
   the resolved texture), the effects' render targets (single-sampled, unchanged), the front buffer and the present
   work as before. Changing it makes the scene target again between frames (app.cpp's render-size path). An occlusion

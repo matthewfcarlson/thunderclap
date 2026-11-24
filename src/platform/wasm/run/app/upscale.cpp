@@ -29,11 +29,11 @@ class UpscalePass final : public rm::Pass {
     void settingsChanged(const rm::Settings& s) override
     {
         int mode = s[rm::kUpscaler], scale = s[rm::kRenderScale];
-        if (scale <= 0 || scale > 100)
+        if (scale < 0 || scale > 100)
             scale = 100;
         if (mode != m_mode || scale != m_scale)
-            fprintf(stderr, "hulk-app: upscaler %s, render scale %d%%\n", mode == 0 ? "off" : mode == 1 ? "auto" : "FSR 1",
-                    scale);
+            fprintf(stderr, "hulk-app: upscaler %s, render scale %d%%%s\n", mode == 0 ? "off" : mode == 1 ? "auto" : "FSR 1",
+                    scale, scale ? "" : " (auto: 1280x960 pixels at most)");
         m_mode = mode;
         if (scale != m_scale)
             rm::setRenderScale(scale);
