@@ -56,6 +56,7 @@ static void apply_grade(int value) { hulk_wasm_quality_apply(15, value); }
 static void apply_upscaler(int value) { hulk_wasm_quality_apply(17, value); }
 static void apply_render_scale(int value) { hulk_wasm_quality_apply(18, value); }
 static void apply_grass(int value) { hulk_wasm_quality_apply(16, value); }
+static void apply_perf_overlay(int value) { hulk_wasm_quality_apply(19, value); }
 static void apply_tutorial_skip(int value) { hulk_wasm_tutorial_skip_apply(value); }
 static void apply_traversal(int value) { hulk_wasm_traversal_apply(value); }
 static void apply_developer(int value);
@@ -118,6 +119,9 @@ static void apply_developer(int value);
  * Grass (wgrass1; run/app/grass.cpp, docs/grass.md): blades on the game's grass ground, instanced clumps in world space
  * taking the ground's colour, swaying in the wind and bent aside by the characters, fading out to the flat ground with
  * distance (1 low: 12 units, 3 blades a clump; 2 high: 24 units, 5 blades). Output only: nothing collides with them.
+ * Performance Overlay (wperf1; run/app/perfov.cpp): a corner readout of the frame rate, frame time, render size and
+ * upscaler (1), plus a graph of the last 240 frames' times and their CPU / GPU split (2). Both editions (a runner
+ * overlay); output only.
  * Tutorial skip (wskip1): a star behind the Hulk's start in the two tutorial missions (c00m01, c00m02) ends the mission
  * through its own success path when he walks into it (tutorial_skip.c). It changes the game (the mission ends), so it
  * is per session: replays and tests pin it off, netplay peers must share it.
@@ -146,6 +150,8 @@ static port_setting k_settings[] = {
     {"render_scale", "Render Scale", PS_SCREEN_VIDEO, PS_CHOICE, 6, {100, 0, 77, 67, 59, 50},
      {"Native", "Auto", "Ultra Quality (77)", "Quality (67)", "Balanced (59)", "Performance (50)"}, 100, 0, 1,
      apply_render_scale},
+    {"perf_overlay", "Performance Overlay", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"Off", "FPS", "Graph"}, 0, 0, 0,
+     apply_perf_overlay},
     {"aspect", "Aspect Ratio", PS_SCREEN_VIDEO, PS_CHOICE, 5, {43, 169, 1610, 219, 0},
      {"4:3 (Original)", "16:9", "16:10", "21:9", "Window"}, 43, 0, 1, apply_aspect},
     {"hud_frame", "HUD Frame", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Centred (Original)", "Screen Edges"}, 0, 1, 1,

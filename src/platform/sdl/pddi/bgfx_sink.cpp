@@ -323,6 +323,7 @@ class BgfxSink final : public DrawSink {
     void copyQuad(uint16_t view, unsigned srcTex, unsigned dstFb, unsigned w, unsigned h);
 #if HULK_SINK_OVERLAY
     void drawOverlay(uint16_t view, unsigned ww, unsigned wh);
+    void drawOverlaySlot(void* slot, uint16_t view, unsigned ww, unsigned wh);
   public:
     void sceneHandles(uint32_t* fb, uint32_t* colour, uint32_t* depth)
     {
@@ -706,12 +707,15 @@ void BgfxSink::present(const SinkPresent& p)
 // The app's overlay (wasm port, wmov1 / D231: the hold-to-skip ring): a small B, G, R, A image the runner makes,
 // alpha-blended over the presented frame at a place in window pixels. Output only; only the app's runner builds this
 // (HULK_SINK_OVERLAY), so the Wine and native images are unchanged.
-static struct {
+// Two slots: 0 the movie ring / controller banner (movie.c arbitrates), 1 the performance overlay (wperf1); drawn in
+// that order.
+struct SinkOverlay {
     const void* bgra;
     unsigned w, h, version, made, madeW, madeH;
     int x, y;
     unsigned tex;
-} s_overlay = {0, 0, 0, 0, 0, 0, 0, 0, 0, kNone};
+};
+static SinkOverlay s_overlays[2] = {{0, 0, 0, 0, 0, 0, 0, 0, 0, kNone}, {0, 0, 0, 0, 0, 0, 0, 0, 0, kNone}};
 
 // the picture quality (s_quality): returns 1 when the scene target must be made again (frameTargets) for the MSAA
 extern "C" uint32_t hulk_gfx_sink_quality(uint32_t aniso, uint32_t msaa)
@@ -736,14 +740,27 @@ extern "C" void hulk_gfx_sink_scene_handles(uint32_t* fb, uint32_t* colour, uint
     *samples = s_quality.msaaMade;
 }
 
+extern "C" void hulk_gfx_sink_overlay_slot(unsigned slot, const void* bgra, unsigned w, unsigned h, int x, int y,
+                                           unsigned version)
+{
+    SinkOverlay& o = s_overlays[slot & 1];
+    o.bgra = bgra;
+    o.w = w, o.h = h, o.x = x, o.y = y, o.version = version;
+}
 extern "C" void hulk_gfx_sink_overlay(const void* bgra, unsigned w, unsigned h, int x, int y, unsigned version)
 {
-    s_overlay.bgra = bgra;
-    s_overlay.w = w, s_overlay.h = h, s_overlay.x = x, s_overlay.y = y, s_overlay.version = version;
+    hulk_gfx_sink_overlay_slot(0, bgra, w, h, x, y, version);
 }
 
 void BgfxSink::drawOverlay(uint16_t view, unsigned ww, unsigned wh)
 {
+    for (SinkOverlay& o : s_overlays)
+        drawOverlaySlot(&o, view, ww, wh);
+}
+
+void BgfxSink::drawOverlaySlot(void* slot, uint16_t view, unsigned ww, unsigned wh)
+{
+    SinkOverlay& s_overlay = *(SinkOverlay*)slot;
     if (!s_overlay.bgra || !s_overlay.w || !s_overlay.h || m_presentProgram == kNone)
         return;
     if (s_overlay.tex == kNone || s_overlay.madeW != s_overlay.w || s_overlay.madeH != s_overlay.h) {

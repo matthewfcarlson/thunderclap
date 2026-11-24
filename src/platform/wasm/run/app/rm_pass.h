@@ -29,6 +29,7 @@ enum Quality : uint32_t {
     kGrass,                               // wgrass1 (docs/grass.md): 0 the game's flat ground, 1 blades low, 2 high
     kUpscaler = 17,                       // wperf1 (docs/performance.md): 0 off, 1 auto, 2 FSR 1
     kRenderScale,                         // wperf1: the scene target's share of the render resolution, percent
+    kPerfOverlay,                         // wperf1 (perfov.cpp): 0 off, 1 the FPS readout, 2 with the graph
     kQualityCount
 };
 struct Settings {

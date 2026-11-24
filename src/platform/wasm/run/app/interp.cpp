@@ -23,6 +23,7 @@
 #include "interp.h"
 #include "rm_pass.h"
 #include "gfxstats.h"
+#include "perfov.h"
 
 using namespace hulk::pddi;
 
@@ -727,6 +728,8 @@ void interp_context_destroyed()
 // update lasts. Draws the closed stream m times, paced; decides whether the next update records.
 void interp_pace(uint32_t fields)
 {
+    if (g_perfOv)
+        perfov_pace_begin();
     bool pace = paceOn();
     int64_t period = (int64_t)fields * 1000000000 / 60;
     int64_t now = nsNow();
@@ -780,7 +783,7 @@ void interp_pace(uint32_t fields)
                 waitUntil(slots[k].t);
             }
             double a = nowMs();
-            uint64_t gsT0 = gs_enabled() ? gs_now() : 0;
+            uint64_t gsT0 = gs_enabled() || g_perfOv ? gs_now() : 0;
             drawStream(*s_cur, prev ? s_prev : nullptr, slots[k].a, last);
             if (s_sampleNs && (k == 0 || last)) {
                 double l = (nsNow() - s_sampleNs) / 1e6;
@@ -793,8 +796,10 @@ void interp_pace(uint32_t fields)
             gs_sink_frame();
             rm::frame();
             s_st.drawMs += nowMs() - a;
-            if (gsT0)
+            if (gsT0 && gs_enabled())
                 gs_extra(kGxInterp, gsT0);
+            if (gsT0 && g_perfOv)
+                perfov_interp(gs_now() - gsT0);
             if (s_log) {                            // (the GPU's time for a frame, as bgfx last measured it)
                 const bgfx::Stats* st = bgfx::getStats();
                 if (st && st->gpuTimerFreq > 0 && st->gpuTimeEnd > st->gpuTimeBegin)
@@ -833,4 +838,6 @@ void interp_pace(uint32_t fields)
         s_havePrev = false;
     }
     s_recording = rec;
+    if (g_perfOv)
+        perfov_pace_end();
 }

@@ -8,6 +8,7 @@
 #include <time.h>
 #include <bgfx/bgfx.h>
 #include "gfxstats.h"
+#include "perfov.h"
 #include "pddi/bgfx_bridge.h"
 
 using namespace hulk::pddi;
@@ -171,11 +172,15 @@ void gs_fx() { if (on()) A.fx++; }
 void gs_extra(int cat, uint64_t t0) { A.xns[cat] += gs_now() - t0; }
 void gs_sink_frame()
 {
-    uint64_t t0 = on() ? gs_now() : 0;
+    uint64_t t0 = on() || g_perfOv ? gs_now() : 0;
     hulk_gfx_sink_frame();
     if (t0) {
-        gs_extra(kGxBgfxFrame, t0);
-        A.bgFrames++;
+        if (g_perfOv)
+            perfov_encode(gs_now() - t0);
+        if (on()) {
+            gs_extra(kGxBgfxFrame, t0);
+            A.bgFrames++;
+        }
     }
 }
 
