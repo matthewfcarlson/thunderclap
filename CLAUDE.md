@@ -693,8 +693,9 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   Grass (wgrass1, docs/grass.md): run/app/grass.cpp classifies textures (worker thumbnails), keeps room prim buffers
   (rm hooks `indices`, `textureCreated/Level/Dropped`), strews level ground draws with instanced clumps through the
   draw's own combiner on the CPU, and draws them after the ground draw (order 4); `shaders/rm_grass.sh` is the one grass
-  test (the reflections' mask uses it). interp.cpp clears a recorded draw's `combinerKey` (`""`): a pass that needs it
-  at 60/120 fps keeps keys by `combinerHash` from `packet`. Render-only animation takes `interp_display_time()`.
+  test (the reflections' mask uses it). A replayed draw (60/120 fps) carries frame N's combiner key (interned),
+  modelview/projection/view and lights from interp.cpp's stream, not interpolated; vertex constants are the interpolated
+  ones, and nothing else a packet points to survives recording (wwin2: interiors and the far field were missing at 60/120). Render-only animation takes `interp_display_time()`.
   Frame budget (wperf1, docs/performance.md): the remastered defaults hold <=12 ms of GPU at 1280x960 on the M3 Air
   (~7.5 ms now: TAA, Reflections Low, Render Scale Auto). Measure a pass by turning it off on a quiet laptop
   (build/wperf1/scripts/meas.sh waits for quiet); rank passes by `HULK_<PASS>_AB`. bgfx's frame GPU timer reads ~1.8x
