@@ -743,18 +743,23 @@ On, `src/platform/wasm/gfx/traversal.c` adds the charging sprint and higher leap
 entry hooks (sprint 0x163ed0 / 0x15e250 / 0x15c540, input 0xfd0f0, damage 0x13f20, jump 0x13b90, store list 0xc21b0,
 and tutorial_skip.c's UpdateSimulation hook). Off, every hook passes through and nothing is set up: play3's records are
 byte-identical to the app without it. Test knobs: `HULK_SETTINGS=remastered=1,remaster_moves=1`,
-`HULK_TRAV_FORCE=C,J` (levels as if bought), `HULK_TRAV_TEST_XP=N` (smash points), `HULK_TRAV_LOG=1..3`.
+`HULK_TRAV_FORCE=C,J[,W,A]` (levels as if bought), `HULK_TRAV_TEST_XP=N` (smash points), `HULK_TRAV_LOG=1..3`.
+Round two (wtrav2, docs/traversal.md §12): Wall Fling I-III and Air Control I-III in slots 0x2be-0x2c3 (hooks 0x140650,
+0x13f1d0, 0x18d40, 0x134ee0), a render-side camera pull-back at speed (the logic view changed after each update and put
+back before the next) and the charge-sprint glow (drawn after World::Render); `HULK_TRAV_CAM=0`, `HULK_TRAV_GLOW=0`.
 
 ### Developer options (wdev1)
 
 Developer mode: `developer=1` in `<save dir>/port_settings.txt` (a key with no menu item; the app keeps it when it
 rewrites the file) or `HULK_DEV=1` in the environment (never saved; ignored in replays). It is read at launch: the
-menus' item places are parsed once, so it takes a restart. In developer mode Gameplay Options lists three more rows
+menus' item places are parsed once, so it takes a restart. In developer mode Gameplay Options lists more rows
 after Traversal Moves (port_settings.c keys `dev_*`; outside developer mode they are hidden, their strings are not
 added and they take their faithful value, Off):
 - **Force Charge Sprint: Off / I / II / III** and **Force Mega Leap: Off / I / II / III** (`dev_charge`, `dev_leap`):
   the traversal level the hooks use, as if bought (`HULK_TRAV_FORCE`'s path); they need Traversal Moves On. The store
   still shows the real purchases.
+- **Force Wall Fling: Off / I / II / III** and **Force Air Control: Off / I / II / III** (`dev_fling`, `dev_air`; wtrav2,
+  docs/traversal.md §12): the same for the round-two moves.
 - **Force Original Moves: Off / All Bought** (`dev_moves`): every shipped store move (slots 0x266-0x2c3 with a name)
   counts as unlocked and bought: the fight script's `unlockable` condition (0x12f110, answered by an entry hook; air
   dash levels, combos), the C++ purchase reads through 0x92940 (the health upgrades 0x401a0 and the health bar

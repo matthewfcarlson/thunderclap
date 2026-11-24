@@ -840,7 +840,11 @@ GFX_APP_HOOKS = {0x000df9e0: "ffh_hulk_app_fe_callback", 0x000f8e70: "ffh_hulk_a
                  # the developer forces (traversal.c, wdev1): the fight script's unlockable condition, the manager's
                  # purchase read, the save's capture (real bits) and the missile update (deflection)
                  0x0012f110: "ffh_hulk_app_unlock_cond", 0x00092940: "ffh_hulk_app_unlock_on",
-                 0x0008b560: "ffh_hulk_app_save_capture", 0x0019e910: "ffh_hulk_app_missile"}
+                 0x0008b560: "ffh_hulk_app_save_capture", 0x0019e910: "ffh_hulk_app_missile",
+                 # the wall fling and air control (traversal.c, wtrav2): WallJumpAction / WallExitAction begin,
+                 # CJumpAction / FallAction per frame
+                 0x00140650: "ffh_hulk_app_wall_jump", 0x0013f1d0: "ffh_hulk_app_wall_exit",
+                 0x00018d40: "ffh_hulk_app_jump_frame", 0x00134ee0: "ffh_hulk_app_fall_frame"}
 _HOOKS = None
 
 

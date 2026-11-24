@@ -583,6 +583,21 @@ static const struct { const char* id; const char* text; } k_move_strings[] = {
                                "up to 2 bounces in a row."},
     {"TBS_PORT_MV_LEAP2_DESC", "Every jump goes 20% higher and further. Chain up to 3 landing bounces."},
     {"TBS_PORT_MV_LEAP3_DESC", "Every jump goes 30% higher and further. Chain up to 4 landing bounces."},
+    {"TBS_PORT_MV_FLING1", "Wall Fling I"},
+    {"TBS_PORT_MV_FLING2", "Wall Fling II"},
+    {"TBS_PORT_MV_FLING3", "Wall Fling III"},
+    {"TBS_PORT_MV_FLING_COMBO", "Jump during a wall run"},
+    {"TBS_PORT_MV_FLING1_DESC", "Jump off a wall run to be flung 30% further, carrying the run's speed. Running off the "
+                                "top of a wall launches you higher."},
+    {"TBS_PORT_MV_FLING2_DESC", "Wall Fling throws you 60% further off a wall run."},
+    {"TBS_PORT_MV_FLING3_DESC", "Wall Fling throws you 90% further off a wall run: clear the street in one leap."},
+    {"TBS_PORT_MV_AIR1", "Air Control I"},
+    {"TBS_PORT_MV_AIR2", "Air Control II"},
+    {"TBS_PORT_MV_AIR3", "Air Control III"},
+    {"TBS_PORT_MV_AIR_COMBO", "Steer with the stick in the air"},
+    {"TBS_PORT_MV_AIR1_DESC", "Turn faster in the air and steer sideways with the stick during jumps and falls."},
+    {"TBS_PORT_MV_AIR2_DESC", "More air control: turn twice as fast and steer further."},
+    {"TBS_PORT_MV_AIR3_DESC", "Full air control: turn almost three times as fast and line up any landing."},
 };
 static int patch_strings(const char* s, uint32_t n, buf_t* out) {
     if (n < 2 || (uint8_t)s[0] != 0xff || (uint8_t)s[1] != 0xfe || (n & 1)) return 0;

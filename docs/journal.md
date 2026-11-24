@@ -3659,3 +3659,20 @@ passes; output only (checkpoint records identical with every setting).
   and translucency) only where the shadow map lets the sun reach the blade. 3,525 clumps a frame on average in play3
   (759 before) for +0.01 ms GPU on mac2 (A/B noise level). Records unchanged (play3:2000 and the shot run to 36,100
   against the control: identical).
+
+## 2026-11-24 wtrav2: wall fling, air control, the camera at speed, the charge-sprint glow (docs/traversal.md §12)
+
+- **The camera can move for the picture alone.** The logic view 0x4e231c is what World::Render draws and culls with,
+  and CCameraManager 0x9bb50 rewrites it from the game camera near the end of every UpdateSimulation. Changing it
+  after the update and putting it back before the next one moves only the picture (and the culling with it): the
+  audio listener, despawn, streaming and the chase camera never see it. Same input with the pull-back on and off: the
+  same game, a camera further back.
+- **The game's jump-charge effect** is a pale green-white aura (sparks, then a full-body flash) and gold shafts below
+  him at take-off; holding Jump during a sprint shows the aura as a rim around his body. The charge-sprint glow is
+  warm, low and behind (ember ribbons from the feet, heel blooms, a ring per charge stage), drawn after
+  World::Render through the game's pddi.
+- **Spare move slots 0x2bb-0x2c9**: a run-time dump after init.lua shows the shipped moves end at 0x2ba; round two
+  takes 0x2be-0x2c3.
+- **Wall jumps already carry the wall run's speed** (WallJumpAction 0x140650: velocityMin raised to the run's speed,
+  capped by velocityXZMax); the fling multiplies the result. Desert canyon wall at 34 u/s: landing 55 units out
+  without, 110 with Wall Fling III. Air Control III moves a sprint jump's landing 19 units sideways.

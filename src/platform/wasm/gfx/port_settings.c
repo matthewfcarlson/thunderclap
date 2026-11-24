@@ -25,6 +25,8 @@ void hulk_wasm_traversal_apply(int value);                              /* trave
 void hulk_wasm_traversal_force_charge(int value);                       /* traversal.c: developer forces (wdev1) */
 void hulk_wasm_traversal_force_leap(int value);
 void hulk_wasm_traversal_force_moves(int value);
+void hulk_wasm_traversal_force_fling(int value);                        /* (wtrav2) */
+void hulk_wasm_traversal_force_air(int value);
 uint32_t hulk_wasm_texture_pack_list(char* buf, uint32_t cap);          /* gfx.c: the installed packs' names */
 void hulk_wasm_quality_apply(int what, int value);                      /* gfx.c: the runner's passes (wr2) */
 
@@ -197,6 +199,10 @@ static port_setting k_settings[] = {
      0, 0, 0, hulk_wasm_traversal_force_leap},
     {"dev_moves", "Force Original Moves", PS_SCREEN_GAMEPLAY, PS_CHOICE, 2, {0, 1}, {"Off", "All Bought"},
      0, 0, 0, hulk_wasm_traversal_force_moves},
+    {"dev_fling", "Force Wall Fling", PS_SCREEN_GAMEPLAY, PS_CHOICE, 4, {0, 1, 2, 3}, {"Off", "I", "II", "III"},
+     0, 0, 0, hulk_wasm_traversal_force_fling},
+    {"dev_air", "Force Air Control", PS_SCREEN_GAMEPLAY, PS_CHOICE, 4, {0, 1, 2, 3}, {"Off", "I", "II", "III"},
+     0, 0, 0, hulk_wasm_traversal_force_air},
 };
 enum { N_SETTINGS = sizeof k_settings / sizeof k_settings[0] };
 

@@ -492,3 +492,85 @@ For testing without buying: developer mode (`developer=1` in port_settings.txt o
 Sprint, Force Mega Leap (Off / I-III) and Force Original Moves (Off / All Bought) at the end of Gameplay Options;
 docs/wasm-port.md "Developer options". Hooks answer the purchase reads (0x12f110, 0x92940, 0x19e910); the save's
 capture 0x8b560 sees the real bits.
+
+## 12. Round 2: wall fling, air control, the camera at speed and the charge glow (wtrav2)
+
+Same gate as §11: everything here is behind Traversal Moves; with it off every new hook passes straight through and
+play3's records are byte-identical to the app without them (60,000 frames, candidate and control on one host).
+
+### 12.1 The moves
+
+| Move (store) | Cost | Effect |
+|---|---|---|
+| Wall Fling I | 15,000 | a jump off a wall run launches ×1.3 horizontally (at least 0.6 × the run's speed × 1.3), ×1.12 vertically; running off the top of a wall launches ×1.15 |
+| Wall Fling II (needs I) | 35,000 | ×1.6 / ×1.24; off the top ×1.3 |
+| Wall Fling III (needs II) | 75,000 | ×1.9 / ×1.36; off the top ×1.45 |
+| Air Control I | 8,000 | jumps and falls turn ×1.6 faster, the jump's drift ×1.4, the stick strafes him at up to 5 u/s |
+| Air Control II (needs I) | 20,000 | turns ×2.2, drift ×1.8, strafe 8 u/s |
+| Air Control III (needs II) | 45,000 | turns ×2.8, drift ×2.2, strafe 11 u/s |
+
+Slots 0x2be-0x2c3 (a run-time dump of the manager after init.lua: 0x2bb-0x2c9 are all empty; the shipped moves end at
+0x2ba), store pictures from Super Air Dash and Air Recovery, our own string keys (`TBS_PORT_MV_FLING*`,
+`TBS_PORT_MV_AIR*`). They follow §11's six in the store and chain like them (level n needs n−1).
+
+- **Wall fling.** `WallJumpAction::vfunc_3` 0x140650 builds the launch velocity (+0x44) from the track's velocity range,
+  the wall run's speed and the jump charge, capped by `velocityXZMax`; the per-frame 0x141040 integrates it with the
+  track's gravity. The hook scales it after the original when the jump leaves a wall run (+0x40, the character's motion
+  state 4). `WallExitAction::vfunc_3` 0x13f1d0 (+0x40 the launch) is scaled only when it goes up. Measured in the desert
+  tutorial (sprint into the canyon wall at 34 u/s, tap Jump on the wall): no fling, launch 25.0 horizontal / 32.8 up,
+  landing 55 units out after 1.7 s; Wall Fling III, 47.5 / 44.5, landing 110 units out after 2.2 s (across the canyon).
+- **Air control.** `CJumpAction::vfunc_7` 0x18d40 turns the heading toward the stick at a rate the track lerps by forward
+  speed (CJumpTrack +0x30 / +0x38, radians/s) and moves him `drift` (+0x2c) along his facing; `FallAction::vfunc_5`
+  0x134ee0 turns the fall's velocity (FallTrack +0x14 / +0x1c). The hooks scale those fields during the call (put back
+  after it) and then add a strafe through the character's displacement add (0x357a0): the stick's intention
+  (+0x2064, magnitude +0x2070) without its component along the facing in a jump, whole in a fall. Measured: a sprint
+  jump with the stick held right lands 19 units further right with Air Control III than without.
+
+### 12.2 The camera at speed
+
+No purchase: on whenever a traversal move of ours is under way (the sprint charging or coasting, or a jump or wall
+launch our hooks scaled, until the landing). The amount follows the Hulk's speed (0 at 20 u/s, the original sprint, 1
+at 36), eased in over 0.55 s and out over 0.9 s (smoothstep): at full the camera is 2 units further back along the
+view, 0.4 up and the field of view 10% wider.
+
+It is render-side without touching the backend: the logic view 0x4e231c (the camera-to-world matrix at +0x1c, the field
+of view at +0x5c, a stale flag at +0x6c) is what World::Render draws and culls with, and CCameraManager 0x9bb50 writes
+it from the game camera near the end of every UpdateSimulation. traversal.c changes it after the update (so culling
+matches the picture) and puts the original back before the next update (tutorial_skip.c's hook calls
+`hulk_wasm_traversal_pre_update`), so the audio listener (fed inside the update), ambient despawn, object streaming,
+the scripts and the chase camera itself only ever see the game's camera. Checked: the same scripted run with the
+pull-back on and off (`HULK_TRAV_CAM=0`) gives the same game (truck positions, Hulk's path) and a camera further back.
+
+### 12.3 The charge-sprint glow
+
+The game's own jump-charge effect, for reference (look at it with Jump held): a pale green-white aura on Hulk's torso
+and fists with sparks drifting up, which swells into a full-body flash as the charge fills (holding Jump during a
+sprint shows it as a green rim around the body); at take-off gold-white light shafts trail straight down below him.
+
+The charge-sprint glow is built to read differently when both are on: warm (white-hot, orange, deep red) where the
+jump's is green and gold, low and behind where the jump's is on the body and below. While the sprint charges, and
+while it coasts on the charge, two ember ribbons trail from his feet along the path he ran (2.5 units long at no
+charge, 10 at full; white-hot at the heels to red at the tail), a pulsing ember bloom sits on each heel (the pulse
+quickens with the charge), fainter ribbons trail from the hips past half charge, and a ring of heat runs out along the
+ground each time the charge reaches a stage (a third, two thirds, full). It fades over 0.45 s when the sprint ends.
+
+Drawn like tutorial_skip.c's star: after World::Render (draw_distance.c's hook) through the game's pddi context, the
+device's `simple` shader with additive blend, depth-tested, no depth write. The trail (one position per update), its
+strength and the stage ring are kept per update from game state in `hulk_game_state`; drawing only reads them.
+`HULK_TRAV_GLOW=0` (tests) leaves it out.
+
+### 12.4 Trying them
+
+- Store: Traversal Moves On, then the Buy Menu: Wall Fling I-III and Air Control I-III after the §11 moves.
+- Developer mode (`developer=1` / `HULK_DEV=1`): **Force Wall Fling** and **Force Air Control** (Off / I / II / III;
+  `dev_fling`, `dev_air`) beside Force Charge Sprint and Force Mega Leap.
+- Tests: `HULK_TRAV_FORCE=C,J,W,A` (charge, leap, fling, air levels), `HULK_TRAV_CAM=0`, `HULK_TRAV_GLOW=0`,
+  `HULK_TRAV_LOG=2` (fling launches, landings with positions), `=3` (the camera's amount every update).
+
+### 12.5 Checks
+
+- play3 to 60,000 frames, null renderer, candidate vs control (HEAD's app) on one host: records identical.
+- Traversal on with every move forced to III: two runs of one `HULK_INPUT` script (sprint, charge, coast, jumps with
+  the stick held sideways) give identical game hashes every 10 frames to 3,500; `HULK_ROLLTEST=2750:3400` identical.
+- Metal shots (queue, mac2/studio): the glow alone, both glows overlapping, the camera on and off, and the fling at
+  levels 0 and III.
