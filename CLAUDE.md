@@ -734,6 +734,10 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   renderer (Metal vs d3d_null during loads): key boundaries by GameClock frame and poll, never SIM->frame. The replay
   clock stands still between GameClock updates; only a playthrough's own segments move it in a wait (20,000 reads, then
   1 ms a read), else Load Game freezes.
+  Rule 2 (20d163394, SEG1 trailer v2, per segment): the clock moves after a count of the recording's polls without an
+  update, never of clock reads (the game's d3d layer reads the clock at every present, so null and Metal counted
+  differently and play4 segment 1, rule 1, replays only with Metal past 64,475). `record` prints `frame X of Y` while it
+  catches up. play4 reaches outskirts_day (c02m01); no mission uses downtown_day (day = outskirts, dusk downtown = ch. 3).
   Build id (wver1): apps and APKs carry the short commit (`+dirty` for local builds with uncommitted host files or tools,
   `+N` for N queue overlay files): stdout `hulk-app: build <id>`, the window title, Info.plist, the APK's versionName and
   SetupActivity. `wasm_app.py build` writes it from HULK_BUILD_ID (wasm_build_run.py sets it) or git into
