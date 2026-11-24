@@ -695,6 +695,15 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   draw's own combiner on the CPU, and draws them after the ground draw (order 4); `shaders/rm_grass.sh` is the one grass
   test (the reflections' mask uses it). interp.cpp clears a recorded draw's `combinerKey` (`""`): a pass that needs it
   at 60/120 fps keeps keys by `combinerHash` from `packet`. Render-only animation takes `interp_display_time()`.
+  Frame budget (wperf1, docs/performance.md): the remastered defaults hold <=12 ms of GPU at 1280x960 on the M3 Air
+  (~7.5 ms now: TAA, Reflections Low, Render Scale Auto). Measure a pass by turning it off on a quiet laptop
+  (build/wperf1/scripts/meas.sh waits for quiet); rank passes by `HULK_<PASS>_AB`. bgfx's frame GPU timer reads ~1.8x
+  high (frames overlap) and its per-view timers are unusable on Metal; MSAA on the half-float scene multiplies every
+  full-screen pass. TAA (msaa value 1, taa.cpp) jitters scene draws in `late()` by each vertex program's clip rows; a pass
+  submitting its own draws from a draw hook after lighting (order > 10) consumes lighting's pending uniforms and textures:
+  submit from `late()` or at order < 10. Upscaler / Render Scale (upscale.cpp): Auto caps the scene at 1280x960 pixels
+  and FSR 1 brings it to the present (`hulk_gfx_sink_present_source`). The performance overlay uses sink overlay slot 1;
+  slot 0 stays movie.c's. MetalFX needs a bgfx patch (the app's command queue): the lane that owns the bgfx build does it.
   Build id (wver1): apps and APKs carry the short commit (`+dirty` for local builds with uncommitted host files or tools,
   `+N` for N queue overlay files): stdout `hulk-app: build <id>`, the window title, Info.plist, the APK's versionName and
   SetupActivity. `wasm_app.py build` writes it from HULK_BUILD_ID (wasm_build_run.py sets it) or git into
