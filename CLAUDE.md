@@ -650,6 +650,12 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   store-list hook 0x000c21b0 (front end, before any UpdateSimulation). CJumpAction::vfunc_7 0x18d40 returns false near
   the apex (FallAction takes over); a landing is the motion state (+0x140, 3 = Air) leaving Air. Test knobs
   `HULK_TRAV_FORCE=C,J`, `HULK_TRAV_TEST_XP=N`, `HULK_TRAV_LOG=1..3`.
+  Round two (wtrav2, docs/traversal.md §12): Wall Fling and Air Control take slots 0x2be-0x2c3 (0x2bb-0x2bd stay free;
+  the shipped moves end at 0x2ba). A picture-only camera change goes in the logic view 0x4e231c after UpdateSimulation
+  and is put back before the next (`hulk_wasm_traversal_pre_update`); never leave it changed across an update, or the
+  audio listener, despawn and streaming see it. Scripted traversal runs that must reach the same place need paced Metal
+  runs (`metal-input`): unpaced `input` runs reach gameplay at other frames. `HULK_TRAV_FORCE=C,J,W,A`,
+  `HULK_TRAV_CAM=0`, `HULK_TRAV_GLOW=0`.
   An orb is found by its mesh (prim buffer + texture) once a sprite + mesh pair was adjacent in either order: the game
   sorts blended draws back to front, so the pair is adjacent only in some frames (wpol1; `HULK_LIGHT_TRACE=a:b` logs each
   presented frame's orbs and lights). A runner pass's choice that depends on the presented frame goes in
