@@ -110,6 +110,7 @@ static const float k_air_strafe[4] = {0.0f, 5.0f, 8.0f, 11.0f};  /* units/s of s
 #define TRAIL_N 20                      /* positions kept (one per update) */
 #define GLOW_RISE 0.15f
 #define GLOW_FALL 0.45f
+#define GLOW_START (1.0f / 3.0f)       /* the charge it shows from: the first stage, 1 s of held trigger (user, 11-24) */
 
 /* the store */
 /* twelve spare CUnlockableMove slots (the shipped init.lua sets up none of 0x2bb..0x2c9): the first six (wtrav1) at
@@ -824,7 +825,7 @@ static int actor_pos(uint32_t ch, float out[3]) {
 static void glow_update(float dt) {
     if (!(dt > 0 && dt < 1)) dt = 0;
     uint32_t ch = g_tv.ch ? g_tv.ch : g_tv.glow_ch;
-    float target = g_on && g_tv.ch && controlled(g_tv.ch) ? g_tv.charge : 0;
+    float target = g_on && g_tv.ch && controlled(g_tv.ch) && g_tv.charge >= GLOW_START ? g_tv.charge : 0;
     if (target > 0) g_tv.glow_charge = target;
     if (g_tv.glow < (target > 0 ? 1.0f : 0.0f)) {
         g_tv.glow += dt / GLOW_RISE;

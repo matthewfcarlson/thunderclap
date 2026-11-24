@@ -548,8 +548,8 @@ and fists with sparks drifting up, which swells into a full-body flash as the ch
 sprint shows it as a green rim around the body); at take-off gold-white light shafts trail straight down below him.
 
 The charge-sprint glow is built to read differently when both are on: warm (white-hot, orange, deep red) where the
-jump's is green and gold, low and behind where the jump's is on the body and below. While the sprint charges, and
-while it coasts on the charge, two ember ribbons trail from his feet along the path he ran (2.5 units long at no
+jump's is green and gold, low and behind where the jump's is on the body and below. Once the sprint has charged to its first stage (a third: 1 s of held trigger; it
+used to start at once), and while it coasts on the charge, two ember ribbons trail from his feet along the path he ran (2.5 units long at no
 charge, 10 at full; white-hot at the heels to red at the tail), a pulsing ember bloom sits on each heel (the pulse
 quickens with the charge), fainter ribbons trail from the hips past half charge, and a ring of heat runs out along the
 ground each time the charge reaches a stage (a third, two thirds, full). It fades over 0.45 s when the sprint ends.
