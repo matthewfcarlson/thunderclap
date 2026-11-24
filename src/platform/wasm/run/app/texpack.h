@@ -26,6 +26,8 @@ void texpack_mean_created(uint32_t vid, const hulk::pddi::SinkTextureDesc& desc)
 void texpack_mean_level0(uint32_t vid, uint32_t w, uint32_t h, const void* data, uint32_t size);
 // rgb: the mean colour premultiplied by alpha, a: the mean alpha (false: not known)
 bool texpack_mean(uint32_t ordinal, float out[4]);
+// wlook4: the mean alpha of a small texture with partial alpha on a 16 x 16 grid (row 0 the top; false: none known)
+bool texpack_alpha_grid(uint32_t ordinal, uint8_t out[256]);
 
 // ---- shared with meshpack.cpp (model overrides)
 uint64_t texpack_xxh64(const void* p, size_t n);

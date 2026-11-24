@@ -1464,6 +1464,13 @@ std::unordered_map<uint32_t, std::array<float, 4>>& means()
     static std::unordered_map<uint32_t, std::array<float, 4>> m;
     return m;
 }
+// wlook4: a 16 x 16 grid of the mean alpha of the small textures that have some (the facades' glass masks: the shop
+// fronts' light spill, nightlights.cpp), by ordinal
+std::unordered_map<uint32_t, std::array<uint8_t, 256>>& alphaGrids()
+{
+    static std::unordered_map<uint32_t, std::array<uint8_t, 256>> m;
+    return m;
+}
 } // namespace
 
 void texpack_mean_created(uint32_t vid, const SinkTextureDesc& desc)
@@ -1493,6 +1500,29 @@ void texpack_mean_level0(uint32_t vid, uint32_t w, uint32_t h, const void* data,
     }
     double n = img.empty() ? 1.0 : (double)img.size();
     means()[m.ordinal] = {(float)(s[0] / n), (float)(s[1] / n), (float)(s[2] / n), (float)(s[3] / n)};
+    if (m.format != kSinkBC1 && s[3] / n < 0.995 && w >= 4 && h >= 4 && img.size() == (size_t)w * h) {
+        uint32_t sum[256] = {}, cnt[256] = {};
+        for (uint32_t y = 0; y < h; y++)
+            for (uint32_t x = 0; x < w; x++) {
+                uint32_t c = (y * 16 / h) * 16 + x * 16 / w;
+                sum[c] += img[(size_t)y * w + x].a, cnt[c]++;
+            }
+        std::array<uint8_t, 256> g;
+        for (int c = 0; c < 256; c++)
+            g[c] = cnt[c] ? (uint8_t)(sum[c] / cnt[c]) : 255;
+        alphaGrids()[m.ordinal] = g;
+    } else {
+        alphaGrids().erase(m.ordinal);
+    }
+}
+
+bool texpack_alpha_grid(uint32_t ordinal, uint8_t out[256])
+{
+    auto it = alphaGrids().find(ordinal);
+    if (!ordinal || it == alphaGrids().end())
+        return false;
+    memcpy(out, it->second.data(), 256);
+    return true;
 }
 
 bool texpack_mean(uint32_t ordinal, float out[4])

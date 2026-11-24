@@ -48,9 +48,10 @@ low-passed, colours of all of them.
 ### How they light the world (tiled forward lighting)
 
 Each presented frame, at its first room draw (when the camera is known), the lights in the view frustum are sorted by
-`brightness x radius / (distance + 4)` and the first 128 (64 on Android) are written to a 64 x 64 RGBA32F texture: two
-texels a light (camera-space position and radius, colour and kind), then a per-screen-tile index (tiles of 32 pixels or
-more, at most 32 x 32 tiles; 16 lights a tile, 8 on Android): each light's sphere is projected to a screen rectangle and
+`brightness x radius / (distance + 4)` and the first 128 (64 on Android) are written to a 64 x 64 RGBA32F texture: three
+texels a light (camera-space position and radius, colour and kind, a spot's direction or a shop front's axis: wlook4),
+then a per-screen-tile index (tiles of 32 pixels or more, at most 32 x 32 tiles and as many as the texture holds; 24
+lights a tile, 8 on Android; 16 before wlook4): each light's bounding sphere is projected to a screen rectangle and
 added to the tiles it covers. The per-pixel lighting (lighting.cpp, fs_px_stage.sh) reads the pixel's tile
 (`gl_FragCoord`) and sums its lights: a smooth falloff to zero at the radius with an inverse-square shape near the
 light, a wrapped N.L, and for static lights (lamps) most of the light downwards (30% sideways), so a lamp makes a pool on
@@ -132,14 +133,75 @@ glow stays at half). Draw Distance is untouched.
   in-scatterings) blended into the scene target (per sample under MSAA, most of its cost here) and a few ALU ops in the
   sky's own draw: Deck ~0.6 ms, Android ~0.8-1 ms (without MSAA there). Both fit the budgets of docs/look.md section 3.
 
-## 4. Not done yet
+## 4. Shop fronts and headlights (wlook4)
 
-- **Window light spill.** Lit windows and shop fronts are painted into the facades (wlook0's window-light layer) and
-  light nothing yet: the night lights come only from the game's glows. A next step: virtual lights along the base of
-  `layeredReflect` facades where the window-light layer is bright (from a CPU-side mean of that layer per texture tile),
-  or a screen-space spill from the emissive pixels onto nearby ground.
-- **Headlight cones.** Vehicle lights light the road as points (moving lights, half strength); a cone along the car's
-  heading (from its modelview) would throw the beam forward.
+Round 2 of the night lights (the reference: open-world superhero games' night city, general techniques only): the
+light that lit shop windows and lobbies throw onto the sidewalks, and cars' headlights on the road ahead. Both are
+more lights in the same tiled list, so every per-pixel program (the world's opaque draws, characters, cars, grass)
+takes them as before, and nothing samples noise: they are analytic, the same with MSAA or no anti-aliasing as with TAA.
+The light record has a third texel now (rm_city.sh: 3 texels a light; up to 24 lights a tile, 8 on Android).
+
+### Shop fronts (a segment light along a facade's foot)
+
+- **Where.** A building draw (`layeredReflect` with its faithful combiner, whose facade alpha is 0 on the glass:
+  docs/look.md 5.1) is read once per prim buffer pair from the buffers the runner already sees written (nightlights.cpp
+  keeps the positions and two uv sets of buffers written once, and the index buffers): every wall triangle (normal
+  within 0.2 of horizontal) whose two lowest corners lie at the buffer's foot gives its bottom edge, split into pieces
+  of at most 10 units. A piece is a shop front when the band 0.6-2.2 units above it is glass: the facade texture's
+  alpha (texpack.cpp now keeps a 16 x 16 grid of the mean alpha of every small texture with partial alpha:
+  `texpack_alpha_grid`), sampled through the stage's own texture coordinates and transform at points a unit apart.
+  Pieces of one place found in two draws count once.
+- **On the street.** The walls' feet are kept on a 4-unit grid; a shop front whose foot is more than a unit above the
+  lowest foot within 8 units stands on an upper section of its building, not on the street, and is left out. (Rooftop
+  structures with glass at their foot, as on play3's roofs at 15,000, count: they read as lit roof rooms.)
+- **Lit and colour** by the piece's place (a hash of its position, stable across frames, reloads and rollbacks): 72%
+  lit; warm 2,700-3,000 K interiors most often, a neutral white, a cool white, now and then a pink or cyan neon tint
+  (the interiors' palette, fs_rm_window.sc's `winKelvin`), scaled by the piece's share of glass.
+- **The light** is a segment along the facade 1.7 units up: the falloff from the segment's nearest point (radius 9),
+  soft over 2 units past each end so the pieces of one facade join without a seam, strongest out of the facade (a
+  wall beside it takes 30%), with the night lights' wrapped N.L. Within 80 units of the camera, fading out over the
+  last 28; the 56 strongest (20 on Android) of the frame's view compete with the lamps for the 128 (64) places.
+  Shop fronts do not scatter in the mist.
+
+### Headlights and tail lights (spots)
+
+- **Cars** are lit opaque draws of the world pass whose prim buffer's box, through the draw's modelview, is car-sized
+  (one model axis up, 2.8-9 units long, 1.1-3.6 wide, under 4 high; the body is the biggest of a car's parts): its
+  length axis in world space. play3's cars are `simple` lit draws with their length along model x.
+- **The game draws tail light glows but no headlight glows.** A red glow at one end of a car is a tail light: a spot
+  shining backwards (radius 7, a hemisphere, red); its headlight is synthesised at the car's other end, mirrored
+  through the car's middle: a warm white cone (radius 22, outer cosine 0.8, tilted 0.1 down) lighting the road ahead.
+  So a car with its lights on (moving traffic, the parked police cars) has headlights, a car without tail glows none.
+  A white glow at a car's end (none in play3) would be a headlight itself. A light that leaves its car keeps its
+  direction from its own motion near the street (headlights forwards, tail lights backwards); moving lights are matched
+  across frames where their motion puts them.
+- **In the mist** (Atmosphere Enhanced) a spot scatters as the glare where the view ray passes the lamp facing it, and
+  as a beam where the ray crosses the cone's axis (a gaussian across the cone widening with distance, fading to its
+  end): headlight beams in the night air.
+
+### Results, checks and cost
+
+- **Pictures** (queue Metal, mac2, the player's settings: MSAA 2x, render 1080, FSR 1, aspect 4:3, every remastered
+  option on; build/wlook4/m, never committed). Shop fronts: warm pools on the paving and lawns before lit lobbies and
+  shop windows and a glow up the wall under a lit window band (16,500, 22,200), a warm spill before a rooftop
+  structure's lit shutters (15,000). Headlights: the police cars at the crossing (20,500) throw beams on the road ahead
+  of them; a car parked behind a barrier (22,200) lights the barrier. Day frames unchanged.
+- **Game state**: play3:2000 with the candidate against its control: records identical (test 111970, mac2).
+- **Cost** (`HULK_NIGHT_AB=30`, the whole pass off and on in turns within one run, see the table in section 3 for the
+  method), studio, the player's
+  settings at 1280x960, candidate and control in one job (111977): over the night city (game frames ~15,000-24,600,
+  from the cumulative cost lines) the Night Lights pass costs 0.63 ms of bgfx GPU time a frame with shop fronts and
+  headlights against 0.32 ms before (+0.31 ms; bgfx's frame timer reads ~1.8x high, docs/performance.md); over the
+  whole run (day included) 0.29 against 0.15 ms. The render thread is unchanged (the shop fronts are read once per
+  building buffer; placing them is a loop over the known ones, ~1,800 in the city). On the M3 Air that is roughly
+  +0.5-1 ms on the ~7.5 ms remastered frame, inside the 12 ms budget; Deck/Android pay for at most 8 more light
+  evaluations a pixel where shop fronts and headlights cover a tile (Android keeps 8 a tile, 20 shop fronts).
+
+## 5. Not done yet
+
+- **Upper floors.** Only shop fronts at the street spill light; lit offices above light nothing (their spill would
+  reach only roofs and the facade itself).
+- **Cars without tail glows** (parked with their lights off, or a model the game gives none) get no headlights.
 - **Volumetric shafts.** The lamps' in-scattering is unshadowed (a glow volume, not shafts); froxel shafts are left out
   for cost (Deck and Android).
 - **The moon** sits at the key light, which in play3's city is high (54 degrees): rarely in view. Dusk and day
@@ -147,10 +209,13 @@ glow stays at half). Draw Distance is untouched.
 - The sky dome is found by shape; a location whose dome is not a shader-kind-0 mesh around the camera keeps the game's
   sky (the air pass then treats view depth beyond 600 units as sky).
 
-## 5. Knobs (development)
+## 6. Knobs (development)
 
 - `HULK_NIGHT=strength,radiusScale,minRadius,maxRadius,dayStrength` (1.4, 9, 10, 30, 0); `HULK_NIGHT_LOG=1` (sources,
-  lights placed, cache, night estimate, fog colour every 300 frames); `HULK_NIGHT_DUMP=a:b[:path]` (every source of
+  lights placed, shop fronts and vehicle lights among them, cars a frame, cache, night estimate, fog colour, and the
+  shop fronts' reading and placing counts every 300 frames); `HULK_NIGHT_SHOPS=strength,radius,far,lit,height` (1.8, 9,
+  80, 0.72, 1.7); `HULK_NIGHT_CARS=headStrength,headRadius,headCos,headTilt,tailStrength,tailRadius` (0.6, 22, 0.8, 0.1,
+  0.6, 7); `HULK_NIGHT_DUMP=a:b[:path]` (every source of
   presented frames a..b); `HULK_NIGHT_AB=N` (cost turns).
 - `HULK_ATMOS=sky,stars,horizon,fogNight,fogDay,falloff,aerial,lamps` (1, 1, 0.5, 0.006, 0.003, 0.04, 0.0006, 0.035);
   `HULK_ATMOS_LOG=1`; `HULK_ATMOS_DUMP=a:b[:path]` (the draws before each frame's first room draw: the sky's
