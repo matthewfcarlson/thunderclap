@@ -690,6 +690,11 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   chosen by their world-space centre; shops and lobbies sit within 4.5 units of the lowest building foot drawn lately.
   Colour Grade (`grade`, `rm::kGrade`) runs only inside HDR's tone map (`rm::gradeConstants`); clamp channels at 0
   before any curve that divides. `HULK_GFX_WINDOW=1280x960` makes `HULK_GFX_SHOT_GAME` captures 1280x960.
+  Grass (wgrass1, docs/grass.md): run/app/grass.cpp classifies textures (worker thumbnails), keeps room prim buffers
+  (rm hooks `indices`, `textureCreated/Level/Dropped`), strews level ground draws with instanced clumps through the
+  draw's own combiner on the CPU, and draws them after the ground draw (order 4); `shaders/rm_grass.sh` is the one grass
+  test (the reflections' mask uses it). interp.cpp clears a recorded draw's `combinerKey` (`""`): a pass that needs it
+  at 60/120 fps keeps keys by `combinerHash` from `packet`. Render-only animation takes `interp_display_time()`.
   Build id (wver1): apps and APKs carry the short commit (`+dirty` for local builds with uncommitted host files or tools,
   `+N` for N queue overlay files): stdout `hulk-app: build <id>`, the window title, Info.plist, the APK's versionName and
   SetupActivity. `wasm_app.py build` writes it from HULK_BUILD_ID (wasm_build_run.py sets it) or git into
