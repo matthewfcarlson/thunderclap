@@ -718,6 +718,14 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   SetupActivity. `wasm_app.py build` writes it from HULK_BUILD_ID (wasm_build_run.py sets it) or git into
   app-gen/hulk_build_id.h, so only the runner recompiles; bundle and apk read it from the binary's `HULK_BUILD_ID=` tag.
   Host-only: never put it in module memory or menus.
+  The Linux app (wlinux1, docs/wasm-port.md "The Linux app"): `tools/wasm_linux.py prep|pack` on the Mac (wasm2c,
+  SPIR-V shaders), then `sdl|bgfx|build` in a container on the Linux host (never packages in the host OS) and `bundle --out
+  DIR --with-game PACK` (hulk-app needs only libc/libm; resources/game.hulkdisc; hulk.sh; .desktop). `<app dir>` on Linux is
+  $XDG_DATA_HOME/HulkUD or ~/.local/share/HulkUD; the renderer defaults to vulkan; movies load the system FFmpeg 8 by
+  soname unless the bundle's lib/ holds them. Linux x86-64 play3 null records equal macOS's (62,003 frames). Tests on a
+  player's device set their own HULK_APP_DIR/HULK_SAVE_DIR and leave the player's folder alone; with the screen off
+  (DPMS) KWin throttles presentation to ~20 Hz and never maps X11 windows: measure speed and test X11/Game Mode with
+  the screen on.
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
