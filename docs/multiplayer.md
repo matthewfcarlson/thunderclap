@@ -1093,3 +1093,98 @@ same update on every instance because it depends only on game state.
 - **Heap:** each extra Hulk is a full CCharacter and its components on the game heap; the cost on a full city level is
   not measured yet (the heap has little margin: watch for the out-of-memory spin 0x0008d320).
 - **Free roam and enemies** need a scripted run from a save past chapter 1.
+
+## 18. Online co-op: lobby, transport and joining a game (wnet1, D246, 2026-11-24)
+
+The network side of D246 (wcoop1's section 17 is the game side). Remaster-only; replays, playthroughs and every faithful
+run never start it (the module's hooks return at once under a recording, and nothing runs without a lobby).
+
+**Pieces.**
+
+- **Lobby: the netplay Worker** (`net/worker/`, section 3.1): rooms of up to three players, the host and two guests in a
+  star. Codes are 8 digits (a guest enters them with a gamepad, a digit a menu row). Not deployed: the user deploys
+  (below). `net/worker/test/local_server.mjs` runs the same Worker on a local port for tests.
+- **Transport: libjuice 1.7.4** (MPL-2.0, vendored unchanged in `src/platform/wasm/run/net/libjuice/`, pinned by the
+  release archive's sha256 in `run/app/netplay_juice_core.c`; compiled as four units of run/app, which every app build
+  tool already compiles: no tool change for macOS, Linux or Android). Why libjuice and not a TURN client of our own:
+  it is a whole ICE agent (a direct UDP path when the NATs allow, else the TURN relay), consent freshness and TURN
+  allocation refresh included, and is what libdatachannel users run against Cloudflare's TURN every day; our own
+  client would need long-term-credential TURN (MD5/HMAC-SHA1, nonces, refreshes, permissions, channels) plus
+  connectivity checks, about 1,500 lines nobody here can test against Cloudflare before the Worker is deployed. Its
+  server half doubles as the tests' local relay (`HULK_COOP_RELAY=PORT`). Size: ~10,000 lines of C, ~240 KB of
+  objects.
+- **The runner's session** (`run/app/netplay.cpp`, helpers `netplay_util.cpp`: HTTP by plain sockets for `http://`,
+  libcurl loaded at run time for `https://` on macOS and Linux, `HttpURLConnection` through JNI on Android
+  (`GameActivity.hulkHttp`; the manifest gains INTERNET); zlib loaded at run time). libjuice calls back on its own
+  thread with its lock held, so a callback only queues the event; the session's lock is never held by a callback.
+- **The module's side** (`src/platform/wasm/gfx/netplay.c`): hooks at GameClock::Update (replay.cpp), at every frame
+  end and at the scheduler's switch (sched.c), weak, so the headless module is unchanged.
+
+**Lockstep (delay-based; rollback stays the plan, section 2).** Keyed by presented frames (`SIM->frame`): at the end of
+frame F each peer publishes its own pad (the frame end's sample: the runner's controller, or HULK_INPUT) for frame
+F+1+D; the host gathers its own and each guest's pad for F+1 into the set for F+1 and sends it to every guest; every
+peer then plays frame F+1 with the set: slot k's pad goes in `SIM->pads[k]` (section 17: Hulk k), the host's in 0.
+A first version keyed the sets by GameClock updates: the pause menu and the front end read the pad with no update
+running, so their pads froze. Presents are counted alike by every peer with the same renderer class (the pddi front
+end of every real renderer, or every peer null), which the hello checks. D = round trip / 16.7 ms + 2 (2..12;
+`HULK_COOP_DELAY`), from the round trip measured before the first join. Pads and sets are sent redundantly until
+acknowledged (18 sets or 32 pads a datagram).
+
+**Joining a game in progress.** A connected guest says hello (protocol, the app's build id, a hash of the XBE); the host
+refuses another build or another game. At its next frame end (every fiber suspended) the host zeroes its free arena
+blocks (`ff_arena_scrub`: nothing reads a free block, the arena zeroes what it hands out; the snapshot compresses
+better and host and guest hold the same bytes), writes the playthrough snapshot (sched.c `ff_snap_write`), and the
+runner packs it with the host's save folder (T, U, Z; not port_settings.txt) and its settings, compresses it (zlib
+level 1) and streams it: paced by rate, 1.1 KB chunks, selective acknowledgements, the rate up 25% a round trip under
+3% loss and down 25% past 10% (random loss on a relay is not congestion). The guest writes the saves into a throwaway
+folder under its temp directory (removed when it quits), takes the host's settings for the session (never saved:
+the menus are game state too, and follow the host's presses), and puts the state back at one of its own frame ends
+(`ff_snap_read`; `ff_gfx_foreign_restore` first: another process's stamps say nothing about this runner's GPU
+objects). Both continue from the frame after the snapshot; the guest's own pads count from D frames later. Its
+local view becomes its own Hulk (`hulk_wasm_coop_set_local_view`).
+
+Two host-path leaks had to go for a state to move between machines: file records kept the host's path (an open
+archive restored on another machine pointed at the first machine's disc folder), so xapi.c now keeps the game's own
+path (`D:\art\...`) in the record and resolves it when it opens the host stream. Free-run game hashes no longer
+depend on the run's folders either.
+
+**Desync check.** Every `HULK_COOP_HASH_EVERY` frames (60) each guest sends a digest of the simulation and the host
+compares it with its own for that frame: the replay probe's tags (replay.cpp `ff_probe_digest`: flow, clock, RNG, the
+main actor, the logic view, every actor, the mission; taken at the last GameClock update). Not the whole state: peers
+whose pictures follow different Hulks differ in render bookkeeping (section 17), and a whole-state hash reported a
+false DESYNC within 60 frames of the extra Hulks' spawn. `HULK_COOP_HASH=state` compares the whole state (ff_game_hash's
+ranges, word-wise) for runs whose peers share a view. A difference ends that guest's session (it plays on alone) and
+is logged as `DESYNC`.
+
+**Leaving.** A guest silent for 10 s leaves the set from the next frame; when the last guest leaves the host plays on
+alone without delay, and a later guest starts a new session. When the host leaves, a guest plays on alone (nothing it
+saves is kept).
+
+**Menu (Gameplay Options; remastered only, never saved).** "Join Code 1".."Join Code 8" (a digit each) and "Online
+Co-op": Off, Host a Game, Join a Game. While co-op is on, the Online Co-op row's label shows the status: "Co-op: room
+1234 5678, waiting for players" / "..., 2 players" / "joining ..." / why it failed. In a session the label is set at
+the same update on every peer from what they all know (the code, how many play), so the menus stay equal. Launch
+options do the same: `--host`, `--join 12345678` (HULK_COOP_HOST=1, HULK_COOP_JOIN=CODE). The lobby server's URL is
+`HULK_NET_WORKER`, or the first line of `coop.txt` in the app folder.
+
+**Knobs (tests).** `HULK_COOP_CODE_FILE=F` (the host writes its code there), `HULK_COOP_JOIN=@F` (a guest reads it,
+waiting), `HULK_COOP_SHIM=seed=S,delay=MS,jitter=MS,loss=PCT` (a seeded impairment on every datagram this peer sends),
+`HULK_COOP_RELAY=PORT` + `HULK_COOP_RELAY_ONLY=1` (a local TURN relay in this process; only relayed candidates),
+`HULK_COOP_LOG=1|2|3`, `HULK_COOP_TMP=DIR`, `HULK_COOP_HASH_EVERY=N`, `HULK_COOP_DELAY=N`.
+
+**Tests.**
+
+- `tests/net/coop_loop.sh OUT [PEERS] [FRAMES] [SHIM] [RELAY]`: the runner's session without the game (a toy game
+  calling the same imports: updates on most frames, a 4 MB state, hashes), a local lobby, a host and one or two guests
+  joining mid-run; every peer's final state must agree. Passed on the laptop: 3 peers direct; 3 peers with 60 ms +
+  0-30 ms jitter and 3% loss each way (round trip ~160 ms, D = 7, the 1.7 MB join at ~1 MB/s); 3 peers through the
+  local TURN relay with 20 ms + 10 ms jitter and 1% loss.
+- `wasm_build_job.py ... --test coop:FRAMES[:PEERS[:SECOND_JOIN_S]]`: the app (null renderer) as a host (into the game
+  with HULK_INPUT, dev_coop_local=PEERS) and one or two guests with scripted pads of their own joining it on loopback;
+  every guest's game hashes from its join on must equal the host's at the same frames, no DESYNC. Results below.
+
+**Deploying the Worker (the user; after the employer check).** As section 3.1's steps: `cd net/worker && npm install`,
+`npx wrangler login`, `npx wrangler secret put TURN_KEY_ID`, `npx wrangler secret put TURN_KEY_API_TOKEN` (the values
+from the Cloudflare dashboard, Realtime > TURN; never in a file), check `vars` in wrangler.jsonc (ROOM_MAX_PLAYERS 3),
+`npx wrangler deploy`, then `curl -X POST https://hulk-netplay.<subdomain>.workers.dev/ice` should say
+`"turn":true`. Then put that URL in `coop.txt` in each player's app folder (or `HULK_NET_WORKER`).

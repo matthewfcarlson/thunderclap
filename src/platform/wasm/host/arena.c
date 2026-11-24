@@ -159,6 +159,22 @@ void ff_arena_free(void* p) {
     lower_bounds(a, h->size);
 }
 
+/* zero every free block's payload (wnet1: before a co-op snapshot is sent). Nothing reads a free block (an allocation
+ * zeroes what it hands out), so the game runs on as before; the snapshot compresses better (play4's 40 MB arena:
+ * 18.5 MB of zlib output before, 13.9 after) and the host and its guests then hold the same bytes. */
+uint32_t ff_arena_scrub(void) {
+    if (!SIM->arena_ready) return 0;
+    uint32_t n = 0, top = ff_arena_top();
+    for (uint32_t a = BASE; a < top && a < END; a += at(a)->size) {
+        hdr* h = at(a);
+        if (h->size < 16) break;
+        if (h->flags != FREE) continue;
+        uint32_t e = a + h->size < top ? a + h->size : top;
+        if (e > a + 16) memset((void*)(uintptr_t)(a + 16), 0, e - a - 16), n += e - a - 16;
+    }
+    return n;
+}
+
 uint32_t ff_arena_usable(void* p) {
     uint32_t a = real_block(p);
     return at(a)->size - ((uint32_t)(uintptr_t)p - a);

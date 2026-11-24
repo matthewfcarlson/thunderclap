@@ -79,4 +79,42 @@ public class GameActivity extends SDLActivity {
     protected String[] getLibraries() {
         return new String[] {"main"};
     }
+
+    // Online co-op's HTTP (wnet1; run/app/netplay_util.cpp android_http): the lobby server is https, and Android has no
+    // libcurl. Called from the runner's own threads; answers "STATUS\n" + body, or "0\n" + the error.
+    public static String hulkHttp(String method, String url, String body, String bearer, int timeoutMs) {
+        java.net.HttpURLConnection c = null;
+        try {
+            c = (java.net.HttpURLConnection) new java.net.URL(url).openConnection();
+            c.setConnectTimeout(timeoutMs);
+            c.setReadTimeout(timeoutMs);
+            c.setRequestMethod(method);
+            c.setRequestProperty("Content-Type", "application/json");
+            if (bearer != null && !bearer.isEmpty())
+                c.setRequestProperty("Authorization", "Bearer " + bearer);
+            if (!method.equals("GET") && !method.equals("DELETE")) {
+                c.setDoOutput(true);
+                byte[] b = body.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+                c.setFixedLengthStreamingMode(b.length);
+                try (java.io.OutputStream o = c.getOutputStream()) {
+                    o.write(b);
+                }
+            }
+            int status = c.getResponseCode();
+            java.io.InputStream in = status < 400 ? c.getInputStream() : c.getErrorStream();
+            java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
+            if (in != null) {
+                byte[] buf = new byte[8192];
+                for (int n; (n = in.read(buf)) > 0 && out.size() < (1 << 20);)
+                    out.write(buf, 0, n);
+                in.close();
+            }
+            return status + "\n" + out.toString("UTF-8");
+        } catch (Exception e) {
+            return "0\n" + e;
+        } finally {
+            if (c != null)
+                c.disconnect();
+        }
+    }
 }

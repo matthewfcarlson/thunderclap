@@ -255,6 +255,8 @@ int ff_snap_read(const char* path) {
 }
 void ff_playthrough_switch(void);       /* replay.cpp */
 int ff_playthrough_frame_end(void);
+int ff_coop_frame_end(void) __attribute__((weak));      /* gfx/netplay.c (the app): 1 = a co-op snapshot or restore */
+void ff_coop_switch(void) __attribute__((weak));
 
 static long roll_a = -1, roll_b;
 static int rolltest_on(void) {
@@ -342,6 +344,7 @@ __attribute__((noinline)) void ff_sched_loop(hfiber* f) {
         if (sj_mode) sj_step(f);
         rolltest();
         ff_playthrough_switch();
+        if (ff_coop_switch) ff_coop_switch();
         f = next_fiber;
     }
 }
@@ -482,7 +485,10 @@ void ff_sleep(uint32_t ms) {
  * never waits (the app's gameplay with a renderer: no fiber switch for thousands of frames) otherwise gives it no
  * point to snapshot at; the frame's end is also the one where the runner's GPU work of the frame is complete
  * (wroll1). Nothing the game reads changes (an unwind writes only the fiber's Asyncify buffer). */
-static void pt_frame_end(void* out) { *(int*)out = ff_playthrough_frame_end(); }
+static void pt_frame_end(void* out) {
+    *(int*)out = ff_playthrough_frame_end();
+    if (ff_coop_frame_end && ff_coop_frame_end()) *(int*)out = 1;
+}
 void ff_frame_checkpoint(void) {
     int pt = 0;
     ff_on_host_stack(pt_frame_end, &pt);    /* (host work: its bytes stay off the game's stacks) */

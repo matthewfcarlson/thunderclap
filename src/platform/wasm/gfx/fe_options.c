@@ -248,6 +248,30 @@ static void on_change(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     if (!strcmp(s->key, "texture_pack")) pack_status_show();
 }
 
+/* The Online Co-op row's label shows co-op's status instead of its name while co-op is on (wnet1; netplay.c calls this
+ * at each update with the text, "" when off): the place showing the row gets the text as written (0x000f8500 shows
+ * a text that is no string id as it is), and its name again when the text goes. In a session the text is made from
+ * what every peer knows alike and set at the same update everywhere, so the menu, which is game state, stays equal;
+ * the text last set is game state too (a guest takes the host's with its state). */
+GAME_STATE static char g_coop_label[96];
+void hulk_wasm_net_label(const char* text) {
+    if (!strncmp(text, g_coop_label, sizeof g_coop_label - 1) || g_busy) return;
+    snprintf(g_coop_label, sizeof g_coop_label, "%s", text);
+    int i = hulk_settings_find("coop");
+    for (int p = 0; p < NPLACE; p++) {
+        if (place_setting(p) != i || g_shown[p] != i) continue;
+        uint32_t sel = selector_of(p);
+        if (!sel) continue;
+        char id[64];
+        str_id(i, -1, id, sizeof id);
+        uint32_t* vft = (uint32_t*)PTR(*(uint32_t*)PTR(sel));
+        ff_call_this(0x000f8500u, sel + SEL_LABEL, 3, (uint32_t)(uintptr_t)(g_coop_label[0] ? g_coop_label : id),
+                     ff_call(0x000fc1b0u, 0), 1);
+        ff_call_this(vft[3], sel, 0);
+        ff_call_this(vft[0], sel, 0);
+    }
+}
+
 void ffgo_000df9e0(uint32_t, uint32_t, void*, void*);   /* the game's int-callback lookup (the hook's original) */
 void ffh_hulk_app_fe_callback(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     const char* name = ARG(0) ? (const char*)PTR(ARG(0)) : 0;

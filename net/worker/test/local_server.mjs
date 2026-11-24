@@ -1,5 +1,5 @@
 // The netplay Worker on a local port, in plain node (no wrangler, no network): for the game's co-op tests.
-//   node net/worker/test/local_server.mjs [--port 8787] [--turn turn:127.0.0.1:3479 --user U --pass P]
+//   node net/worker/test/local_server.mjs [--port 8787] [--turn turn:127.0.0.1:3479 --user U --pass P] [--log]
 // Durable Objects are the in-memory stubs of worker_test.mjs (state lives in this process only). /ice answers
 // with the given TURN server (a local relay, e.g. the runner's `HULK_COOP_TURN_SERVER` test relay) or, without
 // --turn, with no servers at all (host candidates only: loopback and LAN). Prints "listening <port>" when ready.
@@ -15,6 +15,7 @@ const opt = (name, dflt) => {
 };
 const port = Number(opt("--port", "8787"));
 const turn = opt("--turn", null);
+const log = args.includes("--log");     // (one line a request)
 
 class MemStorage {
   constructor() { this.map = new Map(); this.alarmAt = null; }
@@ -63,6 +64,7 @@ const server = http.createServer(async (req, res) => {
     }), env);
   }
   const out = Buffer.from(await r.arrayBuffer());
+  if (log) console.log(`${new Date().toISOString()} ${req.method} ${req.url} ${r.status} ${(req.headers.authorization || "").slice(7, 13)} ${req.socket.remotePort}${r.status >= 400 ? " " + out : ""}`);
   res.writeHead(r.status, { "Content-Type": "application/json", "Content-Length": out.length });
   res.end(out);
 });

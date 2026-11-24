@@ -10,7 +10,7 @@
 //
 // Routes (all JSON; errors are {error: "..."} with a 4xx/5xx status):
 //   POST /ice  (alias /turn)     -> {iceServers:[{urls:[...], username?, credential?}], ttl, turn, note?}
-//   POST /rooms                  {settings?}  -> 201 {code, token, role:"host", slot:0, maxPlayers, expiresAt}
+//   POST /rooms                  {settings?}  -> 201 {code (8 digits), token, role:"host", slot:0, maxPlayers, expiresAt}
 //   POST /rooms/<code>/join      {}           -> 200 {token, role:"guest", slot, gen, maxPlayers, settings, expiresAt}
 //                                                (409 when full)
 //   POST /rooms/<code>/settings  {settings}   (host) -> {ok:true}
@@ -35,9 +35,10 @@
 const CF_TURN_API = "https://rtc.live.cloudflare.com/v1/turn/keys/";
 const STUN_ONLY = [{ urls: ["stun:stun.cloudflare.com:3478"] }];
 
-// a code: 6 characters from 29 that are hard to mistake for each other (no 0/O, 1/I/L, U/V)
-const CODE_ALPHABET = "23456789ABCDEFGHJKMNPQRSTWXYZ";
-const CODE_LEN = 6;
+// a code: 8 digits (wnet1): a guest enters it with a gamepad, a digit a menu row (no keyboard on a handheld), and
+// it reads out easily ("1234 5678"); 10^8 codes against at most a few thousand live rooms
+const CODE_ALPHABET = "0123456789";
+const CODE_LEN = 8;
 const CODE_RE = new RegExp(`^[${CODE_ALPHABET}]{${CODE_LEN}}$`);
 const TOKEN_RE = /^[0-9a-f]{32}$/;
 
@@ -244,7 +245,7 @@ async function createRoom(request, env) {
   if (bad) return fail(400, bad);
   const quota = await counter(env, "rooms", num(env, "ROOM_DAILY_CAP"));
   if (!quota.ok) return fail(429, "the daily room cap is reached: try again after 00:00 UTC");
-  for (let i = 0; i < 5; i++) {   // a taken code is rare (29^6 ~ 595 million); try a few
+  for (let i = 0; i < 5; i++) {   // a taken code is rare (10^8); try a few
     const code = newCode(), token = randomHex(16);
     const r = await roomCall(env, code, "init", { token, settings: b.settings ?? null });
     if (r.status !== 409) return r;

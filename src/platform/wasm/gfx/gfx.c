@@ -260,7 +260,11 @@ static void remake(uint32_t v) {
     }
     v_sent(v);
 }
-static int v_same(uint32_t v) { return hs[v].kind == vt[v].kind && hs[v].stamp == vt[v].stamp; }
+/* a restore of another process's state (a co-op guest taking the host's, netplay.c): its stamps say nothing about what
+ * this runner holds, so every object is made again */
+static int g_foreign;
+void ff_gfx_foreign_restore(void) { g_foreign = 1; }
+static int v_same(uint32_t v) { return !g_foreign && hs[v].kind == vt[v].kind && hs[v].stamp == vt[v].stamp; }
 static uint32_t n_restores;
 extern unsigned int hulk_native_frame_no;
 int hulk_wasm_frame_rate(void);
@@ -282,6 +286,7 @@ void ff_gfx_restored(void) {
             remade++;
         }
     gi_discontinuity();      /* (the runner draws the next frame without interpolating from the dropped timeline) */
+    g_foreign = 0;
     n_restores++;
     if (getenv("HULK_GFX_ROLL_LOG"))
         fprintf(stderr, "gfx: restore %u: %u sink objects dropped, %u made again (frame rate %d)\n", n_restores,

@@ -46,5 +46,7 @@ int hulk_setting_listed(int i);                   /* 1: setting i has a menu ite
                                                      developer mode) */
 int hulk_developer_mode(void);                    /* developer=1 in the file or HULK_DEV=1 (wdev1) */
 void hulk_settings_load(void);                    /* once; every accessor calls it */
+int hulk_settings_line(char* buf, int cap);       /* co-op (wnet1): every row's value as "key=value,..." */
+void hulk_settings_session(const char* line);     /* co-op guest: take the host's values for the session, unsaved */
 
 #endif

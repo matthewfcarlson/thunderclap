@@ -405,6 +405,34 @@ static void ckref_frame(u32 fno, const HulkCkptState* st, const unsigned char* p
     out_write(g_ckref, out, 4 * n);
 }
 
+// the semantic probe's every tag as one 64-bit digest (wnet1: co-op peers compare it, gfx/netplay.c): what the replay
+// records hold (the flow, clock, RNG, the main actor, the logic view, every actor, the mission), not render
+// bookkeeping, which differs between co-op peers whose pictures follow other Hulks. At GameClock::Update's entry.
+extern "C" uint64_t ff_probe_digest(u32 clock) {
+    HulkProbeInputs in;
+    memset(&in, 0, sizeof(in));
+    unsigned char pb[HULK_PRNG_BYTES];
+    memcpy(pb, PTR(0x00554be4u), HULK_PRNG_BYTES);
+    in.rng = PTR(0x004e5ad0u);
+    in.boot_step = PTR(0x0049fb40u);
+    in.view_ptr = (const void* const*)PTR(0x004e231cu);
+    in.clock = PTR(clock);
+    in.clock_at_entry = 1;
+    in.prng = pb;
+    in.snd_rng = g_snd_rng;
+    in.snd_rand = &g_snd_rand;
+    in.world_ptr = (const void* const*)PTR(0x004dd700u);
+    in.actor_of = probe_actor_of;
+    in.position_of = probe_position_of;
+    HulkProbeRecord rec;
+    hulk_probe_frame(g_frame_no, &in, HULK_PROBE_CHEAP_MASK | HULK_PROBE_FULL_MASK, &rec, 0, 0);
+    u64 h = 0xcbf29ce484222325ull;
+    for (int t = 0; t < HULK_PT_COUNT; t++)
+        if ((rec.mask >> t & 1) && !(rec.unavailable >> t & 1))
+            h = (h ^ ((u64)t << 32 | rec.exact[t])) * 0x100000001b3ull;
+    return h;
+}
+
 static unsigned logged, bad;     // (frame()'s log counts: kept by playthrough snapshots)
 static void frame(u32 clock) {
     g_frame_no++;
@@ -461,9 +489,12 @@ extern "C" uint32_t ff_replay_frame(void) { return g_frame_no; }
 extern "C" void ff_replay_log(const char* line) { log_line("%s", line); }
 
 // entry 0x00086450 GameClock::Update (`this` in ecx): the drives settle (lockstep I/O), then the checkpoint
+extern "C" void ff_coop_update(u32 clock) __attribute__((weak));   // gfx/netplay.c (the app): co-op's label, digest
 FFH(hulk_nhook_clock_update) {
     ff_io_main_sleep();
     frame(ecx);
+    if (ff_coop_update)
+        ff_coop_update(ecx);
     ffgo_00086450(ecx, edx, st, rb);
 }
 

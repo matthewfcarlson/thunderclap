@@ -4,7 +4,10 @@
  * Threads and fibers are cooperative (sched.c): one runs at a time and switches only where the game waits, sleeps or
  * switches fibers, so a run is deterministic. Kernel objects (files, threads, semaphores, events, heaps) are records
  * in the sim block, addressed by handle; a file's host stream is a cache the host reopens from the record's path and
- * position, so the game state is in linear memory. */
+ * position, so the game state is in linear memory. A record keeps the game's own path ("D:\\art\\x.rcf"), never the
+ * host's (wnet1): the state is then the same on every machine, whatever its disc and save folders, so a co-op guest
+ * can take the host's state (its open archives resolve to the guest's own disc) and game hashes compare across
+ * folders. */
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -102,14 +105,20 @@ int ff_host_path(const char* game, char* out, size_t cap) {
 }
 
 /* ------------------------------------------------------------------------------------------- files */
-/* the host files behind file records: a cache (reopened from the record's path when missing); fd + 1, 0 = none */
+/* the host files behind file records: a cache (reopened from the record's game path when missing); fd + 1, 0 =
+ * none; stream_host: the host path it was opened from (host state) */
 static int32_t streams[MAX_OBJS];
+static char stream_host[MAX_OBJS][sizeof SIM->objs[0].path + 256];
 
 static int32_t stream(uint32_t h, hulk_obj* o) {
     uint32_t i = (h - HANDLE_BASE) / 4;
-    if (!streams[i]) streams[i] = hio_open(o->path, o->writable ? HIO_RDWR : HIO_READ) + 1;
+    if (!streams[i]) {
+        if (!ff_host_path(o->path, stream_host[i], sizeof stream_host[i])) stream_host[i][0] = 0;
+        streams[i] = hio_open(stream_host[i], o->writable ? HIO_RDWR : HIO_READ) + 1;
+    }
     return streams[i] - 1;
 }
+static const char* stream_path(uint32_t h) { return stream_host[(h - HANDLE_BASE) / 4]; }
 
 /* a restored snapshot (sched.c HULK_ROLLTEST): the cache may name files of other records; reopen as needed */
 void ff_files_flush(void) {
@@ -152,7 +161,7 @@ FFG(002109f1) {         /* CreateFileA(path, access, share, sa, disposition, fla
     }
     uint32_t h = ff_new_obj(OBJ_FILE);
     hulk_obj* o = ff_obj(h);
-    snprintf(o->path, sizeof o->path, "%s", host);
+    snprintf(o->path, sizeof o->path, "%s", game);         /* (the game's path: see the top) */
     o->writable = (access & GENERIC_WRITE) != 0;
     o->pos = 0;
     set_error(exists && (disp == OPEN_ALWAYS || disp == CREATE_ALWAYS) ? 183 : 0);
@@ -166,7 +175,7 @@ int32_t ff_overlay_read(const char* path, int32_t fd, void* buf, uint32_t n, uin
 
 static uint32_t file_size(uint32_t h, hulk_obj* o) {
     int32_t f = stream(h, o);
-    int64_t ov = f >= 0 && ff_overlay_size ? ff_overlay_size(o->path, f) : -2;
+    int64_t ov = f >= 0 && ff_overlay_size ? ff_overlay_size(stream_path(h), f) : -2;
     if (ov >= 0) return (uint32_t)ov;
     return f < 0 ? 0 : hio_size(f);
 }
@@ -176,7 +185,7 @@ FFG(0020ff8d) {         /* ReadFile(h, buf, n, done, overlapped) */
     hulk_obj* o = ff_obj(ARG(0));
     if (!o || o->kind != OBJ_FILE) { set_error(6); RET(0); return; }
     int32_t f = stream(ARG(0), o);
-    int32_t got = f >= 0 && ff_overlay_read ? ff_overlay_read(o->path, f, PTR(ARG(1)), ARG(2), o->pos) : -2;
+    int32_t got = f >= 0 && ff_overlay_read ? ff_overlay_read(stream_path(ARG(0)), f, PTR(ARG(1)), ARG(2), o->pos) : -2;
     if (got == -2) got = f < 0 ? -1 : hio_read(f, PTR(ARG(1)), ARG(2), o->pos);
     if (got > 0) o->pos += (uint32_t)got;
     if (ARG(3)) *(uint32_t*)PTR(ARG(3)) = got > 0 ? (uint32_t)got : 0;
@@ -520,22 +529,23 @@ FFG(00212143) {         /* XCalculateSignatureEnd(handle, 20 bytes out) -> error
     RET(0);
 }
 /* XFindFirstSaveGame / XFindNextSaveGame: the save folders of the root in name order (the host's listing order is
- * not the game's to depend on); a search is a kernel record holding the root's host path and the next index. The
+ * not the game's to depend on); a search is a kernel record holding the root's game path and the next index. The
  * find data (0x344 bytes): WIN32_FIND_DATA (attributes, zero times, the folder's name at +44), the folder's path
  * "U:\<folder>\" at +0x140, the save's name (UTF-16) at +0x244. */
 static int name_cmp(const void* a, const void* b) { return strcmp(*(const char* const*)a, *(const char* const*)b); }
 static int save_next(hulk_obj* o, uint32_t data) {
-    char names[8192];
+    char names[8192], root[sizeof o->path + 256];
     const char* sorted[256];
-    uint32_t need = hio_list(o->path, names, sizeof names), n = 0;
+    if (!ff_host_path(o->path, root, sizeof root)) return 0;
+    uint32_t need = hio_list(root, names, sizeof names), n = 0;
     for (uint32_t k = 0; k < need && k < sizeof names && n < 256;) {
         sorted[n++] = names + k;
         k += (uint32_t)strlen(names + k) + 1;
     }
     qsort(sorted, n, sizeof sorted[0], name_cmp);
     for (; o->pos < n; o->pos++) {
-        char host[sizeof o->path + 64];
-        snprintf(host, sizeof host, "%s/%s", o->path, sorted[o->pos]);
+        char host[sizeof root + 64];
+        snprintf(host, sizeof host, "%s/%s", root, sorted[o->pos]);
         uint16_t name[SAVE_NAME_CHARS];
         if (hio_kind(host) != HIO_DIR || !save_name_of(host, name, SAVE_NAME_CHARS)) continue;
         if (data) {
@@ -558,7 +568,7 @@ FFG(003564c0) {         /* XFindFirstSaveGame(root, find data) -> handle; -1 and
     game[0] = letter;
     uint32_t h = ff_new_obj(OBJ_SAVE_FIND);
     hulk_obj* o = ff_obj(h);
-    ff_host_path(game, o->path, sizeof o->path);
+    snprintf(o->path, sizeof o->path, "%s", game);
     o->count = letter;                          /* the root's drive letter (the record's count word) */
     o->pos = 0;
     if (!save_next(o, ARG(1))) { o->kind = 0; set_error(18); RET(INVALID_HANDLE); return; }

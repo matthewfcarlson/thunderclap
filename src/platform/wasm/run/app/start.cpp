@@ -356,12 +356,14 @@ static bool inPlayerFolder(const char* path)
 extern "C" void hulk_app_movie_quit(void);     // run/app/movie.c
 extern "C" void hulk_app_audio_quit(void);     // run/app/audio.cpp
 extern "C" int hulk_app_pad_stop(unsigned wait_ms);     // run/app/input.cpp
+extern "C" void hulk_coop_quit(void);          // run/app/netplay.cpp
 extern "C" void hulk_app_quit(int code)
 {
     static bool once;
     if (once)
         return;
     once = true;
+    hulk_coop_quit();           // (the guests get the last sets; a guest's throwaway save folder goes)
     hulk_app_movie_quit();
     hulk_app_audio_quit();
     // a controller thread stuck in SDL's gamepad init holds SDL's joystick lock, which SDL_Quit would wait on forever
@@ -388,6 +390,15 @@ extern "C" void hulk_app_start(int* argc, char** argv)
         choose = true;
         for (int i = 1; i < *argc; i++) argv[i] = argv[i + 1];
         (*argc)--;
+    }
+    // online co-op (wnet1, run/app/netplay.cpp): `--host` makes a room as the game starts, `--join CODE` joins one (the
+    // same as HULK_COOP_HOST=1 / HULK_COOP_JOIN=CODE; the Co-op menu row does it from the game)
+    while (*argc > 1 && (!strcmp(argv[1], "--host") || (!strcmp(argv[1], "--join") && *argc > 2))) {
+        int n = argv[1][2] == 'h' ? 1 : 2;
+        if (n == 1) setenv("HULK_COOP_HOST", "1", 1);
+        else setenv("HULK_COOP_JOIN", argv[2], 1);
+        for (int i = 1; i + n <= *argc; i++) argv[i] = argv[i + n];
+        *argc -= n;
     }
     char app[1024], path[1200];
     if (getenv("HULK_APP_DIR") && *getenv("HULK_APP_DIR"))

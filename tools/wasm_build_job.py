@@ -485,12 +485,13 @@ def is_input_path(rel):
     return rel not in INPUT_EXCEPT and any(rel == x or rel.startswith(x + "/") for x in INPUT_PATHS)
 
 
-TEST_KINDS = {"play3": 1, "rolltest": 2, "input": (1, 2)}
+TEST_KINDS = {"play3": 1, "rolltest": 2, "input": (1, 2), "coop": (1, 2, 3)}
 # (wqgpu1) the app on the host's GPU: FRAMES[:SHOTS], SHOTS game frames for HULK_GFX_SHOT_GAME ("1000,2000"; at most 64)
 METAL_KINDS = ("metal", "metal-input", "metal-ab")
 SHOT_MAX = 64
 AB_KNOB = re.compile(r"^HULK_[A-Z0-9]+_AB$")
-TEST_USAGE = ("play3:FRAMES, PLAYTHROUGH:FRAMES (tools/playthrough.py's NAME), rolltest:A:B, input:FRAMES[:EVERY], metal:FRAMES[:SHOTS], metal-input:FRAMES[:SHOTS] or "
+TEST_USAGE = ("play3:FRAMES, PLAYTHROUGH:FRAMES (tools/playthrough.py's NAME), rolltest:A:B, input:FRAMES[:EVERY], "
+              "coop:FRAMES[:PEERS[:SECOND_JOIN_S]], metal:FRAMES[:SHOTS], metal-input:FRAMES[:SHOTS] or "
               "metal-ab:FRAMES (SHOTS: game frames, comma-separated)")
 TEST_ENV_OK = re.compile(r"^(HULK_[A-Z0-9_]+|SDL_[A-Z0-9_]+)$")
 FETCHED = os.path.join(jobq.JOBS, "wb-fetched.json")
@@ -528,6 +529,12 @@ def parse_tests(specs, test_env, timeout):
             if nums[1] <= nums[0]:
                 sys.exit("--test %s: B must be after A" % sp)
             t.update(a=nums[0], b=nums[1])
+        elif kind == "coop":
+            # (wnet1) the app as a co-op host and 1-2 guests joining it mid-game through a local lobby (null
+            # renderer, HULK_INPUT): their game hashes must agree from the join on
+            t.update(frames=nums[0], peers=nums[1] if len(nums) > 1 else 2, second=nums[2] if len(nums) > 2 else 20)
+            if not 2 <= t["peers"] <= 3:
+                sys.exit("--test %s: PEERS is 2 or 3" % sp)
         else:
             t["frames"] = nums[0]
             if len(nums) > 1:
@@ -611,6 +618,10 @@ def submit_job(a, spec, ov, slots, limit, label):
         if not os.path.exists(rec) or "ckpt/play3.ckref" not in {d for d, _ in input_items()}:
             sys.exit("play3 tests need build/rp1/play3.hrp and build/ckpt/play3.ckref here")
         ov["wbrun/play3.hrp"] = rec
+    if any(t["kind"] == "coop" for t in spec["tests"]):
+        # (wnet1) the lobby the co-op test runs locally: the Worker and its local server (net/ is not in a job's base)
+        for f in ("net/worker/src/index.js", "net/worker/test/local_server.mjs"):
+            ov["wbrun/" + f] = os.path.join(ROOT, f)
     for t in spec["tests"]:
         if t.get("rec"):
             hrp, ref = playthrough_files(t["rec"])

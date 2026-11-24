@@ -3727,3 +3727,22 @@ passes; output only (checkpoint records identical with every setting).
   to the logic view must be put back when World::Render returns, not before the next update, or the records' camera
   tag differs (traversal.c's pull-back puts it back before the next update: its camera tag moves while it is on).
 - Two local views gave byte-identical checkpoint records over 6,000 frames; play3 with co-op off is identical to HEAD.
+
+## 2026-11-24 wnet1: online co-op's network side (D246; docs/multiplayer.md section 18)
+
+- A free run's state can move between machines once file records keep the game's own path: xapi.c kept the host's
+  path in each open file's record (sim block), so a restored archive pointed at the first machine's disc folder.
+- Lockstep keyed by GameClock updates froze in the pause menu and the front end (the pad is read there with no update
+  running): the sets are keyed by presented frames, the same count on peers with the same renderer class.
+- A whole-state hash cannot compare peers whose pictures follow different Hulks (wcoop1's local view leaves render
+  bookkeeping in the state): it reported a DESYNC 60 frames after the extra Hulks spawned. The replay probe's tags
+  (`ff_probe_digest`) agree.
+- Two null-renderer app processes booted with the same HULK_INPUT print identical game hashes frame for frame:
+  free play is deterministic across processes (game hashes no longer depend on the run's folders).
+- Join state at the tutorial with three Hulks: a 35 MB snapshot, 11.2-12.3 MB zlib level 1 (play4's Metal snapshot
+  at 91,518: 43.6 MB, 18.7 MB; 13.9 MB with free blocks zeroed). 1.5 s on loopback, 6-8 s through 40 +/- 20 ms and
+  2% loss each way.
+- Random loss is not congestion: halving the window on every loss moved the join at 0.1 MB/s through 3% loss; a paced
+  rate adapted per round trip (up 25% under 3% loss, down 25% past 10%) moved it at 1-2 MB/s.
+- libjuice calls back on its own thread holding its registry lock, which its own calls also take: a callback that
+  takes the session's lock can deadlock with a thread holding that lock while sending. The callbacks only queue.

@@ -15,6 +15,8 @@
     <uses-feature android:name="android.hardware.gamepad" android:required="false" />
     <uses-feature android:name="android.hardware.usb.host" android:required="false" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- online co-op (wnet1): the lobby server (https) and the peers (UDP, libjuice) -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application android:label="Hulk UD"
         android:debuggable="true"

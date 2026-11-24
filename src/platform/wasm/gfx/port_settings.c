@@ -62,6 +62,14 @@ static void apply_grass(int value) { hulk_wasm_quality_apply(16, value); }
 static void apply_perf_overlay(int value) { hulk_wasm_quality_apply(19, value); }
 static void apply_tutorial_skip(int value) { hulk_wasm_tutorial_skip_apply(value); }
 static void apply_traversal(int value) { hulk_wasm_traversal_apply(value); }
+void hulk_wasm_net_apply(int value);                                   /* netplay.c: online co-op (wnet1) */
+static void apply_coop(int value) {             /* (only a change: at load it is off, as it was) */
+    static int last;
+    if (value != last) hulk_wasm_net_apply(value);
+    last = value;
+}
+#define DIGITS {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}
+static int is_session_row(const char* key) { return !strncmp(key, "coop", 4); }   /* never saved or loaded */
 static void apply_developer(int value);
 
 /* Render resolution values: 1..4 a multiple of the game's 640x480; 0 the window's (display's) pixels; 720 / 1080 /
@@ -196,6 +204,18 @@ static port_setting k_settings[] = {
      apply_tutorial_skip},
     {"remaster_moves", "Traversal Moves", PS_SCREEN_GAMEPLAY, PS_ONOFF, 2, {0, 1}, {"Off", "On"}, 0, 1, 1,
      apply_traversal},
+    /* online co-op (wnet1, D246; netplay.c): the join code's eight digits, then the switch. Never saved or loaded: a game
+     * starts with co-op off. Remastered only. */
+    {"coop_d1", "Join Code 1", PS_SCREEN_GAMEPLAY, PS_CHOICE, 10, DIGITS, 0, 0, 1, 0},
+    {"coop_d2", "Join Code 2", PS_SCREEN_GAMEPLAY, PS_CHOICE, 10, DIGITS, 0, 0, 1, 0},
+    {"coop_d3", "Join Code 3", PS_SCREEN_GAMEPLAY, PS_CHOICE, 10, DIGITS, 0, 0, 1, 0},
+    {"coop_d4", "Join Code 4", PS_SCREEN_GAMEPLAY, PS_CHOICE, 10, DIGITS, 0, 0, 1, 0},
+    {"coop_d5", "Join Code 5", PS_SCREEN_GAMEPLAY, PS_CHOICE, 10, DIGITS, 0, 0, 1, 0},
+    {"coop_d6", "Join Code 6", PS_SCREEN_GAMEPLAY, PS_CHOICE, 10, DIGITS, 0, 0, 1, 0},
+    {"coop_d7", "Join Code 7", PS_SCREEN_GAMEPLAY, PS_CHOICE, 10, DIGITS, 0, 0, 1, 0},
+    {"coop_d8", "Join Code 8", PS_SCREEN_GAMEPLAY, PS_CHOICE, 10, DIGITS, 0, 0, 1, 0},
+    {"coop", "Online Co-op", PS_SCREEN_GAMEPLAY, PS_CHOICE, 3, {0, 1, 2}, {"Off", "Host a Game", "Join a Game"}, 0, 0, 1,
+     apply_coop},
     {"developer", "Developer Mode", PS_SCREEN_NONE, PS_ONOFF, 2, {0, 1}, {"Off", "On"}, 0, 0, 0, apply_developer},
     {"dev_charge", "Force Charge Sprint", PS_SCREEN_GAMEPLAY, PS_CHOICE, 4, {0, 1, 2, 3}, {"Off", "I", "II", "III"},
      0, 0, 0, hulk_wasm_traversal_force_charge},
@@ -266,7 +286,8 @@ static void save(void) {
     if (f < 0) return;
     int n = 0;
     for (int i = 0; i < N_SETTINGS; i++)
-        n += snprintf(buf + n, sizeof buf - (size_t)n, "%s=%d\n", k_settings[i].key, g_user[i]);
+        if (!is_session_row(k_settings[i].key))
+            n += snprintf(buf + n, sizeof buf - (size_t)n, "%s=%d\n", k_settings[i].key, g_user[i]);
     hio_write(f, buf, (uint32_t)n, 0);
     hio_close(f);
 }
@@ -368,6 +389,8 @@ void hulk_settings_load(void) {
             if (n > 0) {
                 buf[n] = 0;
                 parse(buf);
+                for (int i = 0; i < N_SETTINGS; i++)
+                    if (is_session_row(k_settings[i].key)) g_user[i] = k_settings[i].faithful;
             }
         }
     }
@@ -406,4 +429,25 @@ void hulk_setting_choose(int i, int value) {
     fprintf(stderr, "hulk: setting %s=%d (the options menu)\n", s->key, value);
     save();
     if (s->apply) s->apply(effective(i));
+}
+
+/* co-op (wnet1, netplay.c): a session's peers run the host's settings, all of them (the menus are game state too: a
+ * guest's menus follow the host's presses and must show what the host's show). The host hands its values over at a
+ * join; the guest takes them for the session only, never saving them (its own file stays as it was). */
+int hulk_settings_line(char* buf, int cap) {
+    hulk_settings_load();
+    int n = 0;
+    for (int i = 0; i < N_SETTINGS && n < cap - 40; i++) {
+        int v = !strcmp(k_settings[i].key, "developer") ? hulk_developer_mode() : g_user[i];
+        n += snprintf(buf + n, (size_t)(cap - n), "%s%s=%d", n ? "," : "", k_settings[i].key, v);
+    }
+    return n;
+}
+void hulk_settings_session(const char* line) {
+    hulk_settings_load();
+    g_pinned = 1;
+    g_dev_env = 0;
+    parse(line);
+    fprintf(stderr, "hulk: settings from the co-op host (for this session only)\n");
+    apply_all();
 }

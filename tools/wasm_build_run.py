@@ -33,6 +33,7 @@ trace.txt.ckref; with a control, shots-diff/ holds |cand - ctl| x4 images and th
 """
 import fcntl
 import hashlib
+import glob
 import json
 import os
 import re
@@ -214,6 +215,7 @@ def prune_ir(env, out):
 # HULK_HASH_EVERY; with a control executable each test runs on both and the candidate is compared with the control.
 START_SCRIPT = "300-305:10,400-405:0/1,1000-1005:0/1"     # START, then A: through the front end into the game
 HASH = re.compile(r"hulk: frame (\d+) game hash (0x[0-9a-f]+)")
+COOP_HASH = re.compile(r"hulk: co-op: frame (\d+) state hash ([0-9a-f]+)")
 
 
 GPU_LOCK = os.path.expanduser("~/hulk-jobs/gpu.lock")
@@ -559,6 +561,104 @@ def test_free(t, exes, base):
     return res
 
 
+def test_coop(t, exes, base, spec):
+    """(wnet1) coop:FRAMES[:PEERS[:SECOND_JOIN_S]]: the candidate as a co-op host (HULK_INPUT's START_SCRIPT into the
+    game; dev_coop_local=PEERS Hulks, wcoop1) and 1-2 guests, each with a scripted pad of its own, that join it mid-game through net/worker/test/local_server.mjs on loopback, every one with the
+    null renderer and HULK_FRAMES=FRAMES, game hashes every 300 frames. Ok: every run reaches FRAMES, the guests
+    joined, no DESYNC, and every game hash a guest prints after its join equals the host's at that frame. --test-env
+    goes to every peer; HULK_COOP_SHIM etc. through it too."""
+    res = {}
+    exe = exes["cand"]
+    node = None
+    for d in sorted(glob.glob(os.path.join(WB, "tc", "node-*", "bin", "node"))):
+        node = d
+    if not node:
+        return {"cand": {"ok": False, "why": "no node on this host (wasm_build_job.py setup)"}}
+    port = 20000 + os.getpid() % 20000
+    srv_log = open(os.path.join(base, "server.log"), "w")
+    srv = subprocess.Popen([node, os.path.join(os.path.dirname(os.path.abspath(__file__)), "net/worker/test/local_server.mjs"), "--port", str(port), "--log"],
+                           stdout=srv_log, stderr=subprocess.STDOUT, start_new_session=True)
+    time.sleep(1.5)
+    code = os.path.join(base, "code.txt")
+    every = 300
+    procs = {}
+    try:
+        for k in range(t["peers"]):
+            role = "host" if k == 0 else "guest%d" % k
+            out = fresh(os.path.join(base, role))
+            extra = {"HULK_FRAMES": str(t["frames"]), "HULK_HASH_EVERY": str(every), "HULK_INPUT": START_SCRIPT,
+                     "HULK_NET_WORKER": "http://127.0.0.1:%d" % port, "HULK_COOP_TMP": fresh(os.path.join(out, "tmp")),
+                     "HULK_COOP_LOG": "2"}
+            if k == 0:
+                # (the app's front end needs a second START and A to reach the game: GS_GAME at ~1,300; the extra
+                # Hulks spawn ~250 frames later)
+                extra.update(HULK_COOP_HOST="1", HULK_COOP_CODE_FILE=code,
+                             HULK_INPUT=START_SCRIPT + ",1300-1305:10,1500-1505:0/1,1800-1805:0/1",
+                             HULK_SETTINGS="developer=1,dev_coop_local=%d" % t["peers"])
+            else:
+                # each guest's own pad (its pad 0 locally, its Hulk's in the session): guest 1 runs with the left
+                # stick, guest 2 taps A and turns; frames are the host's once it has joined
+                extra.update(HULK_COOP_JOIN="@" + code, HULK_INPUT=START_SCRIPT + (
+                    ",4000-7000:0/0/0/30000,8000-8010:0/1,8020-12000:0/0/-20000/25000" if k == 1 else
+                    ",5000-5010:0/1,6000-9000:0/0/25000/-10000,11000-11010:0/1"))
+            extra.update(t.get("env", {}))
+            env = exe_env(exe, out, extra)
+            so = open(os.path.join(out, "stdout.txt"), "wb")
+            procs[role] = (subprocess.Popen([exe, os.path.join(RUN, "isos/extracted/default.xbe")], cwd=out, env=env,
+                                            stdout=so, stderr=subprocess.STDOUT, start_new_session=True), out)
+            time.sleep(3 if k == 0 else t["second"])
+        deadline = time.time() + t.get("timeout", 3600)
+        for role, (p, out) in procs.items():
+            try:
+                rc = p.wait(timeout=max(1, deadline - time.time()))
+            except subprocess.TimeoutExpired:
+                os.killpg(p.pid, 9)
+                p.wait()
+                rc = "timeout"
+            txt = open(os.path.join(out, "stdout.txt"), errors="replace").read()
+            # (the session's own state hashes: the game hash lines are taken in the frame end before the set's pads
+            # are put back, so they hold each peer's own pad)
+            h = {int(m.group(1)): m.group(2) for m in COOP_HASH.finditer(txt)}
+            co = [l for l in txt.splitlines() if ("co-op:" in l or "coop:" in l) and "agrees" not in l
+                  and "state hash" not in l and "ICE " not in l and "selected" not in l]
+            joined = re.search(r"in the host's game from frame (\d+)", txt)
+            ev = [l.split(": ", 2)[-1] for l in txt.splitlines() if l.startswith("hulk: coop: frame")]
+            res[role] = {"rc": rc, "hashes": len(h), "last": max(h) if h else None, "coop": co[-12:], "_ev": ev,
+                         "desync": "DESYNC" in txt, "joined_frame": int(joined.group(1)) if joined else None,
+                         "_h": h}
+    finally:
+        try:
+            srv.kill()
+        except OSError:
+            pass
+        srv.wait()
+        srv_log.close()
+    host = res.get("host", {}).get("_h", {})
+    ok = all(r.get("rc") == 0 for r in res.values())
+    for role, r in res.items():
+        if role == "host":
+            continue
+        gh = r.pop("_h")
+        common = sorted(f for f in gh if f in host)
+        diff = [f for f in common if gh[f] != host[f]]
+        # the game side's events (spawns, leashes, downs: wcoop1's log) after the join, the same on every peer
+        hev, gev = res["host"]["_ev"], r.pop("_ev")
+        jf = r["joined_frame"] or 0
+        fr = lambda l: int(l.split(":")[0].split()[-1]) if l.split(":")[0].split()[-1].isdigit() else -1
+        hev2 = [l for l in hev if fr(l) >= jf]
+        gev2 = [l for l in gev if fr(l) >= jf]
+        r["game_events"] = {"host": len(hev2), "same": hev2 == gev2, "sample": gev2[:4]}
+        r.update(compared=len(common), first=common[0] if common else None, last=common[-1] if common else None,
+                 differing=diff[:5])
+        ok = ok and len(common) >= 10 and not diff and not r["desync"] and r["joined_frame"] is not None
+    res.get("host", {}).pop("_h", None)
+    res.get("host", {}).pop("_ev", None)
+    res["server"] = [l for l in open(os.path.join(base, "server.log"), errors="replace").read().splitlines()
+                     if " 2" not in l[25:40]][-12:]
+    res["ok"] = ok
+    return {"cand": res}
+
+
 def run_tests(spec, exes, summ):
     out = os.path.join(OUTD, "tests")
     summ["tests"] = {}
@@ -567,7 +667,8 @@ def run_tests(spec, exes, summ):
         t0 = time.time()
         base = fresh(os.path.join(out, t["name"]))
         log("test %s (%s) on %s" % (t["name"], t["kind"], ", ".join("%s=%s" % kv for kv in exes.items())))
-        r = test_play3(t, exes, base) if t["kind"] in ("play3", "metal", "metal-ab") else test_free(t, exes, base)
+        r = test_play3(t, exes, base) if t["kind"] in ("play3", "metal", "metal-ab") else \
+            test_coop(t, exes, base, spec) if t["kind"] == "coop" else test_free(t, exes, base)
         if t["kind"] in METAL_KINDS:
             for d in [os.path.join(base, role, "shots") for role in exes] + [os.path.join(base, "shots-diff")]:
                 to_png(d)

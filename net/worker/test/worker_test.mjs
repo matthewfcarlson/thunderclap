@@ -168,7 +168,7 @@ async function call(env, method, path, body, token) {
 }
 
 // ---- rooms: create, two guests join, the star's signalling, poll, leave, rejoin ----
-const CODE_RE = /^[23456789ABCDEFGHJKMNPQRSTWXYZ]{6}$/;
+const CODE_RE = /^[0-9]{8}$/;
 {
   const env = makeEnv();
   const settings = { build: "abc123", dataHash: "f00d", level: 1 };
@@ -184,7 +184,7 @@ const CODE_RE = /^[23456789ABCDEFGHJKMNPQRSTWXYZ]{6}$/;
   check((await call(env, "POST", `/rooms/${code}/signal`, { to: 1, description: "a=ice-ufrag:x\r\n" }, hostTok)).status === 409, "no guest in slot 1 yet: 409");
 
   const j1 = await call(env, "POST", `/rooms/${code.toLowerCase()}/join`);
-  check(j1.status === 200 && j1.body.role === "guest" && j1.body.slot === 1 && j1.body.gen === 1, "first guest joins slot 1 (lower-case code is fine)");
+  check(j1.status === 200 && j1.body.role === "guest" && j1.body.slot === 1 && j1.body.gen === 1, "first guest joins slot 1");
   check(JSON.stringify(j1.body.settings) === JSON.stringify(settings), "guest gets the host's settings");
   const j2 = await call(env, "POST", `/rooms/${code}/join`);
   check(j2.status === 200 && j2.body.slot === 2 && j2.body.gen === 2, "second guest joins slot 2");
@@ -220,8 +220,9 @@ const CODE_RE = /^[23456789ABCDEFGHJKMNPQRSTWXYZ]{6}$/;
   // auth
   check((await call(env, "GET", `/rooms/${code}`)).status === 401, "poll without a token: 401");
   check((await call(env, "GET", `/rooms/${code}`, undefined, "0".repeat(32))).status === 403, "wrong token: 403");
-  check((await call(env, "GET", `/rooms/ZZZZZZ`, undefined, hostTok)).status === 404, "unknown room: 404");
-  check((await call(env, "GET", `/rooms/AB0O1I`, undefined, hostTok)).status === 400, "bad code alphabet: 400");
+  check((await call(env, "GET", `/rooms/${code === "00000000" ? "00000001" : "00000000"}`, undefined, hostTok)).status === 404, "unknown room: 404");
+  check((await call(env, "GET", `/rooms/AB0O1I`, undefined, hostTok)).status === 400, "letters: 400");
+  check((await call(env, "GET", `/rooms/1234567`, undefined, hostTok)).status === 400, "seven digits: 400");
   check((await call(env, "PUT", `/rooms/${code}/signal`, {}, hostTok)).status === 405, "PUT: 405");
 
   // a guest leaves; the slot is free; a new guest takes it with a new generation and a fresh host side
