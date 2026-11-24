@@ -689,6 +689,12 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   the rooms' projection: find it as the shader-kind-0 mesh around the camera before the first room draw (atmosphere.cpp);
   the game's sky layers write depth hundreds of units out, so depth-based passes treat view depth > 600 as sky. Never
   write `toWorld(x, x)` in place (an aliased output put the camera hundreds of units off).
+  Shop fronts / headlights (wlook4, docs/night.md §4): city lights are 3 texels (rm_city.sh kinds 0 point, 1 lamp, 2 spot,
+  3 shop-front segment), 24 a tile. The game draws tail-light glows but no headlights: a car is a lit opaque world draw
+  with a car-sized box, and its headlights are synthesised opposite its tail glows. Shop fronts come from layeredReflect
+  walls' bottom edges whose 0.6-2.2-unit band is glass (`texpack_alpha_grid`, the facade's alpha through the stage's uv
+  set); keep only feet within a unit of the lowest wall foot nearby (a global street height read basements). Knobs:
+  HULK_NIGHT_SHOPS, HULK_NIGHT_CARS; HULK_NIGHT_LOG prints shop read/place counts.
   Look (wlook1, D243; docs/look.md): every unlit world shader with the view as its modelview (`simple`, `layered`,
   `layeredReflect`) is a room for the shadows (`rm::shadowWorldDraw`, casters and receivers); the shadow bias is per
   cascade and slope-scaled; AO uses a two-texel normal and an angle bias (D24 terraces band grazing ground otherwise).
