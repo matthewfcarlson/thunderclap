@@ -512,6 +512,8 @@ play3's records are byte-identical to the app without them (60,000 frames, candi
 Slots 0x2be-0x2c3 (a run-time dump of the manager after init.lua: 0x2bb-0x2c9 are all empty; the shipped moves end at
 0x2ba), store pictures from Super Air Dash and Air Recovery, our own string keys (`TBS_PORT_MV_FLING*`,
 `TBS_PORT_MV_AIR*`). They follow §11's six in the store and chain like them (level n needs n−1).
+In the store every remaster move's name starts with `+ ` (`+ Charge Sprint I`; user 11-24): the menu font
+(fonts_en.p3d, 111 glyphs) has no star, and `+` is one of its glyphs the game's own text uses.
 
 - **Wall fling.** `WallJumpAction::vfunc_3` 0x140650 builds the launch velocity (+0x44) from the track's velocity range,
   the wall run's speed and the jump charge, capped by `velocityXZMax`; the per-frame 0x141040 integrates it with the

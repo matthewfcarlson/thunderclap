@@ -565,9 +565,9 @@ static void put_string(buf_t* out, const char* id, const char* text) {
 }
 /* the remastered moves' store text (traversal.c's keys; wtrav1) */
 static const struct { const char* id; const char* text; } k_move_strings[] = {
-    {"TBS_PORT_MV_CHARGE1", "Charge Sprint I"},
-    {"TBS_PORT_MV_CHARGE2", "Charge Sprint II"},
-    {"TBS_PORT_MV_CHARGE3", "Charge Sprint III"},
+    {"TBS_PORT_MV_CHARGE1", "+ Charge Sprint I"},
+    {"TBS_PORT_MV_CHARGE2", "+ Charge Sprint II"},
+    {"TBS_PORT_MV_CHARGE3", "+ Charge Sprint III"},
     {"TBS_PORT_MV_CHARGE_COMBO", "Sprint and keep holding the trigger"},
     {"TBS_PORT_MV_CHARGE1_DESC", "Keep holding the sprint trigger to build up speed, up to 30% faster. Let go and Hulk "
                                  "keeps charging ahead until he hits something. Charged hits deal up to 3x damage."},
@@ -575,25 +575,25 @@ static const struct { const char* id; const char* text; } k_move_strings[] = {
                                  "send enemies flying further."},
     {"TBS_PORT_MV_CHARGE3_DESC", "Charge Sprint builds up to 70% more speed. Charged hits deal up to 8x damage and "
                                  "send enemies flying further still."},
-    {"TBS_PORT_MV_LEAP1", "Mega Leap I"},
-    {"TBS_PORT_MV_LEAP2", "Mega Leap II"},
-    {"TBS_PORT_MV_LEAP3", "Mega Leap III"},
+    {"TBS_PORT_MV_LEAP1", "+ Mega Leap I"},
+    {"TBS_PORT_MV_LEAP2", "+ Mega Leap II"},
+    {"TBS_PORT_MV_LEAP3", "+ Mega Leap III"},
     {"TBS_PORT_MV_LEAP_COMBO", "Jump"},
     {"TBS_PORT_MV_LEAP1_DESC", "Every jump goes 10% higher and further. Jump again just as you land to bounce higher, "
                                "up to 2 bounces in a row."},
     {"TBS_PORT_MV_LEAP2_DESC", "Every jump goes 20% higher and further. Chain up to 3 landing bounces."},
     {"TBS_PORT_MV_LEAP3_DESC", "Every jump goes 30% higher and further. Chain up to 4 landing bounces."},
-    {"TBS_PORT_MV_FLING1", "Wall Fling I"},
-    {"TBS_PORT_MV_FLING2", "Wall Fling II"},
-    {"TBS_PORT_MV_FLING3", "Wall Fling III"},
+    {"TBS_PORT_MV_FLING1", "+ Wall Fling I"},
+    {"TBS_PORT_MV_FLING2", "+ Wall Fling II"},
+    {"TBS_PORT_MV_FLING3", "+ Wall Fling III"},
     {"TBS_PORT_MV_FLING_COMBO", "Jump during a wall run"},
     {"TBS_PORT_MV_FLING1_DESC", "Jump off a wall run to be flung 30% further, carrying the run's speed. Running off the "
                                 "top of a wall launches you higher."},
     {"TBS_PORT_MV_FLING2_DESC", "Wall Fling throws you 60% further off a wall run."},
     {"TBS_PORT_MV_FLING3_DESC", "Wall Fling throws you 90% further off a wall run: clear the street in one leap."},
-    {"TBS_PORT_MV_AIR1", "Air Control I"},
-    {"TBS_PORT_MV_AIR2", "Air Control II"},
-    {"TBS_PORT_MV_AIR3", "Air Control III"},
+    {"TBS_PORT_MV_AIR1", "+ Air Control I"},
+    {"TBS_PORT_MV_AIR2", "+ Air Control II"},
+    {"TBS_PORT_MV_AIR3", "+ Air Control III"},
     {"TBS_PORT_MV_AIR_COMBO", "Steer with the stick in the air"},
     {"TBS_PORT_MV_AIR1_DESC", "Turn faster in the air and steer sideways with the stick during jumps and falls."},
     {"TBS_PORT_MV_AIR2_DESC", "More air control: turn twice as fast and steer further."},
