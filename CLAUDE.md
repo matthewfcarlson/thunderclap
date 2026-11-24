@@ -717,6 +717,15 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   submit from `late()` or at order < 10. Upscaler / Render Scale (upscale.cpp): Auto caps the scene at 1280x960 pixels
   and FSR 1 brings it to the present (`hulk_gfx_sink_present_source`). The performance overlay uses sink overlay slot 1;
   slot 0 stays movie.c's. MetalFX needs a bgfx patch (the app's command queue): the lane that owns the bgfx build does it.
+  Temporal upscaling (wperf2, docs/performance.md 4.2/8): Upscaler Temporal (TAA) / MetalFX (TAA) imply TAA
+  (`rm::upscalerTemporal`; passes see the effective table via `rm::settings()`); Auto is temporal only when Anti-Aliasing
+  is TAA (MetalFX on macOS, ours elsewhere; Android FSR 1). Under them TAA does not resolve: it hands motion (RG16F),
+  a D32F depth copy and a HUD coverage mask to upscale.cpp (`rm::temporalFrame`). MetalFX encodes through our bgfx Metal
+  view hook (`bgfx_hulk_mtl_set_view_hook` / `bgfx_hulk_mtl_texture`, tools/wine_gfx.py PATCHES): the app links only
+  against our patched out/host/lib. Linux and Android bgfx ask for >= 4 swapchain images under gamescope
+  (`HULK_VK_SWAPCHAIN_MIN`; VUID 02839). Linux bgfx has no GPU timers (`HULK_<PASS>_AB` prints nothing there). Knobs:
+  `HULK_UPSCALE_AB=N`, `HULK_TU=...`, `HULK_TU_DEBUG=1`, `HULK_MFX=0`. Replays pin faithful values for unpinned rows:
+  pin every remastered default when measuring 'the defaults'.
   Playthroughs (wplay4, D244; docs/playthrough.md): `tools/playthrough.py record --name N [--from-save DIR]` plays on
   from play3's end (frame 56,564) or the last session's end under replay rules, recording pad 0 per poll into
   build/playthrough/N/N.hrp (a SEG1 trailer: each segment's (frame, poll) bounds and the live DoWork step). Snapshots
