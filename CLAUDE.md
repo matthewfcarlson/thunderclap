@@ -771,6 +771,16 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   `HULK_INPUT` takes `pK:` items for pad K. The local view (`hulk_wasm_coop_set_local_view`, `HULK_COOP_VIEW`) is
   picture-only. GameClock::Update (the checkpoint) runs between World::Render and the next UpdateSimulation: a
   picture-only change to the logic view is put back when World::Render returns, or the records' camera tag moves.
+  Online co-op (wnet1, D246, docs/multiplayer.md §18): runner run/app/netplay*.cpp (libjuice 1.7.4 vendored unchanged in
+  run/net/libjuice, MPL-2.0), module gfx/netplay.c; a remote player's pad goes into `SIM->pads[k]` (wcoop1's Hulk k).
+  Lockstep keys input sets by presented frames, never GameClock updates (the pause menu reads pads with no update).
+  Peers share a renderer class (pddi front end, or all null). The desync check compares `ff_probe_digest` (replay probe
+  tags), never a whole-state hash (local views differ in render bookkeeping). File records keep the game's path
+  (`D:\...`): never store a host path in the sim block. A guest saves only to a throwaway folder and takes the host's
+  settings for the session. libjuice callbacks only queue; never take the session lock in one. Tests:
+  `tests/net/coop_loop.sh` (no game) and `wasm_build_job --test coop:FRAMES[:PEERS[:SECOND_S]]` (null-renderer peers on
+  loopback with the local lobby net/worker/test/local_server.mjs; `--test-env HULK_COOP_SHIM=seed=S,delay=MS,jitter=MS,
+  loss=PCT`). A HULK_INPUT run reaches gameplay only with START and A again at frames 1300-1805.
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`): resumed 11-24 (D246): up to 3 Hulks, one host;
   guests join the host's live game (state snapshot, no save transfer; guests never write saves); Cloudflare TURN plus
   a lobby Worker that the user deploys (employer check first).
