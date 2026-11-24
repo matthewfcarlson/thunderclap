@@ -35,6 +35,8 @@
 #include <unordered_set>
 #include <vector>
 
+#include <bgfx/bgfx.h>
+
 #include "pddi/bgfx_bridge.h"
 #include "interp.h"
 #include "rm_pass.h"
@@ -582,6 +584,18 @@ void freeLocation(Location* L)
     delete L;
 }
 
+// wlinux2: bgfx's handle pools (4,096 vertex buffers, index buffers and textures each) are the game's too. A big
+// location's groups (downtown: thousands, one buffer pair each) took the rest of the pools, the game's later buffers
+// (a car picked up, the HUD's models, props streamed in) failed to be made and were never drawn, on every renderer.
+// The far field takes what is left after a reserve for the game (its peak is ~1,000 of each): its biggest groups
+// first, and the textures those name.
+const uint32_t kGameReserve = 1536;
+size_t poolRoom(uint32_t limit, uint32_t used, size_t mine)
+{
+    long room = (long)limit - ((long)used - (long)mine) - (long)kGameReserve;
+    return room > 0 ? (size_t)room : 0;
+}
+
 // make the pending location in the sink (between frames)
 void makePending()
 {
@@ -594,32 +608,74 @@ void makePending()
     if (!L)
         return;
     double t0 = nowMs();
+    // the pools' room: what the location being replaced holds is given back before the new one is drawn
+    size_t oldGroups = 0, oldTex = 0;
+    if (s_cur) {
+        for (auto& r : s_cur->rooms)
+            for (auto& g : r.groups)
+                oldGroups += g.vb != kSinkNone;
+        for (auto& t : s_cur->sinkTex)
+            oldTex += t.second != kSinkNone;
+    }
+    size_t groupRoom = (size_t)-1, texRoom = (size_t)-1;
+    const bgfx::Caps* caps = bgfx::getCaps();
+    const bgfx::Stats* st = bgfx::getStats();
+    if (caps && st) {
+        groupRoom = poolRoom(std::min(caps->limits.maxVertexBuffers, caps->limits.maxIndexBuffers),
+                             std::max(st->numVertexBuffers, st->numIndexBuffers), oldGroups);
+        texRoom = poolRoom(caps->limits.maxTextures, st->numTextures, oldTex);
+    }
+    std::vector<FarGroup*> order;
+    for (auto& r : L->rooms)
+        for (auto& g : r.groups)
+            order.push_back(&g);
+    std::stable_sort(order.begin(), order.end(),
+                     [](const FarGroup* a, const FarGroup* b) { return a->idx.size() > b->idx.size(); });
+    size_t keep = std::min(order.size(), groupRoom);
+    std::unordered_set<std::string> wanted;
+    for (size_t i = 0; i < keep && wanted.size() < texRoom; i++) {
+        if (!order[i]->tex.empty())
+            wanted.insert(order[i]->tex);
+        if (!order[i]->ttex.empty() && wanted.size() < texRoom)
+            wanted.insert(order[i]->ttex);
+    }
     for (auto& t : L->textures) {
         TexData& d = t.second;
-        SinkTextureDesc desc = {d.w, d.h, d.mips - 1, d.format, 0, 0};
-        uint32_t id = hulk_gfx_sink_create_texture(&desc);
-        if (id != kSinkNone)
-            for (uint32_t l = 0; l < d.mips; l++)
-                hulk_gfx_sink_update_texture(id, l, d.lw[l], d.lh[l], d.data.data() + d.off[l], d.pitch[l], d.size[l]);
+        uint32_t id = kSinkNone;
+        if (wanted.count(t.first)) {
+            SinkTextureDesc desc = {d.w, d.h, d.mips - 1, d.format, 0, 0};
+            id = hulk_gfx_sink_create_texture(&desc);
+            if (id != kSinkNone)
+                for (uint32_t l = 0; l < d.mips; l++)
+                    hulk_gfx_sink_update_texture(id, l, d.lw[l], d.lh[l], d.data.data() + d.off[l], d.pitch[l],
+                                                 d.size[l]);
+        }
         L->sinkTex[t.first] = id;
         std::vector<uint8_t>().swap(d.data);
     }
+    size_t madeTex = 0;
+    for (auto& t : L->sinkTex)
+        madeTex += t.second != kSinkNone;
     uint32_t owner = 0xF0000000u;
-    for (auto& r : L->rooms)
-        for (auto& g : r.groups) {
+    for (size_t i = 0; i < order.size(); i++) {
+        FarGroup& g = *order[i];
+        if (i < keep) {
             SinkVertexData vd = {g.verts.data(), (uint32_t)g.verts.size(), owner++, nullptr, 0, 0, 0};
             g.vb = hulk_gfx_sink_update_vertex_buffer(kSinkNone, &vd);
             g.ib = hulk_gfx_sink_update_index_buffer(kSinkNone, g.idx.data(), (uint32_t)g.idx.size(), vd.owner);
             auto a = L->sinkTex.find(g.tex), b = L->sinkTex.find(g.ttex);
             g.t0 = a != L->sinkTex.end() ? a->second : kSinkNone;
             g.t1 = b != L->sinkTex.end() ? b->second : kSinkNone;
-            std::vector<SinkVertex>().swap(g.verts);
         }
+        std::vector<SinkVertex>().swap(g.verts);
+    }
     freeLocation(s_cur);
     s_cur = L;
     L->made = true;
     s_loadState = 3;
-    fprintf(stderr, "hulk-app: far field: made in the sink in %.0f ms\n", nowMs() - t0);
+    fprintf(stderr, "hulk-app: far field: made in the sink in %.0f ms (%zu of %zu groups, %zu of %zu textures: bgfx's "
+            "pools keep %u for the game)\n", nowMs() - t0, keep, order.size(), madeTex, L->textures.size(),
+            kGameReserve);
 }
 
 // ------------------------------------------------------------------------------------------- the pass
@@ -768,6 +824,7 @@ class FarFieldPass final : public rm::Pass {
                 q.stage[1].texture = g.t1;            // (none: the stage samples white)
                 if (m_debug)                          // (HULK_FARFIELD_DEBUG=1: far draws untextured, to see them)
                     q.stage[0].texture = q.stage[1].texture = kSinkNone;
+                rm::lightingRebind(q);
                 hulk_gfx_sink_submit_draw(&q);
                 n++;
             }

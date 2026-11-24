@@ -206,7 +206,22 @@ class LightingPass final : public rm::Pass {
         if (atlas != kInvalid)
             bgfx::setTexture(4, m_sShadow, bgfx::TextureHandle{atlas},
                              BGFX_SAMPLER_COMPARE_LEQUAL | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
+        m_lastAtlas = atlas;
         m_draws++;
+    }
+    // wlinux2: a copy of a draw this pass bound, submitted again by another pass (the far field's rooms): bgfx resets
+    // the texture bindings after each submit (the uniforms stay), so the copy has stages 4 and 5 unbound, which Metal
+    // reads as zeros but Vulkan as an unwritten descriptor (garbage, or a GPU page fault). Binds them again as for the
+    // last draw of ours.
+    void rebind(const DrawPacket& q)
+    {
+        if (!m_up || !m_progs.ours(q.pipeline))
+            return;
+        rm::nightLightsBind(q);
+        uint16_t atlas = m_lastAtlas != kInvalid ? m_lastAtlas : rm::shadowDummy();
+        if (atlas != kInvalid)
+            bgfx::setTexture(4, m_sShadow, bgfx::TextureHandle{atlas},
+                             BGFX_SAMPLER_COMPARE_LEQUAL | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
     }
     // prim buffers' bounding spheres (the draws near a light take the per-pixel program; the rest keep the faithful)
     void vertices(uint32_t sinkBuffer, const SinkVertexData& d) override
@@ -477,6 +492,7 @@ class LightingPass final : public rm::Pass {
     int m_perPixel = 0, m_dynMode = 0;
     bgfx::UniformHandle m_uPx = BGFX_INVALID_HANDLE, m_uLight = BGFX_INVALID_HANDLE;
     bgfx::UniformHandle m_uShadow = BGFX_INVALID_HANDLE, m_sShadow = BGFX_INVALID_HANDLE;
+    uint16_t m_lastAtlas = kInvalid;
     unsigned m_frames = 0;
     double m_draws = 0;
     unsigned m_present = 0, m_tFrame = 0, m_tOpaque = 0, m_tEarly = 0, m_tOurs = 0, m_tRecv = 0, m_tViewIdx = 0;
@@ -656,6 +672,14 @@ class LightDump final : public rm::Pass {
 HULK_RM_REGISTER_PASS(LightDump);
 
 } // namespace
+
+// (rm_pass.h) wlinux2: a draw of ours submitted again by another pass: its samplers bound again (not on Metal,
+// whose unbound textures read zeros, so the macOS picture stays as it was)
+void rm::lightingRebind(const DrawPacket& q)
+{
+    if (bgfx::getRendererType() != bgfx::RendererType::Metal)
+        s_rmPass_LightingPass.rebind(q);
+}
 
 // (rm_pass.h) a runner shader by name for this renderer's profile, made once; 0xffff when there is none
 uint16_t rm::loadShader(const char* name)

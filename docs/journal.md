@@ -3623,3 +3623,18 @@ passes; output only (checkpoint records identical with every setting).
   end, Metal included (the fresh boot to that point is the same lineage, so the front end's stamps still mean equal
   contents): a session from a snapshot gives the records of the replay from frame 0.
 
+
+## 2026-11-24 wlinux2: the Linux app's rendering on a handheld
+
+- The Linux/Vulkan reports (missing held car, HUD ring, minimap disc, cars, trees) were the Far Field option on every
+  renderer, not Vulkan: its downtown location (~6,750 prim groups, a vertex + index buffer each) filled bgfx's 4,096
+  handle pools, so buffers the game made later failed and were never drawn. Metal reproduces it with far_field=1
+  (play3 frame 20,000). Fixed by a pool budget in farfield.cpp (docs/far-field.md).
+- Khronos validation on RADV found the Vulkan-only part: unbound samplers the programs declare (the sink's effect
+  quads' s_fx1..3, every frame of the faithful build: the glow; the far field's copies of per-pixel draws: shadow and
+  night-light samplers). With all remastered options on, an unbound descriptor faulted the GPU (amdgpu page fault,
+  ring timeout, VK_ERROR_DEVICE_LOST at play3 frame ~12,960). Metal reads zeros there and showed nothing.
+- In Game Mode the app's 640x480 window was scaled by gamescope at 4:3 (aspect only added bars inside it), and the
+  process never exited after quitting (glibc's exit blocked in a static condition variable's destructor while the
+  grass / texture-pack workers waited on it): Steam showed black until B. Fullscreen under gamescope; `_exit` after the
+  app's quit on Linux.

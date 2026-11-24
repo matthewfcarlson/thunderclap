@@ -1148,6 +1148,18 @@ folder holds everything: the binary needs only libc and libm (libstdc++ and libg
   (native_replay.py check --strict, the Mac run as the reference; module 6b1b2ea); the whole replay takes ~113 s.
   `tools/native_replay.py run --exe <out>/hulk-app --data <pack> --rec play3.hrp --env HULK_GFX_RENDERER=null` runs it
   with plain python3 on the device.
+- **Vulkan fixes** (wlinux2). A sampler a program declares but a draw leaves unbound is an unwritten descriptor on
+  Vulkan (Metal reads zeros): garbage, and on RADV a GPU page fault and a lost device. The sink's framebuffer-effect
+  quads bind a 1x1 transparent black texture to their unused samplers (bgfx_sink.cpp fxDraw, app builds, not on Metal),
+  and the far field's copies of a per-pixel draw bind the shadow and night-light samplers again
+  (`rm::lightingRebind`; bgfx drops texture bindings at each submit). Check with Khronos validation
+  (`VK_INSTANCE_LAYERS=VK_LAYER_KHRONOS_validation`, `VK_LAYER_DUPLICATE_MESSAGE_LIMIT=100000`): play3 to 16,100 with
+  every remastered option on has no descriptor errors. Under gamescope (`GAMESCOPE_WAYLAND_DISPLAY`, Steam's Game Mode)
+  the window is made fullscreen, so the aspect setting widens the picture instead of adding bars inside a 4:3 window;
+  the runner's proc_exit ends the process with `_exit` after the app's quit (glibc's exit waited forever in a static
+  `std::condition_variable` destructor the grass / texture-pack workers still waited on, and Game Mode stayed black).
+  A device test that wants the Game Mode environment without the screen: `gamescope --backend headless -W 1920 -H
+  1080 -- <command>` (the app's HULK_GFX_SHOT_GAME captures work there).
 - **Tests on a player's device** set their own HULK_APP_DIR and HULK_SAVE_DIR (a copy of the save), as on the Mac. A
   run from ssh into the desktop session needs `WAYLAND_DISPLAY=wayland-0 XDG_RUNTIME_DIR=/run/user/<uid>`; with the
   screen off (DPMS) KWin throttles presentation to ~20 updates a second and never maps an X11 window (SDL's

@@ -1132,6 +1132,21 @@ void BgfxSink::fxDraw(const FxPacket& p)
     for (uint32_t i = 0; i < p.textures && i < 4; i++)
         bgfx::setTexture((uint8_t)i, bgfx::UniformHandle{(uint16_t)m_fxSamplers[i]},
                          bgfx::TextureHandle{(uint16_t)p.texture[i]}, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
+#if HULK_SINK_OVERLAY
+    // (the app on Vulkan: the pass programs declare all four samplers, and a sampler with nothing bound is an unwritten
+    // descriptor there (garbage, or a GPU page fault and a lost device on RADV), where Metal reads zeros: the unused
+    // ones get a 1x1 transparent black texture, what Metal's unbound texture reads; wlinux2)
+    if (bgfx::getRendererType() != bgfx::RendererType::Metal) {
+        static bgfx::TextureHandle s_black = BGFX_INVALID_HANDLE;
+        if (!bgfx::isValid(s_black)) {
+            static const uint32_t zero = 0;
+            s_black = bgfx::createTexture2D(1, 1, false, 1, bgfx::TextureFormat::BGRA8, 0, bgfx::copy(&zero, 4));
+        }
+        for (uint32_t i = p.textures; i < 4; i++)
+            bgfx::setTexture((uint8_t)i, bgfx::UniformHandle{(uint16_t)m_fxSamplers[i]}, s_black,
+                             BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
+    }
+#endif
     bgfx::setVertexBuffer(0, &tvb);
     uint64_t state = 0;
     if (p.state & kFxWriteRgb)

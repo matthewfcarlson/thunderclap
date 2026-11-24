@@ -168,6 +168,13 @@ void W(proc_exit)(wasi* w, u32 code) {
     fflush(stdout);
 #ifdef HULK_APP
     hulk_app_quit((int)code);
+#if defined(__linux__) && !defined(__ANDROID__)
+    /* (the Linux app: glibc's exit runs the static destructors, and destroying a std::condition_variable that the
+       runner's worker threads still wait on (grass.cpp, texpack.cpp) blocks forever: the window closed but the process
+       never ended, so Steam's Game Mode showed black until the game was stopped; wlinux2) */
+    fflush(NULL);
+    _exit((int)code);
+#endif
 #endif
     exit((int)code);
 }

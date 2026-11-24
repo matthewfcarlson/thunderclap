@@ -9,6 +9,7 @@
 #endif
 
 #include <stdint.h>
+#include <stdlib.h>
 #include <string.h>
 
 static HulkSdlApi s_api;
@@ -99,6 +100,14 @@ void* hulk_platform_create_window(const char* title, int width, int height, int 
     SDL_WindowFlags flags = 0;
 #if defined(__ANDROID__)
     flags |= SDL_WINDOW_FULLSCREEN;     // (the Android app: the whole screen, no system bars; wand1)
+#elif defined(__linux__)
+    // (Linux under gamescope, Steam's Game Mode: the whole screen. A window of the game's size was scaled to the
+    // screen at its own 4:3, so a widescreen aspect setting only added bars inside it; wlinux2)
+    {
+        const char* gs = getenv("GAMESCOPE_WAYLAND_DISPLAY");
+        if (gs && *gs)
+            flags |= SDL_WINDOW_FULLSCREEN;
+    }
 #endif
     if (hidden)
         flags |= SDL_WINDOW_HIDDEN;

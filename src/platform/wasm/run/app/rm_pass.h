@@ -139,6 +139,9 @@ int fogSetting();
 
 // a runner shader (run/app/shaders, tools/rm_shaders.py) by name for the renderer's profile; kNoView (0xffff): none
 uint16_t loadShader(const char* name);
+// wlinux2 (lighting.cpp): a copy of a draw already submitted, before another pass submits it again: the per-pixel
+// program's samplers (stages 4 and 5) bound again, as bgfx drops texture bindings at each submit
+void lightingRebind(const hulk::pddi::DrawPacket& q);
 
 // app.cpp's (render resolution): the scene target and the frame-sized copies are made again between frames
 void appTargetsChanged();

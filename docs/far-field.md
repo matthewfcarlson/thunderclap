@@ -56,6 +56,11 @@ All of it is an rm pass (rm_pass.h); the module's memory is never read or writte
    space) and the fog. Only the buffers, the counts and the stage textures change. A far room is one none of whose
    buffers the game drew in the last two frames, with its bounds beyond (draw distance + 25) x 1.3 horizontally from
    the camera (1.3: downtown's height scaling of the distance).
+- **bgfx's handle pools** (wlinux2): vertex buffers, index buffers and textures are 4,096 each and shared with the
+  game (~1,000 of each at its peak). Downtown has ~6,750 prim groups (a buffer pair each): before, the far field took
+  the rest of the pools and the game's later buffers were never made (the held car, the HUD's models, the minimap's
+  disc, props and cars missing, on every renderer). `makePending` now keeps 1,536 of each pool for the game and makes
+  the biggest groups first (downtown: ~2,500 of 6,750) and only the textures those name; the log line says how many.
 - `HULK_FARFIELD_DEBUG=1` draws the far field magenta and untextured, to see it in a screenshot.
 
 The game state is unchanged with it on (checkpoint records byte-identical in the scripted run and in play3).
