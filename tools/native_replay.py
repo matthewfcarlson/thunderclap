@@ -35,6 +35,18 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "tools"))
 RECS = {"play3": "build/rp1/play3.hrp"}           # (wine_build_job.RECS)
 REFS = {"play3": "build/ckpt/play3.ckref"}
+
+
+def recording(name):
+    """(recording, reference) for a name: play3, a playthrough (tools/playthrough.py: build/playthrough/NAME/NAME.hrp
+    and NAME.ckref, the Xbox's records to play3's end and our own after), or (a path, None)"""
+    if name in RECS:
+        return os.path.join(ROOT, RECS[name]), os.path.join(ROOT, REFS[name])
+    d = os.path.join(os.environ.get("HULK_PLAYTHROUGH_DIR") or os.path.join(ROOT, "build/playthrough"), name)
+    if "/" not in name and os.path.exists(os.path.join(d, name + ".hrp")):
+        ref = os.path.join(d, name + ".ckref")
+        return os.path.join(d, name + ".hrp"), ref if os.path.exists(ref) else None
+    return os.path.abspath(name), None
 # the Wine replay's defaults (wine_replay_job.DEFAULT_ENV), the headless renderer and the dummy audio device
 DEFAULT_ENV = {"HULK_CKPT": "1", "HULK_CKPT_ALL": "1", "HULK_AUDIO_CLOCK": "frame", "HULK_CKPT_REGIONS": "0",
                "HULK_AUDIO_NOMIX": "1", "HULK_CKREF": "1", "HULK_GFX_RENDERER": "noop", "SDL_AUDIO_DRIVER": "dummy",
@@ -88,7 +100,7 @@ def fresh_state_dirs(out):
 def cmd_run(a):
     exe = os.path.abspath(a.exe)
     out = os.path.abspath(a.out)
-    rec = os.path.abspath(RECS.get(a.rec, a.rec))
+    rec, ref = recording(a.rec)
     if not os.path.exists(rec):
         sys.exit("no recording " + rec)
     fresh_state_dirs(out)
@@ -142,16 +154,17 @@ def cmd_run(a):
         print("  " + l)
     if a.no_check:
         return 0
-    ref = RECS.get(a.rec) and REFS.get(a.rec)
     if not ref:
         return 0
-    ns = argparse.Namespace(run=trace + ".ckref", ref=os.path.join(ROOT, ref), frames=a.frames, control=None,
+    ns = argparse.Namespace(run=trace + ".ckref", ref=ref, frames=a.frames, control=None,
                             json=os.path.join(out, "check.json"), strict=False)
     return cmd_check(ns)
 
 
 def cmd_check(a):
     import ckpt_ref
+    if a.ref and not os.path.exists(a.ref) and recording(a.ref)[1]:
+        a.ref = recording(a.ref)[1]
     if not os.path.exists(a.run):
         print("check: no records %s (the build wrote none: HULK_CKREF=1?)" % a.run)
         print("VERDICT DIVERGED")
@@ -225,7 +238,7 @@ def main():
     r = sp.add_parser("run")
     r.add_argument("--exe", required=True, help="the native image (native_mac.py link: NATIVE_DIR/link/hulk-mac)")
     r.add_argument("--out", required=True)
-    r.add_argument("--rec", default="play3", help="play3 or a .hrp path")
+    r.add_argument("--rec", default="play3", help="play3, a playthrough's name (tools/playthrough.py) or a .hrp path")
     r.add_argument("--frames", type=int, help="stop once the checkpoint of this frame is in the trace")
     r.add_argument("--data", default=os.path.join(ROOT, "isos/extracted"))
     r.add_argument("--hang", type=int, default=120, help="HULK_HANG: seconds without progress before the image ends")
@@ -235,7 +248,8 @@ def main():
     r.add_argument("args", nargs="*")
     c = sp.add_parser("check")
     c.add_argument("run", help="the run's records (TRACE.ckref) from any build")
-    c.add_argument("--ref", default=os.path.join(ROOT, REFS["play3"]))
+    c.add_argument("--ref", default=os.path.join(ROOT, REFS["play3"]), help="a reference, or a recording's name "
+                   "(play3, a playthrough's)")
     c.add_argument("--frames", type=int, help="also require a record at every reference frame up to this one")
     c.add_argument("--control")
     c.add_argument("--strict", action="store_true")

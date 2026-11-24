@@ -490,7 +490,7 @@ TEST_KINDS = {"play3": 1, "rolltest": 2, "input": (1, 2)}
 METAL_KINDS = ("metal", "metal-input", "metal-ab")
 SHOT_MAX = 64
 AB_KNOB = re.compile(r"^HULK_[A-Z0-9]+_AB$")
-TEST_USAGE = ("play3:FRAMES, rolltest:A:B, input:FRAMES[:EVERY], metal:FRAMES[:SHOTS], metal-input:FRAMES[:SHOTS] or "
+TEST_USAGE = ("play3:FRAMES, PLAYTHROUGH:FRAMES (tools/playthrough.py's NAME), rolltest:A:B, input:FRAMES[:EVERY], metal:FRAMES[:SHOTS], metal-input:FRAMES[:SHOTS] or "
               "metal-ab:FRAMES (SHOTS: game frames, comma-separated)")
 TEST_ENV_OK = re.compile(r"^(HULK_[A-Z0-9_]+|SDL_[A-Z0-9_]+)$")
 FETCHED = os.path.join(jobq.JOBS, "wb-fetched.json")
@@ -512,13 +512,18 @@ def parse_tests(specs, test_env, timeout):
         if kind in METAL_KINDS:
             out.append(parse_metal(sp, name, kind, nums, env, timeout, names))
             continue
+        rec = None
+        if kind not in TEST_KINDS and playthrough_files(kind):
+            rec, kind = kind, "play3"           # (wplay4) a playthrough's name: its replay, judged like play3's
         want = TEST_KINDS.get(kind)
         if want is None or not all(x.isdigit() for x in nums) or len(nums) not in (
                 want if isinstance(want, tuple) else (want,)):
             sys.exit("--test %s: %s" % (sp, TEST_USAGE))
         nums = [int(x) for x in nums]
-        t = {"kind": kind, "name": re.sub(r"[^A-Za-z0-9_.-]", "_", name or "-".join([kind] + f[1:])), "env": env,
+        t = {"kind": kind, "name": re.sub(r"[^A-Za-z0-9_.-]", "_", name or "-".join([rec or kind] + f[1:])), "env": env,
              "timeout": timeout}
+        if rec:
+            t["rec"] = rec
         if kind == "rolltest":
             if nums[1] <= nums[0]:
                 sys.exit("--test %s: B must be after A" % sp)
@@ -532,6 +537,15 @@ def parse_tests(specs, test_env, timeout):
         names.add(t["name"])
         out.append(t)
     return out
+
+
+def playthrough_files(name):
+    """(recording, our own records) of a playthrough (tools/playthrough.py: build/playthrough/NAME/), or None"""
+    if not re.fullmatch(r"[A-Za-z0-9_.-]+", name or ""):
+        return None
+    d = os.path.join(ROOT, "build/playthrough", name)
+    hrp, ref = os.path.join(d, name + ".hrp"), os.path.join(d, name + ".self.ckref")
+    return (hrp, ref) if os.path.exists(hrp) and os.path.exists(ref) else None
 
 
 def parse_metal(sp, name, kind, f, env, timeout, names):
@@ -597,6 +611,11 @@ def submit_job(a, spec, ov, slots, limit, label):
         if not os.path.exists(rec) or "ckpt/play3.ckref" not in {d for d, _ in input_items()}:
             sys.exit("play3 tests need build/rp1/play3.hrp and build/ckpt/play3.ckref here")
         ov["wbrun/play3.hrp"] = rec
+    for t in spec["tests"]:
+        if t.get("rec"):
+            hrp, ref = playthrough_files(t["rec"])
+            ov["wbrun/%s.hrp" % t["rec"]] = hrp
+            ov["wbrun/%s.self.ckref" % t["rec"]] = ref
     for role, x in (("ctl", getattr(a, "control", None)), ("cand", getattr(a, "exe", None))):
         if x:
             p = resolve_exe(x)

@@ -198,7 +198,8 @@ static bool mayPrompt()
 {
     const char* e = getenv("HULK_NO_UI");
     if (e && *e && strcmp(e, "0")) return false;
-    return !getenv("HULK_INPUT") && !getenv("HULK_KEY_SCRIPT") && !getenv("HULK_INPUT_SOURCE") && !getenv("HULK_CKPT");
+    return !getenv("HULK_INPUT") && !getenv("HULK_KEY_SCRIPT") && !getenv("HULK_INPUT_SOURCE") && !getenv("HULK_CKPT") &&
+           !getenv("HULK_RECORD_BASE");
 }
 
 struct Pick { bool done, failed; char path[1024]; };
@@ -285,7 +286,7 @@ static bool scriptedRun()
     const char* e = getenv("HULK_NO_UI");
     if (e && *e && strcmp(e, "0")) return true;
     return getenv("HULK_INPUT") || getenv("HULK_KEY_SCRIPT") || getenv("HULK_INPUT_SOURCE") || getenv("HULK_CKPT") ||
-           getenv("HULK_ROLLTEST");
+           getenv("HULK_ROLLTEST") || getenv("HULK_RECORD_BASE");      // (a playthrough session: tools/playthrough.py)
 }
 
 // PATH is in (or is) the player's default app folder, ~/Library/Application Support/HulkUD (whang1)

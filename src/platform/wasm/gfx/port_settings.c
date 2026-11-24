@@ -367,10 +367,22 @@ void hulk_settings_load(void) {
     apply_all();
 }
 
+/* the rows that change the simulation (the per-session ones above): in a recording's run (a replay or a playthrough
+ * session, wplay4) the menus leave them at their pinned values, so a session's menu presses replay the same */
+static int changes_game(const port_setting* s) {
+    static const char* keys[] = {"aspect", "hud_frame", "draw_distance", "tutorial_skip", "remaster_moves", "developer"};
+    for (unsigned k = 0; k < sizeof keys / sizeof keys[0]; k++)
+        if (!strcmp(s->key, keys[k])) return 1;
+    return is_developer(s);
+}
 void hulk_setting_choose(int i, int value) {
     hulk_settings_load();
     const port_setting* s = hulk_settings_at(i);
     if (!s || !valid(s, value) || hulk_setting_locked(i) || g_user[i] == value) return;
+    if (ff_replay_active() && changes_game(s)) {
+        fprintf(stderr, "hulk: setting %s stays %d (a recording's run: it changes the game)\n", s->key, g_user[i]);
+        return;
+    }
     g_user[i] = value;
     fprintf(stderr, "hulk: setting %s=%d (the options menu)\n", s->key, value);
     save();

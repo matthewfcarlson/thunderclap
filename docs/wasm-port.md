@@ -582,6 +582,13 @@ never sees a replacement, so checkpoint records and HULK_ROLLTEST are unchanged 
   Checks: HULK_INPUT runs through Video Options front end and pause (every row reached and changed, the file
   written), play3 to 60,000 records identical to the control.
 
+### Playthroughs (wplay4, D244)
+
+`tools/playthrough.py record --name play4` plays on from play3's end (or the last session's) in the app and records
+the pad; sessions chain into one recording (`build/playthrough/play4/play4.hrp`, `native_replay.py run --rec play4`,
+`wasm_build_job.py --test play4:N`). A session runs under replay rules from a disk snapshot of the state (sched.c
+`ff_snap_write` / `ff_snap_read`, replay.cpp "Playthroughs"). docs/playthrough.md.
+
 ### Quitting the app (wquit1)
 
 - **The menu.** The front end's Story Mode column (the main menu after Press START) ends with "Quit Game"

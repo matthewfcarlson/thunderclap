@@ -60,15 +60,15 @@ static uint32_t bins(uint32_t mixbins, uint32_t* out) {
     return n;
 }
 
+int ff_replay_live(void);       /* replay.cpp: a playthrough session's live segment (it plays sound) */
 static int audio_on(void) {
     static int on = -1;
     if (on < 0) {
         const char* r = getenv("HULK_GFX_RENDERER");
         const char* e = getenv("HULK_AUDIO");
-        on = (hulk_wasm_gfx_on() || (e && *e == '1')) && !ff_replay_active() && !(r && !strcmp(r, "noop")) &&
-             !(e && *e == '0');
+        on = (hulk_wasm_gfx_on() || (e && *e == '1')) && !(r && !strcmp(r, "noop")) && !(e && *e == '0');
     }
-    return on;
+    return on && (!ff_replay_active() || ff_replay_live());
 }
 
 /* HULK_AUDIO_CHECK=1: the mirror against the model before each advance, when both stand at the same time (the

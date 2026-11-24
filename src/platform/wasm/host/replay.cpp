@@ -110,15 +110,21 @@ static int env_flag(const char* name) {
 
 static int g_open = -1;
 static HulkReplayInfo g_info;
+static void seg_trailer_load(const char* path);
 static int replay_open(HulkReplayInfo* ri) {
     if (g_open < 0) {
         g_open = 0;
         const char* src = getenv("HULK_INPUT_SOURCE");
-        if (src && strncmp(src, "replay:", 7) == 0) {
-            if (hulk_replay_open(src + 7))
+        const char* path = src && strncmp(src, "replay:", 7) == 0 ? src + 7 : 0;
+        if (!path && getenv("HULK_RECORD_BASE") && *getenv("HULK_RECORD_BASE"))
+            path = getenv("HULK_RECORD_BASE");      // a playthrough session's base (below: "Playthroughs")
+        if (path) {
+            if (hulk_replay_open(path))
                 g_open = hulk_replay_info(&g_info) ? 1 : 0;
             else
                 ff_fatal("%s", hulk_replay_error());
+            if (g_open)
+                seg_trailer_load(path);
         }
     }
     if (ri)
@@ -157,6 +163,7 @@ extern "C" void ff_replay_startup(void) {
 // the pad (input.c's XInputGetState asks here first): the recording's state; the packet number counts changes
 static u32 g_packet[4];
 static uint8_t g_last[4][18];
+static void rec_live_pad(uint8_t* b);
 static void pad_bytes(const HulkPadState& s, uint8_t* b) {
     b[0] = (uint8_t)s.buttons;
     b[1] = (uint8_t)(s.buttons >> 8);
@@ -174,6 +181,8 @@ static int get_state(u32 port, uint8_t* out, int init) {
         return 1167;                                    // ERROR_DEVICE_NOT_CONNECTED
     uint8_t b[18];
     pad_bytes(s, b);
+    if (!init && port == 0)
+        rec_live_pad(b);                                // a playthrough's live segment: the player's pad, recorded
     if (memcmp(b, g_last[port], 18)) {
         memcpy(g_last[port], b, 18);
         g_packet[port]++;
@@ -366,6 +375,7 @@ static void ckref_frame(u32 fno, const HulkCkptState* st, const unsigned char* p
     out_write(g_ckref, out, 4 * n);
 }
 
+static unsigned logged, bad;     // (frame()'s log counts: kept by playthrough snapshots)
 static void frame(u32 clock) {
     g_frame_no++;
     HulkCkptState st;
@@ -380,7 +390,6 @@ static void frame(u32 clock) {
     int r = hulk_ckpt_update(&st);
     if (r < 0)
         return;
-    static unsigned logged, bad;
     static int all = -1, regions = -1;
     if (all < 0) {
         all = env_flag("HULK_CKPT_ALL");
@@ -509,4 +518,319 @@ FFH(hulk_seq_randint) {
     s[1] = 18000u * (s[1] & 0xFFFFu) + (s[1] >> 16);
     u32 r = (s[0] << 16) + (s[1] & 0xFFFFu);
     RET(r % (u32)(hi - lo + 1) + (u32)lo);
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Playthroughs (wplay4, D244; docs/playthrough.md, tools/playthrough.py): a player's session recorded onto the end of
+// a recording, so recordings chain into one whole-game replay. Everything stays under replay rules (the virtual
+// clock, the sound code's private generators, lockstep I/O, no-fmv, settings pinned), so a session is a function of
+// its recording alone; only the pad and the voices' clock change at the hand-off.
+//
+//   HULK_RECORD_BASE=FILE.hrp  the recording to start from (as HULK_INPUT_SOURCE=replay:FILE.hrp does)
+//   HULK_RECORD=PREFIX         a session: at the base's end the player takes over. Pad 0 then comes from the runner
+//                              (the sim block's pad, as in free play) and every change is appended to PREFIX.inputs
+//                              as .hrp entries keyed by poll; PREFIX.seg holds the segment's start and end (rewritten
+//                              every 30 presents and at the end). On a quit request the state is written to
+//                              PREFIX.snap at the next frame end and the app exits.
+//   HULK_SNAP_AT_HANDOFF=FILE  (no HULK_RECORD) replay the base to its end, write the state there, exit
+//   HULK_RESTORE=FILE          put a snapshot back at the first frame end (all fibers suspended, sched.c)
+//   HULK_RECORD_FROM=N         hand off at GameClock frame N instead of the base's end (tests: short segments)
+//   HULK_RECORD_UNTIL=N        end the session at frame N as a quit would (scripted sessions, tests)
+//   HULK_DS_LIVE_WORK=N        output frames a DirectSoundDoWork after the hand-off (default 533; see below)
+//
+// The base's end: the end of its last segment (its SEG1 trailer, below), or for a plain recording such as play3 the
+// first frame end at which its last input is in effect. Boundaries are frame ends, where every fiber is suspended at
+// the same point: the first at or after a (GameClock frame, poll); a segment is {start, end} of (present, frame, poll),
+// the present kept for information only (its count differs between renderers).
+// The voices: replays advance them 800 output frames a DoWork (the Wine mixer's clock the recordings were checked
+// with; ~1.5x the console's rate), which would make the player's sound run fast; from the first segment's start they
+// advance ds_live_work frames a DoWork (533: the game calls DoWork about three times an update, 1,600 frames of 48 kHz
+// at 30 updates a second). The number is in the SEG1 trailer, so a replay of the playthrough does the same.
+// .hrp trailer (after PRN1 when present): "SEG1", u32 version 1, u32 n, u32 ds_live_work, n x {u32 start_present,
+// start_frame, start_polls, end_present, end_frame, end_polls}.
+struct SegInfo {
+    u32 start_present, start_frame, start_polls, end_present, end_frame, end_polls;
+};
+#define MAX_SEGS 256
+static SegInfo g_segs[MAX_SEGS];
+static u32 g_nsegs, g_seg_ds_work;
+static void seg_trailer_load(const char* path) {
+    size_t n = 0;
+    unsigned char* d = (unsigned char*)hulk_wasm_load_file(path, &n);
+    if (!d)
+        return;
+    if (n >= 36 && !memcmp(d, "HRP1", 4)) {
+        size_t at = 36 + (size_t)rd32(d + 28) * 24 + (size_t)rd32(d + 32) * 8;
+        if (at + 8 <= n && !memcmp(d + at, "PRN1", 4))
+            at += 8 + (size_t)rd32(d + at + 4) * 8;
+        if (at + 16 <= n && !memcmp(d + at, "SEG1", 4) && rd32(d + at + 4) == 1) {
+            u32 k = rd32(d + at + 8);
+            g_seg_ds_work = rd32(d + at + 12);
+            at += 16;
+            for (u32 i = 0; i < k && i < MAX_SEGS && at + 24 <= n; i++, at += 24) {
+                const unsigned char* q = d + at;
+                g_segs[i] = SegInfo{rd32(q), rd32(q + 4), rd32(q + 8), rd32(q + 12), rd32(q + 16), rd32(q + 20)};
+                g_nsegs = i + 1;
+            }
+        }
+    }
+    free(d);
+}
+
+// the session's state that is game-facing (kept by snapshots: ff_replay_blob)
+static struct {
+    u32 live;                      // the player has the pad
+    u32 start_present, start_frame, start_polls;   // this segment's start
+    u32 entries;                   // entries appended to PREFIX.inputs (this process)
+    u32 have_last;
+    uint8_t last[18];              // the last appended pad
+    u32 ds_switched;               // the voices' clock is the live one
+} g_rec;
+static int g_rec_mode = -1;        // 1: HULK_RECORD; 2: HULK_SNAP_AT_HANDOFF
+static int32_t g_rec_fd = -1, g_seg_fd = -1;
+static u32 g_rec_from, g_rec_until;
+static int g_quit_pending, g_restore_pending, g_snap_pending, g_restored;
+static u32 g_ds_live_work = 533;
+
+extern "C" void hulk_app_live(void) __attribute__((weak));   // gfx/gfx.c: pacing on, the mixer from the model
+extern "C" u32 ff_ds_works;                                  // dsound_null.c (statistics)
+extern "C" int ff_snap_write(const char* path);              // sched.c
+extern "C" int ff_snap_read(const char* path);
+extern "C" void ff_audio_restored(void) __attribute__((weak));
+
+static int rec_mode(void) {
+    if (g_rec_mode < 0) {
+        g_rec_mode = 0;
+        const char* r = getenv("HULK_RECORD");
+        const char* h = getenv("HULK_SNAP_AT_HANDOFF");
+        if (replay_open(0) && r && *r)
+            g_rec_mode = 1;
+        else if (replay_open(0) && h && *h)
+            g_rec_mode = 2;
+        const char* f = getenv("HULK_RECORD_FROM");
+        if (f && *f)
+            g_rec_from = (u32)strtoul(f, 0, 10);
+        const char* u = getenv("HULK_RECORD_UNTIL");
+        if (u && *u)
+            g_rec_until = (u32)strtoul(u, 0, 10);
+        const char* w = getenv("HULK_DS_LIVE_WORK");
+        if (w && *w && strtoul(w, 0, 10) >= 100 && strtoul(w, 0, 10) <= 2400)
+            g_ds_live_work = (u32)strtoul(w, 0, 10);
+        if (g_nsegs && g_seg_ds_work)
+            g_ds_live_work = g_seg_ds_work;
+        const char* rs = getenv("HULK_RESTORE");
+        g_restore_pending = rs && *rs && replay_open(0);
+    }
+    return g_rec_mode;
+}
+static const char* rec_path(char* out, size_t cap, const char* suffix) {
+    snprintf(out, cap, "%s%s", getenv("HULK_RECORD"), suffix);
+    return out;
+}
+static void seg_write(void) {
+    if (g_rec_mode != 1 || !g_rec.live)
+        return;
+    if (g_seg_fd < 0) {
+        char p[700];
+        g_seg_fd = hio_open(rec_path(p, sizeof p, ".seg"), HIO_CREATE);
+        if (g_seg_fd < 0)
+            return;
+    }
+    char line[400];
+    static u32 works0, frame0;
+    if (!frame0 || g_frame_no < frame0)
+        works0 = ff_ds_works, frame0 = g_frame_no;
+    int n = snprintf(line, sizeof line,
+                     "start present %010u frame %010u polls %010u\nend present %010u frame %010u polls %010u "
+                     "entries %010u\nds_live_work %u restored %u dowork_per_frame %6.3f\n",
+                     g_rec.start_present, g_rec.start_frame, g_rec.start_polls, SIM->frame, g_frame_no, g_rp.polls,
+                     g_rec.entries, g_ds_live_work, (u32)g_restored,
+                     g_frame_no > frame0 ? (double)(ff_ds_works - works0) / (g_frame_no - frame0) : 0.0);
+    if (n > 0)
+        hio_write(g_seg_fd, line, (uint32_t)n, 0);
+}
+static void rec_append(const uint8_t* b) {
+    if (g_rec_fd < 0) {
+        char p[700];
+        g_rec_fd = hio_open(rec_path(p, sizeof p, ".inputs"), HIO_CREATE);
+        if (g_rec_fd < 0)
+            ff_fatal("playthrough: cannot write %s", p);
+    }
+    unsigned char e[24];
+    u32 key = g_rp.polls;
+    memcpy(e, &key, 4);
+    memcpy(e + 4, b, 18);              // buttons (u16), analog[8], thumb[4] (s16): the .hrp entry's order
+    e[22] = e[23] = 0;
+    hio_write(g_rec_fd, e, 24, g_rec.entries * 24);
+    g_rec.entries++;
+    memcpy(g_rec.last, b, 18);
+    g_rec.have_last = 1;
+}
+// the pad the game reads at a poll in a live segment: the sim block's (the runner's, or HULK_INPUT's), recorded
+static void rec_live_pad(uint8_t* b) {
+    if (!g_rec.live || g_rec_mode != 1)
+        return;
+    memcpy(b, SIM->pads[0], 18);
+    if (!g_rec.have_last || memcmp(b, g_rec.last, 18))
+        rec_append(b);
+}
+static void ds_live(void) {
+    if (g_rec.ds_switched)
+        return;
+    g_rec.ds_switched = 1;
+    SIM->ds_clock = g_ds_live_work;    // (dsound_null.c: a value above 1 is the frames a DoWork)
+}
+static void go_live(void) {
+    g_rec.live = 1;
+    g_rec.start_present = SIM->frame;
+    g_rec.start_frame = g_frame_no;
+    g_rec.start_polls = g_rp.polls;
+    g_rec.have_last = 0;
+    g_rec.entries = 0;
+    ds_live();
+    log_line("playthrough: live from present %u (frame %u, poll %u)%s", SIM->frame, g_frame_no, g_rp.polls,
+             g_restored ? " (restored)" : "");
+    fprintf(stderr, "hulk: playthrough: the player has the pad from present %u (frame %u)\n", SIM->frame, g_frame_no);
+    seg_write();
+    if (hulk_app_live)
+        hulk_app_live();
+}
+// a boundary: the first frame end at or after GameClock frame F and poll P (presents are not the same count with
+// every renderer: the pddi front end's and d3d_null's differ in loads; updates and polls are the game's own)
+static int at_point(u32 frame, u32 polls) { return g_frame_no >= frame && g_rp.polls >= polls; }
+// the base's end reached at this frame end?
+static int at_handoff(void) {
+    if (g_rec_from)
+        return g_frame_no >= g_rec_from;
+    if (g_nsegs)
+        return at_point(g_segs[g_nsegs - 1].end_frame, g_segs[g_nsegs - 1].end_polls);
+    return g_rp.n && g_rp.pos == g_rp.n - 1 && g_rp.e[g_rp.pos].key <= g_rp.polls;
+}
+// gfx.c / d3d_null.c's frame end (sched.c ff_frame_checkpoint): 1 = stop every fiber here (a snapshot or a restore)
+extern "C" int ff_playthrough_frame_end(void) {
+    if (!replay_open(0))
+        return 0;
+    int mode = rec_mode();
+    if (g_restore_pending)
+        return 1;
+    if (g_nsegs && !g_rec.ds_switched && at_point(g_segs[0].start_frame, g_segs[0].start_polls))
+        ds_live();                                                  // a playthrough's replay: its segments' clock
+    if (mode == 0)
+        return 0;
+    if (!g_rec.live && at_handoff()) {
+        if (mode == 2) {
+            g_snap_pending = 1;
+            return 1;
+        }
+        go_live();
+    }
+    if (g_rec.live && SIM->frame % 30 == 0)
+        seg_write();
+    if (g_rec.live && g_rec_until && g_frame_no >= g_rec_until && !g_quit_pending)
+        g_quit_pending = 1;                                     // (HULK_RECORD_UNTIL: a scripted session's end)
+    return g_quit_pending == 1 || g_snap_pending;
+}
+// gfx.c's quit (the menu, the window, Cmd+Q): 1 = quit now; a live session first writes its snapshot
+extern "C" int ff_playthrough_quit(void) {
+    if (rec_mode() != 1 || !g_rec.live)
+        return 1;
+    if (!g_quit_pending) {
+        g_quit_pending = 1;
+        fprintf(stderr, "hulk: playthrough: saving the session at the next frame end\n");
+    }
+    return 0;
+}
+extern "C" int ff_replay_live(void) { return g_rec.live && g_rec_mode == 1; }
+// the scheduler with every fiber suspended (sched.c, after each switch)
+extern "C" void ff_playthrough_switch(void) {
+    if (g_rec_mode <= 0 && !g_restore_pending)
+        return;
+    if (g_restore_pending) {
+        g_restore_pending = 0;
+        const char* p = getenv("HULK_RESTORE");
+        u32 before = SIM->frame;
+        if (!ff_snap_read(p))
+            ff_fatal("playthrough: cannot restore %s (a snapshot of another build?)", p);
+        g_restored = 1;
+        log_line("playthrough: restored %s at present %u: now present %u (frame %u, poll %u)", p, before, SIM->frame,
+                 g_frame_no, g_rp.polls);
+        fprintf(stderr, "hulk: playthrough: restored present %u (frame %u)\n", SIM->frame, g_frame_no);
+        if (g_rec_mode == 1 && !g_rec.live && at_handoff())
+            go_live();
+        else if (g_rec_mode == 1 && g_rec.live) {          // a new segment from the restored point
+            g_rec.live = 0;
+            go_live();
+        }
+        return;
+    }
+    if (g_snap_pending && g_rec_mode == 2) {
+        const char* p = getenv("HULK_SNAP_AT_HANDOFF");
+        if (!ff_snap_write(p))
+            ff_fatal("playthrough: cannot write %s", p);
+        log_line("playthrough: handoff snapshot %s at present %u (frame %u, poll %u)", p, SIM->frame, g_frame_no,
+                 g_rp.polls);
+        fprintf(stderr, "hulk: playthrough: handoff snapshot at present %u (frame %u, poll %u)\n", SIM->frame,
+                g_frame_no, g_rp.polls);
+        fflush(stderr);
+        exit(0);
+    }
+    if (g_quit_pending == 1 && g_rec_mode == 1) {
+        g_quit_pending = 2;
+        char p[700];
+        seg_write();
+        int ok = ff_snap_write(rec_path(p, sizeof p, ".snap"));
+        log_line("playthrough: end present %u (frame %u, poll %u), %u entries; snapshot %s", SIM->frame, g_frame_no,
+                 g_rp.polls, g_rec.entries, ok ? "written" : "FAILED");
+        fprintf(stderr, "hulk: playthrough: session ends at present %u (frame %u); snapshot %s\n", SIM->frame,
+                g_frame_no, ok ? "written" : "FAILED");
+        fflush(stderr);
+        exit(0);
+    }
+}
+// the replay's game-facing host state, for snapshots: copied out (restore 0) or back (1); returns the size
+struct ReplayBlob {
+    u32 frame_no, snd_calls, snd_rng[4], snd_rand, seq_rng_ptr, packet[4];
+    uint8_t last[4][18];
+    u64 dt_us, vt, vextra;
+    int vflags;
+    u32 vmain, vframe, logged, bad;
+    unsigned rp_pos, rp_polls, rp_frame, rp_last_frame, rp_frozen, rp_rumbles;
+    int rp_press_start_ok, rp_frame_seen;
+    unsigned ck_interval;
+    HulkCkptStats ck_st;
+    unsigned char rec[sizeof(g_rec)];
+};
+extern "C" uint32_t ff_replay_blob(void* buf, int restore) {
+    ReplayBlob& b = *(ReplayBlob*)buf;
+    if (!restore) {
+        memset(&b, 0, sizeof b);
+        b.frame_no = g_frame_no, b.snd_calls = g_snd_calls, b.snd_rand = g_snd_rand, b.seq_rng_ptr = hulk_seq_rng_ptr;
+        memcpy(b.snd_rng, g_snd_rng, sizeof g_snd_rng);
+        memcpy(b.packet, g_packet, sizeof g_packet);
+        memcpy(b.last, g_last, sizeof g_last);
+        b.dt_us = g_dt_us, b.vt = g_vt, b.vextra = g_vextra, b.vflags = g_vflags, b.vmain = g_vmain;
+        b.vframe = g_vframe, b.logged = logged, b.bad = bad;
+        b.rp_pos = g_rp.pos, b.rp_polls = g_rp.polls, b.rp_frame = g_rp.frame, b.rp_last_frame = g_rp.last_frame;
+        b.rp_frozen = g_rp.frozen, b.rp_rumbles = g_rp.rumbles, b.rp_press_start_ok = g_rp.press_start_ok;
+        b.rp_frame_seen = g_rp.frame_seen;
+        ck_init();
+        b.ck_interval = g_ck.interval;
+        b.ck_st = g_ck.st;
+        memcpy(b.rec, &g_rec, sizeof g_rec);
+    } else {
+        g_frame_no = b.frame_no, g_snd_calls = b.snd_calls, g_snd_rand = b.snd_rand, hulk_seq_rng_ptr = b.seq_rng_ptr;
+        memcpy(g_snd_rng, b.snd_rng, sizeof g_snd_rng);
+        memcpy(g_packet, b.packet, sizeof g_packet);
+        memcpy(g_last, b.last, sizeof g_last);
+        g_dt_us = b.dt_us, g_vt = b.vt, g_vextra = b.vextra, g_vflags = b.vflags, g_vmain = b.vmain;
+        g_vframe = b.vframe, logged = b.logged, bad = b.bad;
+        g_rp.pos = b.rp_pos, g_rp.polls = b.rp_polls, g_rp.frame = b.rp_frame, g_rp.last_frame = b.rp_last_frame;
+        g_rp.frozen = b.rp_frozen, g_rp.rumbles = b.rp_rumbles, g_rp.press_start_ok = b.rp_press_start_ok;
+        g_rp.frame_seen = b.rp_frame_seen;
+        g_ck.inited = 1;
+        g_ck.interval = b.ck_interval;
+        g_ck.st = b.ck_st;
+        memcpy(&g_rec, b.rec, sizeof g_rec);
+    }
+    return sizeof(ReplayBlob);
 }

@@ -171,6 +171,91 @@ static void state_copy(uint8_t* q, int restore) {
         q += r[i].n;
     }
 }
+/* Playthrough snapshots on disk (wplay4, D244; replay.cpp "Playthroughs"): rolltest's state in a file, written and
+ * put back at a switch where every fiber is suspended (a frame end: ff_frame_checkpoint), so a session can continue
+ * in another process of the same build. Beyond the five ranges: the fiber to run next and the host state the game
+ * reads that lives in module data outside them (the replay's position, virtual clock and private generators:
+ * replay.cpp ff_replay_blob; lockstep I/O: io_lockstep.c ff_io_blob). A restore checks the ranges' places and sizes
+ * against this build's; the file is keyed to the executable by tools/playthrough.py. */
+#include "hulk_io.h"
+uint32_t ff_replay_blob(void* buf, int restore);
+uint32_t ff_io_blob(void* buf, int restore);
+#define SNAP_MAGIC 0x504e5348u      /* "HSNP" */
+#define SNAP_HDR 18
+static uint8_t snap_blob[2][8192];
+static void snap_ranges(uint32_t r[5][2], uint32_t top) {
+    uint32_t lo;
+    r[0][0] = 0x0048ca80u, r[0][1] = XBE_END - 0x0048ca80u;
+    r[1][0] = MAIN_STACK_LO, r[1][1] = MAIN_STACK_HI - MAIN_STACK_LO + (uint32_t)sizeof(hulk_sim);
+    r[2][0] = ARENA_LO, r[2][1] = top - ARENA_LO;
+    r[3][1] = gfx_state(&lo), r[3][0] = lo;
+    r[4][1] = ff_module_state(&lo), r[4][0] = lo;
+}
+int ff_snap_write(const char* path) {
+    if (!next_fiber) return 0;
+    int32_t f = hio_open(path, HIO_CREATE);
+    if (f < 0) return 0;
+    uint32_t h[SNAP_HDR], r[5][2];
+    snap_ranges(r, ff_arena_top());
+    h[0] = SNAP_MAGIC, h[1] = 1, h[2] = SIM->frame, h[3] = (uint32_t)(uintptr_t)next_fiber;
+    for (int i = 0; i < 5; i++) h[4 + 2 * i] = r[i][0], h[5 + 2 * i] = r[i][1];
+    h[14] = ff_replay_blob(snap_blob[0], 0);
+    h[15] = ff_io_blob(snap_blob[1], 0);
+    h[16] = (uint32_t)sizeof(hulk_sim), h[17] = 0;
+    uint32_t off = 0;
+    int ok = hio_write(f, h, sizeof h, off) == (int32_t)sizeof h;
+    off += sizeof h;
+    for (int i = 0; i < 5 && ok; i++) {
+        ok = hio_write(f, PTR(r[i][0]), r[i][1], off) == (int32_t)r[i][1];
+        off += r[i][1];
+    }
+    for (int i = 0; i < 2 && ok; i++) {
+        ok = hio_write(f, snap_blob[i], h[14 + i], off) == (int32_t)h[14 + i];
+        off += h[14 + i];
+    }
+    hio_close(f);
+    return ok;
+}
+void ff_files_flush(void);
+void ff_movie_restored(void) __attribute__((weak));
+void ff_gfx_restored(void) __attribute__((weak));
+int ff_snap_read(const char* path) {
+    if (!next_fiber) return 0;
+    int32_t f = hio_open(path, HIO_READ);
+    if (f < 0) return 0;
+    uint32_t h[SNAP_HDR], r[5][2], off = sizeof h;
+    int ok = hio_read(f, h, sizeof h, 0) == (int32_t)sizeof h && h[0] == SNAP_MAGIC && h[1] == 1 &&
+             h[16] == sizeof(hulk_sim) && h[14] == ff_replay_blob(snap_blob[0], 0) &&
+             h[15] == ff_io_blob(snap_blob[1], 0);
+    snap_ranges(r, ARENA_LO + h[9]);
+    for (int i = 0; i < 5 && ok; i++)
+        if (h[4 + 2 * i] != r[i][0] || h[5 + 2 * i] != r[i][1]) ok = 0;
+    if (ok && (h[9] > ARENA_HI - ARENA_LO || h[2] < 1)) ok = 0;
+    if (!ok) {
+        hio_close(f);
+        return 0;
+    }
+    for (int i = 0; i < 5 && ok; i++) {
+        ok = hio_read(f, PTR(r[i][0]), r[i][1], off) == (int32_t)r[i][1];
+        off += r[i][1];
+    }
+    for (int i = 0; i < 2 && ok; i++) {
+        ok = hio_read(f, snap_blob[i], h[14 + i], off) == (int32_t)h[14 + i];
+        off += h[14 + i];
+    }
+    hio_close(f);
+    if (!ok) ff_fatal("playthrough: %s is truncated (the state is half restored)", path);
+    ff_replay_blob(snap_blob[0], 1);
+    ff_io_blob(snap_blob[1], 1);
+    next_fiber = (hfiber*)(uintptr_t)h[3];
+    ff_files_flush();
+    if (ff_movie_restored) ff_movie_restored();
+    if (ff_gfx_restored) ff_gfx_restored();
+    return 1;
+}
+void ff_playthrough_switch(void);       /* replay.cpp */
+int ff_playthrough_frame_end(void);
+
 static long roll_a = -1, roll_b;
 static int rolltest_on(void) {
     if (roll_a < 0) {
@@ -256,6 +341,7 @@ __attribute__((noinline)) void ff_sched_loop(hfiber* f) {
         n_swaps++;
         if (sj_mode) sj_step(f);
         rolltest();
+        ff_playthrough_switch();
         f = next_fiber;
     }
 }
@@ -396,8 +482,11 @@ void ff_sleep(uint32_t ms) {
  * never waits (the app's gameplay with a renderer: no fiber switch for thousands of frames) otherwise gives it no
  * point to snapshot at; the frame's end is also the one where the runner's GPU work of the frame is complete
  * (wroll1). Nothing the game reads changes (an unwind writes only the fiber's Asyncify buffer). */
+static void pt_frame_end(void* out) { *(int*)out = ff_playthrough_frame_end(); }
 void ff_frame_checkpoint(void) {
-    if (!rolltest_on()) return;
+    int pt = 0;
+    ff_on_host_stack(pt_frame_end, &pt);    /* (host work: its bytes stay off the game's stacks) */
+    if (!rolltest_on() && !pt) return;
     hulk_obj* t = cur();
     if (!t || !t->fiber) return;
     hfiber* c = ctx_of(t->fiber);

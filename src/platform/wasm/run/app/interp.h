@@ -6,6 +6,7 @@
 void interp_set_window(void* window);
 void interp_set_rate(int rate);              // 30 (none), 60, 120, 0 (the display's refresh)
 void interp_discontinuity();                 // a restore: the next update is drawn without interpolation
+void interp_record_live();                   // a playthrough session's hand-off: pace from here on
 bool interp_recording();                     // this update's drawing goes to the stream
 void interp_pass(const hulk::pddi::SinkPass& p);
 void interp_copy(uint16_t pass, const hulk::pddi::SinkTarget& t);

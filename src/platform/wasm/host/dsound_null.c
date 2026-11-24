@@ -20,6 +20,9 @@
  *   1 (every other run): the virtual clock's 48 kHz, as the console's APU: at every DirectSound call the voices move
  *     on to SIM->clock (SIM->ds_frames: the frames reached), so they play in game time, which free play paces to
  *     real time.
+ *   N > 1 (a playthrough's live segments, replay.cpp "Playthroughs"): N frames a DoWork, from the segment's start on
+ *     (533: about the console's rate at three DoWorks an update), so the player's sound keeps to real time while
+ *     the run stays a function of its recording.
  * HULK_DS_CLOCK=work|time overrides the choice. The app's mixer (gfx/audio.c) only listens: it hears each call and
  * each advance (ff_audio_tick: the frames the voices moved) and renders exactly what the model played. */
 #define AUDIO_RATE 48000u
@@ -128,10 +131,12 @@ FFG(003ca1f5) {         /* DirectSoundCreate(guid, ds**, unk) */
 FFG(003c4701) { UNUSED; RET(0); }                                               /* IDirectSound_Release */
 FFG(003c4789) { UNUSED; RET(0); }                                               /* DirectSoundUseFullHRTF */
 FFG(003c696c) { UNUSED; if (ARG(3)) *(uint32_t*)PTR(ARG(3)) = 0; RET(0); }      /* DownloadEffectsImage */
+uint32_t ff_ds_works;     /* DoWork calls so far (host statistics: replay.cpp's playthrough log) */
 FFG(003c6e34) {                                                                 /* DirectSoundDoWork */
     UNUSED;
+    ff_ds_works++;
     if (SIM->ds_clock == 1) sync();
-    else advance_all(FRAMES_PER_WORK);
+    else advance_all(SIM->ds_clock > 1 ? SIM->ds_clock : FRAMES_PER_WORK);   /* (above 1: a playthrough's live clock) */
     RET(0);
 }
 FFG(003c98ca) { UNUSED; RET(0); }                                               /* CommitDeferredSettings */

@@ -131,10 +131,11 @@ bool paceOn()
         const char* e = getenv("HULK_FPS_CAP");
         const char* r = getenv("HULK_INPUT_SOURCE");
         const char* g = getenv("HULK_GFX_RENDERER");
+        const char* b = getenv("HULK_RECORD_BASE");   // a playthrough session: unpaced until the hand-off
         if (e && *e)
             s_paceMode = atoi(e) != 0;
         else
-            s_paceMode = !((r && !strncmp(r, "replay:", 7)) || (g && !strcmp(g, "noop")));
+            s_paceMode = !((r && !strncmp(r, "replay:", 7)) || (g && !strcmp(g, "noop")) || (b && *b));
         s_log = getenv("HULK_INTERP_LOG") ? atoi(getenv("HULK_INTERP_LOG")) : 0;
         fprintf(stderr, "hulk-app: frame pacing %s\n", s_paceMode ? "on (the game's rate)" : "off");
     }
@@ -607,6 +608,18 @@ void interp_set_rate(int r)
     s_rate = r;
 }
 void interp_discontinuity() { s_havePrev = false; }
+// a playthrough session's hand-off (wplay4; the module's plat_record_live): paced from here on, as free play
+void interp_record_live()
+{
+    const char* e = getenv("HULK_FPS_CAP");
+    paceOn();
+    if (!(e && *e) && !s_paceMode) {
+        s_paceMode = 1;
+        s_deadlineNs = 0;
+        fprintf(stderr, "hulk-app: frame pacing on (the player has the pad)\n");
+    }
+    s_havePrev = false;
+}
 bool interp_recording() { return s_recording; }
 
 void interp_pass(const SinkPass& p)

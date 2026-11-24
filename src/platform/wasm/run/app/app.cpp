@@ -742,6 +742,7 @@ void w2c_hulk_plat_pace(struct w2c_hulk*, u32 fields)
     }
 }
 void w2c_hulk_plat_display_rate(struct w2c_hulk*, u32 rate) { interp_set_rate((int)rate); }
+void w2c_hulk_plat_record_live(struct w2c_hulk*, u32) { interp_record_live(); }
 void w2c_hulk_gfx_discontinuity(struct w2c_hulk*) { interp_discontinuity(); }
 
 // ------------------------------------------------------------------------------------------- the window

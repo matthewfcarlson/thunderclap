@@ -77,6 +77,7 @@ GI(plat_error) uint32_t gi_error(char* buf, uint32_t cap);
 GI(plat_create_window) int32_t gi_create_window(const char* title, int32_t w, int32_t h, int32_t hidden, int32_t resizable);
 GI(plat_pump) void gi_pump(void);
 GI(plat_quit_requested) int32_t gi_quit_requested(void);
+GI(plat_record_live) void gi_record_live(uint32_t on);
 GI(plat_has_focus) int32_t gi_has_focus(void);
 GI(plat_is_fullscreen) int32_t gi_is_fullscreen(void);
 GI(plat_toggle_fullscreen) int32_t gi_toggle_fullscreen(void);
@@ -546,6 +547,7 @@ void hulk_platform_pump(void) {
  * so it needs nothing here. The request is host state and nothing of it reaches the game until the exit. */
 #define QUIT_WAIT_MS 10000.0
 static const char* g_quit_why;
+int ff_playthrough_quit(void);    /* replay.cpp: 1 = quit now */
 void hulk_app_request_quit(const char* why) {
     if (!g_quit_why) fprintf(stderr, "hulk: quit requested (%s)\n", why);
     if (!g_quit_why) g_quit_why = why;
@@ -569,6 +571,13 @@ int hulk_platform_quit_requested(void) {
         }
         if (now - since < QUIT_WAIT_MS) return 0;
         fprintf(stderr, "hulk: quit after %.0f ms with %d file%s still open for writing\n", now - since, w, w == 1 ? "" : "s");
+    }
+    if (!ff_playthrough_quit()) {           /* a playthrough session first writes its state (replay.cpp) */
+        static double pt_since;
+        double now = ff_now_ms();
+        if (!pt_since) pt_since = now;
+        if (now - pt_since < 15000.0) return 0;
+        fprintf(stderr, "hulk: playthrough: no frame end in 15 s; quitting without a snapshot\n");
     }
     fprintf(stderr, "hulk: quit\n");
     return 1;
@@ -630,6 +639,14 @@ void hulk_gfx_free(void* p) { if (p) ff_arena_free(p); }
 void ff_frame_end(void);
 void ff_frame_checkpoint(void);
 int ff_replay_active(void);
+int ff_replay_live(void);       /* replay.cpp: a playthrough session's player has the pad */
+/* a playthrough session's hand-off (replay.cpp go_live): the runner paces the presents and takes the pad from here
+ * on, and the mixer starts from the model's voices as they are */
+void ff_audio_restored(void);
+void hulk_app_live(void) {
+    gi_record_live(1);
+    ff_audio_restored();
+}
 void hulk_wasm_gfx_frame_end(void) {
     if (SIM->d3d_vblank_cb) ff_call(SIM->d3d_vblank_cb, 0);
     ff_frame_end();
@@ -644,7 +661,7 @@ void hulk_wasm_gfx_frame_end(void) {
     static int live = -1;
     if (live < 0) live = !getenv("HULK_INPUT") && !ff_replay_active();
     uint8_t pad[18];
-    if (live && gi_pad(0, pad)) memcpy(SIM->pads[0], pad, 18);
+    if ((live || (ff_replay_live() && !getenv("HULK_INPUT"))) && gi_pad(0, pad)) memcpy(SIM->pads[0], pad, 18);
     ff_frame_checkpoint();
 }
 

@@ -398,12 +398,16 @@ def first_line(rep):
 def test_play3(t, exes, base):
     res = {}
     ref = os.path.join(RUN, "build/ckpt/play3.ckref")
+    if t.get("rec"):        # (wplay4) a playthrough: its recording and our own records travel in wbrun/
+        ref = os.path.join(RUN, "wbrun", t["rec"] + ".self.ckref")
     metal = t["kind"] in METAL_KINDS
     for role, exe in exes.items():
         # every role runs in the same directory (moved to ROLE afterwards): the save / data paths are game state
         out = fresh(os.path.join(base, "run"))
         argv = [PY, "tools/native_replay.py", "run", "--exe", exe, "--out", out, "--frames", str(t["frames"]),
                 "--timeout", str(t.get("timeout", 3600)), "--no-check"]
+        if t.get("rec"):
+            argv += ["--rec", os.path.join(RUN, "wbrun", t["rec"] + ".hrp")]
         extra = dict(t.get("env", {}), HULK_APP_DIR=fresh(os.path.join(out, "appdir")), HULK_NO_UI="1")
         if metal:
             extra.update(metal_env(t, out))

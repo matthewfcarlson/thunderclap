@@ -13,6 +13,7 @@
  * deterministic. Off without a recording, or with HULK_SYNCIO=0. */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "hulk_host.h"
 #include "sim.h"
 
@@ -29,6 +30,21 @@ typedef struct {
 static ls_drive drives[4];
 static int ndrives, mode = -1, idle_steps = 4, in_ls, io_log;
 static uint32_t main_thread, cs_depth, post_pending, steps, blocked, posts;
+
+/* the state above, for playthrough snapshots (sched.c ff_snap_write / ff_snap_read): copied out (restore 0) or back */
+uint32_t ff_io_blob(void* buf, int restore) {
+    struct {
+        ls_drive drives[4];
+        int ndrives, mode, idle_steps, in_ls, io_log;
+        uint32_t main_thread, cs_depth, post_pending, steps, blocked, posts;
+    } * b = buf;
+#define IO_FIELD(x) (restore ? memcpy(&x, &b->x, sizeof x) : memcpy(&b->x, &x, sizeof x))
+    IO_FIELD(drives), IO_FIELD(ndrives), IO_FIELD(mode), IO_FIELD(idle_steps), IO_FIELD(in_ls), IO_FIELD(io_log);
+    IO_FIELD(main_thread), IO_FIELD(cs_depth), IO_FIELD(post_pending), IO_FIELD(steps), IO_FIELD(blocked);
+    IO_FIELD(posts);
+#undef IO_FIELD
+    return (uint32_t)sizeof *b;
+}
 
 int ff_replay_active(void);     /* replay.cpp */
 void ff_replay_log(const char* line);

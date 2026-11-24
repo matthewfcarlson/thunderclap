@@ -3607,3 +3607,19 @@ passes; output only (checkpoint records identical with every setting).
   timing there is approximate (compare within one job).
 - An app run by native_replay.py or free_run sits in a session of its own and outlived a cancelled job (wquit1's
   111587 ran 17 h on mac2): wasm_build_run.py now kills the run directory's processes on SIGTERM.
+
+## 2026-11-23 wplay4: playthroughs: recording on from play3 in the app (D244)
+
+- play3's last input takes effect at GameClock frame 56,564 (poll 1,231,391), 11 frames before the Xbox reference
+  ends: that frame end is the hand-off of a playthrough (`tools/playthrough.py`, docs/playthrough.md).
+- Presents are not the same count with every renderer: present 3000 is GameClock frame 2,869 headless (d3d_null) and
+  2,807 with Metal (the pddi front end presents differently during loads). Records by GameClock frame are identical
+  (Metal and null play3 to 60,000), so segment boundaries are (frame, poll), never presents; HULK_INPUT scripts (keyed
+  by present) are per renderer.
+- The game calls DirectSoundDoWork 3.00-3.01 times an update in play: replays' 800 frames a DoWork run the voices
+  1.5x fast; a playthrough's live segments take 533 (real time), recorded in the .hrp's SEG1 trailer.
+- A whole-state snapshot written to disk at a frame end (rolltest's five ranges + the next fiber + the replay's and
+  lockstep I/O's host state, 46 MB at play3's end) restores in a fresh process of the same build at its first frame
+  end, Metal included (the fresh boot to that point is the same lineage, so the front end's stamps still mean equal
+  contents): a session from a snapshot gives the records of the replay from frame 0.
+
