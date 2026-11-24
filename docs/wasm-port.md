@@ -840,6 +840,16 @@ toning, saturation with vibrance, a toe, a vignette) of the scene before the gam
 location's time of day (the rooms' fog); inside HDR's tone map (no pass of its own; with HDR off nothing is graded). Output only:
 play3's records identical.
 
+### Grass (wgrass1)
+
+docs/grass.md. A Video Options row (port_settings.c `grass` Original/Blades Low/Blades High; faithful Original,
+remastered High), run/app/grass.cpp: blades on the game's grass ground. Textures are classified as uploaded and the
+rooms' prim buffers kept (a worker thread makes 64x64 thumbnails and each lawn's clumps: level triangles, the draw's
+own combiner evaluated on the CPU so only grass grows, the ground's colour per clump); each frame the clumps near the
+camera are drawn instanced right after their ground draw (vs_rm_grass / fs_rm_grass: density by distance through a
+per-clump rank, wind from the display clock, characters bending them aside, the sun's shadows, the night lights, the
+fog). Reflections give grass no reflection (shaders/rm_grass.sh, shared). Output only: play3's records identical.
+
 ### Movies (wmov1; hold to skip: D231)
 
 The game's Bink movies (the start-up logos, the attract loop, the cut-scenes) play with picture and sound in the app.

@@ -26,7 +26,7 @@ enum Quality : uint32_t {
     kNightLights,                         // wlook2 (docs/night.md): 0 off, 1 the city's lamps and glows light the world
     kAtmosphere,                          // wlook2 (docs/night.md): 0 the game's sky and fog, 1 enhanced
     kGrade,                               // wlook1 (docs/look.md "Colour grade"): 0 original, 1 natural, 2 cinematic
-    // (16: wgrass1's grass)
+    kGrass,                               // wgrass1 (docs/grass.md): 0 the game's flat ground, 1 blades low, 2 high
     kUpscaler = 17,                       // wperf1 (docs/performance.md): 0 off, 1 auto, 2 FSR 1
     kRenderScale,                         // wperf1: the scene target's share of the render resolution, percent
     kQualityCount
@@ -62,6 +62,14 @@ class Pass {
     // a prim buffer the game wrote (the sink's id after the write) / the sink buffers of one it dropped
     virtual void vertices(uint32_t, const hulk::pddi::SinkVertexData&) {}
     virtual void buffersDropped(uint32_t) {}
+    // wgrass1: a prim buffer's indices written (the sink's index buffer id after the write) / an index buffer dropped
+    virtual void indices(uint32_t, const uint16_t*, uint32_t) {}
+    virtual void indicesDropped(uint32_t) {}
+    // wgrass1: a texture made (`vid` the module's id), a level of it written (the game's own bytes, before any texture
+    // pack replaces them), dropped
+    virtual void textureCreated(uint32_t, const hulk::pddi::SinkTextureDesc&) {}
+    virtual void textureLevel(uint32_t, uint32_t, uint32_t, uint32_t, const void*, uint32_t) {}
+    virtual void textureDropped(uint32_t) {}
     // the frame's first pass into the scene target (`pass` may be changed: the clear, the viewport)
     virtual void sceneBegin(hulk::pddi::SinkPass&) {}
     // the game's frame is drawn; the present follows. `view` is the next free runner view (kFirstView..); a pass that
@@ -92,6 +100,11 @@ void packet(hulk::pddi::DrawPacket& p);
 void submitDraw(const hulk::pddi::DrawPacket& p);  // instead of hulk_gfx_sink_submit_draw
 void vertices(uint32_t sinkBuffer, const hulk::pddi::SinkVertexData& d);
 void buffersDropped(uint32_t sinkBuffer);
+void indices(uint32_t sinkIndexBuffer, const uint16_t* idx, uint32_t n);    // (wgrass1)
+void indicesDropped(uint32_t sinkIndexBuffer);
+void textureCreated(uint32_t vid, const hulk::pddi::SinkTextureDesc& d);
+void textureLevel(uint32_t vid, uint32_t level, uint32_t w, uint32_t h, const void* data, uint32_t size);
+void textureDropped(uint32_t vid);
 void setPass(const hulk::pddi::SinkPass& p);       // instead of hulk_gfx_sink_set_pass
 void present(const hulk::pddi::SinkPresent& p);    // instead of hulk_gfx_sink_present
 void frame();                                      // after the sink's frame

@@ -58,6 +58,7 @@ struct Stream {
     std::vector<SinkPresent> presents;
     std::vector<float> consts;
     std::vector<SinkVertex> verts;
+    double stamp;            // the display clock when the update was recorded (wgrass1: interp_display_time)
     bool valid;
     void clear()
     {
@@ -73,6 +74,10 @@ Stream* s_prev = &s_streams[1];    // the update before it
 bool s_recording;                  // this update's drawing goes to s_cur
 bool s_closed;                     // s_cur holds a closed stream not yet drawn
 bool s_havePrev;
+// the display clock (wgrass1): seconds of the original's fields since the start, at the start of the update being
+// drawn (advanced in interp_pace); while a recorded stream is drawn, its time between the previous update's and its own
+double s_clock, s_drawTime;
+bool s_inStream;
 int s_rate = -1;                   // display rate: 30 (no interpolation), 60, 120, 0 (the display's refresh)
 int s_override = -2;               // HULK_DISPLAY_FPS (-1: none)
 int s_paceMode = -1;               // 0 off, 1 on
@@ -422,6 +427,9 @@ std::vector<float> s_scratch;
 void drawStream(const Stream& s, const Stream* prev, float t, bool last)
 {
     s_scratch.resize(96 * 4);
+    s_drawTime = prev ? prev->stamp + (s.stamp - prev->stamp) * (double)t : s.stamp;
+    s_inStream = true;
+    struct End { ~End() { s_inStream = false; } } end;
     for (const Op& op : s.ops) {
         switch (op.kind) {
         case kOpPass:
@@ -690,8 +698,10 @@ bool interp_frame()
     s_recording = false;
     s_closed = true;
     s_cur->valid = true;
+    s_cur->stamp = s_clock;
     return true;
 }
+double interp_display_time() { return s_inStream ? s_drawTime : s_clock; }
 void interp_context_destroyed()
 {
     s_cur->clear();
@@ -799,6 +809,7 @@ void interp_pace(uint32_t fields)
                     s_st.gpuN ? s_st.gpuMs / s_st.gpuN : 0.0);
         }
     }
+    s_clock += fields / 60.0;
     if (pace)
         waitUntil(s_deadlineNs);
     s_sampleNs = nsNow();

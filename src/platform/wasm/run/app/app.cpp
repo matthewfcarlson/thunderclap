@@ -121,6 +121,7 @@ static void drop(uint32_t vid)
     // (interp_destroy: now, or once no recorded stream can still draw it)
     case kResTexture:
         texpack_dropped(vid);
+        rm::textureDropped(vid);
         interp_destroy(1, r->id, 0);
         break;
     case kResVertices:
@@ -130,6 +131,7 @@ static void drop(uint32_t vid)
         break;
     case kResIndices:
         meshpack_dropped(vid);
+        rm::indicesDropped(r->id);
         interp_destroy(2, kSinkNone, r->id);
         break;
     case kResRenderTarget:
@@ -348,6 +350,8 @@ u32 w2c_hulk_gfx_create_texture(struct w2c_hulk*, u32 vid, u32 desc)
         texpack_created(vid, &r->id, *MT<SinkTextureDesc>(desc));     // (texture packs: texpack.cpp)
     if (r->id != kSinkNone)
         texpack_mean_created(vid, *MT<SinkTextureDesc>(desc));        // (wlook2: glow colours)
+    if (r->id != kSinkNone)
+        rm::textureCreated(vid, *MT<SinkTextureDesc>(desc));           // (the runner's passes: grass)
     return r->id != kSinkNone;
 }
 u32 w2c_hulk_gfx_update_texture(struct w2c_hulk*, u32 vid, u32 level, u32 w, u32 h, u32 data, u32 pitch, u32 size)
@@ -360,6 +364,7 @@ u32 w2c_hulk_gfx_update_texture(struct w2c_hulk*, u32 vid, u32 level, u32 w, u32
     gs_tex(0, size);
     if (level == 0)
         texpack_mean_level0(vid, w, h, M(data), size);                 // (wlook2: glow colours)
+    rm::textureLevel(vid, level, w, h, M(data), size);
     if (texpack_tracks(vid))
         return texpack_update(vid, level, w, h, M(data), pitch, size);
     return hulk_gfx_sink_update_texture(r->id, level, w, h, M(data), pitch, size);
@@ -405,7 +410,12 @@ u32 w2c_hulk_gfx_update_index_buffer(struct w2c_hulk*, u32 vid, u32 idx, u32 n, 
     r->kind = kResIndices;
     gs_ib(vid, n);
     meshpack_indices(vid, MT<const uint16_t>(idx), n);
+    uint32_t was = r->id;
     r->id = hulk_gfx_sink_update_index_buffer(r->id, MT<const uint16_t>(idx), n, owner);
+    if (was != kSinkNone && was != r->id)
+        rm::indicesDropped(was);
+    if (r->id != kSinkNone)
+        rm::indices(r->id, MT<const uint16_t>(idx), n);    // (the runner's passes: grass)
     return r->id != kSinkNone;
 }
 u32 w2c_hulk_gfx_create_target(struct w2c_hulk*, u32 vid, u32 fb, u32 w, u32 h, u32 render)

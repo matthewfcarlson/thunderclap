@@ -10,5 +10,5 @@ float rmGrassiness(vec3 c)
     vec3 k = c / s;                                 // chromaticity: brightness (and night) taken out
     // green over red and over blue; olive and brownish leaves (green about red) where blue is low
     float score = (k.g - k.r) + 0.6 * (0.27 - k.b);
-    return smoothstep(0.005, 0.035, score) * smoothstep(0.04, 0.08, k.g - k.b);
+    return smoothstep(-0.005, 0.02, score) * smoothstep(0.02, 0.05, k.g - k.b);
 }

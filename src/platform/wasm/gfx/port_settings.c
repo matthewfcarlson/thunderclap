@@ -55,6 +55,7 @@ static void apply_atmosphere(int value) { hulk_wasm_quality_apply(14, value); }
 static void apply_grade(int value) { hulk_wasm_quality_apply(15, value); }
 static void apply_upscaler(int value) { hulk_wasm_quality_apply(17, value); }
 static void apply_render_scale(int value) { hulk_wasm_quality_apply(18, value); }
+static void apply_grass(int value) { hulk_wasm_quality_apply(16, value); }
 static void apply_tutorial_skip(int value) { hulk_wasm_tutorial_skip_apply(value); }
 static void apply_traversal(int value) { hulk_wasm_traversal_apply(value); }
 static void apply_developer(int value);
@@ -113,6 +114,9 @@ static void apply_developer(int value);
  * render resolution (100% .. 50%: FSR's Ultra Quality 1.3x, Quality 1.5x, Balanced 1.7x, Performance 2x) and brought
  * to the present size by the upscaler: Off the bilinear stretch as before, FSR 1 (AMD's EASU + RCAS, MIT), Auto the
  * platform's best (FSR 1 today). Output only (the game sees 640x480 at every scale).
+ * Grass (wgrass1; run/app/grass.cpp, docs/grass.md): blades on the game's grass ground, instanced clumps in world space
+ * taking the ground's colour, swaying in the wind and bent aside by the characters, fading out to the flat ground with
+ * distance (1 low: 12 units, 3 blades a clump; 2 high: 24 units, 5 blades). Output only: nothing collides with them.
  * Tutorial skip (wskip1): a star behind the Hulk's start in the two tutorial missions (c00m01, c00m02) ends the mission
  * through its own success path when he walks into it (tutorial_skip.c). It changes the game (the mission ends), so it
  * is per session: replays and tests pin it off, netplay peers must share it.
@@ -173,6 +177,8 @@ static port_setting k_settings[] = {
      apply_atmosphere},
     {"grade", "Colour Grade", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"Original", "Natural", "Cinematic"}, 0, 2, 1,
      apply_grade},
+    {"grass", "Grass", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"Original", "Blades Low", "Blades High"}, 0, 2, 1,
+     apply_grass},
     {"tutorial_skip", "Tutorial Skip", PS_SCREEN_GAMEPLAY, PS_ONOFF, 2, {0, 1}, {"Off", "On"}, 0, 1, 1,
      apply_tutorial_skip},
     {"remaster_moves", "Traversal Moves", PS_SCREEN_GAMEPLAY, PS_ONOFF, 2, {0, 1}, {"Off", "On"}, 0, 1, 1,

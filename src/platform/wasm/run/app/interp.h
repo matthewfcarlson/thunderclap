@@ -16,4 +16,7 @@ void interp_draw(const hulk::pddi::DrawPacket& p);
 void interp_destroy(int kind, uint32_t a, uint32_t b);   // 1 texture, 2 buffers, 3 render target, 4 copy target
 bool interp_frame();                         // the update's frame end: true when recorded (drawn in interp_pace)
 void interp_context_destroyed();
-void interp_pace(uint32_t fields);           // the SwapBuffers wait: fields of 60 Hz this update lasts
+void interp_pace(uint32_t fields);
+// the display clock (wgrass1): seconds of the original's fields, at the drawn frame (between two updates' times at a
+// display rate above 30); render-only animation (grass sway) takes it, so a still picture is the same at any rate
+double interp_display_time();           // the SwapBuffers wait: fields of 60 Hz this update lasts

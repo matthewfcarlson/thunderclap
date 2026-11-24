@@ -232,6 +232,36 @@ void buffersDropped(uint32_t sinkBuffer)
     RM_EACH(buffersDropped(sinkBuffer));
 }
 
+void indices(uint32_t sinkIndexBuffer, const uint16_t* idx, uint32_t n)
+{
+    for (Pass* q : ordered())
+        q->indices(sinkIndexBuffer, idx, n);
+}
+
+void indicesDropped(uint32_t sinkIndexBuffer)
+{
+    for (Pass* q : ordered())
+        q->indicesDropped(sinkIndexBuffer);
+}
+
+void textureCreated(uint32_t vid, const SinkTextureDesc& d)
+{
+    for (Pass* q : ordered())
+        q->textureCreated(vid, d);
+}
+
+void textureLevel(uint32_t vid, uint32_t level, uint32_t w, uint32_t h, const void* data, uint32_t size)
+{
+    for (Pass* q : ordered())
+        q->textureLevel(vid, level, w, h, data, size);
+}
+
+void textureDropped(uint32_t vid)
+{
+    for (Pass* q : ordered())
+        q->textureDropped(vid);
+}
+
 static uint8_t s_passScene[65536 / 8];
 bool passIsScene(uint16_t pass) { return s_passScene[pass >> 3] >> (pass & 7) & 1; }
 namespace {

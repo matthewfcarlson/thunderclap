@@ -22,3 +22,8 @@ vec2 a_texcoord0 : TEXCOORD0;
 vec2 a_texcoord1 : TEXCOORD1;
 vec2 a_texcoord2 : TEXCOORD2;
 vec2 a_texcoord3 : TEXCOORD3;
+
+// wgrass1 (run/app/grass.cpp): the grass blades' instances (bgfx's instance data: TEXCOORD7 down)
+vec4 i_data0     : TEXCOORD7;
+vec4 i_data1     : TEXCOORD6;
+vec4 i_data2     : TEXCOORD5;
