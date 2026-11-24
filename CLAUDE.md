@@ -764,7 +764,16 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   blur cancels). With AO on, grass blades draw after it (`rm::grassAfterAo`: an empty world-pass view after the apply);
   a pass submitting from the AO hook re-binds the handed-over draw with `rm::lightingRebind`. Check picture noise as
   one-option-off Metal shot runs with the player's settings pinned (aspect 43 for replays).
-- Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
+  Co-op, game side (wcoop1, D246; src/platform/wasm/gfx/coop.c, docs/multiplayer.md §17): up to 3 Hulks, one per
+  instance's local view. The game sums all four pads into one CController (0xae130); co-op gives ports 1-2 their own
+  CController/CSimController (hooks 0xae130 / 0xb3d80 / 0xb3d20; ports 1-3 sum into the controller's C/D blocks).
+  Extra Hulks come from the actor spawner 0x2b970 (`hulk` template). `dev_coop_local=N` (developer mode) spawns N-1;
+  `HULK_INPUT` takes `pK:` items for pad K. The local view (`hulk_wasm_coop_set_local_view`, `HULK_COOP_VIEW`) is
+  picture-only. GameClock::Update (the checkpoint) runs between World::Render and the next UpdateSimulation: a
+  picture-only change to the logic view is put back when World::Render returns, or the records' camera tag moves.
+- Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`): resumed 11-24 (D246): up to 3 Hulks, one host;
+  guests join the host's live game (state snapshot, no save transfer; guests never write saves); Cloudflare TURN plus
+  a lobby Worker that the user deploys (employer check first).
 
 ## Compute
 
