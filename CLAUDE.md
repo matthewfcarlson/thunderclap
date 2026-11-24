@@ -705,6 +705,14 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   submit from `late()` or at order < 10. Upscaler / Render Scale (upscale.cpp): Auto caps the scene at 1280x960 pixels
   and FSR 1 brings it to the present (`hulk_gfx_sink_present_source`). The performance overlay uses sink overlay slot 1;
   slot 0 stays movie.c's. MetalFX needs a bgfx patch (the app's command queue): the lane that owns the bgfx build does it.
+  Playthroughs (wplay4, D244; docs/playthrough.md): `tools/playthrough.py record --name N [--from-save DIR]` plays on
+  from play3's end (frame 56,564) or the last session's end under replay rules, recording pad 0 per poll into
+  build/playthrough/N/N.hrp (a SEG1 trailer: each segment's (frame, poll) bounds and the live DoWork step). Snapshots
+  (sched.c ff_snap_write/ff_snap_read) are per executable. Replay with `native_replay.py run --rec N` or
+  `wasm_build_job --test N:FRAMES`; checks are against N.self.ckref (our own records past play3). Presents differ by
+  renderer (Metal vs d3d_null during loads): key boundaries by GameClock frame and poll, never SIM->frame. The replay
+  clock stands still between GameClock updates; only a playthrough's own segments move it in a wait (20,000 reads, then
+  1 ms a read), else Load Game freezes.
   Build id (wver1): apps and APKs carry the short commit (`+dirty` for local builds with uncommitted host files or tools,
   `+N` for N queue overlay files): stdout `hulk-app: build <id>`, the window title, Info.plist, the APK's versionName and
   SetupActivity. `wasm_app.py build` writes it from HULK_BUILD_ID (wasm_build_run.py sets it) or git into
