@@ -1,0 +1,307 @@
+# Performance: the frame budget of the wasm app (wperf1)
+
+wperf1, 2026-11-23. User (11-23): a single effect costing +3 ms "when we have 16 ms to play around in" is too much: set
+and meet a frame budget. This document is the measured baseline of the remastered edition on the user's laptop, the
+per-pass budgets, and what the upscalers, TAA and the other optimisations change. Everything here is renderer-only:
+the game's state and play3's checkpoint records are the same with every setting (checks at the end).
+
+## 1. How it is measured
+
+- **Machine.** The user's MacBook Air M3 (Mac15,13; 10-core GPU, 8 CPU cores, fanless). The app's default window is
+  640x480 points: 1280x960 pixels on the built-in Retina display (640x480 on the 1x external display the laptop was
+  attached to while measuring); Render Resolution's remastered default is Window, so the default render size on the
+  Air is 1280x960. Runs here use a hidden window of 1280x960 pixels (`HULK_GFX_WINDOW`), Metal, unless noted.
+- **Workload.** play3 replayed from boot, unpaced (each update presents as fast as it can), the night city of game
+  frames 15,000-17,400 (the heaviest part of play3: wet streets, lit windows, lamps, 280-310 game draws and ~580 sink
+  draws a frame with every pass on).
+- **Frame time** is the unpaced wall time a presented frame (`HULK_GFX_STATS` "wall", or the image's frames/s): the
+  remastered frame is GPU-bound (bgfx::frame waits for a free frame in flight), so this is the GPU's throughput. The
+  frame rate "reached" is its inverse; paced at 60 or 120 the frame has that much headroom.
+- **Quiet.** Other lanes run Metal replays on the same laptop most of the day; every measured run waited for a moment
+  with no other hulk-app process and records how many 5 s samples saw one start meanwhile (build/wperf1/scripts/
+  meas.sh; runs marked "loaded" below were not quiet throughout). The M3 Air throttles after minutes of full GPU load
+  (no fan): long unpaced runs are a worst case, not a typical frame.
+- **GPU per pass**, two ways. (a) The pass's A/B switch: off and on in turns of 30 presented frames within one run
+  (`HULK_<PASS>_AB=30`; the same scenes on both sides), compared on bgfx's frame GPU timer. That timer spans a command
+  buffer's start to end, and consecutive frames overlap on the tile GPU (one frame's vertex work under the last one's
+  fragments): it reads ~1.8x the frame's real GPU time (16-19 ms against 10 ms frames), so its deltas rank the passes
+  but overstate them. (b) The frame time of a run with the pass off against the same settings with it on (quiet runs,
+  noise about +-0.3 ms): the real cost. bgfx's per-view timers (`BGFX_DEBUG_PROFILER`) give unusable numbers on Metal
+  here (sums 10-100x the frame's) and split every view into its own render pass, which itself costs on a tile GPU.
+- **CPU.** `HULK_GFX_STATS=300` (gfxstats.cpp), now with the runner's split: the rm passes' hooks (their own encoding
+  and redraws), the game's draws into the sink, `bgfx::frame` (Metal encoding and submission: this build runs bgfx
+  single-threaded, so this is the render thread's work, plus any wait for a free frame in flight), interp's replays at
+  60 / 120 fps, and the module's own time (game update and scene traversal) as the rest of the wall time.
+
+## 2. Baseline (before this lane's default changes)
+
+Quiet runs (no other Metal process in any 5 s sample), app at 761e91dfd plus wperf1's working tree, play3's night city:
+
+| settings | render | frame | reached | module (game) | rm hooks | bgfx::frame |
+|---|---|---|---|---|---|---|
+| every picture option off (Original), Window | 1280x960 | 2.2 ms | 472 fps | 1.5 ms | 0.05 ms | 0.4 ms |
+| **remastered defaults** (MSAA 4x, Reflections High) | 1280x960 | **11.6 ms** | 86 fps | 2.3-4.8 ms | 1.15 ms | 4.8 ms |
+| the same, Anti-Aliasing off | 1280x960 | 7.3 ms | 137 fps | 2.2 ms | 0.5 ms | 4.2 ms |
+| the same, TAA | 1280x960 | 8.2 ms | 122 fps | 2.3 ms | 0.6 ms | 4.9 ms |
+| remastered defaults, default window on a 1x display | 640x480 | 4.9 ms | 210 fps | 2.1 ms | 0.5 ms | 2.0 ms |
+| remastered defaults, 1920x1440 window | 1920x1440 | 21.6 ms | 46 fps | 3.8 ms | 0.9 ms | 16.2 ms |
+
+At the display rates (interp.cpp re-draws every update's stream; presents a second, unpaced):
+
+| settings, 1280x960 | 60 fps target | 120 fps target |
+|---|---|---|
+| remastered defaults (MSAA 4x) | 100 presents/s (10.0 ms each): holds 60, 6.7 ms spare | not reached |
+| the same with TAA | 134 (7.5 ms) | 136 (7.4 ms): holds 120 barely |
+| Performance (TAA, Render Scale 50%, FSR 1, Shadows Low, Reflections Low) | | 328 (3.0 ms) |
+
+**CPU** (TAA, a present at 30 fps): the module's update and scene traversal 2.3 ms, the rm passes' hooks (their own
+redraws and encoding: shadow casters, the G-buffer, the velocity draws) 0.6 ms, the game's draws into the sink 0.16 ms,
+`bgfx::frame` 4.9 ms of which Metal encoding is ~1.5-2 ms (bgfx's own CPU timer) and the rest waiting for the GPU. At
+60 fps interp's replay of a present costs ~1 ms of CPU beyond bgfx (matching, constants, the rm hooks again). The CPU
+has room: ~4-5 ms of a present's work against 16.7 (60) or 8.3 (120) ms, so the budget is the GPU's.
+
+**Per pass** (the night city, 1280x960):
+
+| pass | A/B GPU timer, MSAA 4x | A/B GPU timer, TAA | frame time without it (TAA) |
+|---|---|---|---|
+| Anti-aliasing: MSAA 4x (vs off) | | | **+4.3 ms** (11.6 vs 7.3) |
+| Anti-aliasing: TAA (vs off) | | +1.35 | +0.9 ms |
+| Shadows High (2 x 2048) | +8.4 | +6.1 | +1.4 ms |
+| Shadows Low (1 x 1024) | | | +0.5 ms |
+| Reflections High (full-size trace) | +4.0 | +3.2 | +1.6 ms (a loaded run; about) |
+| Reflections Low (half-size trace) | | +1.2 | +0.9 ms |
+| Ambient Occlusion | +2.1 | +0.7 | under 0.3 ms (a loaded run) |
+| HDR (its views; grade inside its tone map) | +1.05 | +0.33 | +0.8 ms (with the grade) |
+| Atmosphere | +2.5 | +0.7 | +0.3 ms |
+| Night Lights | +1.2 | | +0.75 ms |
+| Windows (interiors) | +0.7 | | +0.2 ms |
+| Colour Grade | +0.2 | | |
+
+What the numbers say: **MSAA 4x on the half-float scene is the largest single cost** (+4.3 ms, ~40% of the frame): it
+multiplies every full-screen runner pass by four samples (AO's apply +2.1 ms under MSAA, +0.7 without; the atmosphere
++2.5 vs +0.7), and every view the runner inserts between the game's passes (shadows, the G-buffer, AO, the trace, HDR)
+stores and reloads a 4x RGBA16F target on the tile GPU. Next are Shadows High and Reflections High. Shadow casters
+culled per cascade (wperf1, 40% fewer cascade draws: ~150 of ~370) did not move the cost: it is the fill of the
+2 x 2048 rows (the rooms drawn twice, both faces), not the draw count.
+
+## 3. Budgets
+
+The remastered defaults must hold 60 fps on the M3 Air with the GPU at or under ~12 ms a frame and CPU headroom; a
+Performance path must reach 120 fps. Per-pass budgets (M3 Air, 1280x960, GPU frame time a pass may add):
+
+| pass | budget | measured (TAA) | at the defaults |
+|---|---|---|---|
+| the game's own frame (rooms, characters, effects, HUD) at the render size | 2.5 ms | 2.2 ms | |
+| per-pixel lighting, HDR, colour grade | 1.0 ms | 0.8 ms | on |
+| anti-aliasing | 1.0 ms | TAA 0.9 ms (MSAA 4x 4.3 ms) | TAA |
+| shadows | 1.5 ms | High 1.4, Low 0.5 | High |
+| reflections | 1.0 ms | Low 0.9, High 1.6 | Low |
+| ambient occlusion | 0.5 ms | < 0.3 ms | on |
+| atmosphere + night lights | 1.0 ms | 1.05 ms | on |
+| windows | 0.3 ms | 0.2 ms | on |
+| upscaling | 0.5 ms | FSR 1: two passes at the present size | Auto |
+| the performance overlay | 0.1 ms | | off |
+| **frame** | **≤ 12 ms (60 fps)** | **~7.5 ms** | |
+
+**Defaults changed** (port_settings.c): Anti-Aliasing MSAA 4x -> **TAA** (-3.4 ms; image section 5.1), Reflections
+High -> **Low** (-0.7 ms; the half-size trace with the composite's depth-weighted, roughness-sized gather as the
+edge-aware upsample; High stays the full-size option), Render Scale **Auto** with Upscaler Auto: a window of more than
+1280x960 pixels draws the scene at the largest scale (at least 50%) within 1280x960 pixels and FSR 1 brings it to the
+window (the Air's full screen, 2219x1664 at 4:3, draws at 57%), so the default frame stays ~7.5-8 ms at any window size
+(1920x1440 native MSAA 4x was 21.6 ms; FSR 67% + TAA 9.4 ms). The remastered defaults now draw a 1280x960 frame in
+~7.5 ms: 60 fps with ~9 ms to spare, and 120 fps at the 120 setting with about 1 ms.
+
+**Performance** (120 fps): TAA, Render Scale Balanced or Performance, Shadows Low, Reflections Low: 3.0 ms a present at
+50% (328 presents/s unpaced). Render Scale is the preset row (Native / Auto / Ultra Quality / Quality / Balanced /
+Performance); the rest are the passes' own rows.
+
+**Other targets** (estimates from the M3 Air's numbers by pixels and GPU throughput; not measured): Steam Deck (RDNA2,
+1.6 TFLOPS, 88 GB/s; 800p, the 4:3 picture 1067x800 = 0.7x the pixels; ~0.45x the M3's throughput): the remastered
+defaults ~11-12 ms, 60 fps with Render Scale Auto; Quality (67%) gives ~7 ms. Android, Adreno 740 class (tile-based like
+Apple's, ~0.55x): 720p's 960x720 picture ~8-9 ms at the defaults; Mali-G710 class (~0.3x, half the bandwidth): ~16 ms:
+Shadows Low, Reflections Low and Render Scale Quality bring it to ~9 ms, and MSAA there is out of the question (4x
+half-float samples). TAA's history (2 x RGBA16F) and the velocity target cost ~15 MB at 1280x960.
+
+## 4. Upscaling (Upscaler, Render Scale)
+
+Two Video Options rows (port_settings.c; output only, remastered-only):
+
+| row | values (faithful first) | remastered default | Quality index |
+|---|---|---|---|
+| `upscaler` Upscaler | Off (Original), Auto, FSR 1 | Auto | rm::kUpscaler = 17 |
+| `render_scale` Render Scale | Native, Auto, Ultra Quality (77), Quality (67), Balanced (59), Performance (50) | Auto | rm::kRenderScale = 18 |
+
+- **Render Scale** is the preset row: the scene target is made at that share of the render resolution (app.cpp
+  `rrSize`; the scales are FSR's Ultra Quality 1.3x, Quality 1.5x, Balanced 1.7x and Performance 2x). Auto (value 0) is
+  the largest scale, at least 50%, that keeps the scene within 1280x960 pixels (section 3). Everything that
+  is sized from the scene (the frame copies, the effects, every runner pass) follows; the game still sees 640x480, and
+  the occlusion queries' counts are scaled back as for any render size.
+- **Upscaler** decides how the frame reaches the present size. Off: the sink's bilinear stretch, as before. FSR 1:
+  run/app/upscale.cpp, the last pass of the frame (postScene, after the HUD), two full-screen passes at the present
+  size: EASU (shaders/fs_rm_easu.sc, edge-adaptive Lanczos-2 from 12 taps, deringed) and RCAS (fs_rm_rcas.sc, 0.25 stops
+  of contrast-adaptive sharpening; `HULK_FSR=stops`), then presented 1:1 (`hulk_gfx_sink_present_source`, bgfx_sink.cpp
+  under HULK_SINK_OVERLAY). Auto: FSR 1 on every platform today (MetalFX on macOS when it lands: section 4.2). An
+  upscaler runs only when the present rectangle is larger than the scene (Native at Window size does nothing).
+- **Spatial first, the HUD included.** The whole frame is upscaled at the end, so the HUD and the game's effects are
+  drawn at the render size and upscaled with the world: at 67% and above the HUD's text stays clean (EASU keeps edges);
+  at 50% it softens. Drawing the HUD at the present size would need the scene target split into a world rectangle and
+  the full frame (dynamic-resolution style viewports for the world passes), which also is what temporal upscaling
+  needs (4.2).
+
+### 4.1 Cost
+
+| settings (TAA) | render | present | frame | reached |
+|---|---|---|---|---|
+| Native | 1280x960 | 1280x960 | 8.2 ms | 122 fps |
+| Quality (67%) + FSR 1 | 858x643 | 1280x960 | 5.8 ms | 175 fps |
+| Native, MSAA 4x (the old default) | 1920x1440 | 1920x1440 | 21.6 ms | 46 fps |
+| Quality (67%) + FSR 1 | 1286x965 | 1920x1440 | 9.4 ms | 107 fps |
+| Performance (50%) + FSR 1, Shadows / Reflections Low, 120 fps | 640x480 | 1280x960 | 3.0 ms | 328 presents/s |
+
+EASU and RCAS are two full-screen passes at the present size: about 0.2-0.4 ms at 1920x1440 by their shape (12 and 5
+taps); they are not separable in these runs from the scene's own saving. Picture: build/wperf1/png (not committed): at
+67% the city's edges and the HUD stay clean (EASU keeps edges, RCAS restores contrast); at 50% fine textures soften and
+the HUD's small text blurs.
+
+### 4.2 Temporal upscaling and MetalFX (not landed)
+
+- **Shared pipeline.** TAA (section 5) already provides what a temporal upscaler needs: per-frame sub-pixel jitter on
+  every scene draw, the camera's reprojection from depth, per-object motion vectors (the velocity target) and a history
+  with clipping. A temporal upscaler is the same resolve with the history at the present size and the jittered samples
+  at the render size.
+- **What is missing** is the place to do it. The resolve runs at the frame's first effect, but the game's colour pass,
+  bloom and HUD then draw into the scene target at the render size. Temporal upscaling needs the world drawn into a
+  render-size rectangle of a present-size scene target (the world passes' viewports scaled, as app.cpp already scales
+  them for the render resolution, and every runner pass taught the rectangle), the resolve writing the full target, and
+  the effects and HUD drawn at the present size after it. That is a change to the scene target's contract across
+  app.cpp, the sink and ten passes: the next step, not done in wperf1.
+- **MetalFX** (macOS 13+, Apple's framework, linked at run time: nothing vendored). Its scalers encode into an
+  MTLCommandBuffer and take MTLTextures: the textures are reachable through `bgfx::overrideInternal`, but bgfx's Metal
+  renderer neither exposes its command buffer nor accepts the app's queue (`PlatformData::queue` is D3D12-only), and a
+  command buffer on another queue is not ordered with bgfx's. It needs a three-line bgfx patch (tools/wine_gfx.py
+  PATCHES: CommandQueueMtl::init takes `g_platformData.queue` when set, as the D3D12 renderer does), after which the app
+  creates the queue, hands it to bgfx, and encodes MetalFX on the same queue after `bgfx::frame` (one frame of latency:
+  the scaler's output of frame N is presented in frame N+1) or between two bgfx frames. The shared libbgfx (out/host)
+  is rebuilt for every lane by that patch, so it is left for a lane that owns the bgfx build; MetalFX spatial would
+  replace EASU at about the same cost, MetalFX temporal needs the scene-target change above.
+- **FSR 2 / 3** (MIT, AMD FidelityFX SDK): a dozen compute passes (bgfx has compute on Metal and Vulkan); after the
+  scene-target change, the port is mechanical. Android (Mali / Adreno): FSR 1 at Quality (67%) is the pick for cost
+  (two full-screen passes, no history memory, no compute); temporal upscaling on Mali-class GPUs costs about what it
+  saves at 720p.
+
+## 5. TAA (Anti-Aliasing: TAA)
+
+The Anti-Aliasing row (msaa) gains a value: TAA (1), next to Off, MSAA 2x / 4x / 8x; run/app/taa.cpp, order 20.
+
+- **Jitter.** Each presented frame takes the next of 8 Halton (2, 3) sub-pixel offsets, added to the clip-space x / y
+  rows of every scene draw's vertex constants (`late`, so the passes that redraw the world, reflections' G-buffer, the
+  shadows' casters and ambient occlusion's projection, see the same jitter): `row_x += jx row_w` in each vertex
+  program's layout (fixed function c4.., the skin programs c98.., the refraction programs' four clip rows). Only from
+  the world's first room draw on: the sky dome before it and frames without a world (the front end) are untouched.
+- **Motion.** The camera's: each pixel's camera-space position (the scene's depth and the world projection without
+  jitter) taken to the last presented frame's clip space by `P' V' V^-1` (the views from the frames' first room draws).
+  The objects' own: every opaque buffer draw that is not a room (characters, cars, props; ~40-90 a frame in the city) is
+  drawn again into a velocity target (RGBA16F + depth) with this frame's constants and the last frame's constants of the
+  same draw (matched by buffers, count, program and first texture, the nearest origin in camera space within 3 units):
+  per vertex, so the Hulk's limbs carry their own motion (vs_rm_vel.sh: fixed function, three-bone and one-bone skins).
+  The resolve uses an object's vector where its depth agrees with the scene's (it is what the pixel shows).
+- **Resolve** (fs_rm_taa.sc) at the frame's first effect (where HDR tone maps, before it; at the frame's end when
+  there is none): 3x3 neighbourhood moments in YCoCg, the nearest depth of the 3x3 (edges reproject with the
+  foreground), the history by a 5-tap Catmull-Rom, clipped to mean +- 1.25 sigma, blended at 10% (up to 35% with fast
+  motion) with 1 / (1 + luma) weights (the scene is half float: no flicker from bright pixels); off-screen history and
+  camera cuts (the view turning more than ~25 degrees in a frame) start from the current frame. Written back with a
+  light, range-clamped sharpen (fs_rm_taasharp.sc, 0.35). `HULK_TAA=alpha,gamma,sharpen`, `HULK_TAA_MOTION=0` (camera
+  only), `HULK_TAA_LOG=1`, `HULK_TAA_AB=N` (cost turns).
+- **60 / 120 fps.** Interpolated frames are presented frames like any other (interp.cpp replays them through rm): each
+  takes the next jitter phase and reprojects from the frame shown before it with the interpolated constants, so the
+  history is per presented frame (checked: play3 at 60, consecutive interpolated and recorded frames at 14,998-14,999).
+- **With an upscaler.** TAA resolves at the render size; FSR 1 then upscales the anti-aliased frame (the usual
+  TAA + spatial pairing until temporal upscaling lands, 4.2).
+- **Single-sampled.** With TAA the scene has no MSAA, which is most of its saving: every full-screen runner pass (AO's
+  apply, SSR's composite, the atmosphere, HDR's tone map) writes one sample per pixel instead of four, and the view
+  splits between the game's passes no longer resolve and reload a 4x half-float target.
+
+### 5.1 Cost and quality
+
+- Cost: +0.9 ms against no anti-aliasing (+1.35 on the A/B GPU timer), against MSAA 4x's +4.3 ms: the scene is
+  single-sampled, so every other pass gets cheaper too. The velocity draws add ~40-90 object draws a frame (0.1 ms of
+  CPU in the hooks).
+- Quality (build/wperf1/png, never committed; cmpt3-15000.png: MSAA 4x / TAA camera-only / TAA with object motion): the
+  city's long edges, window frames and the wet street's reflections are smoother than MSAA 4x (which leaves the shader
+  aliasing of the per-pixel lighting, the SSR and the texture detail alone); the picture is slightly softer at rest
+  (the sharpen keeps most of it). With object motion the Hulk stays sharp while running; the camera-only version
+  smeared him (the history clip held most of it). At 60 fps the interpolated frames show the same stability
+  (taa60-*.png). Not yet handled: transparent effects (particles, glows) have no motion of their own and can trail
+  slightly in fast pans; the grass blades (wgrass1, drawn by the runner) are not jittered.
+- **Verdict**: TAA replaces MSAA 4x as the remastered default (it wins clearly on cost, and on quality everywhere but
+  a slight softness); MSAA 2x / 4x / 8x stay in the row.
+
+## 6. bgfx's render thread (P1)
+
+Assessed, not enabled. The app links bgfx with `BGFX_CONFIG_MULTITHREADED=0` (tools/wasm_port.py BGFX_DEFS): the
+module's update, the runner's passes and bgfx's Metal encoding share the main thread, and `bgfx::frame` does the
+encoding. With bgfx's render thread, encoding of frame N would overlap the module's update of frame N+1.
+
+- **Gain.** On the remastered defaults the frame is GPU-bound on the M3 Air (section 2): a render thread does not
+  shorten the GPU's work. At the Performance settings, where the GPU time falls under the CPU's, it would hide most of
+  `bgfx::frame`'s share of the CPU (section 2's split) and is worth a measured try then.
+- **Cost and risk.** On macOS bgfx's render thread must be the main thread (Cocoa / CAMetalLayer), so the module (the
+  game, its Asyncify scheduler, the SDL event pump's callers) would move to a second thread: the pad thread's lock rules
+  (wpad1), the movie and audio callbacks, `bgfx::getStats` / screenshot / readback users in the runner, and every pass
+  that creates or updates bgfx resources mid-frame (frame copies, the night lights' texture, packs) would need review.
+  Occlusion query results already arrive a frame late on Metal and the game handles pending results, but their timing
+  would shift again. Not clearly beneficial at today's GPU-bound defaults and not safe without that review: left off;
+  revisit with the Performance preset's CPU numbers.
+
+## 7. The performance overlay (Video Options > Performance Overlay: Off / FPS / Graph)
+
+`perf_overlay` (rm::kPerfOverlay = 19; both editions, default Off), run/app/perfov.cpp, the last rm pass:
+
+- **FPS**: a corner readout: presented frames a second and the frame time (averaged over the last second), the render
+  size, its share of the present size, the upscaler (Native / FSR1 / bilinear) and the anti-aliasing.
+- **Graph** adds the last 240 presented frames' times as bars (green to 8.3 ms, yellow to 16.7, orange to 33.3, red
+  beyond; lines at 8.3 and 16.7 ms, 0-33 ms tall), the 1% low (the 99th percentile frame time as a rate) and, below, the
+  CPU per frame stacked (blue: the module's update with its own draws; violet: interp's replays at 60 / 120 fps; cyan:
+  bgfx::frame, Metal encoding plus any wait for the GPU) with bgfx's GPU timer as white dots (an overlapping timer:
+  section 1), and their averages in the legend in the same colours.
+- Drawn from the runner: a small B, G, R, A image (a 3x5 pixel font, doubled on windows 900 pixels tall or more) made
+  every second presented frame and drawn by the sink over the presented frame in a second overlay slot
+  (bgfx_sink.cpp `hulk_gfx_sink_overlay_slot`: slot 0 stays the movie ring and the controller banner, which movie.c
+  arbitrates; slot 1 is the overlay, drawn after). Its times come from hooks in interp_pace, drawStream and
+  gs_sink_frame that are one flag test when it is off. Nothing reads or writes the module's memory.
+- Screenshots: build/wperf1/png/overlay-graph-60fps.png, overlay-fps.png (queue Metal tests 111847 / 111848, never
+  committed).
+
+## 8. Licences
+
+| component | licence | how it is used |
+|---|---|---|
+| FSR 1 EASU / RCAS (AMD FidelityFX Super Resolution 1.0, ffx_fsr1.h) | MIT, (c) 2021 Advanced Micro Devices | ported to bgfx's shader language in fs_rm_easu.sc / fs_rm_rcas.sc, the MIT notice in each |
+| FSR 2 / 3 (AMD FidelityFX SDK) | MIT | not used yet (4.2) |
+| MetalFX | Apple system framework (macOS 13+) | not used yet; would be linked at run time, nothing vendored |
+| TAA, motion vectors, Catmull-Rom history | the runner's own code | general techniques (jittered temporal supersampling, YCoCg variance clipping, 5-tap bicubic); no third-party code |
+| bgfx / bx / bimg | BSD-2-Clause | unchanged |
+
+## 9. Checks
+
+- Game state: play3 to 60,000 with `null` against a control of HEAD on the same host, every option of this lane pinned
+  on (TAA, Upscaler FSR 1 / Auto, Render Scale 50% or Auto, the overlay's graph) with every remastered option: records
+  identical (tests 111779, 111782 for the upscaler and TAA; 111846 for the defaults, Auto scale, shadow culling and the
+  overlay; candidate 111845 against control 111841 at 09082935d). Metal on the laptop: play3 to 15,100 with MSAA 4x,
+  TAA (camera only, with object motion, at 60 fps) and FSR 1 at 50% gave the same checkpoint records.
+- Pictures: queue Metal tests 111837-111840 (TAA + Reflections Low, MSAA 4x + High, TAA + High; FSR 67% to 1920x1440)
+  and the laptop's runs; build/wperf1/png, never committed.
+- Android: the runner's new files compile with the NDK (API 31); the shaders build for spirv and essl.
+
+## 10. Open items
+
+- MetalFX (spatial and temporal) and FSR 2/3: section 4.2 (a bgfx queue patch; the scene-target split for temporal).
+- Shadows High's cost is the fill of the two 2048 rows: cache the world row (static rooms; redraw when its snapped
+  centre moves by a coarse step) or draw it at 1024, with per-row receiver matrices in fs_px_stage.sh.
+- Reflections' G-buffer redraw (~300 draws): the scene's depth plus reconstructed normals could replace most of it,
+  but the per-draw reflectance class needs a channel the game's own shaders do not write (MRT is not available: the
+  pddi shaders are the faithful ones).
+- AO's apply under MSAA is moot with TAA (+0.7 timer, < 0.3 ms); a 2x2 bilateral upsample would trim it further.
+- Dynamic resolution (Render Scale following the frame time) is not done: Auto's pixel cap holds the budget at any
+  window size on the Air.
+- Measure on a quiet laptop again: AO and Reflections High off-runs were contaminated by another lane's run.
