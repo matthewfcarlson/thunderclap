@@ -934,6 +934,11 @@ display's refresh by drawing the last simulated frame again with its transforms 
   by element, not decomposed: the constants are composites (bone x modelview, world x view x projection) that a
   decomposition cannot take apart, and over one 30 Hz step the shrink of a lerped rotation is 1 - cos(theta/2)
   (0.14% at 6 degrees a frame, 1.5% at 20). Fragment uniforms, textures and buffers are frame N's.
+- **What the runner's passes see.** A replayed draw carries frame N's combiner key (interned), modelview, projection,
+  view and lights (copies in the stream, each shared with the last equal one; not interpolated), so the rm passes'
+  `late`/`draw` hooks classify draws as at 30 fps. Before wwin2 they were null at 60/120: window interiors (the
+  combiner key) and the far field (the modelview) were missing, and the shadows' and atmosphere's key light and the
+  sky dome's combiner test fell back.
 - **Matching draws between N-1 and N.** A draw's key: pass, prim buffer serial (bufferOwner; 0 for a prim stream),
   vertex program, shader kind, combiner hash, the four stage texture ordinals, primitive kind, prim stream or buffer;
   a draw is the k-th of its key in its frame. (Not the shader serial: it is a change serial, new at every set-up of

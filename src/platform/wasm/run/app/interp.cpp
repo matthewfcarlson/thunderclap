@@ -17,6 +17,8 @@
 #include <SDL3/SDL.h>
 #include <bgfx/bgfx.h>
 
+#include <string>
+#include <unordered_set>
 #include <vector>
 
 #include "pddi/bgfx_bridge.h"
@@ -48,7 +50,12 @@ struct Draw {
     int32_t match;           // the previous stream's draw (-1: none)
     int32_t subst;           // an unmatched draw: the matched draw of this stream whose transform it shares (-1)
     uint8_t snap;            // matched but drawn from this frame unchanged (a jump)
+    // (wwin2) what the passes read that the packet only points to: the combiner key (ckey, interned), the matrices
+    // (mats[m[i] .. +16), modelview / projection / view) and the lights (lights[l .. +8)); kNoCopy: none
+    const char* ckey;
+    uint32_t m[3], l;
 };
+constexpr uint32_t kNoCopy = 0xffffffffu;
 struct Copy { uint16_t pass; SinkTarget t; };
 struct Stream {
     std::vector<Op> ops;
@@ -59,12 +66,14 @@ struct Stream {
     std::vector<SinkPresent> presents;
     std::vector<float> consts;
     std::vector<SinkVertex> verts;
+    std::vector<float> mats;
+    std::vector<SinkLight> lights;
     double stamp;            // the display clock when the update was recorded (wgrass1: interp_display_time)
     bool valid;
     void clear()
     {
         ops.clear(), passes.clear(), copies.clear(), draws.clear(), fx.clear(), presents.clear(), consts.clear();
-        verts.clear();
+        verts.clear(), mats.clear(), lights.clear();
         valid = false;
     }
 };
@@ -72,6 +81,7 @@ struct Stream {
 Stream s_streams[2];
 Stream* s_cur = &s_streams[0];     // being recorded / the last closed
 Stream* s_prev = &s_streams[1];    // the update before it
+uint32_t s_lastMat[3] = {kNoCopy, kNoCopy, kNoCopy}, s_lastLights = kNoCopy;   // (interp_draw's last copies: checked)
 bool s_recording;                  // this update's drawing goes to s_cur
 bool s_closed;                     // s_cur holds a closed stream not yet drawn
 bool s_havePrev;
@@ -483,6 +493,11 @@ void drawStream(const Stream& s, const Stream* prev, float t, bool last)
                 }
             }
             p.vertexConstants = c;
+            p.combinerKey = d.ckey;
+            const float** mp[3] = {&p.modelview, &p.projection, &p.view};
+            for (int i = 0; i < 3; i++)
+                *mp[i] = d.m[i] != kNoCopy ? &s.mats[d.m[i]] : nullptr;
+            p.lights = d.l != kNoCopy ? &s.lights[d.l] : nullptr;
             if (d.nt) {
                 uint32_t tok = kSinkNone;
                 SinkVertex* v = hulk_gfx_sink_alloc_transient(d.nt, &tok);
@@ -662,6 +677,33 @@ void interp_draw(const DrawPacket& p)
     d.p.modelview = d.p.projection = d.p.view = nullptr;
     d.p.lights = nullptr;
     d.p.vertexConstants = nullptr;
+    // (wwin2: the passes' late/draw hooks see these at 60/120 fps as at 30: windows' and atmosphere's combiner keys,
+    // far field's modelview, the shadows' and atmosphere's key light; each copy shared with the last equal one)
+    static std::unordered_set<std::string> keys;
+    d.ckey = p.combinerKey && *p.combinerKey ? keys.insert(p.combinerKey).first->c_str() : "";
+    const float* mats[3] = {p.modelview, p.projection, p.view};
+    for (int i = 0; i < 3; i++) {
+        d.m[i] = kNoCopy;
+        if (!mats[i])
+            continue;
+        uint32_t& last = s_lastMat[i];
+        if (last != kNoCopy && last + 16 <= s_cur->mats.size() && !memcmp(&s_cur->mats[last], mats[i], 64)) {
+            d.m[i] = last;
+            continue;
+        }
+        d.m[i] = last = (uint32_t)s_cur->mats.size();
+        s_cur->mats.insert(s_cur->mats.end(), mats[i], mats[i] + 16);
+    }
+    d.l = kNoCopy;
+    if (p.lights) {
+        if (s_lastLights != kNoCopy && s_lastLights + 8 <= s_cur->lights.size() &&
+            !memcmp(&s_cur->lights[s_lastLights], p.lights, 8 * sizeof(SinkLight)))
+            d.l = s_lastLights;
+        else {
+            d.l = s_lastLights = (uint32_t)s_cur->lights.size();
+            s_cur->lights.insert(s_cur->lights.end(), p.lights, p.lights + 8);
+        }
+    }
     d.c0 = (uint32_t)s_cur->consts.size();
     d.nc = p.vertexConstantCount;
     if (p.vertexConstants && d.nc)
