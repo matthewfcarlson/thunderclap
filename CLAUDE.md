@@ -719,6 +719,12 @@ on the laptop: local `wasm_port.py compile` / `wasm_app.py build` only for a sin
 `--inputs make`; shader edits are compiled locally first (`--shaders-ok`). A standalone play3 test fails past ~5,875 (the
 known camera transient): long runs take `--control`. Free-run game hashes include the run's save/data paths: compare
 runs made in the same directory (the job does) (wbuild1).
+Real-GPU app runs (pictures, renderer options, GPU timing) go to the queue, not the laptop: `wasm_build_job.py
+submit|test ... --test metal:FRAMES[:SHOTS] | metal-input:FRAMES[:SHOTS] | metal-ab:FRAMES` (`--needs gpu`: mac2 and
+studio, one Metal job per host; hidden window, the job's own app/save dirs; shots as PNG, stats.txt, A/B cost lines;
+with `--control`, per-shot diffs). The laptop's GPU is the player's: Metal there only for a one-off look or the
+frame-budget measurement on the target machine. Timing on a queue host is approximate (CPU shared): compare within one
+job on one host, and pin settings with `--test-env HULK_SETTINGS=...` (wqgpu1, docs/compute.md "Metal tests on the queue").
 Terms: the *Wine build* is the 32-bit clang image run under Wine (`tools/wine_*.py`, `docs/wine-*.md`, `HULK_WINE_*`; the old
 `native_*` names, `HULK_NATIVE_*` and `--native` still work as aliases). *Native* means the 64-bit builds for the supported targets.
 
