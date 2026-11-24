@@ -5,7 +5,7 @@
  * moves store:
  *
  * - Charging sprint (Charge Sprint I-III). While the sprint trigger is held during a sprint the charge builds from 0
- *   to 1 over CHARGE_TIME seconds; the sprint's speed is lerp(1, top, charge) times the track's (top by level), the
+ *   to 1 over CHARGE_TIME seconds, once it has been held CHARGE_DELAY seconds; the sprint's speed is lerp(1, top, charge) times the track's (top by level), the
  *   turning rate falls with the speed, and Hulk's hits while charged deal lerp(1, damage top, charge) times the damage
  *   and push their target further. Releasing the trigger with some charge keeps the sprint going at the speed and
  *   heading it has (the input block shows the trigger still held and, with the stick centred, the last stick sample;
@@ -78,6 +78,7 @@
 
 /* ---------------------------------------------------------------------------------------------- tuning */
 #define CHARGE_TIME 3.0f                /* seconds of held trigger from no charge to full */
+#define CHARGE_DELAY 1.5f               /* seconds the trigger is held in a sprint before the charge starts (user, 11-24) */
 #define COAST_MIN 0.10f                 /* the charge a release needs to coast */
 #define TURN_LOSS 0.55f                 /* at the top speed the turn rate and acceleration keep 1 - this */
 static const float k_speed_top[4] = {1.0f, 1.3f, 1.5f, 1.7f};     /* by charge level: speed at full charge */
@@ -110,7 +111,6 @@ static const float k_air_strafe[4] = {0.0f, 5.0f, 8.0f, 11.0f};  /* units/s of s
 #define TRAIL_N 20                      /* positions kept (one per update) */
 #define GLOW_RISE 0.15f
 #define GLOW_FALL 0.45f
-#define GLOW_START (1.0f / 3.0f)       /* the charge it shows from: the first stage, 1 s of held trigger (user, 11-24) */
 
 /* the store */
 /* twelve spare CUnlockableMove slots (the shipped init.lua sets up none of 0x2bb..0x2c9): the first six (wtrav1) at
@@ -197,6 +197,7 @@ static struct {
     int32_t ring_stage;         /* the charge stage last reached (0..3) and the seconds since its ring */
     float ring_t;
     uint32_t sh_add;            /* the glow's pddi shader (the device's "simple", additive), kept */
+    float wait;                 /* seconds the trigger has been held towards CHARGE_DELAY (no charge yet) */
 } g_tv GAME_STATE;
 
 void hulk_wasm_traversal_apply(int value) {
@@ -282,6 +283,7 @@ void ffh_hulk_app_sprint_begin(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     g_tv.charge = 0;
     g_tv.coast = g_tv.stall = 0;
     g_tv.hold = 0;
+    g_tv.wait = 0;
     if (log_level()) fprintf(stderr, "hulk: traversal: frame %u: sprint begins (charge level %d)\n", SIM->frame, charge_level());
 }
 
@@ -301,8 +303,14 @@ void ffh_hulk_app_sprint_frame(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     float dt = ARGF(1);
     if (!(dt > 0 && dt < 1)) dt = 0;
     if (g_tv.trig && !g_tv.coast) {
-        g_tv.charge += dt / CHARGE_TIME;
-        if (g_tv.charge > 1) g_tv.charge = 1;
+        /* a fresh charge waits CHARGE_DELAY of held trigger (the sprint runs as the original's meanwhile); a charge
+         * the player resumes from a coast goes on at once */
+        if (g_tv.charge > 0 || (g_tv.wait += dt) >= CHARGE_DELAY) {
+            g_tv.charge += dt / CHARGE_TIME;
+            if (g_tv.charge > 1) g_tv.charge = 1;
+        }
+    } else if (g_tv.charge <= 0) {
+        g_tv.wait = 0;                          /* (let go before the charge started: the wait starts over) */
     }
     g_tv.hold += dt;
     float c = g_tv.charge, top = k_speed_top[lvl];
@@ -825,14 +833,15 @@ static int actor_pos(uint32_t ch, float out[3]) {
 static void glow_update(float dt) {
     if (!(dt > 0 && dt < 1)) dt = 0;
     uint32_t ch = g_tv.ch ? g_tv.ch : g_tv.glow_ch;
-    float target = g_on && g_tv.ch && controlled(g_tv.ch) && g_tv.charge >= GLOW_START ? g_tv.charge : 0;
+    float target = g_on && g_tv.ch && controlled(g_tv.ch) ? g_tv.charge : 0;
     if (target > 0) g_tv.glow_charge = target;
-    if (g_tv.glow < (target > 0 ? 1.0f : 0.0f)) {
+    /* the strength follows the charge: from nothing as it starts to full brightness at full charge (user, 11-24) */
+    if (g_tv.glow < target) {
         g_tv.glow += dt / GLOW_RISE;
-        if (g_tv.glow > 1) g_tv.glow = 1;
-    } else if (target <= 0) {
+        if (g_tv.glow > target) g_tv.glow = target;
+    } else if (g_tv.glow > target) {
         g_tv.glow -= dt / GLOW_FALL;
-        if (g_tv.glow < 0) g_tv.glow = 0;
+        if (g_tv.glow < target) g_tv.glow = target;
     }
     int stage = target >= 1.0f ? 3 : target >= 0.6667f ? 2 : target >= 0.3333f ? 1 : 0;
     if (stage > g_tv.ring_stage) g_tv.ring_t = 0;

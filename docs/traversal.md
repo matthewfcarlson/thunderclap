@@ -405,8 +405,9 @@ Air Dash 150,000; Critical Pain 75,000): the third charge level is among the dea
 own (`xp`); the store, the "Acquired" state, the prerequisite dimming and the "Move purchased." dialog are the
 original's.
 
-**Charging sprint.** Sprint as before (stick + right trigger). While the trigger stays held the charge fills from 0 to
-1 over 3 s of game time; the sprint's target speed is `velocity × lerp(1, top, charge)` (top by level). Turning gets
+**Charging sprint.** Sprint as before (stick + right trigger). Once the trigger has been held 1.5 s (`CHARGE_DELAY`, user
+11-24; until then the sprint is the original's) the charge fills from 0 to 1 over 3 s of game time while it stays held
+(a charge resumed from a coast goes on at once); the sprint's target speed is `velocity × lerp(1, top, charge)` (top by level). Turning gets
 heavier with speed: the track's turn velocity and turn acceleration are scaled by `1 − 0.55 × (speed factor − 1) /
 0.7` (half the turn rate at 1.7×). Any of Hulk's collision hits while charged (the sprint's body volumes, or anything
 else he hits mid-sprint) deal `damage × lerp(1, damage top, charge)`, take at least `charge` as the force factor
@@ -550,11 +551,11 @@ and fists with sparks drifting up, which swells into a full-body flash as the ch
 sprint shows it as a green rim around the body); at take-off gold-white light shafts trail straight down below him.
 
 The charge-sprint glow is built to read differently when both are on: warm (white-hot, orange, deep red) where the
-jump's is green and gold, low and behind where the jump's is on the body and below. Once the sprint has charged to its first stage (a third: 1 s of held trigger; it
-used to start at once), and while it coasts on the charge, two ember ribbons trail from his feet along the path he ran (2.5 units long at no
+jump's is green and gold, low and behind where the jump's is on the body and below. While the sprint charges (after its 1.5 s wait), and while it coasts on the charge, two ember ribbons trail from his feet along the path he ran (2.5 units long at no
 charge, 10 at full; white-hot at the heels to red at the tail), a pulsing ember bloom sits on each heel (the pulse
 quickens with the charge), fainter ribbons trail from the hips past half charge, and a ring of heat runs out along the
-ground each time the charge reaches a stage (a third, two thirds, full). It fades over 0.45 s when the sprint ends.
+ground each time the charge reaches a stage (a third, two thirds, full). Its brightness follows the charge, from nothing as the charge starts to full at full charge (user 11-24),
+and it fades over 0.45 s when the sprint ends.
 
 Drawn like tutorial_skip.c's star: after World::Render (draw_distance.c's hook) through the game's pddi context, the
 device's `simple` shader with additive blend, depth-tested, no depth write. The trail (one position per update), its
