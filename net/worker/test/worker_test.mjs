@@ -167,46 +167,55 @@ async function call(env, method, path, body, token) {
   check((await call(env, "POST", "/ice")).body.turn === true, "the cap resets the next day");
 }
 
-// ---- rooms: create, join, exchange, poll ----
+// ---- rooms: create, two guests join, the star's signalling, poll, leave, rejoin ----
 const CODE_RE = /^[23456789ABCDEFGHJKMNPQRSTWXYZ]{6}$/;
 {
   const env = makeEnv();
   const settings = { build: "abc123", dataHash: "f00d", level: 1 };
   const created = await call(env, "POST", "/rooms", { settings });
   check(created.status === 201 && CODE_RE.test(created.body.code), `create: 201 with a code (${created.body?.code})`);
-  check(/^[0-9a-f]{32}$/.test(created.body.token) && created.body.role === "host", "create: host token");
+  check(/^[0-9a-f]{32}$/.test(created.body.token) && created.body.role === "host" && created.body.slot === 0, "create: host token, slot 0");
+  check(created.body.maxPlayers === 3, "three players by default");
   const { code, token: hostTok } = created.body;
 
   const p0 = await call(env, "GET", `/rooms/${code}`, undefined, hostTok);
-  check(p0.status === 200 && p0.body.role === "host" && p0.body.joined === false && p0.body.peer.description === null, "host polls before the join");
+  check(p0.status === 200 && p0.body.role === "host" && p0.body.guests.length === 0 && p0.body.free === 2, "host polls before any join: two free slots");
+  check((await call(env, "POST", `/rooms/${code}/signal`, { description: "a=ice-ufrag:x\r\n" }, hostTok)).status === 400, "the host's signal needs a slot");
+  check((await call(env, "POST", `/rooms/${code}/signal`, { to: 1, description: "a=ice-ufrag:x\r\n" }, hostTok)).status === 409, "no guest in slot 1 yet: 409");
 
-  const hostDesc = "a=ice-ufrag:abcd\r\na=ice-pwd:0123456789abcdef01234567\r\na=ice-options:ice2,trickle\r\n";
-  check((await call(env, "POST", `/rooms/${code}/signal`, { description: hostDesc }, hostTok)).status === 200, "host posts its description");
-  check((await call(env, "POST", `/rooms/${code}/signal`, { candidates: ["a=candidate:1 1 UDP 2122317823 192.168.1.2 50000 typ host"] }, hostTok)).status === 200, "host trickles a candidate");
+  const j1 = await call(env, "POST", `/rooms/${code.toLowerCase()}/join`);
+  check(j1.status === 200 && j1.body.role === "guest" && j1.body.slot === 1 && j1.body.gen === 1, "first guest joins slot 1 (lower-case code is fine)");
+  check(JSON.stringify(j1.body.settings) === JSON.stringify(settings), "guest gets the host's settings");
+  const j2 = await call(env, "POST", `/rooms/${code}/join`);
+  check(j2.status === 200 && j2.body.slot === 2 && j2.body.gen === 2, "second guest joins slot 2");
+  const g1Tok = j1.body.token, g2Tok = j2.body.token;
+  check(new Set([hostTok, g1Tok, g2Tok]).size === 3, "three distinct tokens");
+  check((await call(env, "POST", `/rooms/${code}/join`)).status === 409, "a third guest is refused (409): three Hulks at most");
 
-  const joined = await call(env, "POST", `/rooms/${code.toLowerCase()}/join`);
-  check(joined.status === 200 && joined.body.role === "guest", "guest joins (lower-case code is fine)");
-  check(JSON.stringify(joined.body.settings) === JSON.stringify(settings), "guest gets the host's settings");
-  const guestTok = joined.body.token;
-  check(guestTok !== hostTok, "guest token differs");
-  check((await call(env, "POST", `/rooms/${code}/join`)).status === 409, "a second join is refused (409)");
+  const hostDesc1 = "a=ice-ufrag:aaaa\r\na=ice-pwd:0123456789abcdef01234567\r\n";
+  const hostDesc2 = "a=ice-ufrag:bbbb\r\na=ice-pwd:76543210fedcba9876543210\r\n";
+  check((await call(env, "POST", `/rooms/${code}/signal`, { to: 1, gen: 1, description: hostDesc1 }, hostTok)).status === 200, "host posts its description for guest 1");
+  check((await call(env, "POST", `/rooms/${code}/signal`, { to: 2, description: hostDesc2, candidates: ["a=candidate:1 1 UDP 2122317823 192.168.1.2 50000 typ host"] }, hostTok)).status === 200, "host posts for guest 2");
+  check((await call(env, "POST", `/rooms/${code}/signal`, { to: 2, gen: 1, gatheringDone: true }, hostTok)).status === 409, "a post with a stale generation is refused");
 
-  const g1 = await call(env, "GET", `/rooms/${code}`, undefined, guestTok);
-  check(g1.body.role === "guest" && g1.body.peer.description === hostDesc && g1.body.peer.candidates.length === 1, "guest sees the host's description and candidate");
-  check(g1.body.peer.gatheringDone === false, "host not done gathering yet");
+  const g1 = await call(env, "GET", `/rooms/${code}`, undefined, g1Tok);
+  check(g1.body.role === "guest" && g1.body.slot === 1 && g1.body.peer.description === hostDesc1 && g1.body.peer.candidates.length === 0, "guest 1 sees only the host's agent for slot 1");
+  const g2 = await call(env, "GET", `/rooms/${code}`, undefined, g2Tok);
+  check(g2.body.peer.description === hostDesc2 && g2.body.peer.candidates.length === 1, "guest 2 sees the host's agent for slot 2");
 
   const guestDesc = "a=ice-ufrag:wxyz\r\na=ice-pwd:fedcba9876543210fedcba98\r\n";
-  await call(env, "POST", `/rooms/${code}/signal`, { description: guestDesc, candidates: ["a=candidate:2 1 UDP 1686052607 203.0.113.9 40000 typ srflx raddr 0.0.0.0 rport 0"], gatheringDone: true }, guestTok);
-  await call(env, "POST", `/rooms/${code}/signal`, { gatheringDone: true }, hostTok);
+  check((await call(env, "POST", `/rooms/${code}/signal`, { to: 2, description: guestDesc }, g1Tok)).status === 400, "a guest cannot signal another guest");
+  await call(env, "POST", `/rooms/${code}/signal`, { description: guestDesc, candidates: ["a=candidate:2 1 UDP 1686052607 203.0.113.9 40000 typ srflx raddr 0.0.0.0 rport 0"], gatheringDone: true }, g1Tok);
   const h1 = await call(env, "GET", `/rooms/${code}`, undefined, hostTok);
-  check(h1.body.joined && h1.body.peer.description === guestDesc && h1.body.peer.candidates.length === 1 && h1.body.peer.gatheringDone, "host sees the guest's description, candidate, done");
-  const g2 = await call(env, "GET", `/rooms/${code}`, undefined, guestTok);
-  check(g2.body.peer.gatheringDone === true, "guest sees the host done");
+  const s1 = h1.body.guests.find((g) => g.slot === 1), s2 = h1.body.guests.find((g) => g.slot === 2);
+  check(h1.body.guests.length === 2 && h1.body.free === 0, "host sees two guests, no free slot");
+  check(s1.description === guestDesc && s1.candidates.length === 1 && s1.gatheringDone && s1.gen === 1, "host sees guest 1's description, candidate, done");
+  check(s2.description === null && !s2.gatheringDone && s2.gen === 2, "guest 2 has posted nothing yet");
 
   // settings: host only
   check((await call(env, "POST", `/rooms/${code}/settings`, { settings: { v: 2 } }, hostTok)).status === 200, "host updates settings");
-  check((await call(env, "POST", `/rooms/${code}/settings`, { settings: { v: 3 } }, guestTok)).status === 403, "guest may not set settings");
-  check((await call(env, "GET", `/rooms/${code}`, undefined, guestTok)).body.settings.v === 2, "updated settings visible");
+  check((await call(env, "POST", `/rooms/${code}/settings`, { settings: { v: 3 } }, g2Tok)).status === 403, "guest may not set settings");
+  check((await call(env, "GET", `/rooms/${code}`, undefined, g1Tok)).body.settings.v === 2, "updated settings visible");
 
   // auth
   check((await call(env, "GET", `/rooms/${code}`)).status === 401, "poll without a token: 401");
@@ -215,9 +224,32 @@ const CODE_RE = /^[23456789ABCDEFGHJKMNPQRSTWXYZ]{6}$/;
   check((await call(env, "GET", `/rooms/AB0O1I`, undefined, hostTok)).status === 400, "bad code alphabet: 400");
   check((await call(env, "PUT", `/rooms/${code}/signal`, {}, hostTok)).status === 405, "PUT: 405");
 
+  // a guest leaves; the slot is free; a new guest takes it with a new generation and a fresh host side
+  check((await call(env, "POST", `/rooms/${code}/leave`, {}, g1Tok)).status === 200, "guest 1 leaves");
+  check((await call(env, "GET", `/rooms/${code}`, undefined, g1Tok)).status === 403, "a guest who left has no token any more");
+  check((await call(env, "POST", `/rooms/${code}/leave`, {}, hostTok)).status === 400, "the host does not leave (it ends the room)");
+  const h2 = await call(env, "GET", `/rooms/${code}`, undefined, hostTok);
+  check(h2.body.guests.length === 1 && h2.body.free === 1, "one guest left in the room");
+  const j3 = await call(env, "POST", `/rooms/${code}/join`);
+  check(j3.status === 200 && j3.body.slot === 1 && j3.body.gen === 3, "a new guest takes slot 1 with generation 3");
+  check((await call(env, "POST", `/rooms/${code}/signal`, { to: 1, gen: 1, gatheringDone: true }, hostTok)).status === 409, "a post for the old guest of slot 1 is refused");
+  const g3 = await call(env, "GET", `/rooms/${code}`, undefined, j3.body.token);
+  check(g3.body.peer.description === null && g3.body.peer.candidates.length === 0, "the new guest gets a fresh host side");
+  check((await call(env, "DELETE", `/rooms/${code}`, undefined, g2Tok)).status === 200, "a guest's DELETE leaves the room");
+  check((await call(env, "GET", `/rooms/${code}`, undefined, hostTok)).status === 200, "the room stays after a guest's DELETE");
+
   // close
-  check((await call(env, "DELETE", `/rooms/${code}`, undefined, guestTok)).status === 200, "guest closes the room");
-  check((await call(env, "GET", `/rooms/${code}`, undefined, hostTok)).status === 404, "closed room is gone");
+  check((await call(env, "DELETE", `/rooms/${code}`, undefined, hostTok)).status === 200, "host closes the room");
+  check((await call(env, "GET", `/rooms/${code}`, undefined, j3.body.token)).status === 404, "closed room is gone");
+}
+
+// ---- two-player rooms (ROOM_MAX_PLAYERS=2) ----
+{
+  const env = makeEnv({ ROOM_MAX_PLAYERS: "2" });
+  const c = (await call(env, "POST", "/rooms")).body;
+  check(c.maxPlayers === 2, "ROOM_MAX_PLAYERS=2: two players");
+  check((await call(env, "POST", `/rooms/${c.code}/join`)).status === 200, "one guest joins");
+  check((await call(env, "POST", `/rooms/${c.code}/join`)).status === 409, "a second guest is refused");
 }
 
 // ---- input validation and sizes ----
@@ -227,9 +259,11 @@ const CODE_RE = /^[23456789ABCDEFGHJKMNPQRSTWXYZ]{6}$/;
   check((await call(env, "POST", "/rooms", "[1,2]")).status === 400, "create with an array: 400");
   check((await call(env, "POST", "/rooms", { settings: { x: "a".repeat(5000) } })).status === 400, "settings over 4 KB: 400");
   check((await call(env, "POST", "/rooms", "x".repeat(17000))).status === 413, "body over 16 KB: 413");
+  check((await call(env, "POST", "/rooms", { extra: 1 })).status === 400, "create with an unknown field: 400");
   const created = await call(env, "POST", "/rooms");
   check(created.status === 201, "create with no body is fine");
-  const { code, token } = created.body;
+  const { code } = created.body;
+  const token = (await call(env, "POST", `/rooms/${code}/join`)).body.token;     // (a guest's side)
   const post = (b) => call(env, "POST", `/rooms/${code}/signal`, b, token);
   check((await post({ description: "x".repeat(5000) })).status === 400, "description over 4 KB: 400");
   check((await post({ description: "café" })).status === 400, "non-ASCII description: 400");
@@ -241,6 +275,8 @@ const CODE_RE = /^[23456789ABCDEFGHJKMNPQRSTWXYZ]{6}$/;
   check((await post({ gatheringDone: "yes" })).status === 400, "gatheringDone not boolean: 400");
   check((await post({ extra: 1 })).status === 400, "unknown field: 400");
   check((await post({})).status === 400, "empty signal: 400");
+  check((await post({ to: "1", gatheringDone: true })).status === 400, "to not a slot number: 400");
+  check((await post({ gen: 0, gatheringDone: true })).status === 400, "gen 0: 400");
   check((await call(env, "POST", `/rooms/${code}/signal`, "", token)).status === 400, "signal without a body: 400");
   // 32 candidates per side in total
   check((await post({ candidates: Array(30).fill("a=candidate:1 1 UDP 1 10.0.0.1 1 typ host") })).status === 200, "30 candidates ok");

@@ -279,22 +279,29 @@ package, wrangler config and tests, and the game's client side is under `src/pla
 other project (a Worker that mints short-lived ICE credentials from the secrets `TURN_KEY_ID` and
 `TURN_KEY_API_TOKEN`), written fresh for Hulk. Like that one it is a single ES module with no runtime dependencies.
 
+Since wnet1 (D246, 2026-11-24) a room is a lobby of up to three players (`ROOM_MAX_PLAYERS`, 2..4): the host
+(slot 0) and two guests (slots 1, 2) in a star, each guest connected to the host only. The host runs one libjuice
+agent per guest and signals per slot; a slot a guest left can be taken again, and each join gives it a new
+generation (`gen`) so the host's posts for an earlier guest never reach the new one.
+
 | route | request | response |
 |---|---|---|
 | `POST /ice` (alias `/turn`) | none | `{iceServers:[{urls, username?, credential?}], ttl, turn, note?}`: only `stun:` and UDP `turn:` URLs on the ports in `ICE_UDP_PORTS` (3478, 443); `turns:`, `transport=tcp` and port 53 are dropped. Without the secrets: STUN only (`turn:false`). If the API fails: 502 with the STUN list. Past the daily cap: 429 with the STUN list and no API call |
-| `POST /rooms` | `{settings?}` (opaque JSON up to 4 KB: build identity, data hashes, section 5) | 201 `{code, token, role:"host", expiresAt}`; the code is 6 characters from an unambiguous 29-character alphabet |
-| `POST /rooms/<code>/join` | none | `{token, role:"guest", settings, expiresAt}`; 409 when full, 404 when missing or expired |
+| `POST /rooms` | `{settings?}` (opaque JSON up to 4 KB: build identity, section 5) | 201 `{code, token, role:"host", slot:0, maxPlayers, expiresAt}`; the code is 6 characters from an unambiguous 29-character alphabet |
+| `POST /rooms/<code>/join` | none | `{token, role:"guest", slot, gen, maxPlayers, settings, expiresAt}`: the lowest free slot; 409 when full, 404 when missing or expired |
 | `POST /rooms/<code>/settings` | `{settings}` | host only |
-| `POST /rooms/<code>/signal` | `{description?, candidates?, gatheringDone?}` (libjuice's description and trickled candidates) | `{ok:true}` |
-| `GET /rooms/<code>` | none | `{role, joined, settings, peer:{description, candidates, gatheringDone}, expiresAt}` (polled every 1-2 s) |
-| `DELETE /rooms/<code>` | none | either side ends the room |
+| `POST /rooms/<code>/signal` | host: `{to:<slot>, gen?, description?, candidates?, gatheringDone?}`; guest: the same without `to`/`gen` (it signals the host only) | `{ok:true}`; 409 for a slot with no guest or a stale `gen` |
+| `GET /rooms/<code>` | none | host: `{role, slot:0, settings, guests:[{slot, gen, description, candidates, gatheringDone}], free, expiresAt}`; guest: `{role, slot, gen, settings, peer:{description, candidates, gatheringDone}, expiresAt}` (the host's agent for that guest) |
+| `POST /rooms/<code>/leave` | none | a guest leaves; its slot is free again |
+| `DELETE /rooms/<code>` | none | the host ends the room; a guest's DELETE leaves |
 
 - **Rooms:** one Durable Object per room (SQLite backend, free plan). An alarm expires a room 10 minutes after creation
   if no guest joins, and 2 h after creation in any case. Calls after create or join carry a bearer token, compared in
   constant time.
 - **Limits:**
   - Request size: 16 KB per request, 4 KB per description, 256 bytes per candidate, 32 candidates per side.
-  - Per room: 200 requests in its lifetime.
+  - Per room: 1,500 requests in its lifetime (all players; the host polls every 6 s while it waits for guests, every
+    0.7 s while one connects; a guest polls only until it is connected).
   - Per UTC day: 2,000 credentials and 5,000 rooms, counted by a global `Quota` Durable Object.
   - Credential TTL: `ICE_TTL_S` = 4 h, clamped at 48 h.
   - All of these are `vars` in `net/worker/wrangler.jsonc`.
@@ -306,7 +313,10 @@ other project (a Worker that mints short-lived ICE credentials from the secrets 
     libjuice's `juice_config_t`.
   - `HULK_NET_WORKER` names the Worker.
 - **Tests:**
-  - `node net/worker/test/worker_test.mjs` uses an in-memory Durable Object stub and a mocked Cloudflare API: 81 checks pass.
+  - `node net/worker/test/worker_test.mjs` uses an in-memory Durable Object stub and a mocked Cloudflare API: 103
+    checks pass (wnet1: three-player rooms, slots, generations, leaving and rejoining).
+  - `node net/worker/test/local_server.mjs --port P [--turn URL --user U --pass P]` serves the Worker on a local port
+    with the same stubs (no wrangler): the game's co-op tests use it as their lobby.
   - `tests/net/ice_config_test.cpp` is built with `-DHULK_ICE_NO_FETCH` and needs no SDL: 37 checks pass. It also
     passes under ASan and UBSan.
   - An end-to-end fetch against a local mock server worked on the laptop.

@@ -26,7 +26,8 @@
     "ROOM_DAILY_CAP": "5000",      // rooms created per UTC day
     "ROOM_JOIN_TTL_S": "600",      // a room nobody joined ends after 10 minutes
     "ROOM_TTL_S": "7200",          // any room ends 2 hours after creation
-    "ROOM_REQUEST_CAP": "200",     // requests one room answers in its life (both players)
+    "ROOM_REQUEST_CAP": "1500",    // requests one room answers in its life (all players; 2 h of 10 s polls)
+    "ROOM_MAX_PLAYERS": "3",       // the host and two guests (D246; 2..4)
     "ICE_UDP_PORTS": "3478,443"    // STUN/TURN ports handed to the game (UDP only; 53 left out)
   }
 }

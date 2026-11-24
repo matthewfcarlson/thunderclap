@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "node test/worker_test.mjs",
+    "local": "node test/local_server.mjs",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy"
   },

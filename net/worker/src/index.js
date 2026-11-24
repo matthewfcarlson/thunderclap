@@ -3,18 +3,25 @@
 // Two jobs, both on the Workers Free plan:
 //   1. ICE servers: short-lived Cloudflare Realtime TURN credentials, cut down to what the game's ICE
 //      agent (libjuice: UDP only) can use. Without the TURN secrets: Cloudflare's free STUN only.
-//   2. Rooms: a short code the host reads out and the guest types in; through the room the two sides
-//      swap their libjuice descriptions (juice_get_local_description / juice_set_remote_description)
-//      and trickled candidates, by HTTP polling. One Durable Object (SQLite backend) per room.
+//   2. Lobbies (D246): a short code the host reads out and up to two guests type in (three Hulks); a star, each
+//      guest connected to the host only. Through the room the host and each guest swap their libjuice
+//      descriptions (juice_get_local_description / juice_set_remote_description) and trickled candidates, by HTTP
+//      polling. One Durable Object (SQLite backend) per room.
 //
 // Routes (all JSON; errors are {error: "..."} with a 4xx/5xx status):
 //   POST /ice  (alias /turn)     -> {iceServers:[{urls:[...], username?, credential?}], ttl, turn, note?}
-//   POST /rooms                  {settings?}  -> 201 {code, token, role:"host", expiresAt}
-//   POST /rooms/<code>/join      {}           -> 200 {token, role:"guest", settings, expiresAt}
+//   POST /rooms                  {settings?}  -> 201 {code, token, role:"host", slot:0, maxPlayers, expiresAt}
+//   POST /rooms/<code>/join      {}           -> 200 {token, role:"guest", slot, gen, maxPlayers, settings, expiresAt}
+//                                                (409 when full)
 //   POST /rooms/<code>/settings  {settings}   (host) -> {ok:true}
-//   POST /rooms/<code>/signal    {description?, candidates?:[...], gatheringDone?}  -> {ok:true}
-//   GET  /rooms/<code>           -> {role, joined, settings, peer:{description, candidates, gatheringDone}, expiresAt}
-//   DELETE /rooms/<code>         -> {ok:true}   (either side ends the room)
+//   POST /rooms/<code>/signal    host: {to:<slot>, gen?, description?, candidates?, gatheringDone?};
+//                                guest: {description?, candidates?, gatheringDone?}  -> {ok:true}
+//   GET  /rooms/<code>           host:  {role, slot:0, settings, guests:[{slot, gen, description, candidates,
+//                                        gatheringDone}], free, expiresAt}
+//                                guest: {role, slot, gen, settings, peer:{description, candidates, gatheringDone},
+//                                        expiresAt}
+//   POST /rooms/<code>/leave     (guest) -> {ok:true, left:true}: the slot is free for another guest
+//   DELETE /rooms/<code>         host: ends the room; guest: leaves (as /leave)
 // Room calls after create/join carry "Authorization: Bearer <token>" (the token create/join returned).
 //
 // Limits (vars in wrangler.jsonc; defaults below): a daily ceiling on minted TURN credentials and on
@@ -48,7 +55,8 @@ const DEFAULTS = {
   ROOM_DAILY_CAP: 5000,         // rooms created per UTC day
   ROOM_JOIN_TTL_S: 600,         // an unjoined room ends after this
   ROOM_TTL_S: 7200,             // any room ends after this
-  ROOM_REQUEST_CAP: 200,        // requests a room answers in its life (both sides)
+  ROOM_REQUEST_CAP: 1500,       // requests a room answers in its life (all players: 2 h of polls every 10 s)
+  ROOM_MAX_PLAYERS: 3,          // the host and two guests (2..4)
   ICE_UDP_PORTS: "3478,443",    // the TURN/STUN ports handed to the game
 };
 
@@ -187,6 +195,12 @@ export class Quota {
 }
 
 // ---- rooms ----
+//
+// A room is a lobby of up to ROOM_MAX_PLAYERS (3: the host and two guests) in a star: each guest connects to the
+// host only (one libjuice agent per guest on the host, one on each guest), and the host relays the inputs. The host
+// is slot 0; a guest takes the lowest free slot (1, 2). A slot freed by a guest who left can be taken again: every
+// join gives the slot a new generation (`gen`), and the host's signalling for that slot starts afresh with it, so a
+// late post for the previous guest never reaches the new one.
 
 function checkSettings(s) {
   if (s === undefined) return null;
@@ -196,9 +210,11 @@ function checkSettings(s) {
   return null;
 }
 
+const SIGNAL_FIELDS = new Set(["to", "gen", "description", "candidates", "gatheringDone"]);
 function checkSignal(b) {
-  for (const k of Object.keys(b))
-    if (k !== "description" && k !== "candidates" && k !== "gatheringDone") return `unknown field ${k}`;
+  for (const k of Object.keys(b)) if (!SIGNAL_FIELDS.has(k)) return `unknown field ${k}`;
+  if (b.to !== undefined && !(Number.isInteger(b.to) && b.to >= 1 && b.to <= 8)) return "to must be a guest slot";
+  if (b.gen !== undefined && !(Number.isInteger(b.gen) && b.gen >= 1)) return "gen must be a positive integer";
   if (b.description !== undefined) {
     if (typeof b.description !== "string" || !b.description.length) return "description must be a non-empty string";
     if (b.description.length > MAX_DESCRIPTION) return `description over ${MAX_DESCRIPTION} bytes`;
@@ -223,6 +239,7 @@ const roomCall = (env, code, op, payload) =>
 async function createRoom(request, env) {
   const b = await readBody(request, { optional: true });
   if (b instanceof Response) return b;
+  for (const k of Object.keys(b)) if (k !== "settings") return fail(400, `unknown field ${k}`);
   const bad = checkSettings(b.settings);
   if (bad) return fail(400, bad);
   const quota = await counter(env, "rooms", num(env, "ROOM_DAILY_CAP"));
@@ -247,6 +264,7 @@ async function roomRoute(request, env, code, action) {
   if (!token) return fail(401, "Authorization: Bearer <token> required");
   if (action === "" && method === "GET") return roomCall(env, code, "poll", { token });
   if (action === "" && method === "DELETE") return roomCall(env, code, "close", { token });
+  if (action === "leave" && method === "POST") return roomCall(env, code, "leave", { token });
   if ((action === "signal" || action === "settings") && method === "POST") {
     const b = await readBody(request);
     if (b instanceof Response) return b;
@@ -263,12 +281,18 @@ async function roomRoute(request, env, code, action) {
   return fail(405, "method not allowed");
 }
 
-// One room. Storage key "room": {code, created, joinBy, endsAt, requests, settings,
-// host:{token, side}, guest:{token, side} | null}; side = {description, candidates, gatheringDone, posts}.
+// One room. Storage key "room": {code, created, joinBy, endsAt, requests, settings, everJoined, gens,
+// host:{token, sides:{<slot>: side}}, guests:{<slot>: {token, gen, joinedAt, side} | null}};
+// side = {description, candidates, gatheringDone, posts}. host.sides[k] is the host's agent for guest slot k.
 export class Room {
   constructor(state, env) {
     this.storage = state.storage;
     this.env = env || {};
+  }
+
+  maxGuests() {
+    const n = Math.floor(num(this.env, "ROOM_MAX_PLAYERS"));
+    return Math.min(Math.max(n, 2), 4) - 1;
   }
 
   async end() {
@@ -282,7 +306,7 @@ export class Room {
   }
 
   deadline(room) {
-    return room.guest ? room.endsAt : Math.min(room.joinBy, room.endsAt);
+    return room.everJoined ? room.endsAt : Math.min(room.joinBy, room.endsAt);
   }
 
   async fetch(request) {
@@ -298,75 +322,128 @@ export class Room {
     if (op === "init") {
       if (room) return fail(409, "code taken");
       const joinTtl = num(this.env, "ROOM_JOIN_TTL_S") * 1000, ttl = num(this.env, "ROOM_TTL_S") * 1000;
+      const guests = {};
+      for (let k = 1; k <= this.maxGuests(); k++) guests[k] = null;
       room = {
         code: msg.code, created: now, joinBy: now + joinTtl, endsAt: now + ttl, requests: 1,
-        settings: msg.settings ?? null,
-        host: { token: msg.token, side: emptySide() }, guest: null,
+        settings: msg.settings ?? null, everJoined: false, gens: 0,
+        host: { token: msg.token, sides: {} }, guests,
       };
       await this.storage.put("room", room);
       await this.storage.setAlarm(this.deadline(room));
-      return json({ code: msg.code, token: msg.token, role: "host", expiresAt: this.deadline(room) }, 201);
+      return json({ code: msg.code, token: msg.token, role: "host", slot: 0, maxPlayers: this.maxGuests() + 1,
+                    expiresAt: this.deadline(room) }, 201);
     }
 
     if (!room) return fail(404, "no such room (or it expired)");
     if (room.requests >= num(this.env, "ROOM_REQUEST_CAP")) return fail(429, "this room has used its request budget");
     room.requests++;
+    const save = () => this.storage.put("room", room);
 
     if (op === "join") {
-      if (room.guest) {
-        await this.storage.put("room", room);
+      const slot = Object.keys(room.guests).map(Number).sort((a, b) => a - b).find((k) => !room.guests[k]);
+      if (slot === undefined) {
+        await save();
         return fail(409, "the room is full");
       }
-      room.guest = { token: msg.token, side: emptySide() };
-      await this.storage.put("room", room);
+      room.gens++;
+      room.guests[slot] = { token: msg.token, gen: room.gens, joinedAt: now, side: emptySide() };
+      room.host.sides[slot] = emptySide();
+      room.everJoined = true;
+      await save();
       await this.storage.setAlarm(this.deadline(room));
-      return json({ token: msg.token, role: "guest", settings: room.settings, expiresAt: this.deadline(room) });
+      return json({ token: msg.token, role: "guest", slot, gen: room.gens, maxPlayers: this.maxGuests() + 1,
+                    settings: room.settings, expiresAt: this.deadline(room) });
     }
 
-    const role = whoIs(room, msg.token);
-    if (!role) {
-      await this.storage.put("room", room);
+    const who = whoIs(room, msg.token);
+    if (!who) {
+      await save();
       return fail(403, "wrong token for this room");
     }
-    const me = room[role], peer = role === "host" ? room.guest : room.host;
 
     if (op === "poll") {
-      await this.storage.put("room", room);
-      const p = peer ? peer.side : emptySide();
+      await save();
+      if (who.role === "host") {
+        const guests = [];
+        for (const [k, g] of Object.entries(room.guests)) {
+          if (!g) continue;
+          guests.push({ slot: Number(k), gen: g.gen, description: g.side.description, candidates: g.side.candidates,
+                        gatheringDone: g.side.gatheringDone });
+        }
+        const free = Object.values(room.guests).filter((g) => !g).length;
+        return json({ role: "host", slot: 0, settings: room.settings, guests, free, expiresAt: this.deadline(room) });
+      }
+      const g = room.guests[who.slot], p = room.host.sides[who.slot] || emptySide();
       return json({
-        role, joined: !!room.guest, settings: room.settings,
+        role: "guest", slot: who.slot, gen: g.gen, settings: room.settings,
         peer: { description: p.description, candidates: p.candidates, gatheringDone: p.gatheringDone },
         expiresAt: this.deadline(room),
       });
     }
     if (op === "close") {
+      if (who.role === "guest") {   // a guest's DELETE leaves; the host's ends the room
+        room.guests[who.slot] = null;
+        delete room.host.sides[who.slot];
+        await save();
+        return json({ ok: true, left: true });
+      }
       await this.end();
       return json({ ok: true });
     }
+    if (op === "leave") {
+      if (who.role === "host") {
+        await save();
+        return fail(400, "the host ends the room with DELETE");
+      }
+      room.guests[who.slot] = null;
+      delete room.host.sides[who.slot];
+      await save();
+      return json({ ok: true, left: true });
+    }
     if (op === "settings") {
-      if (role !== "host") {
-        await this.storage.put("room", room);
+      if (who.role !== "host") {
+        await save();
         return fail(403, "only the host sets the settings");
       }
       room.settings = msg.settings;
-      await this.storage.put("room", room);
+      await save();
       return json({ ok: true });
     }
     if (op === "signal") {
-      const s = me.side, sig = msg.signal;
+      const sig = msg.signal;
+      let s;
+      if (who.role === "host") {
+        const g = room.guests[sig.to];
+        if (!sig.to || !g) {
+          await save();
+          return fail(sig.to ? 409 : 400, sig.to ? "no guest in that slot" : "the host's signal needs `to` (a guest slot)");
+        }
+        if (sig.gen !== undefined && sig.gen !== g.gen) {
+          await save();
+          return fail(409, "that guest has left (another took the slot)");
+        }
+        s = room.host.sides[sig.to];
+      } else {
+        if (sig.to !== undefined) {
+          await save();
+          return fail(400, "a guest signals the host only");
+        }
+        s = room.guests[who.slot].side;
+      }
       if (s.posts >= MAX_SIGNAL_POSTS) {
-        await this.storage.put("room", room);
+        await save();
         return fail(429, `at most ${MAX_SIGNAL_POSTS} signal posts per side`);
       }
       if (sig.candidates && s.candidates.length + sig.candidates.length > MAX_CANDIDATES) {
-        await this.storage.put("room", room);
+        await save();
         return fail(413, `at most ${MAX_CANDIDATES} candidates per side`);
       }
       s.posts++;
       if (sig.description !== undefined) s.description = sig.description;   // a restart replaces it
       if (sig.candidates) s.candidates.push(...sig.candidates);
       if (sig.gatheringDone) s.gatheringDone = true;
-      await this.storage.put("room", room);
+      await save();
       return json({ ok: true });
     }
     return fail(404, "unknown room operation");
@@ -377,8 +454,9 @@ const emptySide = () => ({ description: null, candidates: [], gatheringDone: fal
 
 function whoIs(room, token) {
   if (!TOKEN_RE.test(token || "")) return null;
-  if (same(room.host.token, token)) return "host";
-  if (room.guest && same(room.guest.token, token)) return "guest";
+  if (same(room.host.token, token)) return { role: "host", slot: 0 };
+  for (const [k, g] of Object.entries(room.guests))
+    if (g && same(g.token, token)) return { role: "guest", slot: Number(k) };
   return null;
 }
 
@@ -405,7 +483,7 @@ export default {
         if (request.method !== "POST") return fail(405, "POST only");
         return await createRoom(request, env);
       }
-      const m = /^\/rooms\/([^/]{1,16})(?:\/(join|signal|settings))?$/.exec(path);
+      const m = /^\/rooms\/([^/]{1,16})(?:\/(join|signal|settings|leave))?$/.exec(path);
       if (m) return await roomRoute(request, env, m[1].toUpperCase(), m[2] || "");
       if (path === "" && request.method === "GET") return json({ service: "hulk-netplay", ok: true });
       return fail(404, "not found");
