@@ -164,6 +164,8 @@ extern "C" void ff_replay_startup(void) {
 static u32 g_packet[4];
 static uint8_t g_last[4][18];
 static void rec_live_pad(uint8_t* b);
+static void poll_clock(void);
+static void clock_rule_update(void);
 static void pad_bytes(const HulkPadState& s, uint8_t* b) {
     b[0] = (uint8_t)s.buttons;
     b[1] = (uint8_t)(s.buttons >> 8);
@@ -183,6 +185,8 @@ static int get_state(u32 port, uint8_t* out, int init) {
     pad_bytes(s, b);
     if (!init && port == 0)
         rec_live_pad(b);                                // a playthrough's live segment: the player's pad, recorded
+    if (!init)
+        poll_clock();
     if (memcmp(b, g_last[port], 18)) {
         memcpy(g_last[port], b, 18);
         g_packet[port]++;
@@ -217,9 +221,12 @@ static u64 g_dt_us = 33333ull;
 static int g_vflags = -1;
 static u64 g_vt, g_vextra;
 static u32 g_vmain, g_vframe;
-static u32 g_pt_clock, g_vreads;          // (playthroughs: the stall rule's switch, main-thread reads this update)
-static const u32 kStallReads = 20000;
+// playthroughs: the clock rule in waits (0 none: replays of play3; 1 and 2 below), main-thread reads and the
+// recording's polls since the last update (or, rule 2's reads, since the last poll or frame end)
+static u32 g_pt_clock, g_vreads, g_vpolls0;
+static const u32 kStallReads = 20000, kStallPolls = 200, kSpinReads = 100000;
 static const u64 kStallStepUs = 1000ull;
+static const u32 kClockRule = 2;          // the rule new segments are recorded with
 static unsigned vclock_flags(void) {
     if (g_vflags < 0) {
         unsigned f = 0;
@@ -250,12 +257,21 @@ extern "C" int ff_replay_qpc(u64* ticks) {
     }
     if (SIM->cur_thread == g_vmain && g_vframe == 0)
         g_vt += kPreStepUs;
-    else if (g_pt_clock && SIM->cur_thread == g_vmain && ++g_vreads > kStallReads) {
-        // a playthrough's segments (wplay4): the main thread waiting on the clock between updates (a save's or load's
-        // minimum message time) sees it move on 1 ms a read past the first kStallReads; the next update takes the
-        // time from there (g_vextra). Replays of play3 never get here: their clock stands still between updates.
+    else if (g_pt_clock == 1 && SIM->cur_thread == g_vmain && ++g_vreads > kStallReads) {
+        // a playthrough's segments of rule 1 (wplay4 v2, 6b1b2ea4c..): the main thread waiting on the clock between
+        // updates (a save's or load's minimum message time) sees it move on 1 ms a read past the first kStallReads;
+        // the next update takes the time from there (g_vextra). The reads are not the same count with every
+        // renderer (the game's own d3d layer reads the clock at presents; the pddi front end replaces it), so a
+        // rule-1 segment replays only with the renderer it was recorded with. Replays of play3 never get here.
         if (g_vreads == kStallReads + 1)
             log_line("playthrough: the clock moves on in a wait at frame %u", g_frame_no);
+        g_vt += kStallStepUs;
+        g_vextra += kStallStepUs;
+    } else if (g_pt_clock == 2 && SIM->cur_thread == g_vmain && ++g_vreads > kSpinReads) {
+        // rule 2, a wait that neither polls the pad nor presents: 1 ms a read past kSpinReads (the count restarts at
+        // each poll and frame end, so the d3d layer's reads at presents are never in it)
+        if (g_vreads == kSpinReads + 1)
+            log_line("playthrough: the clock moves on in a spin at frame %u", g_frame_no);
         g_vt += kStallStepUs;
         g_vextra += kStallStepUs;
     }
@@ -308,6 +324,7 @@ FFH(hulk_clock_tick) {
     }
     g_vextra = 0;
     g_vreads = 0;
+    g_vpolls0 = g_rp.polls;
     if (f & HULK_RF_VCLOCK)
         g_vt = t;
     RET64(t);
@@ -562,7 +579,7 @@ FFH(hulk_seq_randint) {
 // .hrp trailer (after PRN1 when present): "SEG1", u32 version 1, u32 n, u32 ds_live_work, n x {u32 start_present,
 // start_frame, start_polls, end_present, end_frame, end_polls}.
 struct SegInfo {
-    u32 start_present, start_frame, start_polls, end_present, end_frame, end_polls;
+    u32 start_present, start_frame, start_polls, end_present, end_frame, end_polls, clock_rule;
 };
 #define MAX_SEGS 256
 static SegInfo g_segs[MAX_SEGS];
@@ -576,13 +593,15 @@ static void seg_trailer_load(const char* path) {
         size_t at = 36 + (size_t)rd32(d + 28) * 24 + (size_t)rd32(d + 32) * 8;
         if (at + 8 <= n && !memcmp(d + at, "PRN1", 4))
             at += 8 + (size_t)rd32(d + at + 4) * 8;
-        if (at + 16 <= n && !memcmp(d + at, "SEG1", 4) && rd32(d + at + 4) == 1) {
-            u32 k = rd32(d + at + 8);
+        u32 ver = at + 16 <= n && !memcmp(d + at, "SEG1", 4) ? rd32(d + at + 4) : 0;
+        if (ver == 1 || ver == 2) {                 // (version 1: no clock rule word, every segment rule 1)
+            u32 k = rd32(d + at + 8), w = ver == 1 ? 24 : 28;
             g_seg_ds_work = rd32(d + at + 12);
             at += 16;
-            for (u32 i = 0; i < k && i < MAX_SEGS && at + 24 <= n; i++, at += 24) {
+            for (u32 i = 0; i < k && i < MAX_SEGS && at + w <= n; i++, at += w) {
                 const unsigned char* q = d + at;
-                g_segs[i] = SegInfo{rd32(q), rd32(q + 4), rd32(q + 8), rd32(q + 12), rd32(q + 16), rd32(q + 20)};
+                g_segs[i] = SegInfo{rd32(q), rd32(q + 4), rd32(q + 8), rd32(q + 12), rd32(q + 16), rd32(q + 20),
+                                    ver == 1 ? 1u : rd32(q + 24)};
                 g_nsegs = i + 1;
             }
         }
@@ -655,10 +674,10 @@ static void seg_write(void) {
         works0 = ff_ds_works, frame0 = g_frame_no;
     int n = snprintf(line, sizeof line,
                      "start present %010u frame %010u polls %010u\nend present %010u frame %010u polls %010u "
-                     "entries %010u\nds_live_work %u restored %u dowork_per_frame %6.3f\n",
+                     "entries %010u\nds_live_work %u restored %u dowork_per_frame %6.3f clock_rule %u\n",
                      g_rec.start_present, g_rec.start_frame, g_rec.start_polls, SIM->frame, g_frame_no, g_rp.polls,
                      g_rec.entries, g_ds_live_work, (u32)g_restored,
-                     g_frame_no > frame0 ? (double)(ff_ds_works - works0) / (g_frame_no - frame0) : 0.0);
+                     g_frame_no > frame0 ? (double)(ff_ds_works - works0) / (g_frame_no - frame0) : 0.0, kClockRule);
     if (n > 0)
         hio_write(g_seg_fd, line, (uint32_t)n, 0);
 }
@@ -691,7 +710,6 @@ static void ds_live(void) {
     if (g_rec.ds_switched)
         return;
     g_rec.ds_switched = 1;
-    g_pt_clock = 1;
     SIM->ds_clock = g_ds_live_work;    // (dsound_null.c: a value above 1 is the frames a DoWork)
 }
 static void go_live(void) {
@@ -702,6 +720,7 @@ static void go_live(void) {
     g_rec.have_last = 0;
     g_rec.entries = 0;
     ds_live();
+    clock_rule_update();                // (this build's rule from the hand-off itself, as a replay takes it there)
     log_line("playthrough: live from present %u (frame %u, poll %u)%s", SIM->frame, g_frame_no, g_rp.polls,
              g_restored ? " (restored)" : "");
     fprintf(stderr, "hulk: playthrough: the player has the pad from present %u (frame %u)\n", SIM->frame, g_frame_no);
@@ -720,6 +739,39 @@ static int at_handoff(void) {
         return at_point(g_segs[g_nsegs - 1].end_frame, g_segs[g_nsegs - 1].end_polls);
     return g_rp.n && g_rp.pos == g_rp.n - 1 && g_rp.e[g_rp.pos].key <= g_rp.polls;
 }
+// the clock rule in effect (at frame ends): a live session's is this build's; a playthrough's replay takes each
+// segment's from its start on; rule 2's spin count restarts at every frame end
+static void clock_rule_update(void) {
+    u32 r = g_pt_clock;
+    if (g_rec.live)
+        r = kClockRule;
+    else
+        for (u32 i = g_nsegs; i-- > 0;)
+            if (at_point(g_segs[i].start_frame, g_segs[i].start_polls)) {
+                r = g_segs[i].clock_rule;
+                break;
+            }
+    if (r != g_pt_clock)
+        log_line("playthrough: clock rule %u from frame %u", r, g_frame_no);
+    g_pt_clock = r;
+    if (g_pt_clock == 2)
+        g_vreads = 0;
+}
+// rule 2 (wplay4): the recording's polls (renderer-independent: the recording is keyed by them) without an update:
+// past kStallPolls, each poll moves the clock on 1 ms (the game's load and save waits poll the pad and read
+// core::GetMilliseconds); a poll restarts the spin count
+static void poll_clock(void) {
+    if (g_pt_clock != 2)
+        return;
+    g_vreads = 0;
+    u32 n = g_rp.polls - g_vpolls0;
+    if (n <= kStallPolls)
+        return;
+    if (n == kStallPolls + 1)
+        log_line("playthrough: the clock moves on in a wait at frame %u", g_frame_no);
+    g_vt += kStallStepUs;
+    g_vextra += kStallStepUs;
+}
 // gfx.c / d3d_null.c's frame end (sched.c ff_frame_checkpoint): 1 = stop every fiber here (a snapshot or a restore)
 extern "C" int ff_playthrough_frame_end(void) {
     if (!replay_open(0))
@@ -729,6 +781,7 @@ extern "C" int ff_playthrough_frame_end(void) {
         return 1;
     if (g_nsegs && !g_rec.ds_switched && at_point(g_segs[0].start_frame, g_segs[0].start_polls))
         ds_live();                                                  // a playthrough's replay: its segments' clock
+    clock_rule_update();
     if (mode == 0)
         return 0;
     if (!g_rec.live && at_handoff()) {
@@ -807,7 +860,7 @@ struct ReplayBlob {
     uint8_t last[4][18];
     u64 dt_us, vt, vextra;
     int vflags;
-    u32 vmain, vframe, logged, bad, pt_clock, vreads;
+    u32 vmain, vframe, logged, bad, pt_clock, vreads, vpolls0;
     unsigned rp_pos, rp_polls, rp_frame, rp_last_frame, rp_frozen, rp_rumbles;
     int rp_press_start_ok, rp_frame_seen;
     unsigned ck_interval;
@@ -824,6 +877,7 @@ extern "C" uint32_t ff_replay_blob(void* buf, int restore) {
         memcpy(b.last, g_last, sizeof g_last);
         b.dt_us = g_dt_us, b.vt = g_vt, b.vextra = g_vextra, b.vflags = g_vflags, b.vmain = g_vmain;
         b.vframe = g_vframe, b.logged = logged, b.bad = bad, b.pt_clock = g_pt_clock, b.vreads = g_vreads;
+        b.vpolls0 = g_vpolls0;
         b.rp_pos = g_rp.pos, b.rp_polls = g_rp.polls, b.rp_frame = g_rp.frame, b.rp_last_frame = g_rp.last_frame;
         b.rp_frozen = g_rp.frozen, b.rp_rumbles = g_rp.rumbles, b.rp_press_start_ok = g_rp.press_start_ok;
         b.rp_frame_seen = g_rp.frame_seen;
@@ -838,6 +892,7 @@ extern "C" uint32_t ff_replay_blob(void* buf, int restore) {
         memcpy(g_last, b.last, sizeof g_last);
         g_dt_us = b.dt_us, g_vt = b.vt, g_vextra = b.vextra, g_vflags = b.vflags, g_vmain = b.vmain;
         g_vframe = b.vframe, logged = b.logged, bad = b.bad, g_pt_clock = b.pt_clock, g_vreads = b.vreads;
+        g_vpolls0 = b.vpolls0;
         g_rp.pos = b.rp_pos, g_rp.polls = b.rp_polls, g_rp.frame = b.rp_frame, g_rp.last_frame = b.rp_last_frame;
         g_rp.frozen = b.rp_frozen, g_rp.rumbles = b.rp_rumbles, g_rp.press_start_ok = b.rp_press_start_ok;
         g_rp.frame_seen = b.rp_frame_seen;

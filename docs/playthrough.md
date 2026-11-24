@@ -69,11 +69,15 @@ during a session are fine too: the presses are recorded and replay the same.
   advances them 533 a DoWork (the game calls DoWork 3.01 times an update: 1,600 frames, real time at 30 updates a
   second), recorded in the recording's SEG1 trailer so replays do the same. Sounds a session hears follow the
   model; the mixer only listens.
-- **The clock in waits:** the recording's virtual clock moves only at GameClock updates. In a playthrough's own
-  segments (never in play3's part), the main thread reading the clock more than 20,000 times without an update (the
-  game's minimum-time wait while it loads a save) sees it move on 1 ms a read; the next update goes on from there.
-  Without it, Load Game froze the game at GS_PREGAME (sessions on build 0908293 must not load a save). It applies only
-  where a session would otherwise hang, so segments recorded before it replay the same.
+- **The clock in waits:** the recording's virtual clock moves only at GameClock updates, and the game's load and save
+  waits spin on it (Load Game froze at GS_PREGAME without a rule). In a playthrough's own segments (never play3's
+  part) a rule moves it on, recorded per segment in the SEG1 trailer:
+  - rule 2 (from 1fe8ebe+ builds): past 200 of the recording's polls without an update, 1 ms a poll (polls are what
+    the recording is keyed by, the same with every renderer); a wait that neither polls nor presents: 1 ms a read past
+    100,000 reads since the last poll or frame end. Rule-2 segments replay identically with Metal, null and hulk-aot.
+  - rule 1 (6b1b2ea4c..1fe8ebe39, play4's first segment): 1 ms a read of the clock past 20,000 reads since the
+    update. The game's own d3d layer reads the clock at presents, which the pddi front end replaces, so a rule-1
+    segment replays only with the renderer it was recorded with (Metal for play4's).
 - **Saves** go to the session's own save folder, seeded from the snapshot's (play3's run-local saves to start with);
   the save files are part of each snapshot. Your own saves in the player's folder are never touched or read.
 - **Settings:** every session and replay of a playthrough uses the same `--settings`; the menus refuse the rows that
@@ -86,8 +90,8 @@ during a session are fine too: the presses are recorded and replay the same.
   entries, the build and executable it was recorded with, whether it started from a snapshot.
 - `play4.hrp`: play3's header and inputs to the first segment's start, then each segment's (entries keyed by poll, as
   play3's), its checkpoints and particle checkpoints to the first segment, and a trailer:
-  `"SEG1", u32 1, u32 n, u32 ds_live_work, n x {u32 start_present, start_frame, start_polls, end_present, end_frame,
-  end_polls}`. A segment boundary is the first frame end at or after (frame, poll): the number of presents differs
+  `"SEG1", u32 2, u32 n, u32 ds_live_work, n x {u32 start_present, start_frame, start_polls, end_present, end_frame,
+  end_polls, clock_rule}` (version 1 had no clock_rule: rule 1). A segment boundary is the first frame end at or after (frame, poll): the number of presents differs
   between renderers (the pddi front end's and d3d_null's during loads), updates and polls don't.
 - `play4.ckref` (+ `.json`): the reference: the Xbox's play3 records up to the first session's start (frame 56,563;
   they end at 56,575, but from 56,564 the player's input replaces play3's), our own after them (the sessions'); the
@@ -134,5 +138,8 @@ from that save (`--from-save`, above) is the fastest way there.
   handed off inside play3, the second from the first's snapshot), replayed headless on `hulk-aot`: identical.
 - From a save, headless (queue job 111863): a save made by play3 to frame 20,000, a scripted session from boot that
   loads it (GS_PREGAME -> GS_GAME), a second session from its snapshot, the replay from boot with the save: identical.
+- Rule 2 across renderers (queue job 112012, studio): a save-start playthrough recorded with Metal (two sessions, the
+  save loaded, the rule firing at frame 612) replayed by hulk-aot and by the app with the null renderer: identical;
+  play4 (rule 1) replayed with Metal on the same build: identical to frame 91,517.
 - play3 itself: candidate vs control to 60,000, records identical: hulk-aot (wasm_build_job test 111814) and the app
   with the null renderer (111815).

@@ -3698,3 +3698,17 @@ passes; output only (checkpoint records identical with every setting).
   fix: 4 x 02839, nothing else).
 - bgfx's Vulkan timer queries are off in the Linux build (HULK_VK_NO_TIMER_QUERY), so `HULK_<PASS>_AB` cost lines
   never print there: compare frame times of whole runs instead.
+
+## 2026-11-24 wplay4: play4's first segment; the playthrough clock rule made renderer-independent
+
+- The user's play4 segment 1 (frames 56,564..91,518, recorded with Metal on 71c6892, started from the play3-end
+  snapshot) replays from frame 0 with Metal identically to the end (job 111998). It ends in art/locations/outskirts_day
+  (mission c02m01 by the strings in memory): the first day area. In the game's mission table no mission uses
+  downtown_day; the day areas are the outskirts (chapter 2, chapters 6-7, c10 side missions), downtown dusk is chapter 3.
+- Headless it diverged at 64,475, the first wait the v2 clock rule moved: the rule counted the game's clock reads
+  between updates, and the game's own d3d layer (0x31acc0, 0x3214d0, ...: the code the pddi front end replaces) reads
+  the clock a few times a present, so null and Metal reached the threshold at different reads (22,152 vs 22,082). The
+  waits are poll loops (core::GetMilliseconds, the pad poll 0x269170). Rule 2 counts the recording's polls (the key
+  every recording replays by) and, for poll-free spins, reads since the last poll or frame end; the SEG1 trailer
+  (version 2) names each segment's rule, so rule-1 segments keep replaying with their renderer.
+

@@ -143,10 +143,11 @@ def write_hrp(path, base, segs, inputs, ds_work):
     for c in pk:
         out += struct.pack("<2I", *c)
     if segs:
-        out += b"SEG1" + struct.pack("<3I", 1, len(segs), ds_work)
+        # version 2: each segment's clock rule (replay.cpp; segments recorded before rule 2 are rule 1)
+        out += b"SEG1" + struct.pack("<3I", 2, len(segs), ds_work)
         for s in segs:
-            out += struct.pack("<6I", s["start"]["present"], s["start"]["frame"], s["start"]["polls"],
-                               s["end"]["present"], s["end"]["frame"], s["end"]["polls"])
+            out += struct.pack("<7I", s["start"]["present"], s["start"]["frame"], s["start"]["polls"],
+                               s["end"]["present"], s["end"]["frame"], s["end"]["polls"], s.get("clock_rule", 1))
     tmp = path + ".tmp"
     open(tmp, "wb").write(out)
     os.replace(tmp, path)
@@ -175,6 +176,7 @@ def read_seg(path):
         out["ds_live_work"] = int(w[w.index("ds_live_work") + 1])
         out["restored"] = int(w[w.index("restored") + 1])
         out["dowork_per_frame"] = float(w[w.index("dowork_per_frame") + 1])
+        out["clock_rule"] = int(w[w.index("clock_rule") + 1]) if "clock_rule" in w else 1
     except (ValueError, IndexError):
         return out or None
     return out
@@ -576,7 +578,8 @@ def cmd_record(a):
     s = {"dir": os.path.relpath(seg_dir, pdir(pt["name"])), "kind": "continue", "start": seg["start"],
          "end": seg["end"], "entries": seg.get("entries"), "recorded": now(), "exe": key, "build": bid,
          "restored": bool(snap), "complete": ended, "wall_s": round(wall), "dowork_per_frame": seg.get(
-             "dowork_per_frame"), "frames": seg["end"]["frame"] - seg["start"]["frame"]}
+             "dowork_per_frame"), "frames": seg["end"]["frame"] - seg["start"]["frame"],
+         "clock_rule": seg.get("clock_rule", 1)}
     if s["frames"] <= 0:
         die("the session ended before it began (segment %s)" % seg_dir)
     pt["segments"].append(s)
