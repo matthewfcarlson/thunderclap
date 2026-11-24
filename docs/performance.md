@@ -128,7 +128,7 @@ Two Video Options rows (port_settings.c; output only, remastered-only):
 
 | row | values (faithful first) | remastered default | Quality index |
 |---|---|---|---|
-| `upscaler` Upscaler | Off (Original), Auto, FSR 1 | Auto | rm::kUpscaler = 17 |
+| `upscaler` Upscaler | Off (Original), Auto, FSR 1, Temporal (TAA), MetalFX (TAA) | Auto | rm::kUpscaler = 17 |
 | `render_scale` Render Scale | Native, Auto, Ultra Quality (77), Quality (67), Balanced (59), Performance (50) | Auto | rm::kRenderScale = 18 |
 
 - **Render Scale** is the preset row: the scene target is made at that share of the render resolution (app.cpp
@@ -140,13 +140,16 @@ Two Video Options rows (port_settings.c; output only, remastered-only):
   run/app/upscale.cpp, the last pass of the frame (postScene, after the HUD), two full-screen passes at the present
   size: EASU (shaders/fs_rm_easu.sc, edge-adaptive Lanczos-2 from 12 taps, deringed) and RCAS (fs_rm_rcas.sc, 0.25 stops
   of contrast-adaptive sharpening; `HULK_FSR=stops`), then presented 1:1 (`hulk_gfx_sink_present_source`, bgfx_sink.cpp
-  under HULK_SINK_OVERLAY). Auto: FSR 1 on every platform today (MetalFX on macOS when it lands: section 4.2). An
-  upscaler runs only when the present rectangle is larger than the scene (Native at Window size does nothing).
+  under HULK_SINK_OVERLAY). Temporal and MetalFX (wperf2): section 4.2; both do the anti-aliasing too, so they imply
+  TAA whatever the Anti-Aliasing row says ("(TAA)" in their names). Auto: the platform's temporal upscaler (MetalFX on
+  macOS, ours elsewhere) when Anti-Aliasing is TAA, else FSR 1 (an MSAA choice stays MSAA: the Linux player's MSAA 2x
+  keeps FSR 1 under Auto, and choosing Temporal turns the scene to TAA); on Android FSR 1. An upscaler runs only when
+  the present rectangle is larger than the scene (Native at Window size does nothing: TAA resolves as before).
 - **Spatial first, the HUD included.** The whole frame is upscaled at the end, so the HUD and the game's effects are
   drawn at the render size and upscaled with the world: at 67% and above the HUD's text stays clean (EASU keeps edges);
   at 50% it softens. Drawing the HUD at the present size would need the scene target split into a world rectangle and
-  the full frame (dynamic-resolution style viewports for the world passes), which also is what temporal upscaling
-  needs (4.2).
+  the full frame (dynamic-resolution style viewports for the world passes); the temporal upscalers do without it
+  (4.2: the HUD is masked).
 
 ### 4.1 Cost
 
@@ -163,31 +166,55 @@ taps); they are not separable in these runs from the scene's own saving. Picture
 67% the city's edges and the HUD stay clean (EASU keeps edges, RCAS restores contrast); at 50% fine textures soften and
 the HUD's small text blurs.
 
-### 4.2 Temporal upscaling and MetalFX (not landed)
+### 4.2 Temporal upscaling: Temporal (ours) and MetalFX (wperf2)
 
-- **Shared pipeline.** TAA (section 5) already provides what a temporal upscaler needs: per-frame sub-pixel jitter on
-  every scene draw, the camera's reprojection from depth, per-object motion vectors (the velocity target) and a history
-  with clipping. A temporal upscaler is the same resolve with the history at the present size and the jittered samples
-  at the render size.
-- **What is missing** is the place to do it. The resolve runs at the frame's first effect, but the game's colour pass,
-  bloom and HUD then draw into the scene target at the render size. Temporal upscaling needs the world drawn into a
-  render-size rectangle of a present-size scene target (the world passes' viewports scaled, as app.cpp already scales
-  them for the render resolution, and every runner pass taught the rectangle), the resolve writing the full target, and
-  the effects and HUD drawn at the present size after it. That is a change to the scene target's contract across
-  app.cpp, the sink and ten passes: the next step, not done in wperf1.
-- **MetalFX** (macOS 13+, Apple's framework, linked at run time: nothing vendored). Its scalers encode into an
-  MTLCommandBuffer and take MTLTextures: the textures are reachable through `bgfx::overrideInternal`, but bgfx's Metal
-  renderer neither exposes its command buffer nor accepts the app's queue (`PlatformData::queue` is D3D12-only), and a
-  command buffer on another queue is not ordered with bgfx's. It needs a three-line bgfx patch (tools/wine_gfx.py
-  PATCHES: CommandQueueMtl::init takes `g_platformData.queue` when set, as the D3D12 renderer does), after which the app
-  creates the queue, hands it to bgfx, and encodes MetalFX on the same queue after `bgfx::frame` (one frame of latency:
-  the scaler's output of frame N is presented in frame N+1) or between two bgfx frames. The shared libbgfx (out/host)
-  is rebuilt for every lane by that patch, so it is left for a lane that owns the bgfx build; MetalFX spatial would
-  replace EASU at about the same cost, MetalFX temporal needs the scene-target change above.
-- **FSR 2 / 3** (MIT, AMD FidelityFX SDK): a dozen compute passes (bgfx has compute on Metal and Vulkan); after the
-  scene-target change, the port is mechanical. Android (Mali / Adreno): FSR 1 at Quality (67%) is the pick for cost
-  (two full-screen passes, no history memory, no compute); temporal upscaling on Mali-class GPUs costs about what it
-  saves at 720p.
+- **The frame, not the world.** The temporal upscalers run where FSR 1 does, on the finished frame (the game's effects
+  and HUD drawn at the render size), so the scene target's contract is unchanged. TAA (taa.cpp) still jitters every
+  scene draw and draws the objects' velocities; under a temporal upscaler (rm::upscalerTemporal; upscale.h) it does not
+  resolve: where its resolve would run (the frame's first effect) it writes each pixel's screen motion (RG16F, the
+  camera's through the depth, an object's own where the velocity target holds it; fs_rm_tumotion.sc) and copies the
+  depth (D32F, gl_FragDepth), stops jittering, and from then on draws every scene draw (the HUD: drawn after the first
+  effect, not jittered) again into an R8 mask of its coverage (vs_rm_mask_ff.sc / fs_rm_mask.sc: alpha for blended
+  draws, the brightest channel for additive ones). The jitter has 8 x scale^2 Halton phases (8 to 32). The rm passes see
+  the Anti-Aliasing row as TAA (rm::settings() is the effective table); the menu keeps the player's choice.
+- **Temporal (ours, every platform):** fs_rm_tupscale.sc, one pass into a history of the present size (RGBA16F: colour
+  and the accumulated weight), then RCAS (0.25 stops). An FSR 2-class resolve written from the published algorithm
+  (FidelityFX Super Resolution 2's description), our own code: each output pixel takes the 3x3 jittered samples
+  around it weighted by a narrow kernel in output pixels (exp(-2 d^2)), with that kernel's sum as the sample's weight
+  (over the phases every output pixel gathers the samples that fell on it: the detail of the present size); the frame's
+  own FSR 1 EASU at the jittered grid's coordinates (rm_easu.sh, the MIT port) is the prior and the fallback where the
+  history is weak; the history is reprojected (Catmull-Rom) by the motion of the nearest-depth sample of the 3x3,
+  clipped to the samples' YCoCg box (mean +- 1.25 sigma; a clip divides the accumulated weight by its distance
+  squared), capped at 12 frames and down to 15% of that at 24 output pixels of motion a frame; the HUD mask takes the
+  frame as drawn (Catmull-Rom of its unjittered samples) with no history. Knobs (development): `HULK_TU=max,gamma,
+  falloff,prior`, `HULK_TU_STOPS=ours,metalfx`, `HULK_TU_SIGN`, `HULK_TU_DEBUG=1` (motion and weight as colour),
+  `HULK_TU_LOG=1`.
+- **MetalFX (macOS 13+):** mfx.cpp, Apple's MTLFXTemporalScaler loaded at run time (dlopen of the system framework and
+  the Objective-C runtime from C++; nothing linked or vendored). bgfx keeps its command queue and buffer to itself, so
+  our bgfx build has a view hook (tools/wine_gfx.py PATCHES, renderer_mtl.cpp, Metal only: `bgfx_hulk_mtl_set_view_hook`
+  asks a hook at each view's start, after its blits, and hands it bgfx's command buffer with no encoder open;
+  `bgfx_hulk_mtl_texture` gives a texture's MTLTexture; nothing changes while no hook is set): upscale.cpp reserves a
+  view and touches it, the hook encodes the scaler there (colour: the scene target, RGBA16F or BGRA8; depth D32F;
+  motion RG16F scaled by the render size; the HUD mask as its reactive mask on macOS 14.4+), and the next views put the
+  HUD back (fs_rm_tucomp.sc) and run RCAS (0.5 stops: its output is a little soft). Same frame, no latency. Jitter and
+  motion follow FSR 2's conventions (pixels, y down; motion = last - current); `HULK_MFX_SIGN=x,y,motion` flips them;
+  `HULK_MFX=0` makes it unavailable.
+- **Fallbacks.** A frame without TAA's inputs (the front end: nothing jittered) or without views takes FSR 1; MetalFX
+  unavailable (an older Mac, not Metal) takes ours. The performance overlay names the upscaler the frame used (TEMPORAL /
+  METALFX / FSR1 / BILINEAR / NATIVE; no AA label with a temporal one).
+- **Pictures** (queue Metal, play3, 1280x960 window, Quality 67% = 858x643; build/wperf2/cmp, never committed): static
+  city (5000, 7600) ours keeps more texture detail than FSR 1 (window frames, roof ribs) and matches MetalFX; the HUD is
+  as sharp as drawn in both (the mask); in the fast pan at 3010 (20 output pixels a frame) MetalFX has the cleanest
+  silhouettes, ours is sharper than FSR 1 with slight stair steps left on the Hulk's outline (the history cannot follow
+  at that speed and EASU of the aliased frame stands in). At 3x (640x480 to 1280x960) an earlier, Lanczos-only version
+  of ours showed a grid pattern and smears: the output-pixel kernel and the EASU prior fixed it.
+- **Cost** (bgfx's frame GPU timer, which reads ~1.8x high; `HULK_UPSCALE_AB=N`: temporal off, i.e. TAA's resolve +
+  FSR 1, and on in turns). Queue mac2 (M3 Max), play3 to 6,000, 858x643 to 1280x960, other options off: ours 0.744 ->
+  0.793 ms (+0.05), MetalFX 0.606 -> 1.372 ms (+0.77). The laptop (M3 Air, quiet, once), every remastered default,
+  1920x1440 window (Auto: 1280x960 to 1920x1440): MetalFX 8.24 -> 8.16 ms (no cost over TAA + FSR 1), ours 8.78 ->
+  10.10 ms (+1.3). At the 1280x960 budget window Auto stays Native (TAA as before): 7.0-8.0 ms, within the 12.
+- **Android.** Auto keeps FSR 1 there (rm::upscalerTemporal): temporal upscaling on Mali-class GPUs costs about what
+  it saves at 720p; Temporal can still be chosen (the shaders build for spirv and essl).
 
 ## 5. TAA (Anti-Aliasing: TAA)
 
@@ -277,10 +304,11 @@ encoding. With bgfx's render thread, encoding of frame N would overlap the modul
 | component | licence | how it is used |
 |---|---|---|
 | FSR 1 EASU / RCAS (AMD FidelityFX Super Resolution 1.0, ffx_fsr1.h) | MIT, (c) 2021 Advanced Micro Devices | ported to bgfx's shader language in fs_rm_easu.sc / fs_rm_rcas.sc, the MIT notice in each |
-| FSR 2 / 3 (AMD FidelityFX SDK) | MIT | not used yet (4.2) |
-| MetalFX | Apple system framework (macOS 13+) | not used yet; would be linked at run time, nothing vendored |
+| FSR 2 / 3 (AMD FidelityFX SDK) | MIT | not used or vendored: our temporal upscaler (fs_rm_tupscale.sc) is written from the published algorithm description; no FidelityFX source in the tree (were it vendored, its MIT licence file goes with it) |
+| FSR 1 EASU as a function (rm_easu.sh) | MIT, (c) 2021 Advanced Micro Devices | the same port as fs_rm_easu.sc, the MIT notice in the file |
+| MetalFX | Apple system framework (macOS 13+) | loaded at run time (dlopen + the Objective-C runtime, mfx.cpp); nothing linked or vendored |
 | TAA, motion vectors, Catmull-Rom history | the runner's own code | general techniques (jittered temporal supersampling, YCoCg variance clipping, 5-tap bicubic); no third-party code |
-| bgfx / bx / bimg | BSD-2-Clause | unchanged |
+| bgfx / bx / bimg | BSD-2-Clause | two small patches (tools/wine_gfx.py PATCHES, wperf2): the Metal view hook (4.2) and the Vulkan swapchain's image count (the Linux and Android apps); the licence unchanged |
 
 ## 9. Checks
 
@@ -292,10 +320,20 @@ encoding. With bgfx's render thread, encoding of frame N would overlap the modul
 - Pictures: queue Metal tests 111837-111840 (TAA + Reflections Low, MSAA 4x + High, TAA + High; FSR 67% to 1920x1440)
   and the laptop's runs; build/wperf1/png, never committed.
 - Android: the runner's new files compile with the NDK (API 31); the shaders build for spirv and essl.
+- wperf2 (temporal upscaling): play3:2000 null, candidate 111990 against control 111989 (5c5e1a2d6): records
+  identical; Metal play3 to 2,000 with Temporal pinned, pair 111992: records identical. Pictures: queue Metal runs
+  111948 (FSR 1), 111960 (MetalFX), 111984 / 111990 (ours / Auto = MetalFX), 111993 (ours at 60 fps). Linux: the
+  Z2 Extreme (Vulkan, RADV) under headless gamescope with Khronos validation, every remastered default with MSAA 2x
+  (Auto: FSR 1) and with Temporal: no validation message after the swapchain fix; shots at 6,000 / 12,000 / 16,000
+  (HUD, minimap, enemies) right. bgfx's GPU timers are off in the Linux build and presents are paced at 60 Hz there,
+  so the device gave no cost numbers. Android: the runner's files compile with the NDK; the shaders build for spirv
+  and essl.
 
 ## 10. Open items
 
-- MetalFX (spatial and temporal) and FSR 2/3: section 4.2 (a bgfx queue patch; the scene-target split for temporal).
+- Temporal upscaling (4.2): ours could reject history by depth (disocclusion) and lock thin features as FSR 2 does;
+  drawing the HUD at the present size would need the scene-target split (4, "Spatial first"). MetalFX spatial was not
+  added (EASU costs about the same).
 - Shadows High's cost is the fill of the two 2048 rows: cache the world row (static rooms; redraw when its snapped
   centre moves by a coarse step) or draw it at 1024, with per-row receiver matrices in fs_px_stage.sh.
 - Reflections' G-buffer redraw (~300 draws): the scene's depth plus reconstructed normals could replace most of it,

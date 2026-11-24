@@ -3676,3 +3676,25 @@ passes; output only (checkpoint records identical with every setting).
 - **Wall jumps already carry the wall run's speed** (WallJumpAction 0x140650: velocityMin raised to the run's speed,
   capped by velocityXZMax); the fling multiplies the result. Desert canyon wall at 34 u/s: landing 55 units out
   without, 110 with Wall Fling III. Air Control III moves a sprint jump's landing 19 units sideways.
+
+## 2026-11-24 wperf2: temporal upscaling (ours and MetalFX), the Linux swapchain (docs/performance.md 4.2)
+
+- **Temporal upscaling without splitting the scene target.** Upscaling the finished frame (effects and HUD at the
+  render size, as FSR 1 does) works for a temporal upscaler once the HUD is masked: TAA keeps jittering, writes the
+  motion and a depth copy at its resolve point, then redraws every later draw into an R8 coverage mask; the upscaler
+  takes masked pixels as drawn (no history). The HUD stays as sharp and steady as with FSR 1.
+- **Ours, first try was wrong twice.** A Lanczos-2 of the 3x3 jittered samples in input pixels gave a grid pattern at
+  3x and stair-stepped moving edges at 1.5x; a narrow kernel in output pixels (the accumulation weight) with FSR 1's
+  EASU of the frame at the jittered grid's coordinates as the prior and fallback fixed both. In play3's whip pans
+  (20 output pixels a frame at 3010) no history survives: MetalFX's silhouettes stay cleaner than ours there.
+- **MetalFX through bgfx**: a view hook in bgfx's Metal renderer (the command buffer with no encoder open at a view's
+  start) is enough; no command-queue patch and no frame of latency. The scaler loads at run time (dlopen + objc
+  runtime); the HUD mask doubles as its reactive mask (macOS 14.4+). On the M3 Air at 1920x1440 with every remastered
+  default it costs nothing over TAA + FSR 1 (8.2 ms either way by bgfx's timer); ours +1.3 ms there.
+- **Gamescope's swapchain VUID** (02839, "minImageCount 3 ... minImageCount = 4"): the Gamescope WSI layer answers 3
+  for its X11 surface and hands the app's count to its own Wayland surface, whose minimum is 4; the per-present-mode
+  query (surface_maintenance1) also says 3. Our bgfx asks at least 4 under GAMESCOPE_WAYLAND_DISPLAY: play3 to 16,100
+  under headless gamescope with Khronos validation on RADV has no validation message at all (MSAA 2x run before the
+  fix: 4 x 02839, nothing else).
+- bgfx's Vulkan timer queries are off in the Linux build (HULK_VK_NO_TIMER_QUERY), so `HULK_<PASS>_AB` cost lines
+  never print there: compare frame times of whole runs instead.

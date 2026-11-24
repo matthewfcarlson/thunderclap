@@ -20,6 +20,7 @@
 #include "gfxstats.h"
 #include "pddi/bgfx_bridge.h"
 #include "rm_pass.h"
+#include "upscale.h"
 
 using namespace hulk::pddi;
 
@@ -179,9 +180,11 @@ class PerfOverlayPass final : public rm::Pass {
         int y = pad;
         int x = m_img.text(pad, y, k, t, fps >= 59 ? 0xFF60FF60u : fps >= 29 ? 0xFFFFE040u : 0xFFFF6040u);
         const char* aa = m_aa == 1 ? "TAA" : m_aa >= 2 ? (m_aa == 2 ? "MSAA 2X" : m_aa == 4 ? "MSAA 4X" : "MSAA 8X") : "AA OFF";
-        bool up = (uint32_t)p.w > s.width + s.width / 100;
+        // (wperf2: the upscaler the frame used: upscale.cpp; a temporal one also is the anti-aliasing)
+        const char* un = rm::upscalerName();
+        bool tu = un[0] == 'T' || un[0] == 'M';
         snprintf(t, sizeof t, "%ux%u %d%% %s %s", s.width, s.height, p.w ? (int)(100.0f * s.width / p.w + 0.5f) : 100,
-                 up ? (m_upscaler ? "FSR1" : "BILINEAR") : "NATIVE", aa);
+                 un, tu ? "" : aa);
         (void)x;
         m_img.text(pad, y + line, k, t, grey);
         if (graph) {

@@ -27,7 +27,8 @@ enum Quality : uint32_t {
     kAtmosphere,                          // wlook2 (docs/night.md): 0 the game's sky and fog, 1 enhanced
     kGrade,                               // wlook1 (docs/look.md "Colour grade"): 0 original, 1 natural, 2 cinematic
     kGrass,                               // wgrass1 (docs/grass.md): 0 the game's flat ground, 1 blades low, 2 high
-    kUpscaler = 17,                       // wperf1 (docs/performance.md): 0 off, 1 auto, 2 FSR 1
+    kUpscaler = 17,                       // wperf1 (docs/performance.md): 0 off, 1 auto, 2 FSR 1; wperf2: 3 temporal
+                                          // (ours), 4 MetalFX (macOS; elsewhere ours)
     kRenderScale,                         // wperf1: the scene target's share of the render resolution, percent
     kPerfOverlay,                         // wperf1 (perfov.cpp): 0 off, 1 the FPS readout, 2 with the graph
     kQualityCount
@@ -36,7 +37,9 @@ struct Settings {
     int value[kQualityCount];
     int operator[](Quality q) const { return value[q]; }
 };
-const Settings& settings();
+const Settings& settings();            // (the effective values: upscalerTemporal sets the msaa row to TAA)
+// wperf2: the Upscaler row's choice in `menu` is a temporal upscaler (it implies TAA: the passes then see kMsaa 1)
+bool upscalerTemporal(const Settings& menu);
 
 // The scene target as the runner's passes draw into it (sink ids; width/height in pixels at the render size)
 struct Scene {

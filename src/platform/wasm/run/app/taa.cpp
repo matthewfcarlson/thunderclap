@@ -11,6 +11,9 @@
 // by buffers, count, program and first texture, the nearest in camera space), and their pixels reproject by it. Interpolated 60 / 120 fps frames are presented frames like
 // any other: each takes the next jitter phase and reprojects from the frame before it. The scene is single-sampled
 // (MSAA off) with TAA. Output only: nothing here reads or writes the module's memory.
+// wperf2 (upscale.h, docs/performance.md 4.2): under a temporal upscaler the jitter goes on (more phases: 8 x the
+// scale squared) but the resolve is the upscaler's: at the point of the resolve this pass writes each pixel's motion
+// and a copy of the depth (fs_rm_tumotion.sc), stops jittering, and draws the HUD that follows into a mask.
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,6 +26,7 @@
 #include "pddi/bgfx_bridge.h"
 #include "rm_pass.h"
 #include "rm_post.h"
+#include "upscale.h"
 
 using namespace hulk::pddi;
 
@@ -106,13 +110,17 @@ class TaaPass final : public rm::Pass {
         m_velView = rm::kNoView;
         if (m_motion && ensureVel(w, h) && (m_velView = rm::newView()) != rm::kNoView)
             rm::viewInto(m_velView, m_vfb, w, h, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0, 1.0f);
-        m_phase = (m_phase + 1) & 7;
+        m_tu = m_tuWant;
+        m_maskView = rm::kNoView;
+        m_phase = (m_phase + 1) % (m_tu ? m_tuPhases : 8);
         m_jx = (halton(m_phase + 1, 2) - 0.5f) * 2.0f / (float)w;     // (NDC: two units across the target)
         m_jy = (halton(m_phase + 1, 3) - 0.5f) * 2.0f / (float)h;
         m_jitter = true;
     }
     void late(DrawPacket& p) override
     {
+        if (m_tu && m_resolved && m_maskView != rm::kNoView && p.vertexConstants && rm::passIsScene(p.pass))
+            maskDraw(p);
         if (!m_jitter || m_resolved || p.viewMode != 0 || !p.vertexConstants || !rm::passIsScene(p.pass))
             return;
         int r = clipRow(p.vertexProgram);
@@ -190,11 +198,13 @@ class TaaPass final : public rm::Pass {
         abCost();
         if (logOn() && ++m_frames % 300 == 0)
             fprintf(stderr, "hulk-app: taa: %u of 300 frames resolved (%u at the end), %.1f jittered draws a frame, "
-                    "%.1f objects with motion, jitter phase %u\n", m_runs, m_late, m_drawn / 300.0, m_velDraws / 300.0,
-                    m_phase), m_runs = m_late = 0, m_drawn = m_velDraws = 0;
+                    "%.1f objects with motion, jitter phase %u%s, %.1f HUD mask draws\n", m_runs, m_late, m_drawn / 300.0,
+                    m_velDraws / 300.0, m_phase, m_tu ? " (temporal upscaling)" : "", m_maskDraws / 300.0),
+                    m_runs = m_late = 0, m_drawn = m_velDraws = m_maskDraws = 0;
         if (!m_resolved)
             m_valid = false;                            // (a frame without a resolve breaks the history)
         m_jitter = false;
+        s_frame = nullptr;
         m_prevObjs.swap(m_objs);                        // (this frame's objects are the next one's last frame)
         m_prevConst.swap(m_objConst);
         m_objs.clear();
@@ -297,6 +307,10 @@ class TaaPass final : public rm::Pass {
     }
     void resolve(uint16_t pass)
     {
+        if (m_tu) {
+            prepare(pass);
+            return;
+        }
         m_resolved = true;
         uint32_t fb = kSinkNone, colour = kSinkNone, depth = kSinkNone, samples = 1;
         hulk_gfx_sink_scene_handles(&fb, &colour, &depth, &samples);
@@ -373,6 +387,135 @@ class TaaPass final : public rm::Pass {
         m_runs++;
         m_late += pass == 0xffff;
     }
+    // wperf2: the reprojection's constants (as resolve's); false when there is no camera or depth
+    bool reprojection(float* u0, float* u1, float* u2, float* u3, float* m, uint32_t w, uint32_t h, bool& reset)
+    {
+        float inv[16];
+        reset = !m_valid || !invAffine(inv, m_view);
+        if (!reset) {
+            mul4(m, m_prevView, inv);
+            mul4(m, m_prevProj, m);
+            float dz = m_view[2] * m_prevView[2] + m_view[6] * m_prevView[6] + m_view[10] * m_prevView[10];
+            float nz = sqrtf((m_view[2] * m_view[2] + m_view[6] * m_view[6] + m_view[10] * m_view[10]) *
+                             (m_prevView[2] * m_prevView[2] + m_prevView[6] * m_prevView[6] +
+                              m_prevView[10] * m_prevView[10]));
+            if (nz > 0 && dz / nz < 0.9f)
+                reset = true;
+        }
+        if (reset)
+            memcpy(m, m_proj, 16 * sizeof(float));
+        const bgfx::Caps* caps = bgfx::getCaps();
+        float flip = caps && caps->originBottomLeft ? 1.0f : 0.0f;
+        const float* c = m_proj;
+        u0[0] = c[0], u0[1] = c[5], u0[2] = c[2], u0[3] = c[6];
+        u1[0] = c[10], u1[1] = c[11], u1[2] = c[14], u1[3] = c[15];
+        u2[0] = c[3], u2[1] = c[7], u2[2] = m_alpha, u2[3] = reset ? 1.0f : 0.0f;
+        u3[0] = flip + (m_velView != rm::kNoView ? 2.0f : 0.0f), u3[1] = m_gamma, u3[2] = 1.0f / w, u3[3] = 1.0f / h;
+        return true;
+    }
+    bool ensureTu(uint32_t w, uint32_t h)
+    {
+        if (!m_mask.ensure(w, h, bgfx::TextureFormat::R8, false, true))
+            return false;
+        if (m_mfb != rm::kNoHandle && m_tw == w && m_th == h)
+            return true;
+        if (m_mfb != rm::kNoHandle)
+            bgfx::destroy(bgfx::FrameBufferHandle{m_mfb});
+        m_mfb = m_motionTex = m_depthTex = rm::kNoHandle;
+        const uint64_t flags = BGFX_TEXTURE_RT | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT;
+        bgfx::TextureHandle t[2] = {
+            bgfx::createTexture2D((uint16_t)w, (uint16_t)h, false, 1, bgfx::TextureFormat::RG16F, flags),
+            bgfx::createTexture2D((uint16_t)w, (uint16_t)h, false, 1, bgfx::TextureFormat::D32F, flags)};
+        if (!bgfx::isValid(t[0]) || !bgfx::isValid(t[1])) {
+            if (bgfx::isValid(t[0])) bgfx::destroy(t[0]);
+            if (bgfx::isValid(t[1])) bgfx::destroy(t[1]);
+            return false;
+        }
+        bgfx::FrameBufferHandle f = bgfx::createFrameBuffer(2, t, true);
+        if (!bgfx::isValid(f))
+            return false;
+        m_mfb = f.idx, m_motionTex = t[0].idx, m_depthTex = t[1].idx, m_tw = w, m_th = h;
+        return true;
+    }
+    // wperf2: the temporal upscaler's inputs, where the resolve would run (pass 0xffff: at the end of the frame)
+    void prepare(uint16_t pass)
+    {
+        m_resolved = true;
+        uint32_t fb = kSinkNone, colour = kSinkNone, depth = kSinkNone, samples = 1;
+        hulk_gfx_sink_scene_handles(&fb, &colour, &depth, &samples);
+        uint32_t w = hulk_gfx_sink_target_width(), h = hulk_gfx_sink_target_height();
+        uint16_t prog = rm::program("vs_rm_quad", "fs_rm_tumotion");
+        if (fb == kSinkNone || depth == kSinkNone || !w || !h || samples > 1 || !m_haveCam || prog == rm::kNoHandle ||
+            !ensureTu(w, h)) {
+            m_valid = false;
+            return;
+        }
+        uint16_t v[2];
+        bool ok = pass == 0xffff ? (v[0] = rm::newView()) != rm::kNoView && (v[1] = rm::newView()) != rm::kNoView
+                                 : rm::viewsBefore(pass, 2, v);
+        if (!ok) {
+            m_valid = false;
+            return;
+        }
+        float u0[4], u1[4], u2[4], u3[4], m[16];
+        bool reset;
+        reprojection(u0, u1, u2, u3, m, w, h, reset);
+        const uint32_t point = BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT;
+        rm::viewInto(v[0], m_mfb, w, h);
+        rm::texture(1, (uint16_t)depth, point);
+        rm::texture(3, m_velView != rm::kNoView ? m_vtex : (uint16_t)depth, point);
+        rm::uniform("u_rmTaa0", u0);
+        rm::uniform("u_rmTaa1", u1);
+        rm::uniform("u_rmTaa2", u2);
+        rm::uniform("u_rmTaa3", u3);
+        rm::uniform("u_rmTaaM", m, 4);
+        rm::quad(v[0], prog, BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A | BGFX_STATE_WRITE_Z |
+                                 BGFX_STATE_DEPTH_TEST_ALWAYS);
+        // the HUD's mask: cleared, then the draws after this point (late) go into it
+        rm::viewInto(v[1], m_mask.fb, w, h, BGFX_CLEAR_COLOR, 0, 1.0f);
+        m_maskView = v[1];
+        m_frame.w = w, m_frame.h = h;
+        m_frame.motion = m_motionTex, m_frame.depth = m_depthTex, m_frame.mask = m_mask.tex;
+        m_frame.jitter[0] = m_jx * (float)w * 0.5f;
+        m_frame.jitter[1] = -m_jy * (float)h * 0.5f;
+        m_frame.reset = reset;
+        s_frame = &m_frame;
+        m_valid = true;
+        memcpy(m_prevView, m_view, sizeof m_view);
+        memcpy(m_prevProj, m_proj, sizeof m_proj);
+        m_runs++;
+        m_late += pass == 0xffff;
+    }
+    // wperf2: a draw after the first effect (the HUD) again into the mask: its coverage, by its blend
+    void maskDraw(const DrawPacket& q)
+    {
+        if (!(q.vertexProgram == 0 || q.vertexProgram == 6) || q.vertexConstantCount < 56)
+            return;
+        uint16_t prog = rm::program("vs_rm_mask_ff", "fs_rm_mask");
+        if (prog == rm::kNoHandle)
+            return;
+        DrawPacket v = q;
+        v.pipeline = prog;
+        v.pass = m_maskView;
+        v.query = kSinkNone;
+        v.fog = 0;
+        v.state.writeMask = 0xf;
+        v.state.depthTest = 0;
+        v.state.depthWrite = 0;
+        v.state.stencil = 0;
+        float mode = !q.state.blend ? 0.0f
+                     : q.state.srcBlend == kBlendSrcAlpha && q.state.dstBlend == kBlendInvSrcAlpha ? 1.0f : 2.0f;
+        v.state.blend = 1;
+        v.state.blendOp = kBlendMax;
+        v.state.srcBlend = kBlendOne;
+        v.state.dstBlend = kBlendOne;
+        float m0[4] = {q.frag[4][0], q.frag[4][1], q.frag[14][0], q.frag[14][1]};
+        float m1[4] = {mode, 0, 0, 0};
+        rm::uniform("u_rmMask", m0);
+        rm::uniform("u_rmMask1", m1);
+        hulk_gfx_sink_submit_draw(&v);
+        m_maskDraws++;
+    }
     // HULK_TAA_AB=N: TAA's jitter and resolve off and on in turns of N presented frames (the scene stays single-sampled)
     void abCost()
     {
@@ -403,6 +546,20 @@ class TaaPass final : public rm::Pass {
     unsigned m_abFrame = 0, m_abTurns = 0, m_abN[2] = {0, 0};
     double m_abGpu[2] = {0, 0}, m_abCpu[2] = {0, 0};
 
+    // wperf2: temporal upscaling
+    static rm::TemporalFrame* s_frame;
+    rm::TemporalFrame m_frame = {};
+    bool m_tu = false;
+    uint16_t m_maskView = rm::kNoView, m_mfb = rm::kNoHandle, m_motionTex = rm::kNoHandle, m_depthTex = rm::kNoHandle;
+    uint32_t m_tw = 0, m_th = 0, m_maskDraws = 0;
+    rm::Target m_mask;
+
+  public:
+    bool m_tuWant = false;
+    uint32_t m_tuPhases = 8;
+    static const rm::TemporalFrame* frameReady() { return s_frame; }
+
+  private:
     bool m_on = false, m_jitter = false, m_resolved = false, m_haveCam = false, m_valid = false;
     uint32_t m_phase = 0, m_cur01 = 0, m_drawn = 0, m_frameDrawn = 0, m_frames = 0, m_runs = 0, m_late = 0;
     float m_jx = 0, m_jy = 0, m_alpha = 0.1f, m_gamma = 1.25f, m_sharp = 0.35f;
@@ -420,5 +577,13 @@ class TaaPass final : public rm::Pass {
     int m_velPrev = -1;
 };
 HULK_RM_REGISTER_PASS(TaaPass);
+rm::TemporalFrame* TaaPass::s_frame;
 
 } // namespace
+
+const rm::TemporalFrame* rm::temporalFrame() { return TaaPass::frameReady(); }
+void rm::temporalWanted(bool on, uint32_t phases)
+{
+    s_rmPass_TaaPass.m_tuWant = on;
+    s_rmPass_TaaPass.m_tuPhases = phases < 8 ? 8 : phases > 32 ? 32 : phases;
+}

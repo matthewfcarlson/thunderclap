@@ -221,7 +221,7 @@ def cmd_bgfx(a):
     os.makedirs(os.path.join(BGFX_OUT, "lib"), exist_ok=True)
     cxx = CXX + ["-std=c++20", "-O2", "-fPIC", "-fno-exceptions", "-fno-rtti", "-Wno-deprecated-declarations",
                  "-ffunction-sections", "-fdata-sections"] + common + RENDERER_DEFS + \
-        ["-DHULK_VK_NO_TIMER_QUERY=1", "-DHULK_VK_PRECISE_OCCLUSION=1"]
+        ["-DHULK_VK_NO_TIMER_QUERY=1", "-DHULK_VK_PRECISE_OCCLUSION=1", "-DHULK_VK_SWAPCHAIN_MIN=1"]
     jobs, libs = [], {}
     for lib, srcs in units.items():
         for src, extra in srcs:

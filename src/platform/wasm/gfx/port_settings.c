@@ -116,8 +116,11 @@ static void apply_developer(int value);
  * Upscaler, Render Scale (wperf1; run/app/upscale.cpp, docs/performance.md): the scene drawn at a share of the
  * render resolution (100% .. 50%: FSR's Ultra Quality 1.3x, Quality 1.5x, Balanced 1.7x, Performance 2x; 0, Auto,
  * the largest share within 1280x960 pixels, at least 50%: app.cpp rrSize) and brought
- * to the present size by the upscaler: Off the bilinear stretch as before, FSR 1 (AMD's EASU + RCAS, MIT), Auto the
- * platform's best (FSR 1 today). Output only (the game sees 640x480 at every scale).
+ * to the present size by the upscaler: Off the bilinear stretch as before, FSR 1 (AMD's EASU + RCAS, MIT), and
+ * (wperf2) the temporal ones, which also anti-alias and so imply TAA whatever the Anti-Aliasing row says ("(TAA)" in
+ * their names): Temporal (ours, an FSR 2-class resolve: run/app/upscale.cpp) and MetalFX (Apple's, macOS; elsewhere
+ * ours). Auto: the platform's temporal upscaler (MetalFX on macOS, ours elsewhere) when Anti-Aliasing is TAA, else
+ * FSR 1 (an MSAA choice stays MSAA); on Android FSR 1. Output only (the game sees 640x480 at every scale).
  * Grass (wgrass1; run/app/grass.cpp, docs/grass.md): blades on the game's grass ground, instanced clumps in world space
  * taking the ground's colour, swaying in the wind and bent aside by the characters, fading out to the flat ground with
  * distance (1 low: 12 units, 3 blades a clump; 2 high: 24 units, 5 blades). Output only: nothing collides with them.
@@ -147,8 +150,8 @@ static port_setting k_settings[] = {
      {"Original (640x480)", "2x (1280x960)", "3x (1920x1440)", "4x (2560x1920)", "Window", "720p", "1080p", "1440p",
       "4K"},
      1, 0, 1, apply_render_res},
-    {"upscaler", "Upscaler", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"Off (Original)", "Auto", "FSR 1"}, 0, 1, 1,
-     apply_upscaler},
+    {"upscaler", "Upscaler", PS_SCREEN_VIDEO, PS_CHOICE, 5, {0, 1, 2, 3, 4},
+     {"Off (Original)", "Auto", "FSR 1", "Temporal (TAA)", "MetalFX (TAA)"}, 0, 1, 1, apply_upscaler},
     {"render_scale", "Render Scale", PS_SCREEN_VIDEO, PS_CHOICE, 6, {100, 0, 77, 67, 59, 50},
      {"Native", "Auto", "Ultra Quality (77)", "Quality (67)", "Balanced (59)", "Performance (50)"}, 100, 0, 1,
      apply_render_scale},

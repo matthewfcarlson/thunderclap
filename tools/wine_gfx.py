@@ -132,6 +132,96 @@ PATCHES = [
      "#else\n"
      "\t\tvkCmdBeginQuery(commandBuffer, m_queryPool, _handle.idx, 0);\n"
      "#endif"),
+    #  - bgfx's Vulkan renderer (wperf2): the swapchain's image count raised to what the surface really needs, when
+    #    HULK_VK_SWAPCHAIN_MIN is defined (the Linux and Android apps). bgfx clamps to the minImageCount
+    #    vkGetPhysicalDeviceSurfaceCapabilitiesKHR gives it, but (1) under gamescope (Steam's Game Mode) the Gamescope
+    #    WSI layer answers 3 for its X11 surface and hands the app's count on to its own Wayland surface, whose
+    #    minimum is 4 (Khronos validation: VUID-VkSwapchainCreateInfoKHR-presentMode-02839, "minImageCount 3, ...
+    #    minImageCount = 4"): with GAMESCOPE_WAYLAND_DISPLAY set the count is at least 4; (2) with
+    #    VK_EXT_surface_maintenance1 a surface has a minimum per present mode and the swapchain names both its vsync and
+    #    its immediate mode: the count is at least each one's (vkGetPhysicalDeviceSurfaceCapabilities2KHR with
+    #    VkSurfacePresentModeEXT). Always within the surface's maximum; one stderr line says what was chosen.
+    ("bgfx", "src/renderer_vk.cpp",
+     "#\tinclude \"video_vk.h\"\n",
+     "#\tinclude \"video_vk.h\"\n"
+     "#\tif defined(HULK_VK_SWAPCHAIN_MIN) // hulk: tools/wine_gfx.py PATCHES (wperf2)\n"
+     "#\t\tinclude <stdio.h>\n"
+     "#\t\tinclude <stdlib.h>\n"
+     "#\tendif\n"),
+    ("bgfx", "src/renderer_vk.cpp",
+     "\t\tm_sci.minImageCount      = swapBufferCount;\n",
+     "\t\tm_sci.minImageCount      = swapBufferCount;\n"
+     "#if defined(HULK_VK_SWAPCHAIN_MIN) // hulk: tools/wine_gfx.py PATCHES (wperf2)\n"
+     "\t\t{\n"
+     "\t\t\tuint32_t hulkMin = surfaceCapabilities.minImageCount;\n"
+     "\t\t\tif (NULL != getenv(\"GAMESCOPE_WAYLAND_DISPLAY\") )\n"
+     "\t\t\t{\n"
+     "\t\t\t\thulkMin = bx::max<uint32_t>(hulkMin, 4);\n"
+     "\t\t\t}\n"
+     "\t\t\tPFN_vkGetPhysicalDeviceSurfaceCapabilities2KHR caps2 = NULL;\n"
+     "\t\t\tif (s_extension[Extension::KHR_get_surface_capabilities2].m_supported\n"
+     "\t\t\t&&  s_extension[Extension::EXT_surface_maintenance1].m_supported)\n"
+     "\t\t\t{\n"
+     "\t\t\t\tcaps2 = (PFN_vkGetPhysicalDeviceSurfaceCapabilities2KHR)\n"
+     "\t\t\t\t\tvkGetInstanceProcAddr(s_renderVK->m_instance, \"vkGetPhysicalDeviceSurfaceCapabilities2KHR\");\n"
+     "\t\t\t}\n"
+     "\t\t\tconst uint32_t modeIdx[2] = { m_presentModeWithVSyncIdx, m_presentModeWithoutVSyncIdx };\n"
+     "\t\t\tfor (uint32_t ii = 0; NULL != caps2 && ii < 2; ++ii)\n"
+     "\t\t\t{\n"
+     "\t\t\t\tif (UINT32_MAX == modeIdx[ii]) { continue; }\n"
+     "\t\t\t\tVkSurfacePresentModeEXT spm = { VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_EXT, NULL, s_presentMode[modeIdx[ii]].mode };\n"
+     "\t\t\t\tVkPhysicalDeviceSurfaceInfo2KHR si = { VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SURFACE_INFO_2_KHR, &spm, m_surface };\n"
+     "\t\t\t\tVkSurfaceCapabilities2KHR sc = {};\n"
+     "\t\t\t\tsc.sType = VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_KHR;\n"
+     "\t\t\t\tif (VK_SUCCESS == caps2(physicalDevice, &si, &sc) )\n"
+     "\t\t\t\t{\n"
+     "\t\t\t\t\thulkMin = bx::max<uint32_t>(hulkMin, sc.surfaceCapabilities.minImageCount);\n"
+     "\t\t\t\t}\n"
+     "\t\t\t}\n"
+     "\t\t\tconst uint32_t hulkCount = bx::min<uint32_t>(bx::max<uint32_t>(m_sci.minImageCount, hulkMin), maxSwapBufferCount);\n"
+     "\t\t\tfprintf(stderr, \"bgfx: swapchain %u images (asked %u, surface minimum %u, per mode %s)\\n\"\n"
+     "\t\t\t\t, hulkCount, m_sci.minImageCount, surfaceCapabilities.minImageCount, NULL != caps2 ? \"queried\" : \"not available\");\n"
+     "\t\t\tm_sci.minImageCount = hulkCount;\n"
+     "\t\t}\n"
+     "#endif\n"),
+    #  - bgfx's Metal renderer (wperf2, docs/performance.md 4.2): a view hook for the app's MetalFX upscaler. bgfx keeps its
+    #    command buffer and queue to itself; the hook is asked at the start of each view (after the view's blits) and,
+    #    when it says yes, gets bgfx's current command buffer with no encoder open, so MetalFX encodes in order between
+    #    two views of the same frame. bgfx_hulk_mtl_texture gives a texture's MTLTexture (render thread: the app
+    #    renders single-threaded, BGFX_CONFIG_MULTITHREADED=0). Nothing changes while no hook is set.
+    ("bgfx", "src/renderer_mtl.cpp",
+     "#if BX_PLATFORM_OSX\n#\tinclude <IOKit/IOKitLib.h>\n#endif // BX_PLATFORM_OSX\n",
+     "#if BX_PLATFORM_OSX\n#\tinclude <IOKit/IOKitLib.h>\n#endif // BX_PLATFORM_OSX\n"
+     "\n// hulk: tools/wine_gfx.py PATCHES (wperf2): the app's view hook (MetalFX between two views)\n"
+     "typedef bool (*HulkMtlViewHook)(uint16_t _view, void* _commandBuffer, void* _user);\n"
+     "static HulkMtlViewHook s_hulkMtlViewHook;\n"
+     "static void* s_hulkMtlViewUser;\n"
+     "extern \"C\" void bgfx_hulk_mtl_set_view_hook(HulkMtlViewHook _hook, void* _user)\n"
+     "{\n\ts_hulkMtlViewHook = _hook;\n\ts_hulkMtlViewUser = _user;\n}\n"
+     "extern \"C\" void* bgfx_hulk_mtl_texture(uint16_t _idx);\n"),
+    ("bgfx", "src/renderer_mtl.cpp",
+     "\t\t\t\t\tsubmitBlit(bs, view);\n",
+     "\t\t\t\t\tsubmitBlit(bs, view);\n"
+     "\n"
+     "\t\t\t\t\tif (NULL != s_hulkMtlViewHook // hulk: tools/wine_gfx.py PATCHES (wperf2)\n"
+     "\t\t\t\t\t&&  s_hulkMtlViewHook(view, NULL, s_hulkMtlViewUser) )\n"
+     "\t\t\t\t\t{\n"
+     "\t\t\t\t\t\tendEncoding();\n"
+     "\t\t\t\t\t\tif (NULL == m_commandBuffer)\n"
+     "\t\t\t\t\t\t{\n"
+     "\t\t\t\t\t\t\tm_commandBuffer = m_cmd.alloc();\n"
+     "\t\t\t\t\t\t}\n"
+     "\t\t\t\t\t\ts_hulkMtlViewHook(view, m_commandBuffer, s_hulkMtlViewUser);\n"
+     "\t\t\t\t\t}\n"),
+    ("bgfx", "src/renderer_mtl.cpp",
+     "} /* namespace mtl */ } // namespace bgfx\n\n#else\n",
+     "} /* namespace mtl */ } // namespace bgfx\n\n"
+     "extern \"C\" void* bgfx_hulk_mtl_texture(uint16_t _idx) // hulk: tools/wine_gfx.py PATCHES (wperf2)\n"
+     "{\n"
+     "\treturn NULL != bgfx::mtl::s_renderMtl && _idx < BGFX_CONFIG_MAX_TEXTURES\n"
+     "\t\t? (void*)bgfx::mtl::s_renderMtl->m_textures[_idx].m_ptr\n"
+     "\t\t: NULL;\n"
+     "}\n\n#else\n"),
 ]
 
 

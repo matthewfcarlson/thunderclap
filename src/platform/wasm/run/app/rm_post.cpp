@@ -78,7 +78,7 @@ void viewInto(uint16_t view, uint16_t fb, uint32_t w, uint32_t h, uint16_t clear
 }
 
 namespace {
-uint16_t s_samplers[4] = {kNoHandle, kNoHandle, kNoHandle, kNoHandle};
+uint16_t s_samplers[6] = {kNoHandle, kNoHandle, kNoHandle, kNoHandle, kNoHandle, kNoHandle};
 std::unordered_map<std::string, uint16_t>& uniforms()
 {
     static std::unordered_map<std::string, uint16_t> u;

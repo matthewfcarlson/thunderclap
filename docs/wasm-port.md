@@ -1165,6 +1165,16 @@ folder holds everything: the binary needs only libc and libm (libstdc++ and libg
   `std::condition_variable` destructor the grass / texture-pack workers still waited on, and Game Mode stayed black).
   A device test that wants the Game Mode environment without the screen: `gamescope --backend headless -W 1920 -H
   1080 -- <command>` (the app's HULK_GFX_SHOT_GAME captures work there).
+- **Swapchain image count** (wperf2). Under gamescope (Steam's Game Mode) Khronos validation reported
+  VUID-VkSwapchainCreateInfoKHR-presentMode-02839 ("minImageCount 3 ... minImageCount = 4"): the Gamescope WSI layer
+  answers 3 for its X11 surface and hands the app's count on to its own Wayland surface, whose minimum is 4 (the
+  per-present-mode query of VK_EXT_surface_maintenance1 says 3 too). Our bgfx build (tools/wine_gfx.py PATCHES,
+  `HULK_VK_SWAPCHAIN_MIN` in the Linux and Android builds) asks at least 4 images when GAMESCOPE_WAYLAND_DISPLAY is set
+  and at least each used present mode's minimum, within the maximum; stderr says `bgfx: swapchain N images (...)`.
+  play3 to 16,100 under headless gamescope on the Z2 Extreme (RADV) with validation and every remastered option:
+  no validation message (Temporal); before the fix only the four 02839 messages (MSAA 2x).
+- **Upscaler** (wperf2, docs/performance.md 4.2): Auto is our Temporal upscaler when Anti-Aliasing is TAA, else FSR 1
+  (an MSAA choice stays MSAA); Temporal (TAA) / MetalFX (TAA) turn the scene to TAA (MetalFX is ours on Linux).
 - **Tests on a player's device** set their own HULK_APP_DIR and HULK_SAVE_DIR (a copy of the save), as on the Mac. A
   run from ssh into the desktop session needs `WAYLAND_DISPLAY=wayland-0 XDG_RUNTIME_DIR=/run/user/<uid>`; with the
   screen off (DPMS) KWin throttles presentation to ~20 updates a second and never maps an X11 window (SDL's

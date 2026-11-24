@@ -34,7 +34,8 @@ std::vector<Pass*>& passes()
     return v;
 }
 bool s_sorted;
-Settings s_settings;
+Settings s_settings;           // the menu's values
+Settings s_effective;          // what the passes see (wperf2: a temporal upscaler implies TAA)
 bool s_sceneSeen;              // the frame's first scene-target pass was seen
 
 std::vector<Pass*>& ordered()
@@ -53,7 +54,20 @@ Registrar::Registrar(Pass* p)
     s_sorted = false;
 }
 
-const Settings& settings() { return s_settings; }
+const Settings& settings() { return s_effective; }
+
+// wperf2 (upscale.cpp, docs/performance.md 4.2): the temporal upscalers (Temporal 3, MetalFX 4; Auto 1 when the
+// Anti-Aliasing row is TAA, except on Android, where FSR 1 is the cheaper pick) do the anti-aliasing too: the scene is
+// jittered and single-sampled as with TAA, whatever the Anti-Aliasing row says
+bool upscalerTemporal(const Settings& menu)
+{
+    int u = menu[kUpscaler];
+#if defined(__ANDROID__)
+    return u == 3 || u == 4;
+#else
+    return u == 3 || u == 4 || (u == 1 && menu[kMsaa] == 1);
+#endif
+}
 
 // wperf1 (HULK_GFX_STATS, docs/performance.md): the time in the passes' hooks (the runner's own encoding), apart from
 // the sink's
@@ -78,7 +92,10 @@ void setQuality(uint32_t what, int32_t value)
     if (what == 0 || what >= kQualityCount || s_settings.value[what] == value || (s_forced[what] && !s_forcing))
         return;
     s_settings.value[what] = value;
-    RM_EACH(settingsChanged(s_settings));
+    s_effective = s_settings;
+    if (upscalerTemporal(s_settings))
+        s_effective.value[kMsaa] = 1;
+    RM_EACH(settingsChanged(s_effective));
 }
 
 void packet(DrawPacket& p)
