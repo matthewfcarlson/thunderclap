@@ -5,7 +5,8 @@
 // characters' and objects' depth, and the world's (the rooms: static, unlit, in world space). The lighting pass's
 // per-pixel programs sample it (fs_px_stage.sh pxShadow): the baked world takes the characters' and objects' shadows
 // (it already holds its own), darkened moderately where it faces the sun; characters and objects take both, on their
-// key light. Low: one 1024 cascade to 60 units; High: two 2048 cascades to 30 and 150 units. The game's own stencil
+// key light. Low: one 1024 cascade to 60 units; High: two 2048 cascades to 30 and 150 units. wperf1: a fixed-function
+// caster goes only into the cascades its bounding sphere (its prim buffer's box through its modelview) reaches. The game's own stencil
 // shadow (its volumes' darkening quad) is hidden while this is on. Output only: nothing here reads or writes the
 // module's memory.
 #include "shadows.h"
@@ -14,6 +15,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include <unordered_map>
 
 #include <bgfx/bgfx.h>
 
@@ -83,6 +86,23 @@ class ShadowPass final : public rm::Pass {
         m_haveViews = true;
         m_viewsSet = false;
     }
+    // wperf1: each prim buffer's bounding sphere (object space), for culling casters per cascade
+    void vertices(uint32_t sinkBuffer, const SinkVertexData& d) override
+    {
+        if (!d.count || !d.vertices)
+            return;
+        float lo[3] = {1e30f, 1e30f, 1e30f}, hi[3] = {-1e30f, -1e30f, -1e30f};
+        for (uint32_t i = 0; i < d.count; i++)
+            for (int k = 0; k < 3; k++)
+                lo[k] = fminf(lo[k], d.vertices[i].pos[k]), hi[k] = fmaxf(hi[k], d.vertices[i].pos[k]);
+        Sphere b;
+        float r2 = 0;
+        for (int k = 0; k < 3; k++)
+            b.c[k] = 0.5f * (lo[k] + hi[k]), r2 += 0.25f * (hi[k] - lo[k]) * (hi[k] - lo[k]);
+        b.r = sqrtf(r2);
+        m_bounds[sinkBuffer] = b;
+    }
+    void buffersDropped(uint32_t sinkBuffer) override { m_bounds.erase(sinkBuffer); }
     void packet(DrawPacket& p) override
     {
         // the game's stencil shadow: its darkening quad (a stencil-tested, blended draw) is hidden
@@ -111,10 +131,10 @@ class ShadowPass final : public rm::Pass {
     {
         abCost();
         if (logOn() && ++m_frames % 300 == 0) {
-            fprintf(stderr, "hulk-app: shadows: %.1f casters a frame (%.1f world), sun %.2f %.2f %.2f (%s)\n",
-                    m_casts / 300.0, m_worldCasts / 300.0, m_sun.x, m_sun.y, m_sun.z,
-                    m_sunFixed ? "fixed" : m_sunSeen ? "key light" : "default");
-            m_casts = m_worldCasts = 0;
+            fprintf(stderr, "hulk-app: shadows: %.1f casters a frame (%.1f world; %.1f cascade draws culled), sun %.2f "
+                    "%.2f %.2f (%s)\n", m_casts / 300.0, m_worldCasts / 300.0, m_culled / 300.0, m_sun.x, m_sun.y,
+                    m_sun.z, m_sunFixed ? "fixed" : m_sunSeen ? "key light" : "default");
+            m_casts = m_worldCasts = m_culled = 0;
         }
         m_ready = false;
     }
@@ -228,6 +248,7 @@ class ShadowPass final : public rm::Pass {
             float hx = f * m_tanX, hy = f * m_tanY, R = sqrtf(0.25f * (f - n) * (f - n) + hx * hx + hy * hy);
             R = ceilf(R);                                   // (a radius that changes only with the field of view)
             float texel = 2.0f * R / m_size;
+            m_R[c] = R;
             float cx = floorf(dot(centre, right) / texel) * texel, cy = floorf(dot(centre, up2) / texel) * texel;
             float zr = R + 250.0f, cz = dot(centre, s);
             float rx[4], ry[4], rz[4];
@@ -310,7 +331,34 @@ class ShadowPass final : public rm::Pass {
         q.state.cull = 0;
         q.state.stencil = 0;
         q.state.writeMask = 0;
+        // the cascades the draw's bounding sphere reaches (fixed function: the modelview takes object space to the
+        // camera's; skinned draws, whose bones place them, go into every cascade)
+        bool reach[2] = {true, true};
+        if (p.vertexProgram == 0 || p.vertexProgram == 6) {
+            auto it = m_bounds.find(p.vertexBuffer);
+            if (it != m_bounds.end() && p.vertexConstantCount >= 4) {
+                const float* m = p.vertexConstants;
+                const Sphere& b = it->second;
+                float cc[4] = {0, 0, 0, 1}, sc = 0;
+                for (int i = 0; i < 3; i++) {
+                    cc[i] = m[4 * i] * b.c[0] + m[4 * i + 1] * b.c[1] + m[4 * i + 2] * b.c[2] + m[4 * i + 3];
+                    sc = fmaxf(sc, sqrtf(m[i] * m[i] + m[4 + i] * m[4 + i] + m[8 + i] * m[8 + i]));
+                }
+                for (int c = 0; c < m_cascades; c++) {
+                    const float* rx = m_cast[c][0];
+                    const float* ry = m_cast[c][1];
+                    float x = rx[0] * cc[0] + rx[1] * cc[1] + rx[2] * cc[2] + rx[3];
+                    float y = ry[0] * cc[0] + ry[1] * cc[1] + ry[2] * cc[2] + ry[3];
+                    float rr = 1.0f + b.r * sc / m_R[c];
+                    reach[c] = fabsf(x) <= rr && fabsf(y) <= rr;
+                }
+            }
+        }
         for (int c = 0; c < m_cascades; c++) {
+            if (!reach[c]) {
+                m_culled++;
+                continue;
+            }
             q.pass = m_views[(world ? 1 : 0) * m_cascades + c];
             rm::uniform("u_rmCast", &m_cast[c][0][0], 4);
             hulk_gfx_sink_submit_draw(&q);
@@ -378,7 +426,10 @@ class ShadowPass final : public rm::Pass {
     rm::Target m_atlas;
     uint16_t m_dummy = rm::kNoHandle;
     unsigned m_frames = 0;
-    double m_casts = 0, m_worldCasts = 0;
+    double m_casts = 0, m_worldCasts = 0, m_culled = 0;
+    struct Sphere { float c[3], r; };
+    std::unordered_map<uint32_t, Sphere> m_bounds;
+    float m_R[2] = {1, 1};
 };
 HULK_RM_REGISTER_PASS(ShadowPass);
 
