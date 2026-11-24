@@ -734,6 +734,11 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   (farfield.cpp keeps 1,536 for the game; exhausting them silently dropped the city's ground, cars and HUD). On the
   device `gamescope --backend headless -W 1920 -H 1080 -- <cmd>` gives Game Mode's environment without the screen. A
   Linux renderer change is verified with a city scene showing HUD, minimap, cars and enemies, never a quiet scene (wlinux2).
+  Grain without TAA (wlook3): under MSAA or no AA nothing resolves per-pixel noise, so a runner pass never relies on TAA
+  to clean it (the reflections' blend gathers >= 1.25 trace texels on Low; AO's rotation is a 4x4 Bayer matrix its 4x4
+  blur cancels). With AO on, grass blades draw after it (`rm::grassAfterAo`: an empty world-pass view after the apply);
+  a pass submitting from the AO hook re-binds the handed-over draw with `rm::lightingRebind`. Check picture noise as
+  one-option-off Metal shot runs with the player's settings pinned (aspect 43 for replays).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
