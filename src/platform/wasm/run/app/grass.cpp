@@ -19,6 +19,8 @@
 //    camera moves. Wind sways the blades from the display clock (interp_display_time: the same picture at any display
 //    rate); the characters (the two-sided draws' origins, last presented frame) bend them aside. The blades take the
 //    sun's shadows (the characters' and objects' row) as the ground does, and the ground draw's fog.
+//    wlook3: with ambient occlusion on, the blades wait for it (ao.cpp hands them a view after its apply, before the
+//    rest of the world pass): thin blades in the depth read as occluders, and the lawns turned to dark stubble.
 // Output only: nothing here reads or writes the module's memory, and nothing collides with the blades.
 #include <math.h>
 #include <stdio.h>
@@ -268,18 +270,25 @@ struct Scatter {
 
 struct Settings {
     float nearD, farD, density, height, width;
-    int blades;
+    int blades;            // a clump's blades near the camera
+    int bladesFar;         // beyond lodD + 6 units (the others shrink away between lodD and there)
+    float lodD;
 };
-// Low: 12 units, 3 blades a clump; High: 24 units, 5 blades
-const Settings kLevel[3] = {{0, 0, 0, 0, 0, 0}, {5.0f, 12.0f, 7.0f, 0.32f, 0.05f, 3}, {9.0f, 24.0f, 12.0f, 0.34f, 0.045f, 5}};
+// wlook3 (user 11-24: "the grass is kind of meh ... very sparse"): a lawn, not tufts. Low: full to 8 units, gone at
+// 20, 18 clumps a unit^2 of 4 blades (2 far); High: full to 14, gone at 40, 32 a unit^2 of 7 blades (3 beyond 20)
+const Settings kLevel[3] = {{0, 0, 0, 0, 0, 0, 0, 0}, {8.0f, 20.0f, 18.0f, 0.30f, 0.04f, 4, 2, 8.0f},
+                            {14.0f, 40.0f, 32.0f, 0.32f, 0.036f, 7, 3, 14.0f}};
 const float kCell = 8.0f;
-const uint32_t kMaxPerBuffer = 400000;
+const int kBladeIndices = 15;      // (a blade's triangles: 2 segments of 2, a tip)
+const float kSharp = 0.35f;        // (a clump's colour: this share of the texel under it, the rest the local mean)
+const uint32_t kMaxPerBuffer = 600000;
 
 class GrassPass;
 GrassPass* s_pass;
 
 class GrassPass final : public rm::Pass {
     struct Job;
+    struct Pending;
   public:
     GrassPass() { s_pass = this; }
     const char* name() const override { return "grass"; }
@@ -419,7 +428,7 @@ class GrassPass final : public rm::Pass {
     void fx(const FxPacket&) override { flush(); }
     void postScene(const rm::Scene&, uint16_t&) override
     {
-        flush();
+        flush(true);                                    // (ambient occlusion never ran: the ground draws' views)
         // this frame's characters into world space by its view: they bend the grass from the next frame on
         m_pushers.clear();
         if (m_haveView) {
@@ -436,6 +445,9 @@ class GrassPass final : public rm::Pass {
     }
     void frame() override
     {
+        m_wait.clear();
+        m_aoRan = false;
+        m_aoView = rm::kNoView;
         m_frameNo++;
         collect();
         abCost();
@@ -532,17 +544,20 @@ class GrassPass final : public rm::Pass {
         Scatter* s = scatterFor(p);
         if (!s || !s->total || s->vb == rm::kNoHandle)
             return;
-        m_q.view = p.pass;
-        m_q.scatter = s;
+        // wlook3: while ambient occlusion is still to come in this frame, the blades wait for its view
+        bool wait = rm::aoPending() && m_wait.size() < 64;
+        Pending& q = wait ? (m_wait.emplace_back(), m_wait.back()) : m_q;
+        q.view = p.pass;
+        q.scatter = s;
         uint32_t n = p.vertexConstantCount < 56 ? p.vertexConstantCount : 56;
-        memset(m_q.vc, 0, sizeof m_q.vc);
-        memcpy(m_q.vc, p.vertexConstants, n * 16);
-        memcpy(m_q.frag, p.frag, sizeof m_q.frag);
-        m_q.recv = DrawPacket{};                        // (what the night lights ask of a receiver)
-        m_q.recv.state = p.state;
-        m_q.recv.viewMode = p.viewMode;
-        m_q.recv.query = p.query;
-        m_pending = true;
+        memset(q.vc, 0, sizeof q.vc);
+        memcpy(q.vc, p.vertexConstants, n * 16);
+        memcpy(q.frag, p.frag, sizeof q.frag);
+        q.recv = DrawPacket{};                          // (what the night lights ask of a receiver)
+        q.recv.state = p.state;
+        q.recv.viewMode = p.viewMode;
+        q.recv.query = p.query;
+        m_pending = m_pending || !wait;
         m_groundDraws++;
         m_lawnFrame++;
     }
@@ -691,10 +706,17 @@ class GrassPass final : public rm::Pass {
                     j.pass0 += grassiness(texb[0][0], texb[0][1], texb[0][2]) >= 0.5f;
                     if (grassiness(surf[0], surf[1], surf[2]) < 0.5f)
                         continue;                               // (a path or a bare patch of the ground)
+                    // (wlook3: mostly the local mean, a third the texel under the root: a painted lawn's dark gaps
+                    // made single clumps nearly black, which read as grain over the lawn)
+                    float colB[4], surfB[4];
                     evalComb(cmb, tex, dif, col);
-                    in.col[0] = col[0], in.col[1] = col[1], in.col[2] = col[2];
+                    evalComb(cmb, texb, dif, colB);
                     evalComb(cmb, tex, white, surf);
-                    in.surf[0] = surf[0], in.surf[1] = surf[1], in.surf[2] = surf[2], in.pad = 0;
+                    evalComb(cmb, texb, white, surfB);
+                    for (int k = 0; k < 3; k++)
+                        in.col[k] = colB[k] + kSharp * (col[k] - colB[k]),
+                        in.surf[k] = surfB[k] + kSharp * (surf[k] - surfB[k]);
+                    in.pad = 0;
                     in.rank = unit(hash32(hj ^ 0x27d4eb2fu));
                     in.seed = unit(hash32(hj ^ 0x165667b1u));
                     out.push_back(in);
@@ -990,6 +1012,7 @@ class GrassPass final : public rm::Pass {
     void dropScatters()
     {
         m_pending = false;
+        m_wait.clear();
         for (auto& kv : m_scatters)
             dropScatter(kv.second);
         m_scatters.clear();
@@ -998,6 +1021,11 @@ class GrassPass final : public rm::Pass {
     {
         if (m_pending && (index ? m_q.scatter->ibuf : m_q.scatter->vbuf) == buffer)
             flush();
+        for (size_t i = 0; i < m_wait.size();)
+            if ((index ? m_wait[i].scatter->ibuf : m_wait[i].scatter->vbuf) == buffer)
+                m_wait.erase(m_wait.begin() + i);       // (its buffer is gone: no blades this frame)
+            else
+                i++;
         for (auto it = m_scatters.begin(); it != m_scatters.end();)
             if ((index ? it->second.ibuf : it->second.vbuf) == buffer) {
                 dropScatter(it->second);
@@ -1017,7 +1045,8 @@ class GrassPass final : public rm::Pass {
             m_meshVb = m_meshIb = rm::kNoHandle;
         }
         // a blade: 3 segments (pairs at 0, 1/3, 2/3) and a tip; each blade of the clump its own angle, offset, lean
-        // and height
+        // and height (wlook3: its index in the integer part of the height: blades from bladesFar on shrink away with
+        // distance, and far cells draw only the first kBladeIndices x bladesFar indices)
         struct MV { float pos[3]; float blade[3]; };
         std::vector<MV> vs;
         std::vector<uint16_t> is;
@@ -1025,16 +1054,16 @@ class GrassPass final : public rm::Pass {
         for (int b = 0; b < nb; b++) {
             uint32_t h = hash32(0x51ed27u + b * 7919u);
             float ang = 6.2831853f * (b + 0.35f * unit(h)) / nb;
-            float off = 0.03f + 0.09f * unit(hash32(h ^ 1));
+            float off = 0.02f + 0.11f * unit(hash32(h ^ 1));
             float lean = 0.15f + 0.35f * unit(hash32(h ^ 2));
-            float ht = 0.7f + 0.3f * unit(hash32(h ^ 3));
+            float ht = 0.7f + 0.29f * unit(hash32(h ^ 3));     // (< 1: the integer part is the index)
             uint16_t base = (uint16_t)vs.size();
             for (int s = 0; s < 3; s++) {
                 float t = s / 3.0f;
-                vs.push_back({{-1.0f, t, ang}, {off, lean, ht}});
-                vs.push_back({{1.0f, t, ang}, {off, lean, ht}});
+                vs.push_back({{-1.0f, t, ang}, {off, lean, b + ht}});
+                vs.push_back({{1.0f, t, ang}, {off, lean, b + ht}});
             }
-            vs.push_back({{0.0f, 1.0f, ang}, {off, lean, ht}});
+            vs.push_back({{0.0f, 1.0f, ang}, {off, lean, b + ht}});
             for (int s = 0; s < 2; s++) {
                 uint16_t q = (uint16_t)(base + 2 * s);
                 uint16_t t[6] = {q, (uint16_t)(q + 1), (uint16_t)(q + 2), (uint16_t)(q + 1), (uint16_t)(q + 3),
@@ -1058,19 +1087,37 @@ class GrassPass final : public rm::Pass {
         m_meshBlades = m_set.blades;
         return true;
     }
-    // the kept ground draw's clumps, in its view after it
-    void flush()
+    // the kept ground draw's clumps, in its view after it; the ground draws that waited for ambient occlusion, in
+    // its view once it ran (`all`: whether it ran or not, at the frame's end)
+    void flush(bool all = false)
     {
-        if (!m_pending)
-            return;
-        m_pending = false;
+        if (m_pending) {
+            m_pending = false;
+            drawClumps(m_q, m_q.view);
+        }
+        if (!m_wait.empty() && (m_aoRan || all)) {
+            for (const Pending& q : m_wait)
+                drawClumps(q, m_aoView != rm::kNoView ? m_aoView : q.view);
+            m_wait.clear();
+        }
+    }
+  public:
+    void afterAo(uint16_t view)
+    {
+        m_aoRan = true;
+        m_aoView = view;
+    }
+    bool waiting() const { return !m_wait.empty(); }
+  private:
+    void drawClumps(const Pending& pq, uint16_t view)
+    {
         if (!mesh())                              // (bgfx draws instances on every renderer it has)
             return;
         uint16_t prog = rm::program("vs_rm_grass", "fs_rm_grass");
         if (prog == rm::kNoHandle)
             return;
-        const Scatter& s = *m_q.scatter;
-        const float(*c)[4] = m_q.vc;
+        const Scatter& s = *pq.scatter;
+        const float(*c)[4] = pq.vc;
         // the camera in world space: -R^T t of the view (rows c0..c2)
         float cam[3];
         for (int i = 0; i < 3; i++)
@@ -1098,6 +1145,8 @@ class GrassPass final : public rm::Pass {
         uint32_t th = hulk_gfx_sink_target_height();
         float py = fabsf(c[5][1]);
         g[7][1] = th && py > 0 ? (1.4f / (py * th)) / (m_set.width > 0 ? m_set.width : 1.0f) : 0.0f;
+        // (wlook3: blades from bladesFar on shrink away between lodD and lodD + 6 units)
+        g[7][2] = m_set.bladesFar > 0 ? (float)m_set.bladesFar : 99.0f, g[7][3] = m_set.lodD;
         uint16_t atlas = rm::kNoHandle;
         const float* sc = rm::shadowConstants(false, &atlas);
         static const float kNoShadow[12][4] = {};
@@ -1126,18 +1175,21 @@ class GrassPass final : public rm::Pass {
                 continue;
             k = k < cell.count ? k : cell.count;
             rm::uniform("u_vc", &c[0][0], 56);
-            rm::uniform("u_pddiFrag", &m_q.frag[0][0], 16);
+            rm::uniform("u_pddiFrag", &pq.frag[0][0], 16);
             rm::uniform("u_rmGrass", &g[0][0], 8);
             rm::uniform("u_rmShadow", sc ? sc : &kNoShadow[0][0], 12);
             if (atlas != rm::kNoHandle)
                 bgfx::setTexture(4, m_sShadow, bgfx::TextureHandle{atlas},
                                  BGFX_SAMPLER_COMPARE_LEQUAL | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
-            rm::nightLightsBind(m_q.recv);              // (wlook2: stage 5, u_rmCity)
+            rm::nightLightsBind(pq.recv);               // (wlook2: stage 5, u_rmCity)
             bgfx::setVertexBuffer(0, bgfx::VertexBufferHandle{m_meshVb});
-            bgfx::setIndexBuffer(bgfx::IndexBufferHandle{m_meshIb});
+            // (beyond the LOD distance only the first blades of each clump: the rest have shrunk away)
+            bool farCell = dmin > m_set.lodD + 6.0f && m_set.bladesFar > 0 && m_set.bladesFar < m_meshBlades;
+            bgfx::setIndexBuffer(bgfx::IndexBufferHandle{m_meshIb}, 0,
+                                 (uint32_t)(kBladeIndices * (farCell ? m_set.bladesFar : m_meshBlades)));
             bgfx::setInstanceDataBuffer(bgfx::VertexBufferHandle{s.vb}, cell.start, k);
             bgfx::setState(state);
-            bgfx::submit(m_q.view, bgfx::ProgramHandle{prog});
+            bgfx::submit(view, bgfx::ProgramHandle{prog});
             m_cellDraws++;
             m_clumps += k;
             m_clumpsFrame += k;
@@ -1223,6 +1275,9 @@ class GrassPass final : public rm::Pass {
         DrawPacket recv;
     } m_q;
     bool m_pending = false;
+    std::vector<Pending> m_wait;                        // (wlook3: ground draws waiting for ambient occlusion)
+    bool m_aoRan = false;
+    uint16_t m_aoView = rm::kNoView;
     uint16_t m_meshVb = rm::kNoHandle, m_meshIb = rm::kNoHandle;
     int m_meshBlades = 0;
     bgfx::UniformHandle m_sShadow = BGFX_INVALID_HANDLE;
@@ -1236,3 +1291,6 @@ class GrassPass final : public rm::Pass {
 HULK_RM_REGISTER_PASS(GrassPass);
 
 } // namespace
+
+bool rm::grassWaiting() { return s_rmPass_GrassPass.waiting(); }
+void rm::grassAfterAo(uint16_t view) { s_rmPass_GrassPass.afterAo(view); }

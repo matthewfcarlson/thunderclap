@@ -54,7 +54,10 @@ and asphalt do not).
    The start offset is a fixed per-pixel pattern (interleaved gradient noise of the pixel, not of the frame), so a
    still picture does not shimmer at any display rate.
 3. **The composite** (fs_rm_ssrapply.sc): the traced reflection gathered over a ring whose radius grows with the
-   roughness (depth-weighted, so silhouettes stay sharp), weighted by Schlick's Fresnel (F0 by class, the grazing peak
+   roughness (depth-weighted, so silhouettes stay sharp), at least 1.25 trace texels on Low and 0.75 on High (wlook3,
+   user 11-24 "grainy at times" with MSAA 2x: taken one texel at a time, the start offsets' hits and misses and Low's
+   half-size texels made smooth wet ground and glass reflect a dotted, crawling pattern; nothing resolves it without
+   TAA), weighted by Schlick's Fresnel (F0 by class, the grazing peak
    lowered on rough surfaces) and the strength, and blended over the scene (source alpha, colour only). Where no ray
    hit, the game's own surface stays: its `REFL` / sphere-map reflection is the fallback, as it always was.
 
@@ -136,7 +139,7 @@ tutorial) nothing changes but buildings and environment-mapped objects.
 - Rays can only hit what is on screen and in the world pass's depth: reflections of things off screen, behind the
   camera, or hidden behind other geometry are missing (the fallback is the surface as the game draws it). Translucent
   draws that are not additive (smoke, decals) are reflected only where an opaque surface is behind them.
-- No temporal accumulation: Low's half-size trace is gathered but not denoised; a rough-surface blur and a temporal
+- No temporal accumulation: Low's half-size trace is gathered (a ring of 1.25 texels at least) but not denoised; a rough-surface blur and a temporal
   filter would let Low trace fewer rays.
 - Puddles: the wet ground is uniformly wet; a world-space wetness pattern (puddles, drier patches) needs the world
   position (the inverse view is known) and a noise or pack texture.

@@ -68,7 +68,11 @@ Helpers for full-screen passes are run/app/rm_post.h (programs, targets, views, 
   near and far): view-space positions, normals from the nearer neighbours, a 12-sample Alchemy-style obscurance estimate
   in a disc of 3 world units at half size (fs_rm_ao.sc), then a 4x4 depth-weighted blur multiplied into the scene's
   colour (fs_rm_aoapply.sc, a frame buffer of the scene's colour alone, since the depth is read). It fades out between
-  150 and 300 units.
+  150 and 300 units. The spiral's rotation per pixel is a 4x4 Bayer matrix (wlook3; it was interleaved gradient
+  noise): the apply's 4x4 blur takes each of the 16 rotations once, so the estimate's noise cancels instead of
+  reading as grain, which nothing resolved without TAA. The grass blades are drawn after the apply (docs/grass.md),
+  and after its submits the lighting pass's samplers are bound again for the draw the hooks are handing over
+  (`rm::lightingRebind`: the occlusion's quads took them, an unbound descriptor on Vulkan, wlinux2).
 - What the player sees: contact darkening where walls meet streets, in window recesses and doorways, under cars, props
   and vegetation; moderate, so it does not double the baked occlusion in the vertex colours.
 - **Banding** (wlook1): the desert ground's horizontal stripes under the remastered defaults (docs/look.md section 1,

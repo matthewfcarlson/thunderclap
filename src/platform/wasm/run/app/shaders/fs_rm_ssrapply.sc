@@ -4,7 +4,7 @@ $input v_texcoord0
 // half size) is gathered over a disc that grows with the surface's roughness (depth-weighted, so edges stay sharp),
 // weighted by Schlick's Fresnel and the surface's strength, and blended over the scene (source alpha): where no ray
 // hit, the scene keeps the game's own surface (its REFL / sphere-map reflection).
-//   u_rmSsr0, u_rmSsr1, u_rmSsr2.xy as fs_rm_ssr.sc
+//   u_rmSsr0, u_rmSsr1, u_rmSsr2.xy as fs_rm_ssr.sc; u_rmSsr2.z the gather's least radius (trace texels; wlook3)
 //   u_rmSsr3  x the strength of every reflection, y 1: textures have v = 0 at the bottom, zw the trace's texel (uv)
 //   u_rmSsr4  x the gather's radius at roughness 1 (trace texels), y development view (HULK_SSR_SHOW), z F0 of wet
 //             ground, w F0 of the metal-like (environment-mapped) class; glass and stone 0.04
@@ -62,7 +62,9 @@ void main()
     float cls = floor(g.w);
     float rough = (g.w - cls) * 2.0;
     // the gather: centre + 8 taps on a ring at the roughness's radius, weighted by depth likeness
-    float radius = u_rmSsr4.x * rough;
+    // (wlook3: at least a small radius, even on smooth wet ground: the trace's per-pixel start offsets, and Low's
+    // half-size texels, read as grain when they are taken one by one, and nothing resolves them without TAA)
+    float radius = max(u_rmSsr4.x * rough, u_rmSsr2.z);
     vec4 sum = texture2DLod(s_rmTex2, tuv, 0.0);
     float wsum = 1.0;
     if (radius > 0.3) {

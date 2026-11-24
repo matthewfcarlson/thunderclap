@@ -68,17 +68,17 @@ class AoPass final : public rm::Pass {
             return;
         }
         if (m_opaque && (p.viewMode != 0 || p.state.stencil || (p.state.blend && !p.state.depthWrite)))
-            run(-1);
+            run(-1, &p);
     }
     void copy(uint16_t pass, const SinkTarget&) override
     {
         if (m_on && !m_abOff && !m_done && m_opaque)
-            run(pass);
+            run(pass, nullptr);
     }
     void fx(const FxPacket& p) override
     {
         if (m_on && !m_abOff && !m_done && m_opaque)
-            run(p.pass);
+            run(p.pass, nullptr);
     }
     void frame() override
     {
@@ -88,21 +88,40 @@ class AoPass final : public rm::Pass {
         m_done = m_haveProj = m_opaque = false;
     }
 
+    // wlook3: the occlusion is still to come in this frame (the grass blades wait for it)
+    bool pending() const { return m_on && !m_abOff && !m_done; }
+
   private:
+    // the occlusion, then the grass blades' view (wlook3): when it ran before the rest of the current pass, an empty
+    // view of that pass after the apply, split off ahead of the draw being handed over (else the blades go into their
+    // ground draws' views); `p` the game draw the hooks are handing over: the lighting pass's samplers bound again for
+    // it, as our submits took them (wlinux2, lightingRebind)
+    void run(int gamePass, const DrawPacket* p)
+    {
+        bool here = runAo(gamePass) && gamePass < 0;
+        uint16_t gv = rm::kNoView;
+        if (here && rm::grassWaiting()) {
+            gv = rm::sinkView(rm::currentGamePass());
+            rm::splitPass();
+        }
+        rm::grassAfterAo(gv);
+        if (p)
+            rm::lightingRebind(*p);
+    }
     // the occlusion in views before the rest of the current pass (gamePass < 0) or the game pass `gamePass`
-    void run(int gamePass)
+    bool runAo(int gamePass)
     {
         m_done = true;
         uint32_t fb = kSinkNone, colour = kSinkNone, depth = kSinkNone, samples = 1;
         hulk_gfx_sink_scene_handles(&fb, &colour, &depth, &samples);
         uint32_t w = hulk_gfx_sink_target_width(), h = hulk_gfx_sink_target_height();
         if (fb == kSinkNone || depth == kSinkNone || !w || !h)
-            return;
+            return false;
         uint16_t ao = rm::program("vs_rm_quad", "fs_rm_ao"), apply = rm::program("vs_rm_quad", "fs_rm_aoapply");
         if (ao == rm::kNoHandle || apply == rm::kNoHandle)
-            return;
+            return false;
         if (!m_ao.ensure((w + 1) / 2, (h + 1) / 2, bgfx::TextureFormat::RGBA16F, false, true))
-            return;
+            return false;
         // a frame buffer of the scene's colour alone (the depth is read while the occlusion is applied)
         if (m_colourOf != colour || m_fb == rm::kNoHandle) {
             if (m_fb != rm::kNoHandle)
@@ -112,11 +131,11 @@ class AoPass final : public rm::Pass {
             m_fb = bgfx::isValid(f) ? f.idx : rm::kNoHandle;
             m_colourOf = colour;
             if (m_fb == rm::kNoHandle)
-                return;
+                return false;
         }
         uint16_t v[2];
         if (!(gamePass < 0 ? rm::viewsHere(2, v) : rm::viewsBefore((uint16_t)gamePass, 2, v)))
-            return;
+            return false;
         if (getenv("HULK_AO_LOG") && m_runs % 500 == 0)
             fprintf(stderr, "hulk-app: ao: views %u %u (game pass %d, world view %u) fb %u colour %u depth %u %ux%u\n",
                     v[0], v[1], gamePass, m_worldView, m_fb, colour, depth, w, h);
@@ -144,6 +163,7 @@ class AoPass final : public rm::Pass {
         rm::quad(v[1], apply, BGFX_STATE_WRITE_RGB |
                                   (show ? 0 : BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_ZERO, BGFX_STATE_BLEND_SRC_COLOR)));
         m_runs++;
+        return true;
     }
     // HULK_AO_AB=N: the occlusion off and on in turns of N presented frames (GPU and render thread time a frame)
     void abCost()
@@ -187,3 +207,5 @@ class AoPass final : public rm::Pass {
 HULK_RM_REGISTER_PASS(AoPass);
 
 } // namespace
+
+bool rm::aoPending() { return s_rmPass_AoPass.pending(); }

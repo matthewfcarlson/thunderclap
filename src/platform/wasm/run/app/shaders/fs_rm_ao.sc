@@ -57,10 +57,13 @@ void main()
     float r = u_rmAo2.z;
     vec2 rs = r * u_rmAo0.xy / max(u_rmAo1.z * p.z + u_rmAo1.w, 1e-4) * 0.5;
     rs *= min(1.0, 0.1 / max(rs.x, 1e-6));
-    // a rotation per pixel (interleaved gradient noise) of a 12-sample spiral
-    vec2 fc = gl_FragCoord.xy;
-    float noise = fract(52.9829189 * fract(dot(fc, vec2(0.06711056, 0.00583715))));
-    float ang = noise * 6.2831853;
+    // a rotation per pixel of a 12-sample spiral. wlook3: from a 4x4 Bayer matrix (was interleaved gradient noise):
+    // the apply's 4x4 blur then takes each of the 16 rotations once, so the estimate's noise cancels instead of
+    // reading as grain (nothing resolves it without TAA)
+    vec2 fc = floor(gl_FragCoord.xy);
+    vec2 lo = mod(fc, 2.0), hi = mod(floor(fc * 0.5), 2.0);
+    float bayer = 4.0 * mod(2.0 * lo.x + 3.0 * lo.y, 4.0) + mod(2.0 * hi.x + 3.0 * hi.y, 4.0);
+    float ang = (bayer + 0.5) * (6.2831853 / 16.0);
     float sum = 0.0;
     for (int i = 0; i < 12; i++) {
         float t = (float(i) + 0.5) / 12.0;

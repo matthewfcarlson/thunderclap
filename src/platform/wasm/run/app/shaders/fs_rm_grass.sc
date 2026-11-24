@@ -41,7 +41,11 @@ void main()
     if (u_rmShadow[8].x > 0.5) {
         vec3 n = v_pxnormal.xyz;
         float facing = saturate(dot(n, u_rmShadow[9].xyz) * 4.0);
-        c *= 1.0 - u_rmShadow[8].z * (1.0 - grassShadow(v_pxpos, n)) * facing;
+        float vis = grassShadow(v_pxpos, n);
+        // wlook3: the blade's own sun (vs_rm_grass.sc: its facing, its translucency) where the sun reaches it
+        float sun = vis * facing * u_rmShadow[8].z;
+        c *= mix(1.0, 2.0 * v_pxspec.w, sun) + v_pxbase.w * sun;
+        c *= 1.0 - u_rmShadow[8].z * (1.0 - vis) * facing;
     }
     if (u_rmCity[0].x > 0.5)
         c += v_pxspec.rgb * cityLight(v_pxpos, v_pxnormal.xyz, gl_FragCoord.xy);

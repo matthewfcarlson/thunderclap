@@ -142,6 +142,13 @@ uint16_t loadShader(const char* name);
 // wlinux2 (lighting.cpp): a copy of a draw already submitted, before another pass submits it again: the per-pixel
 // program's samplers (stages 4 and 5) bound again, as bgfx drops texture bindings at each submit
 void lightingRebind(const hulk::pddi::DrawPacket& q);
+// wlook3: the grass blades are drawn after ambient occlusion is applied (thin blades in the depth read as occluders:
+// the lawns turned to dark stubble). aoPending (ao.cpp): the occlusion is on and still to come this frame (a ground
+// draw's blades then wait); grassWaiting (grass.cpp): blades are waiting; grassAfterAo: the occlusion ran, `view` an
+// empty view of the world pass after its apply for them (kNoView: none, they go into their ground draws' views)
+bool aoPending();
+bool grassWaiting();
+void grassAfterAo(uint16_t view);
 
 // app.cpp's (render resolution): the scene target and the frame-sized copies are made again between frames
 void appTargetsChanged();

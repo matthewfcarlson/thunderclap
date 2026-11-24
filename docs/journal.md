@@ -3638,3 +3638,24 @@ passes; output only (checkpoint records identical with every setting).
   process never exited after quitting (glibc's exit blocked in a static condition variable's destructor while the
   grass / texture-pack workers waited on it): Steam showed black until B. Fullscreen under gamescope; `_exit` after the
   app's quit on Linux.
+
+
+## 2026-11-24 wlook3: grain and the lawns (user, on the Linux app: "grainy at times", "grass ... very sparse")
+
+- Bisected on queue Metal shots with the user's settings (MSAA 2x, Upscaler Auto: FSR 1 at 88%, every remastered
+  option), one option off at a time, play3 15,000 / 22,200 / 24,000. Three sources, none of which anything resolves
+  without TAA: (1) Reflections Low's half-size trace, composited one texel at a time on smooth wet ground and glass: the
+  per-pixel start offsets' hits and misses reflected as dotted, crawling patterns (lamps, blinds, the grass blades as
+  green specks on the pavement); (2) ambient occlusion on the grass blades: every thin blade in the depth occluded
+  itself and the ground around it, so lawns read as dark stubble; (3) ambient occlusion's own interleaved-gradient
+  rotation, which its 4x4 blur did not cancel. FSR 1 (EASU over that noise turned it into "worms") and RCAS (0.25 stops)
+  only amplified what was there: with the sources fixed, RCAS at 0.75 stops and a bilinear upscale differed little.
+- Fixes: the composite gathers at least 1.25 trace texels (High 0.75); the blades are drawn after the occlusion's apply
+  (ao.cpp splits off an empty world-pass view for them, rm::grassAfterAo); the occlusion's rotation is a 4x4 Bayer
+  matrix, so the blur averages all 16. AO's quads also took the lighting pass's samplers from the draw being handed
+  over (an unbound descriptor on Vulkan): rm::lightingRebind after them.
+- Lawns: 32 clumps a unit^2 of 7 blades (was 12 of 5), full to 14 units and gone at 40 (was 9 / 24), far clumps keep 3
+  blades; colour mostly the lawn's local mean, darker roots, a little hue spread between blades, and a sun term (facing
+  and translucency) only where the shadow map lets the sun reach the blade. 3,525 clumps a frame on average in play3
+  (759 before) for +0.01 ms GPU on mac2 (A/B noise level). Records unchanged (play3:2000 and the shot run to 36,100
+  against the control: identical).

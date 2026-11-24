@@ -301,13 +301,16 @@ class SsrPass final : public rm::Pass {
         static const int show = getenv("HULK_SSR_SHOW") ? atoi(getenv("HULK_SSR_SHOW")) : 0;
         float a3[4] = {m_strength, flip, 1.0f / tw, 1.0f / th};
         float a4[4] = {high ? 6.0f : 3.0f, (float)show, m_wetF0, 0.5f};
+        // (wlook3: the gather's least radius in trace texels: Low's half-size trace is denoised by a ring of 1.25
+        // texels, High's by 0.75)
+        float a2[4] = {c[3], c[7], high ? 0.75f : 1.25f, 0.0f};
         rm::viewInto(v[1], (uint16_t)fb, w, h);
         rm::texture(0, m_gdepth, point);
         rm::texture(1, m_gcol, point);
         rm::texture(2, m_trace.tex, lin);
         rm::uniform("u_rmSsr0", u0);
         rm::uniform("u_rmSsr1", u1);
-        rm::uniform("u_rmSsr2", u2);
+        rm::uniform("u_rmSsr2", a2);
         rm::uniform("u_rmSsr3", a3);
         rm::uniform("u_rmSsr4", a4);
         rm::quad(v[1], apply, BGFX_STATE_WRITE_RGB |
