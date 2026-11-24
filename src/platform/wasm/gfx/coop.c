@@ -64,7 +64,8 @@
 #define SETTLE 30                       /* updates in play before the extras are made */
 #define SIDE 2.5f                       /* units to the main actor's side per player at a spawn */
 #define BEHIND 5.0f                     /* units behind the main actor at a respawn */
-#define LEASH 80.0f                     /* farther from the main actor than this: put back beside him */
+#define LEASH 200.0f                    /* farther from the main actor than this: put back beside him (user 11-24: 80 too
+                                           * short; rooms stream to ~390 units around the main actor's camera) */
 #define FALL_Y -45.0f                   /* below this: put back (the engine's own limit for the main actor is -50) */
 #define RESPAWN_MIN 5.0f                /* seconds down before a respawn */
 #define CALM 5.0f                       /* seconds without damage to the main actor before a respawn */

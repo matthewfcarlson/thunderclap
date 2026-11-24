@@ -1064,7 +1064,7 @@ the host's story with no saves of their own. wcoop1 builds the game side in one 
 - **Enemies.** An AI actor choosing a target (AcquireTargetCondition::vfunc_6 0x001245b0) takes the nearest living Hulk:
   the actor manager's main-actor word holds that Hulk while the original runs. Built, not yet seen working (the tutorial
   has no enemies).
-- **Leash and falls.** A player more than 80 units (horizontally) from the main actor, or below y = -45, is put back 5
+- **Leash and falls.** A player more than 200 units (horizontally; 80 at first, the user found it too short, 11-24) from the main actor, or below y = -45, is put back 5
   units behind him. Streaming then never has to hold rooms far from the main actor (the game loads rooms to ~390 units
   around the camera); no second focus point is needed while the leash holds.
 - **Down and respawn (first version of 8.2).** An extra Hulk whose life state leaves 0 is down (the engine removes him
