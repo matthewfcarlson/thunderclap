@@ -3712,3 +3712,18 @@ passes; output only (checkpoint records identical with every setting).
   every recording replays by) and, for poll-free spins, reads since the last poll or frame end; the SEG1 trailer
   (version 2) names each segment's rule, so rule-1 segments keep replaying with their renderer.
 
+
+## 2026-11-24 wcoop1: co-op Hulks in one instance (D246; docs/multiplayer.md §17)
+
+- The game reads all four pad ports through one CController that sums its four CPhysicalControllers (0x000ae130): in
+  single player any pad drives the Hulk. Ports 1..3's physical controllers carry the flag that sums them into the
+  C/D blocks (0xac / 0xf0), which a CSimController reads as its *second* sample; port 0's go to A/B.
+- The sim-controller list 0x000b3d20 and the controller list 0x000ae640 hold one entry (`i < 1`); a character with a
+  controller slot of 1..3 made the agent 0x000fd0f0 copy from a null sim controller. An entry hook answering index k
+  with a CSimController the game constructed over host game-state memory is enough: the Hulk template's agent list
+  already has the CControllerAgent.
+- The actor spawner 0x0002b970 makes second and third Hulks from the `hulk` template with no new resources.
+- GameClock::Update (the checkpoint) runs between World::Render and the next UpdateSimulation: a picture-only change
+  to the logic view must be put back when World::Render returns, not before the next update, or the records' camera
+  tag differs (traversal.c's pull-back puts it back before the next update: its camera tag moves while it is on).
+- Two local views gave byte-identical checkpoint records over 6,000 frames; play3 with co-op off is identical to HEAD.

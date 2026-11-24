@@ -130,25 +130,32 @@ static void frame_end(void* unused) {
     SIM->frame++;
     /* HULK_INPUT="FROM-TO:BUTTONS[/ANALOG[/LX/LY]],...": pad 0's digital buttons (XINPUT_GAMEPAD wButtons, hex) over
      * those frames, the analog buttons held fully down (a mask, hex: 1 A, 2 B, 4 X, 8 Y, 10 black, 20 white, 40 left
-     * trigger, 80 right trigger) and the left stick (decimal, -32768..32767; up is +LY) */
+     * trigger, 80 right trigger) and the left stick (decimal, -32768..32767; up is +LY). An item `pK:FROM-TO:...` (K 1..3)
+     * is pad K's (co-op tests, wcoop1); pad K is written only when some item names it. */
     const char* in = getenv("HULK_INPUT");
-    uint16_t buttons = 0;
-    unsigned analog = 0;
-    int16_t stick[2] = {0, 0};
+    uint16_t buttons[4] = {0, 0, 0, 0};
+    unsigned analog[4] = {0, 0, 0, 0};
+    int16_t stick[4][2] = {{0, 0}, {0, 0}, {0, 0}, {0, 0}};
+    unsigned named = 1;
     for (const char* p = in; p && *p;) {
-        unsigned a = 0, b = 0, v = 0, m = 0;
+        unsigned a = 0, b = 0, v = 0, m = 0, port = 0;
         int lx = 0, ly = 0;
+        if (p[0] == 'p' && p[1] >= '1' && p[1] <= '3' && p[2] == ':') port = (unsigned)(p[1] - '0'), p += 3;
+        named |= 1u << port;
         int n = sscanf(p, "%u-%u:%x/%x/%d/%d", &a, &b, &v, &m, &lx, &ly);
         if (n >= 3 && SIM->frame >= a && SIM->frame <= b) {
-            buttons = (uint16_t)v, analog = n >= 4 ? m : 0;
-            stick[0] = (int16_t)(n == 6 ? lx : 0), stick[1] = (int16_t)(n == 6 ? ly : 0);
+            buttons[port] = (uint16_t)v, analog[port] = n >= 4 ? m : 0;
+            stick[port][0] = (int16_t)(n == 6 ? lx : 0), stick[port][1] = (int16_t)(n == 6 ? ly : 0);
         }
         p = strchr(p, ',');
         if (p) p++;
     }
-    memcpy(SIM->pads[0], &buttons, 2);
-    for (int i = 0; i < 8; i++) SIM->pads[0][2 + i] = (analog >> i & 1) ? 0xff : 0;
-    if (in) memcpy(SIM->pads[0] + 10, stick, 4);
+    for (unsigned k = 0; k < 4; k++) {
+        if (!(named >> k & 1)) continue;
+        memcpy(SIM->pads[k], &buttons[k], 2);
+        for (int i = 0; i < 8; i++) SIM->pads[k][2 + i] = (analog[k] >> i & 1) ? 0xff : 0;
+        if (in) memcpy(SIM->pads[k] + 10, stick[k], 4);
+    }
     /* HULK_GS=1: the game-flow state's changes (CGame 0x004dd6ec +4: {current, previous}; 0x000873a0's GS_ names) */
     static int gs_on = -1;
     static uint32_t gs_last = ~0u;

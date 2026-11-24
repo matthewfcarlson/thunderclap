@@ -647,8 +647,10 @@ void hulk_app_live(void) {
     gi_record_live(1);
     ff_audio_restored();
 }
+void hulk_wasm_coop_view_restore(void);         /* coop.c (wcoop1): the logic view as the update left it */
 void hulk_wasm_gfx_frame_end(void) {
     if (SIM->d3d_vblank_cb) ff_call(SIM->d3d_vblank_cb, 0);
+    hulk_wasm_coop_view_restore();
     ff_frame_end();
     hulk_native_frame_no = SIM->frame;
     /* a free run's frame lasts what the original's SwapBuffers waits for (0x31b190): one field with the flag

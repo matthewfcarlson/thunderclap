@@ -345,8 +345,10 @@ void ffh_hulk_app_sprint_frame(uint32_t ecx, uint32_t edx, void* st, void* rb) {
 /* the input block, after the original copied the pad into it: whether the trigger is down; while coasting, the trigger
  * shown held and (stick centred) the last stick sample with the intention along the velocity */
 void ffgo_000fd0f0(uint32_t, uint32_t, void*, void*);
+void hulk_wasm_coop_ctrl_agent(uint32_t ecx, uint32_t edx, void* st, void* rb);   /* coop.c: the original, with an extra
+                                                                                  * player's camera (wcoop1) */
 void ffh_hulk_app_ctrl_agent(uint32_t ecx, uint32_t edx, void* st, void* rb) {
-    ffgo_000fd0f0(ecx, edx, st, rb);
+    hulk_wasm_coop_ctrl_agent(ecx, edx, st, rb);
     if (!g_on || !g_tv.ch) return;
     uint32_t obj = rd(ecx + 0x58);
     uint32_t ch = obj ? ff_call_this(rd(rd(obj) + 6 * 4), obj, 0) : 0;

@@ -27,6 +27,7 @@ void hulk_wasm_traversal_force_leap(int value);
 void hulk_wasm_traversal_force_moves(int value);
 void hulk_wasm_traversal_force_fling(int value);                        /* (wtrav2) */
 void hulk_wasm_traversal_force_air(int value);
+void hulk_wasm_coop_apply(int value);                                   /* coop.c: Hulks in one instance (wcoop1) */
 uint32_t hulk_wasm_texture_pack_list(char* buf, uint32_t cap);          /* gfx.c: the installed packs' names */
 void hulk_wasm_quality_apply(int what, int value);                      /* gfx.c: the runner's passes (wr2) */
 
@@ -206,6 +207,8 @@ static port_setting k_settings[] = {
      0, 0, 0, hulk_wasm_traversal_force_fling},
     {"dev_air", "Force Air Control", PS_SCREEN_GAMEPLAY, PS_CHOICE, 4, {0, 1, 2, 3}, {"Off", "I", "II", "III"},
      0, 0, 0, hulk_wasm_traversal_force_air},
+    {"dev_coop_local", "Co-op Hulks", PS_SCREEN_GAMEPLAY, PS_CHOICE, 3, {1, 2, 3}, {"Off", "2 Hulks", "3 Hulks"},
+     1, 1, 0, hulk_wasm_coop_apply},
 };
 enum { N_SETTINGS = sizeof k_settings / sizeof k_settings[0] };
 

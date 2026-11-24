@@ -1026,3 +1026,70 @@ Both builds are at the merge-once freeze point F (e68debc9d), with data TUs rege
    - incremental snapshots (about 4% of pages per frame);
    - render and audio suppressed while resimulating;
    - the 64-bit builds' timing.
+
+## 17. Co-op Hulks in one instance (wcoop1, D246, 2026-11-24)
+
+The user's request (D246): up to three Hulks in a lobby, one player hosting from their current game, guests playing
+the host's story with no saves of their own. wcoop1 builds the game side in one instance, without networking
+(src/platform/wasm/gfx/coop.c; lane wnet1 owns the transport, join and input exchange). Gated behind the developer row
+`dev_coop_local` (Gameplay Options, developer mode: 1 off, 2 or 3 Hulks); faithful runs, replays and play3 never see it.
+
+**What works (first landing).**
+
+- **Spawning.** In play (the main actor holds controller slot 0, the game camera is up, no letterbox) for 30 updates,
+  each extra Hulk is made beside the main actor by the game's actor spawner 0x0002b970 (am_CreateActorAtPosition's
+  path: the `hulk` template, team `player`, names `coop_p1` / `coop_p2`, ground snap) and given controller slot k. The
+  Hulk template takes a second and third instance with no new resources: same model, same fight script. Checked in the
+  tutorial c00m01 (a story mission); free roam not yet run (needs a save past chapter 1, see "Next").
+- **Input.** The game reads all four pad ports through one `CController` (0x000ae4b0 makes a `CPhysicalController` per
+  port, 0x000ae130 sums them: in single player any pad drives the Hulk), one `CSimController` (0x000b3b80; its update
+  0x000b3bc0 runs from UpdateSimulation through 0x000b3d80) and a sim-controller list of one (0x000b3d20, `i < 1`) that
+  `CControllerAgent::vfunc_4` 0x000fd0f0 indexes with the character's slot (+0x20a8). In co-op three entry hooks give
+  each extra player his own chain built from the game's own objects: the main `CController` sums port 0 only, a
+  `CController` of ours per player (game-state memory, the game's vftable) sums only port k (ports 1..3 carry the flag
+  that sums them into the C/D blocks, moved to A/B for a player's own controller), a `CSimController` constructed by the
+  game over ours is updated beside the original's, and the list answers index k with it. `SIM->pads_in` gains ports
+  1..N-1, so XInput serves `SIM->pads[k]`.
+- **Per-player cameras.** Sticks are camera-relative (0x000fd0f0 reads the logic view's matrix, 0x004e231c +0x1c). Each
+  extra player has a simulated camera (a yaw in game state: the right stick turns it at 2.6 rad/s, and it eases behind
+  him while he runs); while his controller agent runs, the logic view's matrix is that camera's (the game camera's
+  orientation turned about the vertical), and put back right after.
+- **Local view (picture only).** `hulk_wasm_coop_set_local_view(k)` / `HULK_COOP_VIEW=k`: after UpdateSimulation the
+  logic view becomes player k's camera (the game camera's framing of the main actor, turned to k's yaw and moved to k);
+  its 0x7c bytes are put back exactly when World::Render returns (before GameClock::Update's checkpoint), at the frame's
+  end and before the next update. **Two runs with local views 0 and 1 gave byte-identical checkpoint records** (6,000
+  frames, 9,712 checkpoints, the second Hulk running and leashed back three times); the game hash differs from the
+  first frame of view 1 on (render bookkeeping, as with Draw Distance). A first version put the view back only before
+  the next update: the records' camera tag then differed (GameClock::Update runs between the render and the update).
+- **Enemies.** An AI actor choosing a target (AcquireTargetCondition::vfunc_6 0x001245b0) takes the nearest living Hulk:
+  the actor manager's main-actor word holds that Hulk while the original runs. Built, not yet seen working (the tutorial
+  has no enemies).
+- **Leash and falls.** A player more than 80 units (horizontally) from the main actor, or below y = -45, is put back 5
+  units behind him. Streaming then never has to hold rooms far from the main actor (the game loads rooms to ~390 units
+  around the camera); no second focus point is needed while the leash holds.
+- **Down and respawn (first version of 8.2).** An extra Hulk whose life state leaves 0 is down (the engine removes him
+  1.5 s later); he is made again 5 units behind the main actor once down 5 s with no damage to the main actor for 5 s,
+  or after 30 s whatever happens. A cutscene's slot -1 on the main actor also takes the extras' control, and gives it
+  back. The main actor's death is still single player's (mission fail). Not yet exercised by a test.
+- **Tests (HULK_INPUT `pK:FROM-TO:...` items drive pad K, host/frame.c).** play3 to 30,000 with the feature off: records
+  identical to HEAD's (112027 against control 112025). HULK_ROLLTEST 3000:4600 with three Hulks: identical (112028).
+  Metal free runs on the queue with 2 Hulks, view 0 and 1 (112023, 112024) and 3 Hulks, view 2 (112029): the shots show
+  the extra Hulks running and the camera following the local player.
+
+**Interface for wnet1.** A remote player's pad goes in `SIM->pads[k]` (XINPUT_GAMEPAD, 18 bytes) before each frame's
+poll, k = 1 or 2, the same on every instance; the session sets `dev_coop_local` (2 or 3) on every peer (it is per
+session, like every setting that changes the game); `hulk_wasm_coop_set_local_view(k)` picks the instance's own Hulk
+(host state, never sent); `hulk_wasm_coop_player(k)` gives player k's character (0 while down). The spawn happens on the
+same update on every instance because it depends only on game state.
+
+**What the engine fights / what is left.**
+
+- **Skins and tints (6.5):** not done. Every Hulk wears the main actor's skin. Options: a runner tint by recognising an
+  extra Hulk's draws (they share the main actor's prim buffers, so the draw's modelview/position would have to say
+  whose they are), or a second skin inventory (the 6.5 collision question is still open).
+- **One-player notions left:** the HUD, minimap, rumble and audio listener follow the main actor (P0) on every instance;
+  attack tokens and the scripts' known-player positions mean the main actor; traversal.c's charge sprint follows one
+  character (two players sprinting at once share its state).
+- **Heap:** each extra Hulk is a full CCharacter and its components on the game heap; the cost on a full city level is
+  not measured yet (the heap has little margin: watch for the out-of-memory spin 0x0008d320).
+- **Free roam and enemies** need a scripted run from a save past chapter 1.

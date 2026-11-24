@@ -844,7 +844,11 @@ GFX_APP_HOOKS = {0x000df9e0: "ffh_hulk_app_fe_callback", 0x000f8e70: "ffh_hulk_a
                  # the wall fling and air control (traversal.c, wtrav2): WallJumpAction / WallExitAction begin,
                  # CJumpAction / FallAction per frame
                  0x00140650: "ffh_hulk_app_wall_jump", 0x0013f1d0: "ffh_hulk_app_wall_exit",
-                 0x00018d40: "ffh_hulk_app_jump_frame", 0x00134ee0: "ffh_hulk_app_fall_frame"}
+                 0x00018d40: "ffh_hulk_app_jump_frame", 0x00134ee0: "ffh_hulk_app_fall_frame",
+                 # co-op Hulks in one instance (src/platform/wasm/gfx/coop.c, wcoop1): the CController's sum of its
+                 # ports, the sim controllers' update, the sim controller list, an enemy's choice of target
+                 0x000ae130: "ffh_hulk_app_coop_accum", 0x000b3d80: "ffh_hulk_app_coop_simctl",
+                 0x000b3d20: "ffh_hulk_app_coop_simget", 0x001245b0: "ffh_hulk_app_coop_acquire"}
 _HOOKS = None
 
 
