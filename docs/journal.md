@@ -3786,3 +3786,16 @@ passes; output only (checkpoint records identical with every setting).
   actor's set fills 16..19 of them downtown, so streaming around extra Hulks adds only their room and nearest
   neighbours. 0x0002a960 removes any non-main actor out of resident rooms beyond sqrt(56700) = 238 units from the main
   actor unless it is never expendable (+0x1d78): that, not streaming, removed extra Hulks past ~240 units. Leash 300.
+- (wquit2, 11-25) **The frame-8,730 dashboard quit of Metal play3 runs was a cut save path, not game state.** At 8,730
+  play3 saves (c00m01's end). xapi.c built host paths in `char host[sizeof SIM->objs[0].path]` (200 bytes) and
+  snprintf cut longer ones silently; wasm_build_run's Metal tests run in folders named after every shot frame
+  (`tests/metal-56500-2500_4500_.../run/save/U` is 197 characters on studio, 228 for the lead's job 112160), so the
+  save's folder or files went to a cut path, the save failed, FEMemCardControl 0x000da930 took the memory unit's
+  "go to the dashboard" path (states 0x11/0x12) and the replay's A presses chose it: 0x0008c680 called
+  XLaunchNewImageA(0), which ff_fatal'ed (abort: "Unreachable instruction executed"). It looked intermittent because
+  the folder name changes with the shot list and the host's job root (`/Users/matthewc/hulk-jobs.noindex` on mac2):
+  112081, which passed, had a shorter shot list. Reproduced with the null renderer and HULK_SAVE_DIR=save_<200 x>
+  (job 112176: XLaunchNewImageA at 8,730). Fixed: host path buffers are HOST_PATH (1024) bytes, host state only (the
+  records keep the game's path); ff_host_path fails, and says so once, instead of cutting; fe_options' misc.rcf
+  overlay key likewise. XLaunchNewImageA now prints why and exits with code 4 instead of trapping. An unmakeable
+  save folder (/dev/null/x) gives another error path (no dashboard; play3 diverges at 8,741).

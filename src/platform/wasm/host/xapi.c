@@ -36,6 +36,10 @@ uint32_t ff_new_obj(int kind) {
 
 static void set_error(uint32_t e) { SIM->last_error = e; }
 
+/* host path buffers (wquit2): host state only, sized for real folders. A record keeps the game's path in its
+ * hulk_obj.path[200] (sim.h); the host path it maps to (a run folder's, a disc pack's) is longer, and never cut. */
+#define HOST_PATH 1024
+
 /* ------------------------------------------------------------------------------------------- paths */
 /* D: is the disc (HULK_DATA_DIR, default isos/extracted), read-only; T:, U:, Z: are directories under HULK_SAVE_DIR
  * (default build/wasm/save). Lookups are case-insensitive, as the Xbox's file systems are. */
@@ -70,13 +74,30 @@ static int match_name(const char* dir, const char* name, char* out, size_t cap) 
     return 0;
 }
 
-/* game path -> host path; components that don't exist keep their spelling (a file to create) */
+/* a host path that doesn't fit its buffer: 0, said once (wquit2). A silently cut path named another file: play3's
+ * Metal tests, whose run folders' names list every shot frame, had save paths past the old 200-byte buffers; the
+ * save at frame 8,730 then failed, the game took the memory unit's "go to the dashboard" path and the replay's
+ * A presses chose it (XLaunchNewImageA). */
+static int host_path_fits(int n, size_t cap, const char* out) {
+    if (n >= 0 && (size_t)n < cap) return 1;
+    static int warned;
+    if (!warned) {
+        warned = 1;
+        fprintf(stderr, "hulk: host path longer than %u bytes (%.80s...): that file can't be used; use shorter "
+                "HULK_SAVE_DIR / HULK_DATA_DIR folders\n", (unsigned)cap - 1, out);
+    }
+    return 0;
+}
+
+/* game path -> host path; components that don't exist keep their spelling (a file to create). 0 when the game path
+ * isn't one of ours or the host path doesn't fit CAP (HOST_PATH: never cut, never game state) */
 int ff_host_path(const char* game, char* out, size_t cap) {
     if (!game || !isalpha((unsigned char)game[0]) || game[1] != ':') return 0;
     char drive = (char)toupper((unsigned char)game[0]);
-    if (drive == 'D') snprintf(out, cap, "%s", data_dir());
-    else if (drive == 'T' || drive == 'U' || drive == 'Z') {
-        snprintf(out, cap, "%s/%c", save_dir(), drive);
+    if (drive == 'D') {
+        if (!host_path_fits(snprintf(out, cap, "%s", data_dir()), cap, out)) return 0;
+    } else if (drive == 'T' || drive == 'U' || drive == 'Z') {
+        if (!host_path_fits(snprintf(out, cap, "%s/%c", save_dir(), drive), cap, out)) return 0;
         hio_mkdir(save_dir());
         hio_mkdir(out);
         static int warned;   /* whang1: a save folder that can't be made stalls the game at its next save */
@@ -98,8 +119,8 @@ int ff_host_path(const char* game, char* out, size_t cap) {
         p += n;
         char real[256];
         size_t len = strlen(out);
-        if (match_name(out, comp, real, sizeof real)) snprintf(out + len, cap - len, "/%s", real);
-        else snprintf(out + len, cap - len, "/%s", comp);
+        int put = snprintf(out + len, cap - len, "/%s", match_name(out, comp, real, sizeof real) ? real : comp);
+        if (!host_path_fits(put, cap - len, out)) return 0;
     }
     return 1;
 }
@@ -108,7 +129,7 @@ int ff_host_path(const char* game, char* out, size_t cap) {
 /* the host files behind file records: a cache (reopened from the record's game path when missing); fd + 1, 0 =
  * none; stream_host: the host path it was opened from (host state) */
 static int32_t streams[MAX_OBJS];
-static char stream_host[MAX_OBJS][sizeof SIM->objs[0].path + 256];
+static char stream_host[MAX_OBJS][HOST_PATH];
 
 static int32_t stream(uint32_t h, hulk_obj* o) {
     uint32_t i = (h - HANDLE_BASE) / 4;
@@ -145,7 +166,7 @@ static void close_stream(uint32_t h) {
 FFG(002109f1) {         /* CreateFileA(path, access, share, sa, disposition, flags, template) */
     UNUSED;
     const char* game = PTR(ARG(0));
-    char host[sizeof SIM->objs[0].path];
+    char host[HOST_PATH];
     uint32_t access = ARG(1), disp = ARG(4);
     if (!ff_host_path(game, host, sizeof host)) { set_error(3); RET(INVALID_HANDLE); return; }
     int disc = (game[0] | 0x20) == 'd';
@@ -269,7 +290,17 @@ FFG(00209b29) { UNUSED; RET(0x48f); }       /* XMUNameFromDriveLetter: no memory
 
 /* ------------------------------------------------------------------------------------------- system */
 FFG(00209d27) { UNUSED; RET(0x490); }       /* XGetLaunchInfo: no launch data (ERROR_NOT_FOUND) */
-FFG(00209c04) { UNUSED; ff_fatal("XLaunchNewImageA(%s)", ARG(0) ? (char*)PTR(ARG(0)) : "dashboard"); }
+/* XLaunchNewImageA(path, launch data): the game hands the console to another image, and on the console the call never
+ * returns. Only the memory unit screens call it (FEMemCardControl 0x000da930 -> 0x0008c680, path 0: the dashboard,
+ * to free space or fix a unit after a save failed). The port has no dashboard: the run ends cleanly with exit code 4
+ * and says why (a trap here said nothing of the failed save behind it; wquit2). */
+FFG(00209c04) {
+    UNUSED;
+    fprintf(stderr, "hulk: the game left for %s (XLaunchNewImageA, after a save or memory unit error): no dashboard "
+            "here, exiting (code 4)\n", ARG(0) ? (char*)PTR(ARG(0)) : "the dashboard");
+    fflush(stderr);
+    exit(4);
+}
 FFG(00209f50) { UNUSED; RET(1); }                                               /* XGetLanguage: English */
 FFG(00354c8f) { UNUSED; RET(0); }                                               /* XGetAudioFlags */
 FFG(00356667) { UNUSED; RET(0); }                                               /* XGetVideoFlags */
@@ -349,7 +380,7 @@ static void save_dir_path(char letter, uint64_t hash, int probe, char* out, size
 }
 /* the save's name from DIR's SaveMeta.xbx ("Name=..."): 1 when it has one */
 static int save_name_of(const char* host_dir, uint16_t* out, uint32_t cap) {
-    char meta[sizeof SIM->objs[0].path + 16];
+    char meta[HOST_PATH + 16];
     snprintf(meta, sizeof meta, "%s/SaveMeta.xbx", host_dir);
     int32_t f = hio_open(meta, HIO_READ);
     if (f < 0) return 0;
@@ -384,7 +415,7 @@ static int save_find(char letter, const uint16_t* name, int* found) {
     int free_probe = -1;
     *found = 0;
     for (int p = 0; p < 16; p++) {
-        char game[32], host[sizeof SIM->objs[0].path];
+        char game[32], host[HOST_PATH];
         save_dir_path(letter, h, p, game, sizeof game);
         if (!ff_host_path(game, host, sizeof host)) return -1;
         if (hio_kind(host) != HIO_DIR) { if (free_probe < 0) free_probe = p; continue; }
@@ -393,7 +424,7 @@ static int save_find(char letter, const uint16_t* name, int* found) {
     return free_probe;
 }
 static void save_clear(const char* host_dir) {
-    char names[4096], f[sizeof SIM->objs[0].path + 64];
+    char names[4096], f[HOST_PATH + 64];
     uint32_t need = hio_list(host_dir, names, sizeof names);
     for (uint32_t k = 0; k < need && k < sizeof names;) {
         snprintf(f, sizeof f, "%s/%s", host_dir, names + k);
@@ -413,9 +444,9 @@ FFG(0035618d) {         /* XCreateSaveGame(root, name UTF-16, disposition, 0, pa
     if (p < 0) { set_error(112); RET(112); return; }
     if (disp == CREATE_NEW && found) { set_error(183); RET(183); return; }
     if (disp == OPEN_EXISTING && !found) { set_error(3); RET(3); return; }
-    char game[32], host[sizeof SIM->objs[0].path];
+    char game[32], host[HOST_PATH];
     save_dir_path(letter, save_hash(name), p, game, sizeof game);
-    ff_host_path(game, host, sizeof host);
+    if (!ff_host_path(game, host, sizeof host)) { set_error(3); RET(3); return; }
     if (found && disp == CREATE_ALWAYS) save_clear(host);
     if (!found || disp == CREATE_ALWAYS) {
         if (!found) hio_mkdir(host);
@@ -445,9 +476,9 @@ FFG(003563f0) {         /* XDeleteSaveGame(root, name UTF-16) -> error code: the
     if (!save_root(ARG(0), &letter) || !name || !name[0]) { set_error(87); RET(87); return; }
     int found, p = save_find(letter, name, &found);
     if (!found) { set_error(3); RET(3); return; }
-    char game[32], host[sizeof SIM->objs[0].path];
+    char game[32], host[HOST_PATH];
     save_dir_path(letter, save_hash(name), p, game, sizeof game);
-    ff_host_path(game, host, sizeof host);
+    if (!ff_host_path(game, host, sizeof host)) { set_error(3); RET(3); return; }
     save_clear(host);       /* SaveMeta.xbx emptied: the probe no longer matches the name */
     RET(0);
 }
@@ -534,7 +565,7 @@ FFG(00212143) {         /* XCalculateSignatureEnd(handle, 20 bytes out) -> error
  * "U:\<folder>\" at +0x140, the save's name (UTF-16) at +0x244. */
 static int name_cmp(const void* a, const void* b) { return strcmp(*(const char* const*)a, *(const char* const*)b); }
 static int save_next(hulk_obj* o, uint32_t data) {
-    char names[8192], root[sizeof o->path + 256];
+    char names[8192], root[HOST_PATH];
     const char* sorted[256];
     if (!ff_host_path(o->path, root, sizeof root)) return 0;
     uint32_t need = hio_list(root, names, sizeof names), n = 0;

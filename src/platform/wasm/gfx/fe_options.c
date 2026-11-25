@@ -692,7 +692,7 @@ static int patch_strings(const char* s, uint32_t n, buf_t* out) {
 /* misc.rcf as the game reads it: bytes [0, head_n) (the header and the directory) from `head`, [tail_off, size)
  * (the patched files, 0x800-aligned) from `tail`, the rest from the disc. docs/formats/rcf.md. */
 typedef struct {
-    char path[200];
+    char path[1024];            /* the host path of misc.rcf (xapi.c HOST_PATH: a longer one never matched; wquit2) */
     int state;                  /* 0 not built, 1 patched, -1 served as it is */
     uint8_t* head;
     uint32_t head_n, disc_size, tail_off, size;
