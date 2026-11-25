@@ -828,6 +828,10 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   skip beam-like glows (longest model-space side > 2 units and > 3x the next): the mission beacon's crossed quads
   otherwise flood a rooftop. Per-pixel shadows on flat sprites need a wide, weak lookup, or the shadow's edge cuts the
   cloud into hard wedges.
+  Host file paths (xapi.c `ff_host_path`) go in HOST_PATH (1024) buffers and fail rather than being cut: a cut save path
+  failed play3's save at 8,730, and the game took the memory unit's dashboard path (XLaunchNewImageA, now a reported
+  exit 4) or silently diverged from 8,741. Long run folders (Metal tests are named after every shot) made it look
+  intermittent. A run that "reaches" a frame still needs its checkpoint records checked (wquit2).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`): resumed 11-24 (D246): up to 3 Hulks, one host;
   guests join the host's live game (state snapshot, no save transfer; guests never write saves); Cloudflare TURN plus
   a lobby Worker that the user deploys (employer check first).
