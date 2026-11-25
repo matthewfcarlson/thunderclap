@@ -835,6 +835,8 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   Body text gaps after w/k/x/Y/A... ("lik e", "artw ork") are the shipped font's: font_futura_lt_med's atlas cells carry
   2-3 blank trailing columns and advance = cell width; the original loader 0x00295620 only trims v (-2) and o/r (-1).
   The combo text's growing, fading echo is the game's own pop-in (faithful 640x480 shows it). Neither is a port bug (wtext1).
+  xemu scan-out reads (pmemsave/memsave of the framebuffer) freeze the QEMU monitor during gameplay too, even with the VM
+  stopped: there is no working xemu screenshot path yet (wtext1).
   Character Lighting (whulk1, `rm::kCharLight` = 22, docs/lighting.md "Characters"): skin draws take fs_px_char (generic
   combiner + PX_CHAR, `u_rmChar` per draw; zero = faithful). The Hulk's skin light clamps at 1 over most of his body, so a
   term added under that clamp is invisible: the character path uses a soft shoulder (knee 0.4) and adds the rim after it.
