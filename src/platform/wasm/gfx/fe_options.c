@@ -112,7 +112,16 @@ static int place_setting(int p) {
 static void nv_name(int p, char* out, size_t cap) { snprintf(out, cap, "Port_%s_%d", k_screens[p / PLACES].key, p % PLACES + 1); }
 static void cb_name(int p, char* out, size_t cap) { snprintf(out, cap, "Port_%s_%d_Changed", k_screens[p / PLACES].key, p % PLACES + 1); }
 static void sel_name(int p, char* out, size_t cap) { snprintf(out, cap, "port_%s_%d", k_screens[p / PLACES].key, p % PLACES + 1); }
+/* rows whose choices share one set of string ids (TBS_PORT_DIGIT_<c>): the Join Code rows' digits. The game's
+ * string table holds about 2,300 entries (StringTable_f7a80::FUN_000f7a80 stops at its maxStrings) and the disc's
+ * str_en.txt takes 2,075 of them: every string the port adds counts (80 digit copies left the Online Co-op row, the
+ * last listed, showing its raw ids; wnet1) */
+static int shared_digits(int i) { return !strncmp(hulk_settings_at(i)->key, "coop_d", 6); }
 static void str_id(int i, int choice, char* out, size_t cap) {      /* TBS_PORT_<KEY> / TBS_PORT_<KEY>_<choice> */
+    if (choice >= 0 && shared_digits(i)) {
+        snprintf(out, cap, "TBS_PORT_DIGIT_%d", choice);
+        return;
+    }
     int n = snprintf(out, cap, "TBS_PORT_%s", hulk_settings_at(i)->key);
     if (choice >= 0) snprintf(out + n, cap - (size_t)n, "_%d", choice);
     for (char* p = out; *p; p++) *p = (char)toupper((unsigned char)*p);
@@ -660,13 +669,18 @@ static int patch_strings(const char* s, uint32_t n, buf_t* out) {
     put_string(out, "TBS_PORT_PACK_STATUS", " ");   /* (a fixed placeholder: the text is set when Video Options opens) */
     for (unsigned i = 0; i < sizeof k_move_strings / sizeof k_move_strings[0]; i++)
         put_string(out, k_move_strings[i].id, k_move_strings[i].text);
+    for (int c = 0; c < 10; c++) {                  /* (the Join Code rows' digits, once: shared_digits) */
+        char id[32], t[2] = {(char)('0' + c), 0};
+        snprintf(id, sizeof id, "TBS_PORT_DIGIT_%d", c);
+        put_string(out, id, t);
+    }
     for (int i = 0; i < hulk_settings_count(); i++) {
         const port_setting* st = hulk_settings_at(i);
         if (!hulk_setting_listed(i)) continue;      /* (the developer rows' text only in developer mode, wdev1) */
         char id[64];
         str_id(i, -1, id, sizeof id);
         put_string(out, id, st->label);
-        for (int c = 0; c < st->n; c++) {
+        for (int c = 0; c < st->n && !shared_digits(i); c++) {
             str_id(i, c, id, sizeof id);
             put_string(out, id, st->names[c]);
         }
