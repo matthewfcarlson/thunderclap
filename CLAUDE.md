@@ -566,8 +566,8 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   with `until ! pgrep -f PAT` in a command containing PAT (it matches itself) (wr2).
   Lighting / Dynamic Lights (wlight1, docs/lighting.md): one runner pass (run/app/lighting.cpp) swaps lit draws to
   per-pixel programs from run/app/shaders (the fragment shader includes the faithful `fs_vp_stage.sh`, one `fs_pxcmb_<hash>`
-  per combiner key; pddi shaders and the Wine image untouched); play3's characters are vertex program 6 (fixed function,
-  two-sided), not the skin programs. A health orb is a pair of additive draws (6-vertex sprite, then a 14-vertex mesh, same
+  per combiner key; pddi shaders and the Wine image untouched); play3 draws the Hulk with the skin program (vp1: 4 meshes,
+  texture ordinal 1209; `HULK_LIGHT_HIDE=1209` removes him); vertex program 6 draws are foliage (whulk1). A health orb is a pair of additive draws (6-vertex sprite, then a 14-vertex mesh, same
   texture) drawn twice a frame; its light lives in world space (`HULK_LIGHT_DUMP` / `HULK_LIGHT_HIDE` identify draws).
   tools/rm_shaders.py compiles the runner's shaders into build/third_party/out/rm-shaders/<profile>; queue hosts have no
   shaderc, so after editing run/app/shaders run it locally and submit with `--shaders-ok`. Editing tools/wasm_port.py
@@ -835,6 +835,11 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   Body text gaps after w/k/x/Y/A... ("lik e", "artw ork") are the shipped font's: font_futura_lt_med's atlas cells carry
   2-3 blank trailing columns and advance = cell width; the original loader 0x00295620 only trims v (-2) and o/r (-1).
   The combo text's growing, fading echo is the game's own pop-in (faithful 640x480 shows it). Neither is a port bug (wtext1).
+  Character Lighting (whulk1, `rm::kCharLight` = 22, docs/lighting.md "Characters"): skin draws take fs_px_char (generic
+  combiner + PX_CHAR, `u_rmChar` per draw; zero = faithful). The Hulk's skin light clamps at 1 over most of his body, so a
+  term added under that clamp is invisible: the character path uses a soft shoulder (knee 0.4) and adds the rim after it.
+  `HULK_CHAR_LOOK=key,night,wrap,detail,sky,knee` tunes it; `HULK_CHAR_AB=N` times it. A draw dump in a queue Metal job:
+  `--test-env HULK_LIGHT_DUMP=a:b:/dev/stderr` (lands in stdout.txt). fs_px_stage.sh changes recompile every fs_pxcmb_*.
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`): resumed 11-24 (D246): up to 3 Hulks, one host;
   guests join the host's live game (state snapshot, no save transfer; guests never write saves); Cloudflare TURN plus
   a lobby Worker that the user deploys (employer check first).
