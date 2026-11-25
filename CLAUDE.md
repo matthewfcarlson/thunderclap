@@ -820,6 +820,14 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   Leash 300 (the 20-slot limit, not memory). Knobs `HULK_HEAP_LOG=N`, `HULK_HEAP_LOG_FROM=F`, `HULK_HEAP_SCALE=P`,
   `HULK_COOP_FROM=F` (co-op inside a replay), `HULK_COOP_SPREAD=D[:N]`, `HULK_COOP_LEASH`, `HULK_COOP_STREAM=0`,
   `HULK_STREAM_LOG=1|2`. `wasm_build_job --test coop:N:3`: the second guest never joins (on HEAD too, open).
+  Soft particles (wfx1, docs/particles.md): particles.cpp swaps the game's camera-facing particle sprites (transient,
+  unlit, kind 0, blended, no depth write, world pass) to vs_px_ff + fs_px_soft and reads a linear R32F depth copy made
+  once a frame in a split view (a depth target is never sampled while attached). A runner fragment shader that changes the
+  faithful combiner's output redefines `saturate` for its file (fs_vp_stage.sh's only vec4 clamp is its final
+  `saturate(c)`) and carries values from the `v_color0` macro in `static` globals (plain globals under GLSL). Night Lights
+  skip beam-like glows (longest model-space side > 2 units and > 3x the next): the mission beacon's crossed quads
+  otherwise flood a rooftop. Per-pixel shadows on flat sprites need a wide, weak lookup, or the shadow's edge cuts the
+  cloud into hard wedges.
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`): resumed 11-24 (D246): up to 3 Hulks, one host;
   guests join the host's live game (state snapshot, no save transfer; guests never write saves); Cloudflare TURN plus
   a lobby Worker that the user deploys (employer check first).
