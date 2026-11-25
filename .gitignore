@@ -12,3 +12,7 @@ farm/
 # written to the working directory by native start-up (src/platform/sdl/xdk/startup.cpp); patch backups
 hulk-startup-trace.txt
 *.orig
+
+# Online co-op: the Worker address, app key and disc-check table for this machine's builds (personal / secret;
+# tools/wasm_app.py, wasm_android.py and wasm_linux.py read it at build time). Never commit.
+/netplay.local.json
