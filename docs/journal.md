@@ -3778,3 +3778,11 @@ passes; output only (checkpoint records identical with every setting).
 - At the lead's 1280x960 window the remastered HUD was already drawn at the present size (Render Scale Auto keeps
   1280x960 native): its softness there is the game's own low-resolution HUD textures, magnified. The row matters
   wherever the scene is upscaled (any window above 1280x960 pixels under Auto, or a lower Render Scale).
+- (wstream1, 11-25) **Co-op memory and streaming** (docs/multiplayer.md 19). The game heaps are fixed-size
+  MemoryDlAllocator heaps from the XBE's table 0x00400520, not a share of the console's memory; the app doubles them
+  (14.4 -> 28.8 MiB) when remastered or the developer's co-op is on, before any game code runs. Three Hulks in play3's
+  night city cost ~115 KiB of Game Object heap and fit even the original sizes; Persistent (22 KiB left) and Game FE
+  (35 KiB) are the tight heaps, co-op or not. CWorldStreamManager has 20 room slots and two district slots; the main
+  actor's set fills 16..19 of them downtown, so streaming around extra Hulks adds only their room and nearest
+  neighbours. 0x0002a960 removes any non-main actor out of resident rooms beyond sqrt(56700) = 238 units from the main
+  actor unless it is never expendable (+0x1d78): that, not streaming, removed extra Hulks past ~240 units. Leash 300.

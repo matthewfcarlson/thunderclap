@@ -29,7 +29,9 @@
  * each missing player is made at the main actor's side by the actor spawner 0x0002b970 (as am_CreateActorAtPosition:
  * the "hulk" template, team "player", named coop_p1 / coop_p2), then given controller slot k. When the main actor's
  * slot goes to -1 (a cutscene, a script taking control) the extras' slots do too, and come back with it. A player who
- * strays more than LEASH units from the main actor or falls below the world is put back beside him.
+ * strays more than LEASH units from the main actor, falls below the world or stands where the rooms cannot be kept
+ * resident (stream.c) is put back beside him. Extra Hulks are never expendable (+0x1d78), or the game removes one who
+ * is out of resident rooms and 238 units from the main actor (0x0002a960).
  *
  * Down and respawn (first version of docs/multiplayer.md §8.2): an extra player whose life state leaves 0 (the
  * engine's death: he is removed 1.5 s later by 0x0002ae80) is down; he is made again behind the main actor once he has
@@ -53,7 +55,9 @@
  * With N = 1 every hook passes straight through.
  *
  * Knobs: HULK_COOP_VIEW=k (the local view at start), HULK_COOP_LOG=1 (spawns, downs, respawns, leashes; 2: every 30
- * updates each player's place). */
+ * updates each player's place). Measurements only (wstream1): HULK_COOP_FROM=F (the developer's Hulks from frame F,
+ * e.g. inside a replay of play3), HULK_COOP_SPREAD=D[:EVERY] (the extras put D units out every EVERY updates),
+ * HULK_COOP_LEASH=U. */
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -67,8 +71,13 @@
 #define SETTLE 30                       /* updates in play before the extras are made */
 #define SIDE 2.5f                       /* units to the main actor's side per player at a spawn */
 #define BEHIND 5.0f                     /* units behind the main actor at a respawn */
-#define LEASH 200.0f                    /* farther from the main actor than this: put back beside him (user 11-24: 80 too
-                                           * short; rooms stream to ~390 units around the main actor's camera) */
+#define LEASH 300.0f                    /* farther from the main actor than this: put back beside him (wstream1; 80 at
+                                           * first, 200 after the user's 11-24 note). Downtown night (128 rooms, room
+                                           * sets of 5..19 of the 20 room slots): within 300 units an extra Hulk stands
+                                           * in the main actor's own resident set or in rooms stream.c can add (95% of
+                                           * placements, 99.9% at 250; teleport runs at 250 and 300: every target room
+                                           * resident); at 400 the slots run out (16 of 70 placements in rooms that were
+                                           * not resident, 6 put back). docs/multiplayer.md 19 */
 #define FALL_Y -45.0f                   /* below this: put back (the engine's own limit for the main actor is -50) */
 #define RESPAWN_MIN 5.0f                /* seconds down before a respawn */
 #define CALM 5.0f                       /* seconds without damage to the main actor before a respawn */
@@ -95,6 +104,7 @@
 #define CH_VELOCITY 0x80
 #define CH_HEALTH 0x1b0c
 #define CH_SLOT 0x20a8
+#define CH_NEVER_EXPENDABLE 0x1d78
 #define CH_LIFE 0x20b0
 #define CH_INPUT 0x1f58
 #define IN_STICK1 (0x9c + 0x38)         /* the right stick: state, held, x, y, magnitude, angle */
@@ -107,12 +117,28 @@ uint32_t hulk_net_mask(void);           /* netplay.c: the online session's playe
 /* (wnet2) Hulk k is wanted: the developer setting's, or slot k is in the online session */
 static int want(int k) { return k == 0 || k < g_n || (hulk_net_mask() >> k & 1); }
 /* the Hulks the hooks look at: 1 + the highest wanted extra (1: every hook passes straight through) */
+static int coop_from(void) {             /* HULK_COOP_FROM=F: the developer's Hulks from frame F (tests in a replay) */
+    static int f = -1;
+    if (f < 0) f = getenv("HULK_COOP_FROM") ? atoi(getenv("HULK_COOP_FROM")) : 0;
+    return f;
+}
 static int coop_n(void) {
     uint32_t m = hulk_net_mask() & ((1u << MAXP) - 1);
-    int n = g_n;
+    int n = (int)SIM->frame >= coop_from() ? g_n : 1;
     for (int k = 1; k < MAXP; k++)
         if (m >> k & 1 && k + 1 > n) n = k + 1;
     return n;
+}
+int hulk_wasm_stream_room_state(const float pos[3], int* room);
+int hulk_wasm_stream_put_back(int k);   /* stream.c (wstream1): player k's room could not be kept resident */
+/* the leash (HULK_COOP_LEASH=U overrides it: measurements only) */
+static float leash_units(void) {
+    static float l = -1;
+    if (l < 0) {
+        const char* e = getenv("HULK_COOP_LEASH");
+        l = e && atof(e) > 10 ? (float)atof(e) : LEASH;
+    }
+    return l;
 }
 static int g_view;                      /* the local view (host state, never game state) */
 static int log_level(void) {
@@ -409,6 +435,10 @@ static int spawn(int k, int respawn) {
                 ch ? "ok" : "FAILED", ch);
     if (!ch) return 0;
     *(int32_t*)PTR(ch + CH_SLOT) = k;
+    /* never expendable (am_SetNeverExpendable 0x00026ab0's byte): each update 0x0002a960 removes an actor whose room is
+     * not resident and who is more than sqrt(56700) = 238 units from the main actor, unless the actor has this byte
+     * (wstream1); a Hulk out of resident rooms is coop.c's business (fell, stream, leash) */
+    *(uint8_t*)PTR(ch + CH_NEVER_EXPENDABLE) = 1;
     g_co.p[k].ch = ch;
     g_co.p[k].down = 0;
     g_co.p[k].yaw = yaw;
@@ -428,6 +458,29 @@ static void put_back(int k, uint32_t ch, const char* why) {
     wf(ch + CH_VELOCITY, 0), wf(ch + CH_VELOCITY + 4, 0), wf(ch + CH_VELOCITY + 8, 0);
     if (log_level())
         fprintf(stderr, "hulk: coop: frame %u: player %d put back (%s)\n", SIM->frame, k, why);
+}
+
+/* HULK_COOP_SPREAD=D[:EVERY] (measurements only): every EVERY updates (300) player k is put D units from the main
+ * actor, each player in another direction, turning a little each time (streaming and memory under load) */
+static void spread_test(int k, uint32_t ch, const float p0[3], int ok) {
+    static float d = -1;
+    static int every = 300;
+    if (d < 0) {
+        const char* e = getenv("HULK_COOP_SPREAD");
+        d = e ? (float)atof(e) : 0;
+        const char* c = e ? strchr(e, ':') : 0;
+        if (c && atoi(c + 1) > 0) every = atoi(c + 1);
+    }
+    if (!(d > 0) || !ok || SIM->frame % (uint32_t)every) return;
+    float a = (float)k * 2.0943951f + (float)(SIM->frame / (uint32_t)every) * 0.7f;
+    float pos[3] = {p0[0] + d * sinf(a), p0[1] + 3.0f, p0[2] + d * cosf(a)};
+    ff_call_this(FN_SET_POS, ch, 1, A(pos));
+    wf(ch + CH_VELOCITY, 0), wf(ch + CH_VELOCITY + 4, 0), wf(ch + CH_VELOCITY + 8, 0);
+    if (log_level()) {
+        int room = 0, rs = hulk_wasm_stream_room_state(pos, &room);
+        fprintf(stderr, "hulk: coop: frame %u: player %d spread to (%.1f, %.1f, %.1f): room %d state %d\n", SIM->frame, k,
+                (double)pos[0], (double)pos[1], (double)pos[2], room, rs);
+    }
 }
 
 /* (wnet2) Hulk k's player has left the session: the game removes his actor (as a script's am_KillActorByName) */
@@ -489,8 +542,14 @@ static void players_update(float dt) {
             if (found != p->ch || rd(p->ch + CH_LIFE) != 0) {   /* dead, removed */
                 p->down = 1;
                 p->down_t = g_co.clock;
+                if (log_level()) {
+                    float q[3] = {0, 0, 0};
+                    int room = 0, rs = found == p->ch && actor_pos(p->ch, q) ? hulk_wasm_stream_room_state(q, &room) : -2;
+                    fprintf(stderr, "hulk: coop: frame %u: player %d down (%s, life %d; room %d state %d at %.1f %.1f %.1f)\n",
+                            SIM->frame, k, found != p->ch ? "removed" : "dead",
+                            found == p->ch ? (int)rd(p->ch + CH_LIFE) : -1, room, rs, (double)q[0], (double)q[1], (double)q[2]);
+                }
                 if (found != p->ch) p->ch = 0;
-                if (log_level()) fprintf(stderr, "hulk: coop: frame %u: player %d down\n", SIM->frame, k);
             }
         }
         if (p->down && p->ch && find_actor(name_of(k)) != p->ch) p->ch = 0;     /* (removed while down) */
@@ -509,10 +568,12 @@ static void players_update(float dt) {
         if ((int32_t)rd(ch + CH_SLOT) != want) *(int32_t*)PTR(ch + CH_SLOT) = want;
         float pk[3];
         if (in_play && have0 && actor_pos(ch, pk)) {
-            float dx = pk[0] - p0[0], dz = pk[2] - p0[2];
+            float dx = pk[0] - p0[0], dz = pk[2] - p0[2], leash = leash_units();
             if (pk[1] < FALL_Y) put_back(k, ch, "fell");
-            else if (dx * dx + dz * dz > LEASH * LEASH) put_back(k, ch, "leash");
+            else if (dx * dx + dz * dz > leash * leash) put_back(k, ch, "leash");
+            else if (hulk_wasm_stream_put_back(k)) put_back(k, ch, "stream");
         }
+        spread_test(k, ch, p0, have0 && in_play);
         update_camera(k, ch, dt);
         if (log_level() >= 2 && SIM->frame % 30 == 0 && actor_pos(ch, pk))
             fprintf(stderr, "hulk: coop: frame %u: player %d at (%.1f, %.1f, %.1f) health %.0f yaw %.2f slot %d\n",

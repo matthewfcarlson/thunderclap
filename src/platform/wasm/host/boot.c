@@ -80,11 +80,15 @@ static void game_main(void) {
     fprintf(stderr, "hulk: main returned\n");
 }
 
+/* (wstream1) the app's start-up patches to the image, before any game code runs (gfx/stream.c: the heap table) */
+void ff_boot_image_loaded(void) __attribute__((weak));
+
 int ff_boot(const char* xbe) {
     if (load_xbe(xbe)) return 1;
     SIM->magic = 0x4d49534bu;   /* "KSIM" */
     SIM->size = sizeof(hulk_sim);
     SIM->pads_in = 1;           /* a gamepad in port 0 */
+    if (ff_boot_image_loaded) ff_boot_image_loaded();
     ff_run_main(game_main);     /* (sched.c: the game's main thread on its fiber) */
     return 0;
 }

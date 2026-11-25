@@ -1066,7 +1066,8 @@ the host's story with no saves of their own. wcoop1 builds the game side in one 
 - **Enemies.** An AI actor choosing a target (AcquireTargetCondition::vfunc_6 0x001245b0) takes the nearest living Hulk:
   the actor manager's main-actor word holds that Hulk while the original runs. Built, not yet seen working (the tutorial
   has no enemies).
-- **Leash and falls.** A player more than 200 units (horizontally; 80 at first, the user found it too short, 11-24) from the main actor, or below y = -45, is put back 5
+- **Leash and falls.** A player more than 300 units (horizontally; 80 at first, the user found it too short, 11-24; 200,
+  then 300 with streaming, section 19) from the main actor, or below y = -45, is put back 5
   units behind him. Streaming then never has to hold rooms far from the main actor (the game loads rooms to ~390 units
   around the camera); no second focus point is needed while the leash holds.
 - **Down and respawn (first version of 8.2).** An extra Hulk whose life state leaves 0 is down (the engine removes him
@@ -1260,3 +1261,74 @@ the spot table.
 4. `(cd net/worker && npx wrangler deploy)`; `curl https://hulk-netplay.<subdomain>.workers.dev/` says
    `"auth":true,"disc":true`.
 5. Rebuild the apps (the key and address are compiled in); players need no coop.txt.
+
+## 19. Memory and streaming for co-op (wstream1, 2026-11-25)
+
+**The game heaps.** The "game heap" behind 0x00266e00 is a set of core::MemoryDlAllocator heaps carved at start-up
+(0x0008d480 -> 0x0008d3a0, ids 3..18) out of the default heap (malloc; on this port the arena). Their sizes are
+constants in the XBE's table 0x00400520 (`{name, size, 0}` by id), not a share of the console's memory:
+GlobalMemoryStatus (0x00209f01; 64 MB here, as on a retail console) is only stored. Heaps 19..40 are carved later
+from the Room Heap (7): two district heaps of 200 KiB and twenty room-data heaps of 0x25800 bytes (0x00204e40), which
+fill it (3,023 of 3,050 KiB). A heap that cannot serve a request calls 0x0008d320, which spins forever.
+
+With the remastered edition on (or the developer's `dev_coop_local` > 1) the app doubles every table size but the
+Debug Heap's before any game code runs (`ff_boot_image_loaded`, called by boot.c after the image is loaded;
+gfx/stream.c): 14,772 KiB -> 29,534 KiB of arena. Replays, `HULK_INPUT`/`HULK_ROLLTEST` runs and every faithful run
+keep the original sizes (their settings start faithful). An online guest restores the host's memory, heaps included,
+so every peer runs the host's sizes. `HULK_HEAP_SCALE=P` (100..400) overrides the scale where it applies;
+`HULK_HEAP_LOG=N` / `HULK_HEAP_LOG_FROM=F` print every heap's live bytes, most live and highest break since F.
+
+Measured (KiB, most live / highest break, play3's night city from frame 38,000 to ~52,000; the original's sizes in
+the last column):
+
+| heap | one Hulk | 3 Hulks, 400 units apart | size |
+|---|---|---|---|
+| 3 Script | 422 / 427 | 427 / 431 | 600 |
+| 5 Effect | 268 / 275 | 259 / 269 | 400 |
+| 6 Sound | 962 / 969 | 957 / 967 | 1,212 |
+| 10 Prop | 416 / 428 | 409 / 410 | 850 |
+| 11 Stream | 3,098 / 3,101 | 2,903 / 2,905 | 3,640 |
+| 12 Game Object | 85 / 85 | 177 / 199 | 300 |
+| 13 Fight | 136 / 171 | 172 / 181 | 300 |
+| 14 Game FE | 452 / 465 | 452 / 463 | 500 |
+| 15 Rendering | 198 / 202 | 228 / 240 | 400 |
+| 17 Persistent | 3,230 / 3,236 | 3,230 / 3,238 | 3,260 |
+
+Three Hulks cost ~115 KiB of Game Object heap, ~35 of Fight and ~40 of Rendering; nothing came near a size, and the
+same runs at the original sizes (`HULK_HEAP_SCALE=100`) finished too. The heaps with the least margin are not co-op's:
+Persistent (22 KiB left over the whole of play3) and Game FE (35 KiB; the menu screens of wquit1). Doubling gives
+co-op's heaps 2-3x headroom for fights the replay never had, and the remaster's menus room to grow.
+
+**Streaming.** CWorldStreamManager (pump 0x002089f0) keeps a state per room id (+0x5a4: 0 out, 1 resident and
+wanted, 2 wanted, 3 resident and unwanted) and follows the main actor's room (+0x59c): a change applies the transition
+table's entry (from, to) (+0x58c, 0x56-byte entries: two lists of up to 20 room ids; entry (0, R) lists R's whole set)
+through 0x00207a00 and sets the request (+0x590); while a request is set the pump loads the nearest wanted room (one at
+a time, asynchronously, +0xaec), then unloads the farthest unwanted ones. Rooms live in 20 fixed slots (+0x48) and two
+district slots (+0x570); a load with no free slot writes through a null slot. Downtown night has 128 rooms and sets of
+5..19 rooms (mean 13): the main actor alone holds 16..19 of the 20 slots in the city. More slots would need a larger
+manager object and Room Heap and new room-data heaps; this lane keeps the 20.
+
+gfx/stream.c makes each living extra Hulk's room and then his set (nearest first) wanted as well, while the rooms
+that are or will be resident stay within 20 and two districts; rooms only an extra wants are recorded in game state
+and go back to unwanted when no Hulk wants them. It runs before each pump and after each of the main actor's
+transitions (entry hooks on 0x002089f0 and 0x00207a00; the latter is called from another TU than the pump's own). When
+the main actor's new set needs a slot the game's unwanted rooms go first, then ours (the game's 0x00207080 unloads a
+resident one at once). An extra whose room stays out for 45 updates is put back beside the main actor ("stream").
+Everything is computed from game state (the session's Hulks, their positions, the manager's tables), so peers stay in
+lockstep.
+
+**The 238-unit cull.** Each update 0x0002a960 removes any actor but the main one whose room is not resident (or who is
+in no room) and who is more than sqrt(56700) = 238 units from the main actor, unless the actor is never expendable
+(+0x1d78, am_SetNeverExpendable 0x00026ab0's byte), frozen (+0x1cf4) or +0x119. Extra Hulks were removed the update
+after they crossed it (56 removals in a test that put them 250 units out every 10 s); coop.c now makes them never
+expendable at every spawn (4 removals, all scripted events of the replay, as at 200 units).
+
+**The leash: 300 units.** From the location's own tables (room centres and sets): with a Hulk within 250 units of the
+main actor his room is in the main actor's set 98.8% of the time and his room plus its neighbours fit beside it
+99.9%; at 300, 84.8% and 95.3%; at 400, 21% and 69% (the slots run out). Test runs put the extras 250, 300, 400 and 600
+units out every 10 s for ~14,000 frames: at 250 and 300 every target room was already resident; at 400, 16 of 70
+placements landed in rooms that were not, and 6 Hulks had to be put back; at 600, 27 and 14.
+
+**Tests.** play3 to 60,000 frames with co-op off, against HEAD's app: identical records (job 112134). Measurements:
+jobs 112105-112111, 112126-112131 (`HULK_COOP_FROM=38000`, `HULK_COOP_SPREAD`, `HULK_COOP_LEASH=3000`,
+`HULK_COOP_STREAM=0`).
