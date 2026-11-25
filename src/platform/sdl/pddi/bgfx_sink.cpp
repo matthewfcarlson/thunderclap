@@ -707,15 +707,16 @@ void BgfxSink::present(const SinkPresent& p)
 // The app's overlay (wasm port, wmov1 / D231: the hold-to-skip ring): a small B, G, R, A image the runner makes,
 // alpha-blended over the presented frame at a place in window pixels. Output only; only the app's runner builds this
 // (HULK_SINK_OVERLAY), so the Wine and native images are unchanged.
-// Two slots: 0 the movie ring / controller banner (movie.c arbitrates), 1 the performance overlay (wperf1); drawn in
-// that order.
+// Three slots: 0 the movie ring / controller banner (movie.c arbitrates), 1 the performance overlay (wperf1), 2 the
+// menus' scroll arrows (wmenu2, run/app/menuarrows.cpp); drawn in that order.
 struct SinkOverlay {
     const void* bgra;
     unsigned w, h, version, made, madeW, madeH;
     int x, y;
     unsigned tex;
 };
-static SinkOverlay s_overlays[2] = {{0, 0, 0, 0, 0, 0, 0, 0, 0, kNone}, {0, 0, 0, 0, 0, 0, 0, 0, 0, kNone}};
+static SinkOverlay s_overlays[3] = {{0, 0, 0, 0, 0, 0, 0, 0, 0, kNone}, {0, 0, 0, 0, 0, 0, 0, 0, 0, kNone},
+                                    {0, 0, 0, 0, 0, 0, 0, 0, 0, kNone}};
 
 // the picture quality (s_quality): returns 1 when the scene target must be made again (frameTargets) for the MSAA
 extern "C" uint32_t hulk_gfx_sink_quality(uint32_t aniso, uint32_t msaa)
@@ -743,7 +744,7 @@ extern "C" void hulk_gfx_sink_scene_handles(uint32_t* fb, uint32_t* colour, uint
 extern "C" void hulk_gfx_sink_overlay_slot(unsigned slot, const void* bgra, unsigned w, unsigned h, int x, int y,
                                            unsigned version)
 {
-    SinkOverlay& o = s_overlays[slot & 1];
+    SinkOverlay& o = s_overlays[slot < 3 ? slot : 2];
     o.bgra = bgra;
     o.w = w, o.h = h, o.x = x, o.y = y, o.version = version;
 }

@@ -365,6 +365,33 @@ void ffgo_000e6050(uint32_t, uint32_t, void*, void*);   /* FEMenuBase::vfunc_3 (
 void ffh_hulk_app_fe_key_screen(uint32_t ecx, uint32_t edx, void* st, void* rb) { fe_key(ecx, edx, st, rb, ffgo_000e5710); }
 void ffh_hulk_app_fe_key_menu(uint32_t ecx, uint32_t edx, void* st, void* rb) { fe_key(ecx, edx, st, rb, ffgo_000e6050); }
 
+/* Scroll arrows (wmenu2): while one of these screens is the front end's current one with rows hidden above / below its
+ * window, the runner draws an up / a down arrow above the first place / below the last (run/app/menuarrows.cpp, a sink
+ * overlay). Called at each present (gfx.c); it only reads memory (the FE manager *0x004e0a60's current screen at
+ * +0x175c, that screen's active flag +0xab8 and focus +0x48, which is one of the screen's places), and the packed word
+ * goes to the runner, picture only: bit 0 up, bit 1 down, bits 2..11 the arrows' x, 12..20 the up arrow's y, 21..29
+ * the down arrow's y (frame pixels, 640x480); 0 none. The places are fixed: FEsubMenu_text1..9 (front end) and
+ * FEpause_text1..9 (pause menu) both put row k's text at y 118 + 25k with full-width bars (the selectors hold no
+ * screen position: only the entry animations' timing). */
+#define FE_MGR 0x004e0a60u
+#define FE_MGR_CUR 0x175c
+static uint32_t rd32(uint32_t a) { return a ? *(uint32_t*)PTR(a) : 0; }
+uint32_t hulk_wasm_fe_arrows(void) {
+    uint32_t mgr = rd32(FE_MGR), cur = rd32(mgr + FE_MGR_CUR);
+    if (!cur || !*(uint8_t*)PTR(cur + 0xab8)) return 0;
+    uint32_t focus = rd32(cur + 0x48);
+    for (int sc = 0; focus && sc < PS_SCREENS; sc++) {
+        int r[ROWS], n = rows_of(sc, r), k = 0;
+        if (n <= PLACES) continue;
+        while (k < PLACES && !focus_is(focus, g_sel[sc * PLACES + k])) k++;
+        if (k == PLACES) continue;
+        int t = top_of(sc), up = t > 0, down = t < n - PLACES;
+        uint32_t x = 320, yu = 97, yd = 341;     /* (centred; the places' rows are at y 118 + 25k in both layouts) */
+        return (uint32_t)up | (uint32_t)down << 1 | x << 2 | yu << 12 | yd << 21;
+    }
+    return 0;
+}
+
 /* the Quit item's function: (this, argument count, arguments) -> 0, as the game's front-end functions return */
 void hulk_app_request_quit(const char* why);    /* gfx.c */
 static void on_quit(uint32_t ecx, uint32_t edx, void* st, void* rb) {

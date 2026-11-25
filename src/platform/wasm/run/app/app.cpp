@@ -728,7 +728,13 @@ void w2c_hulk_gfx_display_aspect(struct w2c_hulk*, u32 num, u32 den)
 void rm_set_fog(int value);
 void w2c_hulk_gfx_fog(struct w2c_hulk*, u32 value) { rm_set_fog((int)value); }
 // the runner's picture options (wr2: port_settings.c rows that are rm passes; rm_pass.h Quality)
-void w2c_hulk_gfx_quality(struct w2c_hulk*, u32 what, u32 value) { rm::setQuality(what, (int32_t)value); }
+extern "C" void hulk_app_menu_arrows(uint32_t state);     // run/app/menuarrows.cpp
+void w2c_hulk_gfx_quality(struct w2c_hulk*, u32 what, u32 value)
+{
+    if (what == 0x100)                      // (fe_options.c, wmenu2: the menus' scroll arrows, not a settings row)
+        return hulk_app_menu_arrows(value);
+    rm::setQuality(what, (int32_t)value);
+}
 // the Texture Pack setting (port_settings.c texture_pack; texpack.cpp): the installed packs, the chosen one
 u32 w2c_hulk_gfx_texpack_list(struct w2c_hulk*, u32 buf, u32 cap) { return texpack_list((char*)M(buf), cap); }
 void w2c_hulk_gfx_texpack(struct w2c_hulk*, u32 value) { texpack_select(value); }

@@ -455,7 +455,14 @@ uint32_t hulk_gfx_sink_query_result(uint32_t q, int32_t* pixels) {
     }
     return r;
 }
-void hulk_gfx_sink_present(const void* p) { gi_present(p); }
+/* the menus' scroll arrows (fe_options.c, wmenu2): the runner draws them over the frame (picture only) */
+uint32_t hulk_wasm_fe_arrows(void);
+void hulk_gfx_sink_present(const void* p) {
+    static uint32_t arrows;
+    uint32_t a = hulk_wasm_fe_arrows();
+    if (a != arrows) gi_quality(0x100u, (int32_t)(arrows = a));     /* (app.cpp: not an rm::Quality row) */
+    gi_present(p);
+}
 void hulk_gfx_sink_frame(void) { gi_frame(); }
 void hulk_gfx_sink_request_screenshot(const char* path) { gi_request_screenshot(path); }
 /* the render-resolution setting (port_settings.c): the runner draws the frame at that size (output only: the front
