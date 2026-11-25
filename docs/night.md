@@ -41,9 +41,12 @@ pass never uses draw order or adjacency. Each frame's glows are matched to the l
 distance (within the larger of 1 unit and 0.6 x the glow's size). A light that has stayed within 1 unit of where it was first seen over four or
 more frames is static: it outlives frames in which its glow is not drawn (a lamp's pool stays on the street while its
 head is above the picture), for up to 3,600 presented frames and 220 units, but goes once its place is on screen within
-80 units and nothing has been drawn there for 12 frames (a lamp the Hulk knocked down). A moving light (a car's) lives
-only while drawn (two frames of grace). Every light fades in and out over ~8 frames; positions of static lights are
-low-passed, colours of all of them.
+80 units and nothing has been drawn there for 90 frames, 3 s (a lamp the Hulk knocked down). A moving light (a car's)
+lives only while drawn (two frames of grace). Every light fades in and out over ~8 frames; positions of static lights are
+low-passed, colours of all of them; a static light's colour and size follow its glow up at once and down slowly
+(wwin3: the game dims or hides a lamp's glow while something is in front of it, its occlusion query, and with 12 frames
+and a symmetric low pass the lamp's pool and the facades it lit dimmed and faded out and back whenever the Hulk or a
+thrown object passed before the lamp).
 
 ### How they light the world (tiled forward lighting)
 

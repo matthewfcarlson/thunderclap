@@ -199,7 +199,8 @@ with the room's planes in the facade's own frame, so it has parallax but no geom
 - **Glass.** The game's environment-map stage over the room by Schlick's Fresnel (F0 0.12): the room shows looking in,
   the reflection takes over at grazing angles. wssr1's SSR buffer replaces the sphere maps here
   once it lands (the hook is `refl` from `winStages` in fs_rm_window.sc).
-- **Distance.** Where a bay is only a few pixels wide the room's detail fades to its average colour (no shimmer).
+- **Distance.** Where a room is under 32 pixels wide its detail fades to its average colour, all of it under 12 (no
+  shimmer; wwin3: below that the lamps, light panels and monitors are a pixel or two and sparkled as the camera moved).
 
 ### 5.3 How it is drawn (run/app/windows.cpp, shaders/fs_rm_window.sc, vs_rm_window.sc)
 
@@ -266,10 +267,13 @@ covered).
 The user (11-23, D243 L2): "let's keep interiors on ... Let's make sure we have a few interiors". fs_rm_window.sc now
 chooses a room per window, not per texture tile:
 - **Rooms, not tiles.** A bay larger than a room is split into rooms of a storey (~3.4 units) and an office's width
-  (~4.5 units), up to 3 x 3. Each room's identity is its centre in world space (the decal's position moved to the room's
-  middle along the facade's axes, through the modelview's inverse: rooms are in world space), quantised to 1.25 units:
-  two bays with the same texture tile on one face, on two faces or on two buildings get different rooms, and a room
-  keeps its look across frames, reloads and rollbacks.
+  (~4.5 units), up to 3 x 3. Each room's identity is its bay's texture tile (`floor(uv)`, exact per pixel), the room's
+  place in the bay, the face's direction in the world (one of eight, centred on the axes and diagonals, so a wall is
+  never near a boundary) and the prim buffer's seed: bays on two faces or on two buildings get different rooms, and a
+  room keeps its look across frames, reloads and rollbacks. (wwin3: wlook1 hashed the room's centre in world space,
+  rounded to 1.25 units. That centre comes from screen derivatives, so it carries a little error, and the rooms of a
+  facade all sit at one phase of the grid: rooms near a grid line changed type and light from one frame to the next,
+  1-2% of the far skyline's glass a frame with the camera panning, and the city's lit windows seemed to shuffle.)
 - **Types.** Office (desks in a row with monitors that glow, a ceiling grid with every other panel lit, a door or a
   whiteboard, carpet), home (a sofa, a floor lamp with a glowing shade, art in a frame or a shelf, a rug on planks, six
   wall colours), storage (stacked boxes, shelving, one bare bulb, mostly dark), and on the first storey above the street
@@ -293,8 +297,8 @@ chooses a room per window, not per texture tile:
   storage, magenta shop; brighter when lit).
 - Pictures: build/wlook1/png/ (`win-*` before/after at game frames 15,000-28,000, `windows-contact.png` a sheet of 12
   windows).
-- **Cost.** Windows too small to show a room (most of a skyline: a room under ~4 pixels) take only the room's average
-  (type, light and colour) and skip the box, its contents and the blinds, so the variety costs only where rooms are
+- **Cost.** Windows too small to show a room (most of a skyline: a room under 12 pixels since wwin3) take only the
+  room's average (type, light and colour) and skip the box, its contents and the blinds, so the variety costs only where rooms are
   seen. A/B turns of 30 frames within one run, play3's night city (game frames 14,400-27,600, 5,940 frames a side),
   1280x960, MSAA 4x, every remastered option on: the windows pass of HEAD (wlook0's rooms) +0.93 ms GPU and +0.29 ms
   render thread, wlook1's +1.10 ms and +0.18 ms. Neither laptop run was free of other lanes' Metal replays (wperf1,

@@ -5,7 +5,8 @@ $input v_pxbase, v_pxspec, v_fog, v_texcoord0, v_texcoord1, v_texcoord2, v_texco
 // alpha is low) drawn again as a decal over itself, showing a room behind each window, ray-cast from the view direction
 // in the facade's own frame. All procedural (no art).
 //
-// wlook1: rooms are chosen per window by a hash of the room's centre in world space (not the texture tile): a bay is
+// wlook1: rooms are chosen per window (wwin3: by the bay's texture tile, the room in it, the face's direction and the
+// building's seed; never by a rounded world position, which flickered at grid lines): a bay is
 // split into rooms of a storey's height and an office's width when it is large; each room takes a type (office,
 // apartment, lobby with a double-height ceiling, storage, shop with a neon sign), a box with its floor below the sill,
 // its own colour temperature, lights on or off (the game's own lit-window pattern kept), furniture planes, blinds, a
@@ -220,12 +221,20 @@ void main()
     float rw = bw / nx, rh = bh / ny;
     x = x * nx - sx;
     y = y * ny - sy;
-    // the room's centre in the world (the modelview's inverse: rooms are in world space): its identity
+    // the room's centre in the world (the modelview's inverse): its height decides the street's storey
     vec3 C = P + Hn * ((0.5 - x) * rw) + Vn * ((0.5 - y) * rh);
     vec3 q = C - vec3(u_vc[0].w, u_vc[1].w, u_vc[2].w);
     vec3 W = q.x * u_vc[0].xyz + q.y * u_vc[1].xyz + q.z * u_vc[2].xyz;
-    vec3 id = floor(W * 0.8 + 0.37);
+    // the room's identity (wwin3): the bay's texture tile (exact per pixel), the room within it, the face's direction
+    // in the world (one of eight, centred on the axes and diagonals) and the building's seed. Never a world-space
+    // position rounded to a grid: the centre comes from screen derivatives, and the rooms of a facade sit at one
+    // phase of any grid, so a facade near a grid line changed rooms (lit, type, contents) from frame to frame
+    vec3 Nw = N.x * u_vc[0].xyz + N.y * u_vc[1].xyz + N.z * u_vc[2].xyz;
+    float faceDir = abs(dot(N, up)) < 0.35 ? mod(floor(atan2(Nw.z, Nw.x) * (4.0 / 3.14159265) + 0.5), 8.0) :
+                 (dot(N, up) > 0.0 ? 8.0 : 9.0);
     float seed = u_rmWin[0].w;
+    vec3 id = vec3((vVertical ? cell.x : cell.y) * 3.0 + sx, (vVertical ? cell.y : cell.x) * 3.0 + sy,
+                   faceDir * 131.0 + seed);
     float r0 = winHash(id + vec3(seed, 0.0, 0.0));
     float r1 = winHash(id.zxy * 1.7 + 13.1);
     float r2 = winHash(id.yzx * 0.37 + vec3(41.0, seed, 7.0));
@@ -236,7 +245,8 @@ void main()
     // (a building's prim buffers can be sections of it: the street's height is the lowest foot drawn lately, the
     // buffer's own foot only until one is known)
     float base = u_rmWin[3].z > -1e29 ? u_rmWin[3].z : u_rmWin[3].x;
-    bool street = W.y - base < 4.5 && u_rmWin[3].y > u_rmWin[3].x;
+    bool street = W.y - base < 3.7 && u_rmWin[3].y > u_rmWin[3].x;   // (first storey centres ~1.7-2.5 up, the
+                                                                     // second's ~5: the street's drift can't flip it)
     float type = street ? (tsel < 0.45 ? T_SHOP : tsel < 0.75 ? T_LOBBY : tsel < 0.9 ? T_OFFICE : T_STORE) :
                  (tsel < 0.42 ? T_OFFICE : tsel < 0.86 ? T_HOME : T_STORE);
 
@@ -259,9 +269,11 @@ void main()
     vec3 fill = paneRgb * 0.3 + vec3(0.035, 0.04, 0.05) * (0.5 + night);   // (the city's glow at night)
 
     // the room's detail fades into its average where a room is only a few pixels: such windows (most of a skyline)
-    // take only the average, the box and its contents are traced only where they show
+    // take only the average, the box and its contents are traced only where they show. (wwin3: full from 32 pixels a
+    // room, none below 12: the lamps, light panels, monitors and people are a pixel or two in a smaller room, and they
+    // sparkled from frame to frame as the camera moved, the city's windows looking glitchy)
     float px = max(length(fwidth(uv)) * max(nx, ny), 1e-5);
-    float detail = saturate(1.6 - 6.0 * px);
+    float detail = saturate((1.0 / 12.0 - px) * (1.0 / (1.0 / 12.0 - 1.0 / 32.0)));
     vec3 dayFlat = v_pxbase.rgb * 0.575 * (1.0 - 0.6 * night) + fill;
     vec3 flatRoom = wall * (dayFlat + lampCol * (lit * bright * 0.8)) * 0.85 + lampCol * (lit * 0.15 * bright);
     // (derivatives taken before the branch: the blinds' slats at their scale)

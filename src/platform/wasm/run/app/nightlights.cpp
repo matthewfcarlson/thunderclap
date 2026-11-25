@@ -810,14 +810,19 @@ class NightLightsPass final : public rm::Pass {
                     e.moved = fmaxf(e.moved, sqrtf(dx * dx + dy * dy + dz * dz));
                     bool still = e.moved < kStill;
                     uint32_t gap = now - e.lastSeen;
+                    // (wwin3: a lamp's light follows its glow up quickly and down slowly: the game dims a glow while
+                    // something partly covers it (its occlusion query), and the lamp's pool and the facades it lights
+                    // dimmed with it, frame by frame, whenever the Hulk or a thrown object passed in front)
+                    float fl = f.colour[0] + f.colour[1] + f.colour[2], el = e.colour[0] + e.colour[1] + e.colour[2];
+                    float rate = still && e.seen >= 4 && fl < el ? 0.02f : 0.25f;
                     for (int k = 0; k < 3; k++) {
                         float v = (f.pos[k] - e.pos[k]) / (float)(gap ? gap : 1);
                         e.vel[k] = still ? 0.0f : e.vel[k] + 0.5f * (v - e.vel[k]);
                         e.pos[k] = still ? e.pos[k] + 0.2f * (f.pos[k] - e.pos[k]) : f.pos[k];
-                        e.colour[k] += 0.25f * (f.colour[k] - e.colour[k]);
+                        e.colour[k] += rate * (f.colour[k] - e.colour[k]);
                     }
                     carLight(e, f);
-                    e.size += 0.25f * (f.size - e.size);
+                    e.size += (still && e.seen >= 4 && f.size < e.size ? 0.02f : 0.25f) * (f.size - e.size);   // (its reach too)
                     e.lastSeen = now, e.seen++, e.dying = false;
                 } else if (m_cache.size() < 1024) {
                     Cached e = {};
@@ -849,7 +854,10 @@ class NightLightsPass final : public rm::Pass {
             if (!isStatic)
                 go = unseen > 2;
             else
-                go = dist > 220.0f || unseen > 3600 || (unseen > 12 && onScreen(e.pos) && dist < 80.0f);
+                // (wwin3: 3 s on screen with no glow drawn, not 12 frames: the game hides a lamp's glow while
+                // something is in front of it (its occlusion query), and the lamp's pool and facade light faded out
+                // and back whenever the Hulk or a thrown car passed before it)
+                go = dist > 220.0f || unseen > 3600 || (unseen > 90 && onScreen(e.pos) && dist < 80.0f);
             e.dying = go;
             e.fade += go ? -0.12f : 0.12f;
             if (e.fade > 1.0f)

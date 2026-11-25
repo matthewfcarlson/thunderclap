@@ -3806,3 +3806,30 @@ passes; output only (checkpoint records identical with every setting).
   clamp were invisible (<= 5 levels); the Character Lighting row (char_light, rm::kCharLight = 22) gives skin draws
   fs_px_char with albedo-derived detail normals, wrapped diffuse, a soft shoulder in place of the clamp and a rim
   (key, night lights soft-limited, night sky) after it.
+
+## 2026-11-25 wwin3: the city's window interiors stable frame to frame; lamp light through occlusion (docs/look.md 5.7, docs/night.md)
+
+The user: the city's building interiors look "kind of glitchy". play3's night city (game frames 36,000-41,003, Metal
+queue shots, the player's settings, TAA, 1280x960):
+- Most of what the lead's frame-pair differences showed is camera motion: at 36,000 the camera pans ~5 px a frame, so
+  unaligned pairs differ everywhere. Aligned (the best integer shift of a crop, then a 3x3 slack per pixel), the far
+  tower's glass changed in 0.05-0.08% of pixels a frame pair with interiors on, 0.00-0.01% with Windows off.
+- What changed: (1) lamps, light panels, monitors and people a pixel or two wide in rooms of 8-20 pixels, sparkling as
+  the box's parallax moved them across pixels (the room detail faded in from ~4 pixels a room); (2) now and then a whole
+  room changed type or light: wlook1 hashed the room's centre in world space rounded to 1.25 units, a centre made from
+  screen derivatives, with every room of a facade at one phase of that grid (debug views 6-8: per-room phase uniform,
+  a few rooms flipping). The modelview is rigid (logged rows orthonormal; world coordinates ~2,000), so the inverse
+  itself was fine.
+- Fix (fs_rm_window.sc): a room's identity is its bay's texture tile (`floor(uv)`), its place in the bay, the face's
+  world direction (eight sectors centred on the axes and diagonals) and the buffer's seed, nothing rounded from a
+  derived position; room detail full from 32 pixels a room, none under 12; the street storey test at 3.7 units above
+  the street (room centres ~1.7-2.5 and ~5), so the street height's slow drift can't flip it. After: the far tower's
+  pairs 0.00% (as Windows off), near rooms (40+ pixels) keep their detail and are as steady as before.
+- Night Lights (option-off pairs at 38,500): with Night Lights on a facade lit by a street lamp lost 18% of its
+  brightness over 3 frames (off: 4%). The game dims and then hides a lamp's glow while something passes in front of it
+  (its occlusion query); a static light followed the glow's colour and size with a symmetric 0.25 low pass and went
+  after 12 unseen frames on screen within 80 units. Now it follows up at once and down at 0.02 a frame, and goes after
+  90 frames (3 s): the drop is 11% (the rest is the game's flare and its bloom, and moving lights). Reflections and AO
+  showed nothing frame to frame in these pairs (pairs identical to the control with them off).
+- Fast moving glows (effects) are re-found as new lights every frame (1-unit match radius, no velocity yet), leaving a
+  short trail of weak fading lights: not changed.
