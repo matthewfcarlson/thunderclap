@@ -3746,3 +3746,18 @@ passes; output only (checkpoint records identical with every setting).
   rate adapted per round trip (up 25% under 3% loss, down 25% past 10%) moved it at 1-2 MB/s.
 - libjuice calls back on its own thread holding its registry lock, which its own calls also take: a callback that
   takes the session's lock can deadlock with a thread holding that lock while sending. The callbacks only queue.
+
+## 2026-11-24 wnet2: the lobby's handshake, the compiled-in address, hosting turns the Hulks on (docs/multiplayer.md 18.1)
+
+- Disc spots must be files read through the disc readers, never image offsets, and only from files every source holds
+  byte-identical: default.xbe and the .rcf archives with no Bink entry (an AV1 pack zeroes each movie past 64 KiB; packs
+  add only `.hulk/` files). 400 random spots read alike from isos/extracted, the trimmed xiso and the user's AV1 +
+  texture-pack .hulkdisc (tools/netplay_keys.py check; run/disc.c itself: tests/net/disc_spot_test.sh, 15/15).
+- A disc challenge token must be the Worker's own (a key derived from the secret spot table, not the app key that
+  every copy of the app holds), or a client picks the one spot whose hash leaked; its nonce is spent once, bucketed by
+  the token's own time (a request's nonce is bucketed by the request's), or the same answer works again a minute later.
+- A refusal of the hello needs no MAC (anyone on the path could block a guest anyway); an acceptance does, or a
+  stranger in the middle could hand a guest a game.
+- A bare `wait` in a test script also waits for the background lobby server: wait on the peers' pids.
+- coop.c's extra Hulks now follow the session's mask (game state); removing one through the game's KillActorByName
+  (0x0002b830, the am_KillActorByName binding's method) at the update after the guest left.

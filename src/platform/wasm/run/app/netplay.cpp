@@ -16,7 +16,17 @@
 //   it back at one of its own frame ends, with its saves in a throwaway folder removed when it quits.
 // - Desync check: every HULK_COOP_HASH_EVERY updates (60) each guest sends its state hash; the host compares.
 //
+// - The handshake (wnet2; docs/multiplayer.md 18.1): every lobby request is signed with the app key (HMAC-SHA256 over
+//   the method, path, time, a nonce and the body's hash); room create and join answer the Worker's disc challenge
+//   from this disc (a spot of a disc file, read through hdisc_*); ICE servers are a room member's; the hello and
+//   welcome carry MACs under the guest's peer key (the Worker's, from the room's key), so only the room's peers talk.
+//   The Worker's address and the app key are compiled in (app-gen/hulk_netplay_config.h, from the untracked
+//   netplay.local.json: tools/wasm_app.py); HULK_NET_WORKER / HULK_NET_KEY and coop.txt (URL, then "key=HEX") override.
+//
 // Knobs (tests and the launch options; the menu's Co-op row sets the same through net_menu): HULK_NET_WORKER=URL,
+// HULK_NET_KEY=HEX (the app key), HULK_NET_SKEW=S (tests: S seconds added to the signed time),
+// HULK_NET_TEST=replay|baddisc|badpeer (tests: send the challenge request twice / answer the disc challenge wrongly /
+// say hello to the host with a wrong peer key),
 // HULK_COOP_HOST=1, HULK_COOP_JOIN=CODE (or @FILE: the code in a file, waited for), HULK_COOP_CODE_FILE=F (the host
 // writes its code there), HULK_COOP_DELAY=N, HULK_COOP_HASH_EVERY=N, HULK_COOP_SHIM=seed=S,delay=MS,jitter=MS,loss=PCT
 // (impairment on every datagram this peer sends), HULK_COOP_RELAY=PORT (run a local TURN relay in this process:
@@ -27,6 +37,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include <algorithm>
 #include <atomic>
@@ -52,6 +63,12 @@
 #ifndef HULK_BUILD_ID
 #define HULK_BUILD_ID "unknown"
 #endif
+#if __has_include("hulk_netplay_config.h")
+#include "hulk_netplay_config.h"     // (the lobby's address and the app key, masked: tools/wasm_app.py; wnet2)
+#endif
+#ifndef HULK_NET_BAKED
+static const unsigned char kNetBakedUrl[1] = {0}, kNetBakedKey[1] = {0};
+#endif
 
 using namespace coopnet;
 
@@ -61,7 +78,7 @@ static uint8_t* M(u32 a) { return a ? hulk_run_memory() + a : nullptr; }
 namespace {
 
 // ------------------------------------------------------------------------------------------------ constants
-constexpr u32 kProto = 1;
+constexpr u32 kProto = 2;                 // (2: the hello and welcome carry MACs, wnet2)
 constexpr u32 kRing = 8192;               // updates kept (sets, inputs, hashes)
 constexpr int kMaxGuests = 2;
 constexpr size_t kChunk = 1100;           // one datagram's share of the join's state
@@ -141,6 +158,8 @@ struct Peer {
     size_t remote_cands = 0;
     // liveness
     double last_recv = 0, last_ping = 0, rtt = -1, hello_at = 0;
+    std::vector<uint8_t> key;              // the peer key (the guest's, which the host derives from the room key)
+    std::string hello_nonce;               // guest: its hello's nonce (the welcome's MAC covers it)
     // host's view of a guest
     u32 start = 0;                         // first update with this guest in the set
     u32 in_next = 0;                       // first of its pads not yet received (from start + D)
@@ -170,6 +189,8 @@ struct State {
     int status = 0;                        // ST_*: what the menu's status line says
     std::string why;                       // ST_FAILED: why
     std::string worker, code, token, settings_json;
+    std::vector<uint8_t> app_key;          // the lobby's app key (empty: unsigned requests)
+    std::string room_key, peer_key;        // host: the room's key; guest: its peer key (hex)
     int my_slot = 0, my_gen = 0;
     std::vector<juice_turn_server_t> turn;
     std::vector<std::string> turn_str;     // (the strings turn points into)
@@ -305,16 +326,25 @@ Peer* new_peer(int slot, int gen) {
     char buf[4096];                 // (taken before gathering: later it lists the candidates, which trickle anyway)
     if (p->agent && juice_get_local_description(p->agent, buf, sizeof buf) == 0) p->desc = buf;
     p->last_recv = now_ms();
+    if (S->role == R_HOST) {          // (wnet2) the guest's peer key, as the Worker made it: HMAC(room key, peer|slot|gen)
+        std::vector<uint8_t> rk = unhex(S->room_key);
+        if (!rk.empty()) p->key = unhex(hmac_hex(rk.data(), rk.size(), "peer|" + std::to_string(slot) + "|" + std::to_string(gen)));
+    } else {
+        p->key = unhex(S->peer_key);
+    }
     return p;
 }
 
 // ------------------------------------------------------------------------------------------------ the join's state
 std::string build_id() { return HULK_BUILD_ID; }
 uint64_t g_xbe_hash;
+std::string xbe_path() {
+    const char* p = getenv("HULK_XBE");
+    return p && *p ? p : std::string(getenv("HULK_DATA_DIR") ? getenv("HULK_DATA_DIR") : ".") + "/default.xbe";
+}
 uint64_t xbe_hash() {           // the game's data identity: the XBE (the snapshot's ranges check the build itself)
     if (g_xbe_hash) return g_xbe_hash;
-    const char* p = getenv("HULK_XBE");
-    std::string path = p && *p ? p : std::string(getenv("HULK_DATA_DIR") ? getenv("HULK_DATA_DIR") : ".") + "/default.xbe";
+    std::string path = xbe_path();
     uint64_t h = 0xcbf29ce484222325ull;
     int fd = hdisc_open(path.c_str());          // (run/disc.c: a folder, an .iso, a disc pack, Android's fd:N)
     if (fd >= 0) {
@@ -441,6 +471,20 @@ bool open_package(const std::vector<uint8_t>& in) {
 // ------------------------------------------------------------------------------------------------ the protocol
 void send_set_packets(Peer* g, bool force);
 void send_inputs(Peer* h, bool force);
+void fail(const char* fmt, ...) __attribute__((format(printf, 1, 2)));
+
+void leave_room_async();
+
+// (wnet2) the hello's and the welcome's MACs under the guest's peer key (hex; the first 32 characters travel)
+std::string hello_mac(Peer* p, const std::string& nonce, u32 proto, const char* bid) {
+    if (p->key.empty()) return std::string(64, '-');
+    return hmac_hex(p->key.data(), p->key.size(), "hello|" + std::to_string(S->role == R_HOST ? p->slot : S->my_slot) +
+                    "|" + std::to_string(p->gen) + "|" + nonce + "|" + std::to_string(proto) + "|" + bid);
+}
+std::string welcome_mac(Peer* p, const std::string& nonce, bool ok) {
+    if (p->key.empty()) return std::string(64, '-');
+    return hmac_hex(p->key.data(), p->key.size(), "welcome|" + nonce + "|" + (ok ? "1" : "0"));
+}
 
 void handle(Peer* p, const uint8_t* d, size_t n) {
     if (n < 2 || d[0] != kMagic) return;
@@ -473,13 +517,25 @@ void handle(Peer* p, const uint8_t* d, size_t n) {
             char bid[49];
             memcpy(bid, q + 12, 48);
             bid[48] = 0;
-            std::string why;
-            if (proto != kProto) why = "another co-op protocol";
-            else if (build_id() != bid) why = std::string("another build of the app (host ") + build_id() + ", guest " + bid + ")";
+            std::string why, gnonce;
+            if (proto != kProto || n < 61 + 16 + 32) why = "another co-op protocol";
+            else {
+                // (wnet2) the guest proves it holds the peer key the Worker gave the guest of this slot and generation
+                gnonce.assign((const char*)q + 61, 16);
+                std::string mac = hello_mac(p, gnonce, proto, bid);
+                if (p->key.empty() || mac.compare(0, 32, std::string((const char*)q + 77, 32)) != 0)
+                    why = "not a player of this room";
+            }
+            if (!why.empty()) {
+            } else if (build_id() != bid) why = std::string("another build of the app (host ") + build_id() + ", guest " + bid + ")";
             else if (xh != xbe_hash()) why = "another copy of the game (the XBE differs)";
             else if (q[60] != renderer_class()) why = "a headless game and one with a renderer cannot play together";
             auto r = pkt(T_WELCOME);
             r.push_back(why.empty() ? 1 : 0);
+            {
+                std::string m = welcome_mac(p, gnonce, why.empty());
+                r.insert(r.end(), m.begin(), m.begin() + 32);
+            }
             r.insert(r.end(), why.begin(), why.end());
             send_pkt(p, r);
             if (!why.empty()) {
@@ -555,10 +611,18 @@ void handle(Peer* p, const uint8_t* d, size_t n) {
         return;
     }
     // a guest
-    if (t == T_WELCOME && n >= 1) {
+    if (t == T_WELCOME && n >= 1 + 32) {
+        // (wnet2) an acceptance must prove the host holds this room's key: a MAC over our hello's nonce (a refusal
+        // needs none: anyone on the path could stop us anyway)
         if (!q[0]) {
-            SAY("the host refused: %.*s", (int)n - 1, (const char*)q + 1);
+            fail("the host refused: %.*s", std::min((int)n - 33, 80), (const char*)q + 33);
             p->st = P_GONE;
+            leave_room_async();
+        } else if (p->st == P_CONNECTED &&
+                   welcome_mac(p, p->hello_nonce, true).compare(0, 32, std::string((const char*)q + 1, 32))) {
+            fail("the host could not prove it is this room's host");
+            p->st = P_GONE;
+            leave_room_async();
         } else if (p->st == P_CONNECTED) {
             p->st = P_WANT_JOIN;
             SAY("the host accepted: its game is on the way");
@@ -761,6 +825,7 @@ void pump_main() {
             }
             if (now - p->last_recv > kPeerTimeoutMs) {
                 SAY("slot %d is silent: gone", S->role == R_HOST ? p->slot : 0);
+                if (S->role == R_GUEST && !S->session && S->status != ST_FAILED) fail("the host stopped answering");
                 p->st = P_GONE;
                 S->cv.notify_all();
                 continue;
@@ -779,6 +844,10 @@ void pump_main() {
                         snprintf(bid, sizeof bid, "%s", build_id().c_str());
                         r.insert(r.end(), bid, bid + 48);
                         r.push_back(renderer_class());
+                        if (p->hello_nonce.empty()) p->hello_nonce = random_hex(8);   // (16 characters)
+                        r.insert(r.end(), p->hello_nonce.begin(), p->hello_nonce.end());
+                        std::string mac = hello_mac(p, p->hello_nonce, kProto, bid);
+                        r.insert(r.end(), mac.begin(), mac.begin() + 32);
                         send_pkt(p, r);
                         last_hello = now;
                     }
@@ -791,16 +860,109 @@ void pump_main() {
 }
 
 // ------------------------------------------------------------------------------------------------ signalling
-void fail(const char* fmt, ...) __attribute__((format(printf, 1, 2)));
-std::string room_url(const char* tail = "") { return S->worker + "/rooms/" + S->code + tail; }
-bool fetch_ice() {
-    HttpReply r = http("POST", S->worker + "/ice", "{}", "");
+std::string room_path(const char* tail = "") { return "/rooms/" + S->code + tail; }
+
+// (wnet2) a request to the lobby, signed with the app key: X-Hulk-Time / X-Hulk-Nonce / X-Hulk-Sig = HMAC-SHA256(key,
+// "hulk-v1\n" METHOD "\n" PATH "\n" TIME "\n" NONCE "\n" hex SHA-256(body)); PATH is the URL's path as sent
+HttpReply signed_http(const std::string& worker, std::vector<uint8_t> key, const char* method, const std::string& path,
+                      const std::string& body, const std::string& bearer, int timeout_ms = 10000) {
+    std::string url = worker + path;
+    if (key.empty()) return http(method, url, body, bearer, timeout_ms);
+    size_t sch = worker.find("://"), slash = sch == std::string::npos ? std::string::npos : worker.find('/', sch + 3);
+    std::string spath = (slash == std::string::npos ? "" : worker.substr(slash)) + path;
+    long t = (long)time(nullptr) + env_int("HULK_NET_SKEW", 0);
+    std::string nonce = random_hex(16);
+    std::string sig = hmac_hex(key.data(), key.size(), std::string("hulk-v1\n") + method + "\n" + spath + "\n" +
+                                                        std::to_string(t) + "\n" + nonce + "\n" + sha256_hex(body.data(), body.size()));
+    std::vector<std::string> h = {"X-Hulk-Time: " + std::to_string(t), "X-Hulk-Nonce: " + nonce, "X-Hulk-Sig: " + sig};
+    HttpReply r = http(method, url, body, bearer, timeout_ms, h);
+    static const char* test = getenv("HULK_NET_TEST");
+    if (test && !strcmp(test, "replay") && path == "/challenge") {
+        SAY("test: sending the same signed request again (HULK_NET_TEST=replay)");
+        r = http(method, url, body, bearer, timeout_ms, h);
+    }
+    return r;
+}
+HttpReply api(const char* method, const std::string& path, const std::string& body, const std::string& bearer = "",
+              int timeout_ms = 10000) {
+    return signed_http(S->worker, S->app_key, method, path, body, bearer, timeout_ms);
+}
+// why the lobby refused, for the Online Co-op row's status (short: "Co-op: " goes before it)
+std::string refusal(const HttpReply& r) {
+    if (!r.status) return "the lobby server did not answer (" + r.err + ")";
     Json j;
-    if (r.status != 200 && r.status != 429 && r.status != 502) {
-        SAY("the lobby server did not answer /ice (%d %s): host candidates only", r.status, r.err.c_str());
+    std::string code, err;
+    if (json_parse(r.body, j)) code = j["code"].s, err = j["error"].s;
+    if (code == "signature") return "the lobby refused this app (app key)";
+    if (code == "stale") return "this device's clock is wrong: set the time";
+    if (code == "replay") return "the lobby refused a repeated request";
+    if (code == "disc") return "the lobby could not confirm the game disc";
+    if (code == "rate") return "too many tries from this network: wait a while";
+    if (code == "nokey") return "the lobby server is not set up yet";
+    if (code == "daily") return "the lobby is full for today";
+    if (r.status == 404) return "no such room";
+    if (r.status == 409) return "the room is full";
+    return err.empty() ? "the lobby answered " + std::to_string(r.status) : err.substr(0, 60);
+}
+
+// the game's data folder (the disc: a folder, an .iso, a disc pack, Android's fd:N; run/disc.c names its files as a
+// folder's)
+std::string data_dir() {
+    std::string x = xbe_path();
+    size_t s = x.find_last_of('/');
+    return s == std::string::npos ? "." : x.substr(0, s);
+}
+// (wnet2) the disc challenge: the Worker names a spot of a disc file; the answer is HMAC-SHA256(SHA-256 of those bytes,
+// "hulk-disc-v1|" + challenge). PROOF: the "proof" member for create/join ("" when the Worker asks for none); false
+// with WHY on a refusal
+bool disc_proof(std::string& proof, std::string& why) {
+    proof.clear();
+    HttpReply r = api("POST", "/challenge", "{}");
+    Json j;
+    if (r.status != 200 || !json_parse(r.body, j)) {
+        why = refusal(r);
         return false;
     }
-    if (!json_parse(r.body, j)) return false;
+    if (!j["disc"].b) return true;
+    std::string file = j["file"].s, ch = j["challenge"].s;
+    uint64_t off = (uint64_t)j["offset"].n;
+    size_t len = (size_t)j["length"].n;
+    std::vector<uint8_t> b(std::min<size_t>(len, 1u << 20));
+    std::string path = data_dir() + "/" + file;
+    int fd = hdisc_open(path.c_str());
+    int64_t got = fd >= 0 ? hdisc_pread(fd, b.data(), b.size(), off) : -1;
+    if (fd >= 0) hdisc_close(fd);
+    if (got != (int64_t)b.size()) SAY("the disc challenge's %s @%llu: cannot read it", file.c_str(), (unsigned long long)off);
+    uint8_t h[32];
+    {
+        std::vector<uint8_t> hh = unhex(sha256_hex(b.data(), b.size()));
+        memcpy(h, hh.data(), 32);
+    }
+    std::string ans = hmac_hex(h, 32, "hulk-disc-v1|" + ch);
+    const char* test = getenv("HULK_NET_TEST");
+    if (test && !strcmp(test, "baddisc")) {
+        SAY("test: answering the disc challenge wrongly (HULK_NET_TEST=baddisc)");
+        ans[0] = ans[0] == '0' ? '1' : '0';
+    }
+    LOG(1, "disc challenge: %s @%llu (%zu bytes)", file.c_str(), (unsigned long long)off, len);
+    proof = "\"proof\":{\"challenge\":" + json_quote(ch) + ",\"answer\":" + json_quote(ans) + "}";
+    return true;
+}
+
+// ICE servers for this room's member (S->token); false with WHY when the lobby refused us
+bool fetch_ice(std::string& why) {
+    HttpReply r = api("POST", room_path("/ice"), "{}", S->token);
+    Json j;
+    if (r.status == 401 || r.status == 403 || r.status == 503) {
+        why = refusal(r);
+        return false;
+    }
+    if (r.status != 200 && r.status != 429 && r.status != 502) {
+        SAY("the lobby server did not give ICE servers (%d %s%s): host candidates only", r.status, r.err.c_str(),
+            r.body.c_str());
+        return true;
+    }
+    if (!json_parse(r.body, j)) return true;
     const Json& list = j["iceServers"];
     for (size_t i = 0; i < list.a.size(); i++) {
         const Json& s = list[i];
@@ -864,7 +1026,7 @@ void post_side(Peer* p) {
     }
     if (done) b += "\"gatheringDone\":true,";
     b.back() = '}';
-    HttpReply r = http("POST", room_url("/signal"), b, S->token);
+    HttpReply r = api("POST", room_path("/signal"), b, S->token);
     std::lock_guard<std::mutex> lk(S->mu);
     if (r.status == 200) {
         if (!desc.empty()) p->desc_posted = true;
@@ -894,17 +1056,32 @@ void apply_remote(Peer* p, const Json& side) {
 }
 
 void signal_host() {
-    std::string body = "{\"settings\":{\"build\":" + json_quote(build_id()) + ",\"proto\":" + std::to_string(kProto) + "}}";
-    HttpReply r = http("POST", S->worker + "/rooms", body, "");
+    std::string proof, why;
+    if (!disc_proof(proof, why)) {
+        fail("%s", why.c_str());
+        return;
+    }
+    std::string body = "{\"settings\":{\"build\":" + json_quote(build_id()) + ",\"proto\":" + std::to_string(kProto) + "}" +
+                       (proof.empty() ? "" : "," + proof) + "}";
+    HttpReply r = api("POST", "/rooms", body);
     Json j;
     if (r.status != 201 || !json_parse(r.body, j)) {
-        fail("could not make a room (%s)", r.status ? r.body.c_str() : r.err.c_str());
+        fail("%s", refusal(r).c_str());
         return;
     }
     {
         std::lock_guard<std::mutex> lk(S->mu);
         if (S->stopping) return;
-        S->code = j["code"].s, S->token = j["token"].s;
+        S->code = j["code"].s, S->token = j["token"].s, S->room_key = j["roomKey"].s;
+    }
+    if (!fetch_ice(why)) {
+        fail("%s", why.c_str());
+        api("DELETE", room_path(), "", S->token, 3000);
+        return;
+    }
+    {
+        std::lock_guard<std::mutex> lk(S->mu);
+        if (S->stopping) return;
         S->status = ST_HOSTING;
     }
     SAY("hosting room %s (up to %d players)", S->code.c_str(), j["maxPlayers"].i());
@@ -926,7 +1103,7 @@ void signal_host() {
         for (int k = 1; k <= kMaxGuests; k++)
             if (S->peers[k] && S->peers[k]->st != P_GONE) post_side(S->peers[k]);
         if (now_ms() >= next_poll) {
-            HttpReply pr = http("GET", room_url(), "", S->token);
+            HttpReply pr = api("GET", room_path(), "", S->token);
             next_poll = now_ms() + (connecting ? 700 : 6000);
             Json pj;
             if (pr.status == 200 && json_parse(pr.body, pj)) {
@@ -945,7 +1122,10 @@ void signal_host() {
                     if (p->gen == gen) apply_remote(p, g);
                 }
             } else if (pr.status == 404) {
-                SAY("the room has expired");
+                fail("the room has expired");
+                break;
+            } else if (pr.status == 401 || pr.status == 403) {
+                fail("%s", refusal(pr).c_str());
                 break;
             } else if (pr.status) {
                 LOG(1, "poll: %d %s", pr.status, pr.body.c_str());
@@ -967,20 +1147,34 @@ void signal_guest(std::string code) {
     S->code = code = c;
     HttpReply r;
     Json j;
+    std::string why;
     for (int tries = 0; tries < 3; tries++) {       // (a lost answer or a busy server: try again, briefly)
-        r = http("POST", room_url("/join"), "{}", "");
-        if (r.status == 200 || r.status == 409 || S->stopping) break;
+        std::string proof;                          // (a challenge answers one request: a new one each try)
+        if (!disc_proof(proof, why)) {
+            fail("could not join: %s", why.c_str());
+            return;
+        }
+        r = api("POST", room_path("/join"), "{" + proof + "}");
+        if ((r.status && r.status < 500) || S->stopping) break;
         LOG(0, "join %s: %d %s%s", code.c_str(), r.status, r.body.c_str(), r.err.c_str());
         std::this_thread::sleep_for(std::chrono::seconds(2));
     }
     if (r.status != 200 || !json_parse(r.body, j)) {
-        fail("could not join %s (%s)", code.c_str(), r.status == 404 ? "no such room" : r.status == 409 ? "the room is full"
-                                                     : r.status ? r.body.c_str() : r.err.c_str());
+        fail("could not join %s: %s", code.c_str(), refusal(r).c_str());
         return;
     }
-    S->token = j["token"].s;
+    S->token = j["token"].s, S->peer_key = j["peerKey"].s;
+    if (getenv("HULK_NET_TEST") && !strcmp(getenv("HULK_NET_TEST"), "badpeer")) {
+        SAY("test: a wrong peer key (HULK_NET_TEST=badpeer)");
+        S->peer_key = std::string(64, 'a');
+    }
     S->my_slot = j["slot"].i(), S->my_gen = j["gen"].i();
     SAY("joined room %s as player %d", code.c_str(), S->my_slot + 1);
+    if (!fetch_ice(why)) {
+        fail("%s", why.c_str());
+        api("POST", room_path("/leave"), "{}", S->token, 3000);
+        return;
+    }
     Peer* p;
     {
         std::lock_guard<std::mutex> lk(S->mu);
@@ -1000,13 +1194,13 @@ void signal_guest(std::string code) {
             }
         }
         post_side(p);
-        HttpReply pr = http("GET", room_url(), "", S->token);
+        HttpReply pr = api("GET", room_path(), "", S->token);
         Json pj;
         if (pr.status == 200 && json_parse(pr.body, pj)) {
             std::lock_guard<std::mutex> lk(S->mu);
             apply_remote(p, pj["peer"]);
-        } else if (pr.status == 404 || pr.status == 403) {
-            SAY("the room is gone (%d %s)", pr.status, pr.body.c_str());
+        } else if (pr.status == 404 || pr.status == 403 || pr.status == 401) {
+            if (S->status != ST_FAILED) fail("%s", pr.status == 401 ? refusal(pr).c_str() : "the room is gone");
             std::lock_guard<std::mutex> lk(S->mu);
             p->st = P_GONE;
             break;
@@ -1060,20 +1254,39 @@ void fail(const char* fmt, ...) {          // (S->mu held or not: only the statu
 }
 
 extern "C" const char* hulk_app_default_dir(void);     // start.cpp
-std::string worker_url() {
+// the lobby: HULK_NET_WORKER / HULK_NET_KEY, else <app dir>/coop.txt (the URL on its first line, "key=HEX" on another),
+// else what the build compiled in (tools/wasm_app.py from netplay.local.json; masked so it is no plain string)
+std::string baked(const unsigned char* m, size_t n) {
+    std::string out;
+    for (size_t i = 0; i + 1 < n; i++) out += (char)(m[i] ^ (uint8_t)(i * 131 + 71));
+    return out;
+}
+void net_config(std::string& url, std::vector<uint8_t>& key) {
     const char* w = getenv("HULK_NET_WORKER");
-    std::string u = w && *w ? w : "";
-    if (u.empty()) {                       // <app dir>/coop.txt: the lobby server's URL on its first line
-        const char* a = getenv("HULK_APP_DIR");
-        std::string dir = a && *a ? a : hulk_app_default_dir();
-        std::vector<uint8_t> t;
-        if (!dir.empty() && read_file(dir + "/coop.txt", t)) {
-            u.assign(t.begin(), t.end());
-            u = u.substr(0, u.find_first_of("\r\n"));
+    const char* k = getenv("HULK_NET_KEY");
+    url = w && *w ? w : "";
+    std::string ks = k && *k ? k : "", fu, fk;
+    const char* a = getenv("HULK_APP_DIR");
+    std::string dir = a && *a ? a : hulk_app_default_dir();
+    std::vector<uint8_t> t;
+    if (!dir.empty() && read_file(dir + "/coop.txt", t)) {
+        std::string all(t.begin(), t.end());
+        size_t at = 0;
+        while (at < all.size()) {
+            size_t e = all.find_first_of("\r\n", at);
+            std::string l = all.substr(at, e == std::string::npos ? std::string::npos : e - at);
+            at = e == std::string::npos ? all.size() : e + 1;
+            if (!l.compare(0, 4, "key=")) fk = l.substr(4);
+            else if (fu.empty() && !l.empty()) fu = l;
         }
     }
-    while (!u.empty() && (u.back() == '/' || u.back() == ' ')) u.pop_back();
-    return u;
+    if (url.empty()) url = fu;
+    if (url.empty()) url = baked(kNetBakedUrl, sizeof kNetBakedUrl);
+    if (ks.empty()) ks = fk;
+    if (ks.empty()) ks = baked(kNetBakedKey, sizeof kNetBakedKey);
+    while (!url.empty() && (url.back() == '/' || url.back() == ' ')) url.pop_back();
+    key = unhex(ks);
+    if (!ks.empty() && key.empty()) key.assign(ks.begin(), ks.end());    // (a key that is not hex: its bytes, as the Worker)
 }
 
 // once: the pump thread, the folder, the knobs
@@ -1118,7 +1331,9 @@ bool begin(Role role, std::string code) {
         return false;
     }
     if (S->signal_thread.joinable()) S->signal_thread.join();
-    std::string url = worker_url();
+    std::string url;
+    std::vector<uint8_t> key;
+    net_config(url, key);
     std::lock_guard<std::mutex> lk(S->mu);
     drop_all();
     S->role = role;
@@ -1126,20 +1341,30 @@ bool begin(Role role, std::string code) {
     S->stopping = false;
     S->desync = false;
     S->worker = url;
+    S->app_key = key;
+    S->room_key.clear(), S->peer_key.clear();
     if (S->worker.empty()) {
-        fail("no lobby server: set HULK_NET_WORKER or put its URL in coop.txt in the app folder");
+        fail("no lobby server: put its URL in coop.txt in the app folder");
         return false;
     }
     S->status = role == R_HOST ? ST_WORKING : ST_JOINING;
     S->turn.clear(), S->turn_str.clear(), S->stun_host.clear();
     S->signal_done = false;
     S->signal_thread = std::thread([role, code] {
-        fetch_ice();
         if (role == R_HOST) signal_host();
         else signal_guest(code);
         S->signal_done = true;
     });
     return true;
+}
+
+// a refused guest gives its slot back at once (S->mu held or not; the request runs on its own thread)
+void leave_room_async() {
+    if (S->role != R_GUEST || S->code.empty() || S->token.empty()) return;
+    std::string worker = S->worker, path = "/rooms/" + S->code + "/leave", token = S->token;
+    std::vector<uint8_t> key = S->app_key;
+    S->token.clear();
+    std::thread([worker, key, path, token] { signed_http(worker, key, "POST", path, "{}", token, 3000); }).detach();
 }
 
 // the player turned co-op off (or the host did, for everyone): leave the room or end it
@@ -1159,10 +1384,11 @@ void stop() {
         S->status = ST_IDLE;
     }
     if (!code.empty() && !token.empty()) {
-        std::string url = S->worker + "/rooms/" + code;
-        std::thread([url, token, role] {
-            if (role == R_HOST) http("DELETE", url, "", token, 3000);
-            else http("POST", url + "/leave", "{}", token, 3000);
+        std::string worker = S->worker, path = "/rooms/" + code;
+        std::vector<uint8_t> key = S->app_key;
+        std::thread([worker, key, path, token, role] {
+            if (role == R_HOST) signed_http(worker, key, "DELETE", path, "", token, 3000);
+            else signed_http(worker, key, "POST", path + "/leave", "{}", token, 3000);
         }).detach();
     }
 }
@@ -1486,9 +1712,9 @@ extern "C" void hulk_coop_quit(void) {
         S->quitting = true;
     }
     if (S->role == R_HOST && !S->code.empty() && !S->token.empty())
-        http("DELETE", room_url(), "", S->token, 2000);
+        api("DELETE", room_path(), "", S->token, 2000);
     else if (S->role == R_GUEST && !S->code.empty() && !S->token.empty())
-        http("POST", room_url("/leave"), "{}", S->token, 2000);
+        api("POST", room_path("/leave"), "{}", S->token, 2000);
     if (!S->dir.empty()) remove_tree(S->dir);
     if (S->pump_thread.joinable()) S->pump_thread.join();
     if (S->signal_thread.joinable()) S->signal_thread.detach();

@@ -2,7 +2,10 @@
  * §17 "What was built"; HULK_WASM_GFX=1 builds only).
  *
  * With dev_coop_local = N (2 or 3) the game runs N Hulks: the main actor (P0, pad port 0) and N-1 more (P1, P2) the
- * game's own actor spawner makes from the Hulk template, each driven by its own pad port (1, 2). Every instance of a
+ * game's own actor spawner makes from the Hulk template, each driven by its own pad port (1, 2). In an online session
+ * (wnet2) the Hulks follow the players: Hulk k exists while slot k is in the session's set (netplay.c hulk_net_mask:
+ * game state, the same on every peer at every update), so a guest's Hulk is made after he joins and removed (the
+ * game's KillActorByName 0x0002b830) when he leaves; a host alone has none. dev_coop_local stays the developer knob. Every instance of a
  * session simulates every Hulk; which one this instance's picture follows (the local view) is host state that never
  * reaches the simulation. No network here: lane wnet1 puts a remote player's pad in SIM->pads[k] (input.c serves it
  * as XInput port k) and calls hulk_wasm_coop_set_local_view(k).
@@ -88,6 +91,7 @@
 #define FN_SIMCTL_CTOR 0x000b3b80u      /* CSimController(source) */
 #define FN_SIMCTL_UPDATE 0x000b3bc0u    /* CSimController update (arg) */
 #define FN_SIMCTL_RESET 0x000b3b50u     /* CSimController reset (1) */
+#define FN_KILL_BY_NAME 0x0002b830u     /* CActorManager: KillActorByName (name): removes the actor (am_KillActorByName) */
 #define CH_VELOCITY 0x80
 #define CH_HEALTH 0x1b0c
 #define CH_SLOT 0x20a8
@@ -99,6 +103,17 @@
 #define FLAG_4E222C 0x004e222cu         /* input held off after a menu (0x000ae130 clears it) */
 
 static int g_n = 1;                     /* the setting: Hulks in the session (1: off) */
+uint32_t hulk_net_mask(void);           /* netplay.c: the online session's players (bit k: slot k), 0 without one */
+/* (wnet2) Hulk k is wanted: the developer setting's, or slot k is in the online session */
+static int want(int k) { return k == 0 || k < g_n || (hulk_net_mask() >> k & 1); }
+/* the Hulks the hooks look at: 1 + the highest wanted extra (1: every hook passes straight through) */
+static int coop_n(void) {
+    uint32_t m = hulk_net_mask() & ((1u << MAXP) - 1);
+    int n = g_n;
+    for (int k = 1; k < MAXP; k++)
+        if (m >> k & 1 && k + 1 > n) n = k + 1;
+    return n;
+}
 static int g_view;                      /* the local view (host state, never game state) */
 static int log_level(void) {
     static int l = -1;
@@ -140,7 +155,7 @@ void hulk_wasm_coop_apply(int value) {
         if (v && *v) g_view = atoi(v);
     }
 }
-int hulk_wasm_coop_players(void) { return g_n; }
+int hulk_wasm_coop_players(void) { return coop_n(); }
 /* wnet1: which Hulk this instance's camera follows (0: the host's, the main actor) */
 void hulk_wasm_coop_set_local_view(int k) { g_view = k; }
 int hulk_wasm_coop_local_view(void) { return g_view; }
@@ -150,7 +165,7 @@ uint32_t hulk_wasm_coop_player(int k) {
         uint32_t w = *(uint32_t*)PTR(WORLD_PTR), am = w ? *(uint32_t*)PTR(w + 0x20) : 0;
         return am ? *(uint32_t*)PTR(am + 0x124) : 0;
     }
-    return k > 0 && k < g_n && !g_co.p[k].down ? g_co.p[k].ch : 0;
+    return k > 0 && k < coop_n() && want(k) && !g_co.p[k].down ? g_co.p[k].ch : 0;
 }
 
 static uint32_t rd(uint32_t a) { return a ? *(uint32_t*)PTR(a) : 0; }
@@ -203,7 +218,8 @@ static int ours_cc(uint32_t c) {
 }
 /* CController sum (0x000ae130): the main one sums port 0 only, ours each sum their own port */
 void ffh_hulk_app_coop_accum(uint32_t ecx, uint32_t edx, void* st, void* rb) {
-    if (g_n < 2 || ours_cc(ecx) || rd(ecx + 0x10) != 4) {
+    int n = coop_n();
+    if (n < 2 || ours_cc(ecx) || rd(ecx + 0x10) != 4) {
         ffgo_000ae130(ecx, edx, st, rb);
         return;
     }
@@ -213,7 +229,7 @@ void ffh_hulk_app_coop_accum(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     *(uint32_t*)PTR(ecx + 0x10) = 4;
     uint8_t flag1 = *(uint8_t*)PTR(FLAG_4E222C);
     uint32_t items = rd(ecx + 0x14);
-    for (int k = 1; k < g_n; k++) {
+    for (int k = 1; k < n; k++) {
         uint32_t c = A(g_co.cc[k]);
         if (!rd(c)) {                                           /* built once: the game's vftable, one item */
             memcpy(PTR(c), PTR(ecx), CC_SIZE);
@@ -242,9 +258,10 @@ void ffh_hulk_app_coop_accum(uint32_t ecx, uint32_t edx, void* st, void* rb) {
 /* the sim controllers' update (0x000b3d80, UpdateSimulation): ours after the original's */
 void ffh_hulk_app_coop_simctl(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     ffgo_000b3d80(ecx, edx, st, rb);
-    if (g_n < 2 || !ecx) return;
+    int n = coop_n();
+    if (n < 2 || !ecx) return;
     uint32_t arg = ARG(0);
-    for (int k = 1; k < g_n; k++) {
+    for (int k = 1; k < n; k++) {
         uint32_t c = A(g_co.cc[k]), s = A(g_co.sc[k]);
         if (!rd(c)) continue;                                   /* (the CController sum has not run yet) */
         if (!rd(s)) {
@@ -261,7 +278,8 @@ void ffh_hulk_app_coop_simctl(uint32_t ecx, uint32_t edx, void* st, void* rb) {
 /* the sim controller list (0x000b3d20): index k answers player k's */
 void ffh_hulk_app_coop_simget(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     int32_t i = (int32_t)ARG(0);
-    if (g_n >= 2 && i >= 1 && i < g_n && rd(A(g_co.sc[i]))) {
+    int n = coop_n();
+    if (n >= 2 && i >= 1 && i < n && rd(A(g_co.sc[i]))) {
         RET(A(g_co.sc[i]));
         return;
     }
@@ -296,11 +314,11 @@ static int player_camera(int k, float out[16], int pos) {
  * character the logic view's matrix is his camera's while it runs */
 void ffgo_000fd0f0(uint32_t, uint32_t, void*, void*);
 void hulk_wasm_coop_ctrl_agent(uint32_t ecx, uint32_t edx, void* st, void* rb) {
-    int k = 0;
-    if (g_n >= 2) {
+    int k = 0, n = coop_n();
+    if (n >= 2) {
         uint32_t obj = rd(ecx + 0x58);
         uint32_t ch = obj ? ff_call_this(rd(rd(obj) + 6 * 4), obj, 0) : 0;
-        for (int j = 1; j < g_n; j++)
+        for (int j = 1; j < n; j++)
             if (ch && ch == g_co.p[j].ch && !g_co.p[j].down) k = j;
     }
     float cam[16], keep[16];
@@ -326,7 +344,8 @@ void hulk_wasm_coop_ctrl_agent(uint32_t ecx, uint32_t edx, void* st, void* rb) {
 void ffgo_001245b0(uint32_t, uint32_t, void*, void*);
 void ffh_hulk_app_coop_acquire(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     uint32_t am = actor_mgr(), mainch = am ? rd(am + 0x124) : 0, owner = ARG(1);
-    if (g_n < 2 || !mainch || !owner) {
+    int n = coop_n();
+    if (n < 2 || !mainch || !owner) {
         ffgo_001245b0(ecx, edx, st, rb);
         return;
     }
@@ -334,11 +353,11 @@ void ffh_hulk_app_coop_acquire(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     uint32_t best = mainch;
     float ps[3], q[3];
     int is_player = self == mainch;
-    for (int k = 1; k < g_n; k++)
+    for (int k = 1; k < n; k++)
         if (self && self == g_co.p[k].ch) is_player = 1;
     if (self && !is_player && !rd(self + 0x328) && actor_pos(self, ps)) {
         float bd = 1e30f;
-        for (int k = 0; k < g_n; k++) {
+        for (int k = 0; k < n; k++) {
             uint32_t ch = k ? (g_co.p[k].down ? 0 : g_co.p[k].ch) : mainch;
             if (!ch || rd(ch + CH_LIFE) != 0 || !actor_pos(ch, q)) continue;
             float dx = q[0] - ps[0], dy = q[1] - ps[1], dz = q[2] - ps[2], d = dx * dx + dy * dy + dz * dz;
@@ -411,6 +430,17 @@ static void put_back(int k, uint32_t ch, const char* why) {
         fprintf(stderr, "hulk: coop: frame %u: player %d put back (%s)\n", SIM->frame, k, why);
 }
 
+/* (wnet2) Hulk k's player has left the session: the game removes his actor (as a script's am_KillActorByName) */
+static void remove_player(int k) {
+    player* p = &g_co.p[k];
+    if (p->ch && find_actor(name_of(k)) == p->ch) {
+        uint32_t am = actor_mgr();
+        if (am) ff_call_this(FN_KILL_BY_NAME, am, 1, A(name_of(k)));
+        if (log_level()) fprintf(stderr, "hulk: coop: frame %u: player %d removed (left the session)\n", SIM->frame, k);
+    }
+    p->ch = 0, p->down = 0, p->spawned = 0;
+}
+
 static void update_camera(int k, uint32_t ch, float dt) {
     player* p = &g_co.p[k];
     uint32_t in = ch + CH_INPUT + IN_STICK1;
@@ -447,8 +477,13 @@ static void players_update(float dt) {
     g_co.settle = in_play ? g_co.settle + 1 : 0;
     float p0[3];
     int have0 = actor_pos(mainch, p0);
-    for (int k = 1; k < g_n; k++) {
+    int n = coop_n();
+    for (int k = 1; k < n; k++) {
         player* p = &g_co.p[k];
+        if (!want(k)) {                                         /* (wnet2) his player left the session: no Hulk */
+            remove_player(k);
+            continue;
+        }
         if (p->ch && !p->down) {
             uint32_t found = find_actor(name_of(k));
             if (found != p->ch || rd(p->ch + CH_LIFE) != 0) {   /* dead, removed */
@@ -502,14 +537,18 @@ static void view_apply(void) {
     g_co.view_on = 1;
     int k = g_view;
     float cam[16];
-    if (k <= 0 || k >= g_n || !g_co.p[k].ch || g_co.p[k].down || !game_camera() || !player_camera(k, cam, 1)) return;
+    if (k <= 0 || k >= coop_n() || !want(k) || !g_co.p[k].ch || g_co.p[k].down || !game_camera() || !player_camera(k, cam, 1)) return;
     memcpy(PTR(v + LV_MATRIX), cam, 64);
     *(uint8_t*)PTR(v + LV_STALE) = 0;
 }
 
 void hulk_wasm_coop_pre_update(void) { hulk_wasm_coop_view_restore(); }
 void hulk_wasm_coop_update(int kind, float dt) {
-    if (g_n < 2) return;
+    if (coop_n() < 2) {                                         /* (the last guest left: his Hulk goes too) */
+        for (int k = 1; k < MAXP; k++)
+            if (g_co.p[k].ch && kind != 6 && kind != 7) remove_player(k);
+        return;
+    }
     int advance = kind != 6 && kind != 7;
     if (advance && dt > 0 && dt < 1) g_co.clock += dt;
     if (advance) players_update(dt > 0 && dt < 1 ? dt : 0);

@@ -17,16 +17,15 @@
 static uint8_t g_mem[1 << 20];
 extern "C" uint8_t* hulk_run_memory(void) { return g_mem; }
 extern "C" void hulk_coop_quit(void);
-// run/disc.c's readers, as plain files (the toy has no disc images)
+// run/disc.c's readers, as plain files (the toy has no disc images; wnet2's disc challenge reads a test folder)
 extern "C" int hdisc_open(const char* path) {
     FILE* f = fopen(path, "rb");
     if (!f) return -1;
-    fclose(f);
-    return 1000;    // (the toy never reads it: no XBE, every peer's identity alike)
+    return fileno(f);       // (never closed by fclose: hdisc_close closes the descriptor)
 }
-extern "C" int64_t hdisc_pread(int, void*, size_t, uint64_t) { return 0; }
-extern "C" uint64_t hdisc_size(int) { return 0; }
-extern "C" void hdisc_close(int) {}
+extern "C" int64_t hdisc_pread(int fd, void* p, size_t n, uint64_t off) { return pread(fd, p, n, (off_t)off); }
+extern "C" uint64_t hdisc_size(int) { return 0; }   // (the XBE hash: every peer's identity alike)
+extern "C" void hdisc_close(int fd) { close(fd); }
 extern "C" const char* hulk_app_default_dir(void) { return ""; }     // (start.cpp's, in the app)
 
 enum : u32 { A_LOCAL = 0x100, A_SET = 0x200, A_PATH = 0x1000, A_SAVE = 0x2000, A_SETTINGS = 0x3000, A_PAD = 0x4000 };

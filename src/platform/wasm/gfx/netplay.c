@@ -4,8 +4,8 @@
  * Lockstep keyed by presented frames: every peer runs the whole game, and at each frame end the pads in effect for the
  * next frame are the session's set for it, the same on every peer (the runner waits for it: the host's pad and each
  * guest's, sent a few frames ahead; see ff_coop_frame_end): every poll within a frame reads the same pads. Slot k's pad (the host 0, the guests 1 and 2)
- * goes into SIM->pads[k], where the co-op Hulks read it (coop.c, wcoop1: dev_coop_local Hulks, pad port k drives Hulk
- * k); a peer's own controller is its pad 0 locally (the runner's, or HULK_INPUT's) and its slot's pad in the session.
+ * goes into SIM->pads[k], where the co-op Hulks read it (coop.c, wcoop1: pad port k drives Hulk k; wnet2: Hulk k
+ * exists while slot k is in the session's mask, hulk_net_mask, so hosting needs no developer setting); a peer's own controller is its pad 0 locally (the runner's, or HULK_INPUT's) and its slot's pad in the session.
  * Each guest's picture follows its own Hulk (hulk_wasm_coop_set_local_view: host state, never sent).
  *
  * A guest joins mid-game: at a frame end (every fiber suspended) the host writes its state (sched.c ff_snap_write, the
@@ -163,8 +163,10 @@ int ff_coop_frame_end(void) {
             session_end(f);                     /* (this peer plays on alone) */
         }
     }
-    if (G.active)
+    if (G.active) {
         for (int k = 0; k < 3; k++) memcpy(SIM->pads[k], G.pads[k], 18);
+        SIM->pads_in |= G.mask & 7u;            /* (wnet2: a guest's pad port; coop.c gives him a Hulk) */
+    }
     return g_cmd == 1 || g_cmd == 2;
 }
 
@@ -209,15 +211,30 @@ void ff_coop_switch(void) {
 /* GameClock::Update's entry (replay.cpp), on the game's stack: the session's digest of the simulation (the replay
  * probe's tags: the frame ends report the latest), and the Online Co-op row's label (game code: the menu's) */
 uint64_t ff_probe_digest(uint32_t clock);       /* replay.cpp */
+static void coop_label(void) {
+    static char t[96], shown[96];
+    hulk_wasm_net_status(t, sizeof t);
+    hulk_wasm_net_label(t);
+    if (strcmp(t, shown)) {                     /* (tests read the row's text from the log: HULK_COOP_LOG) */
+        memcpy(shown, t, sizeof shown);
+        if (t[0] && getenv("HULK_COOP_LOG") && atoi(getenv("HULK_COOP_LOG")) > 0)
+            fprintf(stderr, "hulk: co-op: status row: %s\n", t);
+    }
+}
 void ff_coop_update(uint32_t clock) {
     if (ff_replay_active()) return;
     if (G.active) {
         G.digest = ff_probe_digest(clock) ^ (uint64_t)ff_replay_frame() << 40;
         G.digest_frame = SIM->frame;
     }
-    static char t[96];
-    hulk_wasm_net_status(t, sizeof t);
-    hulk_wasm_net_label(t);
+    coop_label();
+}
+/* each frame's end on the game's stack (sched.c ff_frame_checkpoint, at the present), while no session runs: the
+ * row's text follows this peer's own state also where no update runs (the pause menu, the front end), so a refusal
+ * shows at once (wnet2). In a session only GameClock::Update sets it (the same update on every peer). */
+void ff_coop_frame_label(void) {
+    if (ff_replay_active() || G.active) return;
+    coop_label();
 }
 
 /* ------------------------------------------------------------------------------------------- the menu

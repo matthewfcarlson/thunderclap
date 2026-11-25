@@ -645,6 +645,8 @@ def submit_job(a, spec, ov, slots, limit, label):
     ov.update({"wbrun/spec.json": tf.name, "wbrun/wasm_build_run.py": os.path.join(ROOT, "tools/wasm_build_run.py")})
     store = {dest: [jobq.store_file(p), os.stat(p).st_mode & 0o777] for dest, p in ov.items()}
     os.unlink(tf.name)
+    if "wbrun/netplay.json" in ov:
+        os.unlink(ov["wbrun/netplay.json"])     # (netplay_ship's private copy: the store holds the job's)
     if a.host and a.host not in wasm_hosts():
         sys.exit("%s has no `wasm` capability (hosts.json; wasm hosts: %s)" % (a.host, ", ".join(wasm_hosts())))
     # a job with a Metal test needs a host's GPU (`gpu`: mac2 and studio, which are wasm hosts too); the daemon runs at
@@ -704,10 +706,36 @@ def cmd_submit(a):
     ov = dict(files)
     if tgz:
         ov["wbrun/wasm-in.tgz"] = tgz
+    np = netplay_ship(a)
+    if np:
+        ov["wbrun/netplay.json"] = np
     a.exe = None
     limit = a.limit or (5400 if tgz is None else 3600) + (len(a.test or []) * (2 if a.control else 1) * a.test_timeout)
     return submit_job(a, spec, ov, a.slots, limit, "wasm %s build at %s: %d overlay files, %d deletions, inputs %s, "
                       "lineage %s, %d slots" % (a.target, commit[:12], len(files), len(dele), note, lineage, a.slots))
+
+
+def netplay_ship(a):
+    """(wnet2) the lobby's address and app key for the build: --netplay FILE (default the checkout's netplay.local.json,
+    when it exists; `none`: nothing), as a private temporary copy holding only worker_url and app_key (the disc spot
+    table never leaves the laptop). It travels as the job file wbrun/netplay.json, like the spec: never committed."""
+    import wasm_app
+    src = a.netplay or wasm_app.netplay_config_path()
+    if a.netplay == "none" or not os.path.exists(src):
+        if a.netplay and a.netplay != "none":
+            sys.exit("--netplay %s: no such file" % a.netplay)
+        print("netplay: no lobby address or app key compiled in", file=sys.stderr)
+        return None
+    try:
+        cfg = json.load(open(src))
+    except ValueError as e:
+        sys.exit("%s: not JSON (%s)" % (src, e))
+    keep = {k: cfg[k] for k in ("worker_url", "app_key") if cfg.get(k)}
+    fd, tmp = tempfile.mkstemp(suffix=".json", prefix="netplay-")
+    with os.fdopen(fd, "w") as f:
+        json.dump(keep, f)
+    print("netplay: %s from %s compiled in" % (" and ".join(sorted(keep)) or "nothing", src), file=sys.stderr)
+    return tmp
 
 
 def cmd_test(a):
@@ -809,6 +837,8 @@ def main():
     p.add_argument("--keep-wasm", action="store_true", help="also return hulk.wasm")
     p.add_argument("--macos-min", default="11.0", help="MACOSX_DEPLOYMENT_TARGET of the executables")
     p.add_argument("--control", help="tests: also run this executable (path or wasm job id) and compare")
+    p.add_argument("--netplay", help="the lobby's address and app key to compile in: a netplay.local.json (default the "
+                                     "checkout's, when it exists) or `none` (wnet2)")
 
     def test_opts(q):
         q.add_argument("--test", action="append", help="[NAME=]play3:FRAMES | rolltest:A:B | input:FRAMES[:EVERY] | "

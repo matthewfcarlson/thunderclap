@@ -6,6 +6,12 @@
 //   npx wrangler secret put TURN_KEY_ID           the TURN key's id
 //   npx wrangler secret put TURN_KEY_API_TOKEN    the TURN key's API token
 // Without them the Worker still runs and hands out Cloudflare's free STUN server only.
+//
+// The handshake's secrets (wnet2; docs/multiplayer.md 18.1), made by tools/netplay_keys.py into the untracked
+// netplay.local.json and piped from it (never typed, never in a file here), from the checkout's root:
+//   build/venv/bin/python tools/netplay_keys.py secret APP_KEY | (cd net/worker && npx wrangler secret put APP_KEY)
+//   build/venv/bin/python tools/netplay_keys.py secret DISC_SPOTS | (cd net/worker && npx wrangler secret put DISC_SPOTS)
+// Without APP_KEY every request but GET / is refused (503); without DISC_SPOTS no disc proof is asked for.
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "hulk-netplay",
@@ -28,6 +34,12 @@
     "ROOM_TTL_S": "7200",          // any room ends 2 hours after creation
     "ROOM_REQUEST_CAP": "1500",    // requests one room answers in its life (all players; 2 h of 10 s polls)
     "ROOM_MAX_PLAYERS": "3",       // the host and two guests (D246; 2..4)
-    "ICE_UDP_PORTS": "3478,443"    // STUN/TURN ports handed to the game (UDP only; 53 left out)
+    "ICE_UDP_PORTS": "3478,443",   // STUN/TURN ports handed to the game (UDP only; 53 left out)
+    "ICE_PER_ROOM": "8",           // ICE credentials one room may ask for (its members only)
+    "CHALLENGE_TTL_S": "120",      // a disc challenge's life
+    "IP_CHALLENGES_PER_10MIN": "40",   // per-IP limits (CF-Connecting-IP)
+    "IP_JOINS_PER_10MIN": "30",
+    "IP_ROOMS_PER_HOUR": "12",
+    "IP_ICE_PER_HOUR": "30"
   }
 }

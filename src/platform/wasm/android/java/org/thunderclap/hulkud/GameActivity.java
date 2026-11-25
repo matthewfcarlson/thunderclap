@@ -81,8 +81,9 @@ public class GameActivity extends SDLActivity {
     }
 
     // Online co-op's HTTP (wnet1; run/app/netplay_util.cpp android_http): the lobby server is https, and Android has no
-    // libcurl. Called from the runner's own threads; answers "STATUS\n" + body, or "0\n" + the error.
-    public static String hulkHttp(String method, String url, String body, String bearer, int timeoutMs) {
+    // libcurl. Called from the runner's own threads; answers "STATUS\n" + body, or "0\n" + the error. HEADERS: lines
+    // "Name: value\n" (wnet2: the bearer token and the request's signature).
+    public static String hulkHttp(String method, String url, String body, String headers, int timeoutMs) {
         java.net.HttpURLConnection c = null;
         try {
             c = (java.net.HttpURLConnection) new java.net.URL(url).openConnection();
@@ -90,8 +91,12 @@ public class GameActivity extends SDLActivity {
             c.setReadTimeout(timeoutMs);
             c.setRequestMethod(method);
             c.setRequestProperty("Content-Type", "application/json");
-            if (bearer != null && !bearer.isEmpty())
-                c.setRequestProperty("Authorization", "Bearer " + bearer);
+            if (headers != null)
+                for (String line : headers.split("\n")) {
+                    int colon = line.indexOf(": ");
+                    if (colon > 0)
+                        c.setRequestProperty(line.substring(0, colon), line.substring(colon + 2));
+                }
             if (!method.equals("GET") && !method.equals("DELETE")) {
                 c.setDoOutput(true);
                 byte[] b = body.getBytes(java.nio.charset.StandardCharsets.UTF_8);

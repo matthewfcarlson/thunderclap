@@ -1,10 +1,15 @@
 // The netplay Worker on a local port, in plain node (no wrangler, no network): for the game's co-op tests.
 //   node net/worker/test/local_server.mjs [--port 8787] [--turn turn:127.0.0.1:3479 --user U --pass P] [--log]
+//        [--config netplay.local.json] [--key HEX] [--spots FILE] [--unsigned]
+// The handshake (wnet2) runs as deployed: the app key and the disc spot table come from --config (a netplay.local.json:
+// app_key, disc_spots; tools/netplay_keys.py), or --key / --spots (a JSON array); --unsigned serves unsigned requests
+// (ALLOW_UNSIGNED=1) when no key is given. CF-Connecting-IP is the socket's address, as Cloudflare sets it.
 // Durable Objects are the in-memory stubs of worker_test.mjs (state lives in this process only). /ice answers
 // with the given TURN server (a local relay, e.g. the runner's `HULK_COOP_TURN_SERVER` test relay) or, without
 // --turn, with no servers at all (host candidates only: loopback and LAN). Prints "listening <port>" when ready.
 import http from "node:http";
-import worker, { Room, Quota } from "../src/index.js";
+import fs from "node:fs";
+import worker, { Room, Quota, hooks } from "../src/index.js";
 
 if (!globalThis.crypto) globalThis.crypto = (await import("node:crypto")).webcrypto;
 
@@ -45,6 +50,24 @@ function namespace(Cls, env) {
   };
 }
 const env = { ROOM_REQUEST_CAP: "100000", ROOM_DAILY_CAP: "100000" };
+{
+  const cfgPath = opt("--config", null);
+  const cfg = cfgPath ? JSON.parse(fs.readFileSync(cfgPath, "utf8")) : {};
+  const key = opt("--key", cfg.app_key || "");
+  const spots = opt("--spots", null);
+  if (key) env.APP_KEY = key;
+  else if (args.includes("--unsigned")) env.ALLOW_UNSIGNED = "1";
+  if (spots) env.DISC_SPOTS = fs.readFileSync(spots, "utf8");
+  else if (cfg.disc_spots) env.DISC_SPOTS = JSON.stringify(cfg.disc_spots);
+  console.log(`handshake: app key ${env.APP_KEY ? "on" : env.ALLOW_UNSIGNED ? "off (unsigned)" : "MISSING (every request 503)"}, ` +
+              `disc check ${env.DISC_SPOTS ? "on" : "off"}`);
+}
+// ICE: the given TURN server (a local relay) or none (host candidates only); the room and IP checks run as deployed
+hooks.iceServers = async () => {
+  const servers = turn ? [{ urls: [turn], username: opt("--user", "hulk"), credential: opt("--pass", "hulk") }] : [];
+  return new Response(JSON.stringify({ iceServers: servers, ttl: 3600, turn: !!turn, note: "local test server" }),
+                      { status: 200, headers: { "Content-Type": "application/json" } });
+};
 env.ROOMS = namespace(Room, env);
 env.QUOTA = namespace(Quota, env);
 
@@ -53,16 +76,12 @@ const server = http.createServer(async (req, res) => {
   for await (const c of req) chunks.push(c);
   const body = Buffer.concat(chunks);
   const url = `http://127.0.0.1:${port}${req.url}`;
-  let r;
-  if (/^\/(ice|turn)\/?$/.test(req.url) && req.method === "POST") {
-    const servers = turn ? [{ urls: [turn], username: opt("--user", "hulk"), credential: opt("--pass", "hulk") }] : [];
-    r = new Response(JSON.stringify({ iceServers: servers, ttl: 3600, turn: !!turn, note: "local test server" }),
-                     { status: 200, headers: { "Content-Type": "application/json" } });
-  } else {
-    r = await worker.fetch(new Request(url, {
-      method: req.method, headers: req.headers, body: ["GET", "HEAD"].includes(req.method) ? undefined : body,
-    }), env);
-  }
+  const headers = new Headers();
+  for (const [k, v] of Object.entries(req.headers)) if (k.toLowerCase() !== "cf-connecting-ip") headers.set(k, v);
+  headers.set("CF-Connecting-IP", req.socket.remoteAddress || "unknown");
+  const r = await worker.fetch(new Request(url, {
+    method: req.method, headers, body: ["GET", "HEAD"].includes(req.method) ? undefined : body,
+  }), env);
   const out = Buffer.from(await r.arrayBuffer());
   if (log) console.log(`${new Date().toISOString()} ${req.method} ${req.url} ${r.status} ${(req.headers.authorization || "").slice(7, 13)} ${req.socket.remotePort}${r.status >= 400 ? " " + out : ""}`);
   res.writeHead(r.status, { "Content-Type": "application/json", "Content-Length": out.length });

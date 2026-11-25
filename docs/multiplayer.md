@@ -286,9 +286,11 @@ generation (`gen`) so the host's posts for an earlier guest never reach the new 
 
 | route | request | response |
 |---|---|---|
-| `POST /ice` (alias `/turn`) | none | `{iceServers:[{urls, username?, credential?}], ttl, turn, note?}`: only `stun:` and UDP `turn:` URLs on the ports in `ICE_UDP_PORTS` (3478, 443); `turns:`, `transport=tcp` and port 53 are dropped. Without the secrets: STUN only (`turn:false`). If the API fails: 502 with the STUN list. Past the daily cap: 429 with the STUN list and no API call |
-| `POST /rooms` | `{settings?}` (opaque JSON up to 4 KB: build identity, section 5) | 201 `{code, token, role:"host", slot:0, maxPlayers, expiresAt}`; the code is 6 characters from an unambiguous 29-character alphabet |
-| `POST /rooms/<code>/join` | none | `{token, role:"guest", slot, gen, maxPlayers, settings, expiresAt}`: the lowest free slot; 409 when full, 404 when missing or expired |
+| `GET /` | none, unsigned | `{service, ok, auth, disc}` (a health check: whether the app key and the spot table are set) |
+| `POST /challenge` | none | `{disc:true, challenge, file, offset, length, expiresAt}` (one spot at random, a one-time token valid 2 min), or `{disc:false}` without `DISC_SPOTS` (wnet2, 18.1) |
+| `POST /rooms` | `{settings?, proof?}` (settings: opaque JSON up to 4 KB, section 5; proof: `{challenge, answer}`) | 201 `{code, token, roomKey, role:"host", slot:0, maxPlayers, expiresAt}`; the code is 8 digits |
+| `POST /rooms/<code>/join` | `{proof?}` | `{token, peerKey, role:"guest", slot, gen, maxPlayers, settings, expiresAt}`: the lowest free slot; 409 when full, 404 when missing or expired |
+| `POST /rooms/<code>/ice` | a member's bearer token | `{iceServers:[{urls, username?, credential?}], ttl, turn, note?}`: only `stun:` and UDP `turn:` URLs on the ports in `ICE_UDP_PORTS` (3478, 443); `turns:`, `transport=tcp` and port 53 are dropped. Without the TURN secrets: STUN only (`turn:false`). If the API fails: 502 with the STUN list. Past the daily cap: 429 with the STUN list and no API call. `ICE_PER_ROOM` (8) a room. The old `POST /ice` answers 410 |
 | `POST /rooms/<code>/settings` | `{settings}` | host only |
 | `POST /rooms/<code>/signal` | host: `{to:<slot>, gen?, description?, candidates?, gatheringDone?}`; guest: the same without `to`/`gen` (it signals the host only) | `{ok:true}`; 409 for a slot with no guest or a stale `gen` |
 | `GET /rooms/<code>` | none | host: `{role, slot:0, settings, guests:[{slot, gen, description, candidates, gatheringDone}], free, expiresAt}`; guest: `{role, slot, gen, settings, peer:{description, candidates, gatheringDone}, expiresAt}` (the host's agent for that guest) |
@@ -313,18 +315,18 @@ generation (`gen`) so the host's posts for an earlier guest never reach the new 
     libjuice's `juice_config_t`.
   - `HULK_NET_WORKER` names the Worker.
 - **Tests:**
-  - `node net/worker/test/worker_test.mjs` uses an in-memory Durable Object stub and a mocked Cloudflare API: 103
-    checks pass (wnet1: three-player rooms, slots, generations, leaving and rejoining).
+  - `node net/worker/test/worker_test.mjs` uses an in-memory Durable Object stub and a mocked Cloudflare API: 142
+    checks pass (wnet1: three-player rooms, slots, generations, leaving and rejoining; wnet2: the handshake).
   - `node net/worker/test/local_server.mjs --port P [--turn URL --user U --pass P]` serves the Worker on a local port
     with the same stubs (no wrangler): the game's co-op tests use it as their lobby.
   - `tests/net/ice_config_test.cpp` is built with `-DHULK_ICE_NO_FETCH` and needs no SDL: 37 checks pass. It also
     passes under ASan and UBSan.
   - An end-to-end fetch against a local mock server worked on the laptop.
-- **Left out:** the other project gates `/turn` behind a proof of disc ownership (hashes of random pieces of the
-  player's disc, checked against a table made at deploy time) and per-IP rate limits. Both are open questions
-  (section 15).
+- **Who may use it** (wnet2): every request but `GET /` is signed with the app key; rooms are made and joined only
+  with a proof of disc ownership; per-IP limits; ICE credentials only for a room's members; peers authenticate each
+  other (section 18.1).
 
-**Deploy (the user):**
+**Deploy (the user):** the current steps, with the handshake's secrets, are section 18.1's. The first version's:
 
 1. Install and log in: `cd net/worker && npm install`, then `npx wrangler login`. The only dependency is wrangler, a
    dev dependency.
@@ -1164,10 +1166,21 @@ saves is kept).
 Co-op": Off, Host a Game, Join a Game. While co-op is on, the Online Co-op row's label shows the status: "Co-op: room
 1234 5678, waiting for players" / "..., 2 players" / "joining ..." / why it failed. In a session the label is set at
 the same update on every peer from what they all know (the code, how many play), so the menus stay equal. Launch
-options do the same: `--host`, `--join 12345678` (HULK_COOP_HOST=1, HULK_COOP_JOIN=CODE). The lobby server's URL is
-`HULK_NET_WORKER`, or the first line of `coop.txt` in the app folder.
+options do the same: `--host`, `--join 12345678` (HULK_COOP_HOST=1, HULK_COOP_JOIN=CODE). The lobby server's URL and
+the app key are compiled into the app (18.1); `HULK_NET_WORKER` / `HULK_NET_KEY`, or `coop.txt` in the app folder (the
+URL on its first line, `key=HEX` on another), override them.
 
-**Knobs (tests).** `HULK_COOP_CODE_FILE=F` (the host writes its code there), `HULK_COOP_JOIN=@F` (a guest reads it,
+**Hosting turns the extra Hulks on itself (wnet2, the user 11-24).** Hulk k exists while slot k is in the session's
+set: coop.c reads netplay.c's `hulk_net_mask()` (game state, equal on every peer at every update), so a guest's Hulk is
+made (after the usual 30 settled updates in play) once he is in the lockstep, and removed by the game's own
+`KillActorByName` (0x0002b830, what a script's `am_KillActorByName` calls) at the first update without him; a host
+alone has none, and when the last guest leaves the extras go. A joining guest's pad port is marked present
+(`SIM->pads_in`) at the same frame end on every peer. `dev_coop_local` stays the developer knob (it adds Hulks whatever
+the session).
+
+**Knobs (tests).** `HULK_NET_KEY=HEX`, `HULK_NET_SKEW=S` (seconds added to the signed time),
+`HULK_NET_TEST=replay|baddisc|badpeer` (the challenge request sent twice; a wrong disc answer; a hello under a wrong peer
+key), `HULK_COOP_CODE_FILE=F` (the host writes its code there), `HULK_COOP_JOIN=@F` (a guest reads it,
 waiting), `HULK_COOP_SHIM=seed=S,delay=MS,jitter=MS,loss=PCT` (a seeded impairment on every datagram this peer sends),
 `HULK_COOP_RELAY=PORT` + `HULK_COOP_RELAY_ONLY=1` (a local TURN relay in this process; only relayed candidates),
 `HULK_COOP_LOG=1|2|3`, `HULK_COOP_TMP=DIR`, `HULK_COOP_HASH_EVERY=N`, `HULK_COOP_DELAY=N`.
@@ -1178,13 +1191,72 @@ waiting), `HULK_COOP_SHIM=seed=S,delay=MS,jitter=MS,loss=PCT` (a seeded impairme
   calling the same imports: updates on most frames, a 4 MB state, hashes), a local lobby, a host and one or two guests
   joining mid-run; every peer's final state must agree. Passed on the laptop: 3 peers direct; 3 peers with 60 ms +
   0-30 ms jitter and 3% loss each way (round trip ~160 ms, D = 7, the 1.7 MB join at ~1 MB/s); 3 peers through the
-  local TURN relay with 20 ms + 10 ms jitter and 1% loss.
+  local TURN relay with 20 ms + 10 ms jitter and 1% loss. Since wnet2 the lobby runs with the handshake (a test app
+  key and spot table over a made-up disc folder), and `NEG=1` adds peers that must be refused with their status
+  (wrong app key, clock 10 min off, replayed request, wrong disc answer; with PEERS=2 also a wrong peer key).
+- `tests/net/disc_spot_test.sh OUT SRC...`: the spot table read through run/disc.c from each disc source must hash as
+  recorded (wnet2).
 - `wasm_build_job.py ... --test coop:FRAMES[:PEERS[:SECOND_JOIN_S]]`: the app (null renderer) as a host (into the game
-  with HULK_INPUT, dev_coop_local=PEERS) and one or two guests with scripted pads of their own joining it on loopback;
-  every guest's game hashes from its join on must equal the host's at the same frames, no DESYNC. Results below.
+  with HULK_INPUT; no developer setting since wnet2) and one or two guests with scripted pads of their own joining it
+  on loopback, through the local lobby with the handshake on (the candidate's compiled-in app key, or a fresh one; a
+  spot table sampled from the host's disc); every guest's game hashes from its join on must equal the host's at the
+  same frames, no DESYNC, each guest's Hulk spawned. With 3 peers the second guest leaves 3,000 frames before the end
+  (his Hulk must be removed) and refused peers run beside them (wrong app key, clock off, replayed request, wrong disc
+  answer, wrong peer key), each showing its status in the Online Co-op row. Results below.
 
-**Deploying the Worker (the user; after the employer check).** As section 3.1's steps: `cd net/worker && npm install`,
-`npx wrangler login`, `npx wrangler secret put TURN_KEY_ID`, `npx wrangler secret put TURN_KEY_API_TOKEN` (the values
-from the Cloudflare dashboard, Realtime > TURN; never in a file), check `vars` in wrangler.jsonc (ROOM_MAX_PLAYERS 3),
-`npx wrangler deploy`, then `curl -X POST https://hulk-netplay.<subdomain>.workers.dev/ice` should say
-`"turn":true`. Then put that URL in `coop.txt` in each player's app folder (or `HULK_NET_WORKER`).
+### 18.1 The handshake (wnet2, 2026-11-24)
+
+The user's ask: keep strangers off the Worker and its TURN key. Layers, each refused with a status the Online Co-op row
+shows ("Co-op: the lobby refused this app (app key)", "... this device's clock is wrong: set the time", "... the lobby
+refused a repeated request", "... the lobby could not confirm the game disc", "... too many tries from this network",
+"... the host refused: not a player of this room"):
+
+- **App key.** A random 32-byte key (tools/netplay_keys.py) compiled into the app and set on the Worker as the secret
+  `APP_KEY`. Every request but `GET /` carries `X-Hulk-Time` (unix seconds), `X-Hulk-Nonce` (32 hex) and `X-Hulk-Sig` =
+  HMAC-SHA256(key, `hulk-v1\n` METHOD `\n` PATH `\n` TIME `\n` NONCE `\n` hex SHA-256(body)). The Worker refuses a bad
+  MAC, a time more than 300 s from its own, and a nonce it has seen (kept 12 minutes: a room's in its Durable Object,
+  the others in the global one). Without `APP_KEY` the Worker answers 503 to everything (`ALLOW_UNSIGNED=1` only for
+  a local development server).
+- **Disc ownership** (the user's decision, section 15). The secret `DISC_SPOTS` holds 15 spots, each (file, offset,
+  length 4-64 KiB, SHA-256 of those bytes), sampled by tools/netplay_keys.py from the player's own disc: hashes only,
+  never disc bytes, and never committed. `POST /challenge` names one spot with a one-time token (its own MAC under a
+  key derived from the table, valid 2 minutes); room create and join carry `{proof:{challenge, answer}}`, answer =
+  HMAC-SHA256(key = the spot's hash, `hulk-disc-v1|` + challenge): the hash never travels, and a token answers once.
+  Spots are files read through `hdisc_*` (run/disc.c), never image offsets, and only from `default.xbe` and the .rcf
+  archives holding no Bink movie (an AV1 pack zeroes movies past 64 KiB; packs add only `.hulk/` files): the
+  extracted folder, a trimmed .iso and the user's AV1 + texture-pack .hulkdisc gave the same 15/15 (and 400/400)
+  hashes and answers (tests/net/disc_spot_test.sh, netplay_keys.py check).
+- **Per-IP limits** (CF-Connecting-IP; vars): 40 challenges and 30 joins per 10 minutes (a code guesser gets 30 tries
+  in 10^8), 12 rooms and 30 ICE requests an hour.
+- **ICE credentials for members only:** `POST /rooms/<code>/ice` with the room's token, 8 a room, on top of the daily cap.
+- **Peers authenticate each other.** Create returns the host a 32-byte room key; join returns a guest its peer key
+  HMAC-SHA256(room key, `peer|SLOT|GEN`), which the host derives too. The game's hello carries a nonce and a MAC under
+  it (protocol 2), so the host talks only to the guest the Worker gave that slot and generation; the welcome that
+  accepts carries a MAC over the guest's nonce, so a guest plays only with the room's host. ICE itself already keys
+  connectivity checks by the ice-pwd only room members see, and the TURN relay forwards only to peers it has
+  permissions for.
+
+**What it does not stop.** The app key and the address are in every copy of the app (masked, not encrypted): anyone
+who has the app can pull them out and script the Worker; the disc check then still needs the disc's bytes (or the 15
+hashes, which one owner could publish), and the per-IP and daily caps bound what a scripted client takes. It is a
+fence against strangers and casual reuse of the TURN key, not DRM. Rotating the key (`netplay_keys.py init
+--new-key`, rebuild, `wrangler secret put APP_KEY`) shuts out every older build.
+
+**Where the values live.** One untracked, gitignored file at the checkout's root, `netplay.local.json` (mode 0600):
+`worker_url` (the lead's), `app_key` and `disc_spots` (netplay_keys.py, merged in). `HULK_NETPLAY_CONFIG` names
+another (tests). tools/wasm_app.py writes worker_url and app_key into `app-gen/hulk_netplay_config.h` (masked; runner
+only, never module memory) for the macOS app, and wasm_android.py and wasm_linux.py through the same call;
+wasm_build_job.py ships a copy of just those two as the job file `wbrun/netplay.json` (`--netplay FILE|none`), never
+the spot table.
+
+**Deploying the Worker (the user; after the employer check).** From the checkout's root:
+
+1. `cd net/worker && npm install && npx wrangler login && cd ../..` (once).
+2. `build/venv/bin/python tools/netplay_keys.py init` (adds app_key and disc_spots to netplay.local.json; `--disc`
+   names another disc source than isos/extracted), then `netplay_keys.py check isos/extracted build/hulk-hd.hulkdisc`.
+3. `build/venv/bin/python tools/netplay_keys.py secret APP_KEY | (cd net/worker && npx wrangler secret put APP_KEY)`
+   and the same for `DISC_SPOTS` (the values go through the pipe, never onto the screen); TURN as before:
+   `(cd net/worker && npx wrangler secret put TURN_KEY_ID)`, `... TURN_KEY_API_TOKEN` (pasted when asked).
+4. `(cd net/worker && npx wrangler deploy)`; `curl https://hulk-netplay.<subdomain>.workers.dev/` says
+   `"auth":true,"disc":true`.
+5. Rebuild the apps (the key and address are compiled in); players need no coop.txt.

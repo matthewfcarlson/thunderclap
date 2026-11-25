@@ -14,8 +14,15 @@ struct HttpReply {
     int status = 0;             // 0: no answer (err says why)
     std::string body, err;
 };
+// EXTRA: more request headers, each "Name: value" (wnet2: the request's signature)
 HttpReply http(const char* method, const std::string& url, const std::string& body, const std::string& bearer,
-               int timeout_ms = 10000);
+               int timeout_ms = 10000, const std::vector<std::string>& extra = {});
+
+// ---- SHA-256 / HMAC-SHA256 (libjuice's), hex, randomness (wnet2: the lobby's handshake)
+std::string sha256_hex(const void* p, size_t n);
+std::string hmac_hex(const void* key, size_t key_n, const std::string& msg);
+std::vector<uint8_t> unhex(const std::string& h);      // (empty on anything but even-length hex)
+std::string random_hex(size_t bytes);
 
 // ---- JSON (what the Worker answers; numbers as doubles)
 struct Json {

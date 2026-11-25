@@ -489,8 +489,10 @@ static void pt_frame_end(void* out) {
     *(int*)out = ff_playthrough_frame_end();
     if (ff_coop_frame_end && ff_coop_frame_end()) *(int*)out = 1;
 }
+void ff_coop_frame_label(void) __attribute__((weak));    /* gfx/netplay.c (the app): co-op's status row (wnet2) */
 void ff_frame_checkpoint(void) {
     int pt = 0;
+    if (ff_coop_frame_label) ff_coop_frame_label();    /* (on the game's stack: it sets a menu label) */
     ff_on_host_stack(pt_frame_end, &pt);    /* (host work: its bytes stay off the game's stacks) */
     if (!rolltest_on() && !pt) return;
     hulk_obj* t = cur();

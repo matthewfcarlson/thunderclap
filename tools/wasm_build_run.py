@@ -561,12 +561,48 @@ def test_free(t, exes, base):
     return res
 
 
+# (wnet2) peers the lobby or the host must refuse, and the status each must show in the Online Co-op row
+COOP_NEG = {"badkey": ({"HULK_NET_KEY": "ab" * 32}, "refused this app"),
+            "stale": ({"HULK_NET_SKEW": "-600"}, "clock is wrong"),
+            "replay": ({"HULK_NET_TEST": "replay"}, "repeated request"),
+            "baddisc": ({"HULK_NET_TEST": "baddisc"}, "could not confirm the game disc"),
+            "badpeer": ({"HULK_NET_TEST": "badpeer"}, "not a player of this room")}
+
+
+def coop_handshake(base):
+    """(wnet2) the handshake's secrets for a co-op test: the app key the candidate has compiled in (wbrun/netplay.json)
+    or a fresh one the peers get as HULK_NET_KEY, and a disc spot table sampled from this host's disc
+    (tools/netplay_keys.py; it stays in the test's folder). (the lobby's --config file, the peers' extra env)"""
+    import secrets
+    shipped = os.path.join(RUN, "wbrun/netplay.json")
+    key = (json.load(open(shipped)).get("app_key") if os.path.exists(shipped) else None)
+    extra = {}
+    if not key:
+        key = secrets.token_hex(32)
+        extra["HULK_NET_KEY"] = key
+    cfg = os.path.join(base, "netplay-test.json")
+    fd = os.open(cfg, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+    with os.fdopen(fd, "w") as f:
+        json.dump({"app_key": key}, f)
+    r = subprocess.run([sys.executable, os.path.join(RUN, "tools/netplay_keys.py"), "init", "--disc",
+                        os.path.join(RUN, "isos/extracted")], env=dict(os.environ, HULK_NETPLAY_CONFIG=cfg),
+                       capture_output=True, text=True)
+    if r.returncode:
+        raise RuntimeError("netplay_keys.py init: " + r.stderr[-500:])
+    return cfg, extra
+
+
 def test_coop(t, exes, base, spec):
-    """(wnet1) coop:FRAMES[:PEERS[:SECOND_JOIN_S]]: the candidate as a co-op host (HULK_INPUT's START_SCRIPT into the
-    game; dev_coop_local=PEERS Hulks, wcoop1) and 1-2 guests, each with a scripted pad of its own, that join it mid-game through net/worker/test/local_server.mjs on loopback, every one with the
-    null renderer and HULK_FRAMES=FRAMES, game hashes every 300 frames. Ok: every run reaches FRAMES, the guests
-    joined, no DESYNC, and every game hash a guest prints after its join equals the host's at that frame. --test-env
-    goes to every peer; HULK_COOP_SHIM etc. through it too."""
+    """(wnet1, wnet2) coop:FRAMES[:PEERS[:SECOND_JOIN_S]]: the candidate as a co-op host (HULK_INPUT's START_SCRIPT into
+    the game; Online Co-op: Host, no developer setting: the extra Hulks follow the session's players) and 1-2 guests,
+    each with a scripted pad of its own, that join it mid-game through net/worker/test/local_server.mjs on loopback with
+    the handshake on (the app key, the disc challenge from this host's disc), every one with the null renderer, game
+    hashes every 300 frames. With 3 peers the second guest leaves 3,000 frames before the end (his Hulk must go), and
+    peers that must be refused run beside them (COOP_NEG: a wrong app key, a clock 10 minutes off, a replayed request,
+    a wrong disc answer, a hello under a wrong peer key, which gives its slot back at once), each showing why in the Online
+    Co-op row. Ok: every run reaches FRAMES, the guests joined, no DESYNC, every game hash a guest prints after its join
+    equals the host's at that frame, the game's co-op events agree, each guest's Hulk spawned on the host, the leaver's
+    was removed, and every refused peer showed its status. --test-env goes to every peer."""
     res = {}
     exe = exes["cand"]
     node = None
@@ -574,47 +610,66 @@ def test_coop(t, exes, base, spec):
         node = d
     if not node:
         return {"cand": {"ok": False, "why": "no node on this host (wasm_build_job.py setup)"}}
+    try:
+        cfg, hs_env = coop_handshake(base)
+    except RuntimeError as e:
+        return {"cand": {"ok": False, "why": str(e)}}
     port = 20000 + os.getpid() % 20000
     srv_log = open(os.path.join(base, "server.log"), "w")
-    srv = subprocess.Popen([node, os.path.join(os.path.dirname(os.path.abspath(__file__)), "net/worker/test/local_server.mjs"), "--port", str(port), "--log"],
+    srv = subprocess.Popen([node, os.path.join(os.path.dirname(os.path.abspath(__file__)), "net/worker/test/local_server.mjs"),
+                            "--port", str(port), "--log", "--config", cfg],
                            stdout=srv_log, stderr=subprocess.STDOUT, start_new_session=True)
     time.sleep(1.5)
     code = os.path.join(base, "code.txt")
     every = 300
-    procs = {}
+    leave_at = t["frames"] - 3000 if t["peers"] >= 3 else None
+    procs, negs = {}, {}
+
+    def launch(role, extra, frames):
+        out = fresh(os.path.join(base, role))
+        env0 = {"HULK_FRAMES": str(frames), "HULK_HASH_EVERY": str(every), "HULK_INPUT": START_SCRIPT,
+                "HULK_NET_WORKER": "http://127.0.0.1:%d" % port, "HULK_COOP_TMP": fresh(os.path.join(out, "tmp")),
+                "HULK_COOP_LOG": "2"}
+        env0.update(hs_env)
+        env0.update(extra)
+        env0.update(t.get("env", {}))
+        so = open(os.path.join(out, "stdout.txt"), "wb")
+        return subprocess.Popen([exe, os.path.join(RUN, "isos/extracted/default.xbe")], cwd=out,
+                                env=exe_env(exe, out, env0), stdout=so, stderr=subprocess.STDOUT,
+                                start_new_session=True), out
+
+    def wait(p, deadline):
+        try:
+            return p.wait(timeout=max(1, deadline - time.time()))
+        except subprocess.TimeoutExpired:
+            os.killpg(p.pid, 9)
+            p.wait()
+            return "timeout"
+
+    deadline = time.time() + t.get("timeout", 3600)
     try:
         for k in range(t["peers"]):
             role = "host" if k == 0 else "guest%d" % k
-            out = fresh(os.path.join(base, role))
-            extra = {"HULK_FRAMES": str(t["frames"]), "HULK_HASH_EVERY": str(every), "HULK_INPUT": START_SCRIPT,
-                     "HULK_NET_WORKER": "http://127.0.0.1:%d" % port, "HULK_COOP_TMP": fresh(os.path.join(out, "tmp")),
-                     "HULK_COOP_LOG": "2"}
             if k == 0:
                 # (the app's front end needs a second START and A to reach the game: GS_GAME at ~1,300; the extra
-                # Hulks spawn ~250 frames later)
-                extra.update(HULK_COOP_HOST="1", HULK_COOP_CODE_FILE=code,
-                             HULK_INPUT=START_SCRIPT + ",1300-1305:10,1500-1505:0/1,1800-1805:0/1",
-                             HULK_SETTINGS="developer=1,dev_coop_local=%d" % t["peers"])
+                # Hulks spawn ~250 frames after each guest's join)
+                extra = dict(HULK_COOP_HOST="1", HULK_COOP_CODE_FILE=code,
+                             HULK_INPUT=START_SCRIPT + ",1300-1305:10,1500-1505:0/1,1800-1805:0/1")
             else:
                 # each guest's own pad (its pad 0 locally, its Hulk's in the session): guest 1 runs with the left
                 # stick, guest 2 taps A and turns; frames are the host's once it has joined
-                extra.update(HULK_COOP_JOIN="@" + code, HULK_INPUT=START_SCRIPT + (
+                extra = dict(HULK_COOP_JOIN="@" + code, HULK_INPUT=START_SCRIPT + (
                     ",4000-7000:0/0/0/30000,8000-8010:0/1,8020-12000:0/0/-20000/25000" if k == 1 else
                     ",5000-5010:0/1,6000-9000:0/0/25000/-10000,11000-11010:0/1"))
-            extra.update(t.get("env", {}))
-            env = exe_env(exe, out, extra)
-            so = open(os.path.join(out, "stdout.txt"), "wb")
-            procs[role] = (subprocess.Popen([exe, os.path.join(RUN, "isos/extracted/default.xbe")], cwd=out, env=env,
-                                            stdout=so, stderr=subprocess.STDOUT, start_new_session=True), out)
+            procs[role] = launch(role, extra, leave_at if k == 2 and leave_at else t["frames"])
+            if k == 0 and t["peers"] >= 3:
+                # (the wrong peer key joins a slot, is refused by the host's hello check and gives the slot back at
+                # once; the others never get a slot)
+                for n in ("badkey", "stale", "replay", "baddisc", "badpeer"):
+                    negs[n] = launch("neg-" + n, dict(COOP_NEG[n][0], HULK_COOP_JOIN="@" + code), 8000)
             time.sleep(3 if k == 0 else t["second"])
-        deadline = time.time() + t.get("timeout", 3600)
         for role, (p, out) in procs.items():
-            try:
-                rc = p.wait(timeout=max(1, deadline - time.time()))
-            except subprocess.TimeoutExpired:
-                os.killpg(p.pid, 9)
-                p.wait()
-                rc = "timeout"
+            rc = wait(p, deadline)
             txt = open(os.path.join(out, "stdout.txt"), errors="replace").read()
             # (the session's own state hashes: the game hash lines are taken in the frame end before the set's pads
             # are put back, so they hold each peer's own pad)
@@ -622,10 +677,18 @@ def test_coop(t, exes, base, spec):
             co = [l for l in txt.splitlines() if ("co-op:" in l or "coop:" in l) and "agrees" not in l
                   and "state hash" not in l and "ICE " not in l and "selected" not in l]
             joined = re.search(r"in the host's game from frame (\d+)", txt)
+            slot = re.search(r"joined room \d+ as player (\d+)", txt)
             ev = [l.split(": ", 2)[-1] for l in txt.splitlines() if l.startswith("hulk: coop: frame")]
             res[role] = {"rc": rc, "hashes": len(h), "last": max(h) if h else None, "coop": co[-12:], "_ev": ev,
                          "desync": "DESYNC" in txt, "joined_frame": int(joined.group(1)) if joined else None,
-                         "_h": h}
+                         "slot": int(slot.group(1)) - 1 if slot else None, "_h": h}
+        for n, (p, out) in negs.items():
+            rc = wait(p, deadline)
+            txt = open(os.path.join(out, "stdout.txt"), errors="replace").read()
+            want = COOP_NEG[n][1]
+            row = [l for l in txt.splitlines() if "status row: Co-op:" in l]
+            res["neg-" + n] = {"rc": rc, "ok": any(want in l for l in row) and "in the host's game" not in txt,
+                               "row": row[-1][-100:] if row else None}
     finally:
         try:
             srv.kill()
@@ -634,23 +697,39 @@ def test_coop(t, exes, base, spec):
         srv.wait()
         srv_log.close()
     host = res.get("host", {}).get("_h", {})
-    ok = all(r.get("rc") == 0 for r in res.values())
+    hev = res.get("host", {}).get("_ev", [])
+    fr = lambda l: int(l.split(":")[0].split()[-1]) if l.split(":")[0].split()[-1].isdigit() else -1
+    ok = all(r.get("rc") == 0 for k, r in res.items() if not k.startswith("neg-"))
+    ok = ok and all(r.get("ok") for k, r in res.items() if k.startswith("neg-"))
     for role, r in res.items():
-        if role == "host":
+        if role == "host" or role.startswith("neg-"):
             continue
         gh = r.pop("_h")
         common = sorted(f for f in gh if f in host)
         diff = [f for f in common if gh[f] != host[f]]
-        # the game side's events (spawns, leashes, downs: wcoop1's log) after the join, the same on every peer
-        hev, gev = res["host"]["_ev"], r.pop("_ev")
-        jf = r["joined_frame"] or 0
-        fr = lambda l: int(l.split(":")[0].split()[-1]) if l.split(":")[0].split()[-1].isdigit() else -1
-        hev2 = [l for l in hev if fr(l) >= jf]
-        gev2 = [l for l in gev if fr(l) >= jf]
-        r["game_events"] = {"host": len(hev2), "same": hev2 == gev2, "sample": gev2[:4]}
+        # the game side's events (spawns, removals, leashes, downs: wcoop1's log) between the join and this guest's
+        # last frame, the same on every peer
+        gev = r.pop("_ev")
+        jf, lf = r["joined_frame"] or 0, max(gh) if gh else 0
+        hev2 = [l for l in hev if jf <= fr(l) <= lf]
+        gev2 = [l for l in gev if jf <= fr(l) <= lf]
+        k = r.get("slot") or 0
+        # (an update logs the frame before the set's: the first update with the guest in the set logs jf - 1)
+        spawned = any(("spawn player %d " % k) in l and fr(l) >= jf - 1 for l in hev)
+        r["game_events"] = {"host": len(hev2), "same": hev2 == gev2, "sample": gev2[:4], "hulk_spawned": spawned}
         r.update(compared=len(common), first=common[0] if common else None, last=common[-1] if common else None,
                  differing=diff[:5])
-        ok = ok and len(common) >= 10 and not diff and not r["desync"] and r["joined_frame"] is not None
+        ok = ok and len(common) >= 10 and not diff and not r["desync"] and r["joined_frame"] is not None \
+            and hev2 == gev2 and spawned
+    if leave_at and "host" in res:
+        gone = [l for l in hev if "player %s removed" % res.get("guest2", {}).get("slot") in l]
+        res["host"]["leaver_removed"] = gone[:1]
+        ok = ok and bool(gone)
+    if "host" in res:
+        res["host"]["solo_hulks_before_join"] = [l for l in hev if "spawn player" in l and
+                                                 fr(l) < min((r.get("joined_frame") or 1 << 30) for k_, r in res.items()
+                                                             if k_.startswith("guest"))][:2]
+        ok = ok and not res["host"]["solo_hulks_before_join"]
     res.get("host", {}).pop("_h", None)
     res.get("host", {}).pop("_ev", None)
     res["server"] = [l for l in open(os.path.join(base, "server.log"), errors="replace").read().splitlines()
@@ -709,6 +788,11 @@ def build(spec, summ, inputs):
     n = int(spec.get("overlay") or 0) + len(spec.get("deletions") or [])
     env.setdefault("HULK_BUILD_ID", spec["commit"][:7] + ("+%d" % n if n else ""))
     summ["build_id"] = env["HULK_BUILD_ID"]
+    # (wnet2) the lobby's address and app key the submitter shipped (wbrun/netplay.json, never a tracked file): compiled
+    # into the runner; without it none (the job's workspace has no netplay.local.json)
+    np = os.path.join(RUN, "wbrun/netplay.json")
+    env["HULK_NETPLAY_CONFIG"] = np if os.path.exists(np) else os.path.join(RUN, "wbrun/no-netplay.json")
+    summ["netplay_baked"] = os.path.exists(np)
     snap, bind = wasm_inputs(spec, summ, env)
     env["HULK_WASM_SNAP"], env["HULK_WASM_BINDINGS"] = snap, bind
     lock, lin = lock_lineage(spec["lineage"], summ)

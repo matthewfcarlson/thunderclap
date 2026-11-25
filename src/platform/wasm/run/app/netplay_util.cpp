@@ -56,7 +56,8 @@ bool parse_url(const std::string& u, Url& out) {
     return !out.host.empty();
 }
 
-HttpReply plain(const char* method, const Url& u, const std::string& body, const std::string& bearer, int timeout_ms) {
+HttpReply plain(const char* method, const Url& u, const std::string& body, const std::string& bearer, int timeout_ms,
+                const std::vector<std::string>& extra) {
     HttpReply r;
     struct addrinfo hints, *res = nullptr;
     memset(&hints, 0, sizeof hints);
@@ -88,6 +89,7 @@ HttpReply plain(const char* method, const Url& u, const std::string& body, const
     }
     std::string req = std::string(method) + " " + u.path + " HTTP/1.0\r\nHost: " + u.host + "\r\n";
     if (!bearer.empty()) req += "Authorization: Bearer " + bearer + "\r\n";
+    for (auto& h : extra) req += h + "\r\n";
     if (strcmp(method, "GET")) req += "Content-Type: application/json\r\nContent-Length: " + std::to_string(body.size()) + "\r\n";
     req += "Connection: close\r\n\r\n" + body;
 #ifdef MSG_NOSIGNAL
@@ -168,7 +170,7 @@ size_t curl_write(char* p, size_t size, size_t n, void* user) {
     return size * n;
 }
 HttpReply curl(const char* method, const std::string& url, const std::string& body, const std::string& bearer,
-               int timeout_ms) {
+               int timeout_ms, const std::vector<std::string>& extra) {
     HttpReply r;
     if (!curl_load()) {
         r.err = "https needs libcurl, which this system does not have";
@@ -182,6 +184,7 @@ HttpReply curl(const char* method, const std::string& url, const std::string& bo
     void* hdrs = g_curl.slist_append(nullptr, "Content-Type: application/json");
     std::string auth = "Authorization: Bearer " + bearer;
     if (!bearer.empty()) hdrs = g_curl.slist_append(hdrs, auth.c_str());
+    for (auto& h : extra) hdrs = g_curl.slist_append(hdrs, h.c_str());
     g_curl.setopt(c, kUrl, url.c_str());
     g_curl.setopt(c, kNoSignal, 1L);
     g_curl.setopt(c, kTimeoutMs, (long)timeout_ms);
@@ -208,9 +211,10 @@ HttpReply curl(const char* method, const std::string& url, const std::string& bo
 
 #if defined(__ANDROID__)
 // Android has no libcurl: HttpURLConnection through GameActivity.hulkHttp (src/platform/wasm/android/java), which
-// answers "STATUS\n" + body (status 0: the error). From any thread: SDL attaches it to the VM.
+// answers "STATUS\n" + body (status 0: the error). From any thread: SDL attaches it to the VM. The request's headers go
+// as lines "Name: value\n" (wnet2).
 HttpReply android_http(const char* method, const std::string& url, const std::string& body, const std::string& bearer,
-                       int timeout_ms) {
+                       int timeout_ms, const std::vector<std::string>& extra) {
     HttpReply r;
     JNIEnv* env = (JNIEnv*)SDL_GetAndroidJNIEnv();
     jobject act = (jobject)SDL_GetAndroidActivity();
@@ -229,7 +233,13 @@ HttpReply android_http(const char* method, const std::string& url, const std::st
         return r;
     }
     jstring a = env->NewStringUTF(method), b = env->NewStringUTF(url.c_str()), c = env->NewStringUTF(body.c_str()),
-            d = env->NewStringUTF(bearer.c_str());
+            d = nullptr;
+    {       // (the headers as lines "Name: value\n": GameActivity.hulkHttp sets each)
+        std::string lines;
+        if (!bearer.empty()) lines += "Authorization: Bearer " + bearer + "\n";
+        for (auto& h : extra) lines += h + "\n";
+        d = env->NewStringUTF(lines.c_str());
+    }
     jstring out = (jstring)env->CallStaticObjectMethod(cls, m, a, b, c, d, (jint)timeout_ms);
     if (env->ExceptionCheck()) {
         env->ExceptionClear();
@@ -255,9 +265,9 @@ HttpReply android_http(const char* method, const std::string& url, const std::st
 #endif
 
 HttpReply http(const char* method, const std::string& url, const std::string& body, const std::string& bearer,
-               int timeout_ms) {
+               int timeout_ms, const std::vector<std::string>& extra) {
 #if defined(__ANDROID__)
-    if (!url.compare(0, 8, "https://")) return android_http(method, url, body, bearer, timeout_ms);
+    if (!url.compare(0, 8, "https://")) return android_http(method, url, body, bearer, timeout_ms, extra);
 #endif
     Url u;
     if (!parse_url(url, u)) {
@@ -265,7 +275,46 @@ HttpReply http(const char* method, const std::string& url, const std::string& bo
         r.err = "not an http(s) URL: " + url;
         return r;
     }
-    return u.tls ? curl(method, url, body, bearer, timeout_ms) : plain(method, u, body, bearer, timeout_ms);
+    return u.tls ? curl(method, url, body, bearer, timeout_ms, extra) : plain(method, u, body, bearer, timeout_ms, extra);
+}
+
+// ------------------------------------------------------------------------------------------------ hashes (libjuice's)
+extern "C" {
+void juice_hash_sha256(const void* message, size_t size, void* digest);
+void hmac_sha256(const void* message, size_t size, const void* key, size_t key_size, void* digest);
+void juice_random(void* buf, size_t size);
+}
+static std::string to_hex(const uint8_t* p, size_t n) {
+    static const char d[] = "0123456789abcdef";
+    std::string s(2 * n, '0');
+    for (size_t i = 0; i < n; i++) s[2 * i] = d[p[i] >> 4], s[2 * i + 1] = d[p[i] & 15];
+    return s;
+}
+std::string sha256_hex(const void* p, size_t n) {
+    uint8_t h[32];
+    juice_hash_sha256(p, n, h);
+    return to_hex(h, 32);
+}
+std::string hmac_hex(const void* key, size_t key_n, const std::string& msg) {
+    uint8_t h[32];
+    hmac_sha256(msg.data(), msg.size(), key, key_n, h);
+    return to_hex(h, 32);
+}
+std::vector<uint8_t> unhex(const std::string& h) {
+    std::vector<uint8_t> out;
+    if (h.size() % 2) return out;
+    auto v = [](char c) { return c >= '0' && c <= '9' ? c - '0' : c >= 'a' && c <= 'f' ? c - 'a' + 10 : c >= 'A' && c <= 'F' ? c - 'A' + 10 : -1; };
+    for (size_t i = 0; i < h.size(); i += 2) {
+        int a = v(h[i]), b = v(h[i + 1]);
+        if (a < 0 || b < 0) return {};
+        out.push_back((uint8_t)(a << 4 | b));
+    }
+    return out;
+}
+std::string random_hex(size_t bytes) {
+    std::vector<uint8_t> b(bytes);
+    juice_random(b.data(), bytes);
+    return to_hex(b.data(), bytes);
 }
 
 // ------------------------------------------------------------------------------------------------ JSON
