@@ -14,9 +14,11 @@ docs/remaster.md 2.5 and 5.3): output only, so game state is the same with them 
   light and Blinn specular with a local viewer, evaluated per vertex. The game never sets NORMALIZENORMALS, so a scaled
   model's normals keep their length.
 - **The skin programs** (`skin`, `skin_onebone`): four directional lights, specular from the first (half vector with
-  the view axis), evaluated per vertex. play3's tutorial and city frames draw none: Hulk and the other characters come
-  through the fixed-function path with two-sided lighting (vertex program 6, `vs_vp_ff2s`), lit by four directional
-  lights (a key, a fill and two weak ones from the side), and props through vertex program 0 lit.
+  the view axis), evaluated per vertex. The Hulk is drawn with `skin` (whulk1: 4 meshes, texture ordinal 1209, the
+  first three twice, in the world's pass, at play3's 7,000 and 36,000 alike; hiding the texture with HULK_LIGHT_HIDE
+  removes him). The fixed-function path with two-sided lighting (vertex program 6, `vs_vp_ff2s`) draws foliage (the
+  city's trees and bushes at 36,000), lit by four directional lights (a key, a fill and two weak ones from the side),
+  and props come through vertex program 0 lit. (wlight1 took the vp6 draws for the characters.)
 - **Lights the game chooses** per object (`LightsChooser`, remaster.md 2.5). Nothing lights the world dynamically.
 
 ## Per-pixel lighting (Lighting: Per-Vertex (Original) / Per-Pixel)
@@ -72,9 +74,43 @@ Health orbs become point lights for the draws around them:
   start): the camera, the draws that took the lights, the orbs found (camera space) and the lights applied
   (build/wpol1/scripts/lt.py, lt2.py count the frames where a light goes off and on again).
 
+## Characters (Character Lighting: Original / Enhanced)
+
+whulk1, 2026-11-25 (D249, the user's visual pick 4: "the Hulk reads flat and dark at night"). The game draws the Hulk
+(and so every co-op Hulk) with the skin vertex program, four directional lights a vertex. His light is mostly the
+material's ambient and the key, and in most of play3 it reaches the vertex colour's clamp at 1 over much of his body:
+a flat, saturated green that a rim or a normal change added under the clamp does not alter (whulk1's first builds
+changed at most 5 of 255 levels). With the row on (remastered default) every skin draw takes the per-pixel program
+`fs_px_char` (the generic combiner; with Lighting off too), whose character path (`PX_CHAR` in fs_px_stage.sh, uniform
+`u_rmChar[3]`, set by lighting.cpp for each draw; all zero is the faithful per-pixel light) changes the skin model:
+
+- **detail normals** from the base texture: its luminance (stage 0 as the combiner samples it) read at the pixel and one
+  screen pixel across and down, as a height, perturbs the normal (Mikkelsen's bump mapping of unparametrised surfaces:
+  no tangents, no generated textures or handles, three texture reads). The painted muscle lines and creases read as
+  dents under every light. Depth 0.1 camera units for a luminance step of 1 (0.2 looked embossed, 0.04 invisible).
+- **wrapped diffuse**: each of the four lights reaches past the terminator ((N.L + w) / (1 + w), w = 0.25, the faithful
+  term at full facing), the wrapped part a little warm (1, 0.8, 0.65): a softer, skin-like falloff.
+- **a soft shoulder** instead of the clamp: the light is the faithful one up to 0.4, then rolls off exponentially
+  towards 1, so the shape of the light stays where the faithful clamp made a flat area (a light of 1 ends at 0.78,
+  1.5 at 0.90).
+- **a rim** along the silhouette ((1 - N.V)^3), added after the shoulder (up to 2 before the combiner's texture
+  modulation, which clamps; so the rim takes the skin's own colour, no white glow): the key light's (the first light, the sun
+  or the moon; stronger when it is behind the figure, and only on its side; 0.8 x 0.35 by day, 0.8 at night), the
+  night lights' (rm_city.sh's `cityLight` with the normal bent away from the camera: the lamps and signs behind the
+  figure, soft-limited c / (1 + max(c)) so that a big glow such as play3's 30,000 mission beacon is not a floodlight;
+  0.8) and the night sky's (the rooms' fog colour lifted to a luminance of 1.4 x 0.25 = 0.35, times the night amount:
+  0 by day).
+
+Identification is the draw class (the skin programs), not a texture or buffer key: it holds for every location, every
+Hulk skin and every co-op Hulk, and any other skinned character gets the same treatment. Output only (no module memory
+is read or written); play3's records are identical with the row on or off. `HULK_CHAR_LOOK=key,night,wrap,detail,sky,
+knee` tunes the terms (development); `HULK_CHAR_AB=N` times the look off and on in turns (`hulk-app: character
+lighting cost:`).
+
 ## Settings and cost
 
-Rows in `port_settings.c` (faithful value off, remastered default on): `lighting` 0/1, `dyn_lights` 0/1/2. With
+Rows in `port_settings.c` (faithful value off, remastered default on): `lighting` 0/1, `dyn_lights` 0/1/2,
+`char_light` 0/1 (rm::kCharLight). With
 Shadows on (docs/hdr-shadows.md) every opaque draw of the world pass takes a per-pixel program too, which samples the
 sun's shadow atlas (fs_px_stage.sh `pxShadow`); the world pass is identified by the game's pass id
 (`rm::currentGamePass`), since the runner's views may split it. Costs are

@@ -49,12 +49,13 @@ const char* profile()
 class Programs {
   public:
     // vp: 0 fixed function, 1 skin, 2 skin_onebone, 6 fixed function two-sided (generic only); hash 0: the generic
-    // combiner
-    uint16_t get(uint32_t vp, uint32_t hash)
+    // combiner; chr (whulk1): the characters' program for a skin draw (fs_px_char: the generic combiner)
+    uint16_t get(uint32_t vp, uint32_t hash, bool chr = false)
     {
-        if (vp == 6)
+        chr = chr && (vp == 1 || vp == 2);
+        if (vp == 6 || chr)
             hash = 0;
-        uint64_t key = (uint64_t)vp << 32 | hash;
+        uint64_t key = (uint64_t)vp << 32 | hash | (chr ? 1ull << 40 : 0);
         auto it = m_progs.find(key);
         if (it != m_progs.end())
             return it->second;
@@ -63,6 +64,8 @@ class Programs {
         char name[32] = "fs_px_stage";
         if (vp == 6)
             snprintf(name, sizeof name, "fs_px_stage2s");
+        else if (chr)
+            snprintf(name, sizeof name, "fs_px_char");
         else if (hash)
             snprintf(name, sizeof name, "fs_pxcmb_%08x", hash);
         uint16_t fs = shader(name);
@@ -74,8 +77,12 @@ class Programs {
         m_progs[key] = prog;
         if (prog != kInvalid)
             m_mine[prog] = (uint8_t)(vp + 1);
+        if (prog != kInvalid && chr)
+            m_char[prog] = true;
         return prog;
     }
+    // the program is a characters' one (whulk1)
+    bool character(uint32_t pipeline) const { return m_char.count(pipeline) != 0; }
     // the vertex program + 1 of a program of ours, else 0
     uint8_t ours(uint32_t pipeline) const
     {
@@ -104,6 +111,7 @@ class Programs {
     std::unordered_map<std::string, uint16_t> m_shaders;
     std::unordered_map<uint64_t, uint16_t> m_progs;
     std::unordered_map<uint32_t, uint8_t> m_mine;
+    std::unordered_map<uint32_t, bool> m_char;
 };
 
 // HULK_LIGHT_LOG=1: what the passes do, every 300 presented frames
@@ -140,11 +148,17 @@ class LightingPass final : public rm::Pass {
                     s[rm::kDynLights] ? "health orbs" : "off");
         m_perPixel = s[rm::kLighting];
         m_dynMode = s[rm::kDynLights];
+        if (s[rm::kCharLight] != m_char)
+            fprintf(stderr, "hulk-app: character lighting %s\n", s[rm::kCharLight] ? "enhanced" : "original");
+        m_char = s[rm::kCharLight];
+        if (const char* e = getenv("HULK_CHAR_LOOK"))           // (tuning: key rim, night rim, wrap, detail, sky, knee)
+            sscanf(e, "%f,%f,%f,%f,%f,%f", &m_cKeyRim, &m_cCityRim, &m_cWrap, &m_cBump, &m_cSkyRim, &m_cKnee);
     }
     void packet(DrawPacket& p) override
     {
         bool shadows = rm::shadowsOn();                 // (wr3a: every opaque draw receives the sun's shadows)
-        if ((!m_perPixel && !m_dynMode && !shadows) || m_abOff)
+        bool chr = m_char && (p.vertexProgram == 1 || p.vertexProgram == 2);   // (whulk1: the characters' look)
+        if ((!m_perPixel && !m_dynMode && !shadows && !chr) || m_abOff)
             return;
         if (p.viewMode != 0 || p.query != kSinkNone || (p.vertexProgram > 2 && p.vertexProgram != 6) ||
             p.pipeline == kSinkNone)
@@ -152,9 +166,9 @@ class LightingPass final : public rm::Pass {
         bool skin = p.vertexProgram == 1 || p.vertexProgram == 2;
         bool lit = skin || p.lighting;
         bool shadowed = shadows && !p.state.blend && p.state.depthWrite;
-        if (lit ? !m_perPixel && !shadowed : !shadowed)
+        if (lit ? !m_perPixel && !shadowed && !chr : !shadowed)
             return;
-        ours(p);
+        ours(p, chr);
     }
     // wpol1: the dynamic lights' part of the choice is made as the presented frame is drawn (with the lights placed
     // in it), never when an interpolated update's draws are recorded: then no frame's lights are known yet
@@ -192,6 +206,8 @@ class LightingPass final : public rm::Pass {
         float px[4] = {skin ? 2.0f : p.lighting ? 1.0f : 0.0f, receives ? (float)m_dynCount : 0.0f, m_dynStrength,
                        0.0f};
         bgfx::setUniform(m_uPx, px);
+        if (m_progs.character(p.pipeline))              // (whulk1: the characters' program, fs_px_char)
+            character(p);
         if (receives)
             bgfx::setUniform(m_uLight, m_dynCam, (uint16_t)(2 * m_dynCount));
         // wr3a: the sun's shadows (shadows.cpp); every program of ours declares the sampler, so one is always bound
@@ -290,6 +306,7 @@ class LightingPass final : public rm::Pass {
     void frame() override
     {
         abCost();
+        m_charAb.turn(m_charAbOff);
         if (logOn() && ++m_frames == 300) {
             fprintf(stderr, "hulk-app: lighting: %.1f per-pixel draws, %.2f dynamic lights a frame\n", m_draws / 300.0,
                     m_framesSeen ? m_lightsMade / m_framesSeen : 0.0);
@@ -328,11 +345,13 @@ class LightingPass final : public rm::Pass {
     unsigned m_abFrame = 0, m_abTurns = 0, m_abN[2] = {0, 0};
     double m_abGpu[2] = {0, 0}, m_abCpu[2] = {0, 0};
     // the draw takes the runner's per-pixel program for its vertex program and combiner
-    void ours(DrawPacket& p)
+    void ours(DrawPacket& p, bool chr = false)
     {
         if (!m_up && !up())
             return;
-        uint16_t prog = m_progs.get(p.vertexProgram, p.generic ? 0 : p.combinerHash);
+        uint16_t prog = chr ? m_progs.get(p.vertexProgram, 0, true) : kInvalid;
+        if (prog == kInvalid)
+            prog = m_progs.get(p.vertexProgram, p.generic ? 0 : p.combinerHash);
         if (prog == kInvalid && !p.generic)
             prog = m_progs.get(p.vertexProgram, 0);
         if (prog != kInvalid)
@@ -345,6 +364,7 @@ class LightingPass final : public rm::Pass {
         m_uPx = bgfx::createUniform("u_rmPx", bgfx::UniformType::Vec4);
         m_uLight = bgfx::createUniform("u_rmLight", bgfx::UniformType::Vec4, 16);
         m_uShadow = bgfx::createUniform("u_rmShadow", bgfx::UniformType::Vec4, 12);
+        m_uChar = bgfx::createUniform("u_rmChar", bgfx::UniformType::Vec4, 3);
         m_sShadow = bgfx::createUniform("s_rmShadow", bgfx::UniformType::Sampler);
         return m_up = true;
     }
@@ -492,6 +512,17 @@ class LightingPass final : public rm::Pass {
     int m_perPixel = 0, m_dynMode = 0;
     bgfx::UniformHandle m_uPx = BGFX_INVALID_HANDLE, m_uLight = BGFX_INVALID_HANDLE;
     bgfx::UniformHandle m_uShadow = BGFX_INVALID_HANDLE, m_sShadow = BGFX_INVALID_HANDLE;
+    // whulk1 (docs/lighting.md "Characters"): the characters' look, Video Options > Character Lighting
+    void character(const DrawPacket& p);
+    bgfx::UniformHandle m_uChar = BGFX_INVALID_HANDLE;
+    int m_char = 0;
+    bool m_charAbOff = false;
+    float m_cKeyRim = 0.8f, m_cCityRim = 0.8f, m_cWrap = 0.25f, m_cBump = 0.1f, m_cSkyRim = 1.4f, m_cKnee = 0.4f;
+    struct AbTimer {                        // HULK_CHAR_AB=N: the look off and on in turns of N presented frames
+        unsigned frame = 0, turns = 0, n[2] = {0, 0};
+        double gpu[2] = {0, 0}, cpu[2] = {0, 0};
+        void turn(bool& off);
+    } m_charAb;
     uint16_t m_lastAtlas = kInvalid;
     unsigned m_frames = 0;
     double m_draws = 0;
@@ -560,6 +591,59 @@ void LightingPass::orb(const float pos[3], Light* l, uint32_t frame)
     if (logOn() && logged < 40 && (frame % 50) == 0)
         logged++, fprintf(stderr, "hulk-app: lighting: orb f%u at %.2f %.2f %.2f\n", frame, pos[0], pos[1], pos[2]);
     l->colour[0] = 0.45f, l->colour[1] = 1.0f, l->colour[2] = 0.3f, l->colour[3] = 1.0f;
+}
+
+// whulk1: the characters' look (fs_px_stage.sh PX_CHAR, docs/lighting.md "Characters"). Every draw of the skin vertex
+// programs (play3: only the Hulk, texture 1209 in every location, and so every co-op Hulk; vertex program 6 draws are
+// the trees and bushes) takes the per-pixel program fs_px_char (the generic combiner); its u_rmChar is set for each
+// such draw (zero: the faithful per-pixel light).
+// The rim's strength follows the night (rm::nightAmount, the rooms' fog): by day only a little of the key light's,
+// at night the key (moon) light's, the night lights' near the figure and the night sky's (the fog colour, lifted).
+void LightingPass::character(const DrawPacket& p)
+{
+    float u[3][4] = {};
+    if (m_char && !m_charAbOff && p.viewMode == 0) {
+        float night = rm::nightAmount();
+        u[0][0] = 1.0f;
+        u[0][1] = m_cKeyRim * (0.35f + 0.65f * night);
+        u[0][2] = m_cCityRim;
+        u[0][3] = m_cWrap;
+        float fog[3];
+        if (night > 0.0f && rm::nightFogColour(fog)) {
+            float lum = 0.3f * fog[0] + 0.59f * fog[1] + 0.11f * fog[2];
+            float k = m_cSkyRim * night / fmaxf(lum, 0.04f) * 0.25f;   // (the fog's hue at a luminance of 0.25 x)
+            for (int i = 0; i < 3; i++)
+                u[1][i] = fminf(fog[i] * k, 1.0f);
+        }
+        u[1][3] = m_cBump;
+        u[2][0] = 1.0f, u[2][1] = 0.8f, u[2][2] = 0.65f;              // (the wrapped light a little warm)
+        u[2][3] = m_cKnee;
+    }
+    bgfx::setUniform(m_uChar, u, 3);
+}
+
+void LightingPass::AbTimer::turn(bool& off)
+{
+    static int every = -1;
+    if (every < 0)
+        every = getenv("HULK_CHAR_AB") ? atoi(getenv("HULK_CHAR_AB")) : 0;
+    if (every <= 0)
+        return;
+    const bgfx::Stats* st = bgfx::getStats();
+    if (st && frame > 2 && st->gpuTimerFreq > 0 && st->gpuTimeEnd > st->gpuTimeBegin) {
+        int k = off ? 0 : 1;
+        gpu[k] += 1e3 * (double)(st->gpuTimeEnd - st->gpuTimeBegin) / (double)st->gpuTimerFreq;
+        cpu[k] += 1e3 * (double)(st->cpuTimeEnd - st->cpuTimeBegin) / (double)st->cpuTimerFreq;
+        n[k]++;
+    }
+    if (++frame >= (unsigned)every) {
+        frame = 0;
+        off = !off;
+        if (++turns % 20 == 0 && n[0] && n[1])
+            fprintf(stderr, "hulk-app: character lighting cost: GPU %.3f ms off, %.3f ms on; render thread %.3f / %.3f ms "
+                    "(%u / %u frames, %ux%u)\n", gpu[0] / n[0], gpu[1] / n[1], cpu[0] / n[0], cpu[1] / n[1], n[0], n[1],
+                    st ? (unsigned)st->width : 0, st ? (unsigned)st->height : 0);
+    }
 }
 
 // HULK_LIGHT_DUMP=a:b[:path]: every draw of presented frames a..b, one line each (identification of glow draws)

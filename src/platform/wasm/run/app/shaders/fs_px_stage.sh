@@ -26,6 +26,14 @@ uniform vec4 u_rmShadow[12];
 SAMPLER2DSHADOW(s_rmShadow, 4);
 // wlook2: the night lights (rm_city.sh: u_rmCity, s_rmCity at stage 5)
 #include "rm_city.sh"
+#ifdef PX_CHAR
+// whulk1 (docs/lighting.md "Characters"): the characters' look (fs_px_char.sc: the skin programs' draws, the Hulk and
+// every co-op Hulk). All zero: the faithful per-pixel light, unchanged.
+//   u_rmChar[0]  x 1: on, y the key light's rim, z the night lights' rim, w the wrap of the diffuse lights (0 .. 1)
+//   u_rmChar[1]  rgb the ambient rim (the night sky's light, 0 by day), w the detail normals' depth (camera units)
+//   u_rmChar[2]  rgb the wrapped light's tint (a subsurface-like warmth), w the knee of the light's soft shoulder
+uniform vec4 u_rmChar[3];
+#endif
 
 #define PX_MAX_LIGHTS 8
 
@@ -119,14 +127,71 @@ vec3 pxLightTerm(int i, vec3 pos, vec3 n, vec3 eye, inout vec3 spec)
     return lc.rgb * (att * ndl);
 }
 
+#ifdef PX_CHAR
+// a wrapped N.L (the faithful max(ndl, 0) at w = 0), the wrapped part tinted
+vec3 pxWrap(float ndl, float w)
+{
+    float lit = max(ndl, 0.0);
+    return lit + (max((ndl + w) / (1.0 + w), 0.0) - lit) * u_rmChar[2].rgb;
+}
+
+// the light's soft shoulder: the faithful light up to the knee k, then rolling off towards 1 (where the faithful
+// clamp makes a flat, saturated area, the shape of the light stays)
+vec3 pxShoulder(vec3 x, float k)
+{
+    float r = max(1.0 - k, 0.001);
+    vec3 e = max(x - vec3_splat(k), vec3_splat(0.0));
+    return min(x, vec3_splat(k)) + r * (vec3_splat(1.0) - exp(-e / r));
+}
+
+// detail normals from the albedo (Mikkelsen's bump mapping of unparametrised surfaces): the base texture's luminance as
+// a height, h0 at the pixel and hx / hy one screen pixel across and down, depth `scale` (camera units for a luminance
+// of 1); dark lines and creases painted into the skin read as dents
+vec3 pxBump(vec3 n, vec3 pos, float h0, float hx, float hy, float scale)
+{
+    vec3 dpdx = dFdx(pos);
+    vec3 dpdy = dFdy(pos);
+    vec3 r1 = cross(dpdy, n);
+    vec3 r2 = cross(n, dpdx);
+    float det = dot(dpdx, r1);
+    vec3 grad = (det < 0.0 ? -1.0 : 1.0) * ((hx - h0) * r1 + (hy - h0) * r2) * scale;
+    vec3 b = abs(det) * n - grad;
+    float l2 = dot(b, b);
+    return l2 > 1e-20 ? b * inversesqrt(l2) : n;
+}
+
+// the rim: light from behind the figure along its silhouette (the key light l with colour lc, the night lights near
+// it, the night sky)
+vec3 pxRim(vec3 pos, vec3 nd, vec3 eye, vec2 fc, vec3 l, vec3 lc)
+{
+    float f = 1.0 - saturate(dot(nd, eye));
+    float rimF = f * f * f;
+    vec3 rim = u_rmChar[1].rgb;
+    float back = saturate(dot(l, -eye) * 0.5 + 0.5);              // (1: the key is behind the figure)
+    float side = saturate(dot(nd, l) + 0.5);
+    rim += lc * (u_rmChar[0].y * mix(0.25, 1.0, back) * side);
+    if (u_rmCity[0].x > 0.5 && u_rmChar[0].z > 0.0) {            // (the night lights, seen past the silhouette;
+        vec3 c = cityLight(pos, normalize(nd * 0.5 - eye), fc);   // soft-limited: a big glow is not a floodlight)
+        rim += c * (u_rmChar[0].z / (1.0 + max(c.r, max(c.g, c.b))));
+    }
+    return rim * rimF;
+}
+#endif
+
 // the lit colours: which = 0 the diffuse colour (v_color0), 1 the specular colour (v_color1); front: the face's side
-vec4 pxLit(vec4 base, vec4 spec, vec4 nv, vec3 pos, float which, bool front, vec2 fc)
+vec4 pxLit(vec4 base, vec4 spec, vec4 nv, vec3 pos, float which, bool front, vec2 fc, vec3 bh)
 {
     float model = u_rmPx.x;
     bool hasN = nv.w > 0.0001;
     vec3 dir = hasN ? normalize(nv.xyz) : vec3(0.0, 0.0, 0.0);
     if (!front)
         dir = -dir;                                               // (two-sided lighting: the back face's normal)
+#ifdef PX_CHAR
+    bool chr = u_rmChar[0].x > 0.5 && model > 1.5 && hasN;       // (whulk1: a skin program's draw)
+    vec3 bumped = pxBump(dir, pos, bh.x, bh.y, bh.z, u_rmChar[1].w);   // (out of any branch: screen derivatives)
+    if (chr && u_rmChar[1].w > 0.0)                               // (the detail normals)
+        dir = bumped;
+#endif
     vec3 dyn = vec3(0.0, 0.0, 0.0);
     if (u_rmPx.y > 0.5)
         dyn = pxDynamic(pos, (hasN && u_rmPx.w < 0.5) ? dir : pxFaceNormal(pos));
@@ -177,6 +242,20 @@ vec4 pxLit(vec4 base, vec4 spec, vec4 nv, vec3 pos, float which, bool front, vec
     }
     vec3 colour = base.xyz;
     float key = u_rmShadow[8].x > 0.5 ? mix(1.0, pxShadow(pos, dir), u_rmShadow[8].w) : 1.0;
+#ifdef PX_CHAR
+    if (chr) {                                                    // (whulk1: wrapped lights, a soft shoulder, the rim)
+        float w = u_rmChar[0].w;
+        colour = max(vec3(0.0, 0.0, 0.0), pxWrap(ndl, w) * u_vc[10].xyz) * u_vc[6].xyz * key + colour;
+        for (int i = 1; i < 4; i++)
+            colour = max(vec3(0.0, 0.0, 0.0), pxWrap(dot(n, -u_vc[9 + 2 * i].xyz), w) * u_vc[10 + 2 * i].xyz) *
+                     u_vc[6].xyz + colour;
+        colour += dyn * u_vc[6].xyz;
+        float kl2 = dot(u_vc[9].xyz, u_vc[9].xyz);
+        vec3 kl = kl2 > 0.0 ? -u_vc[9].xyz * inversesqrt(kl2) : vec3(0.0, 0.0, 0.0);
+        vec3 rim = pxRim(pos, dir, -normalize(pos), fc, kl, u_vc[10].xyz);
+        return vec4(min(pxShoulder(colour, u_rmChar[2].w) + rim, vec3_splat(2.0)), base.a);
+    }
+#endif
     colour = max(vec3(0.0, 0.0, 0.0), max(ndl, 0.0) * u_vc[10].xyz) * u_vc[6].xyz * key + colour;
     for (int i = 1; i < 4; i++)
         colour = max(vec3(0.0, 0.0, 0.0), dot(n, -u_vc[9 + 2 * i].xyz) * u_vc[10 + 2 * i].xyz) * u_vc[6].xyz + colour;
@@ -190,6 +269,15 @@ vec4 pxLit(vec4 base, vec4 spec, vec4 nv, vec3 pos, float which, bool front, vec
 #else
 #define PX_FRONT true
 #endif
-#define v_color0 pxLit(v_pxbase, v_pxspec, v_pxnormal, v_pxpos, 0.0, PX_FRONT, gl_FragCoord.xy)
-#define v_color1 pxLit(v_pxbase, v_pxspec, v_pxnormal, v_pxpos, 1.0, PX_FRONT, gl_FragCoord.xy)
+// whulk1: the characters' detail normals read the base texture's luminance at the pixel and one pixel across and down
+// (stage 0 as the combiner samples it: fs_vp_stage.sh's declarations, these macros expand in its main)
+#ifdef PX_CHAR
+#define PX_UV0 (v_texcoord0.xy * u_pddiFrag[4].xy + u_pddiFrag[14].xy)
+#define PX_LUM(_uv) dot(texture2DBias(s_pddiTex0, _uv, u_pddiFrag[7].w).rgb, vec3(0.299, 0.587, 0.114))
+#define PX_BH vec3(PX_LUM(PX_UV0), PX_LUM(PX_UV0 + dFdx(PX_UV0)), PX_LUM(PX_UV0 + dFdy(PX_UV0)))
+#else
+#define PX_BH vec3(0.0, 0.0, 0.0)
+#endif
+#define v_color0 pxLit(v_pxbase, v_pxspec, v_pxnormal, v_pxpos, 0.0, PX_FRONT, gl_FragCoord.xy, PX_BH)
+#define v_color1 pxLit(v_pxbase, v_pxspec, v_pxnormal, v_pxpos, 1.0, PX_FRONT, gl_FragCoord.xy, PX_BH)
 #include "fs_vp_stage.sh"

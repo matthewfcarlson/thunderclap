@@ -33,6 +33,7 @@ enum Quality : uint32_t {
     kPerfOverlay,                         // wperf1 (perfov.cpp): 0 off, 1 the FPS readout, 2 with the graph
     kHudRes,                              // whud1 (hud.cpp): 0 the HUD at the render size, 1 at the present size
     kParticles,                           // wfx1 (particles.cpp, docs/particles.md): 0 the game's, 1 soft and lit
+    kCharLight,                           // whulk1 (lighting.cpp): 0 the characters as lit, 1 rim, wrap, detail normals
     kQualityCount
 };
 struct Settings {

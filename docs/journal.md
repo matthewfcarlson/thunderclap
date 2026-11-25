@@ -3799,3 +3799,10 @@ passes; output only (checkpoint records identical with every setting).
   records keep the game's path); ff_host_path fails, and says so once, instead of cutting; fe_options' misc.rcf
   overlay key likewise. XLaunchNewImageA now prints why and exits with code 4 instead of trapping. An unmakeable
   save folder (/dev/null/x) gives another error path (no dashboard; play3 diverges at 8,741).
+- (whulk1, 11-25) **The Hulk is a skin-program draw, not vertex program 6** (docs/lighting.md "Characters"). play3's
+  draw dumps (HULK_LIGHT_DUMP at 7,000 and 36,000) show him as 4 `skin` meshes with texture ordinal 1209 (hiding it with
+  HULK_LIGHT_HIDE removes him); the vertex program 6 (two-sided fixed function) draws are foliage (the night park's
+  trees). His skin light reaches the vertex colour's clamp over much of his body, so rim or normal changes under the
+  clamp were invisible (<= 5 levels); the Character Lighting row (char_light, rm::kCharLight = 22) gives skin draws
+  fs_px_char with albedo-derived detail normals, wrapped diffuse, a soft shoulder in place of the clamp and a rim
+  (key, night lights soft-limited, night sky) after it.
