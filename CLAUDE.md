@@ -785,6 +785,9 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   +0x175c; active +0xab8, focus +0x48) at each present and passes a packed word through gfx_quality what 0x100 (caught
   in app.cpp, not an rm::Quality row); run/app/menuarrows.cpp draws it in bgfx_sink overlay slot 2 (slot 0 movie ring /
   pad banner, slot 1 performance overlay). Front-end and pause option screens put their nine places at y 118 + 25k.
+  The game's string table holds about 2,300 entries (loader 0x000f7a80 stops silently at its cap) and the disc's
+  str_en.txt uses 2,075: every string fe_options.c adds (row labels, choices, move text) counts, and strings past the
+  cap show as raw ids (`TBS_PORT_...`). Share choice ids across rows (`TBS_PORT_DIGIT_*`, wnet1).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`): resumed 11-24 (D246): up to 3 Hulks, one host;
   guests join the host's live game (state snapshot, no save transfer; guests never write saves); Cloudflare TURN plus
   a lobby Worker that the user deploys (employer check first).
