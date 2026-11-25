@@ -781,6 +781,10 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   `tests/net/coop_loop.sh` (no game) and `wasm_build_job --test coop:FRAMES[:PEERS[:SECOND_S]]` (null-renderer peers on
   loopback with the local lobby net/worker/test/local_server.mjs; `--test-env HULK_COOP_SHIM=seed=S,delay=MS,jitter=MS,
   loss=PCT`). A HULK_INPUT run reaches gameplay only with START and A again at frames 1300-1805.
+  Menu scroll arrows (wmenu2): fe_options.c `hulk_wasm_fe_arrows` reads the FE manager's current screen (*0x004e0a60
+  +0x175c; active +0xab8, focus +0x48) at each present and passes a packed word through gfx_quality what 0x100 (caught
+  in app.cpp, not an rm::Quality row); run/app/menuarrows.cpp draws it in bgfx_sink overlay slot 2 (slot 0 movie ring /
+  pad banner, slot 1 performance overlay). Front-end and pause option screens put their nine places at y 118 + 25k.
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`): resumed 11-24 (D246): up to 3 Hulks, one host;
   guests join the host's live game (state snapshot, no save transfer; guests never write saves); Cloudflare TURN plus
   a lobby Worker that the user deploys (employer check first).
