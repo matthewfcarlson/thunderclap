@@ -31,11 +31,17 @@ struct Json {
     double n = 0;
     std::string s;
     std::vector<Json> a;
-    std::vector<std::pair<std::string, Json>> o;
+    struct Member;                                      // (not std::pair: libstdc++ rejects a pair of an incomplete type)
+    std::vector<Member> o;
     const Json& operator[](const char* key) const;      // a missing key: a null
     const Json& operator[](size_t i) const;
     bool ok() const { return kind != NUL; }
     int i() const { return (int)n; }
+};
+struct Json::Member {
+    std::string first;
+    Json second;
+    Member(std::string k, Json v) : first(std::move(k)), second(std::move(v)) {}
 };
 bool json_parse(const std::string& text, Json& out);
 std::string json_quote(const std::string& s);
