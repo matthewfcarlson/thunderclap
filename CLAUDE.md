@@ -788,6 +788,19 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   The game's string table holds about 2,300 entries (loader 0x000f7a80 stops silently at its cap) and the disc's
   str_en.txt uses 2,075: every string fe_options.c adds (row labels, choices, move text) counts, and strings past the
   cap show as raw ids (`TBS_PORT_...`). Share choice ids across rows (`TBS_PORT_DIGIT_*`, wnet1).
+  Online co-op handshake (wnet2, docs/multiplayer.md 18.1): every Worker request but `GET /` is HMAC-signed with the app
+  key (`X-Hulk-Time/Nonce/Sig`); room create/join answer a disc challenge; ICE comes only from `POST /rooms/<code>/ice`
+  with a member token; hello/welcome carry MACs under the guest's peer key (protocol 2). The lobby URL and app key live
+  only in the gitignored root `netplay.local.json` (`HULK_NETPLAY_CONFIG` for tests): `tools/netplay_keys.py` writes the
+  key and spot table and pipes secrets to wrangler (the lead deploys); `wasm_app.py` compiles URL and key into
+  `app-gen/hulk_netplay_config.h` (runner only); `wasm_build_job --netplay FILE|none` ships just those two. Never commit
+  or print them or the spot table; a new app key shuts out every older build. Disc spots are (file, offset, length) read
+  through `hdisc_*`, only from `default.xbe` and `.rcf` archives with no Bink entry, so folder, xiso and .hulkdisc answer
+  alike (`tests/net/disc_spot_test.sh`, `netplay_keys.py check`). Hosting needs no developer row: coop.c's Hulk k exists
+  while slot k is in `hulk_net_mask()` (game state); a leaver's Hulk goes through KillActorByName 0x0002b830. A co-op
+  status outside a session is refreshed at frame ends (`ff_coop_frame_label`); co-op tests read the row from `status
+  row:` lines (HULK_COOP_LOG). Knobs `HULK_NET_KEY`, `HULK_NET_SKEW=S`, `HULK_NET_TEST=replay|baddisc|badpeer`;
+  `coop_loop.sh NEG=1`. A test script waits on peer pids, never a bare `wait` (it waits for the background lobby too).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`): resumed 11-24 (D246): up to 3 Hulks, one host;
   guests join the host's live game (state snapshot, no save transfer; guests never write saves); Cloudflare TURN plus
   a lobby Worker that the user deploys (employer check first).
