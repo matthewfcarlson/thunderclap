@@ -809,6 +809,17 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   continue from the previous frame's last id, so a frame with one more effect pass gives the HUD the id of the frame's
   first, undrawn pass: rm gives a re-set pass whose view has no work yet a new view, never the earlier one (f39000: the
   HUD went under the world's clear). `HULK_RM_TRACE=1` prints the sink calls around each screenshot.
+  Game heaps and streaming (wstream1, docs/multiplayer.md §19): 0x00266e00's heaps are dl heaps sized by the XBE's table
+  0x00400520 (ids 3..18; the twenty room-data and two district heaps 19..40 fill the Room Heap). The app doubles them
+  (Debug excepted) under remastered or `dev_coop_local` > 1 from `ff_boot_image_loaded` (boot.c, before any game code);
+  faithful runs, replays and scripted tests keep the original sizes, and online guests take the host's with its memory.
+  Persistent (22 KiB left over play3) and Game FE (35 KiB) are the tight heaps. CWorldStreamManager has 20 room and 2
+  district slots (a load with no free slot writes through a null slot); the main actor's set takes 16-19 downtown, and
+  gfx/stream.c adds extra Hulks' rooms within that (hooks 0x002089f0, 0x00207a00). 0x0002a960 removes a non-main actor
+  outside loaded rooms beyond 238 units of the main actor unless +0x1d78 (never-expendable) is set: co-op Hulks set it.
+  Leash 300 (the 20-slot limit, not memory). Knobs `HULK_HEAP_LOG=N`, `HULK_HEAP_LOG_FROM=F`, `HULK_HEAP_SCALE=P`,
+  `HULK_COOP_FROM=F` (co-op inside a replay), `HULK_COOP_SPREAD=D[:N]`, `HULK_COOP_LEASH`, `HULK_COOP_STREAM=0`,
+  `HULK_STREAM_LOG=1|2`. `wasm_build_job --test coop:N:3`: the second guest never joins (on HEAD too, open).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`): resumed 11-24 (D246): up to 3 Hulks, one host;
   guests join the host's live game (state snapshot, no save transfer; guests never write saves); Cloudflare TURN plus
   a lobby Worker that the user deploys (employer check first).
