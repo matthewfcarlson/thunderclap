@@ -832,6 +832,9 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   failed play3's save at 8,730, and the game took the memory unit's dashboard path (XLaunchNewImageA, now a reported
   exit 4) or silently diverged from 8,741. Long run folders (Metal tests are named after every shot) made it look
   intermittent. A run that "reaches" a frame still needs its checkpoint records checked (wquit2).
+  Body text gaps after w/k/x/Y/A... ("lik e", "artw ork") are the shipped font's: font_futura_lt_med's atlas cells carry
+  2-3 blank trailing columns and advance = cell width; the original loader 0x00295620 only trims v (-2) and o/r (-1).
+  The combo text's growing, fading echo is the game's own pop-in (faithful 640x480 shows it). Neither is a port bug (wtext1).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`): resumed 11-24 (D246): up to 3 Hulks, one host;
   guests join the host's live game (state snapshot, no save transfer; guests never write saves); Cloudflare TURN plus
   a lobby Worker that the user deploys (employer check first).
