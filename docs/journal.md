@@ -3761,3 +3761,20 @@ passes; output only (checkpoint records identical with every setting).
 - A bare `wait` in a test script also waits for the background lobby server: wait on the peers' pids.
 - coop.c's extra Hulks now follow the session's mask (game state); removing one through the game's KillActorByName
   (0x0002b830, the am_KillActorByName binding's method) at the update after the guest left.
+
+## 2026-11-25 whud1: the HUD at the present size; the f39000 missing HUD (D249; docs/performance.md 4.3)
+
+- The lead's remastered shot at play3 f39000 had no HUD. A sink-call trace (`HULK_RM_TRACE=1`, new: rm_pass.cpp prints
+  the frames around each screenshot request) showed why: the game's pass ids follow on from the previous frame's last
+  id, so the frame's first pass (set before the world, no draws) carries the id the HUD pass takes when this frame has
+  one more effect pass than the last (the explosion added a full-screen filter pass). rm's renumbering (any midFrame
+  pass: TAA, HDR, AO, SSR, shadows) mapped the HUD's draws to that first view, which runs before the world and its
+  clear: a one-frame HUD dropout at the start of each such effect. Faithful (no renumbering) keeps the raw view order
+  and was right. Fix: a game pass set again after others, whose view had no work yet, takes a new view in order.
+- The HUD is the frame's tail: in play the scene pass after the bloom composite (depth clear, every draw depth-tested
+  always, no depth write); the pause menu and front-end menus likewise follow the frame's last effect. HUD Resolution
+  Display (hud.cpp) holds that tail in rm, lets the upscaler read the scene without it, and draws it again over the
+  upscaled frame at the present size; rm then draws it into the scene target too, so the front buffer is unchanged.
+- At the lead's 1280x960 window the remastered HUD was already drawn at the present size (Render Scale Auto keeps
+  1280x960 native): its softness there is the game's own low-resolution HUD textures, magnified. The row matters
+  wherever the scene is upscaled (any window above 1280x960 pixels under Auto, or a lower Render Scale).

@@ -31,6 +31,7 @@ enum Quality : uint32_t {
                                           // (ours), 4 MetalFX (macOS; elsewhere ours)
     kRenderScale,                         // wperf1: the scene target's share of the render resolution, percent
     kPerfOverlay,                         // wperf1 (perfov.cpp): 0 off, 1 the FPS readout, 2 with the graph
+    kHudRes,                              // whud1 (hud.cpp): 0 the HUD at the render size, 1 at the present size
     kQualityCount
 };
 struct Settings {
@@ -89,6 +90,10 @@ class Pass {
     // first pass; while any pass says yes the game's pass ids are renumbered in submission order with the runner's
     // views among them (off: the game's ids reach the sink unchanged)
     virtual bool midFrame() const { return false; }
+    // whud1: keep the frame's tail (the scene draws after its last effect: the HUD) for this pass's postScene
+    // (rm::drawTail) and draw it into the scene target only after the post views; asked at the frame's first sink call,
+    // honoured only with renumbering (midFrame)
+    virtual bool holdTail() const { return false; }
 };
 
 struct Registrar {
@@ -112,6 +117,7 @@ void textureDropped(uint32_t vid);
 void setPass(const hulk::pddi::SinkPass& p);       // instead of hulk_gfx_sink_set_pass
 void present(const hulk::pddi::SinkPresent& p);    // instead of hulk_gfx_sink_present
 void frame();                                      // after the sink's frame
+void traceShot();                                  // (HULK_RM_TRACE: a screenshot was requested)
 
 // wr3a: mid-frame views (Pass::midFrame). newView: a bgfx view that runs after everything submitted so far and
 // before the game's next pass (kNoView: none left this frame, or no pass asked for them); splitPass: the game's
@@ -136,6 +142,12 @@ void fxDraw(const hulk::pddi::FxPacket& p);                         // instead o
 // reaches the passes); null when the draw is a buffer draw or they are unknown
 void setTransient(const hulk::pddi::SinkVertex* v, uint32_t count);
 const hulk::pddi::SinkVertex* transientVertices(const hulk::pddi::DrawPacket& p, uint32_t* count);
+
+// whud1 (Pass::holdTail): draws are being kept (destroys wait for the frame's end: interp.cpp); drawTail: the frame's
+// tail into frame buffer fb (w x h pixels), its passes' viewports scaled by sx, sy, in views from `view` (advanced; the
+// post views' range); valid in postScene
+bool holdingDraws();
+void drawTail(uint16_t& view, uint16_t fb, uint32_t w, uint32_t h, float sx, float sy);
 
 // the Fog row (port_settings.c fog): 0 the game's, 1 reduced, 2 off
 int fogSetting();

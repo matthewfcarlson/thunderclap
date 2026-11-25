@@ -31,6 +31,7 @@ extern "C" uint32_t hulk_gfx_sink_scene_hdr();
 namespace {
 
 const char* s_name = "NATIVE";
+uint16_t s_out = 0xffff;          // (whud1: this frame's output, rm::upscaledFrame)
 
 class UpscalePass final : public rm::Pass {
   public:
@@ -66,6 +67,7 @@ class UpscalePass final : public rm::Pass {
     }
     void postScene(const rm::Scene& s, uint16_t& view) override
     {
+        s_out = rm::kNoHandle;
         const SinkPresent* p = rm::currentPresent();
         if (!m_mode || !p || !s.width || !s.height) {
             rm::temporalWanted(false, 8);
@@ -146,6 +148,7 @@ class UpscalePass final : public rm::Pass {
         rm::quad(v0, easu, BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A);
         rcasInto(v1, m_up.tex, ow, oh, m_stops);
         hulk_gfx_sink_present_source(m_out.tex);
+        s_out = m_out.tex;
         return true;
     }
     void rcasInto(uint16_t v, uint16_t src, uint32_t ow, uint32_t oh, float stops)
@@ -199,6 +202,7 @@ class UpscalePass final : public rm::Pass {
         rm::quad(v0, tu, BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A);
         rcasInto(v1, out.tex, ow, oh, m_tuStops);
         hulk_gfx_sink_present_source(m_out.tex);
+        s_out = m_out.tex;
         m_cur ^= 1;
         m_histFor = 1;
         m_resets += reset;
@@ -242,6 +246,7 @@ class UpscalePass final : public rm::Pass {
         rm::quad(v1, comp, BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A);
         rcasInto(v2, m_up.tex, ow, oh, m_mfxStops);
         hulk_gfx_sink_present_source(m_out.tex);
+        s_out = m_out.tex;
         m_histFor = 2;
         m_resets += reset;
         return true;
@@ -293,3 +298,4 @@ HULK_RM_REGISTER_PASS(UpscalePass);
 } // namespace
 
 const char* rm::upscalerName() { return s_name; }
+uint16_t rm::upscaledFrame() { return s_out; }

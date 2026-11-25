@@ -727,7 +727,7 @@ void interp_draw(const DrawPacket& p)
 void interp_destroy(int kind, uint32_t a, uint32_t b)
 {
     Deferred d = {(uint8_t)kind, a, b};
-    if (s_recording || s_closed)
+    if (s_recording || s_closed || rm::holdingDraws())     // (whud1: kept draws can still name it this frame)
         s_deferred.push_back(d);
     else
         destroyNow(d);
@@ -736,6 +736,8 @@ void interp_destroy(int kind, uint32_t a, uint32_t b)
 bool interp_frame()
 {
     if (!s_recording) {
+        if (!s_closed && !s_deferred.empty())
+            runDeferred();                          // (whud1: what waited for a frame's kept draws)
         if (s_sampleNs) {
             double l = (nsNow() - s_sampleNs) / 1e6;
             s_lat.first += l, s_lat.last += l, s_lat.n++;

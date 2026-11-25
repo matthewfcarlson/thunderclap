@@ -742,6 +742,7 @@ u32 w2c_hulk_gfx_texpack_status(struct w2c_hulk*, u32 buf, u32 cap) { return tex
 void w2c_hulk_gfx_request_screenshot(struct w2c_hulk*, u32 path)
 {
     hulk_gfx_sink_request_screenshot((const char*)M(path));
+    rm::traceShot();
 }
 void w2c_hulk_gfx_context_destroyed(struct w2c_hulk*)
 {

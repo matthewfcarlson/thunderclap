@@ -147,9 +147,8 @@ Two Video Options rows (port_settings.c; output only, remastered-only):
   the present rectangle is larger than the scene (Native at Window size does nothing: TAA resolves as before).
 - **Spatial first, the HUD included.** The whole frame is upscaled at the end, so the HUD and the game's effects are
   drawn at the render size and upscaled with the world: at 67% and above the HUD's text stays clean (EASU keeps edges);
-  at 50% it softens. Drawing the HUD at the present size would need the scene target split into a world rectangle and
-  the full frame (dynamic-resolution style viewports for the world passes); the temporal upscalers do without it
-  (4.2: the HUD is masked).
+  at 50% it softens. HUD Resolution Display (whud1, 4.3, a remastered default) draws the HUD at the present size
+  instead.
 
 ### 4.1 Cost
 
@@ -215,6 +214,42 @@ the HUD's small text blurs.
   10.10 ms (+1.3). At the 1280x960 budget window Auto stays Native (TAA as before): 7.0-8.0 ms, within the 12.
 - **Android.** Auto keeps FSR 1 there (rm::upscalerTemporal): temporal upscaling on Mali-class GPUs costs about what
   it saves at 720p; Temporal can still be chosen (the shaders build for spirv and essl).
+
+### 4.3 HUD Resolution (whud1, D249)
+
+Video Options > HUD Resolution: Render (Original) / Display (`hud_res=0|1`, rm::kHudRes = 20, remastered-only,
+remastered default Display). Output only; the game still sees 640x480.
+
+- **What is the HUD.** In play the game's frame is the world pass, its effects (a frame copy, the bloom chain into
+  smaller targets, the bloom composite as a full-screen quad) and then one more scene pass that clears depth and draws
+  the HUD (2D and HUD-camera draws, every one depth-tested `always` with no depth write); in the front end and the
+  pause menu the menus come the same way after the frame's last effect (`HULK_RM_TRACE=1` prints a frame's sink calls
+  around each screenshot request). So the HUD is the frame's **tail**: the scene draws after its last copy or effect.
+- **Holding the tail** (rm_pass.cpp, `Pass::holdTail`). While a pass asks for it (run/app/hud.cpp, when the last frame
+  was drawn below its present size), rm keeps the scene passes and draws after each effect (deep copies: constants,
+  transient vertices, matrices, lights, combiner key) instead of sending them on. At the next copy or effect they go
+  on in order through the usual path, hooks and all, as if they had just come; a pass into another target or a draw
+  that is not HUD-like (a depth write under a depth test, the stencil, an occlusion query) ends holding the same way.
+  What is still kept at the present is the tail. The module's destroys wait for the frame's end while draws are kept
+  (interp.cpp).
+- **Drawing it.** The post views now follow the game's when rm renumbers, so there is room after the upscaler. The
+  upscaler reads the scene without the tail; hud.cpp (order 1010) then makes the present-size frame: the upscaler's
+  output (`rm::upscaledFrame`, blitted), or with Upscaler Off the scene stretched bilinearly (fs_rm_copy.sc), and draws
+  the tail over it (`rm::drawTail`: the game's passes with their viewports scaled to the present; the 2D and HUD
+  projections are in clip space), and presents it. rm then draws the tail into the scene target too, after those views,
+  so the scene (the front buffer the motion-trail overlay reads) ends as the game drew it. The TAA HUD mask of the
+  temporal upscalers is left with what came between effects; the tail is no longer in their input.
+- **Unchanged:** at the render size (Native at window size: no hold), with the row off, and in faithful. The overlays
+  (movie ring / pad banner slot 0, performance overlay slot 1, menu arrows slot 2) are drawn by the sink at the present
+  in window pixels, as before. 30/60/120 fps: interp.cpp replays each update's stream through the same rm calls, so
+  every presented frame holds its own tail.
+- **The f39000 missing HUD** (all remastered settings with renumbering, not only this row): the game's pass ids follow
+  on from the previous frame's last id, so a frame's first pass (set before the world, never drawn into) carries the id
+  the HUD pass takes when the frame has one more effect pass than the one before (an explosion's extra filter pass).
+  rm's renumbering mapped the HUD's draws to that first view, before the world, whose clear wiped them: a one-frame
+  HUD dropout at the start of each such effect. A game pass set again after others, whose view had no work yet this
+  frame, now takes a new view in order (`forgetIdle`).
+- `HULK_HUD_RES=0|1|2` (development: 2 also at the render size), `HULK_HUD_LOG=1`, `HULK_HUD_AB=N` (cost turns).
 
 ## 5. TAA (Anti-Aliasing: TAA)
 

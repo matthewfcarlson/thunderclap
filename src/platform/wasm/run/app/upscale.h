@@ -28,5 +28,8 @@ const TemporalFrame* temporalFrame();
 void temporalWanted(bool on, uint32_t phases);
 // upscale.cpp: the upscaler of the last presented frame, for the performance overlay
 const char* upscalerName();
+// upscale.cpp (whud1): the texture (RGBA8, the present rectangle's size) the upscaler drew this frame and handed to
+// the present; kNoHandle when it drew none. Valid in postScene of passes after the upscaler's (1000)
+uint16_t upscaledFrame();
 
 } // namespace rm
