@@ -32,6 +32,7 @@ enum Quality : uint32_t {
     kRenderScale,                         // wperf1: the scene target's share of the render resolution, percent
     kPerfOverlay,                         // wperf1 (perfov.cpp): 0 off, 1 the FPS readout, 2 with the graph
     kHudRes,                              // whud1 (hud.cpp): 0 the HUD at the render size, 1 at the present size
+    kParticles,                           // wfx1 (particles.cpp, docs/particles.md): 0 the game's, 1 soft and lit
     kQualityCount
 };
 struct Settings {
@@ -157,6 +158,8 @@ uint16_t loadShader(const char* name);
 // wlinux2 (lighting.cpp): a copy of a draw already submitted, before another pass submits it again: the per-pixel
 // program's samplers (stages 4 and 5) bound again, as bgfx drops texture bindings at each submit
 void lightingRebind(const hulk::pddi::DrawPacket& q);
+// wfx1 (particles.cpp): the same for a copy of a soft particle draw (its stages 4, 5 and 6); lightingRebind calls it
+void particlesRebind(const hulk::pddi::DrawPacket& q);
 // wlook3: the grass blades are drawn after ambient occlusion is applied (thin blades in the depth read as occluders:
 // the lawns turned to dark stubble). aoPending (ao.cpp): the occlusion is on and still to come this frame (a ground
 // draw's blades then wait); grassWaiting (grass.cpp): blades are waiting; grassAfterAo: the occlusion ran, `view` an

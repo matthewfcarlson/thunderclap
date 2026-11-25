@@ -677,8 +677,10 @@ HULK_RM_REGISTER_PASS(LightDump);
 // whose unbound textures read zeros, so the macOS picture stays as it was)
 void rm::lightingRebind(const DrawPacket& q)
 {
-    if (bgfx::getRendererType() != bgfx::RendererType::Metal)
+    if (bgfx::getRendererType() != bgfx::RendererType::Metal) {
         s_rmPass_LightingPass.rebind(q);
+        rm::particlesRebind(q);
+    }
 }
 
 // (rm_pass.h) a runner shader by name for this renderer's profile, made once; 0xffff when there is none

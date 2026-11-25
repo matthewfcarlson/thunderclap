@@ -61,6 +61,7 @@ static void apply_render_scale(int value) { hulk_wasm_quality_apply(18, value); 
 static void apply_grass(int value) { hulk_wasm_quality_apply(16, value); }
 static void apply_perf_overlay(int value) { hulk_wasm_quality_apply(19, value); }
 static void apply_hud_res(int value) { hulk_wasm_quality_apply(20, value); }
+static void apply_particles(int value) { hulk_wasm_quality_apply(21, value); }
 static void apply_tutorial_skip(int value) { hulk_wasm_tutorial_skip_apply(value); }
 static void apply_traversal(int value) { hulk_wasm_traversal_apply(value); }
 void hulk_wasm_net_apply(int value);                                   /* netplay.c: online co-op (wnet1) */
@@ -137,6 +138,9 @@ static void apply_developer(int value);
  * HUD Resolution (whud1; run/app/hud.cpp, docs/performance.md 4.3): when the scene is drawn below the window's size
  * and upscaled, the HUD, menus and subtitles (the frame's draws after the game's last effect) are drawn again at the
  * present size over the upscaled frame (1, Display) instead of being upscaled with it (0). Output only.
+ * Particles (wfx1; run/app/particles.cpp, docs/particles.md): the game's smoke, dust, fire and explosion sprites fade
+ * where they meet the ground and walls and near the camera (1, Soft), smoke and dust take the sun's shadow and the Night
+ * Lights' city lights, and under HDR additive flashes are toned down; 0 the game's flat sprites. Output only.
  * Performance Overlay (wperf1; run/app/perfov.cpp): a corner readout of the frame rate, frame time, render size and
  * upscaler (1), plus a graph of the last 240 frames' times and their CPU / GPU split (2). Both editions (a runner
  * overlay); output only.
@@ -204,6 +208,7 @@ static port_setting k_settings[] = {
      apply_atmosphere},
     {"grade", "Colour Grade", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"Original", "Natural", "Cinematic"}, 0, 2, 1,
      apply_grade},
+    {"particles", "Particles", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Original", "Soft"}, 0, 1, 1, apply_particles},
     {"grass", "Grass", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"Original", "Blades Low", "Blades High"}, 0, 2, 1,
      apply_grass},
     {"tutorial_skip", "Tutorial Skip", PS_SCREEN_GAMEPLAY, PS_ONOFF, 2, {0, 1}, {"Off", "On"}, 0, 1, 1,

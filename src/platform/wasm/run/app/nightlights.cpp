@@ -143,6 +143,7 @@ class NightLightsPass final : public rm::Pass {
             for (int k = 0; k < 3; k++)
                 s.c[k] = 0.5f * (lo[k] + hi[k]), s.size = fmaxf(s.size, hi[k] - lo[k]),
                 s.col[k] = (float)(col[k] / d.count);
+            s.beam = beamLike(lo, hi);
             m_small[d.owner] = s;
         }
         m_ownerOf[sinkBuffer] = d.owner;
@@ -333,11 +334,15 @@ class NightLightsPass final : public rm::Pass {
             for (int i = 0; i < 3; i++)
                 centre[i] = c[4 * i] * m[0] + c[4 * i + 1] * m[1] + c[4 * i + 2] * m[2] + c[4 * i + 3];
             size *= scaleOf(c);
+            if (beamLike(lo, hi))
+                return;
         } else {
             auto it = m_small.find(p.bufferOwner);
             if (it == m_small.end() || p.vertexCount > 64)
                 return;
             const Small& s = it->second;
+            if (s.beam)
+                return;
             for (int i = 0; i < 3; i++)
                 centre[i] = c[4 * i] * s.c[0] + c[4 * i + 1] * s.c[1] + c[4 * i + 2] * s.c[2] + c[4 * i + 3];
             size = s.size * scaleOf(c);
@@ -395,6 +400,16 @@ class NightLightsPass final : public rm::Pass {
         }
         if (m_found.size() < 512)
             m_found.push_back(f);
+    }
+    // wfx1: a beam (a mission beacon's pillar, a searchlight's shaft: long and thin, crossed quads or a thin mesh) is
+    // volumetric decoration, not a source: as lights its quads flooded a whole rooftop (play3 f30000: eight 9.3-unit
+    // green quads, each a 24-unit light). Its longest side is over 3x the next and over 2 units (model space; the
+    // game's glows are round sprites, sparks and streaks are short)
+    static bool beamLike(const float lo[3], const float hi[3])
+    {
+        float e[3] = {hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2]};
+        std::sort(e, e + 3);
+        return e[2] > 2.0f && e[2] > 3.0f * e[1];
     }
     static float scaleOf(const float* c)
     {
@@ -1229,6 +1244,7 @@ class NightLightsPass final : public rm::Pass {
     unsigned m_dbg[12] = {};
     struct Small {
         float c[3] = {0, 0, 0}, size = 0, col[3] = {1, 1, 1};
+        bool beam = false;
     };
     std::unordered_map<uint32_t, Small> m_small;       // small prim buffers (<= 512 vertices): their bounds and colour
     std::unordered_map<uint32_t, uint32_t> m_ownerOf;
