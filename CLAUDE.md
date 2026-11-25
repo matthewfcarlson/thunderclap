@@ -801,6 +801,14 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   status outside a session is refreshed at frame ends (`ff_coop_frame_label`); co-op tests read the row from `status
   row:` lines (HULK_COOP_LOG). Knobs `HULK_NET_KEY`, `HULK_NET_SKEW=S`, `HULK_NET_TEST=replay|baddisc|badpeer`;
   `coop_loop.sh NEG=1`. A test script waits on peer pids, never a bare `wait` (it waits for the background lobby too).
+  HUD Resolution (whud1, D249, run/app/hud.cpp, docs/performance.md 4.3): the HUD and menus are the frame's tail (scene
+  draws after its last copy/effect). While a pass returns `holdTail()`, rm keeps the tail: the upscaler reads the scene
+  without it, `rm::drawTail` redraws it at the present size, then rm draws it into the scene target (the motion trail
+  reads that front buffer). A draw into another target, or one writing depth under a depth test, using stencil or counting
+  pixels, flushes the held draws; destroys wait for the frame's end while draws are held (interp.cpp). The game's pass ids
+  continue from the previous frame's last id, so a frame with one more effect pass gives the HUD the id of the frame's
+  first, undrawn pass: rm gives a re-set pass whose view has no work yet a new view, never the earlier one (f39000: the
+  HUD went under the world's clear). `HULK_RM_TRACE=1` prints the sink calls around each screenshot.
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`): resumed 11-24 (D246): up to 3 Hulks, one host;
   guests join the host's live game (state snapshot, no save transfer; guests never write saves); Cloudflare TURN plus
   a lobby Worker that the user deploys (employer check first).
