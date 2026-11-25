@@ -837,6 +837,13 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   The combo text's growing, fading echo is the game's own pop-in (faithful 640x480 shows it). Neither is a port bug (wtext1).
   xemu scan-out reads (pmemsave/memsave of the framebuffer) freeze the QEMU monitor during gameplay too, even with the VM
   stopped: there is no working xemu screenshot path yet (wtext1).
+  Window stability (wwin3, docs/look.md §5.7): compare frame pairs only after aligning them (play3's night city pans ~5 px
+  a frame; build/wwin3/flick.py, strip.py). A runner shader never derives a per-object identity by rounding a position
+  rebuilt from screen derivatives (every room of a facade sits at one grid phase, so rooms near a line flip): key it on
+  exact per-pixel inputs (texture tile, buffer seed, quantised face direction). Procedural detail under ~12 px sparkles as
+  parallax moves it: room detail is full from 32 px a room, none below 12. Night Lights: the game dims and hides a lamp's
+  glow while something passes in front (occlusion query); a static light follows the glow up at once, down slowly, and
+  goes after 90 unseen on-screen frames.
   Character Lighting (whulk1, `rm::kCharLight` = 22, docs/lighting.md "Characters"): skin draws take fs_px_char (generic
   combiner + PX_CHAR, `u_rmChar` per draw; zero = faithful). The Hulk's skin light clamps at 1 over most of his body, so a
   term added under that clamp is invisible: the character path uses a soft shoulder (knee 0.4) and adds the rim after it.
