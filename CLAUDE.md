@@ -876,6 +876,14 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   the scene runs after the characters and before the translucents (the first translucent/2D draw after a skinned draw past
   the stencil quad), never at the first effect, which darkens smoke, glows and shock waves. Two Off/On rows borrowing hdr's
   strings cost fewer string-table entries than one three-choice row.
+  Artefact sweep (wsweep1, docs/look.md "Canyon wall stripes", "The night wash"): Fog Reduced follows `rm::nightAmount`
+  (by day the start stays the game's and the end goes x1.15; at night both planes x2.5): desert fog runs 50..650 units,
+  and more by day bares the canyon walls' baked streaks (play3 f7000). Knobs `HULK_FOG=dayStart,dayEnd,nightStart,nightEnd`,
+  `HULK_FOG_LOG=1`. To find what tints or brightens a remastered picture, add setting groups one at a time over faithful
+  (`HULK_SETTINGS=remastered=1,aspect=43,<group>`), not one at a time off the defaults (Night Lights + Atmosphere carried
+  the night wash); measure with build/wsweep1/scripts/cast.py. Additive soft sprites take gain 0.6 under HDR
+  (particles.cpp): a white-out from stacked flashes is their sum, not the tone curve. A metal test's name goes into the
+  shot path: a long `metal:FRAMES:SHOTS` list (30+ frames) writes no shots; name the test (`--test rem=metal:...`).
   Character Lighting (whulk1, `rm::kCharLight` = 22, docs/lighting.md "Characters"): skin draws take fs_px_char (generic
   combiner + PX_CHAR, `u_rmChar` per draw; zero = faithful). The Hulk's skin light clamps at 1 over most of his body, so a
   term added under that clamp is invisible: the character path uses a soft shoulder (knee 0.4) and adds the rim after it.
