@@ -913,6 +913,16 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   lightmaps. play3 shows the sea at the harbour (f17,170, f56,570) and the Church hub (f13,800, f54,980); no replay reaches
   the river or the dam. Metal play4 shots: `wasm_build_job test --test play4:N` with `--test-env HULK_GFX_RENDERER=metal
   HULK_GFX_HIDDEN=1 SDL_MAC_BACKGROUND_APP=1 HULK_GFX_SHOT_DIR=. HULK_GFX_SHOT_GAME=...` (metal kinds replay play3 only).
+  Co-op join keyboard (wjoin1): the room code is typed on the game's cheat keyboard. Extras "Join Online Game"
+  (`FEmain_right_item6`, `Port_JoinMode`) or the Online Co-op row's Join a Game (goto by name 0x000fc280) opens the Code
+  Input screen ("cheats", FETextInput `FE_code_input_widget`, 7 boxes) in join mode; fe_options.c answers the front-end
+  function `DoFECodeInput` (0x000c2b90) with a host handler that forwards to the game's own (CallbackHolder::vfunc_0:
+  count, args) outside join mode; Code Input sets `Port_CheatMode`. The pause menu has no keyboard. Room codes show as 7
+  characters (host/room_code.h: 6 base-32 symbols of the Worker's 8 digits, no I/L/O/U, plus a check symbol); the Worker
+  keeps digits and `--join` takes either form. `HULK_COOP_TYPE=CODE|@FILE` types and enters a code (tests);
+  `--test coop:N --test-env HULK_COOP_TEST_KEYBOARD=1 --test-env HULK_SETTINGS=remastered=1` joins guest 1 through it.
+  The main menu's columns are a separate "main" screen of tab buttons: from a column B returns to the tabs, left/right
+  moves, A opens one (scripted runs reach Extras from Story Mode with B, right, A).
   Light Shafts (wrays1, `rm::kLightShafts` = 32, run/app/rays.cpp, docs/light-shafts.md): the key light's in-scattering
   marched at half size through the shadow atlas (screen-space radial shafts would draw nothing in play3: the sun is ~54
   degrees up and never on screen). Plain in-scattering is a uniform haze over a mostly lit scene: draw only the difference
