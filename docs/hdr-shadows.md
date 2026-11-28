@@ -115,6 +115,54 @@ Helpers for full-screen passes are run/app/rm_post.h (programs, targets, views, 
 - `HULK_SHADOW=baked,key,far0,far1` (0.45, 0.85, 30, 150); `HULK_SHADOW_LOG=1` (casters a frame, the sun);
   `HULK_SHADOW_AB=N`.
 
+## Contact shadows and bounce light (contact.cpp)
+
+wshadow1, 2026-11-27 (the user's visual pick #3): objects and characters sit on the ground instead of floating. Two
+Video Options rows, both remastered-only, faithful Off, remastered default On, each borrowing `hdr`'s choice strings
+(fe_options.c k_borrow: no new choice strings, two labels): `contact` Contact Shadows (rm::kContact = 23) and `bounce`
+Bounce Light (rm::kBounce = 24). One rm pass draws both (run/app/contact.cpp; shaders fs_rm_contact.sc,
+fs_rm_contactapply.sc); either row on keeps the scene's depth readable (rm_pass.cpp's QualityPass).
+
+- **Where.** In the world's pass, once the characters are in the depth and before the translucent effects, in two views
+  of the runner's own (rm::viewsHere; the draw being handed over gets the lighting pass's samplers again,
+  `rm::lightingRebind`). play3's world pass draws: opaque rooms and objects (some characters among them), ~80
+  translucent decals, the stencil shadow volumes and their quad, the skinned characters (the Hulk), then props and
+  translucent effects mixed, then the particles. The terms run at the first translucent or 2D draw after a skinned
+  draw that follows the stencil quad; a frame without them (no characters) takes them at its first effect, like HDR.
+  Applied at the first effect (the first version), the darkening went over the smoke (a drain pipe's contact line
+  through a cloud) and dimmed the Sonic Clap's ground glow and a shock wave, with speckle: translucent draws must come
+  after. Props drawn after the characters neither cast nor receive (those after the trigger are not in the depth yet).
+- **Contact shadows.** At half size, from each pixel (normal from the depth, as the occlusion's) a ray of 0.8 units
+  towards the key light (the sun: the strongest directional light of the world pass's lit draws through the inverse
+  view, smoothed in world space, as shadows.cpp takes it, but computed here so it works with Shadows off) in 12 steps,
+  each projected and compared with the depth: a surface 0.01 + 0.0015 z to 1 unit in front of the ray point occludes
+  (1 - 0.6 t at its step t). Strength 0.6, weighted by the surface's slope to the sun and by the key light's brightness
+  (play3: 0.66 by day, ~0.5 at night), faded out from 60 to 100 units. It shades the Hulk's feet and shins on the
+  street, a slab he holds onto his hips and legs, tank fronts and their contact with the road, the drain pipe on its wall.
+- **Bounce light.** In the same shader: 8 samples of the scene's colour (sampled directly: the world view's draws so far
+  are resolved when its split ends) in a disc of 2.5 units, weighted by the receiver's cosine to each sample and its
+  distance, sky excluded, strength 1.2. It is applied as a tint, destination x (1 + bounce): one bounce of the lit
+  surroundings, so dark stays dark and nothing glows (the sunlit ground up onto the Hulk's legs and car sides, the Hulk's
+  green onto the ground beside him).
+- **Noise and stability.** Ray offsets and the bounce's rotation come from a 4x4 Bayer matrix per half-size pixel; the
+  apply's 4x4 depth-weighted blur (each half-size texel's depth read where the terms read it) takes each of the 16 once,
+  so the estimate's noise cancels without TAA (wlook3). Nothing is kept between frames. Aligned frame pairs (wwin3's
+  flick.py) without TAA (MSAA 4x): the same flicker with both rows on as off (pixels changing by more than 12/255:
+  7000 6.11% / 6.08%, 36000 13.20 / 13.13, 54000 14.26 / 14.16; 42000's shock wave 68.9 both).
+- `HULK_CONTACT=len,thick,strength,bounce,radius,fade0,fade1` (0.8, 1, 0.6, 1.2, 2.5, 60, 100); `HULK_CONTACT_SHOW=1|2`
+  shows the visibility or the bounce (development: later passes still tone map it); `HULK_CONTACT_LOG=1` (frames run,
+  how many at the first effect, the sun and the key light); `HULK_CONTACT_AB=N`; `HULK_SUN=x,y,z` fixes the sun as for
+  the shadows.
+- **Cost.** metal-ab (studio, play3 from boot to 25,000, 1280x960, every remastered default on with TAA, both rows on,
+  `HULK_CONTACT_AB=30`, ~11,300 frames a side): GPU 1.75 -> 2.02 ms (+0.27 by bgfx's timer, which reads ~1.8x high:
+  ~0.15 ms), render thread +0.015 ms.
+- **Linux / Vulkan.** Every sampler the two programs declare is bound for every quad (s_rmTex0 the depth, s_rmTex1 the
+  scene's colour or the half-size terms); after the terms run mid-pass the handed-over draw's samplers are bound again
+  (`rm::lightingRebind`, wlinux2). New handles: one RGBA16F half-size target (texture + frame buffer) and one frame
+  buffer over the scene's colour (remade when the scene target is), no vertex or index buffers. The shaders build for
+  metal, spirv and essl. Not run on a Linux device yet: check with Khronos validation on a city scene with HUD, cars and
+  enemies.
+
 ## Checks and cost
 
 - Game state: checkpoint records identical with every setting: play3 on Metal to 34,100 with each option off and on and

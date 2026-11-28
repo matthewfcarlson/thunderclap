@@ -831,8 +831,10 @@ class QualityPass final : public Pass {
         bool remake = hulk_gfx_sink_quality(s[kAniso] ? 1 : 0, (uint32_t)(msaa > 1 ? msaa : 1)) != 0;
         // wr3a: the scene in half floats (HDR), its depth sampled (ambient occlusion, the atmosphere)
         int hdr = s[kHdr] != 0;          // (the sink falls back to 8 bits where half floats can't be drawn)
-        // (wlook2: the atmosphere; wperf1: TAA, the msaa row's 1, reprojects through the depth; wfx1: soft particles)
-        if (hulk_gfx_sink_targets((uint32_t)hdr, s[kAo] || s[kAtmosphere] || s[kParticles] || msaa == 1 ? 1 : 0))
+        // (wlook2: the atmosphere; wperf1: TAA, the msaa row's 1, reprojects through the depth; wfx1: soft particles;
+        // wshadow1: contact shadows and bounce light)
+        if (hulk_gfx_sink_targets((uint32_t)hdr,
+                                  s[kAo] || s[kAtmosphere] || s[kParticles] || s[kContact] || s[kBounce] || msaa == 1 ? 1 : 0))
             remake = true;
         if (remake)
             appTargetsChanged();

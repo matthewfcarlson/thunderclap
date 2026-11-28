@@ -3883,3 +3883,18 @@ queue shots, the player's settings, TAA, 1280x960):
   skin through the cheats screen's on bits; a loaded save's skin comics are unlocked only (112274/112275/112294).
 - A TextSelection line of fourteen `TBS_CHEAT_*` ids crashed the front end's parser at start-up (every run, faithful
   too): fe_options.c parses long rows with one choice and relabels them when shown.
+
+## 2026-11-27 wshadow1: Contact Shadows and Bounce Light (docs/hdr-shadows.md "Contact shadows and bounce light")
+
+- Two remastered-only Video Options rows (`contact`, `bounce`; rm::kContact 23, kBounce 24; Off / On on hdr's borrowed
+  strings), one rm pass (run/app/contact.cpp): half-size screen-space terms from the scene's depth and colour, a 4x4
+  depth-weighted blur, multiplied into the scene (destination x visibility x (1 + bounce)). Contact shadows march 0.8
+  units towards the key light in 12 Bayer-offset steps; the bounce gathers 8 colour samples in 2.5 units by the
+  receiver's cosine. Output only.
+- Finding: play3's world pass draws opaque rooms and objects, ~80 translucent decals, the stencil volumes and their
+  quad, the skinned characters, then props and translucent effects mixed, then particles. Terms applied at the first
+  effect darkened smoke (a pipe's contact line through a cloud), the Sonic Clap's ground glow and a shock wave; they now
+  run at the first translucent or 2D draw after a skinned draw that follows the stencil quad (the first effect when a
+  frame has none). Opaque draws after that point neither cast nor receive.
+- Stable without TAA: aligned frame pairs (MSAA 4x) flicker the same with the rows on as off. Cost (metal-ab 112280,
+  studio, TAA, 1280x960): +0.27 ms by bgfx's GPU timer (~0.15 ms real).

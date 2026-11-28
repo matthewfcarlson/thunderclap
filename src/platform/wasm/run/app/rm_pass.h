@@ -34,6 +34,8 @@ enum Quality : uint32_t {
     kHudRes,                              // whud1 (hud.cpp): 0 the HUD at the render size, 1 at the present size
     kParticles,                           // wfx1 (particles.cpp, docs/particles.md): 0 the game's, 1 soft and lit
     kCharLight,                           // whulk1 (lighting.cpp): 0 the characters as lit, 1 rim, wrap, detail normals
+    kContact,                             // wshadow1 (contact.cpp): 0 off, 1 screen-space contact shadows
+    kBounce,                              // wshadow1 (contact.cpp): 0 off, 1 one bounce of the lit surfaces' colour
     kQualityCount
 };
 struct Settings {

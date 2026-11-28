@@ -76,6 +76,7 @@ has room: ~4-5 ms of a present's work against 16.7 (60) or 8.3 (120) ms, so the 
 | Night Lights | +1.2 | | +0.75 ms |
 | Windows (interiors) | +0.7 | | +0.2 ms |
 | Colour Grade | +0.2 | | |
+| Contact Shadows + Bounce Light (wshadow1; studio, play3 to 25,000) | | +0.27 | |
 
 What the numbers say: **MSAA 4x on the half-float scene is the largest single cost** (+4.3 ms, ~40% of the frame): it
 multiplies every full-screen runner pass by four samples (AO's apply +2.1 ms under MSAA, +0.7 without; the atmosphere

@@ -66,6 +66,8 @@ static void apply_perf_overlay(int value) { hulk_wasm_quality_apply(19, value); 
 static void apply_hud_res(int value) { hulk_wasm_quality_apply(20, value); }
 static void apply_particles(int value) { hulk_wasm_quality_apply(21, value); }
 static void apply_char_light(int value) { hulk_wasm_quality_apply(22, value); }
+static void apply_contact(int value) { hulk_wasm_quality_apply(23, value); }
+static void apply_bounce(int value) { hulk_wasm_quality_apply(24, value); }
 static void apply_text_spacing(int value) { hulk_wasm_text_spacing_apply(value); }
 static void apply_move_prompts(int value) { hulk_wasm_move_prompts_apply(value); }
 static void apply_tutorial_skip(int value) { hulk_wasm_tutorial_skip_apply(value); }
@@ -151,6 +153,10 @@ static void apply_developer(int value);
  * the game's skinned draws) drawn per pixel with a rim of back light along his silhouette (the key light's, and at
  * night the city's lights and the night sky's), light wrapped a little past the terminator and rolling off softly
  * instead of clipping flat, and detail normals from his texture (1, Enhanced). Output only.
+ * Contact Shadows / Bounce Light (wshadow1; run/app/contact.cpp, docs/hdr-shadows.md "Contact shadows and bounce
+ * light"): short screen-space shadows towards the sun where feet, tyres, debris and props meet the ground, and one
+ * bounce of the lit surfaces' colour onto their neighbours (the sunlit street onto walls and the Hulk, his green onto
+ * the ground). Each Off / On (hdr's choice strings, fe_options.c k_borrow). Output only.
  * Performance Overlay (wperf1; run/app/perfov.cpp): a corner readout of the frame rate, frame time, render size and
  * upscaler (1), plus a graph of the last 240 frames' times and their CPU / GPU split (2). Both editions (a runner
  * overlay); output only.
@@ -219,6 +225,9 @@ static port_setting k_settings[] = {
      apply_dyn_lights},
     {"char_light", "Character Lighting", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Original", "Enhanced"}, 0, 1, 1,
      apply_char_light},
+    {"contact", "Contact Shadows", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 1, 1,
+     apply_contact},
+    {"bounce", "Bounce Light", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 1, 1, apply_bounce},
     {"hdr", "HDR", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 1, 1, apply_hdr},
     {"ao", "Ambient Occlusion", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 1, 1, apply_ao},
     {"shadows", "Shadows", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"Original", "Low", "High"}, 0, 2, 1,
