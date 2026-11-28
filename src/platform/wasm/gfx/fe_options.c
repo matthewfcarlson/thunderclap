@@ -112,10 +112,9 @@ static int place_setting(int p) {
 static void nv_name(int p, char* out, size_t cap) { snprintf(out, cap, "Port_%s_%d", k_screens[p / PLACES].key, p % PLACES + 1); }
 static void cb_name(int p, char* out, size_t cap) { snprintf(out, cap, "Port_%s_%d_Changed", k_screens[p / PLACES].key, p % PLACES + 1); }
 static void sel_name(int p, char* out, size_t cap) { snprintf(out, cap, "port_%s_%d", k_screens[p / PLACES].key, p % PLACES + 1); }
-/* rows whose choices share one set of string ids (TBS_PORT_DIGIT_<c>): the Join Code rows' digits. The game's
- * string table holds about 2,300 entries (StringTable_f7a80::FUN_000f7a80 stops at its maxStrings) and the disc's
- * str_en.txt takes 2,075 of them: every string the port adds counts (80 digit copies left the Online Co-op row, the
- * last listed, showing its raw ids; wnet1) */
+/* rows whose choices share one set of string ids (TBS_PORT_DIGIT_<c>): the Join Code rows' digits. Every string the
+ * port adds takes a string-table entry: faithful runs keep the game's 2,300 (the disc takes 2,075), remastered ones
+ * get 4,096 ("the string table" below). Strings past the cap show as their raw ids, so shared ids stay cheaper (wnet1) */
 static int shared_digits(int i) { return !strncmp(hulk_settings_at(i)->key, "coop_d", 6); }
 /* rows whose choices are another row's (the same texts): they show that row's string ids and add only their label
  * (wtext2). The source row is always listed (its strings are always added). */
@@ -455,6 +454,55 @@ uint32_t hulk_wasm_fe_arrows(void) {
         return (uint32_t)up | (uint32_t)down << 1 | x << 2 | yu << 12 | yd << 21;
     }
     return 0;
+}
+
+/* ------------------------------------------------------------------------------------------- the string table */
+/* The front end's string table (wstr1) is made once, by FEThings' set-up 0x000dddc0 (from 0x000fc060), which hands
+ * 0x000f86f0 the game's sizes: 2,300 entries (a pointer, a key hash and a bit each, 12 bytes) and a pool of 0x27290
+ * UTF-16 characters. The loader 0x000f7a80 (StringTable_f7a80) fills them from str_en.txt and silently stops at either
+ * limit (strings past it show as their raw ids). The disc's str_en.txt takes 2,075 entries; every string this file adds
+ * (str_id) takes one more. Where the game's heaps are scaled (remastered or co-op: stream.c's ff_boot_image_loaded,
+ * the same condition, decided before any game code) the hook makes the table with STR_CAP entries; faithful runs,
+ * replays and scripted tests keep the game's 2,300 (and their records). The pool grows with the entries (the disc's
+ * strings already fill 140,273 of its 160,400 characters). The loader's hook prints the tables' use at each load
+ * (FULL when strings were lost). Knob: HULK_STR_CAP=N (entries, 0x8fc..16384; measurements, in any run). */
+#define STR_CAP_GAME 0x8fcu
+#define STR_POOL_GAME 0x27290u
+#define STR_CAP 4096u
+#define FN_STR_ALLOC 0x000f86f0u        /* Obj_f86f0::FUN_000f86f0(entries, pool characters) */
+#define FN_HEAP_CUR 0x00266d90u         /* the current heap's id */
+#define FET_TABLE 0x2230                /* FEThings: the string table, the sound manager */
+#define FET_SOUND 0x2234
+#define ST_POOL_CAP 0x04                /* the table: pool bytes, used characters, entries, count */
+#define ST_USED 0x08
+#define ST_MAX 0x10
+#define ST_COUNT 0x14
+int hulk_wasm_heap_scale(void);         /* stream.c */
+static uint32_t str_cap(void) {
+    const char* e = getenv("HULK_STR_CAP");
+    uint32_t n = e && *e ? (uint32_t)strtoul(e, 0, 0) : hulk_wasm_heap_scale() > 100 ? STR_CAP : STR_CAP_GAME;
+    return n < STR_CAP_GAME ? STR_CAP_GAME : n > 16384 ? 16384 : n;
+}
+void ffh_hulk_app_fe_strings(uint32_t ecx, uint32_t edx, void* st, void* rb) {
+    (void)edx, (void)rb;
+    uint32_t cap = str_cap(), heap = ff_call(FN_HEAP_CUR, 0);
+    uint32_t pool = (uint32_t)(((uint64_t)STR_POOL_GAME * cap / STR_CAP_GAME + 0xff) & ~0xffull);
+    if (cap == STR_CAP_GAME) pool = STR_POOL_GAME;
+    ff_call_this(FN_STR_ALLOC, rd32(ecx + FET_TABLE), 2, cap, pool);
+    *(uint32_t*)PTR(ecx + FET_SOUND) = ARG(1);
+    fprintf(stderr, "hulk: string table: %u entries, %u-character pool (heap %u, allocator vftable 0x%08x)\n", cap,
+            pool, heap, rd32(rd32(0x00527c60u + 16 * heap)));
+}
+void ffgo_000f7a80(uint32_t, uint32_t, void*, void*);   /* the string table's loader (the hook's original) */
+void ffh_hulk_app_fe_strings_load(uint32_t ecx, uint32_t edx, void* st, void* rb) {
+    ffgo_000f7a80(ecx, edx, st, rb);
+    uint32_t n = rd32(ecx + ST_COUNT), max = rd32(ecx + ST_MAX), used = rd32(ecx + ST_USED);
+    uint32_t pool = rd32(ecx + ST_POOL_CAP) / 2;
+    /* (the loader counts the entry it could not store: count > entries means strings were lost; it stops on the pool
+     * before copying a line that does not fit, so a pool within a long line of its end may have lost one) */
+    fprintf(stderr, "hulk: strings: %u of %u entries, %u of %u pool characters%s (frame %u)\n", n > max ? max : n,
+            max, used, pool, n > max ? ": FULL, strings lost" : used + 512 > pool ? ": pool nearly full" : "",
+            SIM->frame);
 }
 
 /* the Quit item's function: (this, argument count, arguments) -> 0, as the game's front-end functions return */

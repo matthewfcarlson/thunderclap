@@ -861,7 +861,10 @@ GFX_APP_HOOKS = {0x000df9e0: "ffh_hulk_app_fe_callback", 0x000f8e70: "ffh_hulk_a
                  0x001c3b20: "ffh_hulk_app_char_model",
                  # lens effects (src/platform/wasm/gfx/lens.c, wlens1): CGameCamera::vfunc_35, the camera's update (its
                  # shakes, read after the original; every caller is a derived camera in another TU)
-                 0x000a97e0: "ffh_hulk_app_camera_update"}
+                 0x000a97e0: "ffh_hulk_app_camera_update",
+                 # the string table (fe_options.c, wstr1): FEThings' set-up, which sizes it (called from another TU,
+                 # 0x000fc060), and its loader (called from 0x000dddf0's TU)
+                 0x000dddc0: "ffh_hulk_app_fe_strings", 0x000f7a80: "ffh_hulk_app_fe_strings_load"}
 # site hooks of the app (a call inside its own TU, which an entry hook misses): Brief Move Prompts
 # (src/platform/wasm/gfx/hud_prompt.c, wprompt1): HUDOverlay::vfunc_4's call of the button hint's draw FUN_000cf740
 GFX_APP_SITE_HOOKS = {(0x000d05f0, 0x000cf740): "ffh_hulk_app_hud_prompt"}

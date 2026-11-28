@@ -3952,3 +3952,21 @@ queue shots, the player's settings, TAA, 1280x960):
 - Checks: records identical to HEAD with the row on (112390) and off (112391); faithful shots differ from HEAD only as
   HEAD differs from itself (112392); cost +0.10 ms by bgfx's timer (112386).
 
+
+## 2026-11-28 wstr1: a larger string table for remastered sessions
+
+- The front end's string table is made once, by FEThings' set-up 0x000dddc0 (from 0x000fc060), through 0x000f86f0:
+  2,300 entries (pointer, key hash and a bit each) and a 0x27290-character UTF-16 pool. It comes from heap 0, the
+  `core::MemoryAllocatorMalloc` (vftable 0x0042af2c; malloc, the arena in the port), not one of the tight dl heaps, so
+  a larger table needs no heap growth.
+- Use at HEAD (play3, null): 2,261 of 2,300 entries and 140,273 of 160,400 pool characters, so the pool would run out
+  ~500 strings later too (the disc's strings average 62 characters). The loader 0x000f7a80 also fills the subtitle
+  tables (900 / 250 entries, 0x000f86f0 from CSubtitleManager; 858 of 900 used): untouched.
+- An entry hook on 0x000dddc0 (fe_options.c) makes the table with 4,096 entries and a pool grown in proportion
+  (285,696 characters, ~270 KB more malloc) where the heaps are scaled (remastered or dev co-op; stream.c's boot
+  decision); faithful runs, replays and scripted tests keep 2,300. A hook on the loader prints every table's use at each
+  load (`hulk: strings: N of CAP entries, U of P pool characters`, FULL when strings were lost). HULK_STR_CAP=N forces
+  a size in any run (measurements).
+- Records identical to HEAD over play3 to 60,000: faithful (112397), faithful with HULK_STR_CAP=4096 (112398) and
+  remastered=1 (112399, heaps doubled, 4,096 entries) against control 112395. Metal Video Options shots with
+  remastered on show every row's text (112400).
