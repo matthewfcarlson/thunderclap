@@ -870,6 +870,12 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   choice and fills it in when shown; `game_choice_id` shows the game's own string ids. Knobs `HULK_SKIN_LOG`,
   `HULK_COMIC_TEST=F:K:N`, `HULK_COOP_SKIN`, `HULK_SKIN_ALLOW_ALL`. Scripted Metal free runs need `HULK_MOVIES=0` for
   `HULK_INPUT` frames to match the null renderer.
+  Contact Shadows / Bounce Light (wshadow1, D250, `rm::kContact` = 23, `kBounce` = 24, run/app/contact.cpp,
+  docs/hdr-shadows.md): play3's world pass draws opaque rooms/objects, ~80 translucent decals, the stencil volumes and their
+  quad, the skinned characters, then props and translucents mixed, then particles. A screen-space pass that multiplies into
+  the scene runs after the characters and before the translucents (the first translucent/2D draw after a skinned draw past
+  the stencil quad), never at the first effect, which darkens smoke, glows and shock waves. Two Off/On rows borrowing hdr's
+  strings cost fewer string-table entries than one three-choice row.
   Character Lighting (whulk1, `rm::kCharLight` = 22, docs/lighting.md "Characters"): skin draws take fs_px_char (generic
   combiner + PX_CHAR, `u_rmChar` per draw; zero = faithful). The Hulk's skin light clamps at 1 over most of his body, so a
   term added under that clamp is invisible: the character path uses a soft shoulder (knee 0.4) and adds the rim after it.
