@@ -3898,3 +3898,23 @@ queue shots, the player's settings, TAA, 1280x960):
   frame has none). Opaque draws after that point neither cast nor receive.
 - Stable without TAA: aligned frame pairs (MSAA 4x) flicker the same with the rows on as off. Cost (metal-ab 112280,
   studio, TAA, 1280x960): +0.27 ms by bgfx's GPU timer (~0.15 ms real).
+
+## 2026-11-28 wdecal1: Lasting Decals (docs/destruction.md "Lasting decals")
+
+- One remastered-only Video Options row (`decals`, rm::kDecals 25; Off / On on hdr's borrowed strings), one rm pass
+  (run/app/decals.cpp). CDecalQueue is a 100-slot ring of 66-vertex buffers; 0x0027f4a0 draws the 85 newest every frame
+  (<= 14 adds a frame, no fade) and the queue is cleared only at mission unload (0x001cd410) and world exit (0x00088b80).
+  The runner copies a decal as it drops out of the 85 (pages of 32 per look, <= 1,024 copies) and draws the copies before
+  the frame's first live decal with its camera; three world frames with no decal mean the game cleared its queue.
+- Decals lie on the collision mesh, 0.03 units out: fs_px_decal / vs_rm_decal pull them towards the camera (no
+  z-fighting) and fade them where the scene's depth behind them says they float (0.10..0.30 units along the normal,
+  normal from derivatives: decal vertices carry none). The per-decal texture factor is unread by `c4.0.2a4.0.2r1`.
+- Checks (112348 against HEAD control 112347, studio): play3 null to 60,000 records identical; Metal to 56,600 with the
+  remastered defaults + decals pinned records identical, shots differ only on the ground (42000: 23% of pixels > 8).
+  play3 keeps up to ~960 copies, 10 queue clears.
+- A dropped texture puts its copies to sleep under its content key (202 looks slept in play3); none revived: every
+  drop in play3 is a mission unload just before the queue clear, which drops the copies anyway.
+- The hard-edged dark patches at 42000 are the scorch decals' own shapes, not the fade: a fit-off run
+  (`HULK_DECAL_FIT=0.1,0,0.05,0.002,0.12`, 112357) differs from fit-on in 0.07% of pixels (max 37). Kept as is.
+- Cost (metal-ab 112356, studio, `HULK_DECAL_AB=30`, play3 to 56,600): +0.09 ms GPU by bgfx's timer (~0.05 ms real),
+  +0.035 ms render thread.

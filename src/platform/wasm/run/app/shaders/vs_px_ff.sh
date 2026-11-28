@@ -4,6 +4,9 @@
 #include <bgfx_shader.sh>
 
 uniform vec4 u_vc[96];
+#ifdef PX_DCPULL
+uniform vec4 u_rmDecal[3];     // (wdecal1: [2] x the pull towards the camera, y its share of the depth)
+#endif
 #ifdef PX_CAST
 uniform vec4 u_rmCast[4];      // (wr3a) camera space -> the shadow map's clip space, rows
 #endif
@@ -34,6 +37,14 @@ void main()
 {
     vec4 p = vec4(a_position, 1.0);
     vec4 view = vec4(dot(p, u_vc[0]), dot(p, u_vc[1]), dot(p, u_vc[2]), dot(p, u_vc[3]));
+#ifdef PX_DCPULL
+    // wdecal1 (run/app/decals.cpp): a decal pulled towards the camera along the view ray (u_rmDecal[2].x, plus .y of its
+    // depth), so it wins the depth test over the render mesh it lies on; the fragment shader reads the unpulled point
+    vec3 dcPos = view.xyz;
+    float dcL = length(view.xyz);
+    if (dcL > 1e-4)
+        view.xyz *= max(1.0 - (u_rmDecal[2].x + u_rmDecal[2].y * view.z) / dcL, 0.0);
+#endif
     gl_Position = vec4(dot(view, u_vc[4]), dot(view, u_vc[5]), dot(view, u_vc[6]), dot(view, u_vc[7]));
     v_fog = view.z;
     if (u_vc[55].x != 0.0 && gl_Position.w > 0.0) {
@@ -61,6 +72,9 @@ void main()
     v_texcoord1 = texgen(1, view.xyz, n, a_texcoord0, a_texcoord1, a_texcoord2, a_texcoord3);
     v_texcoord2 = texgen(2, view.xyz, n, a_texcoord0, a_texcoord1, a_texcoord2, a_texcoord3);
     v_texcoord3 = texgen(3, view.xyz, n, a_texcoord0, a_texcoord1, a_texcoord2, a_texcoord3);
+#ifdef PX_DCPULL
+    v_pxpos = dcPos;
+#endif
 #ifdef PX_DECAL
     gl_Position.z -= 4.0e-6 * gl_Position.w;   // (wlook0: a decal over the draw it repeats: wins the depth test)
 #endif

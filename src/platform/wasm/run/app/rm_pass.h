@@ -36,6 +36,7 @@ enum Quality : uint32_t {
     kCharLight,                           // whulk1 (lighting.cpp): 0 the characters as lit, 1 rim, wrap, detail normals
     kContact,                             // wshadow1 (contact.cpp): 0 off, 1 screen-space contact shadows
     kBounce,                              // wshadow1 (contact.cpp): 0 off, 1 one bounce of the lit surfaces' colour
+    kDecals,                              // wdecal1 (decals.cpp): 0 the game's, 1 lasting (kept past the game's 85) and fitted
     kQualityCount
 };
 struct Settings {

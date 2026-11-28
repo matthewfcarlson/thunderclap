@@ -68,6 +68,7 @@ static void apply_particles(int value) { hulk_wasm_quality_apply(21, value); }
 static void apply_char_light(int value) { hulk_wasm_quality_apply(22, value); }
 static void apply_contact(int value) { hulk_wasm_quality_apply(23, value); }
 static void apply_bounce(int value) { hulk_wasm_quality_apply(24, value); }
+static void apply_decals(int value) { hulk_wasm_quality_apply(25, value); }
 static void apply_text_spacing(int value) { hulk_wasm_text_spacing_apply(value); }
 static void apply_move_prompts(int value) { hulk_wasm_move_prompts_apply(value); }
 static void apply_tutorial_skip(int value) { hulk_wasm_tutorial_skip_apply(value); }
@@ -157,6 +158,10 @@ static void apply_developer(int value);
  * light"): short screen-space shadows towards the sun where feet, tyres, debris and props meet the ground, and one
  * bounce of the lit surfaces' colour onto their neighbours (the sunlit street onto walls and the Hulk, his green onto
  * the ground). Each Off / On (hdr's choice strings, fe_options.c k_borrow). Output only.
+ * Lasting Decals (wdecal1; run/app/decals.cpp, docs/destruction.md "Lasting decals"): the cracks, craters, scorch
+ * marks and footprints the Hulk leaves stay (the runner keeps up to 1,024 past the game's 85 until the game clears its
+ * queue, at a mission's end), and every decal is fitted to the surface the camera sees: pulled over it (no z-fighting)
+ * and faded where the collision mesh it lies on floats over a kerb or a gap. Off / On (hdr's strings). Output only.
  * Performance Overlay (wperf1; run/app/perfov.cpp): a corner readout of the frame rate, frame time, render size and
  * upscaler (1), plus a graph of the last 240 frames' times and their CPU / GPU split (2). Both editions (a runner
  * overlay); output only.
@@ -228,6 +233,7 @@ static port_setting k_settings[] = {
     {"contact", "Contact Shadows", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 1, 1,
      apply_contact},
     {"bounce", "Bounce Light", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 1, 1, apply_bounce},
+    {"decals", "Lasting Decals", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 1, 1, apply_decals},
     {"hdr", "HDR", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 1, 1, apply_hdr},
     {"ao", "Ambient Occlusion", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 1, 1, apply_ao},
     {"shadows", "Shadows", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"Original", "Low", "High"}, 0, 2, 1,

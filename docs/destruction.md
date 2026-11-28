@@ -283,6 +283,50 @@ Once 64 exist, each new spawn deletes up to 5 older spawned props that are not i
 
 The decal is drawn on the *collision* mesh's shape, which is why it can float over render geometry that differs.
 
+**How long a decal lasts** (wdecal1). `CDecalQueue` (0x00280690, 0xb10 bytes) makes 100 prim buffers of 66 vertices
+(position, colour, uv: no normal) at World init in the decal heap it is given, each filled with zeros. An add
+(0x00283e10, through `CDQ_AddDecal` 0x001f6f30 and 0x002842e0) takes slot `counter % 100`, needs the per-frame budget
+`+0x14` > 1 (reset to 15 by each draw: at most 14 adds a frame), writes the clipped triangles (padding the rest of the
+66 with the last vertex), and holds the decal's shader. The draw (0x0027f4a0, World's render) turns z-writes off
+(context slots 62/63) and draws slots `counter + 15 .. counter + 99`: the 85 newest, oldest first, every frame,
+wherever the camera is (no culling). There is no lifetime and no fade: a decal goes when 85 newer ones are made (a
+play3 fight makes that many in a few seconds) and the 15 oldest slots are the ones the next adds rewrite. Nothing
+clears decals on room unload (their vertices are copies); the queue is cleared (shaders released, budget 15:
+0x00280800 from 0x00283340) only when a mission unloads (`CScenarioManager` 0x001cd410 through 0x001f6cb0) and when
+the game leaves its world (0x00086980 -> 0x00088b80 -> 0x001f6c90). At the sink a decal is a 66-vertex buffer draw,
+shader kind 0, fixed function, unlit, fog on, combiner `c4.0.2a4.0.2r1`, src-alpha / inv-src-alpha, depth less-equal
+without writes, cull on.
+
+### Lasting decals (wdecal1, Video Options > Lasting Decals)
+
+The runner keeps them (run/app/decals.cpp; output only, nothing in module memory, play3's records unchanged). It knows
+the game's decal draws by their shape, and when one falls out of the game's 85 (drawn last frame, not now, while others
+are) it copies the decal's vertices (as the sink got them) and its look (textures, combiner, blend, fragment constants
+but the fog) into its own buffers: pages of 32 decals of one look, written at full size so the sink's dynamic buffer
+never grows. The copies are drawn every frame before the game's first live decal with that draw's camera, constants
+and fog (pages beyond 450 units are skipped), up to 1,024 of them, the oldest going first; in the frame a decal falls
+out it is drawn once more from the game's own buffer, which still holds it (its slot is rewritten 15 adds later), so
+nothing blinks. They survive leaving an area and coming back as the game's own do; a clear of the game's queue (three
+world frames in a row with no decal after some, i.e. a mission unloading) drops them, so a new mission starts clean as
+in the game. A decal texture the game drops (an inventory unloaded while only copies use it) puts its copies to
+sleep under the texture's content key (its top level's bytes); when the game makes the same texture again (the area
+loaded again) they are drawn again with it. The game leaves a different texture factor at each decal (fifteen steps)
+that the decals' combiner never reads; a look ignores it, so the copies batch by texture. Pages take bgfx buffer handles only while 1,536 are
+left for the game (farfield.cpp's reserve).
+
+The fit (fs_px_decal.sc, vs_rm_decal.sc = vs_px_ff.sh with PX_DCPULL): every decal, the game's and the copies, is drawn
+with the faithful generic combiner, fog and alpha test, pulled towards the camera along the view ray (0.05 units plus
+0.2% of its depth) so it wins the depth test over the render mesh where the collision mesh lies a hair below it (no
+z-fighting), and faded out where the scene's surface behind it is further away than 0.10-0.30 units along the decal's
+normal (the face from the point's derivatives), from a linear depth copy of the scene taken at the frame's first decal
+(as soft particles take theirs). A decal over a kerb, a step or a gap no longer floats in the air.
+
+Knobs: `HULK_DECAL_LOG=1` (counts every 300 frames), `2` (the first looks), `3` (how new looks differ);
+`HULK_DECAL_FIT=floatStart,floatEnd,pull,pullPerDepth,cosFloor`; `HULK_DECAL_AB=N` (copies and fit off/on in turns).
+Linux/Vulkan: the fit program declares the combiner's four stages (the sink binds them for every packet) and
+`s_rmDecalDepth` (stage 6), which the pass binds before each of its own submits and, for the game's decal draws, from a
+bind pass that runs after every other pass's draw hook (order 90), so no submit of another pass takes the binding first.
+
 **Navigation.**
 - There is no navmesh. `CPathAgent` / `CPathGraphAgent` (0x104d00, 0x1050d0) steer in XZ toward script-set patrol
   points (`path_*`, `amb_AddPatrolPath`).
