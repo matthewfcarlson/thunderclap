@@ -4034,3 +4034,27 @@ queue shots, the player's settings, TAA, 1280x960):
   the swap (112482) and 4,100:4,400 after it (112485) identical; Metal: the Canadian flag shorts from frame 4,064 on
   (112486, shot 4,600); three Hulks in player 0's skin, players 1 and 2 tinted red and blue (112498, shot 2,140,
   HULK_COOP_SPREAD=5:30 keeps them in view); a co-op rolltest with the tint (112479).
+
+## wvk1: Vulkan descriptor never updated (s_rmShadowTexture), 2026-11-28
+
+- Report: the lead's Bazzite play3 run (build 2edf67e, RADV, Khronos validation, every remastered option) had one class,
+  `VUID-vkCmdDrawIndexed-None-08114` for `[Set 0, Binding 6] s_rmShadowTexture`, 26,784 times from frame ~256, jumps
+  near 8,400-9,000, 13,800, 18,600, 31,200. Binding 6 is stage 4 (bgfx SPIR-V: texture binding = stage + 2, sampler +16).
+- Culprit: whud1's kept HUD tail. The HUD's and menus' lit models (the front end's green-cell background, HUD models)
+  take the per-pixel programs, but a kept draw reaches the sink through rm::drawTail and the tail's copy into the scene
+  without any draw hook: stages 4 (s_rmShadow) and 5 (s_rmCity) never bound (the layer names only a draw's first
+  unwritten descriptor), and the lighting uniforms were the last draw's. The queue's Metal runs never keep the tail (a
+  hidden 640x480 window: no upscale), which is why it was missed; `HULK_HUD_RES=2` forces it. On Metal the same bug
+  washed the front end's background white whenever the tail is kept (control 112499, HUD_RES=2, present 600).
+- Fix: rm::tailBind (the lighting pass's draw hook for each kept draw). General (rm_bind.cpp): every runner binding,
+  submit, touch and sink draw goes through rm; per runner program its declared samplers (bgfx::getShaderUniforms, stage
+  by name, tests/test_rm_bind.py checks the table against the shaders); a submit fills unbound ones with dummies (not
+  on Metal); a game draw whose later hook dropped the bindings gets lightingRebind after the hooks; lightingRebind runs
+  on Metal too. `HULK_RM_BIND_CHECK=1` reports each (site, program, sampler) left unbound.
+- Checks (Metal, mac2/studio): before, the check over play3 to 56,500 found the HUD tail (HUD_RES=2, 112471; its
+  per-300-present counts jump at the reported frames) and, on Metal only, the far field's copies (112455); MFX off + 60
+  fps (112466) and MSAA 4x + FSR 1 (112467) found nothing else. After (112508, every option + far field + HUD_RES=2):
+  only fs_rm_ssrapply's s_rmTex3, a sampler of another lane's uncommitted shader that the shared compiled rm-shaders
+  held (HEAD's source declares stages 0-2); records identical to the control, and the control (HEAD) washes the front
+  end's background white at present 600 where the fix draws it. Remastered defaults (112521 vs HEAD 112509): no
+  report, records and five shots identical.

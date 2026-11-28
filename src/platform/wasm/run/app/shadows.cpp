@@ -316,7 +316,7 @@ class ShadowPass final : public rm::Pass {
                                       (uint16_t)m_size);
                     bgfx::setViewClear(v, BGFX_CLEAR_DEPTH, 0, 1.0f, 0);
                     bgfx::setViewTransform(v, nullptr, nullptr);
-                    bgfx::touch(v);
+                    rm::touch(v);
                 }
         }
         bool world = isWorld(p);
@@ -361,7 +361,7 @@ class ShadowPass final : public rm::Pass {
             }
             q.pass = m_views[(world ? 1 : 0) * m_cascades + c];
             rm::uniform("u_rmCast", &m_cast[c][0][0], 4);
-            hulk_gfx_sink_submit_draw(&q);
+            rm::sinkDraw(q, "shadow casters");
         }
         m_casts++;
         m_worldCasts += world;

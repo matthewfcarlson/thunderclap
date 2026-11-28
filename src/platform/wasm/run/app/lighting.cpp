@@ -74,8 +74,13 @@ class Programs {
         uint16_t fs = shader(name);
         if (vs != kInvalid && fs != kInvalid) {
             bgfx::ProgramHandle h = bgfx::createProgram(bgfx::ShaderHandle{vs}, bgfx::ShaderHandle{fs}, false);
-            if (bgfx::isValid(h))
+            if (bgfx::isValid(h)) {
                 prog = h.idx;
+                char both[64];
+                snprintf(both, sizeof both, "%s|%s", vp == 1 ? "vs_px_skin" : vp == 2 ? "vs_px_skin_onebone" : "vs_px_ff",
+                         name);
+                rm::noteProgram(prog, vs, fs, both);
+            }
         }
         m_progs[key] = prog;
         if (prog != kInvalid)
@@ -223,7 +228,7 @@ class LightingPass final : public rm::Pass {
         if (atlas == kInvalid)
             atlas = rm::shadowDummy();
         if (atlas != kInvalid)
-            bgfx::setTexture(4, m_sShadow, bgfx::TextureHandle{atlas},
+            rm::bindTexture(4, m_sShadow.idx, atlas,
                              BGFX_SAMPLER_COMPARE_LEQUAL | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
         m_lastAtlas = atlas;
         m_draws++;
@@ -239,7 +244,7 @@ class LightingPass final : public rm::Pass {
         rm::nightLightsBind(q);
         uint16_t atlas = m_lastAtlas != kInvalid ? m_lastAtlas : rm::shadowDummy();
         if (atlas != kInvalid)
-            bgfx::setTexture(4, m_sShadow, bgfx::TextureHandle{atlas},
+            rm::bindTexture(4, m_sShadow.idx, atlas,
                              BGFX_SAMPLER_COMPARE_LEQUAL | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
     }
     // prim buffers' bounding spheres (the draws near a light take the per-pixel program; the rest keep the faithful)
@@ -786,15 +791,19 @@ HULK_RM_REGISTER_PASS(LightDump);
 
 } // namespace
 
-// (rm_pass.h) wlinux2: a draw of ours submitted again by another pass: its samplers bound again (not on Metal,
-// whose unbound textures read zeros, so the macOS picture stays as it was)
+// (rm_pass.h) wlinux2: a draw of ours submitted again by another pass: its samplers bound again. wvk1: on every
+// renderer (Metal read zeros for them: the far field's rooms took no shadows or city lights on macOS only)
 void rm::lightingRebind(const DrawPacket& q)
 {
-    if (bgfx::getRendererType() != bgfx::RendererType::Metal) {
-        s_rmPass_LightingPass.rebind(q);
-        rm::particlesRebind(q);
-        rm::waterRebind(q);
-    }
+    s_rmPass_LightingPass.rebind(q);
+    rm::particlesRebind(q);
+    rm::waterRebind(q);
+}
+// (rm_pass.h) wvk1: a kept HUD-tail draw (whud1) going to the sink outside the draw hooks: the lighting pass's
+// uniforms and samplers for it, as its draw hook gives a draw outside the world pass (no shadows, no city lights)
+void rm::tailBind(const DrawPacket& q)
+{
+    s_rmPass_LightingPass.draw(q);
 }
 
 // (rm_pass.h) a runner shader by name for this renderer's profile, made once; 0xffff when there is none

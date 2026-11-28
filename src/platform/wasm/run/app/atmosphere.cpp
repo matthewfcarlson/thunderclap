@@ -395,7 +395,7 @@ class AtmospherePass final : public rm::Pass {
         static const float zero[3][4] = {};
         bgfx::setUniform(bgfx::UniformHandle{m_uCity}, zero, 3);
         if (m_empty != rm::kNoHandle)
-            bgfx::setTexture(5, bgfx::UniformHandle{m_sCity}, bgfx::TextureHandle{m_empty}, BGFX_SAMPLER_POINT);
+            rm::bindTexture(5, m_sCity, m_empty, BGFX_SAMPLER_POINT);
     }
     // HULK_ATMOS_AB=N: the pass off and on in turns of N presented frames (GPU and render thread time a frame)
     void abCost()

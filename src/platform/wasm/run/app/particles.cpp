@@ -206,11 +206,11 @@ class ParticlesPass final : public rm::Pass {
         if (atlas == rm::kNoHandle)
             atlas = rm::shadowDummy();
         if (atlas != rm::kNoHandle)
-            bgfx::setTexture(4, m_sShadow, bgfx::TextureHandle{atlas},
+            rm::bindTexture(4, m_sShadow.idx, atlas,
                              BGFX_SAMPLER_COMPARE_LEQUAL | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
         if (additive || !rm::nightLightsBindPost(5))   // (the city's lights reach the smoke; else none bound)
             rm::nightLightsBind(p);
-        bgfx::setTexture(6, m_sDepth, bgfx::TextureHandle{m_depth.tex},
+        rm::bindTexture(6, m_sDepth.idx, m_depth.tex,
                          BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
     }
 

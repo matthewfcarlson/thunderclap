@@ -138,7 +138,7 @@ class SsrPass final : public rm::Pass {
         q.state.depthWrite = 1;
         rm::uniform("u_rmSsrMat", mat);
         rm::uniform("u_rmSsrUp", m_up);
-        hulk_gfx_sink_submit_draw(&q);
+        rm::sinkDraw(q, "reflections G-buffer");
         m_draws++, m_frameDraws++;
         m_reflective += mat[0] > 0 || mat[2] > 0;
         m_glows += glow;
@@ -216,7 +216,7 @@ class SsrPass final : public rm::Pass {
         q.state.depthFunc = 3;                                      // (lequal)
         q.state.depthWrite = 1;
         rm::waterRippleUniforms(p);
-        hulk_gfx_sink_submit_draw(&q);
+        rm::sinkDraw(q, "reflections water mask");
         m_draws++, m_frameDraws++, m_reflective++;
     }
     bool active() const { return midFrame() && m_view != rm::kNoView && m_ready && !m_done && m_frameDraws; }

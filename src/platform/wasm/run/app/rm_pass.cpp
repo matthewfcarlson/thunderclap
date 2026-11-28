@@ -84,11 +84,15 @@ struct HookTimer {
     ~HookTimer() { if (t0) gs_extra(kGxHooks, t0); }
 };
 } // namespace
-#define RM_EACH(call)              \
-    do {                           \
-        HookTimer ht_;             \
-        for (Pass* q_ : ordered()) \
-            q_->call;              \
+#define RM_EACH(call)                          \
+    do {                                       \
+        HookTimer ht_;                         \
+        const char* was_ = g_hookPass;         \
+        for (Pass* q_ : ordered()) {           \
+            g_hookPass = q_->name();           \
+            q_->call;                          \
+        }                                      \
+        g_hookPass = was_;                     \
     } while (0)
 
 // HULK_RM_TRACE=1 (development, whud1): the sink calls of the presented frames around each screenshot request
@@ -260,6 +264,7 @@ uint16_t splitPass()
     s_curSink = p;
     markScene(p);
     hulk_gfx_sink_set_pass(&p);
+    bindingsDropped("a pass set");
     return old;
 }
 
@@ -488,7 +493,7 @@ void drawTail(uint16_t& view, uint16_t fb, uint32_t w, uint32_t h, float sx, flo
             bgfx::setViewRect(cur, (uint16_t)x0, (uint16_t)y0, (uint16_t)(x1 > x0 ? x1 - x0 : 0),
                               (uint16_t)(y1 > y0 ? y1 - y0 : 0));
             bgfx::setViewClear(cur, g.clearFlags, g.clearRgba, g.clearDepth, (uint8_t)g.clearStencil);
-            bgfx::touch(cur);
+            touch(cur);
             continue;
         }
         if (cur == kNoView)
@@ -497,7 +502,8 @@ void drawTail(uint16_t& view, uint16_t fb, uint32_t w, uint32_t h, float sx, flo
         if (!heldPacket(s_hDraws[o.index], q))
             continue;
         q.pass = cur;
-        hulk_gfx_sink_submit_draw(&q);
+        tailBind(q);                    // (wvk1: no draw hook saw the kept draw)
+        sinkDraw(q, "the HUD tail (drawTail)");
     }
 }
 
@@ -522,12 +528,15 @@ void submitNow(const DrawPacket& p)
     DrawPacket q = p;
     q.pass = sinkView(p.pass);
     RM_EACH(late(q));
+    hooksBegin();
     RM_EACH(draw(q));
+    if (hooksEnd())                     // (wvk1: a later hook's split or submit took what an earlier one bound)
+        lightingRebind(q);
     q.pass = sinkView(p.pass);          // (a pass may have split the game's pass: rm::viewsHere)
     traceDraw(q, q.pass);
     {
         uint64_t t0 = gs_enabled() ? gs_now() : 0;
-        hulk_gfx_sink_submit_draw(&q);
+        sinkDraw(q, "a game");
         if (t0)
             gs_extra(kGxSubmit, t0);
     }
@@ -545,6 +554,7 @@ void copyFrame(uint16_t pass, const SinkTarget& dst)
     traceLine("  C g=%u v=%u dst=%u/%u\n", pass, sinkView(pass), dst.texture, dst.frameBuffer);
     SinkTarget t = dst;
     hulk_gfx_sink_copy_frame(sinkView(pass), &t);
+    bindingsDropped("a frame copy");
     work(sinkView(pass));
     holdStart();
 }
@@ -559,6 +569,7 @@ void fxDraw(const FxPacket& p)
     traceLine("  F g=%u v=%u prog=%u tex=%u state=%u quad=%.0f,%.0f-%.0f,%.0f t=%ux%u\n", p.pass, q.pass, p.program,
               p.textures, p.state, p.x0, p.y0, p.x1, p.y1, p.targetWidth, p.targetHeight);
     hulk_gfx_sink_fx_draw(&q);
+    bindingsDropped("an effect quad");
     work(q.pass);
     holdStart();
 }
@@ -651,6 +662,7 @@ void setPassNow(const SinkPass& pass)
     markScene(p);
     RM_EACH(passSet(pass.id, p));
     hulk_gfx_sink_set_pass(&p);
+    bindingsDropped("a pass set");
 }
 } // namespace
 
@@ -677,6 +689,7 @@ static void tailIntoScene()
                 s_curSink = p;
                 markScene(p);
                 hulk_gfx_sink_set_pass(&p);
+                bindingsDropped("a pass set");
             }
             cont = kNoView;
             pend = &g;
@@ -688,13 +701,15 @@ static void tailIntoScene()
             c.clearFlags = 0;
             markScene(c);
             hulk_gfx_sink_set_pass(&c);
+            bindingsDropped("a pass set");
             cont = c.id;
         }
         DrawPacket q;
         if (cont == kNoView || !heldPacket(s_hDraws[o.index], q))
             continue;
         q.pass = cont;
-        hulk_gfx_sink_submit_draw(&q);
+        tailBind(q);
+        sinkDraw(q, "the HUD tail (into the scene)");
     }
     s_inFlush = false;
     heldClear();
@@ -728,6 +743,8 @@ void present(const SinkPresent& p)
               p.windowHeight, p.x, p.y, p.w, p.h, s.width, s.height);
     traceFrameEnd();
     hulk_gfx_sink_present(&p);
+    bindingsDropped("the present");
+    bindCheckFrame();
     s_sceneSeen = false;
     s_frameOpen = false;
 }

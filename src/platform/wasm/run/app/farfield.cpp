@@ -825,7 +825,7 @@ class FarFieldPass final : public rm::Pass {
                 if (m_debug)                          // (HULK_FARFIELD_DEBUG=1: far draws untextured, to see them)
                     q.stage[0].texture = q.stage[1].texture = kSinkNone;
                 rm::lightingRebind(q);
-                hulk_gfx_sink_submit_draw(&q);
+                rm::sinkDraw(q, "far field rooms");
                 n++;
             }
         }

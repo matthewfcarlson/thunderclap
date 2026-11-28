@@ -509,7 +509,7 @@ class DecalsPass final : public rm::Pass {
         }
         if (q.pipeline == kSinkNone)
             return;
-        hulk_gfx_sink_submit_draw(&q);
+        rm::sinkDraw(q, "lasting decal copies");
     }
     void bind(int mode)
     {
@@ -524,7 +524,7 @@ class DecalsPass final : public rm::Pass {
             {m_pull, m_pullDepth, 0.0f, 0.0f},
         };
         bgfx::setUniform(m_uDecal, u, 3);
-        bgfx::setTexture(6, m_sDepth, bgfx::TextureHandle{m_depth.tex},
+        rm::bindTexture(6, m_sDepth.idx, m_depth.tex,
                          BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
     }
 

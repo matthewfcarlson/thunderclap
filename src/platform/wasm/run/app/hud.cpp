@@ -65,7 +65,7 @@ class HudPass final : public rm::Pass {
         bgfx::setViewRect(vb, 0, 0, (uint16_t)ow, (uint16_t)oh);
         bgfx::setViewClear(vb, BGFX_CLEAR_DEPTH | BGFX_CLEAR_STENCIL, 0, 1.0f, 0);
         bgfx::setViewTransform(vb, nullptr, nullptr);
-        bgfx::touch(vb);
+        rm::touch(vb);
         uint16_t src = rm::upscaledFrame();
         uint16_t copy = rm::program("vs_rm_quad", "fs_rm_copy");
         if (src != rm::kNoHandle) {

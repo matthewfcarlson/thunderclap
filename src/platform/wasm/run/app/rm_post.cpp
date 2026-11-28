@@ -26,6 +26,7 @@ uint16_t program(const char* vs, const char* fs)
         bgfx::ProgramHandle h = bgfx::createProgram(bgfx::ShaderHandle{v}, bgfx::ShaderHandle{f}, false);
         if (bgfx::isValid(h))
             p = h.idx;
+        noteProgram(p, v, f, key.c_str());
     }
     made[key] = p;
     return p;
@@ -74,7 +75,7 @@ void viewInto(uint16_t view, uint16_t fb, uint32_t w, uint32_t h, uint16_t clear
     bgfx::setViewRect(view, 0, 0, (uint16_t)w, (uint16_t)h);
     bgfx::setViewClear(view, clearFlags, rgba, depth, 0);
     bgfx::setViewTransform(view, nullptr, nullptr);
-    bgfx::touch(view);
+    touch(view);
 }
 
 namespace {
@@ -93,7 +94,7 @@ void texture(int stage, uint16_t tex, uint32_t flags)
         snprintf(name, sizeof name, "s_rmTex%d", stage);
         s_samplers[stage] = bgfx::createUniform(name, bgfx::UniformType::Sampler).idx;
     }
-    bgfx::setTexture((uint8_t)stage, bgfx::UniformHandle{s_samplers[stage]}, bgfx::TextureHandle{tex}, flags);
+    rm::bindTexture(stage, s_samplers[stage], tex, flags);
 }
 
 void uniform(const char* name, const float* v, uint16_t n)
@@ -132,7 +133,7 @@ void quad(uint16_t view, uint16_t prog, uint64_t state)
     memcpy(tvb.data, q, sizeof q);
     bgfx::setVertexBuffer(0, &tvb);
     bgfx::setState(state | BGFX_STATE_PT_TRISTRIP);
-    bgfx::submit(view, bgfx::ProgramHandle{prog});
+    submit(view, prog, "a full-screen quad");
 }
 
 bool hdrSupported()

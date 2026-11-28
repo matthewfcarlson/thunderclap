@@ -436,8 +436,8 @@ class WaterPass final : public rm::Pass {
         ensureUniforms();
         const uint32_t clampLin = BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP;
         bool ok = m_copyOk && m_colour.tex != rm::kNoHandle && m_depth.tex != rm::kNoHandle;
-        bgfx::setTexture(4, m_sScene, ok ? bgfx::TextureHandle{m_colour.tex} : m_dummy, clampLin);
-        bgfx::setTexture(5, m_sDepth, ok ? bgfx::TextureHandle{m_depth.tex} : m_dummy,
+        rm::bindTexture(4, m_sScene.idx, (ok ? bgfx::TextureHandle{m_colour.tex} : m_dummy).idx, clampLin);
+        rm::bindTexture(5, m_sDepth.idx, (ok ? bgfx::TextureHandle{m_depth.tex} : m_dummy).idx,
                          clampLin | BGFX_SAMPLER_POINT);
     }
     void bind(const DrawPacket& p)
@@ -471,8 +471,8 @@ class WaterPass final : public rm::Pass {
         if (ok)
             scene = bgfx::TextureHandle{m_colour.tex}, depth = bgfx::TextureHandle{m_depth.tex};
         const uint32_t clampLin = BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP;
-        bgfx::setTexture(4, m_sScene, scene, clampLin);
-        bgfx::setTexture(5, m_sDepth, depth, clampLin | BGFX_SAMPLER_POINT);
+        rm::bindTexture(4, m_sScene.idx, scene.idx, clampLin);
+        rm::bindTexture(5, m_sDepth.idx, depth.idx, clampLin | BGFX_SAMPLER_POINT);
     }
 
     // HULK_WATER_AB=N: the pass off and on in turns of N presented frames (GPU and render thread time a frame)

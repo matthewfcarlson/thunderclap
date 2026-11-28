@@ -1182,6 +1182,23 @@ folder holds everything: the binary needs only libc and libm (libstdc++ and libg
   `std::condition_variable` destructor the grass / texture-pack workers still waited on, and Game Mode stayed black).
   A device test that wants the Game Mode environment without the screen: `gamescope --backend headless -W 1920 -H
   1080 -- <command>` (the app's HULK_GFX_SHOT_GAME captures work there).
+- **Sampler bindings** (wvk1). The Bazzite play3 run with every remastered option and validation on (build 2edf67e)
+  reported one class, 26,784 times from frame ~256: `VUID-vkCmdDrawIndexed-None-08114`, `s_rmShadowTexture` (stage 4;
+  SPIR-V binding = stage + 2) never updated. The draws were whud1's kept HUD tail: the HUD's lit models take the
+  per-pixel programs, and rm::drawTail and the tail's copy into the scene sent them to the sink with no draw hook, so
+  stages 4 and 5 were never bound (the validation layer names only a draw's first unwritten descriptor) and their
+  per-draw lighting uniforms were whatever the last draw left. The tail now takes the lighting pass's draw hook
+  (`rm::tailBind`). Generally (run/app/rm_bind.cpp): every runner binding, submit and sink draw goes through
+  `rm::bindTexture / submit / touch / sinkDraw` (tests/test_rm_bind.py keeps bgfx's and the sink's own calls out of
+  run/app), rm tracks the stages bound since bgfx last dropped them (each submit, touch, sink pass set, copy, effect
+  quad), and at a submit of a runner program (rm::program, the lighting pass's programs) each declared sampler left
+  unbound gets a dummy (1x1 zero; the shadow pass's depth dummy for a compare sampler) on every renderer but Metal.
+  A game draw whose later draw hook dropped the bindings (a split or a submit of its own) gets `rm::lightingRebind`
+  after the hooks, and lightingRebind now runs on Metal too (the far field's rooms read zeros for shadows and city
+  lights on macOS only). `HULK_RM_BIND_CHECK=1` reports each (site, program, sampler) a submit left unbound, with the
+  pass that bound the stage last and the call that dropped it, on any renderer: run it in Metal queue jobs
+  (`--test-env HULK_RM_BIND_CHECK=1`); `HULK_HUD_RES=2` keeps the tail at the render size too (the queue's hidden
+  640x480 windows otherwise never keep it, which is why Metal runs missed this).
 - **Swapchain image count** (wperf2). Under gamescope (Steam's Game Mode) Khronos validation reported
   VUID-VkSwapchainCreateInfoKHR-presentMode-02839 ("minImageCount 3 ... minImageCount = 4"): the Gamescope WSI layer
   answers 3 for its X11 surface and hands the app's count on to its own Wayland surface, whose minimum is 4 (the

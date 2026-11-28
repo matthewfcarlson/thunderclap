@@ -192,7 +192,7 @@ class RaysPass final : public rm::Pass {
         bgfx::setUniform(bgfx::UniformHandle{m_uShadow}, sun ? &m_shadow[0][0] : &kNoShadow[0][0], 12);
         uint16_t atlas = sun ? m_atlas : rm::shadowDummy();
         if (atlas != rm::kNoHandle)
-            bgfx::setTexture(4, bgfx::UniformHandle{m_sShadow}, bgfx::TextureHandle{atlas},
+            rm::bindTexture(4, m_sShadow, atlas,
                              BGFX_SAMPLER_COMPARE_LEQUAL | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
         if (!lamps || !rm::nightLightsBindPost(5))
             noLights();
@@ -226,7 +226,7 @@ class RaysPass final : public rm::Pass {
         static const float zero[3][4] = {};
         bgfx::setUniform(bgfx::UniformHandle{m_uCity}, zero, 3);
         if (m_empty != rm::kNoHandle)
-            bgfx::setTexture(5, bgfx::UniformHandle{m_sCity}, bgfx::TextureHandle{m_empty}, BGFX_SAMPLER_POINT);
+            rm::bindTexture(5, m_sCity, m_empty, BGFX_SAMPLER_POINT);
     }
     // HULK_RAYS_AB=N: the pass off and on in turns of N presented frames (GPU and render thread time a frame)
     void abCost()

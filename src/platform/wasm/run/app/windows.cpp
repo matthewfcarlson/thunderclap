@@ -178,7 +178,7 @@ class WindowsPass final : public rm::Pass {
         m_q.state.srcBlend = kBlendSrcAlpha;
         m_q.state.dstBlend = kBlendInvSrcAlpha;
         m_q.state.writeMask = 7;                  // (colour only: the scene's alpha stays the game's)
-        hulk_gfx_sink_submit_draw(&m_q);
+        rm::sinkDraw(m_q, "window interiors");
         m_drawn++;
     }
     // HULK_WINDOWS_AB=N: the interiors off and on in turns of N presented frames (GPU and render thread a frame)

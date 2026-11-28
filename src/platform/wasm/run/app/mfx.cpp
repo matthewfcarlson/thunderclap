@@ -16,6 +16,8 @@
 
 #include <bgfx/bgfx.h>
 
+#include "rm_pass.h"
+
 extern "C" void bgfx_hulk_mtl_set_view_hook(bool (*hook)(uint16_t, void*, void*), void* user);
 extern "C" void* bgfx_hulk_mtl_texture(uint16_t idx);
 
@@ -194,7 +196,7 @@ void rm::mfxSchedule(uint16_t view, const MfxInputs& in)
     s.view = view;
     s.in = in;
     s.pending = true;
-    bgfx::touch(view);
+    rm::touch(view);
 }
 
 void rm::mfxStats(uint32_t* encoded, uint32_t* failed)

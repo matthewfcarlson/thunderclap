@@ -230,7 +230,7 @@ class NightLightsPass final : public rm::Pass {
         if (!receives || !active())
             u[0][0] = 0.0f;
         bgfx::setUniform(m_uCity, u, 3);
-        bgfx::setTexture(stage, m_sCity, bgfx::TextureHandle{m_tex}, BGFX_SAMPLER_POINT | BGFX_SAMPLER_UVW_CLAMP);
+        rm::bindTexture(stage, m_sCity.idx, m_tex, BGFX_SAMPLER_POINT | BGFX_SAMPLER_UVW_CLAMP);
     }
     bool receives(const DrawPacket& p) const
     {

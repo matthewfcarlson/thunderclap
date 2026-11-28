@@ -171,7 +171,7 @@ class TaaPass final : public rm::Pass {
         float j[4] = {m_jx, m_jy, 0, 0};
         rm::uniform("u_rmPrev", &m_prevConst[o.c0], kVelConst);
         rm::uniform("u_rmVel", j);
-        hulk_gfx_sink_submit_draw(&v);
+        rm::sinkDraw(v, "TAA motion");
         m_velDraws++;
     }
     void copy(uint16_t pass, const SinkTarget& dst) override
@@ -513,7 +513,7 @@ class TaaPass final : public rm::Pass {
         float m1[4] = {mode, 0, 0, 0};
         rm::uniform("u_rmMask", m0);
         rm::uniform("u_rmMask1", m1);
-        hulk_gfx_sink_submit_draw(&v);
+        rm::sinkDraw(v, "TAA HUD mask");
         m_maskDraws++;
     }
     // HULK_TAA_AB=N: TAA's jitter and resolve off and on in turns of N presented frames (the scene stays single-sampled)

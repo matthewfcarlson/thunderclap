@@ -166,8 +166,29 @@ int fogSetting();
 
 // a runner shader (run/app/shaders, tools/rm_shaders.py) by name for the renderer's profile; kNoView (0xffff): none
 uint16_t loadShader(const char* name);
+// wvk1 (rm_bind.cpp): sampler bindings. bgfx drops every texture binding at each submit and touch, and a sampler a
+// program declares that a submit leaves unbound reads zeros on Metal but an unwritten descriptor on Vulkan (garbage, or
+// VK_ERROR_DEVICE_LOST on RADV). Every runner texture binding, submit and sink draw goes through these, never bgfx's or
+// the sink's own (tests/test_rm_bind.py): a runner program's declared samplers the submit left unbound get dummies (not
+// on Metal), and HULK_RM_BIND_CHECK=1 reports each (site, program, sampler) left unbound, on any renderer.
+void bindTexture(uint8_t stage, uint16_t sampler, uint16_t texture, uint32_t flags = 0xffffffffu);  // bgfx::setTexture
+void sinkDraw(const hulk::pddi::DrawPacket& q, const char* who);  // instead of hulk_gfx_sink_submit_draw
+void submit(uint16_t view, uint16_t program, const char* who);    // instead of bgfx::submit
+void touch(uint16_t view);                                        // instead of bgfx::touch
+void bindingsDropped(const char* why);                            // a sink call that submits or touches (set_pass...)
+void noteProgram(uint16_t program, uint16_t vs, uint16_t fs, const char* name);  // a runner program made (its samplers)
+void bindCheckFrame();
+// rm_pass.cpp submitNow: the draw hooks run between hooksBegin and hooksEnd, which says whether one of them dropped the
+// bindings (a split, a pass set, a submit of its own); then lightingRebind binds the handed-over draw's samplers again
+// as the lighting, particles and water passes bound them
+void hooksBegin();
+bool hooksEnd();
+// whud1's kept tail goes to the sink with no draw hooks (rm::drawTail, and into the scene): tailBind (lighting.cpp)
+// gives each of its draws the lighting pass's uniforms and samplers (the HUD's lit models take the per-pixel programs)
+void tailBind(const hulk::pddi::DrawPacket& q);                                            // (rm_pass.cpp, at each present)
+extern const char* g_hookPass;                                    // the pass whose hook runs (the check's report)
 // wlinux2 (lighting.cpp): a copy of a draw already submitted, before another pass submits it again: the per-pixel
-// program's samplers (stages 4 and 5) bound again, as bgfx drops texture bindings at each submit
+// program's samplers (stages 4 and 5) bound again, as bgfx drops texture bindings at each submit (every renderer)
 void lightingRebind(const hulk::pddi::DrawPacket& q);
 // wfx1 (particles.cpp): the same for a copy of a soft particle draw (its stages 4, 5 and 6); lightingRebind calls it
 void particlesRebind(const hulk::pddi::DrawPacket& q);

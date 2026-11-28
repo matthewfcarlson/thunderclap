@@ -1179,7 +1179,7 @@ class GrassPass final : public rm::Pass {
             rm::uniform("u_rmGrass", &g[0][0], 8);
             rm::uniform("u_rmShadow", sc ? sc : &kNoShadow[0][0], 12);
             if (atlas != rm::kNoHandle)
-                bgfx::setTexture(4, m_sShadow, bgfx::TextureHandle{atlas},
+                rm::bindTexture(4, m_sShadow.idx, atlas,
                                  BGFX_SAMPLER_COMPARE_LEQUAL | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
             rm::nightLightsBind(pq.recv);               // (wlook2: stage 5, u_rmCity)
             bgfx::setVertexBuffer(0, bgfx::VertexBufferHandle{m_meshVb});
@@ -1189,7 +1189,7 @@ class GrassPass final : public rm::Pass {
                                  (uint32_t)(kBladeIndices * (farCell ? m_set.bladesFar : m_meshBlades)));
             bgfx::setInstanceDataBuffer(bgfx::VertexBufferHandle{s.vb}, cell.start, k);
             bgfx::setState(state);
-            bgfx::submit(view, bgfx::ProgramHandle{prog});
+            rm::submit(view, prog, "grass blades");
             m_cellDraws++;
             m_clumps += k;
             m_clumpsFrame += k;
