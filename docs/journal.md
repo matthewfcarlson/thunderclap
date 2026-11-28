@@ -3970,3 +3970,18 @@ queue shots, the player's settings, TAA, 1280x960):
 - Records identical to HEAD over play3 to 60,000: faithful (112397), faithful with HULK_STR_CAP=4096 (112398) and
   remastered=1 (112399, heaps doubled, 4,096 entries) against control 112395. Metal Video Options shots with
   remastered on show every row's text (112400).
+
+## 2026-11-28 wrays1: Light Shafts (D249/D250, the user's visual pick #5)
+
+- New Video Options row Light Shafts (`light_shafts`, `rm::kLightShafts` = 32, Off (Original) / On, remastered default
+  On; borrows hdr's choice strings). run/app/rays.cpp + fs_rm_rays.sc / fs_rm_raysapply.sc (docs/light-shafts.md): the
+  key light's in-scattering marched at half size through the sun shadows' atlas (both rows, 24 steps), drawn where the
+  atmosphere runs (before particles, glows and flashes); at night a soft downward cone of mist under each Night Lights
+  lamp. Steady without TAA: a 4x4 Bayer start offset that the apply's 4x4 depth-weighted gather cancels.
+- Finding: screen-space radial shafts would draw almost nothing in play3: its key light is ~54 degrees up and the camera
+  looks level, so the sun is never on screen. The shadow-map march sees occluders whether the sun is on screen or not.
+- Finding: plain in-scattering over the desert is a uniform +8-level haze with no shafts (the air is almost all lit);
+  only the difference from a share of the ray's air taken as already lit (`base` 0.85: the atmosphere's haze) shows
+  structure. The night key light is a warm street rig: at the sun's strength it washed the night city yellow (0.15 now).
+- Checks: play3 Metal records on (112410) and off (112411) identical over 54,120 frames; cost +0.20 ms bgfx timer
+  (~0.11 ms real) on studio (metal-ab 112412).

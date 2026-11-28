@@ -75,6 +75,7 @@ static void apply_vignette(int value) { hulk_wasm_quality_apply(28, value); }
 static void apply_aberration(int value) { hulk_wasm_quality_apply(29, value); }
 static void apply_grain(int value) { hulk_wasm_quality_apply(30, value); }
 static void apply_water(int value) { hulk_wasm_quality_apply(31, value); }
+static void apply_light_shafts(int value) { hulk_wasm_quality_apply(32, value); }   /* (wrays1: run/app/rays.cpp) */
 static void apply_text_spacing(int value) { hulk_wasm_text_spacing_apply(value); }
 static void apply_move_prompts(int value) { hulk_wasm_move_prompts_apply(value); }
 static void apply_tutorial_skip(int value) { hulk_wasm_tutorial_skip_apply(value); }
@@ -181,6 +182,9 @@ static void apply_developer(int value);
  * Water (wwater1; run/app/water.cpp, docs/water.md): the game's sea, lake and river surfaces ripple in the key
  * light, bend what the game draws under them, clear in the shallows, reflect the sky and (with Reflections) the scene
  * by Fresnel, glint in the sun and the moon, and foam at the shore (1, Enhanced); 0 the game's flat water. Output only.
+ * Light Shafts (wrays1; run/app/rays.cpp, docs/light-shafts.md): the sun's light in the air, marched through the sun
+ * shadows' atlas, so shafts show between buildings and over canyon edges (with Shadows on), and at night soft cones of
+ * light in the mist under the street lamps (with Night Lights on) (1, On). Output only.
  * Performance Overlay (wperf1; run/app/perfov.cpp): a corner readout of the frame rate, frame time, render size and
  * upscaler (1), plus a graph of the last 240 frames' times and their CPU / GPU split (2). Both editions (a runner
  * overlay); output only.
@@ -264,6 +268,8 @@ static port_setting k_settings[] = {
      apply_night_lights},
     {"atmosphere", "Atmosphere", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Original", "Enhanced"}, 0, 1, 1,
      apply_atmosphere},
+    {"light_shafts", "Light Shafts", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 1, 1,
+     apply_light_shafts},
     {"grade", "Colour Grade", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"Original", "Natural", "Cinematic"}, 0, 2, 1,
      apply_grade},
     {"dof", "Cutscene Depth of Field", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 1, 1,

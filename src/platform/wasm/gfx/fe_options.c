@@ -130,6 +130,7 @@ static const struct { const char* key; const char* from; } k_borrow[] = {
     {"aberration", "hdr"},
     {"grain", "hdr"},
     {"water", "char_light"},            /* Original / Enhanced (wwater1) */
+    {"light_shafts", "hdr"},            /* Off (Original) / On (wrays1) */
 };
 static const char* borrowed_from(int i) {
     for (unsigned k = 0; k < sizeof k_borrow / sizeof k_borrow[0]; k++)

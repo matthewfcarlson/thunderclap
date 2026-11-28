@@ -43,6 +43,7 @@ enum Quality : uint32_t {
     kAberration,                          // wlens1: 0 off, 1 colour fringes at the edges on big impacts
     kGrain,                               // wlens1: 0 off, 1 film grain
     kWater,                               // wwater1 (water.cpp, docs/water.md): 0 the game's flat water, 1 enhanced
+    kLightShafts,                         // wrays1 (rays.cpp, docs/light-shafts.md): 0 off, 1 the sun's shafts, lamp cones
     kQualityCount
 };
 struct Settings {
