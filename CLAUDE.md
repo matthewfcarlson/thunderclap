@@ -913,6 +913,13 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   lightmaps. play3 shows the sea at the harbour (f17,170, f56,570) and the Church hub (f13,800, f54,980); no replay reaches
   the river or the dam. Metal play4 shots: `wasm_build_job test --test play4:N` with `--test-env HULK_GFX_RENDERER=metal
   HULK_GFX_HIDDEN=1 SDL_MAC_BACKGROUND_APP=1 HULK_GFX_SHOT_DIR=. HULK_GFX_SHOT_GAME=...` (metal kinds replay play3 only).
+  Light Shafts (wrays1, `rm::kLightShafts` = 32, run/app/rays.cpp, docs/light-shafts.md): the key light's in-scattering
+  marched at half size through the shadow atlas (screen-space radial shafts would draw nothing in play3: the sun is ~54
+  degrees up and never on screen). Plain in-scattering is a uniform haze over a mostly lit scene: draw only the difference
+  from a share of the air taken as already lit (`base`), adding light where lit and dimming where shadowed. play3's night
+  key light is a warm street rig: night uses of it stay weak (0.15) or the city washes yellow. Compare picture options
+  against an off run of the same executable: shots from different heads differ by other lanes' changes. Knobs
+  `HULK_RAYS=...`, `HULK_RAYS_SHOW=1`, `HULK_RAYS_AB=N`.
   Character Lighting (whulk1, `rm::kCharLight` = 22, docs/lighting.md "Characters"): skin draws take fs_px_char (generic
   combiner + PX_CHAR, `u_rmChar` per draw; zero = faithful). The Hulk's skin light clamps at 1 over most of his body, so a
   term added under that clamp is invisible: the character path uses a soft shoulder (knee 0.4) and adds the rim after it.
