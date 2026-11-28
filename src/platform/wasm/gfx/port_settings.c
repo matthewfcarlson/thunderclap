@@ -69,6 +69,11 @@ static void apply_char_light(int value) { hulk_wasm_quality_apply(22, value); }
 static void apply_contact(int value) { hulk_wasm_quality_apply(23, value); }
 static void apply_bounce(int value) { hulk_wasm_quality_apply(24, value); }
 static void apply_decals(int value) { hulk_wasm_quality_apply(25, value); }
+static void apply_dof(int value) { hulk_wasm_quality_apply(26, value); }          /* (wlens1: run/app/lens.cpp) */
+static void apply_lens_flare(int value) { hulk_wasm_quality_apply(27, value); }
+static void apply_vignette(int value) { hulk_wasm_quality_apply(28, value); }
+static void apply_aberration(int value) { hulk_wasm_quality_apply(29, value); }
+static void apply_grain(int value) { hulk_wasm_quality_apply(30, value); }
 static void apply_text_spacing(int value) { hulk_wasm_text_spacing_apply(value); }
 static void apply_move_prompts(int value) { hulk_wasm_move_prompts_apply(value); }
 static void apply_tutorial_skip(int value) { hulk_wasm_tutorial_skip_apply(value); }
@@ -162,6 +167,16 @@ static void apply_developer(int value);
  * marks and footprints the Hulk leaves stay (the runner keeps up to 1,024 past the game's 85 until the game clears its
  * queue, at a mission's end), and every decal is fitted to the surface the camera sees: pulled over it (no z-fighting)
  * and faded where the collision mesh it lies on floats over a kerb or a gap. Off / On (hdr's strings). Output only.
+ * Lens effects (wlens1, D249; run/app/lens.cpp, docs/hdr-shadows.md "Lens effects"): drawn over the scene at the
+ * game's first framebuffer effect (with HDR on, after its tone map), so the game's bloom, fader and the HUD come after
+ * them and the HUD is never touched. Cutscene Depth of Field: in the game's in-engine cutscenes only (the letterbox is
+ * up; lens.c), never in play or on movies, focused on the Hulk when he is in the shot, else the nearest subject in
+ * the frame's middle, with a bokeh gather; wide shots stay sharp (a thin lens's blur).
+ * Lens Flare: ghosts and a soft glare from the sun (the key light's direction, where the sky is clear) and from small
+ * strong lights (lamps, signs, orbs, flashes). Vignette: a soft darkening of the corners (Cinematic grade has its own,
+ * lighter). Chromatic Aberration: colour fringes at the screen's edges, only while the camera shakes hard (big
+ * impacts; lens.c reads the camera's shakes). Film Grain: a fine, luminance-weighted grain. Each Off / On (hdr's choice
+ * strings). Output only.
  * Performance Overlay (wperf1; run/app/perfov.cpp): a corner readout of the frame rate, frame time, render size and
  * upscaler (1), plus a graph of the last 240 frames' times and their CPU / GPU split (2). Both editions (a runner
  * overlay); output only.
@@ -247,6 +262,14 @@ static port_setting k_settings[] = {
      apply_atmosphere},
     {"grade", "Colour Grade", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"Original", "Natural", "Cinematic"}, 0, 2, 1,
      apply_grade},
+    {"dof", "Cutscene Depth of Field", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 1, 1,
+     apply_dof},
+    {"lens_flare", "Lens Flare", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 1, 1,
+     apply_lens_flare},
+    {"vignette", "Vignette", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 0, 1, apply_vignette},
+    {"aberration", "Chromatic Aberration", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 1, 1,
+     apply_aberration},
+    {"grain", "Film Grain", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 0, 1, apply_grain},
     {"particles", "Particles", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Original", "Soft"}, 0, 1, 1, apply_particles},
     {"grass", "Grass", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"Original", "Blades Low", "Blades High"}, 0, 2, 1,
      apply_grass},

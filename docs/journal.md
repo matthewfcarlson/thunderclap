@@ -3918,3 +3918,19 @@ queue shots, the player's settings, TAA, 1280x960):
   (`HULK_DECAL_FIT=0.1,0,0.05,0.002,0.12`, 112357) differs from fit-on in 0.07% of pixels (max 37). Kept as is.
 - Cost (metal-ab 112356, studio, `HULK_DECAL_AB=30`, play3 to 56,600): +0.09 ms GPU by bgfx's timer (~0.05 ms real),
   +0.035 ms render thread.
+
+## 2026-11-28 wlens1: lens effects (D249; docs/hdr-shadows.md "Lens effects")
+
+- Five remastered-only Video Options rows on hdr's borrowed strings (`dof`, `lens_flare`, `vignette`, `aberration`,
+  `grain`; defaults On, On, Off, On, Off), one rm pass (run/app/lens.cpp) at the game's first effect, after HDR's tone
+  map: the game's bloom, fader and the HUD come after and are untouched.
+- Cutscenes: gfx/lens.c hands the runner the letterbox (nism_IsLetterBoxOn's test) and the main actor's position at
+  each present (gfx_quality what 0x101..0x104, picture only). play3 has 31 letterboxed spans. The game draws the bars
+  into the scene before its effects, so the passes leave black rows alone.
+- A scale-free circle of confusion (|z - f| / z) gave aerial and overview shots a miniature look; a thin lens's
+  |1/f - 1/z| x aperture keeps wide shots sharp and blurs close-ups' backgrounds.
+- Camera shake: an entry hook on CGameCamera::vfunc_35 0x000a97e0 reads the six shakes (+0xf4: time, duration,
+  amplitude, frequency) after the update. play3's 495 shakes are all translation, 0.1 .. 0.6 units, a quarter second;
+  the aberration takes the 0.4 .. 0.6 ones (43 events).
+- Records identical to HEAD on Metal and null with every row on; cost +0.16 ms by bgfx's timer (~0.09 ms; +0.25 with
+  the depth of field every frame).

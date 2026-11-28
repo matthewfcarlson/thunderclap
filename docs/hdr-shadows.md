@@ -163,6 +163,90 @@ fs_rm_contactapply.sc); either row on keeps the scene's depth readable (rm_pass.
   metal, spirv and essl. Not run on a Linux device yet: check with Khronos validation on a city scene with HUD, cars and
   enemies.
 
+## Lens effects (lens.cpp)
+
+wlens1, 2026-11-28 (the user's visual pick #9, D249): five Video Options rows, all remastered-only, faithful Off, each
+borrowing `hdr`'s choice strings (fe_options.c k_borrow: five labels, no choice strings): `dof` Cutscene Depth of Field
+(rm::kDof = 26, remastered On), `lens_flare` Lens Flare (kLensFlare = 27, On), `vignette` Vignette (kVignette = 28,
+Off: Colour Grade Cinematic already has a soft one), `aberration` Chromatic Aberration (kAberration = 29, On: impacts
+only), `grain` Film Grain (kGrain = 30, Off). One rm pass draws them (run/app/lens.cpp; shaders fs_rm_lens.sc,
+fs_rm_lensmul.sc, fs_rm_dfocus.sc, fs_rm_dprep.sc, fs_rm_dgather.sc, fs_rm_fbright.sc, fs_rm_fghost.sc, with
+fs_rm_blur.sc); Depth of Field or Lens Flare on keeps the scene's depth readable (QualityPass).
+
+- **Where.** In views of the runner's own before the game's first framebuffer effect (its bloom and colour pass;
+  rm::viewsBefore at the same copy / effect hook as HDR, after HDR's tone map and the grade, order 32). The game's
+  bloom, motion-trail overlay, fader and the whole HUD (menus, subtitles, the letterbox bars) come after, so the HUD is
+  never touched by any of them; a frame without effects (the front end) gets none. Vignette and grain alone are one
+  multiply quad (blend dst x src x 2); anything else blits the scene into a copy and writes one composite back.
+- **What the module tells the runner.** gfx/lens.c hands a packed word to the runner at each present (gfx_quality what
+  0x101, like the menu arrows' 0x100; picture only, nothing written): bit 0 the letterbox (nism_IsLetterBoxOn's test,
+  as wskip1's "in play"), bit 1 a scripted camera, bit 2 no controller slot, and the camera's shake: an entry hook on
+  CGameCamera::vfunc_35 0x000a97e0 (every caller is a derived camera's update in another TU) reads the six shakes at
+  +0xf4 (time, duration, amplitude, frequency; offset = sin(t f) e^-t amplitude) after the original. Under the null
+  renderer the module's d3d layer is d3d_null and the word is not sent (records and `HULK_LENS_LOG` letterbox lines
+  need a Metal run).
+- **Cutscenes.** The depth of field runs only while the letterbox is up (and no movie plays), easing in and out over 12
+  updates. play3 has 31 letterboxed spans (75 to 876 updates: mission intros and objective cut-ins; frames 634, 3318,
+  4064, 4883, 6209, 7521, ... 54959); the scripted camera and the controller slot change within them and are not used.
+- **Depth of field.** The focus (1x1 RGBA16F, ping-pong): the main actor when he is in the shot (gfx/lens.c hands his
+  scene node's position over as what 0x102..0x104 while the letterbox is up; his chest, 1.4 units up, projected within
+  the frame's middle 88% x 85%) and the depth there is not nearer than 0.75x his distance; else 25 depth taps over the
+  frame's upper middle (x 0.32..0.68, y 0.24..0.64), the nearest cluster (within 1.6x the nearest + 0.5) averaged in
+  log depth, centre-weighted, capped at 400 units. Eased 18% a frame from the last focus (a new cutscene takes it at
+  once). The circle of confusion is a thin lens's, `sign(z - f) clamp((8 |1/f - 1/z| - 0.1) x 1.25, 0, 1)`: a close-up
+  (focus at a few units) blurs its background, a wide or aerial shot stays sharp. The first version used the relative
+  defocus |z - f| / z, scale-free, and play3's aerial intro shots (3450, 6300) and the city overviews (29000, 49800)
+  took a tilt-shift miniature look with the wrong things in focus. Half size: colour and the signed circle (the nearest
+  of the four depths), then a 36-tap golden-angle gather out to 4 half-size pixels at 480 lines (scaled with the
+  height: 16 px at 960): a tap counts where its own circle covers the distance, a tap behind the pixel only out to
+  twice the pixel's own circle (a sharp subject keeps its edge), taps brighter than 0.7 weigh up to 1.75x (bokeh). The
+  composite blends towards the gather by the pixel's own circle or the foreground's that spilled over it. The game
+  draws the letterbox bars before its effects (they are in the scene, not the HUD's tail): rows black across the copy
+  (5 taps) are bars, in focus for the gather and left as drawn by the composite (blurred, the bars' edges went soft).
+  Translucent effects write no depth and blur with what is behind them (a shock wave around a sharp Hulk).
+- **Lens flare.** Quarter size. Strong small lights: a bright pass of texels over 0.82 and 0.25 brighter than a ring of
+  8 taps at 6 quarter-size texels (a bright sky or a sunlit wall gives nothing), mirrored through the centre at four
+  scales with tints and a slight colour split, plus a halo; the sun: the key light's direction (the strongest
+  directional light of the lit draws through the inverse view, as the shadows and the atmosphere's sun glow take it)
+  projected, by day (night estimate < 0.6, fading from 0.2), above the horizon and within 15% of the screen; its
+  visibility is the share of 9 depth taps around it that are sky (view depth > 600), its strength x0.35 .. 1 by the
+  scene's brightness there; a glow, a faint horizontal streak and five tinted ghosts along the line through the
+  centre. Blurred (fs_rm_blur.sc x and y) and added.
+- **Chromatic aberration.** Red and blue sampled 1.1% x d x edge apart (edge: 0 inside 30% of the half-diagonal, 1 at
+  the corners), only while the camera shakes: play3's shakes are 0.1 .. 0.6 units of translation (none of rotation),
+  a quarter second each (the footsteps and hits 0.1 .. 0.3, heavy landings, throws and explosions 0.4 .. 0.6); the
+  strength is (amplitude / 0.6 - 0.4) / 0.6, decaying 18% an update.
+- **Vignette** 32% darker at the corners, smoothstep from 35% of the half-diagonal. **Grain** two octaves of hash noise
+  (a pixel's and a 2x2 cell's), new each presented frame, weighted to the mid-tones (7% at mid grey). Under a temporal
+  upscaler the grain goes in before the accumulation and is partly averaged out.
+- Knobs: `HULK_LENS_LOG=1` (the letterbox and each update's shake from the module, the pass's runs every 300 frames;
+  2: the impact each update), `HULK_LENS_AB=N`, `HULK_LENS_FORCE=1` (the depth of field always) / `2` (the aberration
+  at full strength) / `3` (both), `HULK_LENS_DOF=band,aperture,maxR` (0.1, 8, 4), `HULK_LENS_FLARE=sun,ghosts,halo,threshold`,
+  `HULK_LENS_FX=vignette,aberration,grain`, `HULK_LENS_SHAKE=units,degrees`.
+- **Checks.** Records: play3 to 60,000 with `null` and every lens row on (all remastered defaults pinned), candidate
+  112354 against HEAD control 112353 on studio: identical (test 112355; under `null` the lens word is not sent, so
+  this checks the hook and the rows). Metal, all remastered defaults pinned (build/wsweep1/settings.txt), 1280x960,
+  aspect 43, against the same control: records identical in 112360 (to 56,000), 112363 (55,100, vignette and grain on
+  too), 112370 (55,000) and 112375 (the final build 112373, to 56,000, mac2). Gameplay shots (4400, 4600, 5500, 5700,
+  5800, 7000, 25000) differ only by the flare's ghosts and grain where on; cutscene shots: the aerial intro and city
+  overviews stay sharp, close-ups (12800, 12900, 22700, 49700) blur foreground and background around the subject
+  (49700: the Hulk in focus by his position). The sun flare draws only where the sky is clear at the key light's
+  direction by day: play3's desert keeps it behind the canyon walls, so it shows on few frames (44 .. 119 of 300 in
+  4,200 .. 6,000, at the screen's edge). `HULK_LENS_FORCE=2` (112371) shows the aberration at full strength: fringes of
+  ~7 px at the corners of 1280x960, none in the middle and none on the HUD.
+- **Cost** (metal-ab, studio, play3 to 25,000, 1280x960, all remastered defaults with TAA, `HULK_LENS_AB=30`, 11,340
+  frames a side): the defaults (flare every frame, aberration on impacts, depth of field in cutscenes) 1.942 -> 2.100
+  ms (+0.16 by bgfx's timer, which reads ~1.8x high: ~0.09 ms), render thread +0.04 ms (112376); with the depth of
+  field forced on every frame (`HULK_LENS_FORCE=1`) 1.960 -> 2.209 ms (+0.25, ~0.14 ms) (112377).
+- **Linux / Vulkan.** Every sampler each program declares is bound for every quad: the composite binds s_rmTex0..4 (the
+  copy where the gather, depth, focus or flare is not used this frame), the focus 0..1, the half-size preparation 0..2,
+  the gather and the blur 0, the bright pass 0, the ghosts 0..2 (the copy for the depth when there is no camera), the
+  multiply quad none. New handles: 7 textures (the scene copy; two 1x1 focus targets; two half-size and two
+  quarter-size RGBA16F targets) and their 6 frame buffers plus one over the scene's colour (remade with the scene
+  target); no vertex or index buffers (transient quads). The depth of field and the flare need RGBA16F render targets
+  (rm::hdrSupported; else they are off). The shaders build for metal, spirv and essl; not run on a Linux device yet:
+  check with Khronos validation on a city scene with HUD, cars and enemies, and a cutscene.
+
 ## Checks and cost
 
 - Game state: checkpoint records identical with every setting: play3 on Metal to 34,100 with each option off and on and

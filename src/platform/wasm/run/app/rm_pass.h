@@ -37,6 +37,11 @@ enum Quality : uint32_t {
     kContact,                             // wshadow1 (contact.cpp): 0 off, 1 screen-space contact shadows
     kBounce,                              // wshadow1 (contact.cpp): 0 off, 1 one bounce of the lit surfaces' colour
     kDecals,                              // wdecal1 (decals.cpp): 0 the game's, 1 lasting (kept past the game's 85) and fitted
+    kDof,                                 // wlens1 (lens.cpp): 0 off, 1 depth of field in in-engine cutscenes
+    kLensFlare,                           // wlens1: 0 off, 1 the sun's and strong lights' ghosts and glare
+    kVignette,                            // wlens1: 0 off, 1 the corners darkened
+    kAberration,                          // wlens1: 0 off, 1 colour fringes at the edges on big impacts
+    kGrain,                               // wlens1: 0 off, 1 film grain
     kQualityCount
 };
 struct Settings {

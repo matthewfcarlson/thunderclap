@@ -729,10 +729,16 @@ void rm_set_fog(int value);
 void w2c_hulk_gfx_fog(struct w2c_hulk*, u32 value) { rm_set_fog((int)value); }
 // the runner's picture options (wr2: port_settings.c rows that are rm passes; rm_pass.h Quality)
 extern "C" void hulk_app_menu_arrows(uint32_t state);     // run/app/menuarrows.cpp
+extern "C" void hulk_app_lens_state(uint32_t state);      // run/app/lens.cpp
+extern "C" void hulk_app_lens_subject(uint32_t axis, uint32_t bits);
 void w2c_hulk_gfx_quality(struct w2c_hulk*, u32 what, u32 value)
 {
     if (what == 0x100)                      // (fe_options.c, wmenu2: the menus' scroll arrows, not a settings row)
         return hulk_app_menu_arrows(value);
+    if (what == 0x101)                      // (lens.c, wlens1: cutscene and camera shake, not a settings row)
+        return hulk_app_lens_state(value);
+    if (what >= 0x102 && what <= 0x104)     // (lens.c: the cutscene's subject, float bits)
+        return hulk_app_lens_subject(what - 0x102, value);
     rm::setQuality(what, (int32_t)value);
 }
 // the Texture Pack setting (port_settings.c texture_pack; texpack.cpp): the installed packs, the chosen one

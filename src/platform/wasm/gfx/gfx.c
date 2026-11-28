@@ -462,10 +462,23 @@ uint32_t hulk_gfx_sink_query_result(uint32_t q, int32_t* pixels) {
 }
 /* the menus' scroll arrows (fe_options.c, wmenu2): the runner draws them over the frame (picture only) */
 uint32_t hulk_wasm_fe_arrows(void);
+/* the lens effects' cutscene and camera-shake word (lens.c, wlens1): the runner's lens pass (picture only) */
+uint32_t hulk_wasm_lens_state(void);
+int hulk_wasm_lens_subject(float out[3]);
 void hulk_gfx_sink_present(const void* p) {
-    static uint32_t arrows;
+    static uint32_t arrows, lens;
     uint32_t a = hulk_wasm_fe_arrows();
     if (a != arrows) gi_quality(0x100u, (int32_t)(arrows = a));     /* (app.cpp: not an rm::Quality row) */
+    uint32_t l = hulk_wasm_lens_state();
+    if (l != lens) gi_quality(0x101u, (int32_t)(lens = l));         /* (app.cpp: not an rm::Quality row) */
+    static uint32_t subject[3];
+    float sp[3] = {0, 0, 0};
+    if (l & 1) hulk_wasm_lens_subject(sp);                          /* (the letterbox is up: a cutscene's subject) */
+    for (int i = 0; i < 3; i++) {
+        uint32_t b;
+        memcpy(&b, &sp[i], 4);
+        if (b != subject[i]) gi_quality(0x102u + (uint32_t)i, (int32_t)(subject[i] = b));
+    }
     gi_present(p);
 }
 void hulk_gfx_sink_frame(void) { gi_frame(); }

@@ -125,6 +125,11 @@ static const struct { const char* key; const char* from; } k_borrow[] = {
     {"contact", "hdr"},                 /* Off (Original) / On (wshadow1) */
     {"bounce", "hdr"},                  /* Off (Original) / On (wshadow1) */
     {"decals", "hdr"},                  /* Off (Original) / On (wdecal1) */
+    {"dof", "hdr"},                     /* Off (Original) / On (wlens1) */
+    {"lens_flare", "hdr"},
+    {"vignette", "hdr"},
+    {"aberration", "hdr"},
+    {"grain", "hdr"},
 };
 static const char* borrowed_from(int i) {
     for (unsigned k = 0; k < sizeof k_borrow / sizeof k_borrow[0]; k++)

@@ -858,7 +858,10 @@ GFX_APP_HOOKS = {0x000df9e0: "ffh_hulk_app_fe_callback", 0x000f8e70: "ffh_hulk_a
                  # skins (src/platform/wasm/gfx/skins.c, wskin1): a save's apply (comic skins unlocked), a
                  # collectable's pick-up (a comic book), a character's model request (an extra Hulk's own skin)
                  0x0008a8f0: "ffh_hulk_app_save_apply", 0x001d8350: "ffh_hulk_app_collect",
-                 0x001c3b20: "ffh_hulk_app_char_model"}
+                 0x001c3b20: "ffh_hulk_app_char_model",
+                 # lens effects (src/platform/wasm/gfx/lens.c, wlens1): CGameCamera::vfunc_35, the camera's update (its
+                 # shakes, read after the original; every caller is a derived camera in another TU)
+                 0x000a97e0: "ffh_hulk_app_camera_update"}
 # site hooks of the app (a call inside its own TU, which an entry hook misses): Brief Move Prompts
 # (src/platform/wasm/gfx/hud_prompt.c, wprompt1): HUDOverlay::vfunc_4's call of the button hint's draw FUN_000cf740
 GFX_APP_SITE_HOOKS = {(0x000d05f0, 0x000cf740): "ffh_hulk_app_hud_prompt"}
