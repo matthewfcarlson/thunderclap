@@ -31,6 +31,7 @@ void hulk_wasm_coop_apply(int value);                                   /* coop.
 uint32_t hulk_wasm_texture_pack_list(char* buf, uint32_t cap);          /* gfx.c: the installed packs' names */
 void hulk_wasm_quality_apply(int what, int value);                      /* gfx.c: the runner's passes (wr2) */
 void hulk_wasm_text_spacing_apply(int value);                           /* text_spacing.c: glyph advances (wtext2) */
+void hulk_wasm_move_prompts_apply(int value);                           /* hud_prompt.c: the HUD's move prompt (wprompt1) */
 
 static void apply_remastered(int value);
 static void apply_frame_rate(int value) { hulk_wasm_frame_rate_apply(value); }
@@ -65,6 +66,7 @@ static void apply_hud_res(int value) { hulk_wasm_quality_apply(20, value); }
 static void apply_particles(int value) { hulk_wasm_quality_apply(21, value); }
 static void apply_char_light(int value) { hulk_wasm_quality_apply(22, value); }
 static void apply_text_spacing(int value) { hulk_wasm_text_spacing_apply(value); }
+static void apply_move_prompts(int value) { hulk_wasm_move_prompts_apply(value); }
 static void apply_tutorial_skip(int value) { hulk_wasm_tutorial_skip_apply(value); }
 static void apply_traversal(int value) { hulk_wasm_traversal_apply(value); }
 void hulk_wasm_net_apply(int value);                                   /* netplay.c: online co-op (wnet1) */
@@ -155,6 +157,10 @@ static void apply_developer(int value);
  * measured from the player's own font atlas when the font loads (the shipped fonts leave gaps after w, k, x, Y, A:
  * "lik e"); the original trims only v, o and r by hand. The glyph tables are game memory and the game lays text out from
  * them, so it is per session: replays and tests pin it off, netplay peers must share it.
+ * Brief Move Prompts (wprompt1, D251; hud_prompt.c): the HUD's weaponization prompt (Y and "Steel Fists", ...), which
+ * the game leaves up until the fight script next runs without a prop in the Hulk's hands, goes once it has shown for 5
+ * seconds or Y was pressed; another prompt (or the same one begun again) shows. Picture only: the game's HUD runs as in
+ * the original and only the prompt's draws are withheld, so it is not per session.
  * Tutorial skip (wskip1): a star behind the Hulk's start in the two tutorial missions (c00m01, c00m02) ends the mission
  * through its own success path when he walks into it (tutorial_skip.c). It changes the game (the mission ends), so it
  * is per session: replays and tests pin it off, netplay peers must share it.
@@ -193,6 +199,8 @@ static port_setting k_settings[] = {
      apply_hud_res},
     {"text_spacing", "Tighter Text Spacing", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 1, 1,
      apply_text_spacing},
+    {"move_prompts", "Brief Move Prompts", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 1, 1,
+     apply_move_prompts},
     {"draw_distance", "Draw Distance", PS_SCREEN_VIDEO, PS_CHOICE, 3, {270, 400, 700},
      {"Original", "Far", "Very Far"}, 270, 400, 1, apply_draw_distance},
     {"fog", "Fog", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"On (Original)", "Reduced", "Off"}, 0, 1, 1, apply_fog},

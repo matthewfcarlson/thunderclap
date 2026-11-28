@@ -3850,3 +3850,24 @@ queue shots, the player's settings, TAA, 1280x960):
 - Text reflows into fewer lines (f8000's comic page fits more words a line) and stays inside its boxes; menus (serpentine)
   tighten slightly. "Ob jectives" (pause menu) is a leading gap before j, which this does not touch.
 - The row borrows hdr's choice strings (fe_options.c k_borrow): one new string table entry (its label).
+
+## 2026-11-27 wprompt1: Brief Move Prompts (D251; src/platform/wasm/gfx/hud_prompt.c)
+
+- The top-centre "Y / Steel Fists" prompt is HUDOverlay's one button-hint slot, set from Lua by
+  hud_triggerButtonHintBegin(button, text id, seconds) (0x000ce700 -> 0x000ce5c0) and cleared by
+  hud_triggerButtonHintEnd (0x000cad60). The fight script's weaponization chunk (scripts/fight/common.fig) begins it with
+  "sp" (Y), TBS_INSTRUCTION_FISTS / SHIELD / BOWLING / BALL_CHAIN / MISSILE_PACK and -1 (no limit) when the Hulk holds a
+  weaponizable prop with the move unlocked, and ends it only when the chunk next runs with no prop: in play it stays up
+  after the cars are thrown (the game's own behaviour; faithful and remastered identical, lead jobs 112227/112228).
+  HUDOverlay words: +0x214 hint id (counter), +0x218 icon sprite, +0x224 shown, +0x228/+0x22c text hash
+  (FUN_002672f0), +0x23c seconds since the last Begin, +0x240 limit. Update 0x000ce0d0 (vfunc_3) fades; FUN_000cf740
+  (text box 0x000ce280, which also clamps +0x230, then the icon) draws, called only from vfunc_4 0x000d05f0 (same TU).
+- A remastered-only Video Options row (`move_prompts`, "Brief Move Prompts", default On, hdr's choice strings via
+  k_borrow): a weaponization prompt goes once it has shown 5 s (summed from the hint's own clock) or Y was pressed
+  while it showed; a different prompt, or the same one begun again after it went away, shows again. Mission hints are
+  untouched. Picture only: a wasm site hook (wasm_port.py GFX_APP_SITE_HOOKS, the first app site hook: an entry hook
+  misses calls inside the defining TU) on vfunc_4's call of 0x000cf740 always runs the original, and gfx.c withholds the
+  draws it submits (`hulk_gfx_drop_draws`); no game memory changes, so it is not per session.
+- play3 records identical to HEAD to 60,000 faithful (112283) and with remastered + the row (112284; prompts at 6698,
+  33308 and 44530 hidden 5.03 s later). Metal 112285 (studio, 1280x960, whud1 settings + the row) against HEAD: the
+  Steel Fists prompt shows at 44620 and is gone from 44750 on (45000-46400 differ from HEAD only there).

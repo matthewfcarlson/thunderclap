@@ -121,6 +121,7 @@ static int shared_digits(int i) { return !strncmp(hulk_settings_at(i)->key, "coo
  * (wtext2). The source row is always listed (its strings are always added). */
 static const struct { const char* key; const char* from; } k_borrow[] = {
     {"text_spacing", "hdr"},            /* Off (Original) / On */
+    {"move_prompts", "hdr"},            /* Off (Original) / On */
 };
 static const char* borrowed_from(int i) {
     for (unsigned k = 0; k < sizeof k_borrow / sizeof k_borrow[0]; k++)

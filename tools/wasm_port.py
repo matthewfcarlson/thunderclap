@@ -855,6 +855,9 @@ GFX_APP_HOOKS = {0x000df9e0: "ffh_hulk_app_fe_callback", 0x000f8e70: "ffh_hulk_a
                  # Tighter Text Spacing (src/platform/wasm/gfx/text_spacing.c, wtext2): TextureFontLoader::vfunc_5, after
                  # which the font's glyph advances lose their measured blank columns
                  0x00295620: "ffh_hulk_app_font_load"}
+# site hooks of the app (a call inside its own TU, which an entry hook misses): Brief Move Prompts
+# (src/platform/wasm/gfx/hud_prompt.c, wprompt1): HUDOverlay::vfunc_4's call of the button hint's draw FUN_000cf740
+GFX_APP_SITE_HOOKS = {(0x000d05f0, 0x000cf740): "ffh_hulk_app_hud_prompt"}
 _HOOKS = None
 
 
@@ -877,6 +880,7 @@ def wasm_hooks():
         if GFX:
             ent[GFX_DEVICE_ADDR] = "ffh_hulk_gfx_create_device"
             ent.update(GFX_APP_HOOKS)
+            site.update(GFX_APP_SITE_HOOKS)
         # debugging: HULK_WASM_DEBUG_HOOKS="site:0xCALLER:0xCALLEE:name,entry:0xADDR:0:name" (hooks the host sources
         # of HULK_WASM_HOST_EXTRA define as ffh_<name>; never in a committed build)
         for row in filter(None, os.environ.get("HULK_WASM_DEBUG_HOOKS", "").split(",")):

@@ -440,7 +440,12 @@ void hulk_gfx_sink_copy_frame(uint32_t pass, const void* dst) { gi_copy_frame(pa
 uint32_t hulk_gfx_sink_draw_resources(void) { return gi_draw_resources(); }
 uint32_t hulk_gfx_sink_has_vertex_program(uint32_t vp) { return gi_has_vertex_program(vp); }
 uint32_t hulk_gfx_sink_prepare_pipeline(void* p) { return gi_prepare_pipeline(p); }
-void hulk_gfx_sink_submit_draw(const void* p) { gi_submit_draw(p); }
+/* hud_prompt.c (Brief Move Prompts, wprompt1): while set, the draws the game's front end submits stay in the module
+ * (the front end did all its work; only the picture lacks them) */
+extern int hulk_gfx_drop_draws;
+void hulk_gfx_sink_submit_draw(const void* p) {
+    if (!hulk_gfx_drop_draws) gi_submit_draw(p);
+}
 void hulk_gfx_sink_combiner_stats(int32_t* a, int32_t* b, int32_t* c) { gi_combiner_stats(a, b, c); }
 uint32_t hulk_gfx_sink_fx_resources(void) { return gi_fx_resources(); }
 void hulk_gfx_sink_fx_draw(const void* p) { gi_fx_draw(p); }
