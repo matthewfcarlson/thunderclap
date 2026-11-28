@@ -3985,3 +3985,28 @@ queue shots, the player's settings, TAA, 1280x960):
   structure. The night key light is a warm street rig: at the sun's strength it washed the night city yellow (0.15 now).
 - Checks: play3 Metal records on (112410) and off (112411) identical over 54,120 frames; cost +0.20 ms bgfx timer
   (~0.11 ms real) on studio (metal-ab 112412).
+
+## 2026-11-28 wjoin1: the co-op join code on the game's cheat keyboard
+
+- The user found the eight "Join Code N" digit rows clumsy. The game already has a gamepad code keyboard: the front
+  end's Code Input screen ("cheats", fe_real.txt) is an FETextInput "FE_code_input_widget" of 7 boxes (A starts typing,
+  left/right moves, up/down steps a box through A-Z then 0-9: DAT_004a0d38; FETextInput::vfunc_12 0x000dd040). A second
+  A builds the text (+0x158, 0x000dca40) and runs the widget's OnSelect, the front-end function "DoFECodeInput"
+  (CFEManager 0x000c2b90 -> 0x000bfa10, the cheat check). Front-end functions are looked up by name at parse
+  (0x000df970, already hooked), so fe_options.c answers "DoFECodeInput" with a host handler that forwards to the game's
+  (CallbackHolder::vfunc_0, (count, args)) unless the screen is in join mode. No new screen, no new hook.
+- Entry: Extras gets "Join Online Game" (FEmain_right_item6, the place the disc's `ifbuild DEBUG` cheats item used:
+  "Port_JoinMode" then `gotoscreen "cheats"`); Code Input gets "Port_CheatMode" before its goto. The Online Co-op
+  row's Join a Game goes there too, through FEThings' goto by name (0x000fc280 = *0x004e0a60 slot 14). In join mode
+  the screen's prompt ("enter_code_text") shows the co-op status. The pause menu has no keyboard (fe_run.txt has no
+  Code Input): Join a Game there says to join from the main menu.
+- Codes: the Worker keeps 8 digits (no Worker change); the menus show 7 characters, 6 base-32 symbols (no I L O U; a
+  typed O reads 0, I/L read 1) plus a check symbol (any one wrong character refused): host/room_code.h, used by
+  netplay.c and the runner (`--join` takes either form).
+- Finding: the main menu's columns are a separate "main" screen of horizontal tab buttons: from a column B goes back to
+  the tabs, left/right moves along them and A opens one. That is why scripted right presses "did nothing" (wdev1):
+  B, right, A reaches Extras from Story Mode in a HULK_INPUT script.
+- Checks: play3 30,000 records identical to the HEAD control (112454 vs 112446); coop:12000:2 with guest 1 typing the
+  code into the keyboard (HULK_COOP_TEST_KEYBOARD=1, HULK_COOP_TYPE) joins from the front end, 129 hashes equal
+  (112456); the launch-option coop test unchanged (112457); Metal shots of the Extras item, typing with the pad,
+  the cheat check's own invalid-entry dialog and the row's Join a Game (112440, 112452, 112463).

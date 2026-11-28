@@ -61,6 +61,7 @@
 #include "../host/hulk_io.h"
 #include "../host/sim.h"
 #include "port_settings.h"
+#include "../host/room_code.h"
 
 
 /* Game-facing state of this host file (the game objects and the handlers the game holds, the screens' scroll
@@ -112,12 +113,10 @@ static int place_setting(int p) {
 static void nv_name(int p, char* out, size_t cap) { snprintf(out, cap, "Port_%s_%d", k_screens[p / PLACES].key, p % PLACES + 1); }
 static void cb_name(int p, char* out, size_t cap) { snprintf(out, cap, "Port_%s_%d_Changed", k_screens[p / PLACES].key, p % PLACES + 1); }
 static void sel_name(int p, char* out, size_t cap) { snprintf(out, cap, "port_%s_%d", k_screens[p / PLACES].key, p % PLACES + 1); }
-/* rows whose choices share one set of string ids (TBS_PORT_DIGIT_<c>): the Join Code rows' digits. Every string the
- * port adds takes a string-table entry: faithful runs keep the game's 2,300 (the disc takes 2,075), remastered ones
- * get 4,096 ("the string table" below). Strings past the cap show as their raw ids, so shared ids stay cheaper (wnet1) */
-static int shared_digits(int i) { return !strncmp(hulk_settings_at(i)->key, "coop_d", 6); }
 /* rows whose choices are another row's (the same texts): they show that row's string ids and add only their label
- * (wtext2). The source row is always listed (its strings are always added). */
+ * (wtext2). The source row is always listed (its strings are always added). Every string the port adds takes a
+ * string-table entry: faithful runs keep the game's 2,300 (the disc takes 2,075), remastered ones get 4,096 ("the
+ * string table" below); strings past the cap show as their raw ids, so shared ids stay cheaper. */
 static const struct { const char* key; const char* from; } k_borrow[] = {
     {"text_spacing", "hdr"},            /* Off (Original) / On */
     {"move_prompts", "hdr"},            /* Off (Original) / On */
@@ -155,10 +154,6 @@ static void str_id(int i, int choice, char* out, size_t cap) {      /* TBS_PORT_
     const char* g = game_choice_id(i, choice);
     if (g) {
         snprintf(out, cap, "%s", g);
-        return;
-    }
-    if (choice >= 0 && shared_digits(i)) {
-        snprintf(out, cap, "TBS_PORT_DIGIT_%d", choice);
         return;
     }
     const char* from = choice >= 0 ? borrowed_from(i) : 0;
@@ -317,7 +312,9 @@ static void on_change(uint32_t ecx, uint32_t edx, void* st, void* rb) {
  * what every peer knows alike and set at the same update everywhere, so the menu, which is game state, stays equal;
  * the text last set is game state too (a guest takes the host's with its state). */
 GAME_STATE static char g_coop_label[96];
+static void join_status(const char* text);         /* (wjoin1, below) */
 void hulk_wasm_net_label(const char* text) {
+    join_status(text);
     if (!strncmp(text, g_coop_label, sizeof g_coop_label - 1) || g_busy) return;
     snprintf(g_coop_label, sizeof g_coop_label, "%s", text);
     int i = hulk_settings_find("coop");
@@ -520,6 +517,129 @@ static void on_pack_status(uint32_t ecx, uint32_t edx, void* st, void* rb) {
 }
 GAME_STATE static uint32_t g_quit_handler[2], g_quit_vft[4], g_status_handler[2], g_status_vft[4];
 
+/* ------------------------------------------------------------------------------------------- the join keyboard
+ * Online co-op's room code is typed on the game's own code keyboard (wjoin1): the front end's Code Input screen
+ * ("cheats", fe_real.txt) holds an FETextInput, "FE_code_input_widget": 7 boxes, A to start typing, left / right to move
+ * between boxes, up / down to step a box through A-Z then 0-9 (the XBE's alphabet DAT_004a0d38), A again to enter
+ * (FETextInput::vfunc_12 0x000dd040: the text is built into +0x158 by 0x000dca40, then the widget's OnSelect runs,
+ * the front-end function "DoFECodeInput", CFEManager's 0x000c2b90, which checks the text as a cheat through
+ * 0x000bfa10). Extras gets "Join Online Game" (FEmain_right_item6: the column's sixth place, which the disc's debug
+ * build used for its cheats screen), whose OnSelect runs "Port_JoinMode" and goes to that screen; the Code Input item
+ * itself gets "Port_CheatMode" before its own goto, and the Online Co-op row's Join a Game sets join mode and goes
+ * there through FEThings' goto by name (0x000fc280). In join mode the screen's prompt label ("enter_code_text") shows
+ * the co-op status, and the entered text goes to netplay.c's join instead of the cheat check: the function lookup hook
+ * below answers "DoFECodeInput" with a handler of ours that forwards to the game's own outside join mode (the
+ * holder's one slot, CallbackHolder::vfunc_0 0x000be1c0: (argument count, arguments)). No screen is added; the mode is
+ * game state (a guest takes the host's, off, with its state). HULK_COOP_TYPE=CODE (tests; or @FILE, the host's
+ * HULK_COOP_CODE_FILE, waited for) types a code into the widget's boxes and enters it as a player would, at the first
+ * frame end the front end's widget exists (and the file holds a code). */
+#define TEXT_INPUT_TD 0x0049faf4u       /* FETextInput's type descriptor */
+#define TEXT_LABEL_TD 0x0049f48cu       /* TextLabel's */
+#define TI_COUNT 0x150                  /* FETextInput: boxes */
+#define TI_CURSOR 0x154
+#define TI_TEXT 0x158
+#define TI_SLOTS 0x16c                  /* each box's character index (-1 empty) */
+#define TI_STATE 0x178                  /* 1 idle, 2 typing */
+#define CODE_WIDGET "FE_code_input_widget"
+int hulk_wasm_net_join(const char* typed);          /* netplay.c */
+uint32_t hulk_wasm_net_status(char* buf, uint32_t cap);
+GAME_STATE static int32_t g_join;                   /* the Code Input screen is in join mode */
+GAME_STATE static uint32_t g_code_orig, g_code_handler[2], g_code_vft[4], g_mode_handler[2][2], g_mode_vft[2][4];
+GAME_STATE static char g_join_shown[96];            /* the prompt's text last set */
+static const char k_join_prompt[] = "Enter the host's room code";
+static const char k_join_locked[] = "Online co-op needs Remastered Edition (Gameplay Options)";
+static int join_locked(void) { return hulk_setting_locked(hulk_settings_find("coop")); }
+static uint32_t fe_find(const char* name, uint32_t td) {
+    uint32_t c = ff_call(0x000fc260u, 1, (uint32_t)(uintptr_t)name);
+    return c ? ff_call(0x00344e74u, 5, c, 0, 0x0049dba4u, td, 0) : 0;
+}
+/* the prompt label: TEXT as written (a status), or the game's own string id (cheat mode) */
+static void join_prompt(const char* text) {
+    if (!strncmp(text, g_join_shown, sizeof g_join_shown - 1)) return;
+    snprintf(g_join_shown, sizeof g_join_shown, "%s", text);
+    uint32_t l = fe_find("enter_code_text", TEXT_LABEL_TD);
+    if (l) ff_call_this(0x000f8500u, l + 0x18, 3, (uint32_t)(uintptr_t)g_join_shown, ff_call(0x000fc1b0u, 0), 1);
+    if (log_on()) fprintf(stderr, "hulk: frame %u: join prompt \"%s\"%s\n", SIM->frame, text, l ? "" : " (no label)");
+}
+static void join_mode(int on) {
+    g_join = on;
+    join_prompt(!on ? "TBS_MENU_ITEM_CI_ENTER_CODE" : join_locked() ? k_join_locked : k_join_prompt);
+}
+/* the co-op status while the screen is in join mode (netplay.c, at frame ends and updates): shown when it changes, so
+ * a refusal of the typed text stays until the status moves */
+GAME_STATE static char g_join_status[96];
+static void join_status(const char* text) {
+    if (!strncmp(text, g_join_status, sizeof g_join_status - 1)) return;
+    snprintf(g_join_status, sizeof g_join_status, "%s", text);
+    char t[96];                                 /* (the prompt is one line: a reason's details in brackets go) */
+    snprintf(t, sizeof t, "%s", text);
+    char* br = strstr(t, " (");
+    if (br) *br = 0;
+    if (g_join) join_prompt(t[0] ? t : join_locked() ? k_join_locked : k_join_prompt);
+}
+/* the Online Co-op row's Join a Game (netplay.c): 0 when there is no keyboard (the pause menu) */
+int hulk_wasm_join_keyboard(void) {
+    if (!fe_find(CODE_WIDGET, TEXT_INPUT_TD)) return 0;
+    join_mode(1);
+    ff_call(0x000fc280u, 1, (uint32_t)(uintptr_t)"cheats");
+    return 1;
+}
+static void on_join_mode(uint32_t ecx, uint32_t edx, void* st, void* rb) {
+    (void)edx, (void)st;
+    join_mode(*(uint32_t*)PTR(ecx + 4) != 0);
+    RET(0);
+}
+/* DoFECodeInput: (this, argument count, arguments: the widget's name) */
+static void on_code_input(uint32_t ecx, uint32_t edx, void* st, void* rb) {
+    (void)ecx, (void)edx;
+    uint32_t argc = ARG(0), argv = ARG(1);
+    if (!g_join) {
+        uint32_t h = g_code_orig;
+        RET(h ? ff_call_this(rd32(rd32(h)), h, 2, argc, argv) : (uint32_t)-1);
+        return;
+    }
+    uint32_t w = argc == 1 && argv ? fe_find((const char*)PTR(rd32(argv)), TEXT_INPUT_TD) : 0;
+    const char* text = w && rd32(w + TI_TEXT) ? (const char*)PTR(rd32(w + TI_TEXT)) : "";
+    int locked = join_locked();
+    int ok = !locked && hulk_wasm_net_join(text);
+    fprintf(stderr, "hulk: frame %u: co-op: join code \"%s\" %s\n", SIM->frame, text,
+            ok ? "entered" : locked ? "refused (not remastered)" : "is no room code");
+    join_prompt(ok ? "Co-op: joining..." : locked ? k_join_locked : "That is no room code: check it and try again");
+    RET(0);
+}
+/* (tests) HULK_COOP_TYPE=CODE: the widget's boxes get the code and the widget takes an A press, as a player's last
+ * one, so the entry runs through the widget's own OnSelect; once, at the first frame end the widget exists */
+static void join_test_type(void) {
+    static int done;
+    const char* code = getenv("HULK_COOP_TYPE");
+    if (done || !code || !*code) return;
+    uint32_t w = fe_find(CODE_WIDGET, TEXT_INPUT_TD);
+    if (!w) return;
+    static char typed[16];
+    if (code[0] == '@') {                       /* the host's code file (eight digits), once it is there */
+        char digits[16] = {0};
+        int32_t fd = hio_open(code + 1, HIO_READ);
+        int32_t got = fd >= 0 ? hio_read(fd, digits, 8, 0) : -1;
+        if (fd >= 0) hio_close(fd);
+        if (got != 8 || !room_code_typed(digits, typed)) return;
+        code = typed;
+    }
+    done = 1;
+    int n = (int)rd32(w + TI_COUNT), k = 0;
+    uint32_t slots = rd32(w + TI_SLOTS);
+    static const char abc[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";     /* (the widget's alphabet) */
+    for (const char* p = code; *p && k < n; p++) {
+        const char* c = strchr(abc, toupper((unsigned char)*p));
+        if (c && *p) *(int32_t*)PTR(slots + 4u * (uint32_t)k++) = (int32_t)(c - abc);
+    }
+    join_mode(1);
+    *(int32_t*)PTR(w + TI_STATE) = 2;
+    *(int32_t*)PTR(w + TI_CURSOR) = 0;
+    fprintf(stderr, "hulk: frame %u: co-op: typing \"%s\" into the code keyboard\n", SIM->frame, code);
+    ff_call_this(((uint32_t*)PTR(rd32(w)))[12], w, 2, 8, 0);       /* (vfunc_12: 8, the A press) */
+}
+void hulk_wasm_join_frame(void) { join_test_type(); }
+
 void ffgo_000df970(uint32_t, uint32_t, void*, void*);   /* the game's front-end function lookup (the hook's original) */
 void ffh_hulk_app_fe_function(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     const char* name = ARG(0) ? (const char*)PTR(ARG(0)) : 0;
@@ -537,7 +657,26 @@ void ffh_hulk_app_fe_function(uint32_t ecx, uint32_t edx, void* st, void* rb) {
         RET((uint32_t)(uintptr_t)g_status_handler);
         return;
     }
+    for (int m = 0; m < 2; m++)                     /* Port_CheatMode / Port_JoinMode (wjoin1) */
+        if (name && !strcmp(name, m ? "Port_JoinMode" : "Port_CheatMode")) {
+            if (!g_mode_vft[m][0])
+                for (int k = 0; k < 4; k++) g_mode_vft[m][k] = ff_host_method(on_join_mode);
+            g_mode_handler[m][0] = (uint32_t)(uintptr_t)g_mode_vft[m];
+            g_mode_handler[m][1] = (uint32_t)m;
+            RET((uint32_t)(uintptr_t)g_mode_handler[m]);
+            return;
+        }
     ffgo_000df970(ecx, edx, st, rb);
+    if (name && !strcmp(name, "DoFECodeInput")) {   /* (wjoin1) the game's handler behind ours */
+        uint32_t h = (uint32_t)*(uint64_t*)rb;
+        if (h) {
+            g_code_orig = h;
+            if (!g_code_vft[0])
+                for (int k = 0; k < 4; k++) g_code_vft[k] = ff_host_method(on_code_input);
+            g_code_handler[0] = (uint32_t)(uintptr_t)g_code_vft;
+            RET((uint32_t)(uintptr_t)g_code_handler);
+        }
+    }
 }
 
 /* ------------------------------------------------------------------------------------------- the menus' text */
@@ -673,7 +812,15 @@ static void gen_quit_entry(buf_t* b) {
 }
 static const struct { const char* id; const char* text; } k_quit_strings[] = {
     {"TBS_PORT_QUIT_GAME", "Quit Game"},
+    {"TBS_PORT_JOIN_ONLINE", "Join Online Game"},
 };
+/* (wjoin1) Extras' sixth item, Join Online Game: the Code Input screen in join mode ("the join keyboard" above) */
+static void gen_join_entry(buf_t* b) {
+    puts_(b, "    AddTextButton \"FEmain_right_item6\"" CRLF "    {" CRLF "        text \"TBS_PORT_JOIN_ONLINE\" 1" CRLF
+             "        OnSelect function \"Port_JoinMode\"" CRLF "        OnSelect gotoscreen \"cheats\"" CRLF
+             "        OnHighlight function \"UpdateControlButtonString\" \"DynamicControlButtonLabel\"  \"1\"" CRLF
+             "        $MACRO_INSERT menu_item_6" CRLF "        halign right" CRLF "    }" CRLF CRLF);
+}
 
 /* the line where screen `name`'s control-button label is set up (its last line before the closing brace): 0 when the
  * screen or the line is missing */
@@ -698,9 +845,17 @@ static int patch_fe(const char* s, uint32_t n, int pause, buf_t* out) {
     if (!a || !b || !c || (next && b > next) || !(a < b && b < c) || find(s, n, s, "\"Port_")) return 0;
     /* the Quit item: at the end of the Story Mode column (front end only; left out when the screen is missing) */
     const char* q = pause ? 0 : screen_tail(s, n, "story_mode");
-    struct { const char* at; int what; } ins[4] = {
-        {line_end(s, n, a), 0}, {line_start(s, b), 1}, {line_start(s, c), 2}, {q, 3}};
-    int k = q ? 4 : 3;
+    /* (wjoin1) Join Online Game at the end of the Extras column, and cheat mode before the Code Input item's goto (the
+     * first `gotoscreen "cheats"` in "extras"); both or neither */
+    const char* ex = pause ? 0 : screen_tail(s, n, "extras");
+    const char* exs = ex ? find(s, n, s, "AddScreen \"extras\"") : 0;
+    const char* ci = exs ? find(s, n, exs, "OnSelect gotoscreen \"cheats\"") : 0;
+    if (!ci || ci > ex) ex = ci = 0;    /* (the disc's own FEmain_right_item6 is in an `ifbuild DEBUG` block) */
+    struct { const char* at; int what; } ins[6] = {
+        {line_end(s, n, a), 0}, {line_start(s, b), 1}, {line_start(s, c), 2}, {q, 3}, {ex, 5}, {ci ? line_start(s, ci) : 0, 4}};
+    int k = 0;
+    for (int i = 0; i < 6; i++)
+        if (ins[i].at) ins[k++] = ins[i];
     for (int i = 1; i < k; i++)         /* in the file's order (a stable sort) */
         for (int j = i; j > 0 && ins[j].at < ins[j - 1].at; j--) {
             __typeof__(ins[0]) t = ins[j];
@@ -715,7 +870,9 @@ static int patch_fe(const char* s, uint32_t n, int pause, buf_t* out) {
         case 0: gen_values(out); break;
         case 1: gen_entries(out, pause); break;
         case 2: gen_screens(out, pause); break;
-        default: gen_quit_entry(out); break;
+        case 3: gen_quit_entry(out); break;
+        case 4: puts_(out, "        OnSelect function \"Port_CheatMode\"" CRLF); break;
+        default: gen_join_entry(out); break;
         }
     }
     put(out, at, (uint32_t)(s + n - at));
@@ -774,18 +931,13 @@ static int patch_strings(const char* s, uint32_t n, buf_t* out) {
     put_string(out, "TBS_PORT_PACK_STATUS", " ");   /* (a fixed placeholder: the text is set when Video Options opens) */
     for (unsigned i = 0; i < sizeof k_move_strings / sizeof k_move_strings[0]; i++)
         put_string(out, k_move_strings[i].id, k_move_strings[i].text);
-    for (int c = 0; c < 10; c++) {                  /* (the Join Code rows' digits, once: shared_digits) */
-        char id[32], t[2] = {(char)('0' + c), 0};
-        snprintf(id, sizeof id, "TBS_PORT_DIGIT_%d", c);
-        put_string(out, id, t);
-    }
     for (int i = 0; i < hulk_settings_count(); i++) {
         const port_setting* st = hulk_settings_at(i);
         if (!hulk_setting_listed(i)) continue;      /* (the developer rows' text only in developer mode, wdev1) */
         char id[64];
         str_id(i, -1, id, sizeof id);
         put_string(out, id, st->label);
-        for (int c = 0; c < st->n && !shared_digits(i) && !borrowed_from(i); c++) {
+        for (int c = 0; c < st->n && !borrowed_from(i); c++) {
             if (game_choice_id(i, c)) continue;     /* (the game's own string: wskin1) */
             str_id(i, c, id, sizeof id);
             put_string(out, id, st->names[c]);

@@ -86,7 +86,6 @@ static void apply_coop(int value) {             /* (only a change: at load it is
     if (value != last) hulk_wasm_net_apply(value);
     last = value;
 }
-#define DIGITS {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}
 static int is_session_row(const char* key) { return !strncmp(key, "coop", 4); }   /* never saved or loaded */
 static void apply_developer(int value);
 
@@ -299,16 +298,8 @@ static port_setting k_settings[] = {
      {"Hulk", "Grey Hulk", "Joe Fixit", "Abomination", "Savage Banner", "Australia", "Canada", "America", "England",
       "France", "Germany", "Italy", "Spain", "Japan"},
      0, 0, 1, 0},
-    /* online co-op (wnet1, D246; netplay.c): the join code's eight digits, then the switch. Never saved or loaded: a game
-     * starts with co-op off. Remastered only. */
-    {"coop_d1", "Join Code 1", PS_SCREEN_GAMEPLAY, PS_CHOICE, 10, DIGITS, 0, 0, 1, 0},
-    {"coop_d2", "Join Code 2", PS_SCREEN_GAMEPLAY, PS_CHOICE, 10, DIGITS, 0, 0, 1, 0},
-    {"coop_d3", "Join Code 3", PS_SCREEN_GAMEPLAY, PS_CHOICE, 10, DIGITS, 0, 0, 1, 0},
-    {"coop_d4", "Join Code 4", PS_SCREEN_GAMEPLAY, PS_CHOICE, 10, DIGITS, 0, 0, 1, 0},
-    {"coop_d5", "Join Code 5", PS_SCREEN_GAMEPLAY, PS_CHOICE, 10, DIGITS, 0, 0, 1, 0},
-    {"coop_d6", "Join Code 6", PS_SCREEN_GAMEPLAY, PS_CHOICE, 10, DIGITS, 0, 0, 1, 0},
-    {"coop_d7", "Join Code 7", PS_SCREEN_GAMEPLAY, PS_CHOICE, 10, DIGITS, 0, 0, 1, 0},
-    {"coop_d8", "Join Code 8", PS_SCREEN_GAMEPLAY, PS_CHOICE, 10, DIGITS, 0, 0, 1, 0},
+    /* online co-op (wnet1, D246; netplay.c): Host makes a room, Join opens the code keyboard (wjoin1: the Code Input
+     * screen in join mode, fe_options.c). Never saved or loaded: a game starts with co-op off. Remastered only. */
     {"coop", "Online Co-op", PS_SCREEN_GAMEPLAY, PS_CHOICE, 3, {0, 1, 2}, {"Off", "Host a Game", "Join a Game"}, 0, 0, 1,
      apply_coop},
     {"developer", "Developer Mode", PS_SCREEN_NONE, PS_ONOFF, 2, {0, 1}, {"Off", "On"}, 0, 0, 0, apply_developer},

@@ -27,7 +27,7 @@
 // HULK_NET_KEY=HEX (the app key), HULK_NET_SKEW=S (tests: S seconds added to the signed time),
 // HULK_NET_TEST=replay|baddisc|badpeer (tests: send the challenge request twice / answer the disc challenge wrongly /
 // say hello to the host with a wrong peer key),
-// HULK_COOP_HOST=1, HULK_COOP_JOIN=CODE (or @FILE: the code in a file, waited for), HULK_COOP_CODE_FILE=F (the host
+// HULK_COOP_HOST=1, HULK_COOP_JOIN=CODE (eight digits or the 7 typed characters; or @FILE: the code in a file, waited for), HULK_COOP_CODE_FILE=F (the host
 // writes its code there), HULK_COOP_DELAY=N, HULK_COOP_HASH_EVERY=N, HULK_COOP_SHIM=seed=S,delay=MS,jitter=MS,loss=PCT
 // (impairment on every datagram this peer sends), HULK_COOP_RELAY=PORT (run a local TURN relay in this process:
 // tests), HULK_COOP_LOG=1|2, HULK_COOP_TMP=DIR.
@@ -56,6 +56,7 @@
 #include "netplay_net.h"
 #include "../net/libjuice/src/juice.h"
 #include "../disc.h"
+#include "../../host/room_code.h"     // (a room code as players type it: wjoin1)
 
 #if __has_include("hulk_build_id.h")
 #include "hulk_build_id.h"           // (the app's build id: start.cpp)
@@ -1144,6 +1145,8 @@ void signal_guest(std::string code) {
     std::string c;
     for (char ch : code)
         if (isalnum((unsigned char)ch)) c += (char)toupper((unsigned char)ch);   // ("1234 5678")
+    char digits[ROOM_DIGITS_LEN + 1];
+    if (c.size() == ROOM_TYPED_LEN && room_code_digits(c.c_str(), digits)) c = digits;   // (as the menus show it, wjoin1)
     S->code = code = c;
     HttpReply r;
     Json j;

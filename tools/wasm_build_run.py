@@ -602,7 +602,8 @@ def test_coop(t, exes, base, spec):
     a wrong disc answer, a hello under a wrong peer key, which gives its slot back at once), each showing why in the Online
     Co-op row. Ok: every run reaches FRAMES, the guests joined, no DESYNC, every game hash a guest prints after its join
     equals the host's at that frame, the game's co-op events agree, each guest's Hulk spawned on the host, the leaver's
-    was removed, and every refused peer showed its status. --test-env goes to every peer."""
+    was removed, and every refused peer showed its status. --test-env goes to every peer; HULK_COOP_TEST_KEYBOARD=1
+    has guest 1 join from the front end's code keyboard (wjoin1)."""
     res = {}
     exe = exes["cand"]
     node = None
@@ -661,6 +662,10 @@ def test_coop(t, exes, base, spec):
                 extra = dict(HULK_COOP_JOIN="@" + code, HULK_INPUT=START_SCRIPT + (
                     ",4000-7000:0/0/0/30000,8000-8010:0/1,8020-12000:0/0/-20000/25000" if k == 1 else
                     ",5000-5010:0/1,6000-9000:0/0/25000/-10000,11000-11010:0/1"))
+                if k == 1 and t.get("env", {}).get("HULK_COOP_TEST_KEYBOARD") == "1":
+                    # (wjoin1) guest 1 stays in the front end (START only) and enters the host's code on the Code
+                    # Input screen's keyboard in join mode (fe_options.c HULK_COOP_TYPE), not by the launch option
+                    extra = dict(HULK_COOP_TYPE="@" + code, HULK_INPUT="300-305:10" + extra["HULK_INPUT"][len(START_SCRIPT):])
             procs[role] = launch(role, extra, leave_at if k == 2 and leave_at else t["frames"])
             if k == 0 and t["peers"] >= 3:
                 # (the wrong peer key joins a slot, is refused by the host's hello check and gives the slot back at

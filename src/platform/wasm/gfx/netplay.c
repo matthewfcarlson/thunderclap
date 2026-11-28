@@ -22,6 +22,7 @@
 #include "../host/hulk_host.h"
 #include "../host/sim.h"
 #include "port_settings.h"
+#include "../host/room_code.h"
 
 #define GI(name) __attribute__((import_module("hulk"), import_name(#name)))
 #define GAME_STATE __attribute__((section("hulk_game_state")))
@@ -257,27 +258,40 @@ void ff_coop_update(uint32_t clock) {
 /* each frame's end on the game's stack (sched.c ff_frame_checkpoint, at the present), while no session runs: the
  * row's text follows this peer's own state also where no update runs (the pause menu, the front end), so a refusal
  * shows at once (wnet2). In a session only GameClock::Update sets it (the same update on every peer). */
+void hulk_wasm_join_frame(void);                   /* fe_options.c (HULK_COOP_TYPE, tests) */
 void ff_coop_frame_label(void) {
-    if (ff_replay_active() || G.active) return;
+    if (ff_replay_active()) return;
+    hulk_wasm_join_frame();
+    if (G.active) return;
     coop_label();
 }
 
 /* ------------------------------------------------------------------------------------------- the menu
- * Gameplay Options' rows (port_settings.c): "Join Code 1".."Join Code 8" (a digit each) and "Online Co-op" (Off, Host
- * a Game, Join a Game). Choosing Host makes a room; Join joins the room the digits name; Off leaves or ends it. In a
- * session every peer's menus follow the host's pad, so every peer's runner hears the host's choice: a guest ignores
- * Host / Join while it is in a game and leaves on Off, which is what the host's Off means for it anyway. */
+ * Gameplay Options' "Online Co-op" row (port_settings.c: Off, Host a Game, Join a Game) and the front end's code
+ * keyboard (wjoin1: Extras' "Join Online Game", or Join a Game on the row, opens the Code Input screen in join mode;
+ * fe_options.c). Choosing Host makes a room; Join opens the keyboard (in the pause menu, which has none, the row says
+ * where to join); a code typed there joins that room (hulk_wasm_net_join); Off leaves or ends it. In a session every
+ * peer's menus follow the host's pad, so every peer's runner hears the host's choice: a guest ignores Host / Join while
+ * it is in a game and leaves on Off, which is what the host's Off means for it anyway. The menus show a room's code as
+ * the 7 characters a player types (host/room_code.h); the Worker and the runner keep its eight digits. */
+int hulk_wasm_join_keyboard(void);                 /* fe_options.c: 0 when there is no code keyboard to open */
+static int g_join_hint;                            /* (host state) the row's Join a Game had no keyboard to open */
 void hulk_wasm_net_apply(int value) {
-    static char code[16];
-    int n = 0;
-    for (int k = 1; k <= 8; k++) {
-        char key[16];
-        snprintf(key, sizeof key, "coop_d%d", k);
-        code[n++] = (char)('0' + hulk_setting(key) % 10);
-    }
-    code[n] = 0;
     if (ff_replay_active()) return;
-    gi_net_menu((uint32_t)value, code);
+    g_join_hint = 0;
+    if (value == 2) {
+        g_join_hint = !hulk_wasm_join_keyboard();
+        return;
+    }
+    gi_net_menu((uint32_t)value, "");
+}
+/* a code typed on the keyboard in join mode (fe_options.c): 1 when it names a room (the join is under way), 0 not */
+int hulk_wasm_net_join(const char* typed) {
+    char digits[ROOM_DIGITS_LEN + 1];
+    if (ff_replay_active() || !room_code_digits(typed, digits)) return 0;
+    g_join_hint = 0;
+    gi_net_menu(2, digits);
+    return 1;
 }
 /* the Online Co-op row's label while co-op is on (fe_options.c hulk_wasm_net_label, at every update): in a session
  * only what every peer knows alike (the room's code, how many play), so the menu's text, which is game state, stays
@@ -287,7 +301,7 @@ uint32_t hulk_wasm_net_status(char* buf, uint32_t cap) {
     enum { ST_IDLE, ST_WORKING, ST_HOSTING, ST_JOINING, ST_IN, ST_FAILED };
     uint32_t st = ff_replay_active() ? ST_IDLE : gi_net_status(t, sizeof t);
     char code[24];
-    snprintf(code, sizeof code, "%.4s %.4s", t, strlen(t) > 4 ? t + 4 : "");
+    if (!room_code_typed(t, code)) snprintf(code, sizeof code, "%.23s", t);
     int players = 0;
     for (int k = 0; k < 3; k++) players += (G.active && (G.mask >> k & 1)) ? 1 : 0;
     if (G.active) snprintf(buf, cap, "Co-op: room %s, %d players", code, players);
@@ -295,6 +309,7 @@ uint32_t hulk_wasm_net_status(char* buf, uint32_t cap) {
     else if (st == ST_HOSTING || st == ST_IN) snprintf(buf, cap, "Co-op: room %s, waiting for players", code);
     else if (st == ST_JOINING) snprintf(buf, cap, "Co-op: joining %s...", code);
     else if (st == ST_FAILED) snprintf(buf, cap, "Co-op: %s", t);
+    else if (g_join_hint) snprintf(buf, cap, "Co-op: join from the main menu (Extras)");
     else buf[0] = 0;
     return (uint32_t)strlen(buf);
 }

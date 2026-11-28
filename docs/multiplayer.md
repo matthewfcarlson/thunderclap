@@ -1164,11 +1164,19 @@ is logged as `DESYNC`.
 alone without delay, and a later guest starts a new session. When the host leaves, a guest plays on alone (nothing it
 saves is kept).
 
-**Menu (Gameplay Options; remastered only, never saved).** "Join Code 1".."Join Code 8" (a digit each) and "Online
-Co-op": Off, Host a Game, Join a Game. While co-op is on, the Online Co-op row's label shows the status: "Co-op: room
-1234 5678, waiting for players" / "..., 2 players" / "joining ..." / why it failed. In a session the label is set at
-the same update on every peer from what they all know (the code, how many play), so the menus stay equal. Launch
-options do the same: `--host`, `--join 12345678` (HULK_COOP_HOST=1, HULK_COOP_JOIN=CODE). The lobby server's URL and
+**Menu (remastered only, never saved).** Gameplay Options' "Online Co-op" row: Off, Host a Game, Join a Game. The
+join code is typed on the game's own code keyboard (wjoin1): Extras' "Join Online Game" (or Join a Game on the row, in
+the front end) opens the Code Input screen in join mode, the screen the game types cheat codes on (an FETextInput of
+7 boxes: A starts typing, left/right moves between boxes, up/down steps a box through A-Z and 0-9, A enters). In join
+mode the screen's prompt shows the co-op status and the entered text goes to the join instead of the cheat check
+(fe_options.c answers the front-end function "DoFECodeInput" with a handler that forwards to the game's own outside join
+mode); Code Input itself stays the cheat screen. The pause menu has no keyboard: Join a Game there says to join from the
+main menu. The menus show a room's code as those 7 characters (src/platform/wasm/host/room_code.h): 6 base-32 symbols of
+the Worker's 8-digit number (no I, L, O, U; a typed O reads as 0, I and L as 1) and a check symbol that catches any one
+wrong character; the Worker and the runner's requests keep the digits. While co-op is on, the Online Co-op row's label
+shows the status: "Co-op: room 0BRRAEW, waiting for players" / "..., 2 players" / "joining ..." / why it failed. In a
+session the label is set at the same update on every peer from what they all know (the code, how many play), so the
+menus stay equal. Launch options do the same: `--host`, `--join 0BRRAEW` or `--join 12345678` (HULK_COOP_HOST=1, HULK_COOP_JOIN=CODE). The lobby server's URL and
 the app key are compiled into the app (18.1); `HULK_NET_WORKER` / `HULK_NET_KEY`, or `coop.txt` in the app folder (the
 URL on its first line, `key=HEX` on another), override them.
 
