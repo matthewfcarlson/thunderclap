@@ -892,6 +892,15 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   mission unload just before the clear, so revival is untested). The per-decal texture factor is unread by
   `c4.0.2a4.0.2r1`: ignore it. Decal vertices carry no normal: use derivatives. `HULK_DECAL_LOG=1..3`, `HULK_DECAL_FIT`,
   `HULK_DECAL_AB=N`. The null renderer runs no rm draw hooks, so decal logs need a Metal run.
+  Lens effects (wlens1, D249, `rm::kDof`..`kGrain` = 26..30, run/app/lens.cpp, docs/hdr-shadows.md "Lens effects"): drawn
+  before the game's first effect, after HDR's tone map, so the HUD is never touched. gfx/lens.c sends the letterbox
+  (`nism_IsLetterBoxOn`), the camera shake and the Hulk's position as `gfx_quality` 0x101..0x104; the shake comes from an
+  entry hook on CGameCamera::vfunc_35 0x000a97e0 (six shakes at +0xf4: time, duration, amplitude, frequency). The null
+  renderer never sends that word: check cutscene behaviour with Metal. The game draws the letterbox bars into the scene
+  before its effects: screen-space passes leave black rows alone. Depth of field needs a real lens model
+  (|1/f - 1/z| x aperture); |z - f|/z made aerial shots look like miniatures. The string table's cap is exactly 2,300
+  (0x000dddc0 calls f86f0 with 0x8fc); ~2,262 used after wlens1: new rows borrow choice strings. Knobs `HULK_LENS_LOG`,
+  `HULK_LENS_AB`, `HULK_LENS_FORCE=1|2|3`, `HULK_LENS_DOF`, `HULK_LENS_FLARE`, `HULK_LENS_FX`, `HULK_LENS_SHAKE`.
   Character Lighting (whulk1, `rm::kCharLight` = 22, docs/lighting.md "Characters"): skin draws take fs_px_char (generic
   combiner + PX_CHAR, `u_rmChar` per draw; zero = faithful). The Hulk's skin light clamps at 1 over most of his body, so a
   term added under that clamp is invisible: the character path uses a soft shoulder (knee 0.4) and adds the rim after it.
