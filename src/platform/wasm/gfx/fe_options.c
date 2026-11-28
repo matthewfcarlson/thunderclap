@@ -128,7 +128,26 @@ static const char* borrowed_from(int i) {
         if (!strcmp(hulk_settings_at(i)->key, k_borrow[k].key)) return k_borrow[k].from;
     return 0;
 }
+/* rows whose choices are the game's own strings (no new strings, the game's languages; wskin1): the skins by their
+ * cheats' names, on/off by the menus' */
+static const char* game_choice_id(int i, int choice) {
+    static const char* const skins[] = {"TBS_CHEAT_HULK", "TBS_CHEAT_GREY_HULK", "TBS_CHEAT_JOE_FIXIT",
+                                        "TBS_CHEAT_ABOMINATION", "TBS_CHEAT_SAVAGE_BANNER", "TBS_CHEAT_FLAG_AUSTRALIA",
+                                        "TBS_CHEAT_FLAG_CANADA", "TBS_CHEAT_FLAG_AMERICA", "TBS_CHEAT_FLAG_ENGLAND",
+                                        "TBS_CHEAT_FLAG_FRANCE", "TBS_CHEAT_FLAG_GERMANY", "TBS_CHEAT_FLAG_ITALY",
+                                        "TBS_CHEAT_FLAG_SPAIN", "TBS_CHEAT_FLAG_JAPAN"};
+    const char* key = hulk_settings_at(i)->key;
+    if (choice < 0) return 0;
+    if (!strcmp(key, "coop_skin") && choice < (int)(sizeof skins / sizeof skins[0])) return skins[choice];
+    if (!strcmp(key, "comic_skins")) return choice ? "TBS_MENU_ITEM_CHOICE_ON" : "TBS_MENU_ITEM_CHOICE_OFF";
+    return 0;
+}
 static void str_id(int i, int choice, char* out, size_t cap) {      /* TBS_PORT_<KEY> / TBS_PORT_<KEY>_<choice> */
+    const char* g = game_choice_id(i, choice);
+    if (g) {
+        snprintf(out, cap, "%s", g);
+        return;
+    }
     if (choice >= 0 && shared_digits(i)) {
         snprintf(out, cap, "TBS_PORT_DIGIT_%d", choice);
         return;
@@ -137,6 +156,20 @@ static void str_id(int i, int choice, char* out, size_t cap) {      /* TBS_PORT_
     int n = snprintf(out, cap, "TBS_PORT_%s", from ? from : hulk_settings_at(i)->key);
     if (choice >= 0) snprintf(out + n, cap - (size_t)n, "_%d", choice);
     for (char* p = out; *p; p++) *p = (char)toupper((unsigned char)*p);
+}
+
+/* a row whose choices' string ids make a long TextSelection line (the Co-op Skin row's fourteen cheat names): the
+ * front end's parser crashed on it (wskin1). Such a row is parsed with its first choice only and relabelled with all
+ * of them when its screen is set up (show_place, as a scrolled place is) */
+static int long_row(int i) {
+    const port_setting* st = hulk_settings_at(i);
+    int len = 0;
+    for (int c = 0; c < st->n; c++) {
+        char id[64];
+        str_id(i, c, id, sizeof id);
+        len += (int)strlen(id) + 1;
+    }
+    return len > 160;
 }
 
 /* ------------------------------------------------------------------------------------------- the hooks */
@@ -322,7 +355,7 @@ void ffh_hulk_app_named_int(uint32_t ecx, uint32_t edx, void* st, void* rb) {
             nv_name(p, nv, sizeof nv);
             if (!strcmp(name, nv) && place_setting(p) >= 0) ours = p;
         }
-    if (ours >= 0) ARG(1) = (uint32_t)shown_index(place_setting(ours));
+    if (ours >= 0) ARG(1) = long_row(place_setting(ours)) ? 0u : (uint32_t)shown_index(place_setting(ours));
     ffgo_000f8e70(ecx, edx, st, rb);
     uint32_t a = (uint32_t)*(uint64_t*)rb;
     if (ours >= 0 && a) {
@@ -330,7 +363,9 @@ void ffh_hulk_app_named_int(uint32_t ecx, uint32_t edx, void* st, void* rb) {
         g_nv[ours] = a;
         int r[ROWS];
         rows_of(ours / PLACES, r);
-        g_shown[ours] = r[ours % PLACES];       /* (a parse: the place's new selector shows its parsed row) */
+        g_shown[ours] = long_row(r[ours % PLACES]) ? -1 : r[ours % PLACES];   /* (a parse: the place's new selector
+                                                                                 * shows its parsed row; a long row
+                                                                                 * is relabelled in full when shown) */
         if (log_on()) fprintf(stderr, "hulk: frame %u: %s at 0x%08x = %u\n", SIM->frame, name, a, ARG(1));
     }
 }
@@ -542,7 +577,7 @@ static void gen_screens(buf_t* b, int pause) {
             printf_(b, "    AddTextSelector \"%s%d\"" CRLF "    {" CRLF "        text \"%s\" 1" CRLF CRLF
                        "        name \"%s\"" CRLF "        TextSelection \"\"",
                     pause ? "FEpause_text" : "FEsubMenu_text", k, id, sel);
-            for (int c = 0; c < s->n; c++) {
+            for (int c = 0; c < (long_row(i) ? 1 : s->n); c++) {
                 str_id(i, c, id, sizeof id);
                 printf_(b, " %s", id);
             }
@@ -693,6 +728,7 @@ static int patch_strings(const char* s, uint32_t n, buf_t* out) {
         str_id(i, -1, id, sizeof id);
         put_string(out, id, st->label);
         for (int c = 0; c < st->n && !shared_digits(i) && !borrowed_from(i); c++) {
+            if (game_choice_id(i, c)) continue;     /* (the game's own string: wskin1) */
             str_id(i, c, id, sizeof id);
             put_string(out, id, st->names[c]);
         }

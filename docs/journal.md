@@ -3871,3 +3871,15 @@ queue shots, the player's settings, TAA, 1280x960):
 - play3 records identical to HEAD to 60,000 faithful (112283) and with remastered + the row (112284; prompts at 6698,
   33308 and 44530 hidden 5.03 s later). Metal 112285 (studio, 1280x960, whud1 settings + the row) against HEAD: the
   Steel Fists prompt shows at 44620 and is gone from 44750 on (45000-46400 differ from HEAD only there).
+## 2026-11-27 wskin1: per-player co-op skins (D248) and comic skins (D250, D250c)
+
+- A Hulk's model is an ObjectTemplate copy keyed by the drawable's name id (0x001c3b20 -> 0x001c60f0 -> 0x001c5900;
+  templates from 0x001c4190 over the level loader's inventory), not a name lookup at draw time. Every
+  `global_<skin>.p3d` names its objects alike, so a second skin gets its own LoadInventory and a template under our own
+  key, and the spawner's model request is pointed at it (docs/multiplayer.md section 20). Online, host and guest load the
+  guest's skin and spawn his Hulk at the same frame with no desync (112292).
+- Comic books whose reward is a skin's cheat only show its code (common.fig's handler); `jk_comic_to_unlockable` maps
+  comics to rewards. skins.c unlocks through um_SetUnlockableLocked (0x00093600, a typed code's path) and wears the
+  skin through the cheats screen's on bits; a loaded save's skin comics are unlocked only (112274/112275/112294).
+- A TextSelection line of fourteen `TBS_CHEAT_*` ids crashed the front end's parser at start-up (every run, faithful
+  too): fe_options.c parses long rows with one choice and relabels them when shown.

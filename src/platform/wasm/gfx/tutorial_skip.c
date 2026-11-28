@@ -202,12 +202,14 @@ void hulk_wasm_traversal_update(int kind, float dt);
 void hulk_wasm_traversal_pre_update(void);
 void hulk_wasm_coop_pre_update(void);
 void hulk_wasm_coop_update(int kind, float dt);
+void hulk_wasm_skins_update(int kind, float dt);
 void ffh_hulk_app_update_sim(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     hulk_wasm_coop_pre_update();               /* coop.c (wcoop1): the local view's camera back first */
     hulk_wasm_traversal_pre_update();          /* traversal.c (wtrav2): the game's camera back before the update */
     ffgo_00088c30(ecx, edx, st, rb);
     hulk_wasm_traversal_update(ARG(0) ? (int)*(int32_t*)PTR(ARG(0)) : 0, ARGF(1));   /* traversal.c (wtrav1) */
     hulk_wasm_coop_update(ARG(0) ? (int)*(int32_t*)PTR(ARG(0)) : 0, ARGF(1));        /* coop.c (wcoop1) */
+    hulk_wasm_skins_update(ARG(0) ? (int)*(int32_t*)PTR(ARG(0)) : 0, ARGF(1));       /* skins.c (wskin1) */
     if (g_on) update();
 }
 

@@ -138,14 +138,34 @@ static void session_end(uint32_t f) {
     memset(SIM->pads[1], 0, 18), memset(SIM->pads[2], 0, 18);
     hulk_wasm_coop_set_local_view(0);
 }
+/* (wskin1, D248) each player's Co-op Skin rides in bits 8..11 of his pad's wButtons (XINPUT_GAMEPAD has no buttons
+ * there): set on the pad this peer publishes, read from every slot of the set (skins.c), cleared from what the game
+ * reads */
+#define SKIN_BITS 0x0f00u
+int hulk_wasm_skin_local_request(void);                 /* skins.c */
+void hulk_wasm_skin_session_request(int k, int req);
+static void pads_to_game(void) {
+    for (int k = 0; k < 3; k++) {
+        memcpy(SIM->pads[k], G.pads[k], 18);
+        uint16_t b;
+        memcpy(&b, SIM->pads[k], 2);
+        b &= (uint16_t)~SKIN_BITS;
+        memcpy(SIM->pads[k], &b, 2);
+    }
+}
 int ff_coop_frame_end(void) {
     if (ff_replay_active()) return 0;           /* (recordings and playthroughs: never a session) */
     static uint8_t local[18];
     static coop_set s;
     uint32_t f = SIM->frame;
     memcpy(local, SIM->pads[0], 18);
-    if (G.active)                               /* (frame F's pads again: the state hash covers the sim block) */
-        for (int k = 0; k < 3; k++) memcpy(SIM->pads[k], G.pads[k], 18);
+    {
+        uint16_t b;
+        memcpy(&b, local, 2);
+        b = (uint16_t)((b & ~SKIN_BITS) | ((uint32_t)hulk_wasm_skin_local_request() << 8 & SKIN_BITS));
+        memcpy(local, &b, 2);
+    }
+    if (G.active) pads_to_game();               /* (frame F's pads again: the state hash covers the sim block) */
     g_cmd = gi_net_frame(local, f);
     if (g_cmd != 2) {
         if (gi_net_update(f + 1, &s)) {
@@ -164,7 +184,12 @@ int ff_coop_frame_end(void) {
         }
     }
     if (G.active) {
-        for (int k = 0; k < 3; k++) memcpy(SIM->pads[k], G.pads[k], 18);
+        for (int k = 1; k < 3; k++) {
+            uint16_t b;
+            memcpy(&b, G.pads[k], 2);
+            hulk_wasm_skin_session_request(k, (G.mask >> k & 1) ? (int)((b & SKIN_BITS) >> 8) : 0);
+        }
+        pads_to_game();
         SIM->pads_in |= G.mask & 7u;            /* (wnet2: a guest's pad port; coop.c gives him a Hulk) */
     }
     return g_cmd == 1 || g_cmd == 2;

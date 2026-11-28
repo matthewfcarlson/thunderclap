@@ -460,7 +460,8 @@ leader. Heaps get headroom for two focus points; every peer uses the same sizes.
   designed and the two players still differ.
 - **Engine work (M5):** load the second skin's `art/global_<skin>.p3d` into a second inventory (a second +0xaa0-style
   slot owned by our co-op code) and resolve P1's model from it; the tint path for forced skins. **First check (open):**
-  whether two `global_*.p3d` files can be resident together or their resource names collide. If they collide, the
+  whether two `global_*.p3d` files can be resident together or their resource names collide (answered in
+  section 20: they collide in one inventory, so each extra skin gets an inventory and a render template of its own). If they collide, the
   tint is also the fallback for the free choice (P1 = P0's skin, tinted), which still makes the characters differ.
 
 ### 6.6 The host's save drives the session
@@ -1087,7 +1088,7 @@ same update on every instance because it depends only on game state.
 
 **What the engine fights / what is left.**
 
-- **Skins and tints (6.5):** not done. Every Hulk wears the main actor's skin. Options: a runner tint by recognising an
+- **Skins and tints (6.5):** per-player skins done in section 20 (wskin1); the tint of forced skins is not. Before it, every Hulk wore the main actor's skin. Options: a runner tint by recognising an
   extra Hulk's draws (they share the main actor's prim buffers, so the draw's modelview/position would have to say
   whose they are), or a second skin inventory (the 6.5 collision question is still open).
 - **One-player notions left:** the HUD, minimap, rumble and audio listener follow the main actor (P0) on every instance;
@@ -1332,3 +1333,77 @@ placements landed in rooms that were not, and 6 Hulks had to be put back; at 600
 **Tests.** play3 to 60,000 frames with co-op off, against HEAD's app: identical records (job 112134). Measurements:
 jobs 112105-112111, 112126-112131 (`HULK_COOP_FROM=38000`, `HULK_COOP_SPREAD`, `HULK_COOP_LEASH=3000`,
 `HULK_COOP_STREAM=0`).
+
+## 20. Skins: each player's own, and comic skins (wskin1, D248 / D250, 2026-11-27)
+
+Code: src/platform/wasm/gfx/skins.c (with hooks in coop.c, netplay.c and tutorial_skip.c's update hook; rows in
+port_settings.c; menu strings in fe_options.c).
+
+**How a Hulk gets his model (traced).** Section 6.5's open question is answered: every `art/global_<skin>.p3d` names
+its objects alike (CompositeDrawable `hulk`, PolySkin `hulk_skin`, Skeleton `hulk_skeleton`, ShadowSkin
+`hulk_shadow`, shaders `lambert1` and `TheIncredibleHulk_*` or `Hulk_*`), so two skins collide in one inventory. But a
+character does not find his model by name at draw time: CCharacter's set-up (0x00042b40's `Setup`) asks the render
+engine (`FUN_001c3d90()`) for a CRenderableCharacter through 0x001c3b20 (character name id, drawable name id) ->
+0x001c60f0 -> 0x001c5900, which copies an **ObjectTemplate** found by the drawable's name id in the object manager's
+template store (engine +0xc; templates are made by 0x001c4190 from the level loader's inventory when the character
+template manager sets up a definition, 0x00045da0's tail). So a second skin needs only (1) its own inventory, loaded
+by the game's own loader (0x00203e90, asynchronously: request polled with 0x00266750, taken into the inventory with
+0x00266220), and (2) a template under a name id of ours (`port_skin_<name>`: ObjectTemplate 0x001c5cf0 over the
+inventory's `hulk` DrawableHierarchy, added with 0x001c5ae0), and (3) the drawable id of the one model request made
+while the spawner builds that Hulk swapped for ours (entry hook 0x001c3b20). The pose still comes from the main
+definition's skeleton; every skin's `hulk_skeleton` has the same joints (3,724-byte chunk in all 14 files).
+
+**Choosing (D248).** Gameplay Options gets "Co-op Skin" (remastered only; choices are the game's own cheat names, so no
+new strings): the skin this player wears in someone else's co-op game. It is each peer's own (left out of the settings
+the host hands a guest) and rides in bits 8..11 of the peer's pad wButtons in every lockstep set (netplay.c; the game
+never reads those bits), so every peer learns slot k's choice at the same frame. The skin Hulk k is made with: a comic's
+skin he picked up (below), else his choice, else the co-op pair's other one; a choice the host's save has not unlocked
+falls back to the pair (`hulk`, `grey_hulk`: always offered); a skin another Hulk already wears gives way to the pair's
+other one (section 6.5's rule). The developer's local Hulks (`dev_coop_local`) take the row for P1 and the pair for P2.
+In a mission that forces a skin (0x00206320: joefixit or a national Hulk) every extra Hulk wears the forced one.
+Skins no Hulk wears are never loaded; at most two extra skins are resident (Persistent heap 0x11, ~200 KB each, which
+the doubled co-op heaps of section 19 hold). Hulk k waits for his skin's load before he is made (a few updates; a
+failed load makes him with the main actor's skin).
+
+**Comic skins (D250, D250c).** Gameplay Options "Auto-Apply Comic Skins" (remastered only, faithful off, remastered
+default on). A comic book whose reward is a skin's cheat (comic -> reward is the game's Lua table
+`jk_comic_to_unlockable`; its pick-up handler in scripts/fight/common.fig only shows the code) is now unlocked the way a
+typed code unlocks it (`um_SetUnlockableLocked` -> 0x00093db0 -> 0x00093600) and worn: the pick-up (0x001d8350, a
+ComicBook prop, kind 8) marks the Hulk that took it; the next updates ask the game's Lua which skins' comics are
+collected (our one line over the game's table and bindings, as kmcIsCheatComicCollected does); a skin that has just
+joined the set is unlocked and worn. Player 0 wears it through the cheats screen's own path (every skin's "on" bit off,
+this one on, `um_SetUnlockableOn`), which the game applies at the next level load (0x00203a10; the mission, a retry or
+the next area), as a choice in the cheats screen does: the game has no path that swaps the main actor's model in the
+middle of a level. An extra co-op Hulk wears it at once (he is made again beside the main actor with it). When a save
+is loaded (0x0008a8f0) and at every level start, every skin whose comic the save holds is unlocked, and nothing is
+switched (the user, 11-25). The save gains only the locked and on bits a typed code and the cheats screen would have
+written.
+
+**Menus.** A text selector's choice list is one line of the front end's script: the Co-op Skin row's fourteen
+`TBS_CHEAT_*` ids made a line the parser crashed on at start-up (every run, faithful or not). fe_options.c parses such
+a row (ids longer than 160 characters in all) with its first choice and relabels it in full when its screen is set up,
+as a scrolled place is.
+
+Extra skins load only where the game heaps were scaled for co-op (the Persistent heap's row of the image's heap table
+at least 4 MiB: section 19); with the original sizes every Hulk wears the main actor's skin. The table is image data,
+so an online guest, who takes the host's memory, decides as the host does.
+
+**Tests** (app 112272, HEAD control 112253): play3 to 60,000 with the rows faithful: records identical to HEAD's (112273).
+`HULK_COMIC_TEST=4000:0:2` (comic 2 as if player 0 picked it up): unlocked by its comic 0x0020 (Canadian flag shorts),
+worn (on bits 0x0020) (112274); `4000:-1:2` (swept as a loaded save is): unlocked, not worn (112275). A real save that
+holds skin comics (a copy of whang1's test saves, loaded by the front end's auto-load and Continue): with the row on the
+load unlocked the skins of its collected comics (0x0420: Canadian and Italian flag shorts) and switched nothing; with
+it off nothing changed (job 112294, build/wskin1/retro/run.sh). Online co-op (`coop:12000:2`, remastered, the guest's
+Co-op Skin Joe Fixit, app 112292): host and guest load `global_joefixit.p3d` at the same frame (4,531 -> 4,534), make
+the template and spawn player 1 with it at frame 4,535, no desync, every game hash agrees. Three local Hulks
+(`dev_coop_local=3`, Co-op Skin Joe Fixit; P2 takes the pair's grey_hulk), Metal: the tutorial shows Joe Fixit, the green
+Hulk and the grey Hulk side by side, each with his own textures and animating (112286, shots 4,500 and 5,500). A
+rolltest 4000:6500 over the same set-up (both skins loaded at ~1,560): identical game hash after the restore (112300). A comic
+for player 1 (`HULK_COMIC_TEST=4000:1:2`, two local Hulks, Metal): the Canadian flag shorts unlocked, player 0's "on"
+bits untouched, Hulk 1 made again with them at frame 4,007 (112307). Landing checks on the rebased build (app 112302,
+HEAD control 112301): play3 to 60,000 records identical (112303); the comic test (112304); `coop:12000:2` with skins
+(112305) and without (112306) ok.
+
+**Open.** The tint of a forced skin's extra copies (every Hulk wears the forced skin for now). Player 0's comic skin
+shows from the next level load (the game's own cheats-screen behaviour); an immediate swap of the main actor's model
+would need a model re-request outside the spawner (0x00042b40's `Setup` again), not tried.

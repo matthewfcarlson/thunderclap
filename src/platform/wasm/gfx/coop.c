@@ -403,6 +403,9 @@ void ffh_hulk_app_coop_acquire(uint32_t ecx, uint32_t edx, void* st, void* rb) {
 }
 
 /* ---------------------------------------------------------------------------------------------- the players */
+int hulk_wasm_skin_spawn_begin(int k);   /* skins.c (wskin1, D248): 1 when Hulk k's skin is ready, 0 to wait */
+void hulk_wasm_skin_spawn_end(void);
+int hulk_wasm_skin_reskin(int k);         /* skins.c: a comic gave Hulk k a skin: make him again */
 static int spawn(int k, int respawn) {
     uint32_t am = actor_mgr(), mainch = hulk_wasm_coop_player(0);
     float p0[3];
@@ -426,8 +429,10 @@ static int spawn(int k, int respawn) {
     memcpy(&angle, &deg, 4);
     uint32_t x, y, z;
     memcpy(&x, &pos[0], 4), memcpy(&y, &pos[1], 4), memcpy(&z, &pos[2], 4);
+    if (!hulk_wasm_skin_spawn_begin(k)) return 0;   /* (his own skin still loading: the next update tries again) */
     uint32_t ok = ff_call_this(FN_SPAWN, am, 10, A("hulk"), x, y, z, angle, A("player"), A("none"), 0u, A(name_of(k)),
                                1u) & 0xff;
+    hulk_wasm_skin_spawn_end();
     uint32_t ch = ok ? find_actor(name_of(k)) : 0;
     if (log_level())
         fprintf(stderr, "hulk: coop: frame %u: %s player %d at (%.1f, %.1f, %.1f): %s (0x%08x)\n", SIM->frame,
@@ -564,6 +569,10 @@ static void players_update(float dt) {
             continue;
         }
         uint32_t ch = p->ch;
+        if (hulk_wasm_skin_reskin(k)) {                         /* (wskin1) a comic's skin: made again with it */
+            remove_player(k);
+            continue;
+        }
         int32_t want = slot0 >= 0 ? k : -1;                     /* a cutscene takes every Hulk's control */
         if ((int32_t)rd(ch + CH_SLOT) != want) *(int32_t*)PTR(ch + CH_SLOT) = want;
         float pk[3];

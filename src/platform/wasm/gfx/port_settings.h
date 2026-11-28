@@ -14,7 +14,7 @@
 
 enum { PS_CHOICE, PS_ONOFF, PS_SLIDER };          /* how the item shows (a slider: an ordered choice of numbers) */
 enum { PS_SCREEN_VIDEO, PS_SCREEN_GAMEPLAY, PS_SCREENS, PS_SCREEN_NONE = -1 };   /* NONE: in the file only */
-enum { PS_MAX_CHOICES = 12 };
+enum { PS_MAX_CHOICES = 16 };
 
 typedef struct port_setting {
     const char* key;            /* the file's key; the menu's string ids derive from it (TBS_PORT_<KEY>[_<choice>]);

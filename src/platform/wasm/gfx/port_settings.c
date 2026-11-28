@@ -28,6 +28,7 @@ void hulk_wasm_traversal_force_moves(int value);
 void hulk_wasm_traversal_force_fling(int value);                        /* (wtrav2) */
 void hulk_wasm_traversal_force_air(int value);
 void hulk_wasm_coop_apply(int value);                                   /* coop.c: Hulks in one instance (wcoop1) */
+void hulk_wasm_comic_skins_apply(int value);                            /* skins.c: comic skins (wskin1) */
 uint32_t hulk_wasm_texture_pack_list(char* buf, uint32_t cap);          /* gfx.c: the installed packs' names */
 void hulk_wasm_quality_apply(int what, int value);                      /* gfx.c: the runner's passes (wr2) */
 void hulk_wasm_text_spacing_apply(int value);                           /* text_spacing.c: glyph advances (wtext2) */
@@ -238,6 +239,17 @@ static port_setting k_settings[] = {
      apply_tutorial_skip},
     {"remaster_moves", "Traversal Moves", PS_SCREEN_GAMEPLAY, PS_ONOFF, 2, {0, 1}, {"Off", "On"}, 0, 1, 1,
      apply_traversal},
+    /* (wskin1, D250) a comic book whose reward is a skin's code unlocks and wears it; a loaded save's comics unlock
+     * theirs (skins.c). Changes the game: per session. Choices show the game's own On/Off strings (fe_options.c). */
+    {"comic_skins", "Auto-Apply Comic Skins", PS_SCREEN_GAMEPLAY, PS_ONOFF, 2, {0, 1}, {"Off", "On"}, 0, 1, 1,
+     hulk_wasm_comic_skins_apply},
+    /* (wskin1, D248) this player's Hulk in someone else's co-op game (skins.c): 0 the default, 1 + the skin
+     * unlockable's id. Each peer's own (never taken from the host: hulk_settings_line leaves it out); it travels in
+     * the session's pads. The choices show the game's own cheat names (fe_options.c game_choice_id). */
+    {"coop_skin", "Co-op Skin", PS_SCREEN_GAMEPLAY, PS_CHOICE, 14, {0, 2, 3, 4, 5, 1, 6, 7, 8, 9, 10, 11, 12, 13},
+     {"Hulk", "Grey Hulk", "Joe Fixit", "Abomination", "Savage Banner", "Australia", "Canada", "America", "England",
+      "France", "Germany", "Italy", "Spain", "Japan"},
+     0, 0, 1, 0},
     /* online co-op (wnet1, D246; netplay.c): the join code's eight digits, then the switch. Never saved or loaded: a game
      * starts with co-op off. Remastered only. */
     {"coop_d1", "Join Code 1", PS_SCREEN_GAMEPLAY, PS_CHOICE, 10, DIGITS, 0, 0, 1, 0},
@@ -447,7 +459,7 @@ void hulk_settings_load(void) {
  * session, wplay4) the menus leave them at their pinned values, so a session's menu presses replay the same */
 static int changes_game(const port_setting* s) {
     static const char* keys[] = {"aspect", "hud_frame", "draw_distance", "tutorial_skip", "remaster_moves", "developer",
-                                 "text_spacing"};
+                                 "text_spacing", "comic_skins", "coop_skin"};
     for (unsigned k = 0; k < sizeof keys / sizeof keys[0]; k++)
         if (!strcmp(s->key, keys[k])) return 1;
     return is_developer(s);
@@ -473,6 +485,7 @@ int hulk_settings_line(char* buf, int cap) {
     hulk_settings_load();
     int n = 0;
     for (int i = 0; i < N_SETTINGS && n < cap - 40; i++) {
+        if (!strcmp(k_settings[i].key, "coop_skin")) continue;       /* (each player's own: wskin1) */
         int v = !strcmp(k_settings[i].key, "developer") ? hulk_developer_mode() : g_user[i];
         n += snprintf(buf + n, (size_t)(cap - n), "%s%s=%d", n ? "," : "", k_settings[i].key, v);
     }

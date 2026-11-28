@@ -734,6 +734,18 @@ Edition: Off), or `tutorial_skip=0` in `HULK_SAVE_DIR/port_settings.txt`.
   (pin it on with `HULK_SETTINGS=remastered=1,tutorial_skip=1`), and netplay peers must share it. Off, nothing runs:
   the checkpoint records are the original's. `HULK_TSKIP_LOG=1` logs the placement and the skip, `=2` every 30 updates.
 
+### Skins (wskin1, D248 / D250)
+
+Gameplay Options "Auto-Apply Comic Skins" (remastered, faithful off) and "Co-op Skin" (this player's Hulk in someone
+else's co-op game): src/platform/wasm/gfx/skins.c, docs/multiplayer.md section 20. A comic book whose reward is a skin's
+code unlocks it through the game's own path and the Hulk who took it wears it (player 0 from the next level load, as the
+cheats screen does; an extra co-op Hulk at once); a loaded save's skin comics are unlocked, nothing switched. Each extra
+co-op Hulk can wear his own skin: its `global_<skin>.p3d` in an inventory of ours, a render template under our own name
+id, swapped into the spawner's model request (entry hook 0x001c3b20). Knobs: `HULK_SKIN_LOG=1`, tests
+`HULK_COMIC_TEST=F:K:N`, `HULK_COOP_SKIN=N`, `HULK_SKIN_ALLOW_ALL=1`. A selector row whose choice ids make a long
+TextSelection line (over 160 characters) is parsed with one choice and relabelled when its screen is set up: the
+front end's parser crashed at start-up on the fourteen `TBS_CHEAT_*` ids.
+
 ### Traversal moves (wtrav1, D242)
 
 docs/traversal.md §11. Gameplay Options > Traversal Moves (`remaster_moves`; remastered-only, per session: it
