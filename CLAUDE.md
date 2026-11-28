@@ -792,7 +792,7 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   pad banner, slot 1 performance overlay). Front-end and pause option screens put their nine places at y 118 + 25k.
   The game's string table holds about 2,300 entries (loader 0x000f7a80 stops silently at its cap) and the disc's
   str_en.txt uses 2,075: every string fe_options.c adds (row labels, choices, move text) counts, and strings past the
-  cap show as raw ids (`TBS_PORT_...`). Share choice ids across rows (`TBS_PORT_DIGIT_*`, wnet1).
+  cap show as raw ids (`TBS_PORT_...`). Share choice ids across rows (`TBS_PORT_DIGIT_*`, wnet1). The table comes from heap 0 (core::MemoryAllocatorMalloc, the arena), not a dl heap; the loader 0x000f7a80 also fills the subtitle tables (900/250). `hulk: strings: N of CAP ...` lines log each load (FULL = strings lost); `HULK_STR_CAP=N` forces a size (wstr1).
   Online co-op handshake (wnet2, docs/multiplayer.md 18.1): every Worker request but `GET /` is HMAC-signed with the app
   key (`X-Hulk-Time/Nonce/Sig`); room create/join answer a disc challenge; ICE comes only from `POST /rooms/<code>/ice`
   with a member token; hello/welcome carry MACs under the guest's peer key (protocol 2). The lobby URL and app key live
@@ -903,8 +903,7 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   entry hook on CGameCamera::vfunc_35 0x000a97e0 (six shakes at +0xf4: time, duration, amplitude, frequency). The null
   renderer never sends that word: check cutscene behaviour with Metal. The game draws the letterbox bars into the scene
   before its effects: screen-space passes leave black rows alone. Depth of field needs a real lens model
-  (|1/f - 1/z| x aperture); |z - f|/z made aerial shots look like miniatures. The string table's cap is exactly 2,300
-  (0x000dddc0 calls f86f0 with 0x8fc); ~2,262 used after wlens1: new rows borrow choice strings. Knobs `HULK_LENS_LOG`,
+  (|1/f - 1/z| x aperture); |z - f|/z made aerial shots look like miniatures. The string table's cap is 2,300 in faithful sessions (0x000dddc0 calls f86f0 with 0x8fc; 2,261 used, 140,273 of 160,400 pool characters) and 4,096 where the heaps are scaled (remastered / dev co-op: fe_options.c's entry hook on 0x000dddc0, pool grown in proportion; wstr1). Port rows are listed in faithful sessions too, so new rows still borrow choice strings. Knobs `HULK_LENS_LOG`,
   `HULK_LENS_AB`, `HULK_LENS_FORCE=1|2|3`, `HULK_LENS_DOF`, `HULK_LENS_FLARE`, `HULK_LENS_FX`, `HULK_LENS_SHAKE`.
   Water (wwater1, `rm::kWater` = 31, run/app/water.cpp, docs/water.md): the city's sea is the location's `waterShape`
   (WATER2_TILE), streamed each frame as 180 transient vertices with its own modelview (the view plus a 10-unit offset),
