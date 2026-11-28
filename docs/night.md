@@ -102,7 +102,8 @@ view reads the scene's depth (kept readable while Atmosphere or AO is on) and ad
 
 This is on top of the game's own linear fog, which stays the faithful baseline: the Fog row still sets it (Original /
 Reduced / Off), and scales this one (Reduced halves the height fog and aerial perspective, Off removes them; the lamps'
-glow stays at half). Draw Distance is untouched.
+glow stays at half). Draw Distance is untouched. (wsweep1: Reduced scales the game's planes x2.5 at night and, by day, keeps the start
+and takes the end x1.15, by rm::nightAmount; docs/look.md "Canyon wall stripes".)
 
 ## 3. Results, checks and cost
 
@@ -214,7 +215,8 @@ The light record has a third texel now (rm_city.sh: 3 texels a light; up to 24 l
 
 ## 6. Knobs (development)
 
-- `HULK_NIGHT=strength,radiusScale,minRadius,maxRadius,dayStrength` (1.4, 9, 10, 30, 0); `HULK_NIGHT_LOG=1` (sources,
+- `HULK_NIGHT=strength,radiusScale,minRadius,maxRadius,dayStrength,warm` (1.5, 8, 10, 18, 0, 0.35; wsweep1, from 3, 8, 10,
+  24, 0, 0.7: docs/look.md "The night wash"); `HULK_NIGHT_LOG=1` (sources,
   lights placed, shop fronts and vehicle lights among them, cars a frame, cache, night estimate, fog colour, and the
   shop fronts' reading and placing counts every 300 frames); `HULK_NIGHT_SHOPS=strength,radius,far,lit,height` (1.8, 9,
   80, 0.72, 1.7); `HULK_NIGHT_CARS=headStrength,headRadius,headCos,headTilt,tailStrength,tailRadius` (0.6, 22, 0.8, 0.1,

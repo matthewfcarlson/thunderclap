@@ -39,7 +39,9 @@ const Look kNaturalNight = {1.08f, 1.06f, 0.12f, 0.40f, {0.96f, 1.00f, 1.06f}, {
 // at night), richer colour where it is weak, a soft vignette
 const Look kCinematicDay = {1.18f, 1.07f, 0.30f, 0.45f, {0.92f, 1.00f, 1.10f}, {1.07f, 1.01f, 0.90f},
                             0.16f, 1.02f, 1.0f, 0.42f, -0.012f};
-const Look kCinematicNight = {1.18f, 1.10f, 0.28f, 0.38f, {0.88f, 0.99f, 1.14f}, {1.09f, 1.00f, 0.86f},
+// (wsweep1: vibrance 0.28 -> 0.15 and the highlights' sodium amber 1.09/1.00/0.86 -> 1.03/1.00/0.95: with the night
+// lights on the greenish streets the amber and the vibrance made a yellow-green wash, play3 f41000 / f42000)
+const Look kCinematicNight = {1.18f, 1.10f, 0.15f, 0.38f, {0.88f, 0.99f, 1.14f}, {1.03f, 1.00f, 0.95f},
                               0.22f, 1.08f, 1.0f, 0.38f, -0.010f};
 
 float lum(const float* c) { return 0.2126f * c[0] + 0.7152f * c[1] + 0.0722f * c[2]; }
@@ -69,6 +71,13 @@ class GradePass final : public rm::Pass {
         // HULK_GRADE=contrast,saturation,vibrance,vignette,tints,night (development: scale the preset; night < 0: from fog)
         if (const char* e = getenv("HULK_GRADE"))
             sscanf(e, "%f,%f,%f,%f,%f,%f", &m_tune[0], &m_tune[1], &m_tune[2], &m_tune[3], &m_tune[4], &m_tune[5]);
+        // HULK_GRADE_NIGHT=contrast,saturation,vibrance,shadowR,G,B,highlightR,G,B,exposure (development: Cinematic's
+        // night look)
+        if (const char* e = getenv("HULK_GRADE_NIGHT")) {
+            Look& n = m_cinNight;
+            sscanf(e, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f", &n.contrast, &n.saturation, &n.vibrance, &n.shadow[0],
+                   &n.shadow[1], &n.shadow[2], &n.highlight[0], &n.highlight[1], &n.highlight[2], &n.exposure);
+        }
     }
     void draw(const DrawPacket& p) override
     {
@@ -98,7 +107,7 @@ class GradePass final : public rm::Pass {
         if (!m_level || m_abOff)
             return nullptr;
         const Look& d = m_level >= 2 ? kCinematicDay : kNaturalDay;
-        const Look& n = m_level >= 2 ? kCinematicNight : kNaturalNight;
+        const Look& n = m_level >= 2 ? m_cinNight : kNaturalNight;
         float t = m_tune[5] >= 0.0f ? m_tune[5] : m_night;
         auto mix = [t](float a, float b) { return a + (b - a) * t; };
         float sh[3], hi[3];
@@ -155,6 +164,7 @@ class GradePass final : public rm::Pass {
     unsigned m_fogN = 0, m_frames = 0, m_graded = 0;
     float m_tune[6] = {1, 1, 1, 1, 1, -1};
     float m_c[4][4];
+    Look m_cinNight = kCinematicNight;
 };
 HULK_RM_REGISTER_PASS(GradePass);
 

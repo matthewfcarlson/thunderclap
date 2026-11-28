@@ -20,6 +20,7 @@
 #include "rm_post.h"
 #include "texpack.h"
 #include "gfxstats.h"
+#include "nightlights.h"
 
 using namespace hulk::pddi;
 
@@ -801,21 +802,55 @@ uint32_t sceneSamples()
 // ------------------------------------------------------------------------------------------- the passes of today
 namespace {
 
-// Fog (wvid1's override, now a pass): 0 the game's, 1 reduced (the planes x2.5), 2 off. Set by gfx_fog.
+// Fog (wvid1's override, now a pass): 0 the game's, 1 reduced, 2 off. Set by gfx_fog.
+// Reduced (wsweep1): at night the planes x2.5 (the city's skyline opens up); by day (the desert, the outskirts: the
+// rooms' fog bright, rm::nightAmount) the start as the game's and the end x1.15, so the canyon walls keep the game's
+// haze (the desert's planes are 50 .. 650; x2.5 by day showed the walls' baked vertical streaks at full contrast, play3
+// f7000), blended by the night estimate.
 int s_fog;
 class FogPass final : public Pass {
   public:
     const char* name() const override { return "fog"; }
+    void settingsChanged(const Settings&) override
+    {
+        // HULK_FOG=dayStart,dayEnd,nightStart,nightEnd (development: Reduced's scales of the game's fog planes)
+        if (const char* e = getenv("HULK_FOG"))
+            sscanf(e, "%f,%f,%f,%f", &m_k[0], &m_k[1], &m_k[2], &m_k[3]);
+    }
     void packet(DrawPacket& p) override
     {
+        if (p.fog && p.viewMode == 0 && !p.lighting && p.vertexProgram == 0 && p.shaderKind >= 1 && p.shaderKind <= 2 &&
+            !p.state.blend && logOn())
+            m_sum[0] += p.frag[2][0], m_sum[1] += p.frag[2][1], m_n++;
         if (s_fog == 2) {
             p.fog = 0;
             p.frag[1][3] = 0.0f;
         } else if (s_fog == 1 && p.fog) {
-            p.frag[2][0] *= 2.5f;
-            p.frag[2][1] *= 2.5f;
+            float n = nightAmount();
+            p.frag[2][0] *= m_k[0] + (m_k[2] - m_k[0]) * n;
+            p.frag[2][1] *= m_k[1] + (m_k[3] - m_k[1]) * n;
         }
     }
+    void frame() override
+    {
+        if (logOn() && ++m_frames % 300 == 0 && m_n)
+            fprintf(stderr, "hulk-app: fog: the rooms' planes %.1f .. %.1f (the game's), night %.2f, row %d\n",
+                    m_sum[0] / m_n, m_sum[1] / m_n, nightAmount(), s_fog);
+        if (m_frames % 300 == 0)
+            m_sum[0] = m_sum[1] = 0, m_n = 0;
+    }
+
+  private:
+    static bool logOn()
+    {
+        static int on = -1;
+        if (on < 0)
+            on = getenv("HULK_FOG_LOG") && atoi(getenv("HULK_FOG_LOG")) > 0;
+        return on;
+    }
+    float m_k[4] = {1.0f, 1.15f, 2.5f, 2.5f};
+    double m_sum[2] = {0, 0};
+    unsigned m_n = 0, m_frames = 0;
 };
 HULK_RM_REGISTER_PASS(FogPass);
 

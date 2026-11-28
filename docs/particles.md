@@ -63,7 +63,15 @@ short.
 
 The explosion at f39000 whites out most of the frame in the faithful picture too: dozens of additive sprites (one /
 one) stacked over the car. Under HDR their sum is unbounded before the tone map. The near fade takes off the sprites
-that reach the camera; `HULK_SOFT`'s sixth value scales additive sprites under HDR (default 1, the game's brightness).
+that reach the camera; `HULK_SOFT`'s sixth value scales additive sprites under HDR.
+
+wsweep1: the gain is now 0.6 (it was 1, the game's brightness). At f45001 (a car explosion in the city) the faithful
+picture is white over most of the frame too, and under HDR it was the same: the stacked one / one flashes sum far
+past 1, the tone map takes them to white and its glow spreads them. At 0.6 the street, the cars and the buildings
+behind the fireball show through at f45001 and f39000, while the fireball stays the brightest thing on screen; glow
+meshes, lamp halos and the beacon (buffer draws) are not soft sprites and keep their brightness (f30000 unchanged).
+Shrinking the tone map's turn to white (0.6 -> 0.1) or capping the glow's input changed f45001 very little (job
+112250): the sum of the sprites is the cause, not the curve.
 
 ## Cost
 
@@ -76,7 +84,7 @@ On the M3 Air (~4x less GPU) that is ~1 ms on smoky frames, within the remastere
 
 ## Knobs
 
-- `HULK_SOFT=fade,nearStart,nearLength,cityLight,shadow,additiveHdrGain` (defaults 1, 0.4, 1.6, 0.35, 0.3, 1)
+- `HULK_SOFT=fade,nearStart,nearLength,cityLight,shadow,additiveHdrGain` (defaults 1, 0.4, 1.6, 0.35, 0.3, 0.6)
 - `HULK_SOFT_LOG=1`: soft draws, depth copies and rejected (not facing) draws every 300 frames
 - `HULK_SOFT_AB=N`: the pass off and on in turns of N presented frames, with its GPU cost line (`metal-ab`)
 

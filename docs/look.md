@@ -50,6 +50,15 @@ anisotropy clean the streets' shimmer; draw distance and reduced fog open up the
   bias for both cascades (the far cascade's texels are ~5x the near one's). Fixed in fs_rm_ao.sc (a two-texel
   normal and an angle bias) and shadows.cpp (every unlit world shader is a room; a per-cascade, slope-scaled normal
   offset and depth bias): docs/hdr-shadows.md. Before/after: build/wlook1/png/acne-6000.png, acne-12000.png.
+- *Canyon wall stripes* (fixed, wsweep1). The desert canyon's walls carry strong dark vertical streaks baked into the
+  game's own shading (play3 f7000; the user's "strange banding"). The faithful picture softens them in its linear
+  haze (the desert's fog planes are 50 .. 650 units); Fog Reduced scaled both planes x2.5, so the walls stood almost
+  clear and the streaks at full contrast, deepened a little more by HDR's grade. Measured on a band across the wall
+  (luminance range between the 10th and 90th percentile of the streaks): faithful 76, remastered 94, with Fog On 67,
+  Atmosphere Original 101, HDR off 86, Draw Distance unchanged. Reduced now follows the time of day (rm_pass.cpp's fog
+  pass, rm::nightAmount): by day the start stays the game's and the end goes x1.15 (the haze back, a little clearer
+  than faithful), at night both x2.5 as before (the skyline). `HULK_FOG=dayStart,dayEnd,nightStart,nightEnd` tunes
+  the scales, `HULK_FOG_LOG=1` prints the rooms' planes. Crops: build/wsweep1/png/desert-7000.png (never committed).
 
 ## 2. Three art directions
 
@@ -339,13 +348,24 @@ grade is the step that sets that mood on the whole picture.
 | Natural, day | 1.06 | 1.05 / 0.10 | barely cool | barely warm | 0 | 0 |
 | Natural, night | 1.08 | 1.06 / 0.12 | cool | warm | 0 | 0 |
 | Cinematic, day | 1.18 | 1.07 / 0.30 | teal-blue | warm | 0.16 | 0.012 |
-| Cinematic, night | 1.18 | 1.10 / 0.28 | blue-teal | sodium amber | 0.22 | 0.010 (exposure 1.08) |
+| Cinematic, night | 1.18 | 1.10 / 0.15 | blue-teal | barely warm (1.03 / 1.00 / 0.95) | 0.22 | 0.010 (exposure 1.08) |
 
   Cinematic is the remastered default: the night city gets cool shadows and warm lit windows and street lights (the
   classic complementary split of night photography of cities), firmer contrast and a gentle vignette; the desert by day
   gets a warmer, punchier look without crushing its sky.
 - Knobs: `HULK_GRADE=contrast,saturation,vibrance,vignette,tints,night` scales the preset (1 each; night < 0 takes the
   fog's estimate, 0..1 forces it); `HULK_GRADE_LOG=1` (the fog, the night estimate, frames graded); `HULK_GRADE_AB=N`.
+  `HULK_GRADE_NIGHT=contrast,saturation,vibrance,shadowR,G,B,highlightR,G,B,exposure` replaces Cinematic's night look.
+- *The night wash* (wsweep1). The lead's reviews found the night city (play3 f26000-f54000) a muddy yellow-green
+  against the faithful picture's cooler, clearer one. Turning options on one group at a time over the faithful values
+  (jobs 112311-112316) put almost all of it on Night Lights + Atmosphere (the frame's mean luminance at f26000: faithful
+  70, that pair 113, every other group 68-70; the yellow cast (R+G)/2 - B: +8, +19); HDR + grade alone changed nothing
+  but fires (f41000). With Night Lights at strength 3 and radius up to 24 the lamps lit the greenish paving, lawns and
+  walls like daylight, and Cinematic's sodium-amber highlights and vibrance 0.28 pushed the result yellow. Now Night
+  Lights' strength is 1.5, its largest radius 18 and its warmth 0.35 (nightlights.cpp), and Cinematic's night
+  highlights are barely warm with vibrance 0.15: f26000 luminance 110 -> 83 and cast +32 -> +15, f42000 123 -> 102 and
+  +29 -> +12, f48000 101 -> 64 and +33 -> +13 (faithful 70 / 109 / 58, +8 / +8 / +9); the lamp pools stay, smaller.
+  Fires still warm the street (f41000 +44 against faithful +25): that is light, not a wash.
 - Cost: a few dozen ALU operations a pixel in a pass that runs anyway. A/B turns of 30 frames within one run (play3 to
   28,100, 1280x960, MSAA 4x, every remastered option on, 12,420 frames a side): +0.26 ms GPU over the run, +0.59 ms in
   the night city (14,400-27,600), render thread unchanged; the laptop was shared with other lanes' replays (50 ms

@@ -1269,8 +1269,10 @@ class NightLightsPass final : public rm::Pass {
     float m_fogSum[3] = {0, 0, 0}, m_fog[3] = {0, 0, 0};
     unsigned m_fogN = 0;
     float m_night = -1.0f;
-    float m_strength = 3.0f, m_radiusScale = 8.0f, m_minR = 10.0f, m_maxR = 24.0f, m_dayStrength = 0.0f;
-    float m_maxSize = 14.0f, m_warm = 0.7f;
+    // wsweep1: strength 3 -> 1.5, largest radius 24 -> 18, warmth 0.7 -> 0.35 (at 3 the lamps lit the night streets'
+    // greenish paving and walls like daylight, a yellow-green wash over the frame: play3 f26000 / f42000, docs/night.md)
+    float m_strength = 1.5f, m_radiusScale = 8.0f, m_minR = 10.0f, m_maxR = 18.0f, m_dayStrength = 0.0f;
+    float m_maxSize = 14.0f, m_warm = 0.35f;
     uint16_t m_tex = kInvalid;
     bgfx::UniformHandle m_uCity = BGFX_INVALID_HANDLE, m_sCity = BGFX_INVALID_HANDLE;
     FILE* m_dump = nullptr;

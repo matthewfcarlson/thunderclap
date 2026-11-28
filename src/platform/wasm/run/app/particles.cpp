@@ -251,8 +251,9 @@ class ParticlesPass final : public rm::Pass {
     bgfx::UniformHandle m_uSoft = BGFX_INVALID_HANDLE, m_sDepth = BGFX_INVALID_HANDLE;
     bgfx::UniformHandle m_uShadow = BGFX_INVALID_HANDLE, m_sShadow = BGFX_INVALID_HANDLE;
     // the fade distance (camera units), the near fade (start, length), the city lights' and the shadow's strength on
-    // smoke, the additive sprites' gain under HDR
-    float m_fade = 1.0f, m_near0 = 0.4f, m_nearLen = 1.6f, m_cityK = 0.35f, m_shadowK = 0.3f, m_addGain = 1.0f;
+    // smoke, the additive sprites' gain under HDR (wsweep1: 0.6; at 1 a stack of explosion flashes summed far past 1
+    // and the tone map turned most of the frame white, play3 f39000 / f45001)
+    float m_fade = 1.0f, m_near0 = 0.4f, m_nearLen = 1.6f, m_cityK = 0.35f, m_shadowK = 0.3f, m_addGain = 0.6f;
     unsigned m_frames = 0, m_copies = 0, m_notFacing = 0;
     double m_draws = 0;
 };
