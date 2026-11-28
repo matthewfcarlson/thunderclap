@@ -875,6 +875,17 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   choice and fills it in when shown; `game_choice_id` shows the game's own string ids. Knobs `HULK_SKIN_LOG`,
   `HULK_COMIC_TEST=F:K:N`, `HULK_COOP_SKIN`, `HULK_SKIN_ALLOW_ALL`. Scripted Metal free runs need `HULK_MOVIES=0` for
   `HULK_INPUT` frames to match the null renderer.
+  Instant skins and tints (wskin2): player 0's comic skin applies at once by rebuilding his CRenderableCharacter as Setup
+  0x00042b40 does (release 0x001c3b30, rebuild 0x001c3b20 from our template, pose 0x001c5e20, rig flag 0x001c5050);
+  records unchanged. Skinned draws are sorted into pure3d display lists and drawn at flush, so a hook around
+  Render::Object::vfunc_3 sees none of a character's draws: identify them by his PolySkins' bone lists (PolySkin +0x58
+  BoneMatrixList, +0x60 pose; PolySkin::vfunc_8 0x002b7900 fills it). In the app, slot 5 of the skinning extension is the
+  front end's bgfxExtHardwareSkinning::vfunc_5 (an XBE hook on 0x00322200 never runs). gfx.c tags skinned draws through
+  `DrawPacket::instance` ("HULK" << 32 | k); lighting.cpp draws them with `fs_px_chartint` (`u_rmTint`). Knobs
+  `HULK_SKIN_SAME=1`, `HULK_SKIN_TINT=r,g,b,s;r,g,b,s`. The game calls the default skin "Savage Hulk" (`TBS_CHEAT_HULK`).
+  A rolltest that needs gameplay takes `HULK_INPUT=300-305:10,400-405:0/1,1000-1005:0/1,1300-1305:10,1500-1505:0/1,
+  1800-1805:0/1`; a test knob's "fired" flag must be game state, or a rollback before it reports DIFFERENT. `--test-env`
+  applies to every `--test` in one call.
   Contact Shadows / Bounce Light (wshadow1, D250, `rm::kContact` = 23, `kBounce` = 24, run/app/contact.cpp,
   docs/hdr-shadows.md): play3's world pass draws opaque rooms/objects, ~80 translucent decals, the stencil volumes and their
   quad, the skinned characters, then props and translucents mixed, then particles. A screen-space pass that multiplies into
