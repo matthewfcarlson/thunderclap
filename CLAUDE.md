@@ -901,6 +901,14 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   (|1/f - 1/z| x aperture); |z - f|/z made aerial shots look like miniatures. The string table's cap is exactly 2,300
   (0x000dddc0 calls f86f0 with 0x8fc); ~2,262 used after wlens1: new rows borrow choice strings. Knobs `HULK_LENS_LOG`,
   `HULK_LENS_AB`, `HULK_LENS_FORCE=1|2|3`, `HULK_LENS_DOF`, `HULK_LENS_FLARE`, `HULK_LENS_FX`, `HULK_LENS_SHAKE`.
+  Water (wwater1, `rm::kWater` = 31, run/app/water.cpp, docs/water.md): the city's sea is the location's `waterShape`
+  (WATER2_TILE), streamed each frame as 180 transient vertices with its own modelview (the view plus a 10-unit offset),
+  sometimes drawn before the rooms with the sky's projection. Under it the game draws a mirrored layer (towers, moon glint)
+  that shows through the sea's 80-94% opacity: a water pass keeps the game's opacity over it and fogs only the surface.
+  Water draws are kind-0 level sheets (>= 8 units) with a blue-green `texpack_mean`; colour alone also catches signs and
+  lightmaps. play3 shows the sea at the harbour (f17,170, f56,570) and the Church hub (f13,800, f54,980); no replay reaches
+  the river or the dam. Metal play4 shots: `wasm_build_job test --test play4:N` with `--test-env HULK_GFX_RENDERER=metal
+  HULK_GFX_HIDDEN=1 SDL_MAC_BACKGROUND_APP=1 HULK_GFX_SHOT_DIR=. HULK_GFX_SHOT_GAME=...` (metal kinds replay play3 only).
   Character Lighting (whulk1, `rm::kCharLight` = 22, docs/lighting.md "Characters"): skin draws take fs_px_char (generic
   combiner + PX_CHAR, `u_rmChar` per draw; zero = faithful). The Hulk's skin light clamps at 1 over most of his body, so a
   term added under that clamp is invisible: the character path uses a soft shoulder (knee 0.4) and adds the rim after it.
