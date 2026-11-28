@@ -844,6 +844,12 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   parallax moves it: room detail is full from 32 px a room, none below 12. Night Lights: the game dims and hides a lamp's
   glow while something passes in front (occlusion query); a static light follows the glow up at once, down slowly, and
   goes after 90 unseen on-screen frames.
+  Tighter Text Spacing (wtext2, D250, gfx/text_spacing.c): an entry hook on TextureFontLoader::vfunc_5 0x00295620 trims
+  each Latin/punctuation glyph's advance by its atlas cell's blank trailing columns (alpha < 16), measured from the font's
+  pddi texture (lock slot 13, unlock 14); the trims record lives in hulk_game_state and is undone exactly. A glyph's
+  advance (+0xc of a 0x28-byte glyph; TextureFont +0x3c) is read only by TextureFont slots 18, 10 and 19. The option moves
+  the game hash but not play3's records: per session (`changes_game`, playthrough.py SIM_KEYS). A row whose choices are
+  another row's texts borrows their string ids through fe_options.c `k_borrow` (only its label is added).
   Character Lighting (whulk1, `rm::kCharLight` = 22, docs/lighting.md "Characters"): skin draws take fs_px_char (generic
   combiner + PX_CHAR, `u_rmChar` per draw; zero = faithful). The Hulk's skin light clamps at 1 over most of his body, so a
   term added under that clamp is invisible: the character path uses a soft shoulder (knee 0.4) and adds the rim after it.
