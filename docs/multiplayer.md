@@ -1088,9 +1088,9 @@ same update on every instance because it depends only on game state.
 
 **What the engine fights / what is left.**
 
-- **Skins and tints (6.5):** per-player skins done in section 20 (wskin1); the tint of forced skins is not. Before it, every Hulk wore the main actor's skin. Options: a runner tint by recognising an
-  extra Hulk's draws (they share the main actor's prim buffers, so the draw's modelview/position would have to say
-  whose they are), or a second skin inventory (the 6.5 collision question is still open).
+- **Skins and tints (6.5):** per-player skins done in section 20 (wskin1); the tint of a forced skin's extra copies
+  too (wskin2: the runner draws an extra Hulk who wears player 0's skin with a tint of his own, knowing his draws by
+  their bone matrices).
 - **One-player notions left:** the HUD, minimap, rumble and audio listener follow the main actor (P0) on every instance;
   attack tokens and the scripts' known-player positions mean the main actor; traversal.c's charge sprint follows one
   character (two players sprinting at once share its state).
@@ -1368,7 +1368,8 @@ never reads those bits), so every peer learns slot k's choice at the same frame.
 skin he picked up (below), else his choice, else the co-op pair's other one; a choice the host's save has not unlocked
 falls back to the pair (`hulk`, `grey_hulk`: always offered); a skin another Hulk already wears gives way to the pair's
 other one (section 6.5's rule). The developer's local Hulks (`dev_coop_local`) take the row for P1 and the pair for P2.
-In a mission that forces a skin (0x00206320: joefixit or a national Hulk) every extra Hulk wears the forced one.
+In a mission that forces a skin (0x00206320: joefixit or a national Hulk) every extra Hulk wears the forced one,
+tinted (below).
 Skins no Hulk wears are never loaded; at most two extra skins are resident (Persistent heap 0x11, ~200 KB each, which
 the doubled co-op heaps of section 19 hold). Hulk k waits for his skin's load before he is made (a few updates; a
 failed load makes him with the main actor's skin).
@@ -1381,8 +1382,8 @@ ComicBook prop, kind 8) marks the Hulk that took it; the next updates ask the ga
 collected (our one line over the game's table and bindings, as kmcIsCheatComicCollected does); a skin that has just
 joined the set is unlocked and worn. Player 0 wears it through the cheats screen's own path (every skin's "on" bit off,
 this one on, `um_SetUnlockableOn`), which the game applies at the next level load (0x00203a10; the mission, a retry or
-the next area), as a choice in the cheats screen does: the game has no path that swaps the main actor's model in the
-middle of a level. An extra co-op Hulk wears it at once (he is made again beside the main actor with it). When a save
+the next area), as a choice in the cheats screen does, and at once (wskin2, below). An extra co-op Hulk wears it at
+once (he is made again beside the main actor with it). When a save
 is loaded (0x0008a8f0) and at every level start, every skin whose comic the save holds is unlocked, and nothing is
 switched (the user, 11-25). The save gains only the locked and on bits a typed code and the cheats screen would have
 written.
@@ -1412,6 +1413,35 @@ bits untouched, Hulk 1 made again with them at frame 4,007 (112307). Landing che
 HEAD control 112301): play3 to 60,000 records identical (112303); the comic test (112304); `coop:12000:2` with skins
 (112305) and without (112306) ok.
 
-**Open.** The tint of a forced skin's extra copies (every Hulk wears the forced skin for now). Player 0's comic skin
-shows from the next level load (the game's own cheats-screen behaviour); an immediate swap of the main actor's model
-would need a model re-request outside the spawner (0x00042b40's `Setup` again), not tried.
+**Player 0's comic skin at once (wskin2).** With the comic row on (remastered) and the heaps scaled, player 0's new
+skin is loaded into a slot of ours (as an extra Hulk's) and his model is made again in play the way CCharacter's
+`Setup` (0x00042b40) makes it: the CRenderableCharacter under the character's name is let go (render engine
+0x001c3b30), a new one is asked for with our template's name id (0x001c3b20), given the character's pose (+0x120,
+0x001c5e20) and the rig's flag (rig +0xc: 0x001c5050 on the model's object and its +0x20). The pose, the skeleton, the
+collision and the animation are the character's and do not change: the swap is between two updates and the Hulk goes
+on in the same pose (play3's checkpoint records are unchanged by it). The on bits are still set as the cheats screen
+sets them, so the next level load wears the skin by the game's own path, and the slot is not needed after it. Not in a
+level that forces a skin (the mission's look stays; the skin comes with the next level load), and with the original
+heap sizes only from the next level load. Skin slots are three now (one a player at most); an extra co-op Hulk in the
+skin player 0 just took is made again with another (section 6.5's rule). Whether the level forces player 0's skin is
+found once a level (by its main actor), before a comic's skin turns the on bits over.
+
+**Tinted copies of a forced skin (wskin2, the user's rule in 6.5).** An extra Hulk who wears player 0's skin (a
+mission's forced skin; also every extra Hulk where the heaps keep only the main actor's skin) is drawn with a tint of
+his own (player 1 red, player 2 blue, luminance kept, 60%): picture only, game state unchanged. Every Hulk's model has
+PolySkins of its own (the template's copied by 0x002b7e50), each with its pose (+0x60) and a BoneMatrixList of its own
+(+0x58), which its display (PolySkin::vfunc_8 0x002b7900, entry hook) fills from the pose. The skinned primitives are
+sorted into pure3d's display lists and drawn when the lists are flushed (so a hook around a character's display sees
+none of his draws), each handing its bone matrices to the pddi front end's skinning extension
+(bgfxExtHardwareSkinning::vfunc_5, the game's 0x00322200) just before its draw. skins.c records the bone lists of the
+tinted Hulks' PolySkins; the extension (under HULK_PDDI_WASM) asks skins.c whose list a matrix is in, and gfx.c tags
+the skinned draws that follow (`DrawPacket::instance` = "HULK" << 32 | k). The runner's lighting pass draws a tagged
+skin draw with `fs_px_chartint` (fs_px_char's program with fs_px_stage.sh `PX_TINT`: the tint at the combiner's output,
+`u_rmTint`), whatever Character Lighting is. `HULK_SKIN_TINT=r,g,b,s;r,g,b,s` tunes the two tints; `HULK_SKIN_SAME=1`
+(tests) dresses every extra Hulk in player 0's skin, as a forced mission does.
+
+wskin2 tests (app 112482, HEAD control 112483): play3 to 60,000 with the rows faithful, records identical (112484);
+`HULK_COMIC_TEST=4000:0:2` on Metal: the Canadian flag shorts from frame 4,064, same pose (112486); rolltests across
+the swap (3,950:4,400, 112482) and after it (4,100:4,400, 112485) identical; three local Hulks with
+`HULK_SKIN_SAME=1 HULK_COOP_SPREAD=5:30` on Metal: players 1 and 2 tinted (112498). The game's cheats screen calls the
+default skin "Savage Hulk" (TBS_CHEAT_HULK), so the Co-op Skin row's first choice (value 0, the plain Hulk) reads so.

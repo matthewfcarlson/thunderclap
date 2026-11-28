@@ -34,6 +34,11 @@ SAMPLER2DSHADOW(s_rmShadow, 4);
 //   u_rmChar[2]  rgb the wrapped light's tint (a subsurface-like warmth), w the knee of the light's soft shoulder
 uniform vec4 u_rmChar[3];
 #endif
+#ifdef PX_TINT
+// wskin2 (fs_px_chartint.sc): a co-op Hulk's tint (one wearing player 0's skin, as in a forced-skin mission): rgb its
+// colour, w its strength
+uniform vec4 u_rmTint;
+#endif
 
 #define PX_MAX_LIGHTS 8
 
@@ -280,4 +285,21 @@ vec4 pxLit(vec4 base, vec4 spec, vec4 nv, vec3 pos, float which, bool front, vec
 #endif
 #define v_color0 pxLit(v_pxbase, v_pxspec, v_pxnormal, v_pxpos, 0.0, PX_FRONT, gl_FragCoord.xy, PX_BH)
 #define v_color1 pxLit(v_pxbase, v_pxspec, v_pxnormal, v_pxpos, 1.0, PX_FRONT, gl_FragCoord.xy, PX_BH)
+#ifdef PX_TINT
+// wskin2: the tint, at the combiner's output (its only vec4 clamp, `saturate(c)`, as fs_px_soft.sc takes it): the
+// pixel's luminance kept, its colour moved towards the tint's
+float pxTintSat(float x) { return clamp(x, 0.0, 1.0); }
+vec2 pxTintSat(vec2 x) { return clamp(x, 0.0, 1.0); }
+vec3 pxTintSat(vec3 x) { return clamp(x, 0.0, 1.0); }
+vec4 pxTintSat(vec4 x)
+{
+    x = clamp(x, 0.0, 1.0);
+    vec3 w = vec3(0.299, 0.587, 0.114);
+    vec3 t = u_rmTint.rgb * (dot(x.rgb, w) / max(dot(u_rmTint.rgb, w), 0.01));
+    x.rgb = clamp(mix(x.rgb, t, u_rmTint.w), 0.0, 1.0);
+    return x;
+}
+#undef saturate
+#define saturate(_x) pxTintSat(_x)
+#endif
 #include "fs_vp_stage.sh"

@@ -8,6 +8,9 @@
 
 using namespace hulk::pddi;
 
+static_assert(offsetof(DrawPacket, instance) == 16 && offsetof(DrawPacket, vertexProgram) == 40,
+              "gfx.c PKT_INSTANCE, PKT_VERTEX_PROGRAM (skins.c's tint tag)");
+
 #define GFX_ABI_HOST 0
 #include "../run/app/gfx_abi_table.h"
 

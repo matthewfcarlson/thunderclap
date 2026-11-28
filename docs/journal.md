@@ -4010,3 +4010,27 @@ queue shots, the player's settings, TAA, 1280x960):
   code into the keyboard (HULK_COOP_TEST_KEYBOARD=1, HULK_COOP_TYPE) joins from the front end, 129 hashes equal
   (112456); the launch-option coop test unchanged (112457); Metal shots of the Extras item, typing with the pad,
   the cheat check's own invalid-entry dialog and the row's Join a Game (112440, 112452, 112463).
+
+
+## 2026-11-28 wskin2: player 0's comic skin at once; tinted copies of a forced skin
+
+- A character's model is its CRenderableCharacter (CCharacter +0x124, made by Setup 0x00042b40 through the render
+  engine 0x001c3b20 from a template's name id, let go by the character's name with 0x001c3b30); the pose (+0x120) and
+  rig (+0x11c) are the character's. Making it again in play from our skin template (the pose and the rig's flag
+  handed over as Setup does) swaps player 0's skin between two updates: the Hulk goes on in the same pose and play3's
+  checkpoint records are unchanged by the swap (112430: records ok to 5,118 with the comic at 4,062).
+- The skinned characters are not drawn inside Render::Object::vfunc_3 (0x001c5460): their primitives are sorted into
+  pure3d's display lists and drawn when the lists flush, so a hook around an object's draw tags none of them (tried:
+  2 tagged draws in 6,000 frames). The skin draws are known by their bones instead: each model's PolySkin is a copy
+  (0x002b7e50) with its own BoneMatrixList (+0x58) filled from its pose (+0x60) by PolySkin::vfunc_8 0x002b7900, and
+  each primitive hands those matrices to the skinning extension's slot 5 (0x00322200) right before its draw. In the
+  app that slot is the pddi front end's bgfxExtHardwareSkinning::vfunc_5, so an XBE entry hook on 0x00322200 never
+  runs; the front end calls skins.c under HULK_PDDI_WASM. The bone matrices are not in the Pose's own block.
+- The game's cheats screen names the default skin "Savage Hulk" (TBS_CHEAT_HULK): the Co-op Skin row's first choice
+  (value 0, the plain Hulk) shows that text, as the cheats screen's Character selector does.
+- HULK_COMIC_TEST's "fired" flag was a host static: a rollback before it did not fire it again (rolltest DIFFERENT);
+  it is game state now. Rolltests need HULK_INPUT (START, A, then START, A again at 1,300..1,805) to reach play.
+- Checks (app 112482, HEAD control 112483): play3 to 60,000 records identical (112484); rolltests 3,950:4,400 across
+  the swap (112482) and 4,100:4,400 after it (112485) identical; Metal: the Canadian flag shorts from frame 4,064 on
+  (112486, shot 4,600); three Hulks in player 0's skin, players 1 and 2 tinted red and blue (112498, shot 2,140,
+  HULK_COOP_SPREAD=5:30 keeps them in view); a co-op rolltest with the tint (112479).

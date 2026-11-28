@@ -856,9 +856,10 @@ GFX_APP_HOOKS = {0x000df9e0: "ffh_hulk_app_fe_callback", 0x000f8e70: "ffh_hulk_a
                  # which the font's glyph advances lose their measured blank columns
                  0x00295620: "ffh_hulk_app_font_load",
                  # skins (src/platform/wasm/gfx/skins.c, wskin1): a save's apply (comic skins unlocked), a
-                 # collectable's pick-up (a comic book), a character's model request (an extra Hulk's own skin)
+                 # collectable's pick-up (a comic book), a character's model request (an extra Hulk's own skin);
+                 # PolySkin::vfunc_8, a skin's display (its bone list: a co-op Hulk in player 0's skin tinted, wskin2)
                  0x0008a8f0: "ffh_hulk_app_save_apply", 0x001d8350: "ffh_hulk_app_collect",
-                 0x001c3b20: "ffh_hulk_app_char_model",
+                 0x001c3b20: "ffh_hulk_app_char_model", 0x002b7900: "ffh_hulk_app_polyskin_display",
                  # lens effects (src/platform/wasm/gfx/lens.c, wlens1): CGameCamera::vfunc_35, the camera's update (its
                  # shakes, read after the original; every caller is a derived camera in another TU)
                  0x000a97e0: "ffh_hulk_app_camera_update",

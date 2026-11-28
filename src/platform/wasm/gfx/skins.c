@@ -20,7 +20,12 @@
  *     a skin that has just joined that set is unlocked through um_SetUnlockableLocked (0x00093db0 -> 0x00093600, the
  *     path a typed code takes) and worn: player 0 (the host, single player) through the cheats screen's path
  *     (um_SetUnlockableOn: every skin off, this one on; 0x00203a10 wears it from the next level load, as a choice in the
- *     cheats screen does), an extra co-op Hulk at once (his Hulk is made again with it, below);
+ *     cheats screen does) and at once (wskin2): the skin is loaded into a slot of ours (below) and the main actor's
+ *     model is made again from its template as CCharacter's Setup 0x00042b40 makes it (the old CRenderableCharacter
+ *     let go by the character's name, 0x001c3b30; a new one from our template, 0x001c3b20, given the character's pose
+ *     and the rig's flag), so the level goes on with the new skin; not in a level that forces a skin (the mission's
+ *     look stays), and with the original heap sizes only from the next level load; an extra co-op Hulk at once (his
+ *     Hulk is made again with it, below);
  *   - a save loaded (0x0008a8f0, the load screen's apply) and every level start: every skin whose comic the save
  *     holds is unlocked, nothing is switched (the user, 11-25: only unlock on load).
  * The save keeps only what a typed code would have written (the locked and on bits it already holds).
@@ -31,9 +36,14 @@
  * row's value (P1) and the pair's other (P2). A choice is allowed when the host's save has the skin unlocked, or it is
  * the co-op pair (hulk, grey_hulk: always offered in a co-op session; the save is not changed); otherwise, and when it
  * equals a Hulk's already worn, it becomes the pair's other one (docs/multiplayer.md 6.5). In a mission that forces a
- * skin (0x00206320: joefixit or a national Hulk) every extra Hulk wears the forced one (the tinted copy is not done:
- * see docs/multiplayer.md 20). A skin no player wears is never loaded: each needed one is loaded asynchronously by the
- * game's own loader (0x00203e90 without waiting, polled each update, then moved into an inventory of ours,
+ * skin (0x00206320: joefixit or a national Hulk) every extra Hulk wears the forced one, tinted (wskin2, the user's
+ * rule in docs/multiplayer.md 6.5): the skinned draws of an extra Hulk who wears player 0's skin, known by their
+ * bone matrices (his PolySkins' lists, below), are tagged by gfx.c (DrawPacket::instance = TINT_TAG | k) and the
+ * runner's
+ * lighting pass draws them with fs_px_chartint (fs_px_char's look plus a tint, u_rmTint, player k's colour): picture
+ * only, nothing in game memory changes. The same holds where the heaps keep every Hulk in the main actor's skin.
+ * A skin no player wears is never loaded: each needed one is loaded asynchronously by the game's own loader
+ * (0x00203e90 without waiting, polled each update, then moved into an inventory of ours,
  * content::LoadInventory 0x00266480, on the Persistent heap 0x11 as the game loads its own), its "hulk" drawable
  * registered as a template under a name id of ours ("port_skin_<name>"); Hulk k is made when his skin is ready, and
  * while the actor spawner runs for him the character's model request (0x001c3b20, entry hook) names that template.
@@ -42,7 +52,8 @@
  *
  * Knobs: HULK_SKIN_LOG=1 (loads, choices, comics); tests only: HULK_COOP_SKIN=N (this peer's Co-op Skin value, as the
  * row's), HULK_COMIC_TEST=F:K:N (at frame F, as if player K had picked up comic N: its comic_book unlockable unlocked
- * and the pickup marked; K=-1: no pickup, swept as a loaded save is), HULK_SKIN_ALLOW_ALL=1 (every choice allowed). */
+ * and the pickup marked; K=-1: no pickup, swept as a loaded save is), HULK_SKIN_ALLOW_ALL=1 (every choice allowed),
+ * HULK_SKIN_SAME=1 (every extra Hulk wears player 0's skin, as in a forced mission: the tint's test). */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -75,6 +86,13 @@
 #define FN_TPL_FIND 0x001c5b00u         /* object manager: (key*) -> the template */
 #define FN_TPL_INIT 0x001c5cf0u         /* ObjectTemplate (0x10 bytes): (key*, drawable) */
 #define FN_TPL_ADD 0x001c5ae0u          /* object manager: (template) */
+#define FN_CHAR_DROP 0x001c3b30u        /* render engine: (character name id*): its CRenderableCharacter let go */
+#define FN_CHAR_MODEL 0x001c3b20u       /* render engine: (character name id*, drawable name id*) -> CRenderableCharacter */
+#define FN_RC_POSE 0x001c5e20u          /* CRenderableCharacter: (pose) */
+#define FN_OBJ_FLAG 0x001c5050u         /* the model's object (+0x10): (rig +0xc) */
+#define CH_RIG 0x11c                    /* CCharacter (0x00042b40's Setup): the rig, the pose, the CRenderableCharacter */
+#define CH_POSE 0x120
+#define CH_MODEL 0x124
 #define CASTER_DRAWABLE 0x003f6330u     /* content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>'s vftable */
 #define LD_SKIN 0xaa4                   /* the level loader's chosen skin (32 bytes) */
 #define PROP_STATE 0x150                /* a collectable's kind (8: ComicBook) */
@@ -87,6 +105,7 @@ static const char* const k_skin[NSKIN] = {"hulk", "hulk_australia", "grey_hulk",
                                           "hulk_german", "hulk_italy", "hulk_spain", "hulk_japan"};
 #define SK_HULK 0
 #define SK_GREY 2                       /* (unlockable 1) */
+#define NSLOT 3                         /* one skin of our own for each player at most */
 
 typedef struct {
     int32_t skin;                       /* 0: empty */
@@ -100,7 +119,7 @@ static struct {
     int32_t req[MAXP];                  /* each player's request (skin index + 1; 0: none) */
     int32_t comic[MAXP];                /* a comic's skin for this player (skin index + 1; 0: none) */
     int32_t worn[MAXP];                 /* the skin Hulk k was made with (index + 1) */
-    slot_t slot[2];
+    slot_t slot[NSLOT];
     int32_t spawning;                   /* the player the actor spawner runs for (0: none) */
     uint32_t spawn_key[2];
     int32_t pend_k, pend_left;          /* the pending comic: its player, updates left */
@@ -108,6 +127,11 @@ static struct {
     uint32_t mask;                      /* skins whose comics are collected (bit = unlockable id) */
     uint32_t main;                      /* the main actor at the last level start */
     int32_t reskin;                     /* bit k: Hulk k must be made again (a comic's skin) */
+    int32_t p0, p0_want;                /* (wskin2) the skin player 0 wears through our swap / is to wear (index + 1) */
+    uint32_t forced_main;               /* the main actor forced_val was found for */
+    int32_t forced_val;                 /* the level forces player 0's skin */
+    int32_t test_done;                  /* HULK_COMIC_TEST has fired (game state, so a rollback before it fires it
+                                         * again, as a real pick-up would happen again) */
 } G GAME_STATE;
 
 static uint32_t rd(uint32_t a) { return a ? *(uint32_t*)PTR(a) : 0; }
@@ -217,8 +241,13 @@ void ffh_hulk_app_collect(uint32_t ecx, uint32_t edx, void* st, void* rb) {
     if (log_on()) fprintf(stderr, "hulk: skins: frame %u: player %d picked up a comic book\n", SIM->frame, k);
 }
 
+static int heaps_roomy(void);
+static int forced(void);
+static int p0_skin(void);
 static void wear_comic(int k, int id) {
     if (k == 0) {                               /* the cheats screen's choice: every skin off, this one on */
+        if (!forced() && heaps_roomy() && id + 1 != p0_skin())
+            G.p0_want = id + 2;                 /* (wskin2) and at once: p0_update */
         char text[160];
         snprintf(text, sizeof text, "for i=0,12 do um_SetUnlockableOn(i,false) end um_SetUnlockableOn(%d,true)", id);
         lua(text);
@@ -237,7 +266,8 @@ static void comic_test(void) {                 /* HULK_COMIC_TEST=F:K:N (tests o
         f = -1;
         if (e && sscanf(e, "%d:%d:%d", &f, &k, &n) != 3) f = -1;
     }
-    if (f < 0 || (int)SIM->frame < f) return;
+    if (f < 0 || G.test_done || (int)SIM->frame < f) return;
+    G.test_done = 1;
     char text[200];
     snprintf(text, sizeof text, "um_SetUnlockableLocked(constants.unlockables.comic_book_%d,false)", n);
     lua(text);
@@ -248,7 +278,6 @@ static void comic_test(void) {                 /* HULK_COMIC_TEST=F:K:N (tests o
         fprintf(stderr, "hulk: skins: test: as a save loaded: comics' skins 0x%04llx unlocked\n", (long long)m);
     }
     fprintf(stderr, "hulk: skins: frame %u: test: comic %d collected%s\n", SIM->frame, n, k >= 0 ? " (picked up)" : "");
-    f = -1;
 }
 
 static void comic_update(void) {
@@ -285,16 +314,28 @@ void hulk_wasm_skin_session_request(int k, int req) {
 }
 
 static int other_of_pair(int sk) { return sk == SK_HULK ? SK_GREY : SK_HULK; }
-static int forced(void) {                       /* the level wears a skin no unlockable chose (0x00206320's force) */
-    int m = main_skin();
-    if (m == SK_HULK) return 0;
+/* the level wears a skin no unlockable chose (0x00206320's force); found once a level (by its main actor), before a
+ * comic's skin turns the on bits over */
+static int forced(void) {
+    uint32_t mainch = hulk_wasm_coop_player(0);
+    if (mainch && mainch == G.forced_main) return G.forced_val;
+    int m = main_skin(), f = 0;
     uint32_t u = unlocks();
-    return u && (ff_call_this(0x00092de0u, u, 1, (uint32_t)(m - 1)) & 0xff) == 0;
+    if (m != SK_HULK) f = u && (ff_call_this(0x00092de0u, u, 1, (uint32_t)(m - 1)) & 0xff) == 0;
+    if (mainch) G.forced_main = mainch, G.forced_val = f;
+    return f;
+}
+/* the skin player 0 wears: the level loader's, or a comic's he took in this level (wskin2) */
+static int p0_skin(void) { return G.p0 ? G.p0 - 1 : main_skin(); }
+static int same_test(void) {
+    static int v = -1;
+    if (v < 0) v = getenv("HULK_SKIN_SAME") && *getenv("HULK_SKIN_SAME") == '1';
+    return v;
 }
 /* the skin Hulk k wears now */
 static int skin_for(int k) {
-    int m = main_skin();
-    if (forced()) return m;
+    int m = p0_skin();
+    if (forced() || same_test()) return m;
     int r = G.comic[k] ? G.comic[k] - 1 : G.req[k] ? G.req[k] - 1 : -1;
     if (r < 0 && !hulk_net_mask()) r = k == 1 ? hulk_wasm_skin_local_request() - 1 : -1;     /* (the developer's) */
     if (r < 0) r = other_of_pair(m);
@@ -317,8 +358,108 @@ static int skin_for(int k) {
 #define HEAP_TABLE 0x00400520u
 static int heaps_roomy(void) { return rd(HEAP_TABLE + 12 * HEAP_PERSISTENT + 4) >= 0x400000u; }
 
+/* (wskin2) player 0's model made again from a template of ours, as CCharacter's Setup 0x00042b40 makes it: the
+ * CRenderableCharacter under the character's name let go, a new one from the template, given the character's pose
+ * (+0x120) and the rig's flag (rig +0xc: 0x001c5050 and the object's +0x20). 0: the character has no such model (a
+ * prop's model, Setup's other branch) */
+static int swap_model(uint32_t ch, const uint32_t key[2]) {
+    uint32_t re = ff_call(FN_RENDER, 0), rig = rd(ch + CH_RIG), pose = rd(ch + CH_POSE);
+    if (!re || !rig || !rd(ch + CH_MODEL)) return 0;
+    uint32_t nm[2] = {rd(ch + 8), rd(ch + 0xc)}, k[2] = {key[0], key[1]};
+    ff_call_this(FN_CHAR_DROP, re, 1, A(nm));
+    *(uint32_t*)PTR(ch + CH_MODEL) = 0;
+    uint32_t rc = ff_call_this(FN_CHAR_MODEL, re, 2, A(nm), A(k));
+    *(uint32_t*)PTR(ch + CH_MODEL) = rc;
+    if (!rc) return 0;
+    ff_call_this(FN_RC_POSE, rc, 1, pose);
+    uint32_t obj = rd(rc + 0x10), v = rd(rig + 0xc);
+    if (obj) {
+        ff_call_this(FN_OBJ_FLAG, obj, 1, v);
+        *(uint8_t*)PTR(obj + 0x20) = v == 0;
+    }
+    return 1;
+}
+static slot_t* slot_of(int sk);
+static int slot_load(int sk);
+static int slot_template(slot_t* s);
+/* a comic's skin for player 0 (wear_comic): loaded into a slot, then his model swapped; a failed load leaves him as
+ * he is (the on bits still give it him from the next level load) */
+static void p0_update(void) {
+    if (!G.p0_want) return;
+    uint32_t ch = hulk_wasm_coop_player(0);
+    int sk = G.p0_want - 1;
+    slot_t* s = slot_of(sk);
+    if (!ch) return;
+    if (!s) {
+        if (!slot_load(sk)) G.p0_want = 0;
+        return;
+    }
+    if (s->state == 1) return;
+    int ok = s->state == 2 && slot_template(s) && swap_model(ch, s->key);
+    if (ok) {
+        G.p0 = G.p0_want;
+        for (int k = 1; k < MAXP; k++)          /* (an extra Hulk in that skin takes another) */
+            if (G.worn[k] == G.p0 && hulk_wasm_coop_player(k)) G.reskin |= 1 << k;
+    }
+    if (log_on()) fprintf(stderr, "hulk: skins: frame %u: player 0's model %s %s\n", SIM->frame,
+                          ok ? "made again as" : "NOT made again as", k_skin[sk]);
+    G.p0_want = 0;
+}
+
+/* (wskin2) the co-op Hulk whose pose (CCharacter +0x120) this is, when he wears player 0's skin (a forced skin, or the
+ * heaps' fallback): he is drawn tinted. 0: none */
+#define TINT_TAG 0x48554c4b00000000ull  /* "HULK": run/app/lighting.cpp reads it */
+static int tinted_pose(uint32_t pose) {
+    if (!pose || hulk_wasm_coop_players() < 2) return 0;
+    for (int k = 1; k < MAXP; k++) {
+        uint32_t ch = hulk_wasm_coop_player(k);
+        if (ch && rd(ch + CH_POSE) == pose) return G.worn[k] && G.worn[k] == p0_skin() + 1 ? k : 0;
+    }
+    return 0;
+}
+/* The skinned draws are sorted into pure3d's display lists and drawn when the lists are flushed, so a Hulk's draws are
+ * known by their bones. Each character's model has PolySkins of its own (copies of the template's, 0x002b7e50), each
+ * with its pose (+0x60) and its own BoneMatrixList (+0x58: 64-byte matrices from +8 to +0xc), which its display
+ * (PolySkin::vfunc_8 0x002b7900, entry hook) fills from the pose; when the list is flushed, each skinned primitive hands
+ * those matrices to the pddi front end's skinning extension (bgfxExtHardwareSkinning::vfunc_5, the game's 0x00322200,
+ * which calls hulk_wasm_skin_bone) just before its draw, and gfx.c tags the skinned draws that follow
+ * (DrawPacket::instance) until bones of another list come. Picture state only (not game state): the lists seen in the
+ * last two frames */
+#define PS_BONES 0x58
+#define PS_POSE 0x60
+static struct { uint32_t a, b, frame; int k; } g_lists[8];
+void ffgo_002b7900(uint32_t, uint32_t, void*, void*);
+void ffh_hulk_app_polyskin_display(uint32_t ecx, uint32_t edx, void* st, void* rb) {
+    int k = ecx ? tinted_pose(rd(ecx + PS_POSE)) : 0;
+    uint32_t bl = k ? rd(ecx + PS_BONES) : 0;
+    if (bl && rd(bl + 8) < rd(bl + 0xc)) {
+        int i = 0, old = 0;
+        for (; i < 8 && g_lists[i].a != rd(bl + 8); i++)
+            if (g_lists[i].frame < g_lists[old].frame) old = i;
+        if (i == 8) i = old;
+        g_lists[i].a = rd(bl + 8), g_lists[i].b = rd(bl + 0xc), g_lists[i].frame = SIM->frame + 1, g_lists[i].k = k;
+    }
+    ffgo_002b7900(ecx, edx, st, rb);
+}
+extern uint64_t hulk_gfx_skin_tag;              /* gfx.c */
+void hulk_wasm_skin_bone(const float* matrix) {
+    uint32_t m = A(matrix);
+    int k = 0;
+    for (int i = 0; i < 8 && !k; i++)
+        if (g_lists[i].frame + 2 > SIM->frame + 1 && m >= g_lists[i].a && m < g_lists[i].b) k = g_lists[i].k;
+    hulk_gfx_skin_tag = k ? TINT_TAG | (uint32_t)k : 0;
+    if (log_on() >= 2) {                        /* (HULK_SKIN_LOG=2: bone uploads of tinted Hulks, every 300 updates) */
+        static uint32_t f, n, t;
+        if (SIM->frame != f) {
+            if (f % 300 == 0 && n) fprintf(stderr, "hulk: skins: frame %u: %u bone uploads, %u tinted\n", f, n, t);
+            f = SIM->frame, n = t = 0;
+        }
+        n++, t += k != 0;
+    }
+}
+
 static slot_t* slot_of(int sk) {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < NSLOT; i++)
         if (G.slot[i].skin == sk + 1) return &G.slot[i];
     return 0;
 }
@@ -328,18 +469,20 @@ static void slot_free(slot_t* s) {
     if (log_on()) fprintf(stderr, "hulk: skins: frame %u: %s let go\n", SIM->frame, k_skin[s->skin - 1]);
     memset(s, 0, sizeof *s);
 }
-static void slot_load(int sk) {
+static int slot_load(int sk) {
     slot_t* s = 0;
-    int need[2] = {0, 0};
-    for (int i = 0; i < 2; i++)
+    int need[NSLOT] = {0};
+    for (int i = 0; i < NSLOT; i++) {
         for (int k = 1; k < MAXP; k++)
             if (G.slot[i].skin && G.slot[i].skin == G.worn[k]) need[i] = 1;
-    for (int i = 0; i < 2 && !s; i++)
+        if (G.slot[i].skin && (G.slot[i].skin == G.p0 || G.slot[i].skin == G.p0_want)) need[i] = 1;
+    }
+    for (int i = 0; i < NSLOT && !s; i++)
         if (!G.slot[i].skin) s = &G.slot[i];
-    for (int i = 0; i < 2 && !s; i++)
+    for (int i = 0; i < NSLOT && !s; i++)
         if (!need[i]) slot_free(&G.slot[i]), s = &G.slot[i];
     uint32_t l = loader();
-    if (!s || !l) return;
+    if (!s || !l) return 0;
     int old = (int)ff_call(FN_HEAP, 1, HEAP_PERSISTENT);
     uint32_t inv = ff_call(FN_ALLOC, 1, 0x14u);
     if (inv) ff_call_this(FN_INV_CTOR, inv, 1, 0x800u);
@@ -353,6 +496,7 @@ static void slot_load(int sk) {
     snprintf(nm, sizeof nm, "port_skin_%s", k_skin[sk]);
     name_id(nm, s->key);
     if (log_on()) fprintf(stderr, "hulk: skins: frame %u: loading %s%s\n", SIM->frame, path, req ? "" : ": FAILED");
+    return 1;
 }
 /* the template under our key: made (again) when the render engine has none (a level change empties it) */
 static int slot_template(slot_t* s) {
@@ -375,7 +519,7 @@ static int slot_template(slot_t* s) {
     return t != 0;
 }
 static void slots_update(void) {
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < NSLOT; i++) {
         slot_t* s = &G.slot[i];
         if (s->state != 1) continue;
         if (ff_call_this(FN_REQ_DONE, s->req, 0) & 0xff) {
@@ -405,8 +549,9 @@ int hulk_wasm_skin_spawn_begin(int k) {
     slot_t* s = slot_of(sk);
     if (!s) {
         G.worn[k] = sk + 1;                     /* (wanted: a slot is not let go while he waits) */
-        slot_load(sk);
-        return 0;
+        if (slot_load(sk)) return 0;
+        G.worn[k] = m + 1;                      /* (no slot: the main actor's skin) */
+        return 1;
     }
     if (s->state == 1) return 0;
     if (s->state < 0 || !slot_template(s)) {
@@ -445,12 +590,15 @@ static void level_start(void) {
     }
     for (int k = 0; k < MAXP; k++) G.worn[k] = 0;
     G.pend_left = 0;
+    G.p0 = G.p0_want = 0;                       /* (the level loader's skin is the on bits' again) */
+    forced();
 }
 
 void hulk_wasm_skins_update(int kind, float dt) {
     (void)dt;
     if (kind == 6 || kind == 7) return;
-    int coop = hulk_wasm_coop_players() > 1 || G.slot[0].skin || G.slot[1].skin;
+    int coop = hulk_wasm_coop_players() > 1 || G.p0_want;
+    for (int i = 0; i < NSLOT; i++) coop |= G.slot[i].skin != 0;
     if (!comic_on() && !coop) return;           /* (faithful, single player: nothing here runs) */
     uint32_t w = rd(WORLD_PTR), am = w ? rd(w + 0x20) : 0, mainch = am ? rd(am + 0x124) : 0;
     if (mainch && mainch != G.main) {
@@ -459,4 +607,5 @@ void hulk_wasm_skins_update(int kind, float dt) {
     }
     comic_update();
     if (coop) slots_update();
+    p0_update();
 }

@@ -51,12 +51,14 @@ class Programs {
   public:
     // vp: 0 fixed function, 1 skin, 2 skin_onebone, 6 fixed function two-sided (generic only); hash 0: the generic
     // combiner; chr (whulk1): the characters' program for a skin draw (fs_px_char: the generic combiner)
-    uint16_t get(uint32_t vp, uint32_t hash, bool chr = false)
+    // tint (wskin2): the tinted characters' program (fs_px_chartint), a skin draw's only
+    uint16_t get(uint32_t vp, uint32_t hash, bool chr = false, bool tint = false)
     {
         chr = chr && (vp == 1 || vp == 2);
+        tint = tint && chr;
         if (vp == 6 || chr)
             hash = 0;
-        uint64_t key = (uint64_t)vp << 32 | hash | (chr ? 1ull << 40 : 0);
+        uint64_t key = (uint64_t)vp << 32 | hash | (chr ? 1ull << 40 : 0) | (tint ? 1ull << 41 : 0);
         auto it = m_progs.find(key);
         if (it != m_progs.end())
             return it->second;
@@ -66,7 +68,7 @@ class Programs {
         if (vp == 6)
             snprintf(name, sizeof name, "fs_px_stage2s");
         else if (chr)
-            snprintf(name, sizeof name, "fs_px_char");
+            snprintf(name, sizeof name, tint ? "fs_px_chartint" : "fs_px_char");
         else if (hash)
             snprintf(name, sizeof name, "fs_pxcmb_%08x", hash);
         uint16_t fs = shader(name);
@@ -158,7 +160,7 @@ class LightingPass final : public rm::Pass {
     void packet(DrawPacket& p) override
     {
         bool shadows = rm::shadowsOn();                 // (wr3a: every opaque draw receives the sun's shadows)
-        bool chr = m_char && (p.vertexProgram == 1 || p.vertexProgram == 2);   // (whulk1: the characters' look)
+        bool chr = (m_char || tintOf(p)) && (p.vertexProgram == 1 || p.vertexProgram == 2);   // (whulk1, wskin2)
         if ((!m_perPixel && !m_dynMode && !shadows && !chr) || m_abOff)
             return;
         if (p.viewMode != 0 || p.query != kSinkNone || (p.vertexProgram > 2 && p.vertexProgram != 6) ||
@@ -350,7 +352,7 @@ class LightingPass final : public rm::Pass {
     {
         if (!m_up && !up())
             return;
-        uint16_t prog = chr ? m_progs.get(p.vertexProgram, 0, true) : kInvalid;
+        uint16_t prog = chr ? m_progs.get(p.vertexProgram, 0, true, tintOf(p) != nullptr) : kInvalid;
         if (prog == kInvalid)
             prog = m_progs.get(p.vertexProgram, p.generic ? 0 : p.combinerHash);
         if (prog == kInvalid && !p.generic)
@@ -366,6 +368,7 @@ class LightingPass final : public rm::Pass {
         m_uLight = bgfx::createUniform("u_rmLight", bgfx::UniformType::Vec4, 16);
         m_uShadow = bgfx::createUniform("u_rmShadow", bgfx::UniformType::Vec4, 12);
         m_uChar = bgfx::createUniform("u_rmChar", bgfx::UniformType::Vec4, 3);
+        m_uTint = bgfx::createUniform("u_rmTint", bgfx::UniformType::Vec4);
         m_sShadow = bgfx::createUniform("s_rmShadow", bgfx::UniformType::Sampler);
         return m_up = true;
     }
@@ -515,7 +518,8 @@ class LightingPass final : public rm::Pass {
     bgfx::UniformHandle m_uShadow = BGFX_INVALID_HANDLE, m_sShadow = BGFX_INVALID_HANDLE;
     // whulk1 (docs/lighting.md "Characters"): the characters' look, Video Options > Character Lighting
     void character(const DrawPacket& p);
-    bgfx::UniformHandle m_uChar = BGFX_INVALID_HANDLE;
+    static const float* tintOf(const DrawPacket& p);
+    bgfx::UniformHandle m_uChar = BGFX_INVALID_HANDLE, m_uTint = BGFX_INVALID_HANDLE;
     int m_char = 0;
     bool m_charAbOff = false;
     float m_cKeyRim = 0.8f, m_cCityRim = 0.8f, m_cWrap = 0.25f, m_cBump = 0.1f, m_cSkyRim = 1.4f, m_cKnee = 0.4f;
@@ -600,6 +604,28 @@ void LightingPass::orb(const float pos[3], Light* l, uint32_t frame)
 // such draw (zero: the faithful per-pixel light).
 // The rim's strength follows the night (rm::nightAmount, the rooms' fog): by day only a little of the key light's,
 // at night the key (moon) light's, the night lights' near the figure and the night sky's (the fog colour, lifted).
+// wskin2 (docs/multiplayer.md 6.5 and 20): a co-op Hulk wearing player 0's skin (a mission's forced skin, or every Hulk
+// in the main actor's where the heaps keep only that one) is drawn with a tint of his own, the user's rule for forced
+// skins. The module tags his model's draws (gfx/skins.c: DrawPacket::instance "HULK" << 32 | k, k the co-op player);
+// they take fs_px_chartint (fs_px_char's program with fs_px_stage.sh PX_TINT), u_rmTint player k's tint. Picture only:
+// the game never sees it.
+// HULK_SKIN_TINT=r,g,b,s[;r,g,b,s] (tuning) sets players 1 and 2's.
+const float* LightingPass::tintOf(const DrawPacket& p)
+{
+    static float tint[3][4] = {{0, 0, 0, 0}, {1.0f, 0.38f, 0.3f, 0.6f}, {0.42f, 0.55f, 1.0f, 0.6f}};
+    static int read;
+    if (!read) {
+        read = 1;
+        if (const char* e = getenv("HULK_SKIN_TINT"))
+            sscanf(e, "%f,%f,%f,%f;%f,%f,%f,%f", &tint[1][0], &tint[1][1], &tint[1][2], &tint[1][3], &tint[2][0],
+                   &tint[2][1], &tint[2][2], &tint[2][3]);
+    }
+    if ((p.instance >> 32) != 0x48554c4bu)
+        return nullptr;
+    uint32_t k = (uint32_t)p.instance & 0xff;
+    return k >= 1 && k <= 2 && tint[k][3] > 0.0f ? tint[k] : nullptr;
+}
+
 void LightingPass::character(const DrawPacket& p)
 {
     float u[3][4] = {};
@@ -621,6 +647,8 @@ void LightingPass::character(const DrawPacket& p)
         u[2][3] = m_cKnee;
     }
     bgfx::setUniform(m_uChar, u, 3);
+    if (const float* t = tintOf(p))
+        bgfx::setUniform(m_uTint, t);
 }
 
 void LightingPass::AbTimer::turn(bool& off)
@@ -674,14 +702,14 @@ class LightDump final : public rm::Pass {
         bool ff = p.vertexProgram == 0 && c && p.vertexConstantCount >= 4;
         fprintf(m_f, "f%u d%u pass%u vm%u vp%u k%u buf%u tr%u n%u/%u st%u/%u/%u/%u bl%u:%u:%u:%u dt%u dw%u "
                 "cull%u lit%u fog%u mat%08x/%08x/%08x/%08x amb%08x tf%.2f,%.2f,%.2f,%.2f cmb=%s t=(%.2f %.2f %.2f) "
-                "q%u pipe%u\n",
+                "q%u pipe%u inst%llx\n",
                 p.frame, p.drawIndex, p.pass, p.viewMode, p.vertexProgram, p.shaderKind, p.bufferOwner,
                 p.transient != kSinkNone, p.count, p.vertexCount, p.stage[0].ordinal, p.stage[1].ordinal,
                 p.stage[2].ordinal, p.stage[3].ordinal, p.state.blend, p.state.srcBlend, p.state.dstBlend,
                 p.state.blendOp, p.state.depthTest, p.state.depthWrite, p.state.cull, p.lighting, p.fog, p.material[0],
                 p.material[1], p.material[2], p.material[3], p.ambient, p.frag[3][0], p.frag[3][1], p.frag[3][2],
                 p.frag[3][3], p.combinerKey, ff ? c[3] : 0.f, ff ? c[7] : 0.f, ff ? c[11] : 0.f, p.query != kSinkNone,
-                p.pipeline);
+                p.pipeline, (unsigned long long)p.instance);
         if (p.lighting && p.lights)
             for (int i = 0; i < 8; i++)
                 if (p.lights[i].on)

@@ -443,7 +443,15 @@ uint32_t hulk_gfx_sink_prepare_pipeline(void* p) { return gi_prepare_pipeline(p)
 /* hud_prompt.c (Brief Move Prompts, wprompt1): while set, the draws the game's front end submits stay in the module
  * (the front end did all its work; only the picture lacks them) */
 extern int hulk_gfx_drop_draws;
+/* skins.c (wskin2): the instance of the skinned draws that follow (draw_sink.h DrawPacket::instance; vertex programs 1
+ * and 2 are the skin programs; gfx_abi.cpp checks both offsets; nobody else tags draws): a co-op Hulk drawn tinted */
+uint64_t hulk_gfx_skin_tag;
+#define PKT_INSTANCE 16
+#define PKT_VERTEX_PROGRAM 40
 void hulk_gfx_sink_submit_draw(const void* p) {
+    uint32_t vp;
+    memcpy(&vp, (const char*)p + PKT_VERTEX_PROGRAM, 4);
+    if (hulk_gfx_skin_tag && (vp == 1 || vp == 2)) memcpy((char*)p + PKT_INSTANCE, &hulk_gfx_skin_tag, 8);
     if (!hulk_gfx_drop_draws) gi_submit_draw(p);
 }
 void hulk_gfx_sink_combiner_stats(int32_t* a, int32_t* b, int32_t* c) { gi_combiner_stats(a, b, c); }

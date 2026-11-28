@@ -107,6 +107,13 @@ is read or written); play3's records are identical with the row on or off. `HULK
 knee` tunes the terms (development); `HULK_CHAR_AB=N` times the look off and on in turns (`hulk-app: character
 lighting cost:`).
 
+**Co-op tints (wskin2).** A skin draw the module tags as an extra co-op Hulk wearing player 0's skin (a mission's
+forced skin; `DrawPacket::instance` = "HULK" << 32 | k, gfx/skins.c, docs/multiplayer.md section 20) takes
+`fs_px_chartint`, fs_px_char's program with `PX_TINT`: the combiner's output (its final `saturate(c)`, redefined as
+fs_px_soft.sc does) keeps its luminance and moves 60% towards player k's tint (`u_rmTint`; player 1 red, player 2
+blue; `HULK_SKIN_TINT=r,g,b,s;r,g,b,s`). It applies whatever Character Lighting is (off: u_rmChar zero, the faithful
+per-pixel light). The other programs are unchanged (`PX_TINT` is defined only there).
+
 ## Settings and cost
 
 Rows in `port_settings.c` (faithful value off, remastered default on): `lighting` 0/1, `dyn_lights` 0/1/2,

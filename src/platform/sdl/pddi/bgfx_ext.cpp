@@ -3,6 +3,11 @@
 
 #include <string.h>
 
+#if HULK_PDDI_WASM
+// wskin2: the app's co-op tint (src/platform/wasm/gfx/skins.c): each bone matrix the game hands slot 5 (its pose's)
+extern "C" void hulk_wasm_skin_bone(const float* matrix);
+#endif
+
 namespace hulk {
 namespace pddi {
 
@@ -50,6 +55,9 @@ void bgfxExtHardwareSkinning::vfunc_4(int) {}              // empty (0x3221f0)
 // to c113 + 3i (the skin programs' relative constants)
 void bgfxExtHardwareSkinning::vfunc_5(int bone, const float* matrix)
 {
+#if HULK_PDDI_WASM
+    hulk_wasm_skin_bone(matrix);
+#endif
     if (!matrix || bone < 0 || bone >= 0x19)
         return;
     const float* mv = m_context->worldMatrix();

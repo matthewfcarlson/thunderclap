@@ -739,10 +739,15 @@ Edition: Off), or `tutorial_skip=0` in `HULK_SAVE_DIR/port_settings.txt`.
 Gameplay Options "Auto-Apply Comic Skins" (remastered, faithful off) and "Co-op Skin" (this player's Hulk in someone
 else's co-op game): src/platform/wasm/gfx/skins.c, docs/multiplayer.md section 20. A comic book whose reward is a skin's
 code unlocks it through the game's own path and the Hulk who took it wears it (player 0 from the next level load, as the
-cheats screen does; an extra co-op Hulk at once); a loaded save's skin comics are unlocked, nothing switched. Each extra
+cheats screen does, and at once in remastered with scaled heaps: his model made again from a template of ours as
+CCharacter's Setup makes it, wskin2; an extra co-op Hulk at once); a loaded save's skin comics are unlocked, nothing
+switched. An extra Hulk who wears player 0's skin (a forced-skin mission) is drawn tinted (wskin2: his draws known by
+his PolySkins' bone lists, entry hook 0x002b7900 and bgfx_ext.cpp's skinning slot 5 under HULK_PDDI_WASM; runner
+`fs_px_chartint`). Each extra
 co-op Hulk can wear his own skin: its `global_<skin>.p3d` in an inventory of ours, a render template under our own name
 id, swapped into the spawner's model request (entry hook 0x001c3b20). Knobs: `HULK_SKIN_LOG=1`, tests
-`HULK_COMIC_TEST=F:K:N`, `HULK_COOP_SKIN=N`, `HULK_SKIN_ALLOW_ALL=1`. A selector row whose choice ids make a long
+`HULK_COMIC_TEST=F:K:N`, `HULK_COOP_SKIN=N`, `HULK_SKIN_ALLOW_ALL=1`, `HULK_SKIN_SAME=1` (every extra Hulk in
+player 0's skin, tinted), `HULK_SKIN_TINT=r,g,b,s;r,g,b,s`. A selector row whose choice ids make a long
 TextSelection line (over 160 characters) is parsed with one choice and relabelled when its screen is set up: the
 front end's parser crashed at start-up on the fourteen `TBS_CHEAT_*` ids.
 
