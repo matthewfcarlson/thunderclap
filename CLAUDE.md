@@ -270,6 +270,11 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
 
 ## Builds and proofs
 
+- **Two builds of the game (user, D252, 2026-11-28).** The original (faithful) build stays an option and stays matched
+  Xbox code: every block still MATCHes or stays proven for MSVC 7.1, and faithful runs, replays and play3's records are
+  unchanged. Remastered may change the game as much as it needs to (larger tables and heaps, new behaviour), directly in
+  the tree source when that is cleaner than a hook: under the port-build conditional (`HULK_PORT_ABI`, so MSVC still
+  compiles the original) and gated at run time on remastered, like the doubled heaps (wstream1).
 - **macOS-first mode (user, D187, 2026-11-21; in force until the user ends it).** The goal is the headless macOS native
   build (HULK_GFX_RENDERER=noop) replaying play3 with checkpoints close to the original's (build/ckpt/play3.ckref); the
   native replay is the check. Start-up fixes land with: matches blocks in touched TUs still MATCH with relocations ok;
