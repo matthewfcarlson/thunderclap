@@ -850,6 +850,13 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   advance (+0xc of a 0x28-byte glyph; TextureFont +0x3c) is read only by TextureFont slots 18, 10 and 19. The option moves
   the game hash but not play3's records: per session (`changes_game`, playthrough.py SIM_KEYS). A row whose choices are
   another row's texts borrows their string ids through fe_options.c `k_borrow` (only its label is added).
+  Brief Move Prompts (wprompt1, D251, gfx/hud_prompt.c): the top-centre button hint is HUDOverlay's one slot (Lua
+  `hud_triggerButtonHintBegin(button, text, secs)` 0x000ce700 / End 0x000cad60; +0x218 icon, +0x224 shown, +0x228/+0x22c
+  text hash, +0x23c seconds since Begin). The weaponization chunk (scripts/fight/common.fig) begins it with -1 and ends it
+  only on its next run without a prop (the game's own behaviour). The row hides the five weaponization prompts after 5 s
+  or a Y press, picture only: a wasm site hook (`wasm_port.GFX_APP_SITE_HOOKS`) on vfunc_4 0x000d05f0's call of the draw
+  0x000cf740 runs the original with gfx.c `hulk_gfx_drop_draws` set. To hide a game draw, run it with that flag, never
+  skip it: a draw function can write state too (0x000ce280 clamps the hint's +0x230). Not per session.
   Character Lighting (whulk1, `rm::kCharLight` = 22, docs/lighting.md "Characters"): skin draws take fs_px_char (generic
   combiner + PX_CHAR, `u_rmChar` per draw; zero = faithful). The Hulk's skin light clamps at 1 over most of his body, so a
   term added under that clamp is invisible: the character path uses a soft shoulder (knee 0.4) and adds the rim after it.
