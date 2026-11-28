@@ -117,12 +117,23 @@ static void sel_name(int p, char* out, size_t cap) { snprintf(out, cap, "port_%s
  * str_en.txt takes 2,075 of them: every string the port adds counts (80 digit copies left the Online Co-op row, the
  * last listed, showing its raw ids; wnet1) */
 static int shared_digits(int i) { return !strncmp(hulk_settings_at(i)->key, "coop_d", 6); }
+/* rows whose choices are another row's (the same texts): they show that row's string ids and add only their label
+ * (wtext2). The source row is always listed (its strings are always added). */
+static const struct { const char* key; const char* from; } k_borrow[] = {
+    {"text_spacing", "hdr"},            /* Off (Original) / On */
+};
+static const char* borrowed_from(int i) {
+    for (unsigned k = 0; k < sizeof k_borrow / sizeof k_borrow[0]; k++)
+        if (!strcmp(hulk_settings_at(i)->key, k_borrow[k].key)) return k_borrow[k].from;
+    return 0;
+}
 static void str_id(int i, int choice, char* out, size_t cap) {      /* TBS_PORT_<KEY> / TBS_PORT_<KEY>_<choice> */
     if (choice >= 0 && shared_digits(i)) {
         snprintf(out, cap, "TBS_PORT_DIGIT_%d", choice);
         return;
     }
-    int n = snprintf(out, cap, "TBS_PORT_%s", hulk_settings_at(i)->key);
+    const char* from = choice >= 0 ? borrowed_from(i) : 0;
+    int n = snprintf(out, cap, "TBS_PORT_%s", from ? from : hulk_settings_at(i)->key);
     if (choice >= 0) snprintf(out + n, cap - (size_t)n, "_%d", choice);
     for (char* p = out; *p; p++) *p = (char)toupper((unsigned char)*p);
 }
@@ -680,7 +691,7 @@ static int patch_strings(const char* s, uint32_t n, buf_t* out) {
         char id[64];
         str_id(i, -1, id, sizeof id);
         put_string(out, id, st->label);
-        for (int c = 0; c < st->n && !shared_digits(i); c++) {
+        for (int c = 0; c < st->n && !shared_digits(i) && !borrowed_from(i); c++) {
             str_id(i, c, id, sizeof id);
             put_string(out, id, st->names[c]);
         }

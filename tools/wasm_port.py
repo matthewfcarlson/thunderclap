@@ -851,7 +851,10 @@ GFX_APP_HOOKS = {0x000df9e0: "ffh_hulk_app_fe_callback", 0x000f8e70: "ffh_hulk_a
                  0x000b3d20: "ffh_hulk_app_coop_simget", 0x001245b0: "ffh_hulk_app_coop_acquire",
                  # co-op streaming (src/platform/wasm/gfx/stream.c, wstream1): CWorldStreamManager's pump and the main
                  # actor's room transitions (called from another TU than the pump's own)
-                 0x002089f0: "ffh_hulk_app_stream_pump", 0x00207a00: "ffh_hulk_app_stream_delta"}
+                 0x002089f0: "ffh_hulk_app_stream_pump", 0x00207a00: "ffh_hulk_app_stream_delta",
+                 # Tighter Text Spacing (src/platform/wasm/gfx/text_spacing.c, wtext2): TextureFontLoader::vfunc_5, after
+                 # which the font's glyph advances lose their measured blank columns
+                 0x00295620: "ffh_hulk_app_font_load"}
 _HOOKS = None
 
 

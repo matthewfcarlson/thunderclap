@@ -3833,3 +3833,20 @@ queue shots, the player's settings, TAA, 1280x960):
   showed nothing frame to frame in these pairs (pairs identical to the control with them off).
 - Fast moving glows (effects) are re-found as new lights every frame (1-unit match radius, no velocity yet), leaving a
   short trail of weak fading lights: not changed.
+
+## 2026-11-27 wtext2: Tighter Text Spacing (D250; src/platform/wasm/gfx/text_spacing.c)
+
+- A remastered-only Video Options row (`text_spacing`, default On): each glyph's advance loses its cell's blank trailing
+  columns (alpha < 16), measured when the font loads from the player's own atlas, through an entry hook on
+  TextureFontLoader::vfunc_5 0x00295620 that locks the page's pddi texture (slot 13/14). Advance' = min(adv, max(adv,
+  x + width) - blank), whole pixels, Latin/Latin-1/extended Latin and U+2000-214F only (kana, kanji and the 0xfa0 button
+  icon keep theirs). futura_lt_med: 28 glyphs trimmed (A2 R2 V2 W2 X2 Y3 k2 w2 x3 z2 ...), serpentine_lt_med 23; the
+  measurement equals the offline atlas table, and the loader's own v/o/r trims are exactly their blank columns, so they
+  are not trimmed twice. The record of what was trimmed lives in hulk_game_state; toggling restores the exact floats.
+- The advance is read only by TextureFont slots 18 (line width: wrapping, centring), 10 and 19 (draw). The glyph tables
+  are game heap, so the game hash moves; play3's checkpoint records do not: wasm test 112243 (remastered=1,
+  text_spacing=1 vs HEAD) and 112242 (faithful) are records_identical to 60,000. Kept per session anyway (changes_game,
+  playthrough SIM_KEYS): netplay peers share it, replays pin it off.
+- Text reflows into fewer lines (f8000's comic page fits more words a line) and stays inside its boxes; menus (serpentine)
+  tighten slightly. "Ob jectives" (pause menu) is a leading gap before j, which this does not touch.
+- The row borrows hdr's choice strings (fe_options.c k_borrow): one new string table entry (its label).

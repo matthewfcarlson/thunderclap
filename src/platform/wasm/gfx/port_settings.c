@@ -30,6 +30,7 @@ void hulk_wasm_traversal_force_air(int value);
 void hulk_wasm_coop_apply(int value);                                   /* coop.c: Hulks in one instance (wcoop1) */
 uint32_t hulk_wasm_texture_pack_list(char* buf, uint32_t cap);          /* gfx.c: the installed packs' names */
 void hulk_wasm_quality_apply(int what, int value);                      /* gfx.c: the runner's passes (wr2) */
+void hulk_wasm_text_spacing_apply(int value);                           /* text_spacing.c: glyph advances (wtext2) */
 
 static void apply_remastered(int value);
 static void apply_frame_rate(int value) { hulk_wasm_frame_rate_apply(value); }
@@ -63,6 +64,7 @@ static void apply_perf_overlay(int value) { hulk_wasm_quality_apply(19, value); 
 static void apply_hud_res(int value) { hulk_wasm_quality_apply(20, value); }
 static void apply_particles(int value) { hulk_wasm_quality_apply(21, value); }
 static void apply_char_light(int value) { hulk_wasm_quality_apply(22, value); }
+static void apply_text_spacing(int value) { hulk_wasm_text_spacing_apply(value); }
 static void apply_tutorial_skip(int value) { hulk_wasm_tutorial_skip_apply(value); }
 static void apply_traversal(int value) { hulk_wasm_traversal_apply(value); }
 void hulk_wasm_net_apply(int value);                                   /* netplay.c: online co-op (wnet1) */
@@ -149,6 +151,10 @@ static void apply_developer(int value);
  * Performance Overlay (wperf1; run/app/perfov.cpp): a corner readout of the frame rate, frame time, render size and
  * upscaler (1), plus a graph of the last 240 frames' times and their CPU / GPU split (2). Both editions (a runner
  * overlay); output only.
+ * Tighter Text Spacing (wtext2, D250; text_spacing.c): each glyph's advance loses its cell's blank trailing columns,
+ * measured from the player's own font atlas when the font loads (the shipped fonts leave gaps after w, k, x, Y, A:
+ * "lik e"); the original trims only v, o and r by hand. The glyph tables are game memory and the game lays text out from
+ * them, so it is per session: replays and tests pin it off, netplay peers must share it.
  * Tutorial skip (wskip1): a star behind the Hulk's start in the two tutorial missions (c00m01, c00m02) ends the mission
  * through its own success path when he walks into it (tutorial_skip.c). It changes the game (the mission ends), so it
  * is per session: replays and tests pin it off, netplay peers must share it.
@@ -185,6 +191,8 @@ static port_setting k_settings[] = {
      apply_hud_edge},
     {"hud_res", "HUD Resolution", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Render (Original)", "Display"}, 0, 1, 1,
      apply_hud_res},
+    {"text_spacing", "Tighter Text Spacing", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 1, 1,
+     apply_text_spacing},
     {"draw_distance", "Draw Distance", PS_SCREEN_VIDEO, PS_CHOICE, 3, {270, 400, 700},
      {"Original", "Far", "Very Far"}, 270, 400, 1, apply_draw_distance},
     {"fog", "Fog", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"On (Original)", "Reduced", "Off"}, 0, 1, 1, apply_fog},
@@ -430,7 +438,8 @@ void hulk_settings_load(void) {
 /* the rows that change the simulation (the per-session ones above): in a recording's run (a replay or a playthrough
  * session, wplay4) the menus leave them at their pinned values, so a session's menu presses replay the same */
 static int changes_game(const port_setting* s) {
-    static const char* keys[] = {"aspect", "hud_frame", "draw_distance", "tutorial_skip", "remaster_moves", "developer"};
+    static const char* keys[] = {"aspect", "hud_frame", "draw_distance", "tutorial_skip", "remaster_moves", "developer",
+                                 "text_spacing"};
     for (unsigned k = 0; k < sizeof keys / sizeof keys[0]; k++)
         if (!strcmp(s->key, keys[k])) return 1;
     return is_developer(s);

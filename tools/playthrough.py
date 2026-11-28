@@ -45,7 +45,7 @@ TOP = os.environ.get("HULK_PLAYTHROUGH_DIR") or os.path.join(ROOT, "build/playth
 BASES = {"play3": ("build/rp1/play3.hrp", "build/ckpt/play3.ckref")}
 DS_LIVE_WORK = 533
 # simulation rows that a playthrough may not set (port_settings.c changes_game): every session and replay must agree
-SIM_KEYS = {"aspect", "hud_frame", "draw_distance", "tutorial_skip", "remaster_moves", "developer"}
+SIM_KEYS = {"aspect", "hud_frame", "draw_distance", "tutorial_skip", "remaster_moves", "developer", "text_spacing"}
 STATE_DIRS = ("save", "tdata", "udata")
 PROGRESS_EVERY = 5.0       # seconds between the catch-up's progress lines
 PLAYER_DIR = os.path.expanduser("~/Library/Application Support/HulkUD")
