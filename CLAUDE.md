@@ -857,6 +857,19 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   or a Y press, picture only: a wasm site hook (`wasm_port.GFX_APP_SITE_HOOKS`) on vfunc_4 0x000d05f0's call of the draw
   0x000cf740 runs the original with gfx.c `hulk_gfx_drop_draws` set. To hide a game draw, run it with that flag, never
   skip it: a draw function can write state too (0x000ce280 clamps the hint's +0x230). Not per session.
+  Skins (wskin1, docs/multiplayer.md §20, gfx/skins.c): a character's model is an ObjectTemplate copied by drawable ID
+  (0x001c3b20 -> 0x001c60f0 -> 0x001c5900; templates from 0x001c4190), not a name lookup at draw time. Every
+  `global_<skin>.p3d` names its objects alike, so an extra skin needs its own LoadInventory plus a template under its own
+  ID, and the spawner's request is pointed at it (entry hook 0x001c3b20); extra skins load only with the Persistent heap
+  >= 4 MiB (doubled heaps). Comic -> reward is the game's Lua table `jk_comic_to_unlockable`; unlock through
+  um_SetUnlockableLocked (0x00093600, a typed code's path), wear through the cheats screen's on bits (applies at the next
+  level load). Hooks: save apply 0x0008a8f0, collectable pick-up 0x001d8350 (kind 8 = ComicBook). Each co-op player's
+  Co-op Skin rides in bits 8-11 of the pad's wButtons in the lockstep sets (netplay.c strips them before the game reads
+  pads); `coop_skin` stays out of the settings line the host hands guests. A TextSelection line of long choice ids
+  crashes the front end's parser at start-up: fe_options.c parses a row whose ids total over 160 characters with one
+  choice and fills it in when shown; `game_choice_id` shows the game's own string ids. Knobs `HULK_SKIN_LOG`,
+  `HULK_COMIC_TEST=F:K:N`, `HULK_COOP_SKIN`, `HULK_SKIN_ALLOW_ALL`. Scripted Metal free runs need `HULK_MOVIES=0` for
+  `HULK_INPUT` frames to match the null renderer.
   Character Lighting (whulk1, `rm::kCharLight` = 22, docs/lighting.md "Characters"): skin draws take fs_px_char (generic
   combiner + PX_CHAR, `u_rmChar` per draw; zero = faithful). The Hulk's skin light clamps at 1 over most of his body, so a
   term added under that clamp is invisible: the character path uses a soft shoulder (knee 0.4) and adds the rim after it.
