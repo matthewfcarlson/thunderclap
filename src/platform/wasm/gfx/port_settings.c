@@ -74,6 +74,7 @@ static void apply_lens_flare(int value) { hulk_wasm_quality_apply(27, value); }
 static void apply_vignette(int value) { hulk_wasm_quality_apply(28, value); }
 static void apply_aberration(int value) { hulk_wasm_quality_apply(29, value); }
 static void apply_grain(int value) { hulk_wasm_quality_apply(30, value); }
+static void apply_water(int value) { hulk_wasm_quality_apply(31, value); }
 static void apply_text_spacing(int value) { hulk_wasm_text_spacing_apply(value); }
 static void apply_move_prompts(int value) { hulk_wasm_move_prompts_apply(value); }
 static void apply_tutorial_skip(int value) { hulk_wasm_tutorial_skip_apply(value); }
@@ -177,6 +178,9 @@ static void apply_developer(int value);
  * lighter). Chromatic Aberration: colour fringes at the screen's edges, only while the camera shakes hard (big
  * impacts; lens.c reads the camera's shakes). Film Grain: a fine, luminance-weighted grain. Each Off / On (hdr's choice
  * strings). Output only.
+ * Water (wwater1; run/app/water.cpp, docs/water.md): the game's sea, lake and river surfaces ripple in the key
+ * light, bend what the game draws under them, clear in the shallows, reflect the sky and (with Reflections) the scene
+ * by Fresnel, glint in the sun and the moon, and foam at the shore (1, Enhanced); 0 the game's flat water. Output only.
  * Performance Overlay (wperf1; run/app/perfov.cpp): a corner readout of the frame rate, frame time, render size and
  * upscaler (1), plus a graph of the last 240 frames' times and their CPU / GPU split (2). Both editions (a runner
  * overlay); output only.
@@ -271,6 +275,7 @@ static port_setting k_settings[] = {
      apply_aberration},
     {"grain", "Film Grain", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Off (Original)", "On"}, 0, 0, 1, apply_grain},
     {"particles", "Particles", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Original", "Soft"}, 0, 1, 1, apply_particles},
+    {"water", "Water", PS_SCREEN_VIDEO, PS_CHOICE, 2, {0, 1}, {"Original", "Enhanced"}, 0, 1, 1, apply_water},
     {"grass", "Grass", PS_SCREEN_VIDEO, PS_CHOICE, 3, {0, 1, 2}, {"Original", "Blades Low", "Blades High"}, 0, 2, 1,
      apply_grass},
     {"tutorial_skip", "Tutorial Skip", PS_SCREEN_GAMEPLAY, PS_ONOFF, 2, {0, 1}, {"Off", "On"}, 0, 1, 1,

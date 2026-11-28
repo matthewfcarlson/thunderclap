@@ -101,6 +101,7 @@ Performance path must reach 120 fps. Per-pass budgets (M3 Air, 1280x960, GPU fra
 | atmosphere + night lights | 1.0 ms | 1.05 ms | on |
 | windows | 0.3 ms | 0.2 ms | on |
 | soft particles (wfx1, docs/particles.md) | 0.3 ms | +0.42 ms bgfx timer on mac2's M3 Max over play3 (~0.23 ms real; fade alone +0.17) | Soft |
+| water (wwater1, docs/water.md) | 0.2 ms | +0.10 ms bgfx timer on studio over play3 (~0.06 ms real) | Enhanced |
 | upscaling | 0.5 ms | FSR 1: two passes at the present size | Auto |
 | the performance overlay | 0.1 ms | | off |
 | **frame** | **≤ 12 ms (60 fps)** | **~7.5 ms** | |

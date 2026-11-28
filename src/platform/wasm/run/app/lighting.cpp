@@ -19,6 +19,7 @@
 #include <bgfx/bgfx.h>
 
 #include "rm_pass.h"
+#include "water.h"
 #if __has_include("rm_shaders.h")
 #include "rm_shaders.h"         // (tools/rm_shaders.py: wasm_app.py build; an Android build passes its profiles)
 #else
@@ -764,6 +765,7 @@ void rm::lightingRebind(const DrawPacket& q)
     if (bgfx::getRendererType() != bgfx::RendererType::Metal) {
         s_rmPass_LightingPass.rebind(q);
         rm::particlesRebind(q);
+        rm::waterRebind(q);
     }
 }
 

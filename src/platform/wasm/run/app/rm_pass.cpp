@@ -868,9 +868,10 @@ class QualityPass final : public Pass {
         int hdr = s[kHdr] != 0;          // (the sink falls back to 8 bits where half floats can't be drawn)
         // (wlook2: the atmosphere; wperf1: TAA, the msaa row's 1, reprojects through the depth; wfx1: soft particles;
         // wshadow1: contact shadows and bounce light; wdecal1: the decals' fit; wlens1: the depth of field, the sun's
-        // occlusion)
+        // occlusion; wwater1: the water's depth copy)
         if (hulk_gfx_sink_targets((uint32_t)hdr, s[kAo] || s[kAtmosphere] || s[kParticles] || s[kContact] ||
-                                                     s[kBounce] || s[kDecals] || s[kDof] || s[kLensFlare] || msaa == 1
+                                                     s[kBounce] || s[kDecals] || s[kDof] || s[kLensFlare] ||
+                                                     s[kWater] || msaa == 1
                                                      ? 1 : 0))
             remake = true;
         if (remake)

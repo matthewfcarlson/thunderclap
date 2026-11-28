@@ -3934,3 +3934,21 @@ queue shots, the player's settings, TAA, 1280x960):
   the aberration takes the 0.4 .. 0.6 ones (43 events).
 - Records identical to HEAD on Metal and null with every row on; cost +0.16 ms by bgfx's timer (~0.09 ms; +0.25 with
   the depth of field every frame).
+
+## 2026-11-28 wwater1: Water (D249/D250; docs/water.md)
+
+- Where the water is (disc scan of every Shader / PrimGroup): the sea around the city is the location's `waterShape`
+  (WATER2_TILE, `simple`, alpha 80-94%, one plane at world y -10), streamed every frame as 180 transient vertices with
+  its own modelview (the view plus a 10-unit offset); the outskirts have a strip of the same sea, the dam a WATER3_TILE
+  lake, the outskirts' river is opaque WATEROS room ground (a 10-frame flipbook, y -25.2), Banner's cabin a pond.
+  play3 sees the sea at the harbour front and around the Church hub; neither replay reaches the river or the dam.
+- The game draws a mirrored layer under the sea (bridge towers, a moon glint, wave sparkles) that shows through its
+  transparency: the enhanced water must keep the game's own opacity over it. The first build absorbed it by depth and
+  fogged the copy a second time; both erased the towers and the glint.
+- Classification by texture colour alone takes ~80 signs, neon tubes, lightmaps and reflection maps (2,213 disc
+  textures, build/wwater1/scripts/rule.py); requiring one level sheet of vertices (>= 8 units) removes all of them.
+- Metal play4 replays work as a `play4:N` test with `HULK_GFX_RENDERER=metal` and the shot variables passed through
+  `--test-env` (the metal kinds take play3 only); 91,000 frames in ~6 min.
+- Checks: records identical to HEAD with the row on (112390) and off (112391); faithful shots differ from HEAD only as
+  HEAD differs from itself (112392); cost +0.10 ms by bgfx's timer (112386).
+

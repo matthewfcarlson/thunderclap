@@ -28,6 +28,7 @@
 #include "pddi/bgfx_bridge.h"
 #include "rm_pass.h"
 #include "rm_post.h"
+#include "water.h"
 
 using namespace hulk::pddi;
 
@@ -90,6 +91,11 @@ class SsrPass final : public rm::Pass {
         if (p.viewMode != 0 || p.state.stencil || p.query != kSinkNone || !p.vertexConstants || !p.state.writeMask ||
             !(p.vertexProgram <= 2 || p.vertexProgram == 6))
             return;
+        // wwater1: the water pass's draws (blended or not) go in with their rippled normal (water.cpp, docs/water.md)
+        if (rm::waterDraw(p)) {
+            drawWater(p);
+            return;
+        }
         bool opaque = !p.state.blend && p.state.depthWrite;
         bool glow = p.state.blend && p.state.dstBlend == kBlendOne && p.state.depthTest && p.vertexProgram == 0 &&
                     (p.state.srcBlend == kBlendOne || p.state.srcBlend == kBlendSrcAlpha);
@@ -185,6 +191,34 @@ class SsrPass final : public rm::Pass {
     }
 
   private:
+    // a water surface (wwater1): its depth and rippled normal, smooth glass-like Fresnel, full strength on level faces
+    // (fs_rm_ssrwater.sc, the ripples of rm_water.sh as the water's own program draws them)
+    void drawWater(const DrawPacket& p)
+    {
+        // (only in the world's projection: the sea drawn among the sky's draws has its own near and far)
+        if (p.vertexConstantCount < 8)
+            return;
+        for (int i = 0; i < 16; i++)
+            if (fabsf(p.vertexConstants[16 + i] - m_proj[i]) > 1e-4f * (1.0f + fabsf(m_proj[i])))
+                return;
+        uint16_t prog = rm::program("vs_px_ff", "fs_rm_ssrwater");
+        if (prog == rm::kNoHandle)
+            return;
+        DrawPacket q = p;
+        q.pipeline = prog;
+        q.pass = m_view;
+        q.query = kSinkNone;
+        q.fog = 0;
+        q.state.writeMask = 0xf;
+        q.state.blend = 0;
+        q.state.stencil = 0;
+        q.state.depthTest = 1;
+        q.state.depthFunc = 3;                                      // (lequal)
+        q.state.depthWrite = 1;
+        rm::waterRippleUniforms(p);
+        hulk_gfx_sink_submit_draw(&q);
+        m_draws++, m_frameDraws++, m_reflective++;
+    }
     bool active() const { return midFrame() && m_view != rm::kNoView && m_ready && !m_done && m_frameDraws; }
     bool ensureG(uint32_t w, uint32_t h)
     {
