@@ -1445,3 +1445,176 @@ wskin2 tests (app 112482, HEAD control 112483): play3 to 60,000 with the rows fa
 the swap (3,950:4,400, 112482) and after it (4,100:4,400, 112485) identical; three local Hulks with
 `HULK_SKIN_SAME=1 HULK_COOP_SPREAD=5:30` on Metal: players 1 and 2 tinted (112498). The game's cheats screen calls the
 default skin "Savage Hulk" (TBS_CHEAT_HULK), so the Co-op Skin row's first choice (value 0, the plain Hulk) reads so.
+
+## 21. A 30-frame rollback ring (wroll2, D253, 2026-11-28)
+
+The user (D253, 11-28): "plan on 30 frames of rollback and look into ways to make the ring cheaper", and then: "keep a
+snapshot every 5 frames and record input, then replay that rather than snapshotting every frame". The window is 30
+frames (1 s at the game's 30 updates a second; in gameplay one present is one GameClock update). A ring of 30 whole
+copies would be 30 x 38-55 MB = 1.1-1.7 GB: it does not even fit in the module's fixed 1.5 GB of linear memory, and
+copying 38 MB every frame costs ~1-2 ms. This section measures what actually changes, builds a page-shared keyframe
+ring behind the snapshot code (`src/platform/wasm/host/ring.c`) and proves deep rollbacks on play3 and in co-op.
+
+### 21.1 What changes per frame (measured)
+
+`HULK_RINGSTAT=1` keeps a keyframe every frame (the ring below, 31 slots) and prints, per frame, the 4 KB pages that
+differ from 1, 3, 5, 10 and 30 frames earlier by region, and the bytes that differ from the previous frame. Runs:
+play3 to 60,139 presents (aot, null renderer, studio, job 112469) and a co-op free run (app, null renderer, remastered,
+`dev_coop_local=3`: three Hulks walking and punching, doubled heaps; gameplay frames 2,400-6,000, job 112470).
+`build/wroll2/bench/ringsum.py` summarises the lines.
+
+| | play3 | co-op (3 Hulks, heaps x2) |
+|---|---|---|
+| state (the five snapshot ranges) | 38.3 MB at frame 10,000 (9,793 pages); ~45-50 MB late in play3 | 53.1 MB (13,592 pages) |
+| pages changed in 1 frame | mean 340 (1.33 MB), p50 376, p99 586, max 4,984 (19.5 MB, a load at 52,175) | mean 281 (1.10 MB), p99 402, max 513 |
+| over 3 / 5 / 10 frames | 411 / 453 / 531 | 339 / 364 / 398 |
+| over 30 frames | mean 752 (2.9 MB), p99 2,002, max 5,849 | mean 484 (1.9 MB), max 698 |
+| bytes changed in 1 frame | mean 121 KB, p99 677 KB, max 15.7 MB | mean 82 KB, p99 609 KB |
+| worst 30 consecutive frames (sum of per-frame new pages) | 16,025 pages (62.6 MB, a load ending at 54,439) | 9,699 (37.9 MB) |
+
+Where the changed pages are (play3, mean pages per frame; over 30 frames in brackets): the game's dl heaps (0x266e00,
+`MemoryHeapSlot` table 0x527c60) 213 (428), the rest of the arena (game malloc blocks, Lua, voices' buffers, fiber
+contexts) 103 (282), the image's .data/.bss 9.2 (16), the live parts of the stacks (main stack, fibers' C stacks and
+Asyncify buffers) 6.7 (15), dead stack (below a suspended fiber's stack pointer, past its Asyncify data) 1.0 (2.9),
+the sim block 1.9 (3.0), the audio model's voices 4.5 (4.6), `hulk_game_state` 0.0 (0.5); `hulk_pddi_state` is empty
+with the null renderer. So **96% of the change is in the game's own heap and arena data**: there is nothing large to
+exclude (dead stack is under 1%), and the state cannot shrink much without touching the game. Peak frames are loads
+(the boot load at 568, room and mission loads at 17,375, 24,655, 26,655, 33,211, 34,590, 36,069, 52,175): 4,000-5,000
+pages in one frame. Explosions and fights stay under 600 pages a frame.
+
+The changes are sparse inside a page: 7.5% of a changed page's bytes differ. XOR deltas of 31 consecutive frames
+(10,000-10,030, 8,758 pages) compress to 9.2% with lz4 -1 and 7.2% with zstd -1 (`bench/xorcomp.py`).
+
+### 21.2 The ring
+
+**Keyframes with shared pages.** A keyframe is what sched.c's snapshots copy (image data from 0x48ca80, main stack
+and sim block, `hulk_pddi_state`, `hulk_game_state`, the arena to its top) plus the replay's and lockstep I/O's
+blobs and the fiber to run next, taken at a frame end (`ff_frame_checkpoint`'s self-switch: every fiber suspended).
+The state is cut into 4 KB pages in a fixed order (fixed ranges first, the arena last). A save compares each live page
+with the previous keyframe's version (64-bit words, early out): an equal page is shared (a reference count), a changed
+one is copied into a page pool in the module's own heap, an all-zero page is stored as nothing. A restore copies the
+keyframe's pages back (the whole state, ~1.3 ms for 38 MB) and calls the existing restore hooks (`ff_files_flush`,
+`ff_audio_restored`, `ff_movie_restored`, `ff_gfx_restored`). **Keyframes every K frames**: a rollback to frame F
+restores the newest keyframe at or before F and resimulates to the present with the frames' inputs (recorded or
+predicted), at most K-1 frames more than a keyframe every frame.
+
+API (ring.c): `ff_ring_config(slots)`, `ff_ring_save()` (at a frame-end switch), `ff_ring_restore(frame)` (the newest
+keyframe at or before it; returns its frame), `ff_ring_forget_after(frame)` (another timeline's keyframes),
+`ff_ring_resim()` (1 while resimulating: replay.cpp then writes no records or trace lines, so a replay's records are
+those of the first pass), `ff_ring_bytes()`. sched.c calls `ff_ring_switch()` at frame-end switches only.
+
+**The deep test.** `HULK_ROLLDEEP=A-B[+A-B...]:D[:K]`: inside each window, at every frame's end F roll back D frames
+(restore the keyframe at or before F-D) and resimulate to F; the game hash (by words, the stacks left out), the
+module hash and the pddi hash at F must be the first pass's, else exit 3. `HULK_RINGSTAT` / `HULK_RINGSTAT_DUMP=P:A:B`
+are the measurements above. All of it is off unless named; faithful runs are unchanged (play3 records identical to
+HEAD's: below).
+
+### 21.3 Options compared (play3 10,000-12,600, D = 30 at every frame: 2,601 rollbacks each, all identical)
+
+Studio, aot, one slot of a shared host (jobs 112506, 112513-112515; plain gameplay simulation is ~1.0 ms a frame
+there):
+
+| keyframe every K | ring peak (all keyframes, the base included) | save (per keyframe) | per-frame cost without rollbacks | restore | 30-frame rollback, mean / slowest | resimulated frames, worst |
+|---|---|---|---|---|---|---|
+| 1 (every frame) | 73.2 MB | 1.99 ms | 1.99 ms | 1.52 ms | ~99 ms / 133 ms | 30 |
+| 3 | 47.1 MB | 1.76 ms | 0.59 ms | 1.25 ms | ~50 ms / 91 ms | 32 |
+| **5 (chosen)** | **41.6 MB** | 1.79 ms | **0.36 ms** (1.8 ms every 5th frame) | 1.27 ms | **~44 ms / 81 ms** | **34** |
+| 10 | 36.5 MB | 1.88 ms | 0.19 ms | 1.33 ms | ~41 ms / 87 ms | 39 |
+| naive: 30 full copies | 1,150 MB (does not fit in 1.5 GB of linear memory with co-op's 53 MB) | ~1-2 ms (memcpy) | 1-2 ms | ~1 ms | ~31 x sim | 30 |
+
+The ring peak is below the state for K = 10 because zero pages cost nothing; co-op's 53 MB state took a 37 MB ring at
+K = 5 (its doubled heaps are mostly zeros). A rollback of depth d costs a restore, d + (0..K-1) frames of simulation and
+a save at each keyframe it passes (resimulated frames get new keyframes: their inputs changed). Estimated from the
+measured parts (sim 1.0 ms, save 1.8 ms, restore 1.3 ms; studio):
+
+| depth d (worst / average) | K = 1 | K = 3 | K = 5 | K = 10 |
+|---|---|---|---|---|
+| 1 | 4 ms | 6 / 5 ms | 8 / 5 ms | 13 / 8 ms |
+| 5 | 16 ms | 14 / 11 ms | 14 / 11 ms | 19 / 13 ms |
+| 10 | 31 ms | 21 / 19 ms | 21 / 18 ms | 24 / 18 ms |
+| 30 | 91 ms | 53 / 51 ms | 48 / 45 ms | 48 / 42 ms |
+
+**K = 5 is the choice**, as the user proposed: a fifth of the per-frame cost of a keyframe every frame and 57% of its
+memory; for the typical rollback (4-7 frames, section 2.1) it costs about what K = 3 does, and a 30-frame rollback
+half of K = 1's (K = 1 pays a save on every resimulated frame). K = 10 saves little more and makes shallow rollbacks
+dearer. Worst-case resimulation is 30 + K - 1 = 34 frames.
+
+**Not built, and why** (the numbers say they are not worth it yet):
+
+- *Dirty-page tracking by `mprotect`* in the runner: a write fault costs ~3 us on macOS (16 KB pages; laptop,
+  `build/wroll2/bench/fault.c`); at ~450 4 KB pages changed per 5 frames that is ~0.5-1 ms per keyframe, the same as the
+  compare (1.8 ms per 5 frames), plus a signal handler beside wasm2c's own guard-page trap handler on three systems.
+- *Store instrumentation* (a Binaryen pass marking a page bit at every store, plus the host imports that write module
+  memory): saves and restores would copy only dirty pages (~0.1-0.2 ms), but every store of the game pays; worth
+  measuring only if the 1.8 ms keyframe spike shows on the slowest handheld.
+- *XOR deltas compressed with lz4/zstd*: they shrink the deltas to 7-9%, but after page sharing memory is not the
+  constraint (42 MB at K = 5), and compressing costs CPU every keyframe.
+- *Shrinking the state*: dead stack is under 1% of the change; zero pages are already free.
+
+### 21.4 Deep rollbacks proven
+
+| run | windows | rollbacks of 30 | result |
+|---|---|---|---|
+| 112480 play3 (K = 5) | 560-760 (the boot load and PRESSSTART -> GAME), 10,000-11,000, 12,500-12,900 | 1,603 | all identical; play3's records identical to HEAD's (112468) to 13,000 |
+| 112506 / 112513-112515 play3 (K = 1, 3, 5, 10) | 10,000-12,600 | 2,601 each | all identical |
+| 112510 co-op app, 3 Hulks, heaps x2 (K = 5) | 1,200-1,700 (the load into the game), 2,400-4,000 | 2,102 | all identical |
+| 112516 play3 (K = 5) | 26,500-26,800 (the menus' re-parse), 33,100-33,300, 52,100-52,300, 54,300-54,500 (the biggest loads) | 904 | all identical (state 43.8 MB, ring peak 64.6 MB across loads); records identical to HEAD's (112505) to 56,600 |
+| 112523 play3, no ring | | | records identical to HEAD's to 60,000 |
+| 112528 free run (aot, START script, K = 5) | 900-2,200 (front end, PRESSSTART -> GAME, the first gameplay) | 1,301 | all identical (front-end and load frames resimulate at ~11 ms a frame in a free run: rolling back there should stall instead) |
+| 112511 app with Metal (paced free run, K = 5) | 900-2,200 | 1,301 | all identical, the pddi hash included (`ff_gfx_restored` after every restore); a resimulated frame took 34 ms because it presented and was paced: phase 2 must skip both |
+
+A free run's game hash is not comparable between two builds whose host code differs, even with the ring off: the
+image's data holds words pointing into module data, which moves with the host code (job 112533: 2,434 bytes differ at
+frame 100 between this build and HEAD's, in 16-bit halves of such words). Builds are compared by play3's records; the
+deep test compares a build with itself.
+
+### 21.5 Resimulation budget
+
+The headless aot build is the resimulation loop: no rendering, no mixer, lockstep I/O. Gameplay simulation on studio is
+~0.7-1.4 ms a frame (play3 at 700-1,400 frames/s over 600-frame windows), and the slowest 30-34-frame stretches of
+gameplay took 81-87 ms with K = 5-10 (~2.5 ms a frame including saves); loads take 300 ms-1 s for 30 frames (co-op's
+slowest rollback, 1,045 ms, crossed the load into the game). Other targets (**estimates**, from the Z2 Extreme's play3
+replay of the same module, ~113 s for 62,003 frames against mac2's 70 s: ~1.6x; the Steam Deck's Zen 2 at ~2.5x and an
+Android handheld at 2-3x are guesses until measured on devices):
+
+| | studio (measured) | Z2 Extreme (~1.6x) | Steam Deck / Android handheld (~2.5x) |
+|---|---|---|---|
+| 5-frame rollback, K = 5 (avg) | 11 ms | 18 ms | 28 ms |
+| 10-frame rollback | 17 ms | 27 ms | 43 ms |
+| 30-frame rollback, mean / worst | 44 / 81 ms | 70 / 130 ms | 110 / 200 ms |
+| keyframe spike (every 5th frame) | 1.8 ms | 2.9 ms | 4.5 ms |
+
+What 30 frames of rollback means in play: at 120-200 ms one way a misprediction rolls back 4-7 frames (section 2.1),
+which fits one tick on every target with rendering (a handheld's 33 ms tick less ~15 ms of rendering leaves ~18 ms:
+5-6 frames at once on the Deck). The 30-frame window is the ceiling a peer may run ahead on predictions before it
+stalls; rollbacks that deep only follow a second of missing input (a loss burst, a Wi-Fi stall). Those cannot finish
+in one tick anywhere but a desktop Mac, so phase 2 spreads them: the instance shows its predicted frame, resimulates at
+most a budget of frames per tick (`budget = (tick - render) / sim_per_frame`, ~5 on the Deck) and catches up over the
+next ticks, while the frame-advantage throttle (section 2.3) slows the peer that is ahead so that the two sides meet.
+Mispredictions are rare (1 frame in 24 per remote player, section 2.1), so a 5-frame rollback every ~12 frames with two
+guests costs ~1-2 ms a frame on average on the Deck, plus 0.36 ms of keyframes.
+
+### 21.6 Phase 2 (the plan)
+
+Replace the delay-based lockstep of section 18 with prediction and rollback over this ring, after wcoop3b's
+state-transfer fix lands (netplay.c's transfer code is theirs until then):
+
+1. **Input sets keyed by presented frame** as today, but each peer plays frame F+1 at once with the remote pads it has,
+   repeating each remote's last known pad (sticks quantised as recordings are, section 2.1); local input delay 0 (1 as
+   an option). The sets a peer played with are kept in a 64-frame ring in host state with a per-slot "confirmed" bit.
+2. **Keyframes** (`ff_ring_save`) every 5 frames at the frame end netplay.c already switches at
+   (`ff_coop_frame_end`); the ring holds frames back to the oldest unconfirmed one.
+3. **On a correction** (a remote pad for frame G differs from what was played): `ff_ring_restore(G - 1)`,
+   `ff_ring_forget_after`, then resimulate to the present inside the next ticks with `ff_ring_resim()` set, which must
+   also silence the app's side effects: the renderer (no present: skip `gfx.c`'s sink stream for resimulated frames),
+   the mixer's mirror (`ff_audio_restored` makes it again from the model after the last resimulated frame; sounds the
+   corrected timeline no longer starts are cut there), movies (`ff_movie_restored`), and file writes (saves: the host
+   writes saves only on confirmed frames; guests never save).
+4. **Stall** when the remote is more than 30 frames behind (the window); **frame-advantage throttling**: a peer more
+   than one frame ahead of the remote estimate on average over a second waits a frame.
+5. **Desync check unchanged** (`ff_probe_digest` on confirmed frames only), protocol bump (3), hello refuses older peers.
+6. **Tests**: `wasm_build_job --test coop:...` under `HULK_COOP_SHIM=delay=80..200,jitter,loss=2..5` with the
+   digests agreeing; the depth histogram and the time spent resimulating per tick from the runner's log; and a forced
+   misprediction knob (`HULK_NET_TEST=mispredict`) so every N frames the remote pad differs from the prediction.
+   Open risks: `ff_gfx_restored` re-makes GPU objects after every restore (with Metal each restore re-uploads what
+   changed; measure it before shipping), and the 1.8 ms keyframe spike on the slowest handheld.

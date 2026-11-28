@@ -72,7 +72,10 @@ static int out_open(OutFile& o, const char* suffix) {
     }
     return o.fd >= 0;
 }
+extern "C" int ff_ring_resim(void);       // ring.c: frames simulated again after a rollback write nothing (wroll2)
 static void out_write(OutFile& o, const void* p, uint32_t n) {
+    if (ff_ring_resim())
+        return;
     int32_t w = hio_write(o.fd, p, n, o.off);
     if (w > 0)
         o.off += (uint32_t)w;

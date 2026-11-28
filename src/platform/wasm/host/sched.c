@@ -323,6 +323,14 @@ static void rolltest(void) {
     }
 }
 
+/* ring.c (wroll2): the rollback ring works at frame-end switches, where the fiber to run next is the one that
+ * suspended itself in ff_frame_checkpoint */
+void ff_ring_switch(void);
+int ff_ring_frame_end(void);
+static int frame_switch;
+uint32_t ff_sched_next(void) { return (uint32_t)(uintptr_t)next_fiber; }
+void ff_sched_set_next(uint32_t f) { next_fiber = (hfiber*)(uintptr_t)f; }
+
 /* the driver (not instrumented: tools/wasm_port.py lists it for Asyncify's removelist): runs fibers until the first
  * one returns */
 __attribute__((noinline)) void ff_sched_loop(hfiber* f) {
@@ -345,6 +353,8 @@ __attribute__((noinline)) void ff_sched_loop(hfiber* f) {
         rolltest();
         ff_playthrough_switch();
         if (ff_coop_switch) ff_coop_switch();
+        if (frame_switch) ff_ring_switch();     /* (ring.c: keyframes and rollbacks at frame ends) */
+        frame_switch = 0;
         f = next_fiber;
     }
 }
@@ -494,10 +504,12 @@ void ff_frame_checkpoint(void) {
     int pt = 0;
     if (ff_coop_frame_label) ff_coop_frame_label();    /* (on the game's stack: it sets a menu label) */
     ff_on_host_stack(pt_frame_end, &pt);    /* (host work: its bytes stay off the game's stacks) */
-    if (!rolltest_on() && !pt) return;
+    int ring = ff_ring_frame_end();
+    if (!rolltest_on() && !pt && !ring) return;
     hulk_obj* t = cur();
     if (!t || !t->fiber) return;
     hfiber* c = ctx_of(t->fiber);
+    frame_switch = 1;
     fiber_swap(c, c);
 }
 
@@ -701,4 +713,18 @@ int ff_stack_ranges(uint32_t* out, int cap) {
     for (int i = 0; k && i < MAX_CONTS && n < cap; i++)
         if (k[i].buf) out[2 * n] = k[i].buf, out[2 * n + 1] = k[i].buf + k[i].cap, n++;
     return n;
+}
+/* the dead parts of every suspended fiber's stacks (ring.c's measurements): below its stack pointer, and its Asyncify
+ * buffer past the data the unwind wrote; pairs {lo, hi} */
+uint32_t ff_sched_dead_ranges(uint32_t* out, int cap) {
+    int n = 0;
+    for (uint32_t i = 0; i < MAX_OBJS && n + 2 <= cap; i++) {
+        hulk_obj* o = &SIM->objs[i];
+        if (o->kind != OBJ_FIBER || !o->ctx) continue;
+        hfiber* c = PTR(o->ctx);
+        if (!c->started || c->sp < c->stack_lo || c->sp > c->stack_hi) continue;
+        out[2 * n] = c->stack_lo, out[2 * n + 1] = c->sp, n++;
+        if (c->ad_cur >= c->buf && c->ad_cur <= c->buf + c->size) out[2 * n] = c->ad_cur, out[2 * n + 1] = c->buf + c->size, n++;
+    }
+    return (uint32_t)n;
 }

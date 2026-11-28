@@ -95,6 +95,11 @@ the same front-end hash (exit 0 "identical", else 3; the lines give the snapshot
 `HULK_ROLLTEST_DUMP=PREFIX` writes the game state at B before (PREFIX.1) and after (PREFIX.2)). With it set, every
 frame's end suspends and resumes the running fiber (`ff_frame_checkpoint`), so the driver has every fiber suspended
 there: the app's gameplay with a renderer never waits, and would give no fiber switch to snapshot at.
+The rollback ring (wroll2, D253; ring.c, docs/multiplayer.md section 21) keeps keyframes of the same state in memory
+with unchanged 4 KB pages shared between them: `HULK_ROLLDEEP=A-B[+A-B...]:D[:K]` rolls back D frames at every frame end
+inside the windows (keyframes every K, default 5) and checks the game, module and pddi hashes after resimulating
+(exit 3 on a difference; replay records are written only on the first pass), `HULK_RINGSTAT=1` prints the pages that
+change per frame by region.
 
 The snapshot (sched.c `state_copy`) is the image's data, the main stack and the sim block, the arena up to its top,
 and two data sections of the module (wroll1, D227): `hulk_game_state`, the tree's own mutable globals

@@ -4058,3 +4058,18 @@ queue shots, the player's settings, TAA, 1280x960):
   held (HEAD's source declares stages 0-2); records identical to the control, and the control (HEAD) washes the front
   end's background white at present 600 where the fix draws it. Remastered defaults (112521 vs HEAD 112509): no
   report, records and five shots identical.
+
+## 2026-11-28 — wroll2: a 30-frame rollback ring (D253)
+
+- Measured with `HULK_RINGSTAT` over play3 (60,139 frames) and a three-Hulk co-op run (doubled heaps): 340 4 KB pages
+  (1.3 MB) of the 38-53 MB state change per frame (p99 586, loads up to ~5,000), 450 over 5 frames, 750 over 30; 96%
+  of them in the game's dl heaps and arena data, under 1% dead stack; 7.5% of a changed page's bytes differ (XOR
+  deltas compress to 7-9%). Nothing large is excludable; whole copies are what cost.
+- ring.c: keyframes that share unchanged pages with the previous keyframe (compare, copy the changed pages, zero pages
+  free), every K frames, restore = copy back + resimulate from the keyframe. K = 5 (the user's proposal): 42 MB for
+  the whole 30-frame window (73 MB at K = 1; 1.15 GB for 30 copies, which do not fit the module's 1.5 GB), 0.36 ms a
+  frame (a 1.8 ms save every 5th), restore 1.3 ms, a 30-frame rollback ~44 ms mean on studio (34 frames at worst).
+- `HULK_ROLLDEEP` (30 frames back at every frame end, then resimulate and compare hashes): every one of ~17,600
+  rollbacks identical, across the boot load, PRESSSTART -> GAME, play3's late room/mission loads, the menu re-parse at
+  26,655, a three-Hulk co-op load and a Metal free run (pddi hash included); play3 records identical to HEAD's with and without it. Replay records and trace
+  lines are written only on the first pass (`ff_ring_resim`). Details: docs/multiplayer.md section 21.
