@@ -764,6 +764,16 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   (farfield.cpp keeps 1,536 for the game; exhausting them silently dropped the city's ground, cars and HUD). On the
   device `gamescope --backend headless -W 1920 -H 1080 -- <cmd>` gives Game Mode's environment without the screen. A
   Linux renderer change is verified with a city scene showing HUD, minimap, cars and enemies, never a quiet scene (wlinux2).
+  Sampler bindings (wvk1, run/app/rm_bind.cpp): runner code binds, submits and touches only through `rm::bindTexture /
+  submit / touch / sinkDraw` (tests/test_rm_bind.py; a new sampler name goes in rm_bind.cpp's table with its stage). A
+  submit fills a runner program's declared samplers left unbound with dummies (not on Metal); a game draw whose later draw
+  hook dropped the bindings gets `rm::lightingRebind` after the hooks (every renderer). `HULK_RM_BIND_CHECK=1` reports
+  each (site, program, sampler) left unbound on any renderer: run it in Metal queue jobs after a pass change with
+  `HULK_HUD_RES=2` (the queue's 640x480 windows never keep whud1's HUD tail). The kept tail reaches the sink with no draw
+  hook: passes give HUD/menu draws what they need in `rm::tailBind` (Bazzite VUID-08114 on `s_rmShadowTexture`; SPIR-V
+  binding = stage + 2). The shared `build/third_party/out/rm-shaders/<profile>` holds whatever was compiled last,
+  uncommitted shaders included, and every app job embeds it: lanes compile into private outputs; product builds
+  recompile it from clean main right before submitting.
   Grain without TAA (wlook3): under MSAA or no AA nothing resolves per-pixel noise, so a runner pass never relies on TAA
   to clean it (the reflections' blend gathers >= 1.25 trace texels on Low; AO's rotation is a 4x4 Bayer matrix its 4x4
   blur cancels). With AO on, grass blades draw after it (`rm::grassAfterAo`: an empty world-pass view after the apply);
