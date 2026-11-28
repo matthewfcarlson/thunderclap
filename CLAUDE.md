@@ -884,6 +884,14 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   the night wash); measure with build/wsweep1/scripts/cast.py. Additive soft sprites take gain 0.6 under HDR
   (particles.cpp): a white-out from stacked flashes is their sum, not the tone curve. A metal test's name goes into the
   shot path: a long `metal:FRAMES:SHOTS` list (30+ frames) writes no shots; name the test (`--test rem=metal:...`).
+  Lasting Decals (wdecal1, `rm::kDecals` = 25, run/app/decals.cpp, docs/destruction.md): CDecalQueue is a 100-slot ring
+  of 66-vertex buffers; 0x0027f4a0 draws the 85 newest every frame (<=14 adds a frame, no fade); cleared only at mission
+  unload (0x001cd410) and world exit (0x00088b80), never on room unload. The runner copies a decal when it drops out of
+  the 85 (pages of 32 per look, <=1,024), drawn before the first live decal with its camera; three world frames with no
+  decal mean a clear; a dropped texture puts its copies to sleep under its content key (in play3 every drop comes at a
+  mission unload just before the clear, so revival is untested). The per-decal texture factor is unread by
+  `c4.0.2a4.0.2r1`: ignore it. Decal vertices carry no normal: use derivatives. `HULK_DECAL_LOG=1..3`, `HULK_DECAL_FIT`,
+  `HULK_DECAL_AB=N`. The null renderer runs no rm draw hooks, so decal logs need a Metal run.
   Character Lighting (whulk1, `rm::kCharLight` = 22, docs/lighting.md "Characters"): skin draws take fs_px_char (generic
   combiner + PX_CHAR, `u_rmChar` per draw; zero = faithful). The Hulk's skin light clamps at 1 over most of his body, so a
   term added under that clamp is invisible: the character path uses a soft shoulder (knee 0.4) and adds the rim after it.
